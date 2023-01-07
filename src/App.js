@@ -1,8 +1,32 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "../src/pages/Home";
+import About from "../src/pages/About";
+import AuthPage from "../src/pages/AuthPage";
+
 function App(props) {
+  const route = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home></Home>,
+    },
+    {
+      path: "/about",
+      element: <About></About>,
+    },
+    {
+      path: "/login",
+      element: <AuthPage></AuthPage>,
+    },
+  ]);
+
   return (
-    <div className="App flex items-center justify-center h-screen bg-slate-500">
-      <h1 className="text-xl text-[#0bd9]">hello Porker</h1>
-    </div>
+    <main className="App flex items-center justify-center h-screen bg-slate-500">
+      <RouterProvider
+      router={route}
+      >
+
+      </RouterProvider>
+    </main>
   );
 }
 
