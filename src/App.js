@@ -7,50 +7,50 @@ import Footer from "./components/footer-component/Footer";
 const Layout = () => {
   return (
     <div className="app">
-      {/* <Navbar /> */}
+    
       <Outlet />
-      <Footer />
+    
     </div>
   );
 };
 
 function App(props) {
   const route = createBrowserRouter([
-    // {
-    //   path: "/",
-    //   element: <Home></Home>,
-    // },
-    // {
-    //   path: "/about",
-    //   element: <About></About>,
-    // },
-    // {
-    //   path: "/login",
-    //   element: <AuthPage></AuthPage>,
-    // },
-    //
     {
       path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/products/:id",
-          element: <About />,
-        },
-        {
-          path: "/product/:id",
-          element: <AuthPage />,
-        },
-      ],
+      element: <Home></Home>,
     },
+    {
+      path: "/about",
+      element: <About></About>,
+    },
+    {
+      path: "/login",
+      element: <AuthPage></AuthPage>,
+    },
+    
+    // {
+    //   path: "/",
+    //   element: <Layout />,
+    //   children: [
+    //     {
+    //       path: "/",
+    //       element: <Home />,
+    //     },
+    //     {
+    //       path: "/products/:id",
+    //       element: <About />,
+    //     },
+    //     {
+    //       path: "/product/:id",
+    //       element: <AuthPage />,
+    //     },
+    //   ],
+    // },
   ]);
 
   return (
-    <main className="App flex items-center justify-center h-screen">
+    <main className="App">
       <RouterProvider
       router={route}
       >
