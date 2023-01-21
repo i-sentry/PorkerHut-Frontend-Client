@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../src/pages/Home";
 import About from "../src/pages/About";
-import AuthPage from "../src/pages/AuthPage";
+import AuthPage from "./pages/Authentication/AuthPage";
+import SignUp from "../src/pages/Authentication/SignUp";
 
 function App(props) {
   const route = createBrowserRouter([
@@ -14,18 +15,18 @@ function App(props) {
       element: <About></About>,
     },
     {
+      path: "/sign-up",
+      element: <SignUp></SignUp>,
+    },
+    {
       path: "/login",
       element: <AuthPage></AuthPage>,
     },
   ]);
 
   return (
-    <main className="App flex items-center justify-center h-screen bg-slate-500">
-      <RouterProvider
-      router={route}
-      >
-
-      </RouterProvider>
+    <main className="">
+      <RouterProvider router={route}></RouterProvider>
     </main>
   );
 }
