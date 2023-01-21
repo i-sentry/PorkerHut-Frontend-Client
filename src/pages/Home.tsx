@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import Login from "../components/auth-component/Login";
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  return <div>home</div>;
+};
 
-export default Home
+export default Home;
