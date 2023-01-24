@@ -1,11 +1,5 @@
 import React from "react";
-// let Logo = require("../../images/logo.png");
-// interface compLink{
-//   Affiliate: string;
-//   About: string;
-//   Blog: string;
-//   Contact_Us: string;
-// }
+
 
 const Footer = () => {
   return (
@@ -13,15 +7,15 @@ const Footer = () => {
       <div className="flex flex-col max-md:px-10 max-md:mx-0 mx-20">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
           <div className="wrapper flex lg:justify-between items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
-            <span className="font-semibold md:text-2xl sm:text-base  md:mb-2">
+            <span className="font-semibold md:text-2xl sm:text-base">
               Subscribe to Our Newsletter
             </span>
 
-            <form className="max-md:items-center xxs:mt-3 md:mt-0">
+            <form className="md:items-center xxs:mt-3">
               <input
                 type="text"
                 placeholder="Enter your email address"
-                className="p-2 border-solid border border-[#D9D9D9] border-r-0 w-96 rounded-l outline-0 border-inherit max-md:w-full max-md:border-solid max-md:border-2 max-md:rounded-r-md max-md:mb-2 placeholder:text-[#A2A2A2] placeholder:text-sm"
+                className="p-2 border-solid border border-[#D9D9D9] border-r-0 w-96 rounded-l outline-0 border-inherit max-md:w-full max-md:border-solid  placeholder:text-[#A2A2A2] placeholder:text-sm"
               />
               <button
                 type="submit"
