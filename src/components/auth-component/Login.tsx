@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Footer from "../footer-component/Footer";
+import Ripples from "react-ripples";
 interface ILoginProps {
   email: string;
   password: string;
@@ -120,12 +121,14 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="mt-3">
-                  <button
-                    // disabled={true}
-                    className="bg-[#197b30] py-2 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
-                  >
-                    Login
-                  </button>
+                  <Ripples color="#f5f5f550" during={2000} className="w-full">
+                    <button
+                      // disabled={true}
+                      className="bg-[#197b30] py-2 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                    >
+                      Login
+                    </button>
+                  </Ripples>
                 </div>
                 <div className="text-center mt-3">
                   <p className="text-[#A2A2A2] font-semibold">
@@ -140,12 +143,14 @@ const Login = () => {
                 </div>
               </form>
               <div className="mt-3">
-                <button
-                  onClick={() => setcustomersLogin((prev) => !prev)}
-                  className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
-                >
-                  Login as a Seller
-                </button>
+                <Ripples className="w-full" color="#197b307a" during={2000}>
+                  <button
+                    // onClick={async () => setcustomersLogin((prev) => !prev)}
+                    className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
+                  >
+                    Login as a Seller
+                  </button>
+                </Ripples>
               </div>
             </div>
           </div>
@@ -270,8 +275,6 @@ const Login = () => {
           </div>
         </div>
       )}
-
-    
     </>
   );
 };
