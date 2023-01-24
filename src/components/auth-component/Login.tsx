@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Footer from "../footer-component/Footer";
 interface ILoginProps {
   email: string;
   password: string;
@@ -30,8 +31,8 @@ const Login = () => {
     <>
       {customersLogin ? (
         <>
-          <div className="min-h-screen bg-[#F5F5F5] flex flex-col justify-center items-center ">
-            <div className="max-w-xl w-full max-auto mt-4 bg-[#fff] p-8 shadow-md rounded">
+          <div className="flex items-center justify-center ">
+            <div className="max-w-xl w-full   bg-[#fff] p-8 shadow-md rounded">
               <div className="">
                 <h1 className="md:text-left text-center text-[#333333] font-bold ">
                   Customer's Login
@@ -269,6 +270,8 @@ const Login = () => {
           </div>
         </div>
       )}
+
+    
     </>
   );
 };

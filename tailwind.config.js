@@ -1,6 +1,9 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      "Roboto-slab": ['Roboto Slab', 'serif'],
+    },
     screens: {
       xxs: "300px",
       xs: "400px",
