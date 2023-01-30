@@ -30,23 +30,23 @@ const Footer = () => {
           <div className="items flex flex-col gap-3 text-justify">
             <div className="flex items-center gap-1 xss:w-full">
               {/* <img src={Logo} alt="" /> */}
-              <div className="flex flex-col xxs:mx-auto md:mx-0">
+              <div className="flex flex-col md:mx-0">
                 <p className="title text-xl  font-semibold text md:text-left  text-[#FFFFFF] font-Roboto-slab">
                   Porker Hut
                 </p>
 
-                <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span>
+                
               </div>
             </div>
 
             <div>
-              <p className="text-[#D9D9D9] font-normal text-sm md:text-left xxs:text-center md:leading-6 ">
+              <p className="text-[#D9D9D9] font-normal text-sm md:text-left md:leading-6 ">
                 An Agro-Commerce E-Commerce platform where <br /> you can put
                 your products and get customers <br /> from you at no extra cost
               </p>
             </div>
           </div>
-          <div className="flex xxs:pt-5 md:pt-0">
+          <div className="flex xxs:pt-5 md:pt-0 xxs:flex-col">
             <div className="flex-1 flex flex-col gap-3 text-justify">
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF] font-Roboto">
                 Company
@@ -64,7 +64,7 @@ const Footer = () => {
                 Contact Us
               </span>
             </div>
-            <div className=" md:hidden xxs:flex flex-col gap-3 text-end ">
+            <div className=" md:hidden xxs:flex xxs:flex-col gap-3 xxs:mt-6">
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
                 Products
               </h1>
