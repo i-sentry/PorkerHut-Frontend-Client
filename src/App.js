@@ -20,7 +20,7 @@ function App(props) {
   ]);
 
   return (
-    <main className="App flex items-center justify-center h-screen bg-slate-500">
+    <main className="App">
       <RouterProvider
       router={route}
       >
