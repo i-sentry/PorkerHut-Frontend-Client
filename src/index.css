@@ -13,6 +13,14 @@
 .logo-font {
   @apply font-Roboto-slab
 }
+
+/* }
+.primary-font {
+  @apply Roboto
+
+} */
+
+
 .title {
   @apply text-xl font-medium;
 }
