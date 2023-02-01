@@ -41,7 +41,7 @@ const FeaturedProduct = ({type}: FeaturedProps) => {
   ];
 
   return (
-    <div className="md:h-[80vh]  mx-auto md:my-10 ">
+    <div className="md:h-[400px]  mx-auto md:my-10 ">
       <div className=" xxs:px-2 xxs:py-2 md:px-8 md:w-[28%] flex justify-between items-center">
         <h1 className="text-2xl font-medium">{type}</h1>
         <div className="bg-[#197B30] px-2 flex items-center md:py-1.5 text-white rounded-md hover:cursor-pointer">
