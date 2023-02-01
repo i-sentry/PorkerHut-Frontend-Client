@@ -31,15 +31,15 @@ const Blog = () => {
               </h1>
               <span className="text-xs text-[#B4B4B4]">Jan 20, 2022</span>
             </div>
-            <div className="mt-4 text-xs text-[#B4B4B4]">
+            <div className="mt-4  text-xs text-[#B4B4B4] ">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
               quas enim voluptates at adipisci. Accusantium, molestias.
               Voluptas, rem corrupti sit quia ipsum facilis, nemo deleniti
               eaque, aperiam
             </div>
-            <div className="md:hidden ">
+            <div className="">
               <button className="bg-[#197B30] py-2 px-6 my-8 rounded text-[#FFFFFF]">
-                Read More
+                Learn More
               </button>
             </div>
           </div>
@@ -64,9 +64,9 @@ const Blog = () => {
               Voluptas, rem corrupti sit quia ipsum facilis, nemo deleniti
               eaque, aperiam
             </div>
-            <div className="md:hidden ">
-              <button className="bg-[#197B30] py-2 px-6 my-8 rounded text-[#FFFFFF]">
-                Read More
+            <div className="">
+              <button className="bg-[#197B30] xxs:py-2 xxs:px-6 my-8 rounded text-[#FFFFFF]">
+                Learn More
               </button>
             </div>
           </div>

@@ -11,14 +11,10 @@ interface CategoryProps {
 const Card = ({ id, title, src }: CategoryProps) => {
   return (
     <Link to={""}>
-      <div className="md:h-80 md:w-80 border-2 md:overflow-hidden rounded-md mt-10 relative xxs:w-[250px]">
-        <img
-          src={src}
-          alt=""
-          className="md:w-full md:h-80 xxs:h-[250px] object-cover xxs:w-[250px] transition duration-150 ease-in scale-100 hover:scale-125"
-        />
-        <div className="absolute md:top-40 md:right-28 xxs:top-28 xxs:right-16">
-          <span className="text-white font-semibold">{title}</span>
+      <div className="md:w-full md:h-full relative xxs:w-[260px]">
+        <img src={src} alt="" className="object-cover rounded transition duration-150 ease-in scale-100 hover:scale-105" />
+        <div className="absolute md:top-[44%] md:right-[36%] xxs:top-[44%] xxs:right-[32%]">
+          <span className="text-white font-medium text-xl">{title}</span>
         </div>
       </div>
     </Link>

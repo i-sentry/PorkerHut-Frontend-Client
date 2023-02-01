@@ -12,7 +12,7 @@ const FeaturedProductCard = () => {
       <div>
       </div>
       <div className="md:w-80 m-auto">
-        <div className="md:h-full group rounded md:px-8 md:auto xxs:p-2 md:py-4 ">
+        <div className="md:h-100 group rounded md:px-2 md:auto xxs:p-2 ">
           <div className="relative overflow-hidden">
             <img src={product1} alt="" className="w-full object-cover" />
             <div className="absolute w-full bg-[#197B30] h-[40px] flex items-center justify-center -bottom-10 group-hover:bottom-0 transition-all duration-300 hover:cursor-pointer">

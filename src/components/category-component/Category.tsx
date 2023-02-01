@@ -25,16 +25,16 @@ const Category = () => {
     },
   ];
   return (
-    <div>
+    <div className="md:px-6 xxs:px-4">
       <div>
-        <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
+        <div className="flex justify-center items-center  xxs:mt-4 px-">
           <h1 className="font-semibold text-2xl">Shop by Category</h1>
         </div>
         <div className="flex items-center justify-center mb-10">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="md:grid md:grid-cols-3 md:gap-5 xxs:overflow-x-auto xxs:p-4 md:px-16 xxs:flex xxs:gap-4">
+      <div className="md:grid md:grid-cols-3 gap-6 xxs:overflow-x-auto md:overflow-hidden h-full xxs:flex">
         {datas.map((item) => (
           <Card {...item} />
         ))}
