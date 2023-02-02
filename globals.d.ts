@@ -1,5 +1,4 @@
-declare module '*.svg' 
-declare module '*.png' 
+declare module '*.svg, png';
 
 {
     const content: string;
