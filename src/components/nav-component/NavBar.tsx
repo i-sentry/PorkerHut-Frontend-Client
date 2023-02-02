@@ -1,161 +1,120 @@
-import  PorkerLogo  from '../../assets/images/PorkerLogo.svg';
-import SearchLogo from '../../assets/images/SearchLogo.svg';
-import  CartLogo  from '../../assets/images/CartLogo.svg';
-import { AiOutlineDown } from 'react-icons/ai'
+import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import SearchLogo from "../../assets/images/SearchLogo.svg";
+import CartLogo from "../../assets/images/CartLogo.svg";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import { HamburgerMenuIcon } from '../../assets/icons';
-import { IoIosHelpCircleOutline } from 'react-icons/io'
+import { HamburgerMenuIcon } from "../../assets/icons";
+import { IoIosHelpCircleOutline, IoMdClose, IoMdMenu } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import NavLink from "./NavLink";
+import NavButton from "./NavButton";
+import { FiMenu } from "react-icons/fi";
 // import { BiSearchAlt2 } from 'react-icons/bi'
 // import { BsCart4 } from 'react-icons/bs'
 
-
 const NavBar = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const dropdownRef = useRef<HTMLLIElement>(null); 
-  const handleDropDown = (state: boolean) => {
-    setOpen(!state)
+  const [open, setOpen] = useState<boolean>(true);
+  const [toggle, setToggle] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+
+  const navigate = useNavigate();
+
+  const handleClickOutsideDropdown = (e: any) => {
+    if (open && dropdownRef.current?.contains(e.target as Node)) {
+      setOpen(true);
+    }
   };
-  
-  const handleClickOutsideDropdown = (e:any) => {
-    if(open && dropdownRef.current?.contains(e.target as Node)){
-      setOpen(true)
-      
-    };
-  };
-  window.addEventListener("click", handleClickOutsideDropdown)
+  window.addEventListener("click", handleClickOutsideDropdown);
 
   useEffect(() => {
-    window.addEventListener('click', (e) => {
+    window.addEventListener("click", (e) => {
       if (e.target !== dropdownRef.current) {
-        setOpen(false)
+        setOpen(false);
       }
-    })
-  
-    return () => {
-      
-    }
-  }, [])
-  
-  
+    });
+  }, []);
+
   return (
-    <div className="navigation">
-      <nav className='px-5 py-4 md:px-14 md:py-3 flex gap-3 items-center'>
+    <div className="bg-white fixed top-0 w-full z-50 ">
+      <nav className="md:flex  items-center font-medium justify-around">
         {/* Menu Btn */}
-        <button className='bg-slate-50 p-[6px] rounded lg:hidden' onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          <HamburgerMenuIcon />
-        </button>
 
         {/* Logo */}
-        <div className="app-logo whitespace-nowrap">
-          <a href="./" className='flex items-center gap-1'>
-              <img src= {PorkerLogo} alt=""/>
-              <h1 className='porker text-lg font-bold text-[#197B30] pt-1'>Porker Hut</h1>
+        {/* <div className="z-50 p-5 md:w-auto w-full flex justify-between">
+          <a href="./" className="flex items-center gap-1">
+            <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
+            <h1 className="porker text-xl font-bold text-[#197B30] pt-1 font-Roboto-slab">
+              Porker Hut
+            </h1>
           </a>
-        </div>
+        </div> */}
 
-        {/* Nav Links */}
-          <div className=' hidden lg:block ml-20'>
-
-            <ul className='flex gap-12 pt-1 text-lg'>
-              <li>
-                  <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Home</h1>
-              </li>
-              <li>
-                  <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Product</h1>
-              </li>
-
-              <li ref={dropdownRef} onClick={(e) => handleDropDown(open)}>
-                  <h1  className=' hover:text-[#479559] cursor-pointer font-normal flex items-center gap-1'>Services
-                  <AiOutlineDown size={14} />
-                  </h1>
-                      {open && 
-                      <ul className=' absolute top-[60px] text-[15px] text-white'>
-                        <li>Agro Services</li>
-                        <li>Vet Services</li>
-                        <li>Weekend Kills</li>
-                      </ul>
-                      }
-              
-              </li>
-              <li>
-                  <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>About</h1>
-              </li>
-              <li>
-                  <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Contact</h1>
-              </li>
-            </ul>
-
+        <div className="z-50 p-5 md:w-auto w-full flex items-center gap-4">
+          <button
+            onClick={() => setToggle(!toggle)}
+            className="text-3xl md:hidden flex"
+          >
+            {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
+          </button>
+          <div className="flex items-center">
+            <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
+            <h1 className="porker text-xl font-bold text-[#197B30] pt-1 font-Roboto-slab">
+              Porker Hut
+            </h1>
           </div>
-
-        {/* Action Buttons */}
-        <div className="action-btns flex gap-3 ml-auto mr-4">
-          <button className='bg-slate-50 p-[6px] rounded w-8'><img className='w-6' src={ SearchLogo} alt="" /></button>
-          <button className='bg-slate-50 p-[6px] rounded w-8'><img className='w-6' src={ CartLogo} alt="" /></button>
         </div>
 
-        {/* Authentication Buttons */}
-        <div className="auth-btns gap-3 hidden md:flex">
-          <button className='border border-[#479559] text-sm py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap'>
-            Login
-          </button>
-          <button className='border border-[#479559] text-sm py-2 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap'>
-            Sign Up
-          </button>
+        <ul className="md:flex hidden uppercase items-center gap-8 font-semibold">
+          <li>
+            <Link to={""} className="py-7 px-3 inline-block">
+              Home
+            </Link>
+          </li>
+          <NavLink />
+        </ul>
+        <div className="md:flex  hidden">
+          <NavButton className={loginBtn} text="Login" path="/login" />
+          <NavButton className={signUpBtn} text="Sign Up" path="/signup" />
         </div>
+
+        {/* <div className="action-btns flex gap-3 ml-auto mr-4">
+          <button className=" p-[6px] rounded w-8">
+            <img className="w-6" src={SearchLogo} alt="" />
+          </button>
+          <button className=" p-[6px] rounded w-8">
+            <img className="w-6" src={CartLogo} alt="" />
+          </button>
+        </div> */}
+
+        {/* Mobile */}
+        <ul
+          className={`md:hidden bg-[#F5F5F5] fixed  top-20 w-full h-screen overflow-y-auto bottom-0 py-24 pl-4
+        duration-500  ${toggle ? "  left-0" : " left-[-100%]"}`}
+        >
+          <li>
+            <Link to={""} className="py-7 px-3 inline-block">
+              Home
+            </Link>
+          </li>
+          <NavLink />
+        </ul>
       </nav>
 
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="mobile-navigation px-5 py-4 md:px-14 md:py-3 flex flex-col gap-20 fixed z-[999] bg-[#197B30] w-full h-full">
-          {/* Authentication Buttons */}
-          <div className="auth-btns gap-3 flex">
-            <button className='border border-[white] text-sm py-3 px-[35px] rounded-md text-[#197B30] bg-white hover:text-white hover:bg-[white] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap'>
-              Login
-            </button>
-            <button className='border border-[white] text-sm py-2 px-[30px] rounded-md text-[#fff] bg-[#197B30] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap'>
-              Sign Up
-            </button>
-          </div>
-          <ul className='flex flex-col gap-12 pt-1 text-lg'>
-            <li>
-                <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Home</h1>
-            </li>
-            <li>
-                <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Product</h1>
-            </li>
-
-            <li ref={dropdownRef} onClick={(e) => handleDropDown(open)}>
-                <h1  className=' hover:text-[#479559] cursor-pointer font-normal flex items-center gap-1'>Services
-                <AiOutlineDown className='mt-1' size={14} />
-                </h1>
-                    {open && 
-                    <ul className='pl-5 text-[15px] text-white'>
-                      <li className='py-1'>Agro Services</li>
-                      <li className='py-1'>Vet Services</li>
-                      <li className='py-1'>Weekend Kills</li>
-                    </ul>
-                    }
-            
-            </li>
-            <li>
-                <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>About</h1>
-            </li>
-            <li>
-                <h1 className=' hover:text-[#479559] cursor-pointer font-normal'>Contact</h1>
-            </li>
-
-            <li className=' flex items-center gap-1'>
-              <IoIosHelpCircleOutline  size={25}/>
-              <h1 className=''> Help</h1>
-              <AiOutlineDown className='mt-1' size={14} />
-            </li>
-          </ul>
-
-        </div>
-      )}
+      {/* <button
+        className="bg-slate-50 p-[6px] rounded lg:hidden"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        <HamburgerMenuIcon />
+      </button> */}
     </div>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
+
+const signUpBtn =
+  "border border-[#479559] text-sm py-2 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap";
+
+const loginBtn =
+  "border border-[#479559] text-sm py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";

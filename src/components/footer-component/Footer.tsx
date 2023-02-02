@@ -1,11 +1,5 @@
 import React from "react";
-// let Logo = require("../../images/logo.png");
-// interface compLink{
-//   Affiliate: string;
-//   About: string;
-//   Blog: string;
-//   Contact_Us: string;
-// }
+
 
 const Footer = () => {
   return (
