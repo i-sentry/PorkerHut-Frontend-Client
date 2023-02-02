@@ -40,16 +40,6 @@ const NavBar = () => {
       <nav className="md:flex  items-center font-medium justify-around">
         {/* Menu Btn */}
 
-        {/* Logo */}
-        {/* <div className="z-50 p-5 md:w-auto w-full flex justify-between">
-          <a href="./" className="flex items-center gap-1">
-            <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-            <h1 className="porker text-xl font-bold text-[#197B30] pt-1 font-Roboto-slab">
-              Porker Hut
-            </h1>
-          </a>
-        </div> */}
-
         <div className="z-50 p-5 md:w-auto w-full flex items-center gap-4">
           <button
             onClick={() => setToggle(!toggle)}
@@ -75,7 +65,7 @@ const NavBar = () => {
         </ul>
         <div className="md:flex  hidden">
           <NavButton className={loginBtn} text="Login" path="/login" />
-          <NavButton className={signUpBtn} text="Sign Up" path="/signup" />
+          <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
         </div>
 
         {/* <div className="action-btns flex gap-3 ml-auto mr-4">
