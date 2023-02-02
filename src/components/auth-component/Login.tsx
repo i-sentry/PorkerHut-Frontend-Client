@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-// import Footer from "../footer-component/Footer";
 import Ripples from "react-ripples";
 import NavBar from "../nav-component/NavBar";
+import Footer from "../footer-component/Footer";
 interface ILoginProps {
   email: string;
   password: string;
@@ -32,10 +32,7 @@ const Login = () => {
   return (
     <>
       <div className="bg-[#F5F5F5] h-screen ">
-        <div className="md:mt-24">
-
         <NavBar />
-        </div>
         <div className=" md:hidden xxs:flex xxs:justify-end w-56 ml-auto py-5 px-3">
           <button
             onClick={() => setcustomersLogin((prev) => !prev)}

@@ -4,7 +4,7 @@ import Footer from "../components/footer-component/Footer";
 // import PigImage from '../../src/assets/images/Pig.png'
 import Pigdesktop from "../../src/assets/images/Pigdesktop.png";
 import PlantImg from "../../src/assets/images/PlantImg.png";
-import Plantmobile from "../../src/assets/images/Plantmobile.png";
+// import Plantmobile from "../../src/assets/images/Plantmobile.png";
 import BreadCrumb from "../components/BreadCrumbs";
 
 const About = () => {
