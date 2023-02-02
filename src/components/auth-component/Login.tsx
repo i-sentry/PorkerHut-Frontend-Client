@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import Footer from "../footer-component/Footer";
+// import Footer from "../footer-component/Footer";
 import Ripples from "react-ripples";
 interface ILoginProps {
   email: string;

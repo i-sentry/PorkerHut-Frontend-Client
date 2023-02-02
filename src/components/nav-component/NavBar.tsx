@@ -70,7 +70,7 @@ const NavBar = () => {
                   <AiOutlineDown size={14} />
                   </h1>
                       {open && 
-                      <ul className=' absolute top-[60px] text-[15px]'>
+                      <ul className=' absolute top-[60px] text-[15px] text-white'>
                         <li>Agro Services</li>
                         <li>Vet Services</li>
                         <li>Weekend Kills</li>
@@ -130,7 +130,7 @@ const NavBar = () => {
                 <AiOutlineDown className='mt-1' size={14} />
                 </h1>
                     {open && 
-                    <ul className='pl-5 text-[15px]'>
+                    <ul className='pl-5 text-[15px] text-white'>
                       <li className='py-1'>Agro Services</li>
                       <li className='py-1'>Vet Services</li>
                       <li className='py-1'>Weekend Kills</li>
