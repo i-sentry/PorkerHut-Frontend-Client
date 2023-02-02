@@ -1,6 +1,4 @@
-declare module '*.svg, png';
-
-{
+declare module '*.svg' {
     const content: string;
     export default content;
   }

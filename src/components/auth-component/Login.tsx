@@ -34,7 +34,21 @@ const Login = () => {
         <>
           <div className="flex items-center justify-center ">
             <div className="max-w-xl w-full   bg-[#fff] p-8 shadow-md rounded">
-              <div className="">
+              <div className="mt-3 mb-3">
+                <Ripples
+                  className="w-full flex justify-end"
+                  color="#197b307a"
+                  during={2000}
+                >
+                  <button
+                    // onClick={async () => setcustomersLogin((prev) => !prev)}
+                    className=" md:hidden rounded border border-[#197b30] py-2 px-4 xxs:w-[200px] md:w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
+                  >
+                    Login as a Seller
+                  </button>
+                </Ripples>
+              </div>
+              <div className="flex justify-start flex-col">
                 <h1 className="md:text-left text-center text-[#333333] font-bold ">
                   Customer's Login
                 </h1>
