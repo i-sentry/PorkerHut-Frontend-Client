@@ -44,7 +44,7 @@ const Slider: React.FC<Props> = ({ images }) => {
     return () => clearInterval(id);
   }, [currentIndex, images]);
   return (
-    <div className="h-[400px] w-sreen m-auto relative group">
+    <div className="h-[400px] w-sreen m-auto relative group mb-20">
       <div
         style={{ backgroundImage: `url(${SLIDES[currentIndex].src})` }}
         className="w-screen h-full bg-center bg-cover duration-500"

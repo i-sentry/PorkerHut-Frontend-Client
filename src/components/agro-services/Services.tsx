@@ -4,7 +4,7 @@ let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {
   return (
-    <section className=" bg-[#F4F4F4] xxs:h-[60vh] md:w-full md:flex-wrap md:overflow-hidden md:h-screen md:my-10">
+    <section className=" bg-[#F4F4F4] xxs:h-[60vh] md:w-full md:flex-wrap md:overflow-hidden md:h-screen md:mb-20">
       <div className="xxs:m-4 xxs:h-screen md:hidden">
         <div className=" md:w-2/4 xl:w-2/4 md:h-[700px] my-4 xxs:pt-10">
           <img src={backgroundMobile} alt="" className="w-full h-full" />
