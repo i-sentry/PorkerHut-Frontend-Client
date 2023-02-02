@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-const product1 = require("../../assets/images/Product1.jpg");
+const product1 = require("../../../assets/images/Product1.jpg");
 
-const FeaturedProductCard = () => {
+const LivestockProductCard = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
   return (
     <section>
-      <div>
-      </div>
+      <div></div>
       <div className="md:w-80 m-auto">
         <div className="md:h-100 group rounded md:px-2 md:auto xxs:p-2 ">
           <div className="relative overflow-hidden">
@@ -66,4 +65,4 @@ const FeaturedProductCard = () => {
   );
 };
 
-export default FeaturedProductCard;
+export default LivestockProductCard;
