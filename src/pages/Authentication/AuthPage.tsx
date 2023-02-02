@@ -2,9 +2,10 @@ import React from "react";
 import Login from "../../components/auth-component/Login";
 
 
+
 const AuthPage = () => {
   return (
-    <div className=" justify-center items-center h-screen ">
+    <div className="bg-[#F5F5F5]  justify-center items-center h-screen">
 
       <Login />
 
