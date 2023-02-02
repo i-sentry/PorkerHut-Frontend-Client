@@ -21,13 +21,13 @@ const NavLink = () => {
                         <h1 className="text-lg font-semibold">
                           {mySubLink.head}
                         </h1>
-                        {/* {mySubLink.subLink.map((s: any) => (
+                        {mySubLink.subLink.map((s: any) => (
                           <li className="text-sm text-slate-500 my-2.5">
                             <Link to={s?.link} className="hover:text-[#197B30]">
                               {s?.name}
                             </Link>
                           </li>
-                        ))} */}
+                        ))}
                       </div>
                     ))}
                   </div>
@@ -37,13 +37,13 @@ const NavLink = () => {
           </div>
           {/* Mobile menu */}
           <div>
-            {link.subLinks.map((s: any) => (
+            {/* {link.subLinks.map((s: any) => (
               <div>
                 <div>
                   <h1>{ s.head}</h1>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
 
         </div>
