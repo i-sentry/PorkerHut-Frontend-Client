@@ -36,7 +36,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white fixed top-0 w-full z-50">
+    <div className="bg-white fixed top-0 w-full z-50 ">
       <nav className="md:flex  items-center font-medium justify-around">
         {/* Menu Btn */}
 
