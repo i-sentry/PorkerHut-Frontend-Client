@@ -34,7 +34,7 @@ const Category = () => {
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="md:grid md:grid-cols-3 gap-6 xxs:overflow-x-auto md:overflow-hidden h-full xxs:flex">
+      <div className="md:grid md:grid-cols-3 xxs:gap-4 md:gap-6 xxs:overflow-x-auto md:overflow-hidden md:h-full xxs:flex">
         {datas.map((item) => (
           <Card {...item} />
         ))}
