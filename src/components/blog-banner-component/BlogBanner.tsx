@@ -23,7 +23,7 @@ const BlogBanner = () => {
             Articles
           </span>
         </div>
-        {/* <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <BreadCrumb
             items={[
               {
@@ -36,7 +36,7 @@ const BlogBanner = () => {
               },
             ]}
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );

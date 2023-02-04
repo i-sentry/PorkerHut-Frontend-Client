@@ -14,16 +14,16 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
       
       {items.map((item, index) =>
         index !== items.length - 1 ? (
-          <div key={index} className="flex items-center gap-x-1 rounded-none text-white  text-lg">
+          <div key={index} className="flex items-center gap-x-1.5 rounded-none text-white  text-lg">
             <Link to={item.link} >
-              <button className="capitalize rounded-none">{item.name}</button>
+              <button className="capitalize rounded-none mt-1">{item.name}</button>
             </Link>
             <RxSlash />
           </div>
         ) : (
           <span
             key={index}
-            className="text-primary text-white py-1 px-2 rounded-md capitalize text-lg"
+            className=" text-white  rounded-md capitalize text-lg"
           >
             {item.name}
           </span>
