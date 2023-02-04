@@ -25,12 +25,12 @@ const Category = () => {
     },
   ];
   return (
-    <div className="md:px-6 xxs:px-4">
+    <div className="md:px-6 xxs:px-4 mt-16">
       <div>
         <div className="flex justify-center items-center  xxs:mt-4">
           <h1 className="font-semibold text-2xl">Shop by Category</h1>
         </div>
-        <div className="flex items-center justify-center mb-5">
+        <div className="flex items-center justify-center mb-10">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
