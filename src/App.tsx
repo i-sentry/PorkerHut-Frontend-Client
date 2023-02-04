@@ -3,6 +3,7 @@ import Home from "../src/pages/Home";
 import About from "../src/pages/About";
 import AuthPage from "./pages/Authentication/AuthPage";
 import SignUp from "../src/pages/Authentication/SignUp";
+import BlogPage from "./pages/BlogPage";
 
 function App() {
   const route = createBrowserRouter([
@@ -21,6 +22,10 @@ function App() {
     {
       path: "/login",
       element: <AuthPage></AuthPage>,
+    },
+    {
+      path: "/blog",
+      element: <BlogPage></BlogPage>,
     },
   ]);
 
