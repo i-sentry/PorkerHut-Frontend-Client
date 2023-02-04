@@ -1,4 +1,5 @@
 import React from "react";
+import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 
 
 const Footer = () => {
@@ -29,7 +30,7 @@ const Footer = () => {
         <div className="md:flex justify-between gap-12 mt-7 mb-6 max-md:flex-wrap">
           <div className="items flex flex-col gap-3 text-justify">
             <div className="flex items-center gap-1 xss:w-full">
-              {/* <img src={Logo} alt="" /> */}
+              <img src={PorkerLogo} alt="" />
               <div className="flex flex-col xxs:mx-auto md:mx-0">
                 <p className="title text-xl  font-semibold text md:text-left  text-[#FFFFFF] font-Roboto-slab">
                   Porker Hut
