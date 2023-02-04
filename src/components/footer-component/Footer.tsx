@@ -48,7 +48,7 @@ const Footer = () => {
             </div>
           </div>
           <div className=" xxs:pt-10 md:pt-0 xxs:flex-col">
-            <div className="flex-1 flex flex-col gap-3 text-justify xxs:gap-5">
+            <div className="flex-1 flex flex-col md:gap-3 text-justify xxs:gap-5">
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF] font-Roboto">
                 Company
               </h1>
