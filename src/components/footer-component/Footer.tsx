@@ -120,9 +120,9 @@ const Footer = () => {
             </span>
           </div>
           <div className="md:hidden">
-            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF]">
+            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF] xxs:mb-4 md:mb-0">
               <p>Social Media</p>
-              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span>
+              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center"></span>
             </div>
             <div className="flex items-center justify-between">
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
