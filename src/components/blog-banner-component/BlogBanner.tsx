@@ -23,7 +23,7 @@ const BlogBanner = () => {
             Articles
           </span>
 
-          <div className="flex items-center">
+          <div className="md:flex md:items-center xxs:pl-14 md:pl-0">
             <BreadCrumb
               items={[
                 {
