@@ -32,7 +32,10 @@ const Login = () => {
   return (
     <>
       <div className="bg-[#F5F5F5] h-screen ">
+        <div className="mb-20">
+
         <NavBar />
+        </div>
         <div className=" md:hidden xxs:flex xxs:justify-end w-56 ml-auto py-5 px-3">
           <button
             onClick={() => setcustomersLogin((prev) => !prev)}

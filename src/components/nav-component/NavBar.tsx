@@ -82,7 +82,7 @@ const NavBar = () => {
 
         {/* Mobile */}
         <ul
-          className={`md:hidden bg-[#F5F5F5] fixed  top-20 w-full h-screen overflow-y-auto bottom-0 py-4 pl-4
+          className={`md:hidden bg-[#F5F5F5] fixed  top-[76px] w-full h-screen overflow-y-auto bottom-0 py-4 pl-4
         duration-500  ${toggle ? "  left-0" : " left-[-100%]"}`}
         >
           {/* <li>
@@ -92,6 +92,11 @@ const NavBar = () => {
           </li> */}
           <NavLink setToggle={setToggle} />
           {/* <HelpLink/> */}
+          <div className="flex flex-col md:hidden gap-2 pr-4">
+            <NavButton className={loginBtn} text="Login" path="/login" />
+
+            <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
+          </div>
         </ul>
       </nav>
 
@@ -108,7 +113,7 @@ const NavBar = () => {
 export default NavBar;
 
 const signUpBtn =
-  "border border-[#479559] text-sm py-2 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap";
+  "border border-[#479559] text-sm py-3 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap";
 
 const loginBtn =
   "border border-[#479559] text-sm py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";
