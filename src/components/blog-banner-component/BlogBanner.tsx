@@ -1,6 +1,6 @@
 import React from "react";
 import BreadCrumb from "../BreadCrumbs";
-let blog = require("../../assets/images/BlogBanner.jpg");
+import blog from "../../assets/images/BlogBanner.png";
 
 const BlogBanner = () => {
   return (
@@ -11,7 +11,7 @@ const BlogBanner = () => {
           alt=""
           className="w-full h-full object-cover absolute mix-blend-overlay"
         />
-        <div className="pl-20 pt-28 ">
+        <div className="pl-20 pt-28 absolute">
           <h1 className="font-bold text-3xl text-white md:inline xxs:hidden">
             Our Latest Blogs & Articles
           </h1>

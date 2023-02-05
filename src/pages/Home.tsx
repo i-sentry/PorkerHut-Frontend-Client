@@ -24,7 +24,11 @@ const Home: React.FC = () => {
 
       <NavBar/>
       </div>
+      <div className="bg-slate-400">
+
       <Slider sliderImages={[]} />
+      </div>
+
       <Category />
       <Services />
       <Header />
