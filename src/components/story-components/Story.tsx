@@ -5,7 +5,7 @@ const transparencyPic = require("../../assets/images/Transparency.jpg");
 
 const Story = () => {
   return (
-    <div className="md:h-screen md:mt-2">
+    <div className="md:h-screen md:mt-2 xxs:pb-4">
       <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
         <h1 className="font-semibold text-2xl">How We Are Different</h1>
       </div>
