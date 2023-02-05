@@ -9,7 +9,7 @@ type BreadCrumbType = {
 };
 const BreadCrumb = ({ items }: BreadCrumbType) => {
   return (
-    <div className="flex py-10 flex-1 items-center text-sm text-secondary gap-x-1 flex-wrap space-x-2 rounded-none text-white">
+    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-1 flex-wrap space-x-2 rounded-none text-white">
       {items.map((item, index) =>
         index !== items.length - 1 ? (
           <div
@@ -24,7 +24,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <span
             key={index}
-            className="text-primary text-white py-1 px rounded-md capitalize text-lg"
+            className="text-primary text-white py-2 px rounded-md capitalize text-lg"
           >
             {item.name}
           </span>
