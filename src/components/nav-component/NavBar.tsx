@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { HamburgerMenuIcon } from "../../assets/icons";
 import { IoIosHelpCircleOutline, IoMdClose, IoMdMenu } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import NavLink from "./NavLink";
+import NavLink, { HelpLink } from "./NavLink";
 import NavButton from "./NavButton";
+import Ripples from "react-ripples";
 import { FiMenu } from "react-icons/fi";
 // import { BiSearchAlt2 } from 'react-icons/bi'
 // import { BsCart4 } from 'react-icons/bs'
@@ -41,41 +42,43 @@ const NavBar = () => {
         {/* Menu Btn */}
 
         <div className="z-50 p-5 md:w-auto w-full flex items-center gap-4">
-          <button
-            onClick={() => setToggle(!toggle)}
-            className="text-3xl md:hidden flex"
-          >
-            {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
-          </button>
-          <div className="flex items-center">
-            <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-            <h1 className="porker text-xl font-bold text-[#197B30] pt-1 font-Roboto-slab">
-              Porker Hut
-            </h1>
+          <div className="flex">
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="text-3xl md:hidden flex"
+            >
+              {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
+            </button>
+            <div className="flex items-center">
+              <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
+              <h1 className="porker text-xl font-bold text-[#197B30] pt-1 font-Roboto-slab">
+                Porker Hut
+              </h1>
+            </div>
+          </div>
+          <div className="action-btns flex gap-3 ml-auto mr-4 md:hidden">
+            <button className=" p-[6px] rounded w-8">
+              <img className="w-6" src={SearchLogo} alt="" />
+            </button>
+            <button className=" p-[6px] rounded w-8">
+              <img className="w-6" src={CartLogo} alt="" />
+            </button>
           </div>
         </div>
 
         <ul className="md:flex hidden uppercase items-center gap-8 font-semibold">
-          <li>
+          {/* <li>
             <Link to={""} className="py-7 px-3 inline-block">
               Home
             </Link>
-          </li>
-          <NavLink />
+          </li> */}
+          <NavLink setToggle={setToggle} />
         </ul>
-        <div className="md:flex  hidden">
+        <div className="md:flex  hidden gap-2">
           <NavButton className={loginBtn} text="Login" path="/login" />
+
           <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
         </div>
-
-        {/* <div className="action-btns flex gap-3 ml-auto mr-4">
-          <button className=" p-[6px] rounded w-8">
-            <img className="w-6" src={SearchLogo} alt="" />
-          </button>
-          <button className=" p-[6px] rounded w-8">
-            <img className="w-6" src={CartLogo} alt="" />
-          </button>
-        </div> */}
 
         {/* Mobile */}
         <ul
@@ -87,7 +90,8 @@ const NavBar = () => {
               Home
             </Link>
           </li>
-          <NavLink />
+          <NavLink setToggle={setToggle} />
+          {/* <HelpLink/> */}
         </ul>
       </nav>
 
