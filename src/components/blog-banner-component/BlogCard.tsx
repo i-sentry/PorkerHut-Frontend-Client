@@ -5,7 +5,7 @@ let blog_img2 = require("../../assets/images/Blog_frame-2.jpg");
 
 const Blog = () => {
   return (
-    <section className="w-full md:h-[500px] xxs:h-[900px]">
+    <section className="w-full md:h-[450px] xxs:h-[900px]">
       <div className="w-full max-h-[1000px] md:grid md:grid-cols-2 md:px-10  xxs:grid-cols-1 xxs:px-3 ">
         <div className="flex flex-col items-center w-full xxs:mb-10">
           <div className="md:w-[80%]">
