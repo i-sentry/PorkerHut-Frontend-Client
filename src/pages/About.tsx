@@ -21,7 +21,7 @@ const About = () => {
                   link: "/home",
                 },
                 {
-                  name: "About",
+                  name: "About Us",
                   link: "/about",
                 },
               ]}

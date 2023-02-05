@@ -14,7 +14,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
         index !== items.length - 1 ? (
           <div
             key={index}
-            className="flex items-center gap-x-2 rounded-none text-white text-lg"
+            className="flex items-center hover:animate-pulse gap-x-2 rounded-none text-white text-lg"
           >
             <Link to={item.link}>
               <button className="capitalize rounded-none">{item.name}</button>
@@ -22,12 +22,12 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
             <RxSlash />
           </div>
         ) : (
-          <span
+          <button
             key={index}
-            className="text-primary text-white py-2 px rounded-md capitalize text-lg"
+            className="text-primary hover:animate-pulse text-white py-2 px rounded-md capitalize text-lg"
           >
             {item.name}
-          </span>
+          </button>
         )
       )}
     </div>
