@@ -22,21 +22,22 @@ const BlogBanner = () => {
           <span className="md:hidden font-bold text-3xl text-white xxs:pl-16">
             Articles
           </span>
+
+          <div className="flex items-center">
+            <BreadCrumb
+              items={[
+                {
+                  name: "Home",
+                  link: "/",
+                },
+                {
+                  name: "Blogs",
+                  link: "/blog",
+                },
+              ]}
+            />
+          </div>
         </div>
-        {/* <div className="flex items-center justify-center">
-          <BreadCrumb
-            items={[
-              {
-                name: "Home",
-                link: "/",
-              },
-              {
-                name: "Blogs",
-                link: "/blog",
-              },
-            ]}
-          />
-        </div> */}
       </div>
     </div>
   );

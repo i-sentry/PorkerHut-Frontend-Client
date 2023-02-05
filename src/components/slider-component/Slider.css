@@ -51,11 +51,14 @@
   top: 50%;
   left: 20px;
   transform: translateY(-60%);
+  visibility: hidden;
+
 }
 .next {
   top: 50%;
   right: 20px;
   transform: translateY(-60%);
+  visibility: hidden;
 }
 
 
