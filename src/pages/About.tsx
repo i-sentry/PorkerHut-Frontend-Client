@@ -13,9 +13,9 @@ const About = () => {
       <NavBar />
       
         <div className=" relative ">
-          <img className=" opacity-150 relative brightness-50" src={Pigdesktop} alt="" />
-          <div className=" absolute px-[8%] top-1/2 -translate-y-1/3">
-            <h1 className=" text-white text-2xl md:text-[40px]">About Us</h1>
+          <img className=" opacity-150 relative brightness-50 mt-20" src={Pigdesktop} alt="" />
+          <div className=" absolute px-[8%] top-1/2 -translate-y-1/3 mx-24">
+            <h1 className=" text-[#FFFF] text-2xl md:text-[40px] md:py-5">About Us</h1>
             <BreadCrumb
               items={[
                 {
@@ -34,11 +34,11 @@ const About = () => {
        </div>
 
 
-      
-        <div className=" bg-[#F4F4F4] mt-24 rounded-md max-w-[1300px] m-auto md:flex">
-          <div className=" p-16 flex-1">
-            <h1 className=" text-4xl mb-4 font-bold">What we do</h1>
-            <p className=" leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
+
+        <div className=" bg-[#F4F4F4] mt-24 rounded-md max-w-[1700px] m-auto md:flex">
+          <div className=" p-20 flex-1">
+            <h1 className=" text-4xl mb-4 font-bold text-[#333]">What we do</h1>
+            <p className=" leading-6 text-[14px] md:text-[16px] text-[#333]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
               Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
               vel ut faucibus. Ornare elit aenean at nunc integer facilisis at facilisi velit. Lorem ipsum
               dolor sit amet consectetur. Tristique rhoncus nulla mollis dui in in in aliquet. Dapibus aenean
@@ -54,38 +54,39 @@ const About = () => {
             </figure>
         </div>
 
-        <div className=" mt-24 p-16 bg-[#F4F4F4] flex-row">
+        <div className=" mt-24 p-4 bg-[#F4F4F4] flex-row">
+      <div className=" md:ml-44 bg-[#F4F4F4]">
               <div className="max-w-[500px]">
-              <h1 className=" text-4xl mb-4 font-bold">Why choose Pokerhut</h1>
-                <p className=" leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
+              <h1 className=" text-[28px] mb-4 font-bold text-[#333]">Why choose Pokerhut</h1>
+                <p className=" text-[#333] leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
                     Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
                     vel ut faucibus. Ornare elit aenean at nunc integer facilisis at facilisi velit. Lorem ipsum
                     dolor sit amet consectetur. Tristique rhoncus nulla mollis dui in in in aliquet. Dapibus aenean
                 </p>
               </div>
 
-          <div className=" md:flex md:justify-center gap-12 ">
-              <div className="max-w-[500px] bg-white rounded mt-12 px-6 py-6">
-              <h1 className=" text-3xl mb-4 font-bold">Personalized Products</h1>
-                <p className=" leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
+          <div className=" md:flex gap-16  ">
+              <div className="max-w-[500px] bg-white rounded mt-12 px-2 py-2">
+              <h1 className=" text-2xl mb-4 font-bold text-[#333]">Personalized Products</h1>
+                <p className=" text-[#333] leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
                     Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
                     vel ut faucibus. Ornare elit aenean at nunc integer facilisis at facilisi velit. Lorem ipsum
                     dolor sit amet consectetur. Tristique rhoncus nulla mollis dui in in in aliquet. Dapibus aenean
               </p>
               </div>
 
-              <div className="max-w-[500px] bg-white rounded mt-12 px-6 py-6">
-              <h1 className=" text-3xl mb-4 font-bold">Availabilty</h1>
-                <p className=" leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
+              <div className="max-w-[500px] bg-white rounded mt-12 px-2 py-2">
+              <h1 className=" text-2xl mb-4 font-bold text-[#333]">Availabilty</h1>
+                <p className=" text-[#333] leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
                     Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
                     vel ut faucibus. Ornare elit aenean at nunc integer facilisis at facilisi velit. Lorem ipsum
                     dolor sit amet consectetur. Tristique rhoncus nulla mollis dui in in in aliquet. Dapibus aenean    
               </p>
               </div>
               
-              <div className="max-w-[500px] bg-white rounded mt-12 px-6 py-6">
-              <h1 className=" text-3xl mb-4 font-bold"> Satisfaction</h1>
-                <p className=" leading-6 text-[14px] md:text-[16px]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
+              <div className="max-w-[500px] bg-white rounded mt-12 px-2 py-2">
+              <h1 className=" text-2xl mb-4 font-bold text-[#333]">Guaranteed Satisfaction</h1>
+                <p className=" leading-6 text-[14px] md:text-[16px] text-[#333]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
                     Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
                     vel ut faucibus. Ornare elit aenean at nunc integer facilisis at facilisi velit. Lorem ipsum
                     dolor sit amet consectetur. Tristique rhoncus nulla mollis dui in in in aliquet. Dapibus aenean
@@ -94,6 +95,7 @@ const About = () => {
               </div>
           </div>
         </div>
+      </div>
        <Footer />
        </>
   );
