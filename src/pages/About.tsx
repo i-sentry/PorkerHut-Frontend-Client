@@ -36,7 +36,7 @@ const About = () => {
 
 
         <div className=" bg-[#F4F4F4] mt-24 rounded-md max-w-[1360px] m-auto md:flex">
-          <div className=" p-16 flex-1">
+          <div className=" p-[64px] flex-1">
             <h1 className=" text-4xl mb-4 font-bold text-[#333]">What we do</h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#333]">Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla    mollis dui in in in aliquet. 
               Dapibus aenean sed felis adipiscing habitant a amet volutpat. Auctor donec at nisl justo
