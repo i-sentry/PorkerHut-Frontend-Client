@@ -32,7 +32,10 @@ const Home: React.FC = () => {
       <Category />
       <Services />
       <Header />
-      <Product id={0} title={""} />
+    
+
+      <Product />
+     
       <FeaturedProduct />
       
       <Story />
