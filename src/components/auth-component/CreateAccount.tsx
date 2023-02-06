@@ -33,7 +33,9 @@ const CreateAccount = () => {
   passwordref.current = watch("password", "");
   return (
     <>
-      <NavBar />
+      <div className="mb-20">
+        <NavBar />
+      </div>
       <div className="bg-[#F5F5F5]">
         <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
           <button
@@ -46,8 +48,8 @@ const CreateAccount = () => {
           </button>
         </div>
         {customersSignup ? (
-          <div className="min-h-screen bg-[#F5F5F5] flex flex-col justify-center items-center">
-            <div className="max-w-xl w-full max-auto mt-4 bg-[#fff] p-8 shadow-md">
+          <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3">
+            <div className="max-w-xl w-full max-auto  bg-[#fff] p-8 shadow-md">
               <div>
                 <h1 className="text-left  text-[#333333] font-bold  ">
                   Create a Buyer account

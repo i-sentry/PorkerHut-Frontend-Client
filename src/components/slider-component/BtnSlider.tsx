@@ -9,7 +9,7 @@ interface BtnSliderProps {
 
 
 export default function BtnSlider({ direction, moveSlide }: BtnSliderProps) {
-  console.log(direction, moveSlide);
+  
   return (
     <button
       onClick={moveSlide}

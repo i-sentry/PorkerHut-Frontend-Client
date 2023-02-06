@@ -1,10 +1,11 @@
 import React from "react";
+import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 
 
 const Footer = () => {
   return (
     <div className="bg-[#333333] mt-10">
-      <div className="flex flex-col max-md:px-10 max-md:mx-0 mx-20">
+      <div className="flex flex-col max-md:px-10 max-md:mx-0 mx-20 ">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
           <div className="wrapper flex lg:justify-between items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
             <span className="font-semibold md:text-2xl sm:text-base  md:mb-2">
@@ -26,28 +27,28 @@ const Footer = () => {
             </form>
           </div>
         </div>
-        <div className="md:flex justify-between gap-12 mt-7 mb-6 max-md:flex-wrap">
-          <div className="items flex flex-col gap-3 text-justify">
-            <div className="flex items-center gap-1 xss:w-full">
-              {/* <img src={Logo} alt="" /> */}
-              <div className="flex flex-col xxs:mx-auto md:mx-0">
-                <p className="title text-xl  font-semibold text md:text-left  text-[#FFFFFF] font-Roboto-slab">
+        <div className="md:flex md:justify-between gap-12 mt-7 mb-6 max-md:flex-wrap">
+          <div className="flex flex-col gap-3 text-justify">
+            <div className="flex items-center gap-1 ">
+              <img src={PorkerLogo} alt="" />
+              <div className="flex flex-col md:mx-0">
+                <p className="title text-xl  font-semibold text text-left  text-[#FFFFFF] font-Roboto-slab">
                   Porker Hut
                 </p>
 
-                <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span>
+             
               </div>
             </div>
 
             <div>
-              <p className="text-[#D9D9D9] font-normal text-sm md:text-left xxs:text-center md:leading-6 ">
+              <p className="text-[#D9D9D9] font-normal text-sm text-left md:leading-6 xxs:leading-8">
                 An Agro-Commerce E-Commerce platform where <br /> you can put
                 your products and get customers <br /> from you at no extra cost
               </p>
             </div>
           </div>
-          <div className="flex xxs:pt-5 md:pt-0">
-            <div className="flex-1 flex flex-col gap-3 text-justify">
+          <div className=" xxs:pt-10 md:pt-0 xxs:flex-col">
+            <div className="flex-1 flex flex-col md:gap-3 text-justify xxs:gap-5">
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF] font-Roboto">
                 Company
               </h1>
@@ -64,7 +65,7 @@ const Footer = () => {
                 Contact Us
               </span>
             </div>
-            <div className=" md:hidden xxs:flex flex-col gap-3 text-end ">
+            <div className="md:hidden xxs:flex-1 xxs:flex-col xxs:flex gap-2 xxs:mt-5 xxs:py-5 xxs:gap-5">
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
                 Products
               </h1>
@@ -118,10 +119,10 @@ const Footer = () => {
               LinkedIn
             </span>
           </div>
-          <div className="flex-1 md:hidden xxs:flex flex-col gap-3 text-justify pt-5  ">
-            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF]">
+          <div className="md:hidden">
+            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF] xxs:mb-4 md:mb-0">
               <p>Social Media</p>
-              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span>
+              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center"></span>
             </div>
             <div className="flex items-center justify-between">
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
