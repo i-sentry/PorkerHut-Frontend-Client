@@ -11,13 +11,13 @@ const About = () => {
     <>
       <NavBar />
 
-      <div className=" relative md:h-96 ">
+      <div className=" relative md:h-[300px] ">
         <img
           className=" mt-20 opacity-150 relative brightness-50  md:w-full md:h-full object-cover "
           src={Pigdesktop}
           alt=""
         />
-        <div className=" absolute ml-32 md:px-[1%] top-1/2 -translate-y-1/3 md:ml-[100px] ">
+        <div className=" absolute ml-[122px] md:px-[1%] top-1/2 -translate-y-1/3 md:ml-[100px] ">
           <h1 className=" text-white text-[32px] md:text-[40px]">About Us</h1>
           <BreadCrumbs
             items={[
@@ -63,7 +63,7 @@ const About = () => {
       </div>
 
       <div className=" mt-24 p-6 bg-[#F4F4F4] flex-row">
-        <div className="max-w-[500px] md:ml-[85px] ">
+        <div className="max-w-[500px] md:ml-[90px] ">
           <h1 className=" text-[20px] mb-4 font-bold text-[#333]">
             Why choose Pokerhut?
           </h1>
@@ -77,7 +77,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className=" md:flex gap-10 md:ml-[85px] ">
+        <div className=" md:flex gap-10 md:ml-[90px] ">
           <div className="max-w-[500px] bg-white rounded mt-12 px-4 py-4">
             <h1 className=" text-2xl mb-2 font-bold text-[#333]">
               Personalized Products
