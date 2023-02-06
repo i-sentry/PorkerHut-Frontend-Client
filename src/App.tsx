@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../src/pages/Home";
-import About from "../src/pages/About";
+import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
 import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
@@ -12,7 +12,7 @@ function App() {
       element: <Home></Home>,
     },
     {
-      path: "/about",
+      path: "/about-us",
       element: <About></About>,
     },
     {

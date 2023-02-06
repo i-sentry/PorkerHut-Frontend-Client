@@ -3,7 +3,8 @@ import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
 import Pigdesktop from "../../src/assets/images/Pigdesktop.png";
 import PlantImg from "../../src/assets/images/PlantImg.png";
-import BreadCrumb from "../components/BreadCrumbs";
+import BreadCrumbs from "../components/BreadCrumbs";
+
 
 const About = () => {
   return (
@@ -18,7 +19,7 @@ const About = () => {
         />
         <div className=" absolute px-[8%] top-1/2 -translate-y-1/3 ml-[100px] ">
           <h1 className=" text-white text-2xl md:text-[40px]">About Us</h1>
-          <BreadCrumb
+          <BreadCrumbs
             items={[
               {
                 name: "Home",
@@ -26,7 +27,7 @@ const About = () => {
               },
               {
                 name: "About Us",
-                link: "/about",
+                link: "/about-us",
               },
             ]}
           />
