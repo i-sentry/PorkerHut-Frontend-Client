@@ -3,7 +3,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { BsArrowRightShort } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
-import ProductCards from "./ProductCards";
 import { bestSelling, productData } from "../../../utils/productData";
 import ProductCard from "../ProductCard";
 
