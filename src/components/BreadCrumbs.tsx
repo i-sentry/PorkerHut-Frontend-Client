@@ -16,9 +16,9 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
             key={index}
             className="flex items-center hover:animate-pulse gap-x-2 rounded-none text-white text-lg"
           >
-            <Link to={item.link}>
+            {/* <Link to={item.}>
               <button className="capitalize rounded-none">{item.name}</button>
-            </Link>
+            </Link> */}
           <div key={index} className="flex items-center gap-x-1 rounded-none text-white  text-base hover:animate-pulse">
             <Link to={item.link} >
               <button className="capitalize rounded-none hover:animate-pulse">{item.name}</button>
