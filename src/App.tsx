@@ -4,6 +4,7 @@ import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
 import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
+import AgroServices from "./pages/AgroServices";
 
 function App() {
   const route = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
     {
       path: "/blog",
       element: <BlogPage></BlogPage>,
+    },
+    {
+      path: "/agro",
+      element: <AgroServices></AgroServices>,
     },
   ]);
 
