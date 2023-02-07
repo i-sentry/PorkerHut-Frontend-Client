@@ -3,68 +3,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { BsArrowRightShort } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
-import ProductCards from "./ProductCards";
-const product1 = require("../../../assets/images/Product1.jpg");
+import { bestSelling, productData } from "../../../utils/productData";
+import ProductCard from "../ProductCard";
 
-interface BestSellingProps {
-  id: number;
-  title: string;
-}
-
-const Product = ({ id, title }: BestSellingProps) => {
+const Product = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-
-  const productData = [
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-    {
-      id: 1,
-      title: "meat",
-    },
-  ];
 
   const responsive = {
     superLargeDesktop: {
@@ -97,16 +41,15 @@ const Product = ({ id, title }: BestSellingProps) => {
           </button>
         </div>
       </div>
-      <Carousel responsive={responsive}>
-        
-          <ProductCards />
-          <ProductCards />
-          <ProductCards />
-          <ProductCards />
-          <ProductCards />
-          <ProductCards />
-          <ProductCards />
-        
+      <Carousel responsive={responsive} className="p-4">
+        {bestSelling.map((item: any) => {
+          return (
+            <div className="">
+              <ProductCard key={item.id} item={item} />
+
+            </div>
+            );
+        })}
       </Carousel>
     </div>
   );
