@@ -23,7 +23,7 @@ const About = () => {
             items={[
               {
                 name: "Home",
-                link: "/home",
+                link: "/",
               },
               {
                 name: "About Us",

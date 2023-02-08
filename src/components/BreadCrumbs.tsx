@@ -9,34 +9,35 @@ type BreadCrumbType = {
 };
 const BreadCrumb = ({ items }: BreadCrumbType) => {
   return (
-    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-1 flex-wrap space-x-2 rounded-none text-white">
+    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-1 flex-wrap rounded-none text-white relative">
       {items.map((item, index) =>
         index !== items.length - 1 ? (
           <div
             key={index}
-            className="flex items-center hover:animate-pulse gap-x-2 rounded-none text-white text-lg"
+            className="flex items-center  gap-x-2 rounded-none text-white text-lg"
           >
-            {/* <Link to={item.}>
-              <button className="capitalize rounded-none">{item.name}</button>
-            </Link> */}
-          <div key={index} className="flex items-center gap-x-1 rounded-none text-white  text-base hover:animate-pulse">
-            <Link to={item.link} >
-              <button className="capitalize rounded-none hover:animate-pulse">{item.name}</button>
-            </Link>
-            <RxSlash />
-          </div>
+            <div
+              key={index}
+              className="flex items-center gap-x-1 rounded-none text-white  text-base"
+            >
+              <Link to={item.link}>
+                <button className="capitalize rounded-none hover:text-[#197b30] font-light py-2">
+                  {item.name}
+                </button>
+              </Link>
+              <RxSlash />
+            </div>
           </div>
         ) : (
           <button
             key={index}
-            className="text-primary hover:animate-pulse text-white py-2 px rounded-md capitalize text-lg"
+            className="text-primary hover:text-[#197b30] text-white py-2 rounded-md capitalize text-lg font-light "
           >
             {item.name}
           </button>
         )
       )}
     </div>
-  
   );
 };
 export default BreadCrumb;
