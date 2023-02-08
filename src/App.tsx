@@ -4,6 +4,7 @@ import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
 import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   const route = createBrowserRouter([
@@ -26,6 +27,14 @@ function App() {
     {
       path: "/blog",
       element: <BlogPage></BlogPage>,
+    },
+    {
+      path: "/blog",
+      element: <BlogPage></BlogPage>,
+    },
+    {
+      path: "/products",
+      element: <ProductPage></ProductPage>,
     },
   ]);
 
