@@ -31,7 +31,7 @@ const ProductPage = ({ item }: any) => {
         </div>
 
         <div className="md:flex">
-          <div className="w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden">
+          <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden md:block ">
             <Filter />
           </div>
           <div className="md:w-3/4 bg-white xxs:w-full">
