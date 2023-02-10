@@ -29,13 +29,21 @@ export const links = [
       {
         head: "We Offer",
         subLink: [
-          { name: "Agro Services", link: "/", icon: <GiPig size={20} /> },
+          {
+            name: "Agro Services",
+            link: "/services?service=agro-service",
+            icon: <GiPig size={20} />,
+          },
           {
             name: "Veterinary Services",
-            link: "/",
+            link: "/services?service=veterinary-services",
             icon: <BiHealth size={20} />,
           },
-          { name: "Weekend Kills", link: "/", icon: <TbMeat size={20} /> },
+          {
+            name: "Weekend Kills",
+            link: "/services?service=weekend-kills",
+            icon: <TbMeat size={20} />,
+          },
         ],
       },
     ],
@@ -46,7 +54,12 @@ export const links = [
     path: "/about-us",
     icon: <RiBook3Line size={20} />,
   },
-  { name: "Blog", subMenu: false, path: "/blog", icon: <ImBlog size={20} /> },
+  {
+    name: "Blog",
+    subMenu: false,
+    path: "/blog",
+    icon: <ImBlog size={20} />,
+  },
   {
     name: "Contact",
     subMenu: false,

@@ -24,13 +24,13 @@ const NavLink = ({ setToggle }: Iprop) => {
                   setSubHeading("");
                   setToggle(link?.name === "Services" ? true : false);
                 }}
-                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent   md:link md:link--metis"
+                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full"
               >
-                <span className="flex items-center gap-4 md:link md:link--metis">
-                <span className="md:hidden">{link?.icon}</span>
-                <span className="md:link md:link--metis">{link?.name}</span>
+                <span className="flex items-center gap-4 ">
+                  <span className="md:hidden">{link?.icon}</span>
+                  <span className="md:link md:link--metis ">{link?.name}</span>
                 </span>
-                <span className="text-xl md:hidden inline">
+                <span className="text-xl md:hidden inline ">
                   {link?.subMenu === false ? (
                     ""
                   ) : heading === link?.name ? (
@@ -46,14 +46,14 @@ const NavLink = ({ setToggle }: Iprop) => {
             </div>
             {link.subMenu && (
               <div>
-                <div className="absolute top-20 hidden group-hover:md:block hover:md:block">
+                <div className="absolute top-[70px] hidden group-hover:md:block hover:md:block shadow-sm">
                   <div className="py-3">
                     <div className="w-4 h-4 left-3 absolute mt-1 bg-[#F5F5F5] rotate-45"></div>
                   </div>
-                  <div className="bg-[#F5F5F5] p-3.5 relative">
+                  <div className="bg-[#F5F5F5] p-3.5 relative w-80">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>
-                        <h1 className="text-lg font-semibold ">
+                        <h1 className="text-lg font-semibold text-slate-500">
                           {mySubLink.head}
                         </h1>
                         {mySubLink.subLink.map((s: any, index: number) => (
@@ -63,7 +63,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                           >
                             <Link
                               to={s?.link}
-                              className="link link--metis hover:text-[#197B30]"
+                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2 px-2 rounded-full"
                             >
                               {s?.name}
                             </Link>
@@ -117,21 +117,22 @@ const NavLink = ({ setToggle }: Iprop) => {
 
 export default NavLink;
 
-
 export const HelpLink = () => {
-    const [heading, setHeading] = useState("");
-    const [subHeading, setSubHeading] = useState("");
-  const helpLink = [{
+  const [heading, setHeading] = useState("");
+  const [subHeading, setSubHeading] = useState("");
+  const helpLink = [
+    {
       name: "Help",
       subMenu: true,
-      icon:"",
-      path:"/",
+      icon: "",
+      path: "/",
       help: [
-  {name:"Help Center"},
-  {name:"Track Order"},
-  {name:"Cancellation of Order "},
-]}
-  ]
+        { name: "Help Center" },
+        { name: "Track Order" },
+        { name: "Cancellation of Order " },
+      ],
+    },
+  ];
   return (
     <>
       {helpLink?.map((link: any, index: number) => (
@@ -236,4 +237,4 @@ export const HelpLink = () => {
       ))}{" "}
     </>
   );
-}
+};
