@@ -30,11 +30,11 @@ const ProductPage = ({ item }: any) => {
           />
         </div>
 
-        <div className="flex">
-          <div className="w-1/4 static h-full top-[50px] bg-white p-6 mx-6">
+        <div className="md:flex">
+          <div className="w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden">
             <Filter />
           </div>
-          <div className="w-3/4 bg-white">
+          <div className="md:w-3/4 bg-white xxs:w-full">
             <div className="flex items-center justify-between py-2 px-6">
               <h1 className="text-l font-medium">All Products</h1>
               {/* <h1 className="flex items-center justify-center">

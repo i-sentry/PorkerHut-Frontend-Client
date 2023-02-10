@@ -8,6 +8,8 @@ import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
 import ProductPage from "./pages/ProductPage";
+import WeekendKills from "./pages/WeekendKills";
+
 
 interface ServicePageProps {
   service: string;
@@ -61,7 +63,8 @@ function App() {
       element: <BlogPage></BlogPage>,
     },
     {
-      path: "/services",
+      // path: "/services",
+      path: "/services?service=weekend-kills",
       element: <ServicePage service={""} />,
     },
     {
@@ -71,6 +74,10 @@ function App() {
     {
       path: "/contact-us",
       element: <Contact_Page></Contact_Page>,
+    },
+    {
+      path: "/weekend",
+      element: <WeekendKills></WeekendKills>,
     },
   ]);
 
