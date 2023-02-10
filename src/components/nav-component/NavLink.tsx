@@ -117,21 +117,22 @@ const NavLink = ({ setToggle }: Iprop) => {
 
 export default NavLink;
 
-
 export const HelpLink = () => {
-    const [heading, setHeading] = useState("");
-    const [subHeading, setSubHeading] = useState("");
-  const helpLink = [{
+  const [heading, setHeading] = useState("");
+  const [subHeading, setSubHeading] = useState("");
+  const helpLink = [
+    {
       name: "Help",
       subMenu: true,
-      icon:"",
-      path:"/",
+      icon: "",
+      path: "/",
       help: [
-  {name:"Help Center"},
-  {name:"Track Order"},
-  {name:"Cancellation of Order "},
-]}
-  ]
+        { name: "Help Center" },
+        { name: "Track Order" },
+        { name: "Cancellation of Order " },
+      ],
+    },
+  ];
   return (
     <>
       {helpLink?.map((link: any, index: number) => (
@@ -236,4 +237,4 @@ export const HelpLink = () => {
       ))}{" "}
     </>
   );
-}
+};

@@ -7,6 +7,7 @@ import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
+import ProductPage from "./pages/ProductPage";
 import WeekendKills from "./pages/WeekendKills";
 
 
@@ -14,10 +15,8 @@ interface ServicePageProps {
   service: string;
 }
 
-
 function App() {
-
-const ServicePage: React.FC<ServicePageProps> = () => {
+  const ServicePage: React.FC<ServicePageProps> = () => {
     const [service, setService] = useState("");
 
     useEffect(() => {
@@ -60,8 +59,17 @@ const ServicePage: React.FC<ServicePageProps> = () => {
       element: <BlogPage></BlogPage>,
     },
     {
+      path: "/blog",
+      element: <BlogPage></BlogPage>,
+    },
+    {
+      // path: "/services",
       path: "/services?service=weekend-kills",
       element: <ServicePage service={""} />,
+    },
+    {
+      path: "/products",
+      element: <ProductPage></ProductPage>,
     },
     {
       path: "/contact-us",
@@ -80,9 +88,4 @@ const ServicePage: React.FC<ServicePageProps> = () => {
   );
 }
 
-
-
 export default App;
-
-
-
