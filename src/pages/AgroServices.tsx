@@ -17,32 +17,37 @@ const AgroServices = () => {
   // console.log(agroService);
   return (
     <>
-      <div>
+      
+      <div className="overflow-x-hidden">
+      <nav className="mb-20">
         <NavBar />
+      </nav>
+      <div className="container  max-w-screen-xl ">
+        <div
+          className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
+          style={{
+            backgroundImage: ` url('${AgroservImg}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100vw",
+          }}
+        >
+          <h1 className="mb-2 text-3xl font-medium  text-left   text-[#fff]">
+            Contact Us
+          </h1>
 
-        <div className=" relative md:h-[300px] ">
-          <img
-            className=" mt-20 opacity-150 relative brightness-50  md:w-full md:h-full object-cover "
-            src={AgroservImg}
-            alt=""
+          <BreadCrumbs
+            items={[
+              {
+                name: "Home",
+                link: "/",
+              },
+              {
+                name: "Contact Us",
+                link: "/contact-us",
+              },
+            ]}
           />
-          <div className=" absolute ml-[95px] md:px-[1%] top-1/2 -translate-y-1/3 md:ml-[100px] ">
-            <h1 className=" text-white text-[32px] md:text-[40px]">
-              Agro Services
-            </h1>
-            <BreadCrumbs
-              items={[
-                {
-                  name: "Home",
-                  link: "/",
-                },
-                {
-                  name: "Agro Services",
-                  link: "/?service=agro-service",
-                },
-              ]}
-            />
-          </div>
         </div>
 
         <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1350px] m-auto md:flex">
@@ -145,6 +150,7 @@ const AgroServices = () => {
 
         <Footer />
       </div>
+    </div>
     </>
   );
 };
