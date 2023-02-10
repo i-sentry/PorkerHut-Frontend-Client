@@ -52,39 +52,39 @@ const Filter: React.FC = () => {
         </AccordionHeader>
         <AccordionBody>
           <div>
-            <div className="mb-3">
+            <div className="">
               <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base" htmlFor="1">
+              <label className="ml-2 text-base font-normal" htmlFor="1">
                 Berkshire
               </label>
             </div>
-            <div className="mb-3">
+            <div className="">
               <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base" htmlFor="2">
+              <label className="ml-2 text-base font-normal" htmlFor="2">
                 Chester White
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base" htmlFor="3">
+              <input type="checkbox" id="3" value={3} />
+              <label className="ml-2 text-base font-normal" htmlFor="3">
                 Duroc
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base" htmlFor="4">
+              <input type="checkbox" id="" value={4} />
+              <label className="ml-2 text-base font-normal" htmlFor="4">
                 Hampshire
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={5} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={6} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
@@ -100,39 +100,39 @@ const Filter: React.FC = () => {
         </AccordionHeader>
         <AccordionBody>
           <div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base" htmlFor="1">
+              <label className="ml-2 text-base font-normal" htmlFor="1">
                 Berkshire
               </label>
             </div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base" htmlFor="2">
+              <label className="ml-2 text-base font-normal" htmlFor="2">
                 Chester White
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base" htmlFor="3">
+              <input type="checkbox" id="3" value={3} />
+              <label className="ml-2 text-base font-normal" htmlFor="3">
                 Duroc
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base" htmlFor="4">
+              <input type="checkbox" id="" value={4} />
+              <label className="ml-2 text-base font-normal" htmlFor="4">
                 Hampshire
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={5} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={6} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
@@ -148,39 +148,39 @@ const Filter: React.FC = () => {
         </AccordionHeader>
         <AccordionBody>
           <div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base" htmlFor="1">
+              <label className="ml-2 text-base font-normal" htmlFor="1">
                 Berkshire
               </label>
             </div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base" htmlFor="2">
+              <label className="ml-2 text-base font-normal" htmlFor="2">
                 Chester White
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base" htmlFor="3">
+              <input type="checkbox" id="3" value={3} />
+              <label className="ml-2 text-base font-normal" htmlFor="3">
                 Duroc
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base" htmlFor="4">
+              <input type="checkbox" id="" value={4} />
+              <label className="ml-2 text-base font-normal" htmlFor="4">
                 Hampshire
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={5} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={6} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
             </div>
@@ -196,33 +196,33 @@ const Filter: React.FC = () => {
         </AccordionHeader>
         <AccordionBody>
           <div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base" htmlFor="1">
+              <label className="ml-2 text-base font-normal" htmlFor="1">
                 Abuja
               </label>
             </div>
-            <div className="mb-3">
+            <div>
               <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base" htmlFor="2">
+              <label className="ml-2 text-base font-normal" htmlFor="2">
                 Lagos
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base" htmlFor="3">
+              <input type="checkbox" id="3" value={3} />
+              <label className="ml-2 text-base font-normal" htmlFor="3">
                 Osun
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base" htmlFor="4">
+              <input type="checkbox" id="" value={4} />
+              <label className="ml-2 text-base font-normal" htmlFor="4">
                 Ekiti
               </label>
             </div>
             <div>
-              <input className="mb-3" type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base" htmlFor="5">
+              <input type="checkbox" id="1" value={5} />
+              <label className="ml-2 text-base font-normal" htmlFor="5">
                 Port Harcourt
               </label>
             </div>

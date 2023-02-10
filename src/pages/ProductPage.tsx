@@ -35,16 +35,21 @@ const ProductPage = ({ item }: any) => {
             <Filter />
           </div>
           <div className="md:w-3/4 bg-white xxs:w-full">
-            <div className="flex items-center justify-between py-2 px-6">
-              <h1 className="text-l font-medium">All Products</h1>
-              {/* <h1 className="flex items-center justify-center">
-              <span>Sort by:</span>
-              <span>
-                <Sort />
-              </span>
-            </h1> */}
+            <div className="flex items-center justify-between  pl-3">
+              <div className="flex items-center justify-between gap-16">
+
+              <h1 className="text-xl font-medium">All Products</h1>
+               <div>
+                  <p className="text-l text-gray-700">
+                    Showing <span className="font-medium">1</span> -{" "}
+                    <span className="font-medium">10</span> of{" "}
+                    <span className="font-medium">97</span> results
+                  </p>
+                </div>
+              </div>
+               
               <div className="flex items-center ">
-                <span className="pt-2 mr-2 text-base font-normal text-[#BDBDBD]">
+                <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD]">
                   Sort by:
                 </span>
                 <span>
@@ -55,30 +60,11 @@ const ProductPage = ({ item }: any) => {
             <hr className="mx-3 bg-[#D9D9D9] border my-2" />
 
             <List />
-            <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-              <div className="flex flex-1 justify-between sm:hidden">
-                <a
-                  href="#"
-                  className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                  Previous
-                </a>
-                <a
-                  href="#"
-                  className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                  Next
-                </a>
-              </div>
-              <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm text-gray-700">
-                    Showing <span className="font-medium">1</span> to{" "}
-                    <span className="font-medium">10</span> of{" "}
-                    <span className="font-medium">97</span> results
-                  </p>
-                </div>
-                <div>
+            <div className="flex items-center justify-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+              
+              <div className="">
+                
+                <div className="">
                   <nav
                     className="isolate inline-flex -space-x-px rounded-md shadow-sm"
                     aria-label="Pagination"
@@ -90,7 +76,7 @@ const ProductPage = ({ item }: any) => {
                       <span className="sr-only">Previous</span>
                       <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                     </a>
-                    {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
+              
                     <a
                       href="#"
                       aria-current="page"
