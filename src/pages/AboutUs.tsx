@@ -9,30 +9,37 @@ import BreadCrumbs from "../components/BreadCrumbs";
 const About = () => {
   return (
     <>
-      <NavBar />
-
-      <div className=" relative md:h-[300px] ">
-        <img
-          className=" mt-20 opacity-150 relative brightness-50  md:w-full md:h-full object-cover "
-          src={Pigdesktop}
-          alt=""
-        />
-        <div className=" absolute ml-[120px] md:px-[1%] top-1/2 -translate-y-1/3">
-          <h1 className=" text-white text-[32px] md:text-[40px]">About Us</h1>
-          <BreadCrumbs
-            items={[
-              {
-                name: "Home",
-                link: "/home",
-              },
-              {
-                name: "About Us",
-                link: "/about-us",
-              },
-            ]}
-          />
-        </div>
-      </div>
+      <nav className="mb-20">
+            <NavBar />
+          </nav>
+          <div className="mb-10">
+            <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
+              <img
+                src={Pigdesktop}
+                alt=""
+                className="w-full h-full object-cover absolute mix-blend-overlay"
+              />
+              <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
+                <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
+                  Weekend Kills
+                </h1>
+                <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
+                  <BreadCrumbs
+                    items={[
+                      {
+                        name: "Home",
+                        link: "/",
+                      },
+                      {
+                        name: "About Us",
+                        link: "/",
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
       <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1360px] m-auto md:flex">
         <div className=" p-6 flex-1 md:p-16">
@@ -77,7 +84,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className=" md:flex gap-10 md:ml-[90px] ">
+        <div className=" md:flex gap-10 md:ml-[90px] md:pr-20">
           <div className="max-w-[500px] bg-white rounded mt-12 px-4 py-4">
             <h1 className=" text-2xl mb-2 font-bold text-[#333]">
               Personalized Products

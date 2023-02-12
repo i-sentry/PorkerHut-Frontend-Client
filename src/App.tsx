@@ -8,7 +8,7 @@ import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
-import VetServices from "./pages/VetServices";
+import VeterinaryServices from "./pages/VetServices";
 
 
 interface ServicePageProps {
@@ -30,10 +30,10 @@ const ServicePage: React.FC<ServicePageProps> = () => {
     switch (service) {
       case "agro-service":
         return <AgroServices />;
-      // case "veterinary-service":
-      //   return <VeterinaryServices />;
-      // case "weekend-kills":
-      //   return <WeekendKills />;
+      case "veterinary-service":
+        return <VeterinaryServices />;
+      case "weekend-kills":
+        return <WeekendKills />;
       default:
         // return <ServicesOverview />;
         return <Home />;
@@ -68,14 +68,7 @@ const ServicePage: React.FC<ServicePageProps> = () => {
       path: "/contact-us",
       element: <Contact_Page></Contact_Page>,
     },
-    {
-      path: "/weekend",
-      element: <WeekendKills></WeekendKills>,
-    },
-    {
-      path: "/vet",
-      element: <VetServices></VetServices>,
-    },
+  
   ]);
 
   return (
