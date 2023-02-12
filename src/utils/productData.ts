@@ -2,32 +2,54 @@ export const productData = [
   {
     id: "1",
     title: "John Doe farm store",
-    category: "Animal Feed",
+    type: "Animal feed",
+    category: "feed",
     price: "3000",
+    product: {
+      location: "osun",
+      name: "kernnel",
+    },
     img: "./images/productimg1.png",
     desc: "100%  Healthy-Fed Pork Lap ",
   },
   {
     id: "2",
     title: "Micheal bobo store",
-    category: "Animal Feed",
+    type: "Animal feed",
+    category: "feed",
     price: "3000",
+    product: {
+      location: "oyo",
+      name: "pasta",
+    },
     img: "./images/productimg2.png",
     desc: "100%  Healthy-Groundnut",
   },
   {
     id: "3",
     title: "Micheal bobo store",
+
+    type: "Livestock",
     category: "Livestock",
-    price: "2300",
+    price: "3400",
+    product: {
+      location: "osun",
+      name: "piglet",
+    },
+
     img: "./images/productimg3.png",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. You can also add paneer to this recipe to amp up the nutritional value and make it, even more, protein-dense",
   },
   {
     id: "4",
-    title: "Pig Head",
-    category: "Pig",
-    price: "6000",
+    title: "Pig tail",
+    category: "pork",
+    price: "9400",
+    product: {
+      location: "abuja",
+      name: "pork tail",
+    },
+
     img: "./images/productimg4.png",
     desc: "A classic dish that never goes out of style. The quintessential chana kulcha  needs only a few ingredients - cumin powder, ginger, coriander powder, carom powder, and some mango powder, which is what gives the chana its sour and tangy taste.",
   },
@@ -36,6 +58,10 @@ export const productData = [
     title: "Pig Loin",
     category: "Pig",
     price: "5000",
+    product: {
+      location: "uyo",
+      name: "pork Loin",
+    },
     img: "./images/productimg1.png",
     desc: "Eggs are a versatile food that can be cooked for any meal of the day. From breakfast to dinner, it can be a go-to food. Here is a mildly-spiced egg curry made with garlic, onions, a whole lot of kasuri methi, fresh cream, yogurt, and fresh coriander.",
   },

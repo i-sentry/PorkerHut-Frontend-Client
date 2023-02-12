@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import List from "../list/List";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
@@ -9,11 +8,58 @@ import NavBar from "../components/nav-component/NavBar";
 
 import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
+import { MdOutlineFilterAlt } from "react-icons/md";
+import { productData } from "../utils/productData";
+import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
-const ProductPage = ({ item }: any) => {
+const ProductPage = () => {
+
+  let [num, setNum] = useState(1);
+  let [cur, setCur] = useState(1);
+
+  const pages = [
+    {page: num },
+    {page: num + 1},
+    {page: num + 2 },
+    {page: num + 3 }
+  ]
+
+  const Next = () => {
+    setNum(num++)
+  }
+
+  const Prev = () => {
+    num > 1 && setNum(--num)
+  }
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const [post, setPost] = useState<any[]>([])
+  const [number, setNumber] = useState(1)
+  const postPerPage = 20
+  
+  const lastPost = number * postPerPage;
+  const firstPost = lastPost - postPerPage
+  const currentPost = post.slice(firstPost, lastPost)
+  const [data, setData] = useState(productData);
+  
+  const pageNumber = []
+  for (let i = 1; 1 <= Math.ceil(post.length / postPerPage); i++) {
+    pageNumber.push(i)
+  }
+
+
+  
+
+  console.log(pageNumber, "pageNumber");
+  //@ts-ignore
+  const menuItems = [...new Set(productData.map((d: any) => d.category))];
+
   return (
-    <div className="bg-[#EEEEEE]">
+    <div className="bg-[#EEEEEE] overflow-hidden relative">
       <NavBar />
+      <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
       <div className="bg-[#EEEEEE] pt-24">
         <div className="px-8">
           <ProductsBreadCrumbs
@@ -31,15 +77,14 @@ const ProductPage = ({ item }: any) => {
         </div>
 
         <div className="md:flex">
-          <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden md:block ">
-            <Filter />
+          <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden md:block overflow-hidden">
+            <Filter setData={setData} menuItem={menuItems} />
           </div>
           <div className="md:w-3/4 bg-white xxs:w-full">
             <div className="flex items-center justify-between  pl-3">
-              <div className="flex items-center justify-between gap-16">
-
-              <h1 className="text-xl font-medium">All Products</h1>
-               <div>
+              <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
+                <h1 className="text-xl font-medium">All Products</h1>
+                <div>
                   <p className="text-l text-gray-700">
                     Showing <span className="font-medium">1</span> -{" "}
                     <span className="font-medium">10</span> of{" "}
@@ -47,89 +92,52 @@ const ProductPage = ({ item }: any) => {
                   </p>
                 </div>
               </div>
-               
+
               <div className="flex items-center ">
-                <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD]">
+                <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD] xxs:hidden md:block">
                   Sort by:
                 </span>
-                <span>
+                <span className="xxs:hidden md:block">
                   <Sort />
                 </span>
-              </div>
-            </div>
-            <hr className="mx-3 bg-[#D9D9D9] border my-2" />
-
-            <List />
-            <div className="flex items-center justify-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-              
-              <div className="">
-                
-                <div className="">
-                  <nav
-                    className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-                    aria-label="Pagination"
-                  >
-                    <a
-                      href="/"
-                      className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      <span className="sr-only">Previous</span>
-                      <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                    </a>
-              
-                    <a
-                      href="/"
-                      aria-current="page"
-                      className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-                    >
-                      1
-                    </a>
-                    <a
-                      href="/"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      2
-                    </a>
-                    <a
-                      href="/"
-                      className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >
-                      3
-                    </a>
-                    <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
-                      ...
-                    </span>
-                    <a
-                      href="/"
-                      className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >
-                      8
-                    </a>
-                    <a
-                      href="/"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      9
-                    </a>
-                    <a
-                      href="/"
-                      className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      10
-                    </a>
-                    <a
-                      href="/"
-                      className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >
-                      <span className="sr-only">Next</span>
-                      <ChevronRightIcon
-                        className="h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </a>
-                  </nav>
+                <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
+                  <MdOutlineFilterAlt
+                    className="inline"
+                    size={22}
+                    onClick={() => setOpenModal(true)}
+                  />
+                  <span className="text-sm">Filter Products</span>
                 </div>
               </div>
+            </div>
+            <hr className="mx-3 bg-[#D9D9D9] border-2 my-2" />
+
+            <List Data={data} />
+            <div className="flex items-center justify-center gap-2  border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+              <button
+                onClick={Prev}
+                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-l-lg"
+              >
+                <RxCaretLeft size={28} />
+              </button>
+              {pages.map((pg, i) => (
+                <button
+                  className={`h-10 border-2  border-[#A2A2A2] w-10 ${
+                    cur === pg.page && "text-[#197B30] border-[#197B30]"
+                  }`}
+                  key={i}
+                  onClick={() => setCur(pg.page)}
+                >
+                  {pg.page}
+                </button>
+              ))}
+
+              <button
+                onClick={Next}
+                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-r-lg"
+              >
+                <RxCaretRight size={28} />
+              </button>
             </div>
           </div>
         </div>
