@@ -7,10 +7,16 @@ import {
 import { TbCurrencyNaira } from "react-icons/tb";
 import MultiSlider from "./MultiSlider";
 import MultiRangeSlider from "./MultiSlider";
+import { productData } from "../../utils/productData";
 
 interface IconProps {
   id: number;
   open: number;
+}
+
+interface iProps {
+  setData: React.SetStateAction<any>;
+  menuItem: any;
 }
 
 const Icon: React.FC<IconProps> = ({ id, open }) => {
@@ -30,7 +36,7 @@ const Icon: React.FC<IconProps> = ({ id, open }) => {
   );
 };
 
-const Filter: React.FC = () => {
+const Filter = ({ menuItem, setData }: iProps) => {
   // State to keep track of open Accordion
   const [open, setOpen] = useState(0);
   const [color, setColor] = useState("#197B30");
@@ -38,6 +44,30 @@ const Filter: React.FC = () => {
   // Handle to toggle Accordion open state
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
+  };
+
+  const filter = (cate: any) => {
+    const newItems = productData.filter((newVal: any) => {
+      return newVal.category === cate;
+    });
+    setData(newItems);
+  };
+  const [selected, setSelected] = React.useState(null);
+
+  console.log(selected);
+
+  const handleChange = (event: any) => {
+    const value = event.target.value;
+    setSelected(value === selected ? null : value);
+  };
+
+  const handleClick = (event: any) => {
+    handleChange(event);
+    filter(event.target.nextSibling.textContent);
+    console.log(event.target.defaultValue, "event");
+    if (selected !== null) {
+      setData(productData);
+    }
   };
 
   return (
@@ -52,19 +82,36 @@ const Filter: React.FC = () => {
         </AccordionHeader>
         <AccordionBody>
           <div>
-            <div className="">
+            {/* <div className="">
               <input type="checkbox" id="1" value={1} />
               <label className="ml-2 text-base font-normal" htmlFor="1">
-                Berkshire
+                category
               </label>
-            </div>
-            <div className="">
-              <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base font-normal" htmlFor="2">
-                Chester White
-              </label>
-            </div>
-            <div>
+            </div> */}
+            {menuItem.map((menu: any) => {
+              return (
+                // <div className="">
+                //   <input type="checkbox" id="2" value={2} />
+                //   <label className="ml-2 text-base font-normal" htmlFor="2">
+                //    {menu}
+                //   </label>
+                // </div>
+
+                <div className="">
+                  <input
+                    type="checkbox"
+                    id={menu}
+                    value={menu}
+                    checked={selected === menu}
+                    onChange={handleClick}
+                  />
+                  <label className="ml-2 text-base font-normal" htmlFor="2">
+                    {menu}
+                  </label>
+                </div>
+              );
+            })}
+            {/* <div>
               <input type="checkbox" id="3" value={3} />
               <label className="ml-2 text-base font-normal" htmlFor="3">
                 Duroc
@@ -81,13 +128,13 @@ const Filter: React.FC = () => {
               <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <input type="checkbox" id="1" value={6} />
               <label className="ml-2 text-base font-normal" htmlFor="5">
                 Landrace
               </label>
-            </div>
+            </div> */}
           </div>
         </AccordionBody>
       </Accordion>
@@ -245,4 +292,3 @@ const Filter: React.FC = () => {
 };
 
 export default Filter;
-

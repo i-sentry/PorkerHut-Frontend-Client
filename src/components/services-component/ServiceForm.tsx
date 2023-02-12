@@ -24,7 +24,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
     reset();
   };
 
-  console.log({ userData });
+  // console.log({ userData });
 
   const formData = [
     {
