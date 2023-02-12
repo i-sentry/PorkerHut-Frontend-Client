@@ -9,6 +9,7 @@ import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
 import ProductPage from "./pages/ProductPage";
 import WeekendKills from "./pages/WeekendKills";
+import VeterinaryServices from "./pages/VetServices";
 
 
 interface ServicePageProps {
@@ -28,10 +29,10 @@ function App() {
     switch (service) {
       case "agro-service":
         return <AgroServices />;
-      // case "veterinary-service":
-      //   return <VeterinaryServices />;
-      // case "weekend-kills":
-      //   return <WeekendKills />;
+      case "veterinary-service":
+        return <VeterinaryServices />;
+      case "weekend-kills":
+        return <WeekendKills />;
       default:
         // return <ServicesOverview />;
         return <Home />;
@@ -75,10 +76,7 @@ function App() {
       path: "/contact-us",
       element: <Contact_Page></Contact_Page>,
     },
-    {
-      path: "/weekend",
-      element: <WeekendKills></WeekendKills>,
-    },
+  
   ]);
 
   return (
