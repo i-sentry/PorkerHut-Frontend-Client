@@ -65,8 +65,8 @@ function App() {
       element: <BlogPage></BlogPage>,
     },
     {
-      // path: "/services",
-      path: "/services?service=weekend-kills",
+      path: "/services",
+      // path: "/services?service=weekend-kills",
       element: <ServicePage service={""} />,
     },
     {
