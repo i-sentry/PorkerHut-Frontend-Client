@@ -30,7 +30,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                   <span className="md:hidden">{link?.icon}</span>
                   <span className="md:link md:link--metis ">{link?.name}</span>
                 </span>
-                <span className="text-xl md:hidden inline ">
+                <span className=" md:hidden inline ">
                   {link?.subMenu === false ? (
                     ""
                   ) : heading === link?.name ? (
@@ -39,7 +39,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                     <IoChevronDown />
                   )}
                 </span>
-                <span className="text-xl md:mt-1 md:ml-2 hidden md:block group-hover:rotate-180">
+                <span className=" md:mt-1 md:ml-2 hidden md:block group-hover:rotate-180">
                   {link?.subMenu === false ? "" : <IoChevronDown />}
                 </span>
               </Link>
@@ -53,9 +53,9 @@ const NavLink = ({ setToggle }: Iprop) => {
                   <div className="bg-[#F5F5F5] p-3.5 relative w-80">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>
-                        <h1 className="text-lg font-semibold text-slate-500">
+                        {/* <h1 className="text-lg font-semibold text-slate-500">
                           {mySubLink.head}
-                        </h1>
+                        </h1> */}
                         {mySubLink.subLink.map((s: any, index: number) => (
                           <li
                             key={index}

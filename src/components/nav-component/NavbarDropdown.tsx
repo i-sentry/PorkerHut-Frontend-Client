@@ -49,7 +49,7 @@ export const links = [
     ],
   },
   {
-    name: "About-Us",
+    name: "About Us",
     subMenu: false,
     path: "/about-us",
     icon: <RiBook3Line size={20} />,
