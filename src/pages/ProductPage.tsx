@@ -12,8 +12,27 @@ import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCru
 import { MdOutlineFilterAlt } from "react-icons/md";
 import { productData } from "../utils/productData";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
 const ProductPage = ({}) => {
+
+  let [num, setNum] = useState(1);
+  let [cur, setCur] = useState(1);
+
+  const pages = [
+    {page: num },
+    {page: num + 1},
+    {page: num + 2 },
+    {page: num + 3 }
+  ]
+
+  const Next = () => {
+    setNum(num++)
+  }
+
+  const Prev = () => {
+    num > 1 && setNum(--num)
+  }
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -40,7 +59,7 @@ const ProductPage = ({}) => {
 
   return (
     <div className="bg-[#EEEEEE] overflow-hidden relative">
-      <NavBar/>
+      <NavBar />
       <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
       <div className="bg-[#EEEEEE] pt-24">
         <div className="px-8">
@@ -83,48 +102,43 @@ const ProductPage = ({}) => {
                   <Sort />
                 </span>
                 <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
-                  <MdOutlineFilterAlt className="inline" size={22} onClick={() => setOpenModal(true)} />
+                  <MdOutlineFilterAlt
+                    className="inline"
+                    size={22}
+                    onClick={() => setOpenModal(true)}
+                  />
                   <span className="text-sm">Filter Products</span>
                 </div>
               </div>
             </div>
-            <hr className="mx-3 bg-[#D9D9D9] border my-2" />
+            <hr className="mx-3 bg-[#D9D9D9] border-2 my-2" />
 
             <List Data={data} />
-            <div className="flex items-center justify-center border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-              <div className="">
-                <div className="">
-                  <nav
-                    className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-                    aria-label="Pagination"
-                  >
-                    <button className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20">
-                      <span className="sr-only">Previous</span>
-                      <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                    {pageNumber.map((p) => {
-                      console.log(p, "ppppp");
+            <div className="flex items-center justify-center gap-2  border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+              <button
+                onClick={Prev}
+                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-l-lg"
+              >
+                <RxCaretLeft size={28} />
+              </button>
+              {pages.map((pg, i) => (
+                <button
+                  className={`h-10 border-2  border-[#A2A2A2] w-10 ${
+                    cur === pg.page && "text-[#197B30] border-[#197B30]"
+                  }`}
+                  key={i}
+                  onClick={() => setCur(pg.page)}
+                >
+                  {pg.page}
+                </button>
+              ))}
 
-                      return (
-                        <button
-                          aria-current="page"
-                          className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-                        >
-                          {p}
-                        </button>
-                      );
-                    })}
-
-                    <button className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20">
-                      <span className="sr-only">Next</span>
-                      <ChevronRightIcon
-                        className="h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </button>
-                  </nav>
-                </div>
-              </div>
+              <button
+                onClick={Next}
+                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-r-lg"
+              >
+                <RxCaretRight size={28} />
+              </button>
             </div>
           </div>
         </div>
