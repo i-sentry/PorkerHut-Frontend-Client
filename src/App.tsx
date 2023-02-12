@@ -8,6 +8,7 @@ import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
+import VetServices from "./pages/VetServices";
 
 
 interface ServicePageProps {
@@ -70,6 +71,10 @@ const ServicePage: React.FC<ServicePageProps> = () => {
     {
       path: "/weekend",
       element: <WeekendKills></WeekendKills>,
+    },
+    {
+      path: "/vet",
+      element: <VetServices></VetServices>,
     },
   ]);
 
