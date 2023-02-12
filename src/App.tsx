@@ -7,7 +7,7 @@ import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
-import ProductPage from "./pages/ProductPage";
+// import ProductPage from "./pages/ProductPage";
 import WeekendKills from "./pages/WeekendKills";
 
 
@@ -68,8 +68,8 @@ function App() {
       element: <ServicePage service={""} />,
     },
     {
-      path: "/products",
-      element: <ProductPage></ProductPage>,
+      // path: "/products",
+      // element: <ProductPage></ProductPage>,
     },
     {
       path: "/contact-us",

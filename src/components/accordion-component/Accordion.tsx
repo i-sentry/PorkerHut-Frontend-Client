@@ -13,6 +13,7 @@ interface IconProps {
   open: number;
 }
 
+
 const Icon: React.FC<IconProps> = ({ id, open }) => {
   return (
     <svg

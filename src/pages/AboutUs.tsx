@@ -17,7 +17,7 @@ const About = () => {
           src={Pigdesktop}
           alt=""
         />
-        <div className=" absolute ml-[122px] md:px-[1%] top-1/2 -translate-y-1/3 md:ml-[100px] ">
+        <div className=" absolute ml-[122px] md:px-[1%] top-1/2 -translate-y-1/3">
           <h1 className=" text-white text-[32px] md:text-[40px]">About Us</h1>
           <BreadCrumbs
             items={[
