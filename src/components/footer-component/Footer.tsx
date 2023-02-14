@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate= useNavigate()
   return (
-    <div className="bg-[#333333] ">
+    <div className="bg-[#333333] xxs:p-5 md:p-0">
       <div className="flex flex-col md:px-10 max-md:mx-0 mx-4 ">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
           <div className="wrapper flex lg:justify-between items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">

@@ -53,9 +53,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                   <div className="bg-[#F5F5F5] p-3.5 relative w-80">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>
-                        {/* <h1 className="text-lg font-semibold text-slate-500">
-                          {mySubLink.head}
-                        </h1> */}
+
                         {mySubLink.subLink.map((s: any, index: number) => (
                           <li
                             key={index}
@@ -63,7 +61,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                           >
                             <Link
                               to={s?.link}
-                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2 px-2 rounded-full"
+                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2 px-2 rounded-md"
                             >
                               {s?.name}
                             </Link>
@@ -81,23 +79,14 @@ const NavLink = ({ setToggle }: Iprop) => {
             {link?.subLinks?.map((s: any, index: number) => (
               <div key={index}>
                 <div>
-                  {/* <h1
-                    onClick={() =>
-                      setSubHeading !== s?.head
-                        ? setSubHeading(s?.head)
-                        : setSubHeading("")
-                    }
-                    className="py-4 pl-14 font-semibold md:pr-0 pr-5 flex justify-between items-center  md:hidden"
-                  >
-                    {s.head}
-                  </h1> */}
+
                   <div>
                     {s?.subLink?.map((slink: any, index: number) => (
                       <li key={index} className="py-3 pl-14 md:hidden">
                         <Link
                           onClick={() => setToggle(false)}
                           to={slink?.link}
-                          className="hover-text-[#197B30] flex items-center gap-4"
+                          className=" flex items-center gap-4"
                         >
                           {slink?.icon}
                           {slink?.name}
