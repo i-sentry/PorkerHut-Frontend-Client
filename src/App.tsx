@@ -13,6 +13,8 @@ import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
 import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
+import OrderCancel from "./pages/OrderCancel";
+import OrderTracking from "./pages/OrderTracking";
 
 
 
@@ -58,6 +60,14 @@ function App() {
     {
       path: "/products",
       element: <ProductPage></ProductPage>,
+    },
+    {
+      path: "/order-cancel",
+      element: <OrderCancel></OrderCancel>,
+    },
+    {
+      path: "/order-tracking",
+      element: <OrderTracking></OrderTracking>,
     },
     {
       path: "/contact-us",
