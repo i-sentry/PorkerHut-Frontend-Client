@@ -31,17 +31,17 @@ export const links = [
         subLink: [
           {
             name: "Agro Services",
-            link: "/services?service=agro-service",
+            link: "/services/agro-services",
             icon: <GiPig size={20} />,
           },
           {
             name: "Veterinary Services",
-            link: "/services?service=veterinary-services",
+            link: "/services/veterinary-services",
             icon: <BiHealth size={20} />,
           },
           {
             name: "Weekend Kills",
-            link: "/services?service=weekend-kills",
+            link: "/services/weekend-kills",
             icon: <TbMeat size={20} />,
           },
         ],

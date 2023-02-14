@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "../src/pages/Home";
 import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
@@ -13,32 +15,9 @@ import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
 
 
-interface ServicePageProps {
-  service: string;
-}
 
 function App() {
-  const ServicePage: React.FC<ServicePageProps> = () => {
-    const [service, setService] = useState("");
 
-    useEffect(() => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const serviceParam = searchParams.get("service");
-      setService(serviceParam ? serviceParam : "");
-    }, []);
-
-    switch (service) {
-      case "agro-service":
-        return <AgroServices />;
-      case "veterinary-service":
-        return <VeterinaryServices />;
-      case "weekend-kills":
-        return <WeekendKills />;
-      default:
-        // return <ServicesOverview />;
-        return <Home />;
-    }
-  };
   const route = createBrowserRouter([
     {
       path: "/",
@@ -65,9 +44,16 @@ function App() {
       element: <BlogPage></BlogPage>,
     },
     {
-      path: "/services",
-      // path: "/services?service=weekend-kills",
-      element: <ServicePage service={""} />,
+      path: "/services/agro-services",
+      element: <AgroServices />,
+    },
+    {
+      path: "/services/weekend-kills",
+      element: <WeekendKills />,
+    },
+    {
+      path: "/services/veterinary-services",
+      element: <VeterinaryServices />,
     },
     {
       path: "/products",
@@ -77,7 +63,6 @@ function App() {
       path: "/contact-us",
       element: <Contact_Page></Contact_Page>,
     },
-  
   ]);
 
   return (
