@@ -48,6 +48,8 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
     }
   }, [maxVal, getPercent]);
 
+
+ 
   return (
     <div className="md:container xxs:w-full xxs:mb-[40px] xxs:flex xxs:items-center xxs:justify-between">
       <input
@@ -76,23 +78,23 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
         className="thumb thumb--right"
       />
 
-      <div className="relative w-full md:p-6 xxs:p-8">
-        <div className="md:w-full bg-[#ced4da] z-[1]"></div>
-        <div ref={range} className="slider__range "></div>
-        <div className="slider__left-value xxs:ml-2">
+      <div className="slider">
+        <div className="slider__track"></div>
+        <div ref={range} className="slider__range"></div>
+        <div className="slider__left-value">
           <span>
             <TbCurrencyNaira />
           </span>
           <span>{minVal}</span>
-        </div>
+         </div>
         <div className="slider__right-value">
           <span>
-            <TbCurrencyNaira />
+           <TbCurrencyNaira />
           </span>
-          <span>{maxVal}</span>
-        </div>
-      </div>
-    </div>
+           <span>{maxVal}</span>
+         </div>
+       </div>
+     </div>
   );
 };
 

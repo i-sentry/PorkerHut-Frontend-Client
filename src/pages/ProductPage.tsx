@@ -1,4 +1,3 @@
-import { log } from "console";
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import List from "../list/List";
@@ -14,7 +13,7 @@ import { productData } from "../utils/productData";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
-const ProductPage = ({}) => {
+const ProductPage = () => {
 
   let [num, setNum] = useState(1);
   let [cur, setCur] = useState(1);

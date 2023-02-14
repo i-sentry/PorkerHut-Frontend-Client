@@ -9,9 +9,12 @@ import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
 import Contact_Page from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
-import ProductPage from "./pages/ProductPage";
+// import ProductPage from "./pages/ProductPage";
 import WeekendKills from "./pages/WeekendKills";
 import VeterinaryServices from "./pages/VetServices";
+import ProductPage from "./pages/ProductPage";
+import OrderCancel from "./pages/OrderCancel";
+import OrderTracking from "./pages/OrderTracking";
 
 
 
@@ -57,6 +60,14 @@ function App() {
     {
       path: "/products",
       element: <ProductPage></ProductPage>,
+    },
+    {
+      path: "/order-cancel",
+      element: <OrderCancel></OrderCancel>,
+    },
+    {
+      path: "/order-tracking",
+      element: <OrderTracking></OrderTracking>,
     },
     {
       path: "/contact-us",

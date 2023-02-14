@@ -9,6 +9,9 @@ import BreadCrumbs from "../components/BreadCrumbs";
 const About = () => {
   return (
     <>
+      <NavBar />
+
+ 
       <nav className="mb-20">
             <NavBar />
           </nav>
@@ -128,6 +131,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      
       <Footer />
     </>
   );
