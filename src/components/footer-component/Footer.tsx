@@ -2,9 +2,8 @@ import React from "react";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import { useNavigate } from "react-router-dom";
 
-
 const Footer = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="bg-[#333333] xxs:p-5 md:p-0">
       <div className="flex flex-col md:px-10 max-md:mx-0 mx-4 ">
@@ -55,7 +54,10 @@ const Footer = () => {
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
                 Affiliate
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/about-us", { replace: true })}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 About
               </span>
               <span

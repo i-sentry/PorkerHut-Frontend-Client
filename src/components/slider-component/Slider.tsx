@@ -61,7 +61,7 @@ const Slider: React.FC<SliderProps> = ({sliderImages}: SliderProps) => {
       {dataSlider.map((obj, index) => {
         return (
           <div
-            key={obj.id}
+            key={index}
             className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
           >
             <img src={obj.src} />
