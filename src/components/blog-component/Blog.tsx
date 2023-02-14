@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 let blog_img1 = require("../../assets/images/Blog_frame_1.png");
 let blog_img2 = require("../../assets/images/Blog_frame-2.jpg");
 
@@ -38,9 +39,9 @@ const Blog = () => {
               eaque, aperiam
             </div>
             <div className="">
-              <button className="bg-[#197B30] py-2 px-6 my-5 rounded text-[#FFFFFF]">
+              <Link to="/blog" className="bg-[#197B30] py-2 px-6 my-5 rounded text-[#FFFFFF]">
                 Learn More
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -65,9 +66,9 @@ const Blog = () => {
               eaque, aperiam
             </div>
             <div className="">
-              <button className="bg-[#197B30] xxs:py-2 xxs:px-6 my-5 rounded text-[#FFFFFF]">
+              <Link to="/blog" className="bg-[#197B30] xxs:py-2 xxs:px-6 my-5 rounded text-[#FFFFFF]">
                 Learn More
-              </button>
+              </Link>
             </div>
           </div>
         </div>
