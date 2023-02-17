@@ -34,7 +34,7 @@ const OrderNavbar = () => {
           />
         </div>
 
-        <div>
+        <div className="pr-4">
           <div>
             <Menu as="div" className="relative">
               <div>

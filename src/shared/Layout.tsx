@@ -5,7 +5,7 @@ import OrderSidebar from "../components/order-page-component/OrderSidebar";
 
 const Layout = () => {
   return (
-    <div className="h-screen w-screen overflow-y-scroll overflow-x-hidden">
+    <div className="h-screen w-screen overflow-hidden overflow-x-hidden">
       <div className=" ">
         <div className="">
           <OrderNavbar />
@@ -17,7 +17,7 @@ const Layout = () => {
           <OrderSidebar />
           </div>
 
-          <div className=" outlet">{<Outlet />}</div>
+          <div className="overflow-y-scroll outlet">{<Outlet />}</div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import OrderTable from "../../components/order-page-component/OrderTable";
 
 const SellersOrderPage = () => {
   return (
-    <div className="w-full bg-[#fff] p-5 pr-9">
+    <div className="w-full h-[900px] bg-[#fff] p-5 pr-9">
       <div className="bg-transparent w-full">
         <div>
           <DashboardStatsGrid />

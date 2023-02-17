@@ -44,7 +44,7 @@ const DashboardStatsGrid = () => {
 
       <div className="flex items-center justify-between mt-4">
         <div className="flex items-center justify-between gap-4 ">
-          <input type="radio" className="w-5 h-5" />
+          <input type="radio" className="w-4 h-4" />
           <input
             type="search"
             className="h-9 w-[300px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-lg"

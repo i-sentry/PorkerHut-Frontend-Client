@@ -24,7 +24,7 @@ const TableSection: React.FC<TableSectionProps> = ({ order, index }) => {
     <tbody className="py-8 w-full">
       <tr className="border border-[#D9D9D9]">
         <td className="p-2 border-r border-white">
-          <input type="radio" className="" />
+          <input type="radio" className="w-4 h-4" />
         </td>
         <td className="button-td">
           <ExpandableButton isOpen={isOpen} toggle={toggle} />

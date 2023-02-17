@@ -107,7 +107,7 @@ const OrderTable = () => {
   ];
   return (
     <div className=" ">
-      <div className="mt-4">
+      <div className="mt-8">
         <table className=" min-w-full">
           <thead className=" py-5 px-5 bg-[#F4F4F4]">
             <tr>
@@ -121,16 +121,7 @@ const OrderTable = () => {
               <td className="px-5 py-5">Status</td>
             </tr>
           </thead>
-          {/* <tbody>
-            {OrderData.map((order) => (
-                <tr key={order.id}>
-                    <td>
-                        <input type="radio" />
-                    </td>
-                    <td>Details </td>
-                </tr>
-            ))}
-          </tbody> */}
+    
 
           {OrderData.map((order, index) => (
             <TableSection order={order} index={index} />

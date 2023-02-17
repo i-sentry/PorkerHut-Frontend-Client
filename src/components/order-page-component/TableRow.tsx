@@ -4,7 +4,7 @@ const TableRow = ({ order }: any) => {
   return (
     <tr className="">
       <td className="bg-black py-4 text-white px-2 border-r border-white">
-        <input type="radio" />
+        <input type="radio" className="w-4 h-4" />
       </td>
       <td className="bg-black py-4 text-white px-2 border-r border-white">
         {order.order_details}
@@ -21,7 +21,7 @@ const TableRow = ({ order }: any) => {
       <td className="bg-black text-white py-4 px-2 border-r border-white">
         {order.price}
       </td>
-    <td className="bg-black text-white py-4 px-2 border-r border-white">
+      <td className="bg-black text-white py-4 px-2 border-r border-white">
         {order.quantity}
       </td>
       <td className="bg-black text-white py-4 px-2 border-r border-white">
