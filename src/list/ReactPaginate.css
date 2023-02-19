@@ -1,0 +1,7 @@
+.paginationsBtn {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}

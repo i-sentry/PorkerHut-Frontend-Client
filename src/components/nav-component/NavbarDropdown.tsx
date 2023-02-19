@@ -29,24 +29,37 @@ export const links = [
       {
         head: "We Offer",
         subLink: [
-          { name: "Agro Services", link: "/", icon: <GiPig size={20} /> },
+          {
+            name: "Agro Services",
+            link: "/services/agro-services",
+            icon: <GiPig size={20} />,
+          },
           {
             name: "Veterinary Services",
-            link: "/",
+            link: "/services/veterinary-services",
             icon: <BiHealth size={20} />,
           },
-          { name: "Weekend Kills", link: "/", icon: <TbMeat size={20} /> },
+          {
+            name: "Weekend Kills",
+            link: "/services/weekend-kills",
+            icon: <TbMeat size={20} />,
+          },
         ],
       },
     ],
   },
   {
-    name: "About-Us",
+    name: "About Us",
     subMenu: false,
     path: "/about-us",
     icon: <RiBook3Line size={20} />,
   },
-  { name: "Blog", subMenu: false, path: "/blog", icon: <ImBlog size={20} /> },
+  {
+    name: "Blog",
+    subMenu: false,
+    path: "/blog",
+    icon: <ImBlog size={20} />,
+  },
   {
     name: "Contact",
     subMenu: false,

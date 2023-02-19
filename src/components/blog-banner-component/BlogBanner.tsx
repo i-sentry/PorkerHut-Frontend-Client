@@ -5,7 +5,7 @@ import blog from "../../assets/images/BlogBanner.png";
 const BlogBanner = () => {
   return (
     <div className="mb-10">
-      <div className="h-96 w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
+      <div className="h-[330px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
         <img
           src={blog}
           alt=""

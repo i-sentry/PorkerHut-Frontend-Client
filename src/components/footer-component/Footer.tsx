@@ -1,11 +1,12 @@
 import React from "react";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
-
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
-    <div className="bg-[#333333] mt-10">
-      <div className="flex flex-col max-md:px-10 max-md:mx-0 mx-20 ">
+    <div className="bg-[#333333] xxs:p-5 md:p-0">
+      <div className="flex flex-col md:px-10 max-md:mx-0 mx-4 ">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
           <div className="wrapper flex lg:justify-between items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
             <span className="font-semibold md:text-2xl sm:text-base  md:mb-2">
@@ -35,8 +36,6 @@ const Footer = () => {
                 <p className="title text-xl  font-semibold text text-left  text-[#FFFFFF] font-Roboto-slab">
                   Porker Hut
                 </p>
-
-             
               </div>
             </div>
 
@@ -55,13 +54,22 @@ const Footer = () => {
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
                 Affiliate
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/about-us", { replace: true })}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 About
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/blog", { replace: true })}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Blog
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/contact-us", { replace: true })}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Contact Us
               </span>
             </div>
@@ -78,7 +86,12 @@ const Footer = () => {
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
                 Livestocks
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() =>
+                  navigate("/services?service=agro-service", { replace: true })
+                }
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Agro Services
               </span>
             </div>
@@ -96,7 +109,12 @@ const Footer = () => {
             <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
               Livestocks
             </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            <span
+              onClick={() =>
+                navigate("/services?service=agro-service", { replace: true })
+              }
+              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+            >
               Agro Services
             </span>
           </div>
