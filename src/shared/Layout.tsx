@@ -10,13 +10,10 @@ const Layout = () => {
         <div className="">
           <OrderNavbar />
         </div>
-
         <div className="flex w-screen h-screen">
           <div className="flex flex-1">
-
           <OrderSidebar />
           </div>
-
           <div className=" outlet">{<Outlet />}</div>
         </div>
       </div>

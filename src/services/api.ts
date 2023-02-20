@@ -1,8 +1,13 @@
 import axios from "axios";
 
-export const BASEURL = process.env.REACT_APP_BASE_URL || "";
+export const BASEURL =
+  process.env.REACT_APP_BASE_URL || "https://pockerhut-api.onrender.com";
 
-export const api = {};
+export const api = {
+  Users: {
+    userSignup: "/api/user/signup",
+  },
+};
 
 export const makePostRequest = async (
   data: any,

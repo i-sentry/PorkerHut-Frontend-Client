@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
 import { productData } from "../../../utils/productData";
 import ProductCard from "../ProductCard";
+import { chunkArray } from "../../../helper/chunck";
+
 
 const FeaturedProduct = () => {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+
+  const [data, setData] = useState(productData);
+  let itemsPerPage = 12;
+  let currentPage = 1;
+  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
+  useEffect(() => setData(productData), [productData]);
 
   return (
     <>
@@ -20,9 +26,11 @@ const FeaturedProduct = () => {
         </div>
       </div>
       <div className="w-full grid md:grid-cols-4 p-4 gap-3  xxs:grid-cols-2 ">
-        {productData.map((item: any) => {
-          return <ProductCard item={item} />;
-        })}
+        {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+          (item: any) => {
+            return <ProductCard item={item} />;
+          }
+        )}
       </div>
     </>
   );

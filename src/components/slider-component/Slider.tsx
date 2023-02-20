@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./Slider.css";
 import BtnSlider from "./BtnSlider";
@@ -7,21 +6,24 @@ interface SliderProps {
   sliderImages: never[];
 }
 
-const Slider: React.FC<SliderProps> = ({sliderImages}: SliderProps) => {
+const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const dataSlider = [
     {
-    id: 1,
-    src: "./images/Banner.jpg",
-  },
+      id: 1,
+      src: "./images/Banner.jpg",
+      name: "banner_img",
+    },
     {
-    id: 2,
-    src: "./images/Banner1.jpg",
-  },
+      id: 2,
+      src: "./images/Banner1.jpg",
+      name: "banner_img",
+    },
     {
-    id: 3,
-    src: "./images/Banner2.jpg",
-  },
-];
+      id: 3,
+      src: "./images/Banner2.jpg",
+      name: "banner_img",
+    },
+  ];
 
   const [slideIndex, setSlideIndex] = useState(1);
 
@@ -41,18 +43,15 @@ const Slider: React.FC<SliderProps> = ({sliderImages}: SliderProps) => {
     }
   };
 
-  
-   useEffect(() => {
-     const id = setInterval(() => {
-       nextSlide();
-     }, 3000);
+  useEffect(() => {
+    const id = setInterval(() => {
+      nextSlide();
+    }, 3000);
 
-     return () => clearInterval(id);
-   }, [slideIndex, sliderImages]);
-  
-      
+    return () => clearInterval(id);
+  }, [slideIndex, sliderImages]);
 
-  const moveDot = (index: React.SetStateAction<number>) => {
+  const moveDot = (index: any) => {
     setSlideIndex(index);
   };
 
@@ -64,14 +63,14 @@ const Slider: React.FC<SliderProps> = ({sliderImages}: SliderProps) => {
             key={index}
             className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
           >
-            <img src={obj.src} />
+            <img src={obj.src} alt="" />
           </div>
         );
       })}
       <BtnSlider moveSlide={nextSlide} direction={"next"} />
       <BtnSlider moveSlide={prevSlide} direction={"prev"} />
 
-      <div className="container-dots">
+      <div className="container-dots ">
         {Array.from({ length: 3 }).map((item, index) => (
           <div
             onClick={() => moveDot(index + 1)}
@@ -81,6 +80,6 @@ const Slider: React.FC<SliderProps> = ({sliderImages}: SliderProps) => {
       </div>
     </div>
   );
-}
+};
 
 export default Slider;
