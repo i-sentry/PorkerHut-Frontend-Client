@@ -109,19 +109,20 @@ const OrderTable = () => {
     <div className=" ">
       <div className="mt-8">
         <table className=" min-w-full">
-          <thead className=" py-5 px-5 bg-[#F4F4F4]">
-            <tr>
+          <thead className=" py-5 px-5 bg-[#F4F4F4] ">
+            <tr className="">
               <td className="px-5 py-5"></td>
               <td className="px-5 py-5"></td>
-              <td className="px-5 py-5">Order Number</td>
-              <td className="px-5 py-5">Confirmation Date</td>
-              <td className="px-5 py-5">Updated Date</td>
-              <td className="px-5 py-5">Price</td>
-              <td className="px-5 py-5">Quantity</td>
-              <td className="px-5 py-5">Status</td>
+              <td className="px-5 py-5 text-sm font-normal">Order Number</td>
+              <td className="px-5 py-5 text-sm font-normal">
+                Confirmation Date
+              </td>
+              <td className="px-5 py-5 text-sm font-normal">Updated Date</td>
+              <td className="px-5 py-5 text-sm font-normal">Price</td>
+              <td className="px-5 py-5 text-sm font-normal">Quantity</td>
+              <td className="px-5 py-5 text-sm font-normal">Status</td>
             </tr>
           </thead>
-    
 
           {OrderData.map((order, index) => (
             <TableSection order={order} index={index} />

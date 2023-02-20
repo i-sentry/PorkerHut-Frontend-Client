@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import "../slider-component/Slider";
+import "./Dashboard.css";
 import { HiOutlineSearch } from "react-icons/hi";
 import { RiArrowDownSLine } from "react-icons/ri";
+import BtnSlider from "../slider-component/BtnSlider";
 
 const DashboardStatsGrid = () => {
+  const dataSlider = [
+    {
+      id: 1,
+      name: "Today",
+      total: "",
+    },
+    {
+      id: 2,
+      name: "Today",
+      total: 400,
+    },
+    {
+      id: 3,
+      name: "Today",
+      total: 400,
+    },
+    {
+      id: 4,
+      name: "Today",
+      total: 400,
+    },
+    {
+      id: 5,
+      name: "Today",
+      total: 400,
+    },
+  ];
+
   return (
-    <>
-      <h1 className="text-2xl font-medium mb-2">Orders</h1>
-      <div className="grid grid-cols-5 h-16 items-center justify-center">
+    <div className="">
+      <h1 className="text-2xl font-medium mb-2 ">Orders</h1>
+      <div className="md:grid md:grid-cols-5 h-16 items-center justify-center xxs:hidden">
         <div className="bg-[#F4F4F4] h-16 flex items-center justify-center flex-1 border-[#D9D9D9] border-r-2 gap-2 rounded-l-lg">
           <h1 className="font-normal">Today</h1>
           <RiArrowDownSLine />
@@ -49,7 +80,9 @@ const DashboardStatsGrid = () => {
             type="search"
             className="h-9 w-[300px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-lg"
           />
-          <button className="h-9  bg-[#197B30] w-16 rounded-lg text-white">Go</button>
+          <button className="h-9  bg-[#197B30] w-16 rounded-lg text-white">
+            Go
+          </button>
         </div>
         <div>
           <div className="relative flex items-center justify-center px-5">
@@ -64,7 +97,7 @@ const DashboardStatsGrid = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

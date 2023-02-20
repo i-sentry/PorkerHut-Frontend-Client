@@ -4,21 +4,33 @@ import { ORDER_DASHBOARD_SIDEBAR_LINKS } from "../../utils/Navigation";
 
 interface Iprop {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  item: any
+  item: any;
 }
 
 const linkClass =
-  "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-6 py-4 hover:text-[#197b30]";
+  "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-6 md:py-4 xxs:py-6 hover:text-[#197b30]";
 
-const OrderSidebar = () => {
+const OrderSidebar = ({ sidebar }: any) => {
   return (
-    <div className=" bg-white h-full pt-4 border-r border-slate-400 overflow-y-auto w-60">
-      <div>
-        {ORDER_DASHBOARD_SIDEBAR_LINKS.map((item: any) => (
-          <SidebarLink key={item.key} item={item} setToggle={function (value: React.SetStateAction<boolean>): void {
-            throw new Error("Function not implemented.");
-          } } />
-        ))}
+    <div>
+      <div
+        className={` ${
+          sidebar
+            ? "left-0 xxs:w-[80%] xxs:h-full transform transition-all duration-300 ease-in-out"
+            : "left-[-100%] md:left-0"
+        } first-letter: md:h-full md:pt-4 border-r md:border-slate-400 md:overflow-y-auto md:block xxs:fixed md:bg-white xxs:bg-white xxs:opacity-100`}
+      >
+        <div>
+          {ORDER_DASHBOARD_SIDEBAR_LINKS.map((item: any) => (
+            <SidebarLink
+              key={item.key}
+              item={item}
+              setToggle={function (value: React.SetStateAction<boolean>): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -36,20 +48,18 @@ function SidebarLink({ item, setToggle }: Iprop) {
   }
 
   return (
-    <Link to={item.path} className={linkClass}
+    <Link
+      to={item.path}
+      className={linkClass}
       onClick={() => {
-        heading !== item.label
-          ? setHeading(item.label)
-          : setHeading("");
+        heading !== item.label ? setHeading(item.label) : setHeading("");
         setSubHeading("");
         setToggle(item.label === "Products" ? true : false);
-
-    }}
+      }}
     >
       <span className="text-xl">{item.icon}</span>
       {item.label}
       {item.icon_two}
-      
     </Link>
   );
 }

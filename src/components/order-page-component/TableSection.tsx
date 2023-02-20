@@ -21,20 +21,30 @@ interface TableSectionProps {
 const TableSection: React.FC<TableSectionProps> = ({ order, index }) => {
   const { isOpen, toggle } = UseOpenControl(false);
   return (
-    <tbody className="py-8 w-full">
-      <tr className="border border-[#D9D9D9]">
-        <td className="p-2 border-r border-white">
+    <tbody className="">
+      <tr className="border border-[#D9D9D9] ">
+        <td className="p-2  border-white">
           <input type="radio" className="w-4 h-4" />
         </td>
-        <td className="button-td">
+        <td className="px-2 py-4 border-r-2  border-r-[#D9D9D9]">
           <ExpandableButton isOpen={isOpen} toggle={toggle} />
         </td>
-        <td className=" border-r border-white">{order.order_number}</td>
-        <td>{order.confirmation_data}</td>
-        <td>{order.updated_date}</td>
-        <td>{order.price}</td>
-        <td>{order.quantity}</td>
-        <td>{order.order_status}</td>
+        <td className=" border-white text-sm font-normal border-r-2  border-r-[#D9D9D9] px-2 py-4">
+          {order.order_number}
+        </td>
+        <td className="text-sm font-normal border-r-2  border-r-[#D9D9D9] px-2 py-4">
+          {order.confirmation_data}
+        </td>
+        <td className="text-sm font-normal border-r-2  border-r-[#D9D9D9] px-2 py-4">
+          {order.updated_date}
+        </td>
+        <td className="text-sm font-normal border-r-2  border-r-[#D9D9D9] px-2 py-4">
+          {order.price}
+        </td>
+        <td className="text-sm font-normal border-r-2  border-r-[#D9D9D9] px-2 py-4">
+          {order.quantity}
+        </td>
+        <td className="text-sm font-normal px-2">{order.order_status}</td>
       </tr>
       {isOpen && <TableRow order={order} />}
     </tbody>

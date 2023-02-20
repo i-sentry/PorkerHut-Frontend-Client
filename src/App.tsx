@@ -21,65 +21,7 @@ import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
 
 function App() {
-  // const route = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Home></Home>,
-  //   },
-  //   {
-  //     path: "/about-us",
-  //     element: <About></About>,
-  //   },
-  //   {
-  //     path: "/sign-up",
-  //     element: <SignUp></SignUp>,
-  //   },
-  //   {
-  //     path: "/login",
-  //     element: <AuthPage></AuthPage>,
-  //   },
-  //   {
-  //     path: "/blog",
-  //     element: <BlogPage></BlogPage>,
-  //   },
-  //   {
-  //     path: "/blog",
-  //     element: <BlogPage></BlogPage>,
-  //   },
-  //   {
-  //     path: "/services/agro-services",
-  //     element: <AgroServices />,
-  //   },
-  //   {
-  //     path: "/services/weekend-kills",
-  //     element: <WeekendKills />,
-  //   },
-  //   {
-  //     path: "/services/veterinary-services",
-  //     element: <VeterinaryServices />,
-  //   },
-  //   {
-  //     path: "/products",
-  //     element: <ProductPage></ProductPage>,
-  //   },
-  //   {
-  //     path: "/order-cancel",
-  //     element: <OrderCancel></OrderCancel>,
-  //   },
-  //   {
-  //     path: "/order-tracking",
-  //     element: <OrderTracking></OrderTracking>,
-  //   },
-  //   {
-  //     path: "/contact-us",
-  //     element: <Contact_Page></Contact_Page>,
-  //   },
-
-  //   {
-  //     path: "/order",
-  //     element: <OrderPage></OrderPage>,
-  //   },
-  // ]);
+ 
 
   return (
     <main className="">
@@ -89,6 +31,7 @@ function App() {
           <Route path="/about-us" element={<About />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/products" element={<ProductPage />} />
           <Route path="/sellers-dashboard" element={<Layout />}>
             <Route index element={<SellersHome />} />
             <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
