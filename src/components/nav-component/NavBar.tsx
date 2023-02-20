@@ -10,8 +10,7 @@ import NavLink, { HelpLink } from "./NavLink";
 import NavButton from "./NavButton";
 import Ripples from "react-ripples";
 import { FiMenu } from "react-icons/fi";
-// import { BiSearchAlt2 } from 'react-icons/bi'
-// import { BsCart4 } from 'react-icons/bs'
+
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);

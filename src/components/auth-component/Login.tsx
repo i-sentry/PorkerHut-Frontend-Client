@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Ripples from "react-ripples";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
+import AuthContext from "../../context/AuthProvider";
+
 interface ILoginProps {
   email: string;
   password: string;
   checkbox: string;
 }
 const Login = () => {
+  //@ts-ignore
+  const {setAuth} = useContext(AuthContext);
   const [eyeState, setEyeState] = useState(false);
   const {
     register,

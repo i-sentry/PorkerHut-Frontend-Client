@@ -9,7 +9,9 @@ const BlogPage = () => {
     <>
       <NavBar />
       <BlogBanner />
-      <BlogArticles />
+      <div className="p-4">
+        <BlogArticles />
+      </div>
       <Footer />
     </>
   );

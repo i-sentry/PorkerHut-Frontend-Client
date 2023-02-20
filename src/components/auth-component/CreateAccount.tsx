@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 
+
 const CreateAccount = () => {
+  // const createUserAcc = useUserSignUp()
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
   const [customersSignup, setcustomersSignup] = useState(true);
