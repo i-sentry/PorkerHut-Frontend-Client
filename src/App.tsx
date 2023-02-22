@@ -19,10 +19,10 @@ import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
 import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
 import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
+import MyOrder from "./pages/MyOrder";
+import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 
 function App() {
- 
-
   return (
     <main className="">
       <BrowserRouter>
@@ -32,14 +32,34 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/my-order" element={<MyOrder />} />
+          <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/sellers-dashboard" element={<Layout />}>
             <Route index element={<SellersHome />} />
-            <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
-            <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
-            <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
-            <Route path="/sellers-dashboard/account" element={<SellersAccount />} />
-            <Route path="/sellers-dashboard/performance" element={<SellersPerformance />} />
-            <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
+            <Route
+              path="/sellers-dashboard/order"
+              element={<SellersOrderPage />}
+            />
+            <Route
+              path="/sellers-dashboard/product"
+              element={<SellersProductPage />}
+            />
+            <Route
+              path="/sellers-dashboard/create-product"
+              element={<CreateProduct />}
+            />
+            <Route
+              path="/sellers-dashboard/account"
+              element={<SellersAccount />}
+            />
+            <Route
+              path="/sellers-dashboard/performance"
+              element={<SellersPerformance />}
+            />
+            <Route
+              path="/sellers-dashboard/setting"
+              element={<SellersSetting />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

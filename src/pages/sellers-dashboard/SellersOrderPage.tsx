@@ -1,6 +1,6 @@
 import React from "react";
-import DashboardStatsGrid from "../../components/order-page-component/DashboardStatsGrid";
-import OrderTable from "../../components/order-page-component/OrderTable";
+import DashboardStatsGrid from "../../components/sellers-order-page-component/DashboardStatsGrid";
+import OrderTable from "../../components/sellers-order-page-component/OrderTable";
 
 const SellersOrderPage = () => {
   return (

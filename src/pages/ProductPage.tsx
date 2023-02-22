@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import List from "../list/List";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
@@ -14,43 +14,39 @@ import FilterSidebar from "../components/accordion-component/FilterSidebarModal"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
 const ProductPage = () => {
-
   let [num, setNum] = useState(1);
   let [cur, setCur] = useState(1);
 
   const pages = [
-    {page: num },
-    {page: num + 1},
-    {page: num + 2 },
-    {page: num + 3 }
-  ]
+    { page: num },
+    { page: num + 1 },
+    { page: num + 2 },
+    { page: num + 3 },
+  ];
 
   const Next = () => {
-    setNum(num++)
-  }
+    setNum(num++);
+  };
 
   const Prev = () => {
-    num > 1 && setNum(--num)
-  }
+    num > 1 && setNum(--num);
+  };
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const [post, setPost] = useState<any[]>([])
-  const [number, setNumber] = useState(1)
-  const postPerPage = 20
-  
+  const [post, setPost] = useState<any[]>([]);
+  const [number, setNumber] = useState(1);
+  const postPerPage = 20;
+
   const lastPost = number * postPerPage;
-  const firstPost = lastPost - postPerPage
-  const currentPost = post.slice(firstPost, lastPost)
+  const firstPost = lastPost - postPerPage;
+  const currentPost = post.slice(firstPost, lastPost);
   const [data, setData] = useState(productData);
-  
-  const pageNumber = []
+
+  const pageNumber = [];
   for (let i = 1; 1 <= Math.ceil(post.length / postPerPage); i++) {
-    pageNumber.push(i)
+    pageNumber.push(i);
   }
-
-
-  
 
   console.log(pageNumber, "pageNumber");
   //@ts-ignore

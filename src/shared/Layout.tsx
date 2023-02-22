@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import OrderNavbar from "../components/order-page-component/OrderNavbar";
-import OrderSidebar from "../components/order-page-component/OrderSidebar";
+import OrderNavbar from "../components/sellers-order-page-component/OrderNavbar";
+import OrderSidebar from "../components/sellers-order-page-component/OrderSidebar";
 
 const Layout = () => {
 
