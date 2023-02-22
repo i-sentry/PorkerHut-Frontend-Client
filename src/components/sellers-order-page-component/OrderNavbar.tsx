@@ -10,20 +10,26 @@ import classNames from "classnames";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaBars } from "react-icons/fa";
 
-const OrderNavbar = () => {
+const OrderNavbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
 
   return (
     <div className="bg-white border border-[#D9D9D9] h-20 w-full px-4 flex items-center justify-between">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
+        <FaBars
+          size={30}
+          onClick={() => setSidebar(!sidebar)}
+          className="md:hidden"
+        />
         <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-        <h1 className="porker text-xl font-bold text-[#197B30]  font-Roboto-slab select-none">
+        <h1 className="porker md:text-xl xxs:text-lg font-bold text-[#197B30]  font-Roboto-slab select-none">
           Porker Hut
         </h1>
       </div>
       <div className="flex items-center justify-between gap-20">
-        <div className="relative flex items-center justify-center">
+        <div className="md:relative md:flex md:items-center md:justify-center xxs:hidden">
           <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 left-[352px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
             <HiOutlineSearch size={20} />
           </div>
@@ -34,11 +40,12 @@ const OrderNavbar = () => {
           />
         </div>
 
-        <div>
-          <div>
+        <div className="md:pr-4">
+          <div className="flex items-center justify-center gap-4">
+            <HiOutlineSearch size={20} className="md:hidden" />
             <Menu as="div" className="relative">
               <div>
-                <Menu.Button className="  flex items-center justify-between gap-2">
+                <Menu.Button className="  flex items-center justify-between md:gap-2">
                   <div
                     className="h-12 w-12 rounded-full bg-cover bg-no-repeat bg-center flex"
                     style={{
@@ -46,7 +53,7 @@ const OrderNavbar = () => {
                         'url("https://source.unsplash.com/80x80?face")',
                     }}
                   ></div>
-                  <div className="flex flex-col gap-1">
+                  <div className="md:flex md:flex-col md:gap-1 xxs:hidden">
                     <span className="text-base font-semibold leading-4">
                       John Doe
                     </span>
