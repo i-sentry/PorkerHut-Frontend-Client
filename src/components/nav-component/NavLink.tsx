@@ -46,22 +46,22 @@ const NavLink = ({ setToggle }: Iprop) => {
             </div>
             {link.subMenu && (
               <div>
-                <div className="absolute top-[70px] hidden group-hover:md:block hover:md:block shadow-sm">
-                  <div className="py-3">
+                <div className="absolute top-[50px] hidden group-hover:md:block hover:md:block shadow-sm">
+                  {/* <div className="py-3">
                     <div className="w-4 h-4 left-3 absolute mt-1 bg-[#F5F5F5] rotate-45"></div>
-                  </div>
-                  <div className="bg-[#F5F5F5] p-3.5 relative w-80">
+                  </div> */}
+                  <div className="bg-[#FFFFFF]  relative  border rounded-sm border-slate-300 p-1 w-40">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>
 
                         {mySubLink.subLink.map((s: any, index: number) => (
                           <li
                             key={index}
-                            className="text-sm text-slate-500 my-2.5"
+                            className="text-sm text-slate-500 my-2.5 hover:font-semibold "
                           >
                             <Link
                               to={s?.link}
-                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2 px-2 rounded-md"
+                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2  rounded-md w-full"
                             >
                               {s?.name}
                             </Link>

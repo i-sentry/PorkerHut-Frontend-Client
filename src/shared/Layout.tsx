@@ -16,7 +16,6 @@ const Layout = () => {
         <div className="">
           <OrderNavbar sidebar={sidebar} setSidebar={setSidebar} />
         </div>
-
         <div className="flex w-screen h-screen">
           <div className="flex md:flex-1">
 

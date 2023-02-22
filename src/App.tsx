@@ -4,7 +4,7 @@ import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
 import SignUp from "../src/pages/Authentication/SignUp";
 import BlogPage from "./pages/BlogPage";
-import Contact_Page from "./pages/Contact_Page";
+import ContactPage from "./pages/Contact_Page";
 import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
 import VeterinaryServices from "./pages/VetServices";
@@ -23,17 +23,27 @@ import MyOrder from "./pages/MyOrder";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 
 function App() {
+
+
   return (
     <main className="">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
+          <Route path="/contact-us" element={<ContactPage />} />
+          <Route path="/services/weekend-kills" element={<WeekendKills />} />
+          <Route
+            path="/services/veterinary-services"
+            element={<VeterinaryServices />}
+          />
+          <Route path="/services/agro-services" element={<AgroServices />} />
           <Route path="/sellers-dashboard" element={<Layout />}>
             <Route index element={<SellersHome />} />
             <Route

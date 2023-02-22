@@ -11,7 +11,7 @@ const About = () => {
     <>
       <NavBar />
 
- 
+
       <nav className="mb-20">
             <NavBar />
           </nav>
@@ -24,7 +24,7 @@ const About = () => {
               />
               <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
                 <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
-                  Weekend Kills
+                  About Us
                 </h1>
                 <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
                   <BreadCrumbs
@@ -131,7 +131,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      
+
       <Footer />
     </>
   );
