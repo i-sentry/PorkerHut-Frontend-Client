@@ -19,6 +19,8 @@ import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
 import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
 import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
+import MyOrder from "./pages/MyOrder";
+import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/my-order" element={<MyOrder />} />
+          <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
           <Route
