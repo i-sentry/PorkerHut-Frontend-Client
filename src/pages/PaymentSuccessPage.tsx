@@ -1,13 +1,10 @@
 import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import { BsCart3 } from "react-icons/bs";
-
-
-
+import { GoVerified } from "react-icons/go";
 import Footer from "../components/footer-component/Footer";
 
-const EmptyCartPage = () => {
+const PaymentSuccessPage = () => {
   return (
     <>
       <div className="  bg-[#F5F5F5]">
@@ -33,15 +30,32 @@ const EmptyCartPage = () => {
             </div>
           </div>
 
-          <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[739px] mx-8 mb-20 rounded-lg">
-            <h1 className=" p-8 text-2xl font-semibold text-[#333333]">Cart</h1>
-            <div className=" flex flex-col items-center text-center mt-24 md:mt-56 relative">
-              <h1 className=" text-[32px] leading-9 text-[#333333] font-medium mb-8">Your Cart is Empty</h1>
-              <div className=" opacity-[0.1] absolute  top-[-38px] ">
-              <BsCart3 size={100} />   
+          <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[561px] mx-8 mb-20 rounded-lg">
+            <div className=" flex flex-col items-center text-center mt-24 md:mt-32">
+              <div className=" opacity-[0.5] ">
+                <GoVerified
+                  size={100}
+                  className="icon"
+                  style={{
+                    
+                    color:"#197B30"
+                  }}
+                  
+                />
               </div>
+              <h1 className=" pt-4 text-[18px] md:text-base leading-7 text-[#333333] font-medium mb-8">
+                Payment Successful
+              </h1>
+              <p className=" text-xs md:text-sm text-[#333333]">
+                Your Order ID #101101 has been placed
+              </p>
+              <p className=" text-xs md:text-xs px-4 mb-4 text-[#333333]">
+                We sent an email to williamsnado@gmail.com with your order
+                confirmation and bill.
+              </p>
+
               <button className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
-                Start Shopping
+                Continue Shopping
               </button>
             </div>
           </div>
@@ -53,4 +67,4 @@ const EmptyCartPage = () => {
   );
 };
 
-export default EmptyCartPage;
+export default PaymentSuccessPage;
