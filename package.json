@@ -25,7 +25,8 @@
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "swiper": "^8.4.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

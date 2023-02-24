@@ -21,6 +21,7 @@ import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
 import MyOrder from "./pages/MyOrder";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
+import FavouriteProductPage from "./pages/FavouriteProductPage";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/favourite-products" element={<FavouriteProductPage />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
