@@ -3,6 +3,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import NavBar from "../components/nav-component/NavBar";
 import MyOrderSection from "../components/sellers-order-page-component/MyOrderSection";
+import {useOrderStore} from "../store/orderStore"
 
 
 
@@ -150,6 +151,7 @@ import MyOrderSection from "../components/sellers-order-page-component/MyOrderSe
  ];
 
 const MyOrder = () => {
+  useOrderStore()
   const [modalInfo, setModalInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
@@ -181,7 +183,7 @@ const MyOrder = () => {
   const rowEvents = {
     onClick: (e: any, row: any) => {
       console.log(row);
-      
+
     }
   }
   return (
@@ -275,29 +277,6 @@ const MyOrder = () => {
 
 export default MyOrder;
 
-
-
-// import data from "./data.json";
-// const MyComponent = ({ id }) => {
-//   const [objectData, setObjectData] = useState(null);
-//   useEffect(() => {
-//     const filteredObject = data.find((obj) => obj.id === id);
-//     setObjectData(filteredObject);
-//   }, [id]);
-//   return (
-//     <div>
-//       {objectData ? (
-//         <div>
-//           <h2>{objectData.name}</h2>
-//           <p>{objectData.description}</p>
-//         </div>
-//       ) : (
-//         <p>No data found for ID {id}</p>
-//       )}
-//     </div>
-//   );
-// };
-// export default MyComponent;
 
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/nav-component/NavBar";
-import BreadCrumbs from "../components/BreadCrumbs";
+import BreadCrumbs from "../components/utility/BreadCrumbs";
 import BlogBanner from "../assets/images/BlogBanner.png";
 import SuyaImg from "../assets/images/SuyaImg.png";
 import ServiceForm from "../components/services-component/ServiceForm";
@@ -42,8 +42,6 @@ const WeekendKills = () => {
               </div>
             </div>
           </div>
-          
-
         </div>
       </div>
       <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1360px] m-auto md:flex">

@@ -3,46 +3,44 @@ import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
 import Pigdesktop from "../../src/assets/images/Pigdesktop.png";
 import PlantImg from "../../src/assets/images/PlantImg.png";
-import BreadCrumbs from "../components/BreadCrumbs";
-
+import BreadCrumbs from "../components/utility/BreadCrumbs";
 
 const About = () => {
   return (
     <>
       <NavBar />
 
-
       <nav className="mb-20">
-            <NavBar />
-          </nav>
-          <div className="mb-10">
-            <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
-              <img
-                src={Pigdesktop}
-                alt=""
-                className="w-full h-full object-cover absolute mix-blend-overlay"
+        <NavBar />
+      </nav>
+      <div className="mb-10">
+        <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
+          <img
+            src={Pigdesktop}
+            alt=""
+            className="w-full h-full object-cover absolute mix-blend-overlay"
+          />
+          <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
+            <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
+              About Us
+            </h1>
+            <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
+              <BreadCrumbs
+                items={[
+                  {
+                    name: "Home",
+                    link: "/",
+                  },
+                  {
+                    name: "About Us",
+                    link: "/",
+                  },
+                ]}
               />
-              <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
-                <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
-                  About Us
-                </h1>
-                <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
-                  <BreadCrumbs
-                    items={[
-                      {
-                        name: "Home",
-                        link: "/",
-                      },
-                      {
-                        name: "About Us",
-                        link: "/",
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
             </div>
           </div>
+        </div>
+      </div>
 
       <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1360px] m-auto md:flex">
         <div className=" p-6 flex-1 md:p-16">

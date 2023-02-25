@@ -1,7 +1,7 @@
 import React from "react";
 import headerImg from "../assets/images/contactBanner.png";
 import NavBar from "../components/nav-component/NavBar";
-import BreadCrumbs from "../components/BreadCrumbs";
+import BreadCrumbs from "../components/utility/BreadCrumbs";
 import ServiceForm from "../components/services-component/ServiceForm";
 import Footer from "../components/footer-component/Footer";
 
