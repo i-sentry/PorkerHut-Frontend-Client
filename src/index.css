@@ -57,3 +57,7 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.outlet{
+  flex: 4;
+}
+

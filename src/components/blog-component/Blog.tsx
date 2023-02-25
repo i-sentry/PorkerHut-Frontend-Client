@@ -1,11 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { AiOutlineRight } from "react-icons/ai";
-let blog_img1 = require("../../assets/images/Blog_frame_1.png");
-let blog_img2 = require("../../assets/images/Blog_frame-2.jpg");
+import { Link } from "react-router-dom";
+import { chunkArray } from "../../helper/chunck";
+import { IBlog, blogData } from "../../utils/blogData";
+import BlogCard from "../blog-banner-component/BlogCard";
+
 
 const Blog = () => {
+   const [data, setData] = useState(blogData);
+   let itemsPerPage = 4;
+   let currentPage = 1;
+   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
+   useEffect(() => setData(blogData), [blogData]);
   return (
-    <section className="w-full md:h-[650px] xxs:h-[1100px]">
+    <section className="w-full md:h-[550px] xxs:h-[1100px]">
       <div>
         <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
           <h1 className="font-semibold text-2xl">Latest Blogs & Articles</h1>
@@ -14,69 +22,20 @@ const Blog = () => {
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="w-full max-h-[1000px] md:grid md:grid-cols-2 md:gap-10 md:px-10  xxs:grid-cols-1 xxs:px-3 ">
-        <div className="flex flex-col items-center w-full xxs:mb-10">
-          <div className="w-full">
-            <img
-              src={blog_img1}
-              alt=""
-              className="object-cover w-full max-h-[1000px]"
-            />
-          </div>
-
-          <div className="bottom w-[90%] bg-white max-h-[400px] p-8 mt-[-100px] md:border-2 xxs:border">
-            <div className="md:flex md:items-center md:justify-between">
-              <h1 className=" font-semibold">
-                The monetary aspect of Pig farm
-              </h1>
-              <span className="text-xs text-[#B4B4B4]">Jan 20, 2022</span>
-            </div>
-            <div className="my-4  text-xs text-[#B4B4B4] ">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
-              quas enim voluptates at adipisci. Accusantium, molestias.
-              Voluptas, rem corrupti sit quia ipsum facilis, nemo deleniti
-              eaque, aperiam
-            </div>
-            <div className="">
-              <button className="bg-[#197B30] py-2 px-6 my-5 rounded text-[#FFFFFF]">
-                Learn More
-              </button>
-            </div>
-          </div>
+      <>
+        <div className="p-2 grid md:grid-cols-4 xxs:grid-cols-2 items-center justify-center gap-3">
+          {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+            (blog: IBlog, index: any) => {
+              return <BlogCard blog={blog} key={index} />;
+            }
+          )}
         </div>
-        <div className="flex flex-col items-center w-full">
-          <div className="w-full">
-            <img
-              src={blog_img2}
-              alt=""
-              className="object-cover w-full max-h-[1000px]"
-            />
-          </div>
-
-          <div className="bottom w-[90%] bg-white max-h-[500px] p-8 mt-[-100px] md:border-2 xxs:border">
-            <div className="md:flex md:items-center md:justify-between">
-              <h1 className="font-semibold">The monetary aspect of Pig farm</h1>
-              <span className="text-xs text-[#B4B4B4]">Jan 20, 2022</span>
-            </div>
-            <div className="my-4 text-xs text-[#B4B4B4]">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
-              quas enim voluptates at adipisci. Accusantium, molestias.
-              Voluptas, rem corrupti sit quia ipsum facilis, nemo deleniti
-              eaque, aperiam
-            </div>
-            <div className="">
-              <button className="bg-[#197B30] xxs:py-2 xxs:px-6 my-5 rounded text-[#FFFFFF]">
-                Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </>
 
       <div className="xxs:mt-10 md:mt-5 flex items-center justify-center ">
-        <a href="" className="text-sm pr-4 underline font-medium">
+        <Link to="#" className="text-sm pr-4 underline font-medium">
           VIEW ALL
-        </a>
+        </Link>
         <AiOutlineRight />
       </div>
     </section>

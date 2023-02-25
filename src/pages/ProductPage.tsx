@@ -1,7 +1,4 @@
-import React, {useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
-import List from "../list/List";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import React, { useState, useEffect } from "react";
 import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
 import NavBar from "../components/nav-component/NavBar";
@@ -12,49 +9,20 @@ import { MdOutlineFilterAlt } from "react-icons/md";
 import { productData } from "../utils/productData";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import ProductCard from "../components/featured-product-component/ProductCard";
+import { chunkArray } from "../helper/chunck";
 
 const ProductPage = () => {
-
-  let [num, setNum] = useState(1);
-  let [cur, setCur] = useState(1);
-
-  const pages = [
-    {page: num },
-    {page: num + 1},
-    {page: num + 2 },
-    {page: num + 3 }
-  ]
-
-  const Next = () => {
-    setNum(num++)
-  }
-
-  const Prev = () => {
-    num > 1 && setNum(--num)
-  }
-
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const [post, setPost] = useState<any[]>([])
-  const [number, setNumber] = useState(1)
-  const postPerPage = 20
-  
-  const lastPost = number * postPerPage;
-  const firstPost = lastPost - postPerPage
-  const currentPost = post.slice(firstPost, lastPost)
   const [data, setData] = useState(productData);
-  
-  const pageNumber = []
-  for (let i = 1; 1 <= Math.ceil(post.length / postPerPage); i++) {
-    pageNumber.push(i)
-  }
-
-
-  
-
-  console.log(pageNumber, "pageNumber");
+  let itemsPerPage = 20;
+  let currentPage = 1;
+  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
+
+  useEffect(() => setData(productData), [productData]);
 
   return (
     <div className="bg-[#EEEEEE] overflow-hidden relative">
@@ -86,9 +54,10 @@ const ProductPage = () => {
                 <h1 className="text-xl font-medium">All Products</h1>
                 <div>
                   <p className="text-l text-gray-700">
-                    Showing <span className="font-medium">1</span> -{" "}
-                    <span className="font-medium">10</span> of{" "}
-                    <span className="font-medium">97</span> results
+                    Showing{" "}
+                    <span className="font-medium">{currentPageIndex}</span> -{" "}
+                    <span className="font-medium">{itemsPerPage}</span> of{" "}
+                    <span className="font-medium">{data?.length}</span> results
                   </p>
                 </div>
               </div>
@@ -110,33 +79,67 @@ const ProductPage = () => {
                 </div>
               </div>
             </div>
-            <hr className="mx-3 bg-[#D9D9D9] border-2 my-2" />
 
-            <List Data={data} />
-            <div className="flex items-center justify-center gap-2  border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            {data?.length ? (
+              <div className="grid md:grid-cols-4 mb-6 xxs:grid-cols-2">
+                {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+                  (Tdata, index) => {
+                    console.log(Tdata, "Tdata");
+                    return <ProductCard item={Tdata} key={Tdata.id} />;
+                  }
+                )}
+              </div>
+            ) : (
+              <div>Fetching Data...</div>
+            )}
+
+            <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
               <button
-                onClick={Prev}
-                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-l-lg"
+                onClick={() =>
+                  currentPageIndex !== 1
+                    ? setCurrentPageIndex(currentPageIndex - 1)
+                    : null
+                }
+                className={
+                  (currentPageIndex === 1 ? "no-item" : "") +
+                  " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
+                }
               >
-                <RxCaretLeft size={28} />
+                <RxCaretLeft size={16 } />
               </button>
-              {pages.map((pg, i) => (
-                <button
-                  className={`h-10 border-2  border-[#A2A2A2] w-10 ${
-                    cur === pg.page && "text-[#197B30] border-[#197B30]"
-                  }`}
-                  key={i}
-                  onClick={() => setCur(pg.page)}
-                >
-                  {pg.page}
-                </button>
-              ))}
+              <div className="pagination flex gap-1 items-center">
+
+              {chunkArray(data, itemsPerPage).map((_, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPageIndex(index + 1)}
+                    className={` border-2   border-[#A2A2A2]  ${
+                      currentPageIndex === index + 1
+                        ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
+                        : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                );
+              })}
+              </div>
 
               <button
-                onClick={Next}
-                className="h-10 border-2 border-[#A2A2A2] w-10 hover:bg-[#A2A2A2] hover:text-white px-1 rounded-r-lg"
+                onClick={() =>
+                  currentPageIndex !== chunkArray(data, itemsPerPage).length
+                    ? setCurrentPageIndex(currentPageIndex + 1)
+                    : null
+                }
+                className={
+                  (currentPageIndex === chunkArray(data, itemsPerPage).length
+                    ? "no-items"
+                    : "") +
+                  " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
+                }
               >
-                <RxCaretRight size={28} />
+                <RxCaretRight size={16} />
               </button>
             </div>
           </div>

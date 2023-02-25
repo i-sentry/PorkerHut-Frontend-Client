@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 let backgroundMobile = require("../../assets/images/Agro-mobile.jpg");
 let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
@@ -16,12 +17,12 @@ const Services = () => {
           <p className="my-8">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
           </p>
-          <a
-            href=""
+          <Link
+            to="/services/agro-services"
             className="bg-[#197b30] py-4 px-6 my-4 text-white xxs:py-3 xxs:px-5 xxs:rounded xxs:text-sm xxs:font-normal"
           >
             Learn More
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -37,7 +38,9 @@ const Services = () => {
             quidem veritatis quod quisquam repudiandae perferendis aut dolores
             sed rem hic perspiciatis, distinctio, voluptas modi cumque ad!
           </p>
-          <a href="" className="py-3 px-5 bg-[#197B30] rounded text-white ">Learn More</a>
+          <Link to="/services/agro-services" className="py-3 px-5 bg-[#197B30] rounded text-white ">
+            Learn More
+          </Link>
         </div>
 
         <div className="xxs:hidden md:block w-[55%] ">

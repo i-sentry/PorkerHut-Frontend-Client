@@ -11,7 +11,7 @@ const ProductCard = ({ item }: any) => {
 
   // console.log({ item });
   return (
-    <div className=" flex flex-col shadow-lg rounded-md ease-in-out p-3 transform hover:translate-y-2 hover:shadow-xl transition duration-300">
+    <div className=" flex flex-col shadow-lg rounded-md ease-in-out p-3 transform hover:translate-y-2 hover:shadow-xl transition duration-300 cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
         <img
           src={item?.img}
@@ -27,15 +27,21 @@ const ProductCard = ({ item }: any) => {
         </div>
       </div>
       <div className="z-10 bg-white">
-        <div className="flex items-center justify-between">
-          <h2>{item?.title}</h2>
-          <span>Osun</span>
+        <div className="flex items-center justify-between py-1">
+          <h2 className="text-sm text-[#A2A2A2]">{item?.title}</h2>
+          <span className="text-sm text-[#A2A2A2]">
+            {item?.product?.location}
+          </span>
         </div>
-        <div className="flex items-center justify-between">
-          <h1>{}</h1>
-          <span>1000g</span>
+        <div className="flex items-center justify-between py-1">
+          <h1 className="whitespace-nowrap text-sm font-semibold">
+            {item?.product?.productName}
+          </h1>
+          <span className="whitespace-nowrap text-sm font-semibold">
+            {item?.product?.weight}
+          </span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between py-1">
           <div className="flex text-yellow-500 cursor-pointer">
             {[...Array(5)].map((start, i) => {
               const ratingValue = i + 1;
@@ -49,7 +55,6 @@ const ProductCard = ({ item }: any) => {
                     onClick={() => setRating(ratingValue)}
                   />
                   <AiFillStar
-                  
                     size={20}
                     color={
                       ratingValue <= (hover || rating) ? "#fe6600" : "#e4e5e9"
@@ -61,7 +66,9 @@ const ProductCard = ({ item }: any) => {
               );
             })}
           </div>
-          <span>N3000</span>
+          <span className="whitespace-nowrap text-sm font-semibold">
+            ₦{item?.price}
+          </span>
         </div>
       </div>
     </div>
