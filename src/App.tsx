@@ -11,6 +11,7 @@ import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
+import AffiliatePage from "./pages/AffiliatePage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/affi-page" element={<AffiliatePage />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
