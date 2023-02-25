@@ -9,6 +9,7 @@ import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
 import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
 import Layout from "./shared/Layout";
@@ -36,6 +37,7 @@ function App() {
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/my-order" element={<MyOrder />} />
+          <Route path="/pay-success" element={<PaymentSuccessPage />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
