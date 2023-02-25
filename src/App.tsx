@@ -11,6 +11,7 @@ import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
+import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -36,6 +37,7 @@ function App() {
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/my-order" element={<MyOrder />} />
+          <Route path="/pay-fail" element={<PaymentFailPage />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
