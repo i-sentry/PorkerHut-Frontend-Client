@@ -9,6 +9,7 @@ import AgroServices from "./pages/AgroServices";
 import WeekendKills from "./pages/WeekendKills";
 import VeterinaryServices from "./pages/VetServices";
 import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
 import Layout from "./shared/Layout";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/cart-page" element={<CartPage />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
           <Route path="/contact-us" element={<ContactPage />} />
