@@ -18,9 +18,11 @@ import { OrderData } from "../../pages/MyOrder";
  }
 
 const MyOrderSection = ({ order, rowEvents }: any) => {
+  
   const [orderId, setOrderId] = useState(null)
   const navigate = useNavigate()
-  console.log(order?.id)
+  
+
   const handleView = (orderid: any) => {
     setOrderId(orderid);
     navigate(`/my__orders/${orderid}`, {replace:true})
