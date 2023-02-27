@@ -3,186 +3,184 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import NavBar from "../components/nav-component/NavBar";
 import MyOrderSection from "../components/sellers-order-page-component/MyOrderSection";
+import { useOrderStore } from "../store/orderStore";
+
+export const OrderData = [
+  {
+    id: "1",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "21 September 2022",
+    order_id: "21 September 2022",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "2",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "21 September 2022",
+    order_id: "21 September 2022",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "3",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "21 September 2022",
+    order_id: "21 September 2022",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "4",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "5",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "21 September 2022",
+    order_id: "21 September 2022",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "6",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "7",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "8",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "9",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+  {
+    id: "10",
+    img: "./images/productimg1.png",
+    location: "Abuja",
+    time: "20:40pm",
+    product_name: "100%  Healthy-Fed Pork Lap",
+    store_name: "Porker Hut",
+    order_date: "2023-01-13T19:30:00Z",
+    order_id: "2023-01-13T19:30:00Z",
+    price: "32,500",
+    quantity: "4",
+    order_total: "30,000",
+    order_status: "PLACED",
+  },
+];
 
 const MyOrder = () => {
+  useOrderStore();
   const [modalInfo, setModalInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
   let [num, setNum] = useState(1);
   let [cur, setCur] = useState(1);
 
   const pages = [
-    {page: num },
-    {page: num + 1},
-    {page: num + 2 },
-    {page: num + 3 }
-  ]
+    { page: num },
+    { page: num + 1 },
+    { page: num + 2 },
+    { page: num + 3 },
+  ];
 
   const Next = () => {
-    setNum(num++)
-  }
+    setNum(num++);
+  };
 
   const Prev = () => {
-    num > 1 && setNum(--num)
-  }
-
-
-
-  const OrderData = [
-    {
-      id: "1",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "2",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "3",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "4",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "5",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "6",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "7",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "8",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "9",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-    {
-      id: "10",
-      img: "./images/productimg1.png",
-      location: "Abuja",
-      time: "20:40pm",
-      product_name: "100%  Healthy-Fed Pork Lap",
-      store_name: "Porker Hut",
-      order_date: "21 September 2022",
-      order_id: "21 September 2022",
-      price: "32,500",
-      quantity: "4",
-      order_total: "30,000",
-      order_status: "PLACED",
-    },
-  ];
+    num > 1 && setNum(--num);
+  };
 
   const rowEvents = {
     onClick: (e: any, row: any) => {
       console.log(row);
-      
-    }
-  }
+    },
+  };
   return (
-    <div className="w-full h-screen">
+    <div className="w-full ">
       <NavBar />
       <div className="flex items-center flex-col justify-center mt-28">
         <h2 className="text-2xl font-medium">My Orders</h2>
@@ -271,6 +269,3 @@ const MyOrder = () => {
 };
 
 export default MyOrder;
-
-
-
