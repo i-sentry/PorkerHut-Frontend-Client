@@ -1,5 +1,5 @@
 import React from "react";
-import BreadCrumb from "../BreadCrumbs";
+import BreadCrumb from "../utility/BreadCrumbs";
 import blog from "../../assets/images/BlogBanner.png";
 
 const BlogBanner = () => {
