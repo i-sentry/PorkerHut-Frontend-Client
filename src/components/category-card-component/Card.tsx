@@ -10,7 +10,7 @@ interface CategoryProps {
 const Card = ({ id, title, src }: CategoryProps) => {
   return (
 
-      <Link to={""} className="md:w-full md:h-full relative xxs:w-[560px] xxs:h-56 overflow-x-scroll ">
+      <Link to={""} className="md:w-full md:h-full relative xxs:w-[560px] xxs:h-56 overflow-hidden ">
         <img
           src={src}
           alt=""

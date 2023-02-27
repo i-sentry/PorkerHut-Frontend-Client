@@ -4,15 +4,16 @@ import Footer from "../components/footer-component/Footer";
 import Pigdesktop from "../../src/assets/images/Pigdesktop.png";
 import PlantImg from "../../src/assets/images/PlantImg.png";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
+import AppLayout from "../components/utility/AppLayout";
 
 const About = () => {
   return (
-    <>
-      <NavBar />
+    <AppLayout>
+      {/* <NavBar />
 
       <nav className="mb-20">
         <NavBar />
-      </nav>
+      </nav> */}
       <div className="mb-10">
         <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
           <img
@@ -130,8 +131,8 @@ const About = () => {
         </div>
       </div>
 
-      <Footer />
-    </>
+      {/* <Footer /> */}
+    </AppLayout>
   );
 };
 

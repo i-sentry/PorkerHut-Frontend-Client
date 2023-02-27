@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import FavouriteProductCard from "../components/favourite-product-card/FavouriteProductCard";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import { productData } from "../utils/productData";
@@ -11,7 +10,7 @@ const FavouriteProductPage = () => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
     useEffect(() => setData(productData), [productData]);
- 
+
   return (
     <div>
       <div>
@@ -26,9 +25,9 @@ const FavouriteProductPage = () => {
         <>
           <div className="grid grid-cols-4">
                       {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-            
+
                           (item: any) => {
-                              
+
                 return <ProductCard item={item} />;
               }
             )}

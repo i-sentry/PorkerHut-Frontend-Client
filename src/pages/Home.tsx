@@ -15,14 +15,15 @@ import Footer from "../components/footer-component/Footer";
 import BestSellingProduct from "../components/featured-product-component/best-selling-product/FeaturedProduct";
 import FeaturedProduct from "../components/featured-product-component/best-selling-product/FeaturedProduct";
 import Product from "../components/featured-product-component/best-selling-product/Product";
+import AppLayout from "../components/utility/AppLayout";
 
 
 const Home: React.FC = () => {
   return (
-    <div className="w-full overflow-hidden">
+    <AppLayout >
       <div className="mb-20">
 
-      <NavBar/>
+      {/* <NavBar/> */}
       </div>
       <div className="bg-slate-400">
 
@@ -32,16 +33,16 @@ const Home: React.FC = () => {
       <Category />
       <Services />
       <Header />
-    
+
 
       <Product />
-     
+
       <FeaturedProduct />
-      
+
       <Story />
       <Blog />
-     <Footer/>
-    </div>
+     {/* <Footer/> */}
+    </AppLayout>
   );
 };
 

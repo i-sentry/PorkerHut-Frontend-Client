@@ -1,13 +1,14 @@
 import React from "react";
-import NavBar from "../components/nav-component/NavBar";
-import Footer from "../components/footer-component/Footer";
-import BreadCrumbs from "../components/utility/BreadCrumbs";
-import AgroservImg from "../../src/assets/images/AgroservImg.png";
-import FarmingImg from "../../src/assets/images/FarmingImg.png";
-import FeedImg from "../../src/assets/images/FeedImg.png";
-import LivestockFarmingImg from "../../src/assets/images/LivestockFarmingImg.png";
-import PigFarmingImg from "../../src/assets/images/PigFarmingImg.png";
+import NavBar from "../../components/nav-component/NavBar";
+import Footer from "../../components/footer-component/Footer";
+import BreadCrumbs from "../../components/utility/BreadCrumbs";
+import AgroservImg from "../../../src/assets/images/AgroservImg.png";
+import FarmingImg from "../../../src/assets/images/FarmingImg.png";
+import FeedImg from "../../../src/assets/images/FeedImg.png";
+import LivestockFarmingImg from "../../../src/assets/images/LivestockFarmingImg.png";
+import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
 import { useLocation } from "react-router-dom";
+import AppLayout from "../../components/utility/AppLayout";
 
 const AgroServices = () => {
   const location = useLocation();
@@ -16,11 +17,11 @@ const AgroServices = () => {
 
   // console.log(agroService);
   return (
-    <>
+    <AppLayout>
       <div className="overflow-x-hidden">
-        <nav className="mb-20">
+        {/* <nav className="mb-20">
           <NavBar />
-        </nav>
+        </nav> */}
         <div className="container  max-w-screen-xl ">
           <div
             className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
@@ -147,10 +148,10 @@ const AgroServices = () => {
             </div>
           </div>
 
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
-    </>
+    </AppLayout>
   );
 };
 

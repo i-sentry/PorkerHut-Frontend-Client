@@ -1,16 +1,16 @@
 import React from "react";
 import headerImg from "../assets/images/contactBanner.png";
-import NavBar from "../components/nav-component/NavBar";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
 import ServiceForm from "../components/services-component/ServiceForm";
-import Footer from "../components/footer-component/Footer";
+import AppLayout from "../components/utility/AppLayout";
 
 const Contact_Page = () => {
   return (
+    <AppLayout>
     <div className="overflow-x-hidden">
-      <nav className="mb-20">
+      {/* <nav className="mb-20">
         <NavBar />
-      </nav>
+      </nav> */}
       <div className="  max-w-screen-xl ">
         <div
           className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
@@ -45,10 +45,12 @@ const Contact_Page = () => {
           title="Send us a Message"
         />
       </section>
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </div>
+
+    </AppLayout>
   );
 };
 

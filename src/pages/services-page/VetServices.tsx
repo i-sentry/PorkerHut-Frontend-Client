@@ -1,20 +1,21 @@
 import React from "react";
-import NavBar from "../components/nav-component/NavBar";
-import BreadCrumbs from "../components/utility/BreadCrumbs";
-import VetImg from "../assets/images/VetImg.png";
-import PigImg from "../assets/images/PigImg.png";
-import VetDrImg from "../assets/images/VetDrImg.png";
-import Footer from "../components/footer-component/Footer";
-import ServiceForm from "../components/services-component/ServiceForm";
+import NavBar from "../../components/nav-component/NavBar";
+import BreadCrumbs from "../../components/utility/BreadCrumbs";
+import VetImg from "../../assets/images/VetImg.png";
+import PigImg from "../../assets/images/PigImg.png";
+import VetDrImg from "../../assets/images/VetDrImg.png";
+import Footer from "../../components/footer-component/Footer";
+import ServiceForm from "../../components/services-component/ServiceForm";
+import AppLayout from "../../components/utility/AppLayout";
 
 const VetServices = () => {
   return (
     <>
-      <div>
+      <AppLayout>
         <div className="overflow-x-hidden">
-          <nav className="mb-20">
+          {/* <nav className="mb-20">
             <NavBar />
-          </nav>
+          </nav> */}
           <div className="container  max-w-screen-xl ">
             <div
               className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
@@ -135,10 +136,10 @@ const VetServices = () => {
             title="Let us vet for you"
           />
         </section>
-      </div>
-      <footer>
+      </AppLayout>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </>
   );
 };
