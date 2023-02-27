@@ -16,7 +16,9 @@ import { Tooltip } from "../../components/utility/ToolTip";
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const handleOnclose = () => setShowModal(false);
+
   const { id } = useParams();
+  
   const navigate = useNavigate();
 
   const [orderData, setOrderData] = useState<IOrderData>({
@@ -39,7 +41,7 @@ const MyOrderDetails = () => {
     //@ts-ignore
     setOrderData(filteredOrder);
   }, [id]);
-  console.log(orderData, "gekkki");
+  
   return (
     <>
       <div className="m-auto mt-10 ">
