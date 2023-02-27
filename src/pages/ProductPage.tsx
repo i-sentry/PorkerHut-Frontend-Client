@@ -11,6 +11,7 @@ import FilterSidebar from "../components/accordion-component/FilterSidebarModal"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
+import AppLayout from "../components/utility/AppLayout";
 
 const ProductPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -25,8 +26,10 @@ const ProductPage = () => {
   useEffect(() => setData(productData), [productData]);
 
   return (
+    <AppLayout>
+
     <div className="bg-[#EEEEEE] overflow-hidden relative">
-      <NavBar />
+      {/* <NavBar /> */}
       <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
       <div className="bg-[#EEEEEE] pt-24">
         <div className="px-8">
@@ -144,9 +147,10 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
+    </AppLayout>
   );
 };
 
