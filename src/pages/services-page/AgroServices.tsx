@@ -22,9 +22,9 @@ const AgroServices = () => {
         {/* <nav className="mb-20">
           <NavBar />
         </nav> */}
-        <div className="container  max-w-screen-xl ">
+        <div className="max-w-screen-xl ">
           <div
-            className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
+            className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[350px] bg-cover bg-center py-20 px-14"
             style={{
               backgroundImage: ` url('${AgroservImg}')`,
               backgroundSize: "cover",
@@ -32,8 +32,8 @@ const AgroServices = () => {
               width: "100vw",
             }}
           >
-            <h1 className="mb-2 text-3xl font-medium  text-left   text-[#fff]">
-              Contact Us
+            <h1 className="mb-2 text-3xl font-medium    text-[#fff]">
+              Agro Services
             </h1>
 
             <BreadCrumbs
@@ -43,8 +43,8 @@ const AgroServices = () => {
                   link: "/",
                 },
                 {
-                  name: "Contact Us",
-                  link: "/contact-us",
+                  name: "Agro Services",
+                  link: "/agro-services",
                 },
               ]}
             />

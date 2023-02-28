@@ -1,27 +1,26 @@
 import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
-import BreadCrumbs from "../components/utility/BreadCrumbs";
 import AgroservImg from "../../src/assets/images/AgroservImg.png";
 import FarmingImg from "../../src/assets/images/FarmingImg.png";
 import FeedImg from "../../src/assets/images/FeedImg.png";
 import LivestockFarmingImg from "../../src/assets/images/LivestockFarmingImg.png";
 import PigFarmingImg from "../../src/assets/images/PigFarmingImg.png";
 import ServiceForm from "../components/services-component/ServiceForm";
+import BreadCrumbs from "../components/utility/BreadCrumbs";
+import AppLayout from "../components/utility/AppLayout";
 
-import { useLocation } from "react-router-dom";
 
 const AgroServices = () => {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-  const agroService = query.get("agro-service");
 
   // console.log(agroService);
   return (
     <>
-      <nav className="mb-20">
+      <AppLayout>
+
+      {/* <nav className="mb-20">
         <NavBar />
-      </nav>
+      </nav> */}
       <div className="mb-10 ">
         <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
           <img
@@ -163,12 +162,13 @@ const AgroServices = () => {
           title="Let's Talk Agro Services"
         />
       </section>
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
+          </AppLayout>
+
     </>
   );
 };
 
 export default AgroServices;
-
