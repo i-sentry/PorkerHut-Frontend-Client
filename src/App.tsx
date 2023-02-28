@@ -24,6 +24,7 @@ import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
 import EmptyCartPage from "./pages/EmptyCartPage";
+import BillingPage from "./pages/BillingPage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/billing" element={<BillingPage />} />
           <Route
             path="/favourite-products"
             element={<FavouriteProductPage />}
