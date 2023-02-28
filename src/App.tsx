@@ -13,6 +13,7 @@ import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import CartPage from "./pages/CartPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
+import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -43,6 +44,16 @@ function App() {
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
           <Route path="/my-order-details" element={<MyOrderDetails />} />
+          <Route path="/pay-fail" element={<PaymentFailPage />} />
+          <Route path="/my-order-details" element={<MyOrderDetails />} />
+          <Route path="/affi-page" element={<AffiliatePage />} />
+          <Route
+            path="/favourite-products"
+            element={<FavouriteProductPage />}
+          />
+          <Route path="/my__orders/:id" element={<MyOrderDetails />} />
+          <Route path="/my__orders" element={<MyOrder />} />
+          <Route path="/cart" element={<EmptyCartPage />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
           <Route
