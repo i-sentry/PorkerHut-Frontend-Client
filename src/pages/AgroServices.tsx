@@ -1,13 +1,14 @@
 import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
-import BreadCrumbs from "../components/BreadCrumbs";
+
 import AgroservImg from "../../src/assets/images/AgroservImg.png";
 import FarmingImg from "../../src/assets/images/FarmingImg.png";
 import FeedImg from "../../src/assets/images/FeedImg.png";
 import LivestockFarmingImg from "../../src/assets/images/LivestockFarmingImg.png";
 import PigFarmingImg from "../../src/assets/images/PigFarmingImg.png";
 import { useLocation } from "react-router-dom";
+import BreadCrumbs from "../components/utility/BreadCrumbs";
 
 const AgroServices = () => {
   const location = useLocation();
