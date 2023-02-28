@@ -7,8 +7,11 @@ import DriedPorkImg from "../assets/images/DriedPorkImg.png";
 import RawPorkImg from "../assets/images/RawPorkImg.png";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
+import { productData } from "../utils/productData";
 import Footer from "../components/footer-component/Footer";
+import ProductCard from "../components/featured-product-component/ProductCard";
+import Cards from "../components/card/Cards";
+import { cartData } from "../components/CartData/cartData";
 
 export {};
 const CartPage = () => {
@@ -83,17 +86,7 @@ const CartPage = () => {
               <p className="flex justify-center mt-[30%] ">+</p>
             </div>
           </div>
-          <div className="">
-            <div className=" h-[70px] w-[70px] border border-[#D9D9D9]">
-              <p className="flex justify-center mt-[30%] font-semibold">-</p>
-            </div>
-            <div className=" h-[70px] w-[80px] border border-[#D9D9D9] font-semibold">
-              <p className="flex justify-center mt-[28%] ">1</p>
-            </div>
-            <div className=" h-[70px] w-[70px] border border-[#D9D9D9] font-semibold">
-              <p className="flex justify-center mt-[30%] ">+</p>
-            </div>
-          </div>
+        
           <div className=" mt-2">
             <h1 className=" text-[#197B30] text-[18px] leading-4 md:hidden">
               Save for later
@@ -143,7 +136,13 @@ const CartPage = () => {
           Shop More Items
         </h1>
       </div>
-      <div className=" p-5 ml-6 grid grid-cols-2 gap-5 w-full h-full">
+      <div className="grid grid-cols-2">
+        {cartData.map(item => (
+
+        <Cards item={item} key={item.id} />
+        ))}
+      </div>
+      {/* <div className=" p-5 ml-6 grid grid-cols-2 gap-5 w-full h-full">
         <div className=" card">
           <div>
             <img style={{ width: 170, height: 200 }} src={RawPorkImg} alt="" />
@@ -210,7 +209,7 @@ const CartPage = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className=" p-5 md:hidden ">
         <button className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center">
