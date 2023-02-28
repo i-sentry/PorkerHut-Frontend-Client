@@ -9,14 +9,9 @@ import AgroServices from "./pages/services-page/AgroServices";
 import WeekendKills from "./pages/services-page/WeekendKills";
 import VeterinaryServices from "./pages/services-page/VetServices";
 import ProductPage from "./pages/ProductPage";
-<<<<<<< HEAD
 import CartPage from "./pages/CartPage";
 import OrderCancel from "./pages/OrderCancel";
 import OrderTracking from "./pages/OrderTracking";
-=======
-// import OrderCancel from "./pages/OrderCancel";
-// import OrderTracking from "./pages/OrderTracking";
->>>>>>> 3639ae621bd0ecf8ed448a4ef385586256932070
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -43,11 +38,6 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
-<<<<<<< HEAD
-          <Route path="/cart-page" element={<CartPage />} />
-          <Route path="/my-order" element={<MyOrder />} />
-          <Route path="/my-order-details" element={<MyOrderDetails />} />
-=======
           <Route
             path="/favourite-products"
             element={<FavouriteProductPage />}
@@ -55,7 +45,6 @@ function App() {
           <Route path="/my__orders/:id" element={<MyOrderDetails />} />
           <Route path="/my__orders" element={<MyOrder />} />
           <Route path="/cart" element={<EmptyCartPage />} />
->>>>>>> 3639ae621bd0ecf8ed448a4ef385586256932070
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
           <Route
