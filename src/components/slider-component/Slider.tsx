@@ -63,7 +63,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
             key={index}
             className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
           >
-            <img src={obj.src} alt="" height="20%" />
+          <img src={obj.src} alt="" style={{height: "200px"}}/>
           </div>
         );
       })}
