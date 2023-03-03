@@ -24,6 +24,9 @@ import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
 import EmptyCartPage from "./pages/EmptyCartPage";
+import FeesAccordion from "./pages/sellers-dashboard/SellersProductPage";
+import ProductAccordion from "./pages/sellers-dashboard/SellersProductPage";
+import StepperComponent from "./components/step/StepperComponent";
 
 function App() {
   return (
@@ -50,6 +53,11 @@ function App() {
             path="/services/veterinary-services"
             element={<VeterinaryServices />}
           />
+          <Route
+            path="/stepper"
+            element={<StepperComponent />}
+          />
+
           <Route path="/services/agro-services" element={<AgroServices />} />
           <Route path="/sellers-dashboard" element={<Layout />}>
             <Route index element={<SellersHome />} />
@@ -59,7 +67,7 @@ function App() {
             />
             <Route
               path="/sellers-dashboard/product"
-              element={<SellersProductPage />}
+              element={<ProductAccordion />}
             />
             <Route
               path="/sellers-dashboard/create-product"

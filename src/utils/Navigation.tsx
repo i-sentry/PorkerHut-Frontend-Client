@@ -44,7 +44,7 @@ export const ORDER_DASHBOARD_SIDEBAR_LINKS = [
   },
   {
     key: "create Products",
-    label: "Products",
+    label: "Create Products",
     path: "/sellers-dashboard/create-product",
     icon: <FiFolderPlus />,
   },

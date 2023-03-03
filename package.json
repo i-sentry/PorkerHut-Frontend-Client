@@ -12,6 +12,7 @@
     "@types/axios": "^0.14.0",
     "@types/react-chartjs-2": "^2.5.7",
     "@types/react-js-pagination": "^3.0.4",
+    "@types/react-table": "^7.7.14",
     "axios": "^1.2.2",
     "button-ripple-react": "^1.0.8",
     "chart.js": "^4.2.1",
