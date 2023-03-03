@@ -9,8 +9,11 @@ import AgroServices from "./pages/services-page/AgroServices";
 import WeekendKills from "./pages/services-page/WeekendKills";
 import VeterinaryServices from "./pages/services-page/VetServices";
 import ProductPage from "./pages/ProductPage";
-// import OrderCancel from "./pages/OrderCancel";
-// import OrderTracking from "./pages/OrderTracking";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import CartPage from "./pages/CartPage";
+import OrderCancel from "./pages/OrderCancel";
+import OrderTracking from "./pages/OrderTracking";
+import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -27,6 +30,7 @@ import EmptyCartPage from "./pages/EmptyCartPage";
 import FeesAccordion from "./pages/sellers-dashboard/SellersProductPage";
 import ProductAccordion from "./pages/sellers-dashboard/SellersProductPage";
 import StepperComponent from "./components/step/StepperComponent";
+import AffiliatePage from "./pages/AffiliatePage";
 
 function App() {
   return (
@@ -40,6 +44,13 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/products" element={<ProductPage />} />
+          <Route path="/order-cancel" element={<OrderCancel />} />
+          <Route path="/my-order" element={<MyOrder />} />
+          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+          <Route path="/my-order-details" element={<MyOrderDetails />} />
+          <Route path="/pay-fail" element={<PaymentFailPage />} />
+          <Route path="/my-order-details" element={<MyOrderDetails />} />
+          <Route path="/affi-page" element={<AffiliatePage />} />
           <Route
             path="/favourite-products"
             element={<FavouriteProductPage />}
