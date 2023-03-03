@@ -4,7 +4,6 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import NavBar from "../components/nav-component/NavBar";
 import MyOrderSection from "../components/sellers-order-page-component/MyOrderSection";
 import { useOrderStore } from "../store/orderStore";
-
 export const OrderData = [
   {
     id: "1",
@@ -147,8 +146,9 @@ export const OrderData = [
     order_status: "PLACED",
   },
 ];
-
 const MyOrder = () => {
+  
+
   useOrderStore();
   const [modalInfo, setModalInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
