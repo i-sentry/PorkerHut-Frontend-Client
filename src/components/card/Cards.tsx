@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useDispatch } from 'react-redux'
+import { addProductToCart } from "../../redux/features/product/productSlice";
 
 const Cards = ({ item }: any) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-
+  const dispatch = useDispatch()
+  
   const handleClick = () => {
-    // console.log("hey card");
+    dispatch(addProductToCart({ id: item?.id }))
   };
 
   // console.log({ item });
