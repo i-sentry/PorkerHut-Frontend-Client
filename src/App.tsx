@@ -28,6 +28,7 @@ import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
 import EmptyCartPage from "./pages/EmptyCartPage";
 import AffiliatePage from "./pages/AffiliatePage";
+import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
 
 function App() {
   return (
@@ -44,14 +45,12 @@ function App() {
           <Route path="/order-cancel" element={<OrderCancel />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
-          <Route path="/my-order-details" element={<MyOrderDetails />} />
+          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
           <Route path="/pay-fail" element={<PaymentFailPage />} />
-          <Route path="/my-order-details" element={<MyOrderDetails />} />
-          <Route path="/affi-page" element={<AffiliatePage />} />
-          <Route
-            path="/favourite-products"
-            element={<FavouriteProductPage />}
-          />
+          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
+          <Route path="/affiliate" element={<AffiliatePage />} />
+          <Route path="/create-account" element={<CreateSellersAcc />} />
+          <Route path="/favorite-products" element={<FavouriteProductPage />} />
           <Route path="/my__orders/:id" element={<MyOrderDetails />} />
           <Route path="/my__orders" element={<MyOrder />} />
           <Route path="/cart" element={<EmptyCartPage />} />

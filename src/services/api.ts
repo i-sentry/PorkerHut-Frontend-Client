@@ -1,11 +1,26 @@
 import axios from "axios";
 
-export const BASEURL =
-  process.env.REACT_APP_BASE_URL || "https://pockerhut-api.onrender.com";
+
+
+export let BASEURL: string | undefined;
+switch (process.env.NODE_ENV) {
+  case 'production':
+    BASEURL = process.env.REACT_APP_API_ENDPOINT_PRODUCTION;
+    break;
+  default:
+    BASEURL = process.env.REACT_APP_API_ENDPOINT_TEST;
+    break;
+}
+
+console.log(process.env.REACT_APP_API_ENDPOINT_TEST, "BASEURL");
+console.log(process.env.NODE_ENV);
+
+
 
 export const api = {
   Users: {
     userSignup: "/api/user/signup",
+    userLogin:"/api/user/login",
   },
 };
 

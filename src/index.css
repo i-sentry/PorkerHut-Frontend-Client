@@ -15,7 +15,9 @@
 }
 
 
-
+.main-div {
+  @apply px-2 w-full max-w-[1140px] mx-auto;
+}
 .title {
   @apply text-xl font-medium;
 }

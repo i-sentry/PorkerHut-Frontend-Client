@@ -1,6 +1,6 @@
 import React from "react";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -51,9 +51,12 @@ const Footer = () => {
               <h1 className="text-xl font-semibold not-italic text-[#FFFFFF] font-Roboto">
                 Company
               </h1>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <Link
+                to={"/affiliate"}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Affiliate
-              </span>
+              </Link>
               <span
                 onClick={() => navigate("/about-us", { replace: true })}
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
@@ -84,7 +87,7 @@ const Footer = () => {
                 Animal Feeds
               </span>
               <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-                Livestocks
+                Livestock
               </span>
               <span
                 onClick={() =>
@@ -92,7 +95,7 @@ const Footer = () => {
                 }
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
               >
-                Agro Services
+                Agro-Services
               </span>
             </div>
           </div>
@@ -107,7 +110,7 @@ const Footer = () => {
               Animal Feeds
             </span>
             <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-              Livestocks
+              Livestock
             </span>
             <span
               onClick={() =>
@@ -115,7 +118,7 @@ const Footer = () => {
               }
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
-              Agro Services
+              Agro-Services
             </span>
           </div>
           <div className=" md:flex xxs:hidden flex-col gap-3 text-justify">

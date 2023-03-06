@@ -9,51 +9,83 @@ import {
   Title,
   Tooltip,
   Legend,
+  ScriptableContext,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import ChartLayout from "../../components/sellers-order-page-component/ChatLayout";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
+
+export const options = {
+  responsive: true,
+  bezierCurve: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    // x: {
+
+    // },
+    x: {
+      stacked: true,
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      stacked: true,
+      grid: {
+        display: true,
+      },
+    },
+  },
+  elements: {
+    line: {
+      tension: 0, // smooth lines
+    },
+  },
+  layout: {
+    padding: {
+      bottom: 20,
+      top: 10,
+    },
+  },
+};
 
 const SellersPerformance = () => {
+
+
+
 
  const data = {
    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
    datasets: [
      {
-       //  label: "First dataset",
+       label: "Assets Status",
        data: [33, 53, 85, 41, 44, 65],
-       fill: "start",
-       backgroundColor: "rgb(46,106,75)",
+       fill: true,
+       backgroundColor: (context: ScriptableContext<"line">) => {
+         const chart = context.chart;
+         const { ctx, chartArea } = chart;
+         if (!chartArea) return "";
+         const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.height);
+         gradient.addColorStop(1, "rgba(166, 240, 187, 0.4)");
+         gradient.addColorStop(0, "rgb(46,106,75)");
+         return gradient;
+       },
        borderColor: "#197b30",
-
-       label: "Visit",
-       //  fill: "start",
-       lineTension: 0,
-       //  backgroundColor: "rgba(131,138,133,0.4)",
-       //  borderColor: "rgba(131,138,133,1)",
-       borderCapStyle: "butt",
-       //  borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: "miter",
-       pointBorderColor: "#197b30",
-       pointBackgroundColor: "#fff",
-       pointBorderWidth: 4,
-       pointHoverRadius: 1,
-       pointHoverBackgroundColor: "#ffff",
-       pointHoverBorderColor: "#197b30",
-       pointHoverBorderWidth: 1,
-       pointRadius: 1,
-       pointHitRadius: 10,
+       borderWidth: 0.9,
      },
    ],
  };
@@ -139,9 +171,8 @@ const SellersPerformance = () => {
           onSelectOption={(option) => {}}
           style={{ width: "100%" }}
         >
-    
           {/* @ts-ignore */}
-          <Line data={data} />
+          <Line data={data} options={options} />
         </ChartLayout>
       </div>
     </div>
