@@ -34,30 +34,7 @@ import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
 
 function App() {
   return (
-    <main className="">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about-us" element={<About />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<BlogContent />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/products" element={<ProductPage />} />
-          <Route path="/order-cancel" element={<OrderCancel />} />
-          <Route path="/my-order" element={<MyOrder />} />
-          <Route path="/payment-success" element={<PaymentSuccessPage />} />
-          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
-          <Route path="/pay-fail" element={<PaymentFailPage />} />
-          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
-          <Route path="/affiliate" element={<AffiliatePage />} />
-          <Route path="/create-account" element={<CreateSellersAcc />} />
-          <Route path="/favorite-products" element={<FavouriteProductPage />} />
-          <Route path="/my__orders/:id" element={<MyOrderDetails />} />
-          <Route path="/my__orders" element={<MyOrder />} />
-          <Route path="/cart" element={<EmptyCartPage />} />
-          <Route path="/contact-us" element={<ContactPage />} />
-          <Route path="/services/weekend-kills" element={<WeekendKills />} />
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
@@ -118,10 +95,7 @@ function App() {
           />
         </Route>
       </Routes>
-
-      {/* <RouterProvider router={route}></RouterProvider> */}
-      {/* <RouterProvider router={orderRoute}></RouterProvider>  */}
-    </main>
+    </BrowserRouter>
   );
 }
 

@@ -1,18 +1,15 @@
 import { useState } from "react";
-
 import { StepperContextProvider } from "../../context/StepperContext";
-
 import Account from "./Account";
 import Details from "./Details";
-import Payment from "./Pricing"
+import Payment from "./Pricing";
 import Final from "./Image";
 import StepperControl from "./StepperControl";
 import Stepper from "./Steppers";
 
 interface Isteps {
-    steps: string[]
+  steps: string[];
 }
-
 
 function StepperComponent() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -53,7 +50,9 @@ function StepperComponent() {
         <Stepper steps={steps} currentStep={currentStep} />
 
         <div className="my-10 ">
-          <StepperContextProvider>{displayStep(currentStep)}</StepperContextProvider>
+          <StepperContextProvider>
+            {displayStep(currentStep)}
+          </StepperContextProvider>
         </div>
       </div>
 
