@@ -17,7 +17,7 @@ export default function Deatils() {
   }
 
   return (
-    <div className="flex flex-col gap-2 bg-[#F4F4F4] px-4 pt-2">
+    <div className="flex flex-col gap-2 bg-[#F4F4F4] px-4 pt-2 ">
       <div className="mb-2">
         <h1>More Product Details</h1>
         <span className="text-xs text-[#797979]">

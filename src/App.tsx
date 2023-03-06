@@ -12,7 +12,6 @@ import ProductPage from "./pages/ProductPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import CartPage from "./pages/CartPage";
 import OrderCancel from "./pages/OrderCancel";
-import OrderTracking from "./pages/OrderTracking";
 import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
@@ -59,45 +58,67 @@ function App() {
           <Route path="/cart" element={<EmptyCartPage />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/services/weekend-kills" element={<WeekendKills />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about-us" element={<About />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogContent />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/order-cancel" element={<OrderCancel />} />
+        <Route path="/my-order" element={<MyOrder />} />
+        <Route path="/payment-success" element={<PaymentSuccessPage />} />
+        <Route path="/my-order-details" element={<MyOrderDetails />} />
+        <Route path="/pay-fail" element={<PaymentFailPage />} />
+        <Route path="/my-order-details" element={<MyOrderDetails />} />
+        <Route path="/affi-page" element={<AffiliatePage />} />
+        <Route path="/favourite-products" element={<FavouriteProductPage />} />
+        <Route path="/my__orders/:id" element={<MyOrderDetails />} />
+        <Route path="/my__orders" element={<MyOrder />} />
+        <Route path="/cart" element={<EmptyCartPage />} />
+        <Route path="/contact-us" element={<ContactPage />} />
+        <Route path="/services/weekend-kills" element={<WeekendKills />} />
+        <Route
+          path="/services/veterinary-services"
+          element={<VeterinaryServices />}
+        />
+
+        <Route path="/services/agro-services" element={<AgroServices />} />
+        <Route path="/sellers-dashboard" element={<Layout />}>
+          <Route index element={<SellersHome />} />
           <Route
-            path="/services/veterinary-services"
-            element={<VeterinaryServices />}
+            path="/sellers-dashboard/order"
+            element={<SellersOrderPage />}
           />
           <Route
-            path="/stepper"
+            path="/sellers-dashboard/product"
+            element={<ProductAccordion />}
+          />
+          <Route
+            path="/sellers-dashboard/create-product"
+            element={<CreateProduct />}
+          />
+          <Route
+            path="/sellers-dashboard/create-product/stepper"
             element={<StepperComponent />}
           />
 
-          <Route path="/services/agro-services" element={<AgroServices />} />
-          <Route path="/sellers-dashboard" element={<Layout />}>
-            <Route index element={<SellersHome />} />
-            <Route
-              path="/sellers-dashboard/order"
-              element={<SellersOrderPage />}
-            />
-            <Route
-              path="/sellers-dashboard/product"
-              element={<ProductAccordion />}
-            />
-            <Route
-              path="/sellers-dashboard/create-product"
-              element={<CreateProduct />}
-            />
-            <Route
-              path="/sellers-dashboard/account"
-              element={<SellersAccount />}
-            />
-            <Route
-              path="/sellers-dashboard/performance"
-              element={<SellersPerformance />}
-            />
-            <Route
-              path="/sellers-dashboard/setting"
-              element={<SellersSetting />}
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          <Route
+            path="/sellers-dashboard/account"
+            element={<SellersAccount />}
+          />
+          <Route
+            path="/sellers-dashboard/performance"
+            element={<SellersPerformance />}
+          />
+          <Route
+            path="/sellers-dashboard/setting"
+            element={<SellersSetting />}
+          />
+        </Route>
+      </Routes>
+
       {/* <RouterProvider router={route}></RouterProvider> */}
       {/* <RouterProvider router={orderRoute}></RouterProvider>  */}
     </main>

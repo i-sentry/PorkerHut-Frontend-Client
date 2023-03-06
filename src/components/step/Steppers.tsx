@@ -137,7 +137,7 @@ const Stepper = ({ steps, currentStep }: IStepProps) => {
 
   const updateStep = (stepNumber: number, steps: string[]) => {
     const newSteps = [...steps];
-    console.log(newSteps);
+    
     let count = 0;
     while (count < newSteps.length) {
       //current step

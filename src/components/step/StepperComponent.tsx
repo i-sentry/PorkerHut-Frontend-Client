@@ -47,7 +47,7 @@ function StepperComponent() {
   };
 
   return (
-    <div className="m-auto w-[60%]">
+    <div className="pl-8 pr-4 h-[800px]">
       {/* Stepper */}
       <div className="horizontal mt-5 ">
         <Stepper steps={steps} currentStep={currentStep} />

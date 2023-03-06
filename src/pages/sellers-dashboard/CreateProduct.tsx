@@ -5,6 +5,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { HiOutlineSearch } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export default function ProductAccordion() {
   const [open, setOpen] = useState(0);
@@ -46,7 +47,7 @@ export default function ProductAccordion() {
             />
           </div>
         </div>
-      </div>     
+      </div>
 
       <Accordion open={open === 1}>
         <AccordionHeader
@@ -64,7 +65,12 @@ export default function ProductAccordion() {
           }}
         >
           <div className="px-8 flex flex-col gap-2">
-            <span className="underline">Bacon</span>
+            <Link
+              to="/sellers-dashboard/create-product/stepper"
+              className="underline"
+            >
+              Bacon
+            </Link>
             <span className="underline">Pork Belly</span>
             <span className="underline">Pork Shoulder</span>
             <span className="underline">Pork Tenderloin</span>
