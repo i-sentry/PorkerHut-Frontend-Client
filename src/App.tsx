@@ -48,9 +48,7 @@ function App() {
           <Route path="/order-cancel" element={<OrderCancel />} />
           <Route path="/my-order" element={<MyOrder />} />
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
-          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
           <Route path="/pay-fail" element={<PaymentFailPage />} />
-          {/* <Route path="/my-order-details" element={<MyOrderDetails />} /> */}
           <Route path="/affiliate" element={<AffiliatePage />} />
           <Route path="/create-account" element={<CreateSellersAcc />} />
           <Route path="/favorite-products" element={<FavouriteProductPage />} />
@@ -98,8 +96,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-      {/* <RouterProvider router={route}></RouterProvider> */}
-      {/* <RouterProvider router={orderRoute}></RouterProvider>  */}
     </main>
   );
 }
