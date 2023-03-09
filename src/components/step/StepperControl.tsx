@@ -7,7 +7,7 @@ export default function StepperControl({
     <div className="flex justify-center gap-8">
       <button
         onClick={() => handleClick()}
-        className={`cursor-pointer rounded border-[2px] border-[#AED1B7] bg-[#F4F4F4] py-2 px-6 uppercase text-sm text-[#AED1B7] transition duration-200 ease-in-out  ${
+        className={`cursor-pointer rounded border border-[#AED1B9] bg-[#F4F4F4] py-2 px-6  text-sm text-[#AED1B7] transition duration-200 ease-in-out  ${
           currentStep === 1 ? " cursor-not-allowed opacity-50 " : ""
         }`}
       >

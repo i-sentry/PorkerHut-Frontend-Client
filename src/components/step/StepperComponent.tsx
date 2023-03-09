@@ -45,6 +45,7 @@ function StepperComponent() {
 
   return (
     <div className="pl-8 pr-4 h-[800px]">
+      <h1 className=" text-xl font-medium">Create Products</h1>
       {/* Stepper */}
       <div className="horizontal mt-5 ">
         <Stepper steps={steps} currentStep={currentStep} />

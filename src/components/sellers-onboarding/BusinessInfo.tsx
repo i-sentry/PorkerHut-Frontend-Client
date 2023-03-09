@@ -198,6 +198,8 @@ const BusinessInfo = () => {
                   <CustomDND
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"}
+                    
+                    
                   />
                   <span className="text-sm text-[#797979] leading-none">
                     Tin is required for all individuals and corporates deriving

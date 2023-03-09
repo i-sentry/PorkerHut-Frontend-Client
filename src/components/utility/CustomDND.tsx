@@ -122,7 +122,7 @@ const CustomDND = ({
   };
 
   return (
-    <div className="flex flex-col">
+     <div className="flex flex-col">
       <div
         className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative"
         onDragEnter={handleDragEnter}
