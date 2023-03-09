@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import { GoVerified } from "react-icons/go";
+import CancelImg from "../assets/images/CancelImg.png"
 import Footer from "../components/footer-component/Footer";
 
 const PaymentSuccessPage = () => {
@@ -32,16 +32,8 @@ const PaymentSuccessPage = () => {
 
           <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[561px] mx-8 mb-20 rounded-lg">
             <div className=" flex flex-col items-center text-center mt-24 md:mt-32">
-              <div className=" opacity-[0.5] ">
-                <GoVerified
-                  size={100}
-                  className="icon"
-                  style={{
-                    
-                    color:"#197B30"
-                  }}
-                  
-                />
+              <div className=" ">
+              <img src={CancelImg} alt="" className="w-24 h-24"  />
               </div>
               <h1 className=" pt-4 text-[18px] md:text-base leading-7 text-[#333333] font-medium mb-8">
                 Payment Successful
@@ -54,7 +46,7 @@ const PaymentSuccessPage = () => {
                 confirmation and bill.
               </p>
 
-              <button className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
+              <button className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-10 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
                 Continue Shopping
               </button>
             </div>
