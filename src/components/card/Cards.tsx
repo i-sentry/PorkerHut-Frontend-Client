@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch } from 'react-redux'
 import { addProductToCart } from "../../redux/features/product/productSlice";
+import RatingWidget from "../RatingWidget";
 
 const Cards = ({ item }: any) => {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  
   const dispatch = useDispatch()
   
   const handleClick = () => {
@@ -45,30 +45,7 @@ const Cards = ({ item }: any) => {
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <div className="flex text-yellow-500 cursor-pointer">
-            {[...Array(5)].map((start, i) => {
-              const ratingValue = i + 1;
-              return (
-                <label className="">
-                  <input
-                    type="radio"
-                    name="rating"
-                    className="hidden"
-                    value={ratingValue}
-                    onClick={() => setRating(ratingValue)}
-                  />
-                  <AiFillStar
-                    size={20}
-                    color={
-                      ratingValue <= (hover || rating) ? "#fe6600" : "#e4e5e9"
-                    }
-                    onMouseEnter={() => setHover(ratingValue)}
-                    onMouseLeave={() => setHover(0)}
-                  />
-                </label>
-              );
-            })}
-          </div>
+          <RatingWidget onChange={(value) => console.log(value)} defaultValue={2} />
           <span className="whitespace-nowrap text-sm font-semibold">
             ₦{item?.price}
           </span>

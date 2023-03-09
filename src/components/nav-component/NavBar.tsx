@@ -39,8 +39,8 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white fixed top-0 w-full z-50 shadow-md xxs:py-5 md:py-0">
-      <nav className="md:flex  items-center font-medium justify-between md:px-8 xxs:px-2">
+    <div className="bg-white fixed top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
+      <nav className="md:flex  items-center font-medium justify-between">
         {/* Menu Btn */}
 
         <div className="z-50  md:w-auto w-full flex items-center gap-4">
