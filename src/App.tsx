@@ -1,4 +1,4 @@
-import { createBrowserRouter, Routes, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Routes, Route, createRoutesFromElements, RouterProvider } from "react-router-dom"; 
 import Home from "../src/pages/Home";
 import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
@@ -32,7 +32,7 @@ import BillingPage from "./pages/BillingPage";
 function App() {
   return (
     <main className="">
-      <CreateBrowserRouter>
+      <createBrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
@@ -84,7 +84,7 @@ function App() {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </createBrowserRouter>
       {/* <RouterProvider router={route}></RouterProvider> */}
       {/* <RouterProvider router={orderRoute}></RouterProvider>  */}
     </main>
