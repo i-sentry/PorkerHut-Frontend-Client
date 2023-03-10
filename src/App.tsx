@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, Routes, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import Home from "../src/pages/Home";
 import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
@@ -9,8 +9,10 @@ import AgroServices from "./pages/services-page/AgroServices";
 import WeekendKills from "./pages/services-page/WeekendKills";
 import VeterinaryServices from "./pages/services-page/VetServices";
 import ProductPage from "./pages/ProductPage";
-// import OrderCancel from "./pages/OrderCancel";
-// import OrderTracking from "./pages/OrderTracking";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import CartPage from "./pages/CartPage";
+import OrderCancel from "./pages/OrderCancel";
+import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
@@ -26,10 +28,11 @@ import BlogContent from "./pages/BlogContent";
 import EmptyCartPage from "./pages/EmptyCartPage";
 import BillingPage from "./pages/BillingPage";
 
+
 function App() {
   return (
     <main className="">
-      <BrowserRouter>
+      <CreateBrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />

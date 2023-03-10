@@ -8,7 +8,7 @@ import {
 import productImg from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
-import { OrderData } from "../MyOrder";
+import  {OrderData}  from "../MyOrder";
 import { IOrderData } from "../../components/sellers-order-page-component/MyOrderSection";
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BsTag } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { ORDER_DASHBOARD_SIDEBAR_LINKS } from "../../utils/Navigation";
 
@@ -39,27 +40,56 @@ const OrderSidebar = ({ sidebar }: any) => {
 export default OrderSidebar;
 
 function SidebarLink({ item, setToggle }: Iprop) {
-  const [heading, setHeading] = useState("");
-  const [subHeading, setSubHeading] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = useLocation();
 
-  function classNames(): string | undefined {
-    throw new Error("Function not implemented.");
-  }
+  const toggleSubMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
-  return (
-    <Link
-      to={item.path}
-      className={linkClass}
-      onClick={() => {
-        heading !== item.label ? setHeading(item.label) : setHeading("");
-        setSubHeading("");
-        setToggle(item.label === "Products" ? true : false);
-      }}
-    >
+  const SidebarLinkContent = () => (
+    <>
       <span className="text-xl">{item.icon}</span>
       {item.label}
       {item.icon_two}
-    </Link>
+    </>
+  );
+
+  const SubMenu = React.memo(() => (
+    <div className="pl-12 py-2 relative">
+      {item.subLinks[0].subLink.map((subItem: any) => (
+        <Link
+          to={subItem.path}
+          key={subItem.label}
+          className="text-sm flex flex-col gap-4 font-light text-gray-600 py-2 hover:text-[#197b30]"
+        >
+          {subItem.label}
+        </Link>
+      ))}
+    </div>
+  ));
+
+  return (
+    <>
+      {item.label === "Products" ? (
+        <div>
+          <button type="button" onClick={toggleSubMenu} className={linkClass}>
+            <SidebarLinkContent />
+          </button>
+          {isOpen && <SubMenu />}
+        </div>
+      ) : (
+        <Link
+          to={item.path}
+          className={linkClass}
+          onClick={() => {
+            setToggle(item.label === "Products");
+            setIsOpen(false);
+          }}
+        >
+          <SidebarLinkContent />
+        </Link>
+      )}
+    </>
   );
 }
