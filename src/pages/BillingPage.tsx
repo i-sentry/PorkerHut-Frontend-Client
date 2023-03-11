@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import RawPorkImg from "../../src/assets/images/RawPorkImg.png";
+import OrderCart from "../components/order-component/OrderCart";
 
 const BillingPage = () => {
   return (
@@ -36,7 +36,9 @@ const BillingPage = () => {
               Personal Information
             </h1>
             <div className=" ml-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">First Name</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">
+                First Name
+              </label>
               <input
                 type="text"
                 name=""
@@ -46,7 +48,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 my-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">Last Name</h1>
+              <label className="text-[#333333] text-[14px] my-2" htmlFor="">Last Name</label>
               <input
                 type="text"
                 name=""
@@ -56,7 +58,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 my-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">Email Adress</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Email Address</label>
               <input
                 type="text"
                 name=""
@@ -66,7 +68,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 my-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">Phone Number</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Phone Number</label>
               <input
                 type="text"
                 name=""
@@ -83,7 +85,7 @@ const BillingPage = () => {
               Delivery Address
             </h1>
             <div className=" ml-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">Address</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Address</label>
               <input
                 type="text"
                 name=""
@@ -93,7 +95,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 my-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">State</h1>
+            <label className=" text-[#333333] text-[14px] my-2" htmlFor="">State</label>
               <input
                 type="text"
                 name=""
@@ -103,9 +105,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 my-4">
-              <h1 className=" text-[#333333] text-[14px] my-2">
-                City/Town/Street
-              </h1>
+            <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Enter Your City/Town/Street</label>
               <input
                 type="text"
                 name=""
@@ -135,7 +135,7 @@ const BillingPage = () => {
             </h1>
             <div className="ml-4 flex gap-10">
               <div>
-                <h1 className=" text-[#333333] text-[14px] my-2">First Name</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">First Name</label>
                 <input
                   type="text"
                   name=""
@@ -146,7 +146,7 @@ const BillingPage = () => {
               </div>
 
               <div className="">
-                <h1 className=" text-[#333333] text-[14px] my-2">Last Name</h1>
+              <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Last Name</label>
                 <input
                   type="text"
                   name=""
@@ -157,9 +157,7 @@ const BillingPage = () => {
               </div>
             </div>
             <div className=" ml-4 input my-6">
-              <h1 className=" text-[#333333] text-[14px] my-2">
-                Email Address
-              </h1>
+            <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Email Address</label>
               <input
                 type="text"
                 name=""
@@ -169,7 +167,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 input">
-              <h1 className=" text-[#333333] text-[14px] my-2">Phone Number</h1>
+            <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Phone Number</label>
               <input
                 type="text"
                 name=""
@@ -179,7 +177,7 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ml-4 input my-6">
-              <h1 className=" text-[#333333] text-[14px] my-2">Address</h1>
+            <label className=" text-[#333333] text-[14px] my-2" htmlFor="">Email Address</label>
               <input
                 type="text"
                 name=""
@@ -211,73 +209,13 @@ const BillingPage = () => {
               />
             </div>
           </div>
-          <div className=" ">
-            <div className="w-[452px] h-[564px]  bg-white rounded-md">
-              <div>
-                <h1 className=" p-6 text-[20px] text-[#333333] font-semibold">
-                  Orders
-                </h1>
-                <div className=" flex gap-4 border-b-2 border-[#D9D9D9]">
-                  <div>
-                    <figure className=" ml-6">
-                      <img src={RawPorkImg} alt="" />
-                    </figure>
-                  </div>
-                  <div>
-                    <h1 className=" mt-2 text-[16px] font-semibold text-[#333333]">
-                      100% Healthy Feed
-                    </h1>
-                    <h1 className="my-3 text-base font-semibold text-[#333333]">
-                      Pork Lap
-                    </h1>
-                    <h1 className=" text-[#797979] text-base">3kg x2</h1>
-                  </div>
-                  <div className=" ml-16 mt-2">
-                    <h1>₦3,000</h1>
-                  </div>
-                </div>
-                <div className=" flex gap-4 border-b-2 border-[#D9D9D9] mt-4 ">
-                  <div>
-                    <figure className=" ml-6">
-                      <img src={RawPorkImg} alt="" />
-                    </figure>
-                  </div>
-                  <div>
-                    <h1 className=" mt-2 text-[16px] font-semibold text-[#333333]">
-                      100% Healthy Feed
-                    </h1>
-                    <h1 className="my-3 text-base font-semibold text-[#333333]">
-                      Pork Lap
-                    </h1>
-                    <h1 className=" text-[#797979] text-base">3kg x2</h1>
-                  </div>
-                  <div className=" ml-16 mt-2">
-                    <h1>₦3,000</h1>
-                  </div>
-                </div>
-                <div className=" ml-[165px] flex gap-40 mt-3">
-                  <span>Subtotal</span>
-                  <span>₦6,000</span>
-                </div>
-                <div className="ml-[165px] flex gap-40">
-                  <span>VAT........</span>
-                  <span>₦1,000</span>
-                </div>
-                <div className=" ml-[165px] flex gap-40 border-b-2 border-[#D9D9D9]">
-                  <span>Delivery.</span>
-                  <span>₦1,000</span>
-                </div>
-                <div className=" ml-[165px] flex gap-40 mt-4">
-                  <span>Total.....</span>
-                  <span>₦8,000</span>
-                </div>
-              </div>
-            </div>
-            <p className=" text-sm text-[#797979] mt-2">
-              Our shipping fees are flat rates. Regardless of the size and amount
-              of items ordered, only one shipping fee applies.
-            </p>
-          </div>
+          
+            <OrderCart />
+          
+          {/* <p className=" text-sm text-[#797979] mt-2">
+            Our shipping fees are flat rates. Regardless of the size and amount
+            of items ordered, only one shipping fee applies.
+          </p> */}
         </div>
       </div>
       <Footer />

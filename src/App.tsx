@@ -11,6 +11,7 @@ import VeterinaryServices from "./pages/services-page/VetServices";
 import ProductPage from "./pages/ProductPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import CartPage from "./pages/CartPage";
+import BillingPage from "./pages/BillingPage";
 import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/Layout";
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/products" element={<ProductPage />} />
+      <Route path="/billing" element={<BillingPage/>} />
       <Route path="/order-cancel" element={<OrderCancel />} />
       <Route path="/my-order" element={<MyOrder />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
