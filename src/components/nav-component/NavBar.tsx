@@ -10,6 +10,8 @@ import NavLink, { HelpLink } from "./NavLink";
 import NavButton from "./NavButton";
 import Ripples from "react-ripples";
 import { FiMenu } from "react-icons/fi";
+import { useSelector } from 'react-redux'
+import { RootState } from "../../redux/store";
 
 
 const NavBar = () => {
@@ -17,6 +19,7 @@ const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
+  const cart = useSelector((state: RootState) => state.product.cart)
 
   const navigate = useNavigate();
 
@@ -36,8 +39,8 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white fixed top-0 w-full z-50 shadow-md xxs:py-5 md:py-0">
-      <nav className="md:flex  items-center font-medium justify-between md:px-8 xxs:px-2">
+    <div className="bg-white fixed top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
+      <nav className="md:flex  items-center font-medium justify-between">
         {/* Menu Btn */}
 
         <div className="z-50  md:w-auto w-full flex items-center gap-4">
@@ -55,12 +58,13 @@ const NavBar = () => {
               </h1>
             </div>
           </div>
-          <div className="action-btns flex gap-3 ml-auto  md:hidden">
+          <div className="action-btns flex items-center gap-3 ml-auto  md:hidden">
             <button className=" p-[6px] rounded w-8 ">
               <img className="w-6" src={SearchLogo} alt="" />
             </button>
-            <button className="  p-[6px] rounded w-8 ">
+            <button className="  p-[6px] rounded w-8 " onClick={() => navigate('/my-cart')}>
               <img className="w-6" src={CartLogo} alt="" />
+              <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-5 right-2 rounded-full text-xs">{Object.values(cart).length}</span>
             </button>
           </div>
           <ul className="md:flex font-normal hidden items-center text-sm  ">
@@ -73,8 +77,9 @@ const NavBar = () => {
             <button className=" p-[6px] rounded w-8">
               <img className="w-6" src={SearchLogo} alt="" />
             </button>
-            <button className=" p-[6px] rounded w-8">
+            <button className=" p-[6px] rounded w-8 relative" onClick={() => navigate('/my-cart')}>
               <img className="w-6" src={CartLogo} alt="" />
+              <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">{Object.values(cart).length}</span>
             </button>
           </div>
           <NavButton className={loginBtn} text="Login" path="/login" />
