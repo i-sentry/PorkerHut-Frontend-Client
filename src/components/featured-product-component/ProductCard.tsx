@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useDispatch } from 'react-redux'
+import { addProductToCart } from "../../redux/features/product/productSlice";
 
 const ProductCard = ({ item }: any) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-
+  const dispatch = useDispatch()
+  
+  
   const handleClick = () => {
-    // console.log("hey card");
+    dispatch(addProductToCart({ id: item?.id }))
   };
 
   // console.log({ item });
@@ -15,13 +19,13 @@ const ProductCard = ({ item }: any) => {
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
         <img
           src={item?.img}
-          alt="image"
+          alt=""
           className="w-full h-full object-cover"
         />
 
         <div
           onClick={handleClick}
-          className=" flex items-center justify-center absolute w-full h-14 md:bg-[#197B30] md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer"
+          className=" flex items-center justify-center absolute w-full h-14 md:bg-[#197B30] md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
         >
           <h1 className="text-white xxs:hidden md:block">ADD TO CART</h1>
         </div>
