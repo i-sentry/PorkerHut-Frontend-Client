@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
-import {formData} from "../../utils/formData"
-interface contactProps{
+import { formData } from "../../utils/formData";
+interface contactProps {
   text: string;
   title: string;
 }
@@ -19,14 +19,14 @@ const ServiceForm = ({ text, title }: contactProps) => {
   const [userData, setUserData] = useState<{
     [name: string]: string | boolean;
   }>();
-
+  
+  console.log(userData, "userData");
   const submitData = async (values: any) => {
     setUserData(values);
     reset();
   };
 
   // console.log({ userData });
-
 
   const textData = [
     {

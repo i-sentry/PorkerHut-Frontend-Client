@@ -59,9 +59,9 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.outlet{
+/* .outlet{
   flex: 4;
-}
+} */
 
 .wrapper {
   display: flex;

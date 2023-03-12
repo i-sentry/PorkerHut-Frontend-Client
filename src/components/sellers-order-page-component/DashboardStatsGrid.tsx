@@ -36,31 +36,31 @@ const DashboardStatsGrid = () => {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-medium mb-2 ">Orders</h1>
-      <div className="md:grid md:grid-cols-5 h-16 items-center justify-center xxs:hidden">
-        <div className="bg-[#F4F4F4] h-16 flex items-center justify-center flex-1 border-[#D9D9D9] border-r-2 gap-2 rounded-l-lg">
+      <h1 className="text-2xl font-medium mb-6 ">Orders</h1>
+      <div className="md:grid md:grid-cols-5 h-20 items-center justify-center">
+        <div className="bg-[#F4F4F4] h-full flex items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px] gap-2 rounded-l-sm">
           <h1 className="font-normal">Today</h1>
           <RiArrowDownSLine />
         </div>
-        <div className="bg-[#F4F4F4] h-16 flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-2">
-          <h1 className="font-medium text-l">Pending Order</h1>
+        <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
+          <h1 className="text-l font-normal">Pending Order</h1>
+          <span className="font-normal text-l">(400)</span>
+        </div>
+        <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px] text-[#F29339]">
+          <h1 className="font-normal text-l">Ready to Go</h1>
           <span className="font-medium text-l">(400)</span>
         </div>
-        <div className="bg-[#F4F4F4] h-16 flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-2 text-[#F29339]">
-          <h1 className="font-medium text-l">Ready to Go</h1>
+        <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px] text-[#22C55E]">
+          <h1 className="font-normal text-l">Fufilled Order</h1>
           <span className="font-medium text-l">(400)</span>
         </div>
-        <div className="bg-[#F4F4F4] h-16 flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-2 text-[#22C55E]">
-          <h1 className="font-medium text-l">Fufilled Order</h1>
-          <span className="font-medium text-l">(400)</span>
-        </div>
-        <div className="bg-[#F4F4F4] h-16 flex flex-col items-center justify-center flex-1 border-[#D9D9D9] text-[#F91919] rounded-r-lg">
-          <h1 className="font-medium text-l">Failed Order</h1>
+        <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] text-[#F91919] rounded-r-sm">
+          <h1 className="font-normal text-l">Failed Order</h1>
           <span className="font-medium text-l">(400)</span>
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-6">
         <h1 className="my-4 text-xl">Overview</h1>
         <div className="flex gap-8 items-center">
           <h1 className="underline text-sm">All</h1>
