@@ -8,14 +8,13 @@ interface Iprop {
   item: any;
 }
 
-const linkClass =
-  "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-6 md:py-4 xxs:py-6 hover:text-[#197b30]";
+const linkClass = "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-4 md:py-4 xxs:py-6 hover:text-[#197b30]";
 
 const OrderSidebar = ({ sidebar }: any) => {
   return (
     <div>
       <div
-        className={` ${
+        className={`${
           sidebar
             ? "left-0 xxs:w-[80%] xxs:h-full transform transition-all duration-300 ease-in-out"
             : "left-[-100%] md:left-0"
@@ -26,9 +25,7 @@ const OrderSidebar = ({ sidebar }: any) => {
             <SidebarLink
               key={item.key}
               item={item}
-              setToggle={function (value: React.SetStateAction<boolean>): void {
-                throw new Error("Function not implemented.");
-              }}
+              setToggle={() => {}}
             />
           ))}
         </div>
@@ -49,9 +46,9 @@ function SidebarLink({ item, setToggle }: Iprop) {
 
   const SidebarLinkContent = () => (
     <>
-      <span className="text-xl">{item.icon}</span>
-      {item.label}
-      {item.icon_two}
+      <span className="text-base font-normal">{item.icon}</span>
+      <span className="text-base font-normal">{item.label}</span>
+      <span>{item.icon_two}</span>
     </>
   );
 

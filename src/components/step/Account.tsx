@@ -1,5 +1,6 @@
-
 import { useStepperContext } from "../../context/StepperContext";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 export default function Account() {
   const { userData, setUserData } = useStepperContext();
@@ -9,8 +10,31 @@ export default function Account() {
     setUserData({ ...userData, [name]: value });
   };
 
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    control,
+    reset,
+    formState: { isValid, errors },
+  } = useForm<any>();
+
+  const [useData, setData] = useState<{
+    [name: string]: string | boolean;
+  }>();
+  // console.log(useData, "Form Data");
+  
+
+  const submitData = async (values: any) => {
+    setData(values);
+    reset();
+  };
+
   return (
-    <div className="flex flex-col gap-2 bg-[#F4F4F4] px-4 py-6">
+    <form
+      onSubmit={handleSubmit(submitData)}
+      className="flex flex-col gap-2 bg-[#F4F4F4] px-4 py-6"
+    >
       <div className="mb-2">
         <h1>Product information</h1>
         <span className="text-xs text-[#797979]">
@@ -63,6 +87,6 @@ export default function Account() {
           Pork Belly, Pork Rib Roast
         </span>
       </div>
-    </div>
+    </form>
   );
 }
