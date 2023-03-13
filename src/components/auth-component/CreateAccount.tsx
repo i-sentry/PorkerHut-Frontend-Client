@@ -60,9 +60,9 @@ const CreateAccount = () => {
       </div>
       <div className="bg-[#F5F5F5]">
         <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
-          <button className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]">
-            Create an account
-          </button>
+          <Link to={"/create-account"} className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]">
+            Create a Sellers Account
+          </Link>
         </div>
 
         <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3">
@@ -214,9 +214,9 @@ const CreateAccount = () => {
               </div>
             </form>
             <div className="mt-3 hidden md:block">
-              <button className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]">
+              <Link to={"/create-account"} className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]">
                 Create a seller account
-              </button>
+              </Link>
             </div>
           </div>
         </div>

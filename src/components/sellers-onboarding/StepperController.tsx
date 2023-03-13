@@ -10,7 +10,7 @@ const StepperController = ({
   handleClick: (direction?: string) => void;
     }) => {
 
-    console.log(checkoutSteps, "checkoutSteps");
+    console.log(checkoutSteps.length, "checkoutSteps");
     console.log(currentStep, "currentStep");
   return (
     <div className="flex gap-4 ml-auto w-full my-5 ">
@@ -26,7 +26,7 @@ const StepperController = ({
         onClick={() => handleClick("next")}
         className="bg-[#197b30] hover:bg-[#197b60] text-white border border-[#197b30] px-10 py-2.5 rounded text-button  mx-2  shadow-lg hover:opacity-50 duration-100 ease-in-out"
       >
-        {currentStep === checkoutSteps?.length  ? "Get Started" : "Next"}
+        {currentStep === checkoutSteps?.length   ? "Get Started" : "Next"}
       </button>
     </div>
   );
