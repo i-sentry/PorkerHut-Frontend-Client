@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
+import { SiAcclaim } from "react-icons/si";
 
 type Step = {
   description: string;
@@ -69,39 +70,43 @@ const SellerStepper = ({
     setNewStep(current);
   }, [checkoutSteps, currentStep]);
   return (
-    <div className="mx-4 p-4 flex justify-between items-center font-semibold">
+    <div className="m-4 p-4 flex justify-center items-center font-semibold gap-5 ">
       {newStep?.map((step, index) => (
         <div
           key={index}
           className={
             index !== newStep.length - 1
-              ? "w-full flex items-center"
+              ? " flex items-center"
               : "flex items-center"
           }
         >
-          <div className="relative flex  items-center">
+          <div className="relative flex  items-center gap-3">
             <div
-              className={` transition duration-500 ease-in-out border-2 border-primary h-8 w-8 sm:h-11 sm:w-11 md:h-12 md:w-12 flex items-center justify-center py-3 ${
+              className={` transition duration-500 ease-in-out  h-5 w-5 sm:h-11 sm:w-11 md:h-10 md:w-10 flex items-center justify-center py-3 ${
                 step.selected
-                  ? "bg-button text-button"
-                  : "opacity-90 border-gray-400"
+                  ? "text-[#fff] bg-[#197B30]"
+                  : "opacity-90  bg-[#A2A2A2] text-[#fff]"
               }`}
             >
-              {step.completed ? <span>&#10003;</span> : index + 1}
+              {step.completed ? index + 1 : index + 1}
             </div>
             <div
-              className={`text-center   uppercase text-xs sm:text-sm ${
-                step.highlighted ? "" : "opacity-70"
-              }`}
+              className={`text-center ${
+                step.completed ? "text-[#197B30] " : 'text-[#A2A2A2]'
+              } text-xs sm:text-sm ${step.highlighted ? "" : " opacity-70"}`}
             >
               {step.description}
             </div>
+            <div
+              className={`flex-auto rotate-90 transition duration-500 ease-in-out ${
+                step.completed ? "text-[#197B30]" : "text-[#A2A2A2]"
+              }`}
+            >
+              <span className="">
+                <SiAcclaim size={15} />
+              </span>
+            </div>
           </div>
-          <div
-            className={`flex-auto  transition duration-500 ease-in-out ${
-              step.completed ? "border-primary" : "border-gray-400"
-            }`}
-          >hhhhhh</div>
         </div>
       ))}
     </div>
