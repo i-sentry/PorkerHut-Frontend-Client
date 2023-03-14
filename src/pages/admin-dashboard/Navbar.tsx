@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 
-const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
+const Navbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white border border-[#D9D9D9] h-16 w-full px-4 flex items-center justify-between">
+    <div className="bg-white border border-[#D9D9D9] h-16 fixed top-0 w-full px-4 flex items-center justify-between">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
         <FaBars
           size={30}
@@ -123,4 +123,4 @@ const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
   );
 };
 
-export default OrderNavbar;
+export default Navbar;

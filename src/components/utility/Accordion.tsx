@@ -74,7 +74,7 @@ const Accordion = () => {
         <div>Bank Account</div>
       </AccordionSection>
       <div className="">
-        {currentStep !== checkoutSteps?.length && (
+        {currentStep !== checkoutSteps?.length - 1  && (
           <StepperController
             checkoutSteps={checkoutSteps}
             currentStep={currentStep}

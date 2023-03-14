@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import OrderNavbar from "../components/sellers-order-page-component/OrderNavbar";
-import OrderSidebar from "../components/sellers-order-page-component/OrderSidebar";
+import OrderSidebar from "../pages/sellers-dashboard/OrderSidebar";
+
 
 const Layout = () => {
-
   const [sidebar, setSidebar] = useState(false);
-
-
-
 
   return (
     <div className="h-screen w-screen overflow-hidden overflow-x-hidden">
