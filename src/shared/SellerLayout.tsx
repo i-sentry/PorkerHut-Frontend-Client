@@ -1,0 +1,30 @@
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import OrderNavbar from "../components/sellers-order-page-component/OrderNavbar";
+import OrderSidebar from "../pages/sellers-dashboard/OrderSidebar";
+
+
+const Layout = () => {
+  const [sidebar, setSidebar] = useState(false);
+
+  return (
+    <div className="h-screen w-screen overflow-hidden overflow-x-hidden">
+      <div className=" ">
+        <div className="">
+          <OrderNavbar sidebar={sidebar} setSidebar={setSidebar} />
+        </div>
+        <div className="flex w-screen h-screen">
+          <div className="flex md:flex-[1]">
+            <OrderSidebar sidebar={sidebar} setSidebar={setSidebar} />
+          </div>
+
+          <div className="overflow-y-scroll outlet md:flex-[5] p-5 ">
+            {<Outlet />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Layout;
