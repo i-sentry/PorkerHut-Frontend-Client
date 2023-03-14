@@ -21,8 +21,6 @@ import BillingPage from "./pages/BillingPage";
 import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/SellerLayout";
-import OrderTracking from "./pages/OrderTracking";
-import Layout from "./shared/Layout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
 import SellersProductPage from "./pages/sellers-dashboard/SellersProductPage";
@@ -61,6 +59,7 @@ import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
 import SellerLayout from "./shared/SellerLayout";
 import Product from "./pages/sellers-dashboard/Product";
+import PayOption from "./pages/PayOption";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -75,6 +74,7 @@ const router = createBrowserRouter(
       <Route path="/products" element={<ProductPage />} />
       <Route path="/store-page" element={<StorePage />} />
       <Route path="/billing" element={<BillingPage/>} />
+      <Route path="/pay-card" element={<PayOption/>} />
       <Route path="/order-cancel" element={<OrderCancel />} />
       <Route path="/my-order" element={<MyOrder />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
