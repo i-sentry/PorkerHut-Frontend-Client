@@ -245,6 +245,7 @@ const BusinessInfo = () => {
                   />
                 </div>
               </>
+              
               <div className="">
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController
