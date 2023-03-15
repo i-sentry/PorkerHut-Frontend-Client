@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
 import SellerStepper from "./SellerStepper";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
 import Footer from "../footer-component/Footer";
+import { CircularProgressbar } from "react-circular-progressbar";
 
 const StepLayout = ({
   checkoutSteps,
@@ -11,6 +12,17 @@ const StepLayout = ({
   handleClick,
   displayStep,
 }: StepLayoutProps) => {
+  const [userData, setUserData] = useState("");
+  const [finalData, setFinalData] = useState([]);
+  const [progress, setProgress] = useState(25);
+  useEffect(() => {
+    if (progress < 100 && currentStep !== 1) {
+      setProgress(progress + 25);
+    } else if (currentStep > 1) {
+      setProgress(progress - 25);
+    }
+  }, [currentStep]);
+
   return (
     <>
       <TopNav />
@@ -26,47 +38,69 @@ const StepLayout = ({
           </div>
         </div>
         <div>
-
-        <SellerStepper
-          checkoutSteps={checkoutSteps}
-          currentStep={currentStep}
-        />
+          <SellerStepper
+            checkoutSteps={checkoutSteps}
+            currentStep={currentStep}
+          />
         </div>
-        <div>
-             <div className="flex items-center justify-center -m-6 overflow-hidden bg-white ">
-            <svg className="w-32 h-32 transform translate-x-1 translate-y-1" x-cloak aria-hidden="true">
-              <circle
-                className="text-red-300"
-                stroke-width="10"
-                stroke="currentColor"
-                fill="transparent"
-                r="50"
-                cx="60"
-                cy="60"
-                />
-              <circle
-                className="text-blue-100"
-                stroke-width="10"
+        <div className="flex items-center gap-5">
+          <div className="w-16 my-6">
+            <CircularProgressbar
+              value={progress}
+              text={`${currentStep} of 4`}
+              styles={{
+                // Customize the root svg element
+                root: {},
 
-                stroke-linecap="round"
-                stroke="currentColor"
-                fill="transparent"
-                r="50"
-                cx="60"
-                cy="60"
-               />
-            </svg>
-            <span className="absolute text-2xl text-blue-700">3</span>
+                // Customize the path, i.e. the "completed progress"
+                path: {
+                  // Path color
+                  stroke: `#197b30`,
+                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                  strokeLinecap: "round",
+                  // Customize transition animation
+                  transition: "stroke-dashoffset 0.5s ease 0s",
+                },
+                // Customize the circle behind the path, i.e. the "total progress"
+                trail: {
+                  // Trail color
+                  stroke: "#d6d6d6",
+                },
+                // Customize the text
+                text: {
+                  // Text color
+                  fill: "#197b30",
+                  // Text size
+                  fontSize: "22px",
+                  // Vertical alignment of text
+                  dominantBaseline: "middle",
+                  // Horizontal alignment of text
+                  textAnchor: "middle",
+                },
+                // Customize background - only used when the `background` prop is true
+                background: {
+                  fill: "#197b30",
+                },
+              }}
+            />
+          </div>
+          <div>
+            <h1 className="text-[#333333] font-semibold text-base">
+              Step {currentStep}
+              {progress}
+            </h1>
+            <p className="text-base font-light">Seller Account</p>
           </div>
         </div>
+
         <div>
           <SellersStepsContext.Provider
             //@ts-ignore
             value={{
-              // userData,
-              // setUserData,
-              // finalData,
-              // setFinalData,
+              userData,
+              setUserData,
+              finalData,
+              setFinalData,
               checkoutSteps,
               currentStep,
               handleClick,
@@ -76,7 +110,7 @@ const StepLayout = ({
           </SellersStepsContext.Provider>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

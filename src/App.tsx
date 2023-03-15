@@ -38,6 +38,7 @@ import ProductAccordion from "./pages/sellers-dashboard/SellersProductPage";
 import StepperComponent from "./components/step/StepperComponent";
 import AffiliatePage from "./pages/AffiliatePage";
 import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
+import { AppProvider } from "./context/SellerInfoContext";
 import StorePage from "./pages/StorePage";
 import AdminLayout from "./shared/AdminLayout";
 import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
@@ -63,13 +64,14 @@ import PayOption from "./pages/PayOption";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+    // <AppProvider>
     <Route>
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog/:id" element={<BlogContent />} />
       <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/my-cart" element={<CartPage />} />
+      <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/products" element={<ProductPage />} />
       <Route path="/store-page" element={<StorePage />} />
@@ -95,7 +97,7 @@ const router = createBrowserRouter(
         <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
         <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
         <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
-        
+
      </Route>
 
       <Route path="/admin-dashboard" element={<AdminLayout />}>
@@ -123,11 +125,16 @@ const router = createBrowserRouter(
         <Route path="/admin-dashboard/settings" element={<Settings />} />
       </Route>
     </Route>
+    // </AppProvider>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
+  );
 }
 
 export default App;

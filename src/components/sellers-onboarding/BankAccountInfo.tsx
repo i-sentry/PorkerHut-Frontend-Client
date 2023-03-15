@@ -13,7 +13,7 @@ import { SellersStepsContext } from "../../context/SellersStepsContext";
 
 const BankAccountInfo = () => {
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleClick } =
+  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
@@ -26,22 +26,11 @@ const BankAccountInfo = () => {
     formState: { isValid, errors },
   } = useForm<any>();
 
-  //   const getBanks = async () => {
-  //     try {
-  //       const response = await axios.get("https://api.flutterwave.com/v3/banks/NG, {
-  //         headers: {
-  //           Authorization: "Bearer FLWSECK_TEST-SANDBOXDEMOKEY-X",
-  //         },
-  //       });
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //     useEffect(() => {
-  //      getBanks()
-  //     }, [])
+ const handleChange = (e: any) => {
+   console.log(e);
+   const { name, value, checked } = e.target;
+   setUserData({ ...userData, [name]: value });
+ };
 
   return (
     <div>
@@ -87,15 +76,13 @@ const BankAccountInfo = () => {
                   <input
                     id={data.name}
                     type={data.type}
+                    name={data.name}
+                    value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
-                    // required={(required === "Yes" || required === true) ? true : false}
+                    onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-                    {...register(data.name, {
-                      required: data.required ? data.error_message : undefined,
-                      minLength: 1,
-                    })}
                   />
                   <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}

@@ -50,12 +50,13 @@ export const sellersformData = [
     place_holder: "Enter full name",
     error_message: "Account Owner’s Name is Required",
     type: "text",
+
     info: "This is the name of the person managing this account. This is the contact name we will primarily address you with.",
     required: true,
   },
   {
     label: "Account Owner’s Phone Number",
-    name: "account_owners_phone_number",
+    name: "phone_number",
     place_holder: "Enter Your Phone Number",
     error_message: "Phone Number is Required",
     type: "tel",
@@ -64,7 +65,7 @@ export const sellersformData = [
   },
   {
     label: "Additional Phone Number",
-    name: "additional_phone_number",
+    name: "phone_number2",
     place_holder: "Enter Additional Phone Number",
     error_message: "",
     type: "tel",
@@ -80,14 +81,6 @@ export const sellersformData = [
     type: "email",
     required: true,
     info: "Your account will be linked to this email address and we will use it to send all our communications.",
-  },
-  {
-    label: "Subject",
-    name: "subject",
-    place_holder: "Enter Subject",
-    error_message: "Subject is Required",
-    type: "text",
-    required: true,
   },
   {
     label: "Password",
@@ -132,7 +125,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Address 1",
-    name: "account_1",
+    name: "address1",
     place_holder: "Enter company address",
     error_message: "Company's Address is Required",
     type: "text",
@@ -141,7 +134,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Address 2",
-    name: "address_2",
+    name: "address2",
     place_holder: "Enter company address",
     error_message: "",
     type: "text",
@@ -160,7 +153,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Business owner or legal representative",
-    name: "business_rep",
+    name: "business_owner_name",
     place_holder: "Enter full name ",
     error_message: "Business owner Name is Required",
     type: "text",
@@ -180,10 +173,10 @@ export const sellersBusinessformData = [
 export const businessCac = [
   {
     label: "CAC Registration Number",
-    name: "cac",
+    name: "CAC_Registration_number",
     place_holder: "Enter registration number",
     error_message: "CAC Number is Required",
-    type: "number",
+    type: "text",
     required: true,
   },
 ];
@@ -193,7 +186,7 @@ export const businessTIN = [
     name: "tin",
     place_holder: "Enter TIN number",
     error_message: "TIN Number is Required",
-    type: "number",
+    type: "text",
     required: true,
   },
 ];
@@ -203,7 +196,7 @@ export const sellersBankInfo = [
   {
     label: "Bank account name",
     name: "bank_account_name",
-    place_holder: "Enter full name ",
+    place_holder: "Enter full name",
     error_message: "Business owner Name is Required",
     type: "text",
     info: "Please fill in your account name as it appears on your bvn",
