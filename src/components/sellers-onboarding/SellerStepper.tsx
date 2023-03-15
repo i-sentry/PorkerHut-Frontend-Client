@@ -70,7 +70,7 @@ const SellerStepper = ({
     setNewStep(current);
   }, [checkoutSteps, currentStep]);
   return (
-    <div className="m-4 p-4 flex justify-center items-center font-semibold gap-5 ">
+    <div className="m-4 p-4 md:flex justify-center items-center font-semibold gap-5 xxs:hidden">
       {newStep?.map((step, index) => (
         <div
           key={index}
