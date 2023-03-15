@@ -99,7 +99,7 @@ const PayOption = () => {
                 </div>
               </div>
             </div>
-            <div className=" text-center rounded-md lg:rounded-t-none p-4 flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
+            <div className=" text-center rounded-md lg:rounded-t-none p-4 flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4 mt-5">
               <div className="">
                 <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
                   Continue to Shopping
@@ -107,7 +107,7 @@ const PayOption = () => {
               </div>
               <div>
                 <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
-                  Proceed to Payments
+                  Complete Order
                 </button>
               </div>
             </div>
