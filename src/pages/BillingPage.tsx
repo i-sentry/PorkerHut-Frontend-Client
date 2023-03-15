@@ -3,8 +3,11 @@ import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart from "../components/order-component/OrderCart";
+import { useNavigate } from "react-router-dom";
+
 
 const BillingPage = () => {
+  const navigate = useNavigate()
   return (
     <>
       <div className="  bg-[#F5F5F5] min-h-screen">
@@ -239,7 +242,7 @@ const BillingPage = () => {
                 </button>
               </div>
               <div>
-                <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
+                <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap" onClick={() => navigate('/pay-card')}>
                   Proceed to Payments
                 </button>
               </div>
