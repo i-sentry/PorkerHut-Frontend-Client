@@ -1,21 +1,29 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Ripples from "react-ripples";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import AuthContext from "../../context/AuthProvider";
+import { useUserLogin } from "../../services/hooks/users";
+import ReactLoading from "react-loading";
+import Cookies from "js-cookie";
+// import { redirect } from "react-router-dom";
 
 interface ILoginProps {
   email: string;
   password: string;
-  checkbox: string;
+  checkbox?: string;
 }
 const Login = () => {
   //@ts-ignore
-  const {setAuth} = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const [eyeState, setEyeState] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const login = useUserLogin();
   const {
     register,
     handleSubmit,
@@ -23,10 +31,24 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginProps>();
   const [val, setVal] = useState(false);
-  const [customersLogin, setcustomersLogin] = useState(true);
+  const [customersLogin, setCustomersLogin] = useState(true);
   const onSubmit = handleSubmit((data, e) => {
-    console.log(data);
-    e?.target.reset();
+    setLoading(true);
+    login
+      .mutateAsync(data)
+      .then((res) => {
+        e?.target.reset();
+        setIsOpen(true);
+        setLoading(false);
+        setAuth(res);
+        navigate("/");
+        Cookies.set("token", res?.data?.accessToken, { expires: 7 });
+        console.log(res);
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log(e);
+      });
   });
 
   const toggleEye = (e: any) => {
@@ -37,12 +59,11 @@ const Login = () => {
     <>
       <div className="bg-[#F5F5F5] h-screen ">
         <div className="mb-20">
-
-        <NavBar />
+          <NavBar />
         </div>
         <div className=" md:hidden xxs:flex xxs:justify-end w-56 ml-auto py-5 px-3">
           <button
-            onClick={() => setcustomersLogin((prev) => !prev)}
+            onClick={() => setCustomersLogin((prev) => !prev)}
             className="rounded border-2 border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none "
           >
             Login as a Buyer
@@ -135,7 +156,7 @@ const Login = () => {
                       >
                         Forgot Password?
                       </Link>
-                      {/* <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span> */}
+                      <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span>
                     </div>
                   </div>
                   <div className="mt-3">
@@ -144,7 +165,18 @@ const Login = () => {
                         // disabled={true}
                         className="bg-[#197b30] py-2 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
                       >
-                        Login
+                        {loading ? (
+                          <div className="mx-auto flex items-center justify-center">
+                            <ReactLoading
+                              type={"spin"}
+                              color={"#fff"}
+                              height={"5%"}
+                              width={"5%"}
+                            />
+                          </div>
+                        ) : (
+                          "Login"
+                        )}
                       </button>
                     </Ripples>
                   </div>
@@ -284,7 +316,7 @@ const Login = () => {
               </form>
               <div className="mt-3 hidden md:block">
                 <button
-                  onClick={() => setcustomersLogin((prev) => !prev)}
+                  onClick={() => setCustomersLogin((prev) => !prev)}
                   className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
                 >
                   Login as a Buyer

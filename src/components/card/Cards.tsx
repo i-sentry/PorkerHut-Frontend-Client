@@ -5,9 +5,9 @@ import { addProductToCart } from "../../redux/features/product/productSlice";
 import RatingWidget from "../RatingWidget";
 
 const Cards = ({ item }: any) => {
-  
+
   const dispatch = useDispatch()
-  
+
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }))
   };
@@ -18,7 +18,7 @@ const Cards = ({ item }: any) => {
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
         <img
           src={item?.img}
-          alt="image"
+          alt="product"
           className="w-full h-full object-cover"
         />
 
