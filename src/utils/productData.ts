@@ -3,7 +3,7 @@ export const productData = [
     id: "1",
     title: "John Doe farm store",
     type: "Animal feed",
-    category: "feed",
+    category: "Feed",
     price: "3000",
     product: {
       location: "Awka",
@@ -18,7 +18,7 @@ export const productData = [
     id: "2",
     title: "Micheal bobo store",
     type: "Animal feed",
-    category: "feed",
+    category: "Feed",
     price: "3000",
     product: {
       location: "Calabar",

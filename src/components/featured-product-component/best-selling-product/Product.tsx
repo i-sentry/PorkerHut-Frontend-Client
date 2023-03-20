@@ -28,7 +28,7 @@ const Product = () => {
       breakpoint: { max: 464, min: 0 },
       items: 2,
     },
-  };
+  }; 
 
   return (
     <div className="">
@@ -41,7 +41,7 @@ const Product = () => {
           </button>
         </div>
       </div>
-      <Carousel responsive={responsive} className="p-4">
+      <Carousel  responsive={responsive} className="p-4">
         {bestSelling.map((item: any) => {
           return (
             <div className="">

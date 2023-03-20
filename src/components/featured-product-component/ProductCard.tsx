@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
+import { NavLink } from "react-router-dom";
 
 const ProductCard = ({ item }: any) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const dispatch = useDispatch()
-  
-  
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    dispatch(addProductToCart({ id: item?.id }))
+    dispatch(addProductToCart({ id: item?.id }));
   };
 
   // console.log({ item });
   return (
     <div className=" flex flex-col shadow-lg rounded-md ease-in-out p-3 transform hover:translate-y-2 hover:shadow-xl transition duration-300 cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
-        <img
-          src={item?.img}
-          alt=""
-          className="w-full h-full object-cover"
-        />
+        <NavLink to={`/product/${item.id}`}>
+          <img src={item?.img} alt="" className="w-full h-full object-cover" />
+        </NavLink>
 
         <div
           onClick={handleClick}

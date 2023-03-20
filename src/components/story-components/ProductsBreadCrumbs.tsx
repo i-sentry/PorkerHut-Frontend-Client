@@ -18,7 +18,7 @@ const ProductBreadCrumb = ({ items }: BreadCrumbType) => {
           >
             <div
               key={index}
-              className="flex items-center gap-x-1 rounded-none text-black  text-base"
+              className="flex items-center gap-x-1 rounded-none text-[#BDBDBD]  text-base"
             >
               <Link to={item.link}>
                 <button className="capitalize rounded-none hover:text-[#197b30] font-light py-2">

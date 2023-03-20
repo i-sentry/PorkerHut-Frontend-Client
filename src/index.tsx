@@ -7,6 +7,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "./index.css";
 import { store } from "./redux/store";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,9 +17,11 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <AuthProvider>
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <ShoppingCartProvider >
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </ShoppingCartProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

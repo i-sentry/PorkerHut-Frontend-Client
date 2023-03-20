@@ -58,6 +58,11 @@ import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
 import SellerLayout from "./shared/SellerLayout";
 import Product from "./pages/sellers-dashboard/Product";
+import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
+import Pork from "./pages/product-category/ProductCategory";
+import StarRating from "./components/featured-product-component/best-selling-product/ProductDetailRating";
+import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
+import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,12 +72,17 @@ const router = createBrowserRouter(
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog/:id" element={<BlogContent />} />
       <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/my-cart" element={<CartPage />} />
+      <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/products" element={<ProductPage />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/product/:id/rating-page" element={<CustomerRating />} />
+
+      <Route path="/category/:title" element={<Pork />} />
       <Route path="/store-page" element={<StorePage />} />
       <Route path="/order-cancel" element={<OrderCancel />} />
       <Route path="/my-order" element={<MyOrder />} />
+      <Route path="/rating" element={<RatingCard />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
       <Route path="/pay-fail" element={<PaymentFailPage />} />
       <Route path="/affiliate" element={<AffiliatePage />} />
