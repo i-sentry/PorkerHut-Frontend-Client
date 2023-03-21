@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
+import { NavLink } from "react-router-dom";
 
 const ProductCard = ({ item }: any) => {
   const [rating, setRating] = useState(0);
@@ -16,6 +17,9 @@ const ProductCard = ({ item }: any) => {
   return (
     <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
+        <NavLink to={`/product/${item.id}`}>
+          <img src={item?.img} alt="" className="w-full h-full object-cover" />
+        </NavLink>
         <img src={item?.img} alt="" className="w-full h-full object-cover" />
 
         <div

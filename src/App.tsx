@@ -61,6 +61,10 @@ import Dashboard from "./pages/sellers-dashboard/Dashboard";
 import SellerLayout from "./shared/SellerLayout";
 import Product from "./pages/sellers-dashboard/Product";
 import PayOption from "./pages/PayOption";
+import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
+import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
+import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
+import ProductCategory from "./pages/product-category/ProductCategory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -74,11 +78,16 @@ const router = createBrowserRouter(
       <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/products" element={<ProductPage />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/product/:id/rating-page" element={<CustomerRating />} />
+
+      <Route path="/category/:title" element={<ProductCategory />} />
       <Route path="/store-page" element={<StorePage />} />
       <Route path="/billing" element={<BillingPage/>} />
       <Route path="/pay-card" element={<PayOption/>} />
       <Route path="/order-cancel" element={<OrderCancel />} />
       <Route path="/my-order" element={<MyOrder />} />
+      <Route path="/rating" element={<RatingCard />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
       <Route path="/pay-fail" element={<PaymentFailPage />} />
       <Route path="/affiliate" element={<AffiliatePage />} />

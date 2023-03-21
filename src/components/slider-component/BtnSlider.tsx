@@ -3,12 +3,14 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import "./Slider.css";
 
 interface BtnSliderProps {
-  direction: string;
+  
   moveSlide: () => void;
+  direction: string;
+  customClass?: string;
 }
 
 
-export default function BtnSlider({ direction, moveSlide }: BtnSliderProps) {
+export default function BtnSlider({ direction, moveSlide, customClass }: BtnSliderProps) {
   
   return (
     <button

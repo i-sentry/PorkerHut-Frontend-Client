@@ -12,19 +12,19 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
+import { useParams } from "react-router-dom"
+
 
 const ProductPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-
   const [data, setData] = useState(productData);
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
-
   useEffect(() => setData(productData), [productData]);
-
+  console.log({ menuItems })
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
