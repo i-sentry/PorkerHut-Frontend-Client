@@ -5,7 +5,7 @@ import { sellersShopInfo, sellersformData } from "../../utils/formData";
 import { Link } from "react-router-dom";
 import StepperController from "./StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
-
+import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
 
 export type SelectOptionType = {
   label: string | number;
@@ -14,17 +14,41 @@ export type SelectOptionType = {
 } | null;
 
 const SellersAccountInfo = () => {
-    //@ts-ignore
-const { checkoutSteps, currentStep, handleClick } =useContext(SellersStepsContext);
-     const [val, setVal] = useState(false);
-      const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  //@ts-ignore
+  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+    useContext(SellersStepsContext);
+  const [val, setVal] = useState(false);
+  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const { state, setState } = useAppState();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   control,
+  //   setValue,
+  //   getValues,
+  //   formState: { isValid, errors },
+  // } = useForm<any>();
+
   const {
-    register,
     handleSubmit,
-      control,
+    register,
+    watch,
     setValue,
-    formState: { isValid, errors },
-  } = useForm<any>();
+    formState: { errors },
+  } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
+  const watchPassword = watch("password");
+
+  const handleChange = (e: any) => {
+    console.log(e)
+    const { name, value, checked } = e.target;
+    setUserData({ ...userData, [name]: value });
+
+      // setValue("checkbox", checked ? "yes" : "no");
+      // setVal(!val);
+      // setUserData({ ...userData, [name]: value, val });
+
+  };
+
   return (
     <div>
       {" "}
@@ -54,15 +78,13 @@ const { checkoutSteps, currentStep, handleClick } =useContext(SellersStepsContex
                   <input
                     id={data.name}
                     type={data.type}
+                    name={data.name}
+                    value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
-                    // required={(required === "Yes" || required === true) ? true : false}
+                    onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-                    {...register(data.name, {
-                      required: data.required ? data.error_message : undefined,
-                      minLength: 1,
-                    })}
                   />
                   <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}
@@ -106,14 +128,12 @@ const { checkoutSteps, currentStep, handleClick } =useContext(SellersStepsContex
                     id={data.name}
                     type={data.type}
                     placeholder={data.place_holder}
-                    // required={(required === "Yes" || required === true) ? true : false}
+                    name={data.name}
+                    onChange={handleChange}
+                    value={userData[data?.name] || ""}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-                    {...register(data.name, {
-                      required: data.required ? data.error_message : undefined,
-                      minLength: 1,
-                    })}
                   />
                   <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}
@@ -126,13 +146,10 @@ const { checkoutSteps, currentStep, handleClick } =useContext(SellersStepsContex
               <>
                 <div className="flex items-center ">
                   <input
-                    {...register("checkbox")}
+                    // {...register("checkbox")}
                     type="checkbox"
                     name="checkbox"
-                    onChange={(e: any) => {
-                      setValue("checkbox", e.target.checked ? "yes" : "no");
-                      setVal(!val);
-                    }}
+                    onChange={handleChange}
                     checked={val}
                     className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
                   />
@@ -143,18 +160,16 @@ const { checkoutSteps, currentStep, handleClick } =useContext(SellersStepsContex
                     </Link>
                   </label>
                 </div>
-                          </>
-                          <div className="">
-
-                          {currentStep !== checkoutSteps?.length && (
-
-              <StepperController
-                checkoutSteps={checkoutSteps}
-                currentStep={currentStep}
-                handleClick={handleClick}
-              />
-                          )}
-                          </div>
+              </>
+              <div className="">
+                {currentStep !== checkoutSteps?.length && (
+                  <StepperController
+                    checkoutSteps={checkoutSteps}
+                    currentStep={currentStep}
+                    handleClick={handleClick}
+                  />
+                )}
+              </div>
             </form>
           </div>
         </div>

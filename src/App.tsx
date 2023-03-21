@@ -17,6 +17,7 @@ import VeterinaryServices from "./pages/services-page/VetServices";
 import ProductPage from "./pages/ProductPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import CartPage from "./pages/CartPage";
+import BillingPage from "./pages/BillingPage";
 import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
 import Layout from "./shared/SellerLayout";
@@ -37,6 +38,7 @@ import ProductAccordion from "./pages/sellers-dashboard/SellersProductPage";
 import StepperComponent from "./components/step/StepperComponent";
 import AffiliatePage from "./pages/AffiliatePage";
 import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
+import { AppProvider } from "./context/SellerInfoContext";
 import StorePage from "./pages/StorePage";
 import AdminLayout from "./shared/AdminLayout";
 import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
@@ -58,14 +60,15 @@ import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
 import SellerLayout from "./shared/SellerLayout";
 import Product from "./pages/sellers-dashboard/Product";
+import PayOption from "./pages/PayOption";
 import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
-import Pork from "./pages/product-category/ProductCategory";
-import StarRating from "./components/featured-product-component/best-selling-product/ProductDetailRating";
-import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
 import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
+import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
+import ProductCategory from "./pages/product-category/ProductCategory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+    // <AppProvider>
     <Route>
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
@@ -78,8 +81,10 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/:id/rating-page" element={<CustomerRating />} />
 
-      <Route path="/category/:title" element={<Pork />} />
+      <Route path="/category/:title" element={<ProductCategory />} />
       <Route path="/store-page" element={<StorePage />} />
+      <Route path="/billing" element={<BillingPage/>} />
+      <Route path="/pay-card" element={<PayOption/>} />
       <Route path="/order-cancel" element={<OrderCancel />} />
       <Route path="/my-order" element={<MyOrder />} />
       <Route path="/rating" element={<RatingCard />} />
@@ -101,7 +106,7 @@ const router = createBrowserRouter(
         <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
         <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
         <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
-        
+
      </Route>
 
       <Route path="/admin-dashboard" element={<AdminLayout />}>
@@ -129,11 +134,16 @@ const router = createBrowserRouter(
         <Route path="/admin-dashboard/settings" element={<Settings />} />
       </Route>
     </Route>
+    // </AppProvider>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
+  );
 }
 
 export default App;

@@ -15,11 +15,12 @@ const ProductCard = ({ item }: any) => {
 
   // console.log({ item });
   return (
-    <div className=" flex flex-col shadow-lg rounded-md ease-in-out p-3 transform hover:translate-y-2 hover:shadow-xl transition duration-300 cursor:pointer">
+    <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
         <NavLink to={`/product/${item.id}`}>
           <img src={item?.img} alt="" className="w-full h-full object-cover" />
         </NavLink>
+        <img src={item?.img} alt="" className="w-full h-full object-cover" />
 
         <div
           onClick={handleClick}

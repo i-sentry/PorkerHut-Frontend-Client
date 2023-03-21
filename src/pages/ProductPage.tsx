@@ -27,12 +27,11 @@ const ProductPage = () => {
   console.log({ menuItems })
   return (
     <AppLayout>
-
       <div className="bg-[#EEEEEE] overflow-hidden relative">
         {/* <NavBar /> */}
         <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
-        <div className="bg-[#EEEEEE] pt-24">
-          <div className="px-8">
+        <div className="bg-[#EEEEEE] pt-24 px-14">
+          <div className="">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -40,33 +39,36 @@ const ProductPage = () => {
                   link: "/",
                 },
                 {
-                  name: "Products",
+                  name: "Product",
                   link: "/products",
                 },
               ]}
             />
           </div>
 
-          <div className="md:flex">
-            <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 mx-6 xxs:hidden md:block overflow-hidden">
+          <div className="md:flex gap-8 ">
+            <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden md:block overflow-hidden rounded-sm">
               <Filter setData={setData} menuItem={menuItems} />
             </div>
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
-                <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
-                  <h1 className="text-xl font-medium">All Products</h1>
+                <div className="md:flex md:items-center md:justify-between md:gap-8 xxs:py-4">
+                  <h1 className="text-xl text-[#333333] pl-3 font-medium">
+                    All Products
+                  </h1>
                   <div>
-                    <p className="text-l text-gray-700">
+                    <p className="text-sm text-[#A2A2A2] ">
                       Showing{" "}
                       <span className="font-medium">{currentPageIndex}</span> -{" "}
                       <span className="font-medium">{itemsPerPage}</span> of{" "}
-                      <span className="font-medium">{data?.length}</span> results
+                      <span className="font-medium">{data?.length}</span>{" "}
+                      results
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center ">
-                  <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD] xxs:hidden md:block">
+                  <span className="pt-2 ml-14 text-sm font-normal text-[#BDBDBD] xxs:hidden md:block">
                     Sort by:
                   </span>
                   <span className="xxs:hidden md:block">
@@ -84,10 +86,10 @@ const ProductPage = () => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-4 mb-6 xxs:grid-cols-2">
+                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2 gap-2 ">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
-
+                      console.log(Tdata, "Tdata");
                       return <ProductCard item={Tdata} key={Tdata.id} />;
                     }
                   )}
@@ -111,16 +113,16 @@ const ProductPage = () => {
                   <RxCaretLeft size={16} />
                 </button>
                 <div className="pagination flex gap-1 items-center">
-
                   {chunkArray(data, itemsPerPage).map((_, index) => {
                     return (
                       <button
                         key={index}
                         onClick={() => setCurrentPageIndex(index + 1)}
-                        className={` border-2   border-[#A2A2A2]  ${currentPageIndex === index + 1
-                          ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                          : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
-                          }`}
+                        className={` border-2   border-[#A2A2A2]  ${
+                          currentPageIndex === index + 1
+                            ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
+                            : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                        }`}
                       >
                         {index + 1}
                       </button>

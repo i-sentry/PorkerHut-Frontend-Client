@@ -16,8 +16,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from "../redux/store";
 import CartCard from "../components/CartCard";
 import CartCard2 from "../components/CartCard2";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
+  const navigate = useNavigate()
   const cart = useSelector((state: RootState) => state.product.cart)
 
   const cartTotal = Object.values(cart).reduce((acc, current) => {
@@ -77,7 +79,7 @@ const CartPage = () => {
                 </div>
                 <div className=" p-5 flex gap-5">
                   <button className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center hidden">Continue to Shopping</button>
-                  <button className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center">
+                  <button className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center" onClick={() => navigate('/billing')}>
                     Checkout <span className="md:hidden">(₦{cartTotal.toLocaleString()})</span> 
                   </button>
                 </div>

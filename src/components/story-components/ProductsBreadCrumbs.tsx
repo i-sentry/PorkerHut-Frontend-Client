@@ -18,7 +18,7 @@ const ProductBreadCrumb = ({ items }: BreadCrumbType) => {
           >
             <div
               key={index}
-              className="flex items-center gap-x-1 rounded-none text-[#BDBDBD]  text-base"
+              className="flex items-center gap-x-1 rounded-none  text-sm  text-[#BDBDBD]"
             >
               <Link to={item.link}>
                 <button className="capitalize rounded-none hover:text-[#197b30] font-light py-2">
@@ -31,8 +31,7 @@ const ProductBreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <button
             key={index}
-            className="text-primary hover:text-[#197b30] text-black py-2 rounded-md capitalize text-lg font-light "
-          >
+            className="text-[#333333] hover:text-[#197b30]  py-2 rounded-md capitalize text-sm ">
             {item.name}
           </button>
         )

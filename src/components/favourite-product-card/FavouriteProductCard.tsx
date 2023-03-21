@@ -31,7 +31,7 @@ const FavouriteProductCard = ({item}: FavouriteProductCardProps) => {
      const [hover, setHover] = useState(0);
 
      const handleClick = () => {
-       
+
      };
 
   return (
@@ -40,7 +40,7 @@ const FavouriteProductCard = ({item}: FavouriteProductCardProps) => {
         <div className="w-full md:h-[302px] flex item-center justify-center relative group">
           <img
             src={item.img}
-            alt="image"
+            alt="product"
             className="w-full h-full object-cover"
           />
 

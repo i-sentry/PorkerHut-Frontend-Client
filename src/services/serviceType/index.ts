@@ -8,5 +8,5 @@ export interface ISignUpUser {
   lastName: string;
   password: string;
   email: string;
-  confirmPassword?: string;
+ 
 }
