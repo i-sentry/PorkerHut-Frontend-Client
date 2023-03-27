@@ -65,6 +65,11 @@ import ProductDetails from "./components/featured-product-component/best-selling
 import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
 import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
 import ProductCategory from "./pages/product-category/ProductCategory";
+import ToggleSwitch from "./components/toggle-switch/ToggleSwitch";
+import Tabs from "./pages/tabs/MobileTabs";
+import MobileTabs from "./pages/tabs/MobileTabs";
+import AccountInfo from "./pages/tabs/AccountInfo";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -100,12 +105,20 @@ const router = createBrowserRouter(
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
       <Route path="/services/agro-services" element={<AgroServices />} />
+      <Route path="/switch" element={<ToggleSwitch />} />
+      
+        
+      
+      
 
       <Route path="/sellers-dashboard" element={<SellerLayout />}>
         <Route path="/sellers-dashboard/home" element={<SellersHome />} />
         <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
         <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
         <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
+        <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
+        
+       
 
      </Route>
 

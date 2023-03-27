@@ -8,17 +8,17 @@ const Layout = () => {
   const [sidebar, setSidebar] = useState(false);
 
   return (
-    <div className="h-screen w-screen overflow-hidden overflow-x-hidden">
+    <div className="h-screen w-screen overflow-hidden md:overflow-x-hidden">
       <div className=" ">
         <div className="">
           <OrderNavbar sidebar={sidebar} setSidebar={setSidebar} />
         </div>
-        <div className="flex w-screen h-screen">
-          <div className="flex md:flex-[1]">
+        <div className="md:flex md:w-screen md:h-screen">
+          <div className="md:flex md:flex-[1]">
             <OrderSidebar sidebar={sidebar} setSidebar={setSidebar} />
           </div>
 
-          <div className="overflow-y-scroll outlet md:flex-[5] p-5 ">
+          <div className="overflow-y-scroll md:outlet md:flex-[5] md:px-5 md:py-2 ">
             {<Outlet />}
           </div>
         </div>
