@@ -10,7 +10,7 @@ import { useUserSignUp } from "../../services/hooks/users";
 import { ISignUpUser } from "../../services/serviceType";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
 
-const CreateAccount = () => {
+const CreateAccount: any = () => {
   const createUserAcc = useUserSignUp();
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);

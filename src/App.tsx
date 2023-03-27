@@ -117,6 +117,7 @@ const router = createBrowserRouter(
         <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
         <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
         <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
+        <Route path="/sellers-dashboard/performance" element={<SellersPerformance />} />
         
        
 
