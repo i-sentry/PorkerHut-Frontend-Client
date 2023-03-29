@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import DashboardStatsGrid from "../../components/sellers-order-page-component/DashboardStatsGrid";
 import OrderTable from "../../components/sellers-order-page-component/OrderTable";
+import Table from "../../components/Table/Table";
 
 const SellersOrderPage = () => {
   return (
@@ -11,10 +12,11 @@ const SellersOrderPage = () => {
           <DashboardStatsGrid />
         </div>
         <div className="">
-          <OrderTable />
+          {/* <OrderTable /> */}
+          <Table/>
         </div>
       </div>
-      
+
     </div>
   );
 };

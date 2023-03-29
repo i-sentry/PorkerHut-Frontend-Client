@@ -4,19 +4,21 @@ import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
 
-const ProductCard = ({ item }: any) => {
+const ProductCard = ({ item, notify }: any) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
+      console.log("click");
+      notify();
   };
 
-  // console.log({ item });
+
   return (
-    <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
-      <div className="w-full md:h-[302px] flex item-center justify-center relative group">
+    <div className=" flex flex-col rounded-md  p-3 transform    cursor:pointer">
+      <div className="w-full xxs:h-56 md:h-[302px] flex item-center justify-center relative group">
         <NavLink to={`/product/${item.id}`}>
           <img src={item?.img} alt="" className="w-full h-full object-cover" />
         </NavLink>
@@ -24,26 +26,34 @@ const ProductCard = ({ item }: any) => {
 
         <div
           onClick={handleClick}
-          className=" flex items-center justify-center absolute w-full h-14 md:bg-[#197B30] md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
+          className=" flex items-center justify-center absolute w-full xxs:h-12 md:h-14 bg-[#197B30] xxs:bottom-0 md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
         >
-          <h1 className="text-white xxs:hidden md:block">ADD TO CART</h1>
+          <h1 className="text-white  xxs:text-sm">ADD TO CART</h1>
         </div>
       </div>
       <div className="z-10 bg-white">
-        <div className="flex items-center justify-between py-1">
-          <h2 className="text-sm text-[#A2A2A2]">{item?.title}</h2>
-          <span className="text-sm text-[#A2A2A2]">
+        <div className="flex items-center justify-between py-1 xxs:hidden ">
+          <h2 className="text-sm text-[#A2A2A2] whitespace-normal">
+            {item?.title}
+          </h2>
+          <span className="text-sm text-[#A2A2A2] ">
             {item?.product?.location}
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <h1 className="whitespace-nowrap text-sm font-semibold">
+          <h1 className=" text-xl font-light text-[#333333] ">
             {item?.product?.productName}
           </h1>
-          <span className="whitespace-nowrap text-sm font-semibold">
+          <span className=" text-sm font-semibold xxs:hidden block">
             {item?.product?.weight}
           </span>
         </div>
+        <span className="whitespace-nowrap text-2xl tracking-wider font-normal md:hidden block text-[#333333] ">
+          ₦{item?.price}
+        </span>
+        <h2 className="text-sm text-[#A2A2A2] whitespace-normal md:hidden xxs:block">
+          {item?.title}
+        </h2>
         <div className="flex items-center justify-between py-1">
           <div className="flex text-yellow-500 cursor-pointer">
             {[...Array(5)].map((start, i) => {
@@ -69,7 +79,7 @@ const ProductCard = ({ item }: any) => {
               );
             })}
           </div>
-          <span className="whitespace-nowrap text-sm font-semibold">
+          <span className="whitespace-nowrap text-sm font-semibold xxs:hidden block">
             ₦{item?.price}
           </span>
         </div>

@@ -6,7 +6,7 @@ import { AiFillStar } from "react-icons/ai";
 import { bestSelling, productData } from "../../../utils/productData";
 import ProductCard from "../ProductCard";
 
-const Product = () => {
+const Product = (notify: any) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -45,10 +45,9 @@ const Product = () => {
         {bestSelling.map((item: any) => {
           return (
             <div className="">
-              <ProductCard key={item.id} item={item} />
-
+              <ProductCard key={item.id} item={item} notify={notify} />
             </div>
-            );
+          );
         })}
       </Carousel>
     </div>

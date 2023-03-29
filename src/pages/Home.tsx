@@ -9,21 +9,25 @@ import Story from "../components/story-components/Story";
 import FeaturedProduct from "../components/featured-product-component/best-selling-product/FeaturedProduct";
 import Product from "../components/featured-product-component/best-selling-product/Product";
 import AppLayout from "../components/utility/AppLayout";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home: React.FC = () => {
+  const notify = () => toast("Here is your toast.");
   return (
     <AppLayout>
-      <div className="mb-20"></div>
-      <div className="bg-slate-400">
+      <div className="mb-20 overflow-hidden"></div>
+      <div className="bg-slate-400 gg">
         <Slider sliderImages={[]} />
       </div>
-      <Category />
-      <Services />
-      <Header />
-      <Product />
-      <FeaturedProduct />
-      <Story />
-      <Blog />
+      <div >
+        <Category />
+        <Services />
+        <Header />
+        {/* <Product notify={notify} /> */}
+   
+        <Story />
+        <Blog />
+      </div>
     </AppLayout>
   );
 };

@@ -58,11 +58,11 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white fixed top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
-      <nav className="md:flex  items-center font-medium justify-between">
+    <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
+      <nav className="md:flex h-full  items-center font-medium justify-between">
         {/* Menu Btn */}
 
-        <div className="z-50  md:w-auto w-full flex items-center gap-4">
+        <div className="z-50 h-full  md:w-auto w-full flex items-center gap-4">
           <div className="flex gap-2">
             <button
               onClick={() => setToggle(!toggle)}
