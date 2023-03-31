@@ -5,7 +5,7 @@ import Sidebar from "../pages/admin-dashboard/Sidebar";
 
 const AdminLayout = () => {
   return (
-    <div className="h-screen w-screen ">
+    <div className="h-screen w-screen overflow-x-hidden">
       <div className="bg-teal-200 h-16">
         <Navbar />
       </div>

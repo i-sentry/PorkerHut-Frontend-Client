@@ -123,3 +123,31 @@
   }
 }
 
+.hide-scroll-bar::-webkit-scrollbar {
+  width: 0em;
+}
+
+.hide-scroll-bar::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.hide-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 0.25em;
+}
+
+
+.change-scroll-bar:-webkit-scrollbar {
+  width: 0.25em;
+}
+
+.hide-scroll-bar::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.hide-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 0.25em;
+}
+
+
