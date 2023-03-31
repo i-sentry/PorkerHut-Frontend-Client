@@ -17,6 +17,8 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
+      console.log("click");
+      // notify();
   };
 
   const handleCardClick = () => {
@@ -36,26 +38,34 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
         <div
           onClick={handleClick}
-          className=" flex items-center justify-center absolute w-full h-14 md:bg-[#197B30] md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
+          className=" flex items-center justify-center absolute w-full xxs:h-12 md:h-14 bg-[#197B30] xxs:bottom-0 md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
         >
-          <h1 className="text-white xxs:hidden md:block">ADD TO CART</h1>
+          <h1 className="text-white  xxs:text-sm">ADD TO CART</h1>
         </div>
       </div>
       <div className="z-10 bg-white">
-        <div className="flex items-center justify-between py-1">
-          <h2 className="text-sm text-[#A2A2A2]">{item?.title}</h2>
-          <span className="text-sm text-[#A2A2A2]">
+        <div className="flex items-center justify-between py-1 xxs:hidden ">
+          <h2 className="text-sm text-[#A2A2A2] whitespace-normal">
+            {item?.title}
+          </h2>
+          <span className="text-sm text-[#A2A2A2] ">
             {item?.product?.location}
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <h1 className="whitespace-nowrap text-sm font-semibold">
+          <h1 className=" text-xl font-light text-[#333333] ">
             {item?.product?.productName}
           </h1>
-          <span className="whitespace-nowrap text-sm font-semibold">
+          <span className=" text-sm font-semibold xxs:hidden block">
             {item?.product?.weight}
           </span>
         </div>
+        <span className="whitespace-nowrap text-2xl tracking-wider font-normal md:hidden block text-[#333333] ">
+          ₦{item?.price}
+        </span>
+        <h2 className="text-sm text-[#A2A2A2] whitespace-normal md:hidden xxs:block">
+          {item?.title}
+        </h2>
         <div className="flex items-center justify-between py-1">
           <div className="flex text-yellow-500 cursor-pointer">
             {[...Array(5)].map((start, i) => {
@@ -81,7 +91,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
               );
             })}
           </div>
-          <span className="whitespace-nowrap text-sm font-semibold">
+          <span className="whitespace-nowrap text-sm font-semibold xxs:hidden block">
             ₦{item?.price}
           </span>
         </div>

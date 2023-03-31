@@ -16,7 +16,7 @@ const FeaturedProduct = () => {
 
   return (
     <>
-      <div className=" xxs:px-2 xxs:py-2 md:px-8 flex justify-between items-center bg-[#197B30] ">
+      {/* <div className=" xxs:p-2md:px-8 flex justify-between items-center bg-[#197B30] ">
         <h1 className="text-2xl font-medium text-white">Featured Products</h1>
         <div className=" px-2 flex items-center md:py-1.5 text-white rounded-md hover:cursor-pointer">
           See all{" "}
@@ -24,8 +24,9 @@ const FeaturedProduct = () => {
             <BsArrowRightShort />
           </button>
         </div>
-      </div>
-      <div className="w-full grid md:grid-cols-4 p-4 gap-3  xxs:grid-cols-2 ">
+      </div> */}
+
+      <div className="w-full grid md:grid-cols-4 gap-  xxs:grid-cols-2 ">
         {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
           (item: any) => {
             return <ProductCard item={item} />;
