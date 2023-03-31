@@ -10,8 +10,15 @@ import RatingCard from "./RatingCard";
 import ProductsBreadCrumbs from "../../story-components/ProductsBreadCrumbs";
 import { cartData } from "../../CartData/cartData";
 import Cards from "../../card/Cards";
+import { useLocation } from 'react-router-dom';
+import { addProductToCart } from "../../../redux/features/product/productSlice";
+
 
 const ProductDetails = () => {
+
+  const location = useLocation();
+  const item = location.state.item;
+  console.log("yesssssssssssssssssssssssss", item)
 
   const [selectedImg, setSelectedImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -20,6 +27,10 @@ const ProductDetails = () => {
 
   const handleOpen = (value: React.SetStateAction<number>) => {
     setOpen(open === value ? 0 : value);
+  };
+
+  const handleClick = () => {
+    dispatch(addProductToCart(item));
   };
 
   const images = [
@@ -91,7 +102,7 @@ const ProductDetails = () => {
           </div>
 
           <div className="mt-2  md:flex gap-6">
-            <button className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4">Add to Cart</button>
+            <button onClick={handleClick} className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4">Add to Cart</button>
             <button className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium">Buy Now</button>
           </div>
         </div>
@@ -174,4 +185,8 @@ const ProductDetails = () => {
 export default ProductDetails;
 
 
+
+function dispatch(arg0: { payload: { id: string | number; }; type: "product/addProductToCart"; }) {
+  throw new Error("Function not implemented.");
+}
 

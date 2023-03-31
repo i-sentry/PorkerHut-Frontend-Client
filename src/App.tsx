@@ -69,6 +69,7 @@ import ToggleSwitch from "./components/toggle-switch/ToggleSwitch";
 import Tabs from "./pages/tabs/MobileTabs";
 import MobileTabs from "./pages/tabs/MobileTabs";
 import AccountInfo from "./pages/tabs/AccountInfo";
+import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
 
 
 const router = createBrowserRouter(
@@ -117,15 +118,16 @@ const router = createBrowserRouter(
         <Route path="/sellers-dashboard/product" element={<SellersProductPage />} />
         <Route path="/sellers-dashboard/create-product" element={<CreateProduct />} />
         <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
+        <Route path="/sellers-dashboard/performance" element={<SellersPerformance />} />
         
        
 
      </Route>
 
-      <Route path="/admin-dashboard" element={<AdminLayout />}>
-        <Route path="/admin-dashboard/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin-dashboard/overview" element={<Overview />} />
+      <Route  path="/admin-dashboard" element={<AdminLayout />}>
+        <Route index path="/admin-dashboard/overview" element={<Overview />} />
         <Route path="/admin-dashboard/admin-order" element={<Order />} />
+        <Route path="/admin-dashboard/admin-order/:id" element={<OrderTableDetail />} />
         <Route path="/admin-dashboard/customers" element={<Customers />} />
         <Route path="/admin-dashboard/analytics" element={<Analytics />} />
         <Route path="/admin-dashboard/stores" element={<Stores />} />

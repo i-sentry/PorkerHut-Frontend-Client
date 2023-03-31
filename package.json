@@ -6,6 +6,7 @@
     "@emotion/is-prop-valid": "^1.2.0",
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
+    "@hookform/resolvers": "^3.0.0",
     "@material-tailwind/react": "^1.2.5",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -47,6 +48,7 @@
     "react-toastify": "^9.1.2",
     "swiper": "^8.4.6",
     "web-vitals": "^2.1.4",
+    "zod": "^3.21.4",
     "zustand": "^4.3.3"
   },
   "scripts": {
