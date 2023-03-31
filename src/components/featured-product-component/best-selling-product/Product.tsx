@@ -45,7 +45,7 @@ const Product = (notify: any) => {
         {bestSelling.map((item: any) => {
           return (
             <div className="">
-              <ProductCard key={item.id} item={item} notify={notify} />
+              <ProductCard key={item.id} item={item} />
             </div>
           );
         })}
