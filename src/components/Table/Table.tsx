@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   useTable,
   useSortBy,
@@ -18,8 +18,11 @@ import { usePaginationPages } from "./usePaginationPages";
 import Pagination from "./Pagination";
 import IndeterminateCheckbox from "./IndeterminateCheckBox";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { OrderDropDown } from "./OrderDropDown";
 
 const Table = () => {
+  const [selectedRows, setSelectedRows] = useState(null);
+  const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const columns = useMemo(() => column, []);
 
   const data = useMemo(() => mockData, []);
@@ -27,7 +30,6 @@ const Table = () => {
     {
       columns,
       data,
-
     },
     useGlobalFilter,
     useSortBy,
@@ -90,12 +92,10 @@ const Table = () => {
                   )}
                 </span>
               ) : null}
-
             </div>
           ),
         },
         ...columns,
-
       ]);
     }
   ) as any;
@@ -107,6 +107,7 @@ const Table = () => {
     page,
     state,
     setGlobalFilter,
+    selectedFlatRows,
     nextPage,
     gotoPage,
     pageCount,
@@ -117,13 +118,47 @@ const Table = () => {
     canPreviousPage,
     footerGroups,
   } = table;
-  const { globalFilter, pageIndex, pageSize, expanded} = state;
+  const { globalFilter, pageIndex, pageSize, expanded } = state;
+
+  useEffect(() => {
+    var selectedRows = selectedFlatRows.map(
+      (d: { original: any }) => d.original
+    );
+
+    setSelectedRows(selectedRows);
+
+    setNumOfSelectedRow(selectedFlatRows.length);
+  }, [setSelectedRows, setNumOfSelectedRow, selectedFlatRows]);
 
   return (
     <>
-      <>
-        <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
-      </>
+      <div className="flex items-center justify-between  mb-4 w-full ">
+        <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
+          <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+            <input
+              type="checkbox"
+              className="text-primary  accent-[#197B30] text-xs md:text-sm"
+              readOnly
+              checked={numOfSelectedRow > 0 ? true : false}
+            />
+            {numOfSelectedRow > 0 && (
+              <span className="mx-3 text-slate-400">
+                {numOfSelectedRow} Selected
+              </span>
+            )}
+          </div>
+          <div className="max-w-xl ">
+            <OrderDropDown />
+          </div>
+          <div className="bg-[#197B30] text-[#fff] px-4 py-2 rounded-md cursor-pointer">
+            Go
+          </div>
+        </div>
+<div className=" flex md:justify-end xxs:justify-center">
+<GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
+</div>
+
+      </div>
       <div className="  flex flex-col bg-white mb-8">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
@@ -133,7 +168,7 @@ const Table = () => {
                 className="appearance-none bg-white min-w-full  mb-6 "
                 id="my-table"
               >
-                <thead className="bg-[#F4F4F4] appearance-none">
+                <thead className="bg-[#F4F4F4] appearance-none ">
                   {headerGroups.map(
                     (headerGroup: {
                       getHeaderGroupProps: () => { [x: string]: any; key: any };
@@ -210,15 +245,12 @@ const Table = () => {
                               );
                             })}
                           </tr>
-
                         </>
                       );
                     }
                   )}
-
                 </tbody>
               </table>
-
 
               <Pagination
                 gotoPage={gotoPage}

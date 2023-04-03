@@ -1,11 +1,7 @@
-
 import React from "react";
 import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
-
-
-
 
 const Category = () => {
   //@ts-ignore
@@ -36,20 +32,19 @@ const Category = () => {
     datas[i].title = menuItems[i];
   }
 
-console.log(datas,"data")
-
+  console.log(datas, "data");
 
   return (
-    <div className="md:p-6 xxs:px-4 ">
+    <div className="md:p-6 xxs:px-4 md:px-14">
       <div>
         <div className="flex justify-center items-center  xxs:mt-4">
-          <h1 className="font-semibold text-2xl">Shop by Category</h1>
+          <h1 className="font-normal tracking-tight text-3xl">Shop by Categories</h1>
         </div>
-        <div className="flex items-center justify-center mb-8">
+        <div className="flex items-center justify-center mb-[3rem] mt-2">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="md:grid md:grid-cols-3 xxs:gap-4 md:gap-6 xxs:overflow-x-scroll md:overflow-hidden md:h-full">
+      <div className="md:grid md:grid-cols-3 xxs:gap-4 md:gap-9 xxs:overflow-x-scroll md:overflow-hidden md:h-full">
         {datas.map((item) => (
           //@ts-ignore
           <Card {...item} />

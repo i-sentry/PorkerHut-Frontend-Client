@@ -53,7 +53,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <h1 className=" text-xl font-light text-[#333333] ">
+          <h1 className=" text-base font-light text-[#333333] ">
             {item?.product?.productName}
           </h1>
           <span className=" text-sm font-semibold xxs:hidden block">

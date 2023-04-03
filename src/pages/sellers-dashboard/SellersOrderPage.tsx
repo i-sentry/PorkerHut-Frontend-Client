@@ -6,17 +6,16 @@ import Table from "../../components/Table/Table";
 
 const SellersOrderPage = () => {
   return (
-    <div className="w-full h-[1100px] bg-[#fff] p-5 pl-8">
+    <div className="w-full  bg-[#fff] p-5 md:pl-8">
       <div className=" w-full">
         <div>
           <DashboardStatsGrid />
         </div>
         <div className="">
           {/* <OrderTable /> */}
-          <Table/>
+          <Table />
         </div>
       </div>
-
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React from "react";
 import Services from "../components/agro-services/Services";
 import Blog from "../components/blog-component/Blog";
@@ -10,8 +9,13 @@ import FeaturedProduct from "../components/featured-product-component/best-selli
 import Product from "../components/featured-product-component/best-selling-product/Product";
 import AppLayout from "../components/utility/AppLayout";
 import toast, { Toaster } from "react-hot-toast";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home: React.FC = () => {
+  React.useEffect(() => {
+    AOS.init();
+  });
   const notify = () => toast("Here is your toast.");
   return (
     <AppLayout>
@@ -19,12 +23,12 @@ const Home: React.FC = () => {
       <div className="bg-slate-400 gg">
         <Slider sliderImages={[]} />
       </div>
-      <div >
-        <Category />
-        <Services />
+      <div className="mt-8">
+        <Category data-aos="fade-up" />
+        <Services/>
         <Header />
         {/* <Product notify={notify} /> */}
-   
+
         <Story />
         <Blog />
       </div>

@@ -48,7 +48,7 @@ const IndeterminateCheckbox = forwardRef<
         type="checkbox"
         ref={combinedRef}
         {...rest}
-        className="ml-3 mr-4 accent-primaryDark border-2 border-solid border-[#8C9196] "
+        className="ml-3 mr-4 accent-[#197B30] border-2 border-solid border-[#8C9196] "
       />
     </>
   );

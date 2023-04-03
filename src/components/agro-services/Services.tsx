@@ -5,7 +5,7 @@ let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {
   return (
-    <section className=" bg-[#F4F4F4] xxs:h-[55vh] md:w-full md:flex-wrap md:overflow-hidden md:h-screen md:mb-20 xxs:mb-10">
+    <section className=" bg-[#F4F4F4] xxs:h- md:w-full md:flex-wrap md:overflow-hidden   md:mb-20 xxs:mb-10">
       <div className="xxs:m-4 xxs:h-screen md:hidden">
         <div className=" md:w-2/4 xl:w-2/4 md:h-[700px] my-4 xxs:pt-10">
           <img src={backgroundMobile} alt="" className="w-full h-full" />
@@ -28,27 +28,29 @@ const Services = () => {
 
       <div className=" flex items-center justify-center my-0 md:py-10">
         <div className="xxs:hidden md:block w-[45%] bg-[#FFFFFF] py-10 px-10 z-10 mr-[-100px] max-h-[400px]">
-          <h1 className="font-semibold text-2xl pb-1">Agro Services</h1>
+          <h1 className="font-medium text-3xl pb-1">Agro Services</h1>
           <div className="xxs:w-20 h-1 w-10 bg-[#197B30]"></div>
-          <p className="py-5">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi,
-            expedita delectus ut exercitationem commodi obcaecati cum dolore
-            consectetur saepe atque, culpa reprehenderit accusantium cumque nisi
-            aspernatur, minima animi eaque necessitatibus facere totam. Id
-            quidem veritatis quod quisquam repudiandae perferendis aut dolores
-            sed rem hic perspiciatis, distinctio, voluptas modi cumque ad!
+          <p className="py-5 text-justify text-[#797979] tracking-tighter">
+            Agro services play a crucial role in pork meat production and supply
+            chain, which involves farrow-to-finish operations, genetics, feed
+            formulation, animal health, and waste management services. These
+            services are essential in delivering high-quality, sustainable, and
+            healthy pork meat that meets the needs and preferences of customers.
+            As a provider of agro services, we take pride in our commitment to
+            animal welfare, nutrition, and sustainability, which ensures that
+            our products not only taste great but also promote the health of our
+            customers and the environment.
           </p>
-          <Link to="/services/agro-services" className="py-3 px-5 bg-[#197B30] rounded text-white ">
+          <Link
+            to="/services/agro-services"
+            className="py-3 px-5 bg-[#197B30] rounded text-white "
+          >
             Learn More
           </Link>
         </div>
 
         <div className="xxs:hidden md:block w-[55%] ">
-          <img
-            src={backgroundweb}
-            alt=""
-            className="bg-cover bg-center h-screen"
-          />
+          <img src={backgroundweb} alt="" className="bg-cover bg-center" />
         </div>
       </div>
     </section>

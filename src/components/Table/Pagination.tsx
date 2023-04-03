@@ -31,19 +31,20 @@ const Pagination = ({
       <button
         onClick={goPrev}
         disabled={!canGo.previous}
-        className="m-1 px-2 py-1 border rounded-md"
+        className="m-1 px-2 py-1 border border-[#197B30] rounded-md"
       >
-        <ChevronLeftIcon className="h-6 w-4 text-blue-500" />
+        <ChevronLeftIcon className="h-4 w-3 text-[#197B30]" />
       </button>
       {pages.map((page, i) => (
         <button
           onClick={() => goTo(page)}
           key={i}
           style={{
-            background: currentPage === page ? "blue" : "none",
-            color: currentPage === page ? "white" : "black",
+            background: currentPage === page ? "#197B30" : "none",
+            color: currentPage === page ? "white" : "#A2A2A2",
+            borderColor: currentPage === page ? "#197B30" : "#A2A2A2",
           }}
-          className="m-1 px-3 py-1 border rounded-md"
+          className="m-1 px-2 py-[1px] border  rounded-md"
         >
           {page}
         </button>
@@ -51,11 +52,12 @@ const Pagination = ({
       <button
         onClick={goNext}
         disabled={!canGo.next}
-        className="m-1 px-2 py-1 border rounded-md"
+        className="m-1 px-2 py-1 border rounded-md border-[#197B30]"
       >
-        <ChevronRightIcon className="h-6 w-4 text-blue-500" />
+        <ChevronRightIcon className="h-4 w-3 text-[#197B30]" />
       </button>
-      <select
+      <div className="flex justify-end">
+        {/* <select
         className="px-2 py-[6px] border rounded-md w-30 bg-white"
         value={pageSize}
         onChange={(e) => setPerPage(+e.target.value)}
@@ -65,7 +67,8 @@ const Pagination = ({
             {pgSize} / page
           </option>
         ))}
-      </select>
+      </select> */}
+      </div>
     </div>
   );
 };

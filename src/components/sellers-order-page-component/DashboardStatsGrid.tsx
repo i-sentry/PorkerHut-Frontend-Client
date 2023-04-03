@@ -60,7 +60,7 @@ const DashboardStatsGrid = () => {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 mb-8">
         <h1 className="my-4 text-xl">Overview</h1>
         <div className="flex gap-8 items-center">
           <h1 className="underline text-sm">All</h1>
@@ -73,7 +73,7 @@ const DashboardStatsGrid = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4">
+      {/* <div className="flex items-center justify-between mt-4">
         <div className="flex items-center justify-between gap-4 ">
           <input type="radio" className="w-4 h-4" />
           <input
@@ -96,7 +96,7 @@ const DashboardStatsGrid = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
