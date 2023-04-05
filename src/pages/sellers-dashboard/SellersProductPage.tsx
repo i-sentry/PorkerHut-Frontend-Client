@@ -22,30 +22,6 @@ const SellersProductPage = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center justify-between gap-4 ">
-          <input type="radio" className="w-4 h-4" />
-          <input
-            type="search"
-            className="h-9 w-[300px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-lg"
-          />
-          <button className="h-9  bg-[#197B30] w-16 rounded-lg text-white">
-            Go
-          </button>
-        </div>
-        <div>
-          <div className="relative flex items-center justify-center px-5">
-            <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 left-[350px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
-              <HiOutlineSearch size={20} />
-            </div>
-            <input
-              type="text"
-              placeholder="Order  number, item name or other criteria"
-              className="text-sm focus:outline-none active:outline-none h-9 w-[350px] bg-[#F4F4F4] rounded-l-lg pl-4"
-            />
-          </div>
-        </div>
-      </div>
 
       <div className="mt-10">
         <Table />

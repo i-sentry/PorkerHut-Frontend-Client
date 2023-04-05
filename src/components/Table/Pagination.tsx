@@ -57,17 +57,7 @@ const Pagination = ({
         <ChevronRightIcon className="h-4 w-3 text-[#197B30]" />
       </button>
       <div className="flex justify-end">
-        {/* <select
-        className="px-2 py-[6px] border rounded-md w-30 bg-white"
-        value={pageSize}
-        onChange={(e) => setPerPage(+e.target.value)}
-      >
-        {[10, 50, 100].map((pgSize) => (
-          <option className="py-2" value={pgSize} key={pgSize}>
-            {pgSize} / page
-          </option>
-        ))}
-      </select> */}
+      
       </div>
     </div>
   );

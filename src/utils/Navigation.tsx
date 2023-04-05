@@ -36,7 +36,7 @@ export const ORDER_DASHBOARD_SIDEBAR_LINKS = [
         subLink: [
           {
             label: "Manage Products",
-            path: "/sellers-dashboard/product/manage-products",
+            path: "/sellers-dashboard/product",
           },
           {
             label: "Manage Product Images",
