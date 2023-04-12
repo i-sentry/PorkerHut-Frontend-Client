@@ -59,7 +59,7 @@ import Messages from "./pages/admin-dashboard/Messages";
 import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
 import SellerLayout from "./shared/SellerLayout";
-import Product from "./pages/sellers-dashboard/Product";
+import Product from "./pages/sellers-dashboard/SellersManageProductImage";
 import PayOption from "./pages/PayOption";
 import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
 import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
@@ -70,6 +70,8 @@ import Tabs from "./pages/tabs/MobileTabs";
 import MobileTabs from "./pages/tabs/MobileTabs";
 import AccountInfo from "./pages/tabs/AccountInfo";
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
+import SellerStepperComponent from "./components/manage-seller-product-stepper-form-components/SellerStepperComponent";
+import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -115,8 +117,20 @@ const router = createBrowserRouter(
           element={<SellersProductPage />}
         />
         <Route
+          path="/sellers-dashboard/product/seller-stepper/:id"
+          element={<SellerStepperComponent />}
+        />
+        <Route
+          path="/sellers-dashboard/create-product/stepper"
+          element={<StepperComponent />}
+        />
+        <Route
           path="/sellers-dashboard/create-product"
           element={<CreateProduct />}
+        />
+        <Route
+          path="/sellers-dashboard/product/manage-product-images"
+          element={<SellersManageProductImage />}
         />
         <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
         <Route

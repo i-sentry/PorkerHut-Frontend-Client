@@ -191,9 +191,7 @@ const Order = () => {
         </button>
       </div>
 
-      <div>
-        
-      </div>
+      
 
       <table className="m-auto mt-10">
         <thead className="px-5 rounded-r-md rounded-l-md bg-[#F4F4F4]">

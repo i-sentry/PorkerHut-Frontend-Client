@@ -2,6 +2,7 @@ import React from "react";
 import StepperComponent from "../../components/step/StepperComponent";
 import { HiOutlineSearch } from "react-icons/hi";
 import Table from "../../components/Table/Table";
+import ManageProductTable from "../../components/sellers-order-page-component/MangeProductTable";
 
 const SellersProductPage = () => {
   return (
@@ -24,7 +25,7 @@ const SellersProductPage = () => {
 
 
       <div className="mt-10">
-        <Table />
+        <ManageProductTable />
       </div>
     </div>
   );

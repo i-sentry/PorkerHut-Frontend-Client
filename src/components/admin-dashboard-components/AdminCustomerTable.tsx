@@ -11,81 +11,71 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import Table_Data from "../../utils/Table_Data.json";
-import GlobalFilter from "../../components/Table/GlobalFilter";
-import { usePaginationPages } from "../../components/Table/usePaginationPages";
-import Pagination from "../../components/Table/Pagination";
-import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox";
+import customerMockData from "../../utils/customerMockData.json";
+import { column } from "../Table/column";
+import GlobalFilter from "../Table/GlobalFilter";
+import { usePaginationPages } from "../Table/usePaginationPages";
+import Pagination from "../Table/Pagination";
+import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import { OrderDropDown } from "../../components/Table/OrderDropDown";
-import { button } from "@material-tailwind/react";
-import ToggleSwitch from "../toggle-switch/ToggleSwitch";
-import { NavLink } from "react-router-dom";
+import { OrderDropDown } from "../Table/OrderDropDown";
 
-const ManageProductTable = () => {
-  const column: Column<{
-    // id: number;
-    name: string;
-    create: string;
-    product_id: number;
-    price: string;
-    quantity: number;
-    visible: null;
-    active: null;
-    action: null;
-  }>[] = [
-    {
-      Header: "Name",
-      accessor: "name",
-    },
-    {
-      Header: "Created",
-      accessor: "create",
-    },
-    {
-      Header: "Product ID",
-      accessor: "product_id",
-    },
-    {
-      Header: "Price",
-      accessor: "price",
-    },
-    {
-      Header: "Quantity",
-      accessor: "quantity",
-    },
+const columns: Column<{
+  name: string;
+  email: string;
+  phone: string;
+  order: string;
+  amount: string;
+  account_id: number;
+  status: string;
+}>[] = [
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "PhoneNumber",
+    accessor: "phone",
 
-    {
-      Header: "Visible",
-      accessor: "visible",
+    Cell: ({ value, row }: any) => {
+      return <div></div>;
     },
-    {
-      Header: "Active",
-      accessor: "active",
-      Cell: ({ row }: any) => (
-        <div>
-          <ToggleSwitch />
-        </div>
-      ),
-    },
-    {
-      Header: "Action",
-      Cell: ({ row }: any) => (
-        <NavLink
-          to={`/sellers-dashboard/product/seller-stepper/${row.id}`}
-          className="underline"
-        >
-          Edit
-        </NavLink>
-      ),
-    },
-  ];
+  },
+  {
+    Header: "Order",
+    accessor: "order",
+  },
+  {
+    Header: "AmountSpent",
+    accessor: "amount",
+  },
+  {
+    Header: "Account ID",
+    accessor: "account_id",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+  },
 
+  // {
+  //   //@ts-ignore
+  //   Header: null,
+  //   Cell: ({ row }: any) => {
+  //     return <div></div>;
+  //   },
+  // },
+];
+
+const AdminCustomerTable = () => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
-  const columns = useMemo(() => column, []);
 
-  const data = useMemo(() => Table_Data, []);
+  const data = useMemo(() => customerMockData, []);
   const table = useTable(
     {
       columns,
@@ -119,7 +109,19 @@ const ManageProductTable = () => {
             </div>
           ),
         },
-    
+        {
+          id: "expand",
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: (
+            <div>
+              {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }: any) => <div></div>,
+        },
         ...columns,
       ]);
     }
@@ -144,16 +146,6 @@ const ManageProductTable = () => {
     footerGroups,
   } = table;
   const { globalFilter, pageIndex, pageSize, expanded } = state;
-
-  useEffect(() => {
-    var selectedRows = selectedFlatRows.map(
-      (d: { original: any }) => d.original
-    );
-
-    setSelectedRows(selectedRows);
-
-    setNumOfSelectedRow(selectedFlatRows.length);
-  }, [setSelectedRows, setNumOfSelectedRow, selectedFlatRows]);
 
   return (
     <>
@@ -290,4 +282,4 @@ const ManageProductTable = () => {
   );
 };
 
-export default ManageProductTable;
+export default AdminCustomerTable;
