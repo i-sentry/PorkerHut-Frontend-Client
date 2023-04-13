@@ -1,26 +1,22 @@
 import axios from "axios";
 
-
-
 export let BASEURL: string | undefined;
 switch (process.env.NODE_ENV) {
-  case 'production':
+  case "production":
     BASEURL = process.env.REACT_APP_API_ENDPOINT_PRODUCTION;
     break;
   default:
-    BASEURL = process.env.REACT_APP_API_ENDPOINT_TEST;
+    BASEURL = process.env.REACT_APP_BASE_URL;
     break;
 }
 
-console.log(process.env.REACT_APP_API_ENDPOINT_TEST, "BASEURL");
+console.log(process.env.REACT_APP_BASE_URL, "BASEURL");
 console.log(process.env.NODE_ENV);
-
-
 
 export const api = {
   Users: {
     userSignup: "/api/user/signup",
-    userLogin:"/api/user/login",
+    userLogin: "/api/user/login",
   },
 };
 

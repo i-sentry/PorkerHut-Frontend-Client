@@ -28,6 +28,8 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import { MdCancelScheduleSend, MdSendAndArchive } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
+// import { useAuth } from "../../context/AuthProvider";
+
 import Cookies from "js-cookie";
 
 const NavBar = () => {
