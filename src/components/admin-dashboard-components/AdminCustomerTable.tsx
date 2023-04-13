@@ -19,16 +19,33 @@ import Pagination from "../Table/Pagination";
 import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { OrderDropDown } from "../Table/OrderDropDown";
+import { TabSelector } from "../utility/TabSelector";
 
-const columns: Column<{
+export const StatusColumn = ({ data }: { data: string }) => {
+  switch (data?.toLowerCase()) {
+    case "active":
+      return <span className="  text-[#22C55E] ">Active</span>;
+
+    case "inactive":
+      return <span className=" text-[#F91919]  capitalize">inactive</span>;
+    default:
+      return (
+        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+      );
+  }
+};
+
+export type IProps = {
   name: string;
   email: string;
-  phone: string;
+  phone_number: string;
   order: string;
-  amount: string;
+  amount_spent: string;
   account_id: number;
   status: string;
-}>[] = [
+};
+
+const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Name",
     accessor: "name",
@@ -38,20 +55,16 @@ const columns: Column<{
     accessor: "email",
   },
   {
-    Header: "PhoneNumber",
-    accessor: "phone",
-
-    Cell: ({ value, row }: any) => {
-      return <div></div>;
-    },
+    Header: "Phone Number",
+    accessor: "phone_number",
   },
   {
     Header: "Order",
     accessor: "order",
   },
   {
-    Header: "AmountSpent",
-    accessor: "amount",
+    Header: "Amount Spent",
+    accessor: "amount_spent",
   },
   {
     Header: "Account ID",
@@ -60,22 +73,18 @@ const columns: Column<{
   {
     Header: "Status",
     accessor: "status",
+    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
   },
-
-  // {
-  //   //@ts-ignore
-  //   Header: null,
-  //   Cell: ({ row }: any) => {
-  //     return <div></div>;
-  //   },
-  // },
 ];
-
-const AdminCustomerTable = () => {
+//@ts-ignore
+const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
-
-  const data = useMemo(() => customerMockData, []);
+  const [Tdata, setTdata] = useState(customerMockData);
+  const columns = useMemo(() => Tcolumns, []);
+  const data = useMemo(() => Tdata, [Tdata]);
+  const [selectedTab, setSelectedTab] = useState(tabs);
+  const [chosenTab, setChosenTab] = useState("All");
   const table = useTable(
     {
       columns,
@@ -109,20 +118,19 @@ const AdminCustomerTable = () => {
             </div>
           ),
         },
-        {
-          id: "expand",
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: (
-            <div>
-              {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }: any) => <div></div>,
-        },
+
         ...columns,
+        optionalColumn
+          ? optionalColumn
+          : {
+              id: "view",
+              // The header can use the table's getToggleAllRowsSelectedProps method
+              // to render a checkbox
+              Header: () => <div></div>,
+              // The cell can use the individual row's getToggleRowSelectedProps method
+              // to the render a checkbox
+              Cell: () => <div></div>,
+            },
       ]);
     }
   ) as any;
@@ -147,9 +155,41 @@ const AdminCustomerTable = () => {
   } = table;
   const { globalFilter, pageIndex, pageSize, expanded } = state;
 
+  useEffect(() => {
+    if (chosenTab === "All") {
+      setTdata(customerMockData);
+    } else {
+      setTdata(
+        customerMockData.filter(
+          (d) => d?.status?.toLowerCase() === chosenTab.toLowerCase()
+        )
+      );
+    }
+  }, [chosenTab]);
+
   return (
     <>
-      <div className="flex items-center justify-between  mb-4 w-full ">
+      <div className="tabs flex gap-4 pt-5 pb-1  ">
+        {tabs.map((tab: string, index: React.Key | null | undefined) => (
+          <TabSelector
+            key={index}
+            className={`cursor-pointer relative underline bg-transparent  text-center p-2 px-4 text-[#5c6f7f]${
+              selectedTab === tab 
+                ? " text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
+                : ""
+            }`}
+            isActive={selectedTab === tab}
+            onClick={() => {
+              setSelectedTab(tab);
+
+              setChosenTab(tab);
+            }}
+          >
+            {tab}
+          </TabSelector>
+        ))}
+      </div>
+      <div className="flex  items-center justify-between  my-4 w-full ">
         <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
           <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
             <input
@@ -172,7 +212,11 @@ const AdminCustomerTable = () => {
           </div>
         </div>
         <div className=" flex md:justify-end xxs:justify-center">
-          <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
+          <GlobalFilter
+            setFilter={setGlobalFilter}
+            filter={globalFilter}
+            placeholder={"Search name, email, account ID.... "}
+          />
         </div>
       </div>
       <div className="  flex flex-col bg-white mb-8">
@@ -196,16 +240,16 @@ const AdminCustomerTable = () => {
                         <tr key={key} {...restHeaderProps}>
                           {headerGroup.headers.map((column) => (
                             <th
-                              className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 border-r"
+                              className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
                               {...column.getHeaderProps(
                                 column.getSortByToggleProps()
                               )}
                               key={column.id}
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center text-[#333333]">
                                 {column.render("Header")}
 
-                                {column.canSort === true && (
+                                {/* {column.canSort === true && (
                                   <span className="ml-2">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
@@ -220,7 +264,7 @@ const AdminCustomerTable = () => {
                                       />
                                     </svg>
                                   </span>
-                                )}
+                                )} */}
                               </div>
                             </th>
                           ))}
@@ -254,7 +298,7 @@ const AdminCustomerTable = () => {
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-normal text-sm text-[#202223] py-4 px-4 border-r"
+                                  className="font-light text-sm text-[#202223] py-4 px-4 border-r"
                                 >
                                   {cell.render("Cell")}
                                 </td>

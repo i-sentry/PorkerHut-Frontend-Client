@@ -111,9 +111,9 @@ const NavBar = () => {
               </span>
             </button>
           </div>
-          {/* <NavButton className={loginBtn} text="Login" path="/login" />
+          <NavButton className={loginBtn} text="Login" path="/login" />
 
-          <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" /> */}
+          <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
           <Menu as="div" className="relative">
             <Menu.Button className="flex items-center mt-2">
               <HiOutlineUserCircle size={22} />

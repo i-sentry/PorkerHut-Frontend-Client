@@ -9,6 +9,7 @@ import AuthContext from "../../context/AuthProvider";
 import { useUserLogin } from "../../services/hooks/users";
 import ReactLoading from "react-loading";
 import Cookies from "js-cookie";
+import AppLayout from "../utility/AppLayout";
 // import { redirect } from "react-router-dom";
 
 interface ILoginProps {
@@ -21,6 +22,7 @@ const Login = () => {
   const { setAuth } = useContext(AuthContext);
   const [eyeState, setEyeState] = useState(false);
   const navigate = useNavigate();
+  const [isError, setIsError] = useState("")
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const login = useUserLogin();
@@ -47,7 +49,8 @@ const Login = () => {
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e);
+
+        setIsError(e?.response?.data);
       });
   });
 
@@ -56,11 +59,9 @@ const Login = () => {
     setEyeState((prev) => !prev);
   };
   return (
-    <>
-      <div className="bg-[#F5F5F5] h-screen ">
-        <div className="mb-20">
-          <NavBar />
-        </div>
+    <AppLayout>
+      <div className="bg-[#F5F5F5] h-full ">
+        <div className="mb-20 bg-[#F5F5F5]"></div>
         <div className=" md:hidden xxs:flex xxs:justify-end w-56 ml-auto py-5 px-3">
           <button
             onClick={() => setCustomersLogin((prev) => !prev)}
@@ -71,15 +72,24 @@ const Login = () => {
         </div>
         {customersLogin ? (
           <>
-            <div className="flex items-center justify-center xxs:p-3">
+            <div className="flex items-center justify-center  h-full xxs:p-3">
               <div className="max-w-xl w-full   bg-[#fff] p-8 shadow-md rounded">
-                <div className="">
-                  <h1 className="text-left  text-[#333333] font-bold ">
-                    Customer's Login
-                  </h1>
-                  <p className="text-left  text-[#797979] text-sm mt-1 font-semibold">
-                    Enter your login details
-                  </p>
+                <div className="flex items-center justify-between">
+                  <div className="">
+                    <h1 className="text-left  text-[#333333] font-bold ">
+                      Customer's Login
+                    </h1>
+                    <p className="text-left  text-[#797979] text-sm mt-1 font-semibold">
+                      Enter your login details
+                    </p>
+                  </div>
+                  <div>
+                    {isError && (
+                      <span className="text-[#f91919] bg-red-200 p-2 rounded-md text-sm">
+                        {isError}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <form className="mt-3" onSubmit={onSubmit}>
@@ -99,6 +109,7 @@ const Login = () => {
                       name="email"
                       placeholder="Enter your email address"
                       id="email"
+                      onFocus={() => setIsError("")}
                       className={`w-full p-2 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.email
                           ? "border-[#e10] focus-within:border-[#e10]"
@@ -119,6 +130,7 @@ const Login = () => {
                       name="password"
                       placeholder="**********"
                       id="password"
+                      onFocus={() => setIsError("")}
                       className={`w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.password
                           ? "border-[#e10] focus-within:border-[#e10]"
@@ -156,7 +168,7 @@ const Login = () => {
                       >
                         Forgot Password?
                       </Link>
-                      <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span>
+                      {/* <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span> */}
                     </div>
                   </div>
                   <div className="mt-3">
@@ -325,9 +337,8 @@ const Login = () => {
             </div>
           </div>
         )}
-        <Footer />
       </div>
-    </>
+    </AppLayout>
   );
 };
 
