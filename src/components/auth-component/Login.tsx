@@ -19,10 +19,11 @@ interface ILoginProps {
 }
 const Login = () => {
   //@ts-ignore
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, setIsLogin } = useContext(AuthContext);
   const [eyeState, setEyeState] = useState(false);
+
   const navigate = useNavigate();
-  const [isError, setIsError] = useState("")
+  const [isError, setIsError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const login = useUserLogin();
@@ -44,7 +45,10 @@ const Login = () => {
         setLoading(false);
         setAuth(res);
         navigate("/");
-        Cookies.set("token", res?.data?.accessToken, { expires: 7 });
+        setIsLogin(true);
+        localStorage.removeItem("accessToken");
+        localStorage.setItem("accessToken", res?.data?.accessToken);
+        Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
         console.log(res);
       })
       .catch((e) => {

@@ -28,13 +28,13 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import { MdCancelScheduleSend, MdSendAndArchive } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
-
+import Cookies from "js-cookie";
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
   const [toggle, setToggle] = useState(false);
   //@ts-ignore
-  const { auth } = useContext(AuthContext);
+  const { auth, isLogin } = useContext(AuthContext);
   console.log(auth, "auth");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
@@ -57,6 +57,11 @@ const NavBar = () => {
     });
   }, []);
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("accessToken");
+    Cookies.remove("accessToken");
+  };
+  console.log(isLogin, "isLogin");
   return (
     <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
       <nav className="md:flex h-full  items-center font-medium justify-between">
@@ -111,177 +116,192 @@ const NavBar = () => {
               </span>
             </button>
           </div>
-          <NavButton className={loginBtn} text="Login" path="/login" />
-
-          <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
-          <Menu as="div" className="relative">
-            <Menu.Button className="flex items-center mt-2">
-              <HiOutlineUserCircle size={22} />
-              <p className="pl-1 text-[#333333] text-sm">
-                Hi, {auth?.data?.firstName}
-              </p>
-              <span className="rotate-180">
-                <RxCaretDown />
-              </span>
-              {/* <RxCaretUp /> */}
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      onClick={() => navigate("/profile")}
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
-                        <HiOutlineUserCircle size={24} />
-                        My Account
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      onClick={() => navigate("/settings")}
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
-                        <ImDownload size={24} />
-                        My Order
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
-                        <IoMdHeartEmpty size={24} />
-                        My Favorites
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 border-[#197B30] border-t flex w-full"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#197B30]  text-center flex">
-                        <span className="m-auto">Logout</span>
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-          <Menu as="div" className="relative">
-            <Menu.Button className="flex items-center mt-2">
-              <IoMdHelpCircleOutline size={22} />
-              <p className="pl-1 text-[#333333] text-sm"> Help</p>
-              <span className="rotate-180">
-                <RxCaretDown />
-              </span>
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      onClick={() => navigate("/profile")}
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
-                        <FaHandsHelping size={23} />
-                        Help Center
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      onClick={() => navigate("/settings")}
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
-                        <MdSendAndArchive size={23} />
-                        Tracking Orders
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
-                        <TbTruckReturn size={23} />
-                        Return Order
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={classNames(
-                        active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
-                      )}
-                    >
-                      <h1 className="text-sm text-[#197B30]  text-center flex">
-                        <MdCancelScheduleSend size={23} />
-                        <span className="m-auto">Order Cancellation</span>
-                      </h1>
-                    </div>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <>
+            {isLogin ? (
+              <>
+                <NavButton className={loginBtn} text="Login" path="/login" />
+                <NavButton
+                  className={signUpBtn}
+                  text="Sign Up"
+                  path="/sign-up"
+                />
+              </>
+            ) : (
+              <>
+                <Menu as="div" className="relative">
+                  <Menu.Button className="flex items-center mt-2">
+                    <HiOutlineUserCircle size={22} />
+                    <p className="pl-1 text-[#333333] text-sm">
+                      Hi, {auth?.data?.firstName}
+                    </p>
+                    <span className="rotate-180">
+                      <RxCaretDown />
+                    </span>
+                    {/* <RxCaretUp /> */}
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={() => navigate("/profile")}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <HiOutlineUserCircle size={24} />
+                              My Account
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={() => navigate("/settings")}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
+                              <ImDownload size={24} />
+                              My Order
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <IoMdHeartEmpty size={24} />
+                              My Favorites
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 border-[#197B30] border-t flex w-full"
+                            )}
+                          >
+                            <h1
+                              onClick={handleLogout}
+                              className="text-sm text-[#197B30]  text-center flex"
+                            >
+                              Logout
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+                <Menu as="div" className="relative">
+                  <Menu.Button className="flex items-center mt-2">
+                    <IoMdHelpCircleOutline size={22} />
+                    <p className="pl-1 text-[#333333] text-sm"> Help</p>
+                    <span className="rotate-180">
+                      <RxCaretDown />
+                    </span>
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={() => navigate("/profile")}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <FaHandsHelping size={23} />
+                              Help Center
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            onClick={() => navigate("/settings")}
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
+                              <MdSendAndArchive size={23} />
+                              Tracking Orders
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                            )}
+                          >
+                            <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <TbTruckReturn size={23} />
+                              Return Order
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active && "bg-gray-100",
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
+                            )}
+                          >
+                            <h1 className="text-sm text-[#197B30]  text-center flex">
+                              <MdCancelScheduleSend size={23} />
+                              <span className="m-auto">Order Cancellation</span>
+                            </h1>
+                          </div>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </>
+            )}
+          </>
         </div>
 
         {/* Mobile */}

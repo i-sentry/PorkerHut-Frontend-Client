@@ -5,11 +5,11 @@ interface IProps{
 }
 export const AuthProvider = ({ children }: IProps) => {
   const [auth, setAuth] = useState({});
+  const [isLogin, setIsLogin] = useState(false);
+
 
   return (
-    <AuthContext.Provider
-      value={{ auth, setAuth }}
-    >
+    <AuthContext.Provider value={{ auth, setAuth, isLogin, setIsLogin }}>
       {children}
     </AuthContext.Provider>
   );
