@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+
 
 const Stores = () => {
   return (
-    <div>Stores</div>
-  )
-}
+    <div>
+    
+    </div>
+  );
+};
 
-export default Stores
+export default Stores;
