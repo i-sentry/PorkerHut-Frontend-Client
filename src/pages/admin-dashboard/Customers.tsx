@@ -1,31 +1,80 @@
-import React from 'react'
-import AdminCustomerTable from '../../components/admin-dashboard-components/AdminCustomerTable'
+import React from "react";
+import AdminCustomerTable from "../../components/admin-dashboard-components/AdminCustomerTable";
+import Popover from "../../components/utility/PopOver";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { TabSelector } from "../../components/utility/TabSelector";
 
 const Customers = () => {
+  const optionalColumn = {
+    id: "view",
+    // The header can use the table's getToggleAllRowsSelectedProps method
+    // to render a checkbox
+    Header: () => <div></div>,
+    // The cell can use the individual row's getToggleRowSelectedProps method
+    // to the render a checkbox
+    Cell: (props: any) => (
+      <>
+        <Popover
+          buttonContent={<BsThreeDotsVertical size={20} />}
+          placementOrder={"auto"}
+          closeOnClick={true}
+        >
+          <div className="w-[150px] py-2">
+            <button
+              className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+              onClick={() => {
+                //  router.push(
+                //    `/assets/corporate-assets/${props.row.original.id}`
+                //  );
+              }}
+            >
+              Activate
+            </button>
+            {/* {permissions.canEdit && ( */}
+            <button
+              className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+              onClick={() => {
+                //  setEditAsset(true);
+                //  setAssetId(props.row.original.id);
+              }}
+            >
+              Deactivate
+            </button>
+            {/* )} */}
+            {/* {permissions.canDelete && (
+               <button
+                 className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+                 onClick={() => setDeleteCompany(props.row.original)}
+               >
+                 Delete Asset
+               </button>
+             )} */}
+          </div>
+        </Popover>
+      </>
+    ),
+  };
+
   return (
-    <div className='ml-10 mr-4 mt-4 mb-8 '>
-       <div className="mb-2">
-        <h1 className="text-xl font-medium ">Customers</h1>
+    <div className="ml-10 mr-4 mt-4 mb-8 ">
+      <div className="mb-2">
+        <h1 className="text-xl font-medium text-[#333333]">Customers</h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           All Information available
         </span>
       </div>
 
-      <div className="flex gap-8 items-center">
-        <h1 className="underline text-sm">All</h1>
-        <button className="border-2 border-[#197B30] rounded-lg py-2 px-4 text-sm">
-          Pending
-        </button>
-        <span className="underline text-sm">Ready to GO</span>
-        <span className="underline text-sm">Completed</span>
-        <span className="underline text-sm">Failed</span>
-      </div>
+      {/* <TabSelector></TabSelector> */}
 
       <div>
-        <AdminCustomerTable />
+        <AdminCustomerTable
+          // @ts-ignore
+          optionalColumn={optionalColumn}
+          tabs={["All", "Active", "Inactive"]}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Customers
+export default Customers;

@@ -1,6 +1,5 @@
 import { AiOutlineSound } from "react-icons/ai";
 
-
 import Modal from "../../components/announcement-component/Modal";
 import Select from "react-select";
 import React, { useMemo, useState, useEffect } from "react";
@@ -39,14 +38,10 @@ interface RowData {
   date: string;
 }
 
-
-
 const Annoucement = () => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const [showModal, setShowModal] = useState(false);
-
-  
 
   const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
   const [rowData, setRowData] = useState<RowData[]>(announcementData);
@@ -58,15 +53,15 @@ const Annoucement = () => {
   };
 
   const column: Column<{
-    id: number;
+    // id: number;
     content: string;
     subject: string;
     date: string;
   }>[] = [
-    {
-      Header: "Id",
-      accessor: "id",
-    },
+    // {
+    //   Header: "Id",
+    //   accessor: "id",
+    // },
     {
       Header: "Subject",
       accessor: "subject",
@@ -74,22 +69,27 @@ const Annoucement = () => {
     {
       Header: "Content",
       accessor: "content",
-  
+
       Cell: ({ value, row }: any) => {
         const handleClick = (row: any) => {
           setSelectedRow(row.original);
           setShowRowModal(true);
-          console.log("do something")
+          console.log("do something");
         };
-        
+
         return (
           <div>
             {value?.length > 40 ? (
-              <span onClick={()=> handleClick(row)} className="hover:cursor-pointer">
-                {value.substring(0, 40) + "..."}
+              <span
+                onClick={() => handleClick(row)}
+                className="hover:cursor-pointer  hover:underline text-[#197b30]"
+              >
+                {value.substring(0, 150) + "..."}
               </span>
             ) : (
-              <span>{value}</span>
+              <span className="hover:cursor-pointer text-[#197B30] hover:underline">
+                {value}
+              </span>
             )}
           </div>
         );
@@ -98,11 +98,8 @@ const Annoucement = () => {
     {
       Header: "Date",
       accessor: "date",
-     
     },
   ];
-
-
 
   const options: SelectOption[] = [
     {
@@ -113,7 +110,6 @@ const Annoucement = () => {
     { value: "stop_timer", label: "Stop Timer" },
     { value: "delete", label: "Delete" },
   ];
-
 
   const columns = useMemo(() => column, []);
 
@@ -128,8 +124,6 @@ const Annoucement = () => {
     useExpanded,
     usePagination,
     useRowSelect,
-
-    
 
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
@@ -154,13 +148,9 @@ const Annoucement = () => {
           ),
         },
 
-      
-        
         ...columns,
       ]);
-    },
-
-    
+    }
   ) as any;
   const {
     getTableBodyProps,
@@ -182,7 +172,6 @@ const Annoucement = () => {
     footerGroups,
   } = table;
   const { globalFilter, pageIndex, pageSize, expanded } = state;
-
 
   return (
     <div className="ml-10 mr-4 mt-4 mb-8">
@@ -259,7 +248,7 @@ const Annoucement = () => {
                             <tr key={key} {...restHeaderProps}>
                               {headerGroup.headers.map((column) => (
                                 <th
-                                  className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 border-r"
+                                  className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 "
                                   {...column.getHeaderProps(
                                     column.getSortByToggleProps()
                                   )}
@@ -268,7 +257,7 @@ const Annoucement = () => {
                                   <div className="flex items-center">
                                     {column.render("Header")}
 
-                                    {column.canSort === true && (
+                                    {/* {column.canSort === true && (
                                       <span className="ml-2">
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +272,7 @@ const Annoucement = () => {
                                           />
                                         </svg>
                                       </span>
-                                    )}
+                                    )} */}
                                   </div>
                                 </th>
                               ))}
@@ -294,7 +283,7 @@ const Annoucement = () => {
                     </thead>
                     <tbody
                       {...getTableBodyProps()}
-                      className="mt-3 pt-3 w-full space-y-8 border-r"
+                      className="mt-3 pt-3 w-full space-y-8 "
                     >
                       {page.map(
                         (row: {
@@ -305,20 +294,18 @@ const Annoucement = () => {
                           cells: any[];
                         }) => {
                           prepareRow(row);
-                          
 
                           return (
                             <>
                               <tr
                                 {...row.getRowProps()}
-                                
                                 className="appearance-none my-4 border "
                               >
                                 {row.cells.map((cell) => {
                                   return (
                                     <td
                                       {...cell.getCellProps()}
-                                      className=" text-sm text-[#202223] py-4 px-4 border-r"
+                                      className=" text-sm text-[#202223] py-4 px-4 "
                                     >
                                       {cell.render("Cell")}
                                     </td>
@@ -338,7 +325,9 @@ const Annoucement = () => {
                       content={selectedRow.content}
                       date={selectedRow.date}
                       isVisib={showRowModal}
-                      CloseModal={() => setShowRowModal(false)} show={false}  />
+                      CloseModal={() => setShowRowModal(false)}
+                      show={false}
+                    />
                   )}
 
                   <Pagination
@@ -358,5 +347,3 @@ const Annoucement = () => {
 };
 
 export default Annoucement;
-
-

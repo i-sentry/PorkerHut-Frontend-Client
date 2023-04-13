@@ -16,8 +16,8 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white border border-[#D9D9D9] h-16 fixed top-0 w-full px-4 flex items-center justify-between">
-      <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
+    <div className="bg-white border border-[#D9D9D9] h-16  top-0 w-full px-4 flex items-center justify-between z-50 fixed">
+      <div className="flex items-center justify-center md:gap-2 xxs:gap-3 ">
         <FaBars
           size={30}
           onClick={() => setSidebar(!sidebar)}
