@@ -117,7 +117,7 @@ const NavBar = () => {
             </button>
           </div>
           <>
-            {isLogin ? (
+            {!isLogin ? (
               <>
                 <NavButton className={loginBtn} text="Login" path="/login" />
                 <NavButton
