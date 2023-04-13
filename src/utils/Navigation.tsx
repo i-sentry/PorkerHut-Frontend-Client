@@ -103,6 +103,21 @@ export const ADMIN_DASHBOARD_SIDEBAR_LINK = [
     label: "Stores",
     path: "/admin-dashboard/stores",
     icon: <MdStorefront />,
+    icon_two: <RiArrowDownSLine />,
+    subLinks: [
+      {
+        subLink: [
+          {
+            label: "New Stores",
+            path: "/admin-dashboard/stores/new-store",
+          },
+          {
+            label: "Store Profiles",
+            path: "/admin-dashboard/stores/store-profile",
+          },
+        ],
+      },
+    ],
   },
   {
     key: "vet-partner",

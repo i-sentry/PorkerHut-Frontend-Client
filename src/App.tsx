@@ -72,6 +72,8 @@ import AccountInfo from "./pages/tabs/AccountInfo";
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
 import SellerStepperComponent from "./components/manage-seller-product-stepper-form-components/SellerStepperComponent";
 import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
+import StoreProfile from "./pages/admin-dashboard/StoreProfile";
+import NewStore from "./pages/admin-dashboard/NewStore";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -148,7 +150,9 @@ const router = createBrowserRouter(
         />
         <Route path="/admin-dashboard/customers" element={<Customers />} />
         <Route path="/admin-dashboard/analytics" element={<Analytics />} />
-        <Route path="/admin-dashboard/stores" element={<Stores />} />
+        <Route path="/admin-dashboard/stores" element={<NewStore />} />
+        <Route path="/admin-dashboard/stores/new-store" element={<NewStore />} />
+        <Route path="/admin-dashboard/stores/store-profile" element={<StoreProfile />} />
         <Route path="/admin-dashboard/vet-partner" element={<VetPartner />} />
         <Route
           path="/admin-dashboard/logistic-services"
