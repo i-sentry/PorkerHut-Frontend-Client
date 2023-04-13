@@ -3,7 +3,7 @@ import axios from "axios";
 export let BASEURL: string | undefined;
 switch (process.env.NODE_ENV) {
   case "production":
-    BASEURL = process.env.REACT_APP_API_ENDPOINT_PRODUCTION;
+    BASEURL = process.env.REACT_APP_BASE_URL;
     break;
   default:
     BASEURL = process.env.REACT_APP_BASE_URL;
