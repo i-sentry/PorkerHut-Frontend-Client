@@ -2,6 +2,7 @@ import React from "react";
 import storeData from "../../utils/storeData.json";
 import CustomerCard from "../../components/admin-dashboard-components/CustomerCard";
 
+
 const StoreProfile = () => {
   return (
     <div className="ml-10 mr-4 mt-4 mb-8">

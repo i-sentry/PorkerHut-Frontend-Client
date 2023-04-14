@@ -1,0 +1,276 @@
+ [
+  {
+    "id": 1,
+    "account_owner": {
+      "name": "John Doe",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Catwalk Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut Inc.",
+    "created_at": "4/3/2025",
+    "status": "approved"
+  },
+  {
+    "id": 2,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 3,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "pending"
+  },
+  {
+    "id": 4,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "rejected"
+  },
+  {
+    "id": 5,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "pending"
+  },
+  {
+    "id": 7,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "rejected"
+  },
+  {
+    "id": 8,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "rejected"
+  },
+  {
+    "id": 9,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approve"
+  },
+
+  {
+    "id": 10,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 11,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 12,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 13,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 14,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 15,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 16,
+    "account_owner": {
+      "name": "Williams Nado",
+      "url": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "pending"
+  },
+  {
+    "id": 17,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "rejected"
+  },
+  {
+    "id": 18,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 19,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "approved"
+  },
+  {
+    "id": 20,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "rejected"
+  },
+  {
+    "id": 21,
+    "account_owner": {
+      "name": "Williams Nado",
+      "image": "https://source.unsplash.com/80x80?face"
+    },
+    "email": "asoars0@ebay.co.uk",
+    "company_address": "3 Bowman Court",
+    "phone": "297-392-6784",
+    "store_name": "Porker Hut",
+    "created_at": "4/3/2023",
+    "status": "pending"
+  }
+]
