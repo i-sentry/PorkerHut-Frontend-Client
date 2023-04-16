@@ -11,7 +11,7 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import newStoreData from "../../utils/newStoreData.json";
+import newStoreData from "../../utils/json/newStoreData.json";
 import { column } from "../Table/column";
 import GlobalFilter from "../Table/GlobalFilter";
 import { usePaginationPages } from "../Table/usePaginationPages";
@@ -72,7 +72,7 @@ const Tcolumns: readonly Column<object>[] = [
     ),
   },
   {
-    Header: "Email",
+    Header: "Email Address",
     accessor: "email",
   },
   {
@@ -88,7 +88,7 @@ const Tcolumns: readonly Column<object>[] = [
     accessor: "store_name",
   },
   {
-    Header: "Created At",
+    Header: "Created",
     accessor: "created_at",
   },
 
@@ -189,6 +189,8 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
     }
   }, [chosenTab]);
 
+  console.log(globalFilter, "GLO");
+
   return (
     <>
       <div className="tabs flex gap-4 pt-5 pb-1  ">
@@ -237,7 +239,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
-            placeholder={"Search name, email, account ID.... "}
+            placeholder={"Search account owner, email address, store name...."}
           />
         </div>
       </div>
@@ -270,23 +272,6 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
                             >
                               <div className="flex items-center text-[#333333]">
                                 {column.render("Header")}
-
-                                {/* {column.canSort === true && (
-                                  <span className="ml-2">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      width="10"
-                                      height="12"
-                                      viewBox="0 0 10 18"
-                                      fill="none"
-                                    >
-                                      <path
-                                        d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
-                                        fill="#323232"
-                                      />
-                                    </svg>
-                                  </span>
-                                )} */}
                               </div>
                             </th>
                           ))}

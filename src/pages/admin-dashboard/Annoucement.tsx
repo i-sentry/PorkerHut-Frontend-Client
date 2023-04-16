@@ -25,6 +25,7 @@ import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox"
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { OrderDropDown } from "../../components/Table/OrderDropDown";
 import RowModal from "../../components/announcement-component/RowModal";
+import CustomPagination from "../../components/Table/CustomPagination";
 
 interface SelectOption {
   value: string;
@@ -38,7 +39,7 @@ interface RowData {
   date: string;
 }
 
-const Annoucement = () => {
+const Announcement = () => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -53,15 +54,10 @@ const Annoucement = () => {
   };
 
   const column: Column<{
-    // id: number;
     content: string;
     subject: string;
     date: string;
   }>[] = [
-    // {
-    //   Header: "Id",
-    //   accessor: "id",
-    // },
     {
       Header: "Subject",
       accessor: "subject",
@@ -174,10 +170,10 @@ const Annoucement = () => {
   const { globalFilter, pageIndex, pageSize, expanded } = state;
 
   return (
-    <div className="ml-10 mr-4 mt-4 mb-8">
-      <div className="mb-2">
-        <h1 className="text-xl font-medium ">Announcement</h1>
-        <span className="text-[#A2A2A2] font-normal text-sm">
+    <div className="p-14">
+      <div className="">
+        <h1 className="text-2xl font-medium ">Announcement</h1>
+        <span className="text-[#A2A2A2] font-light text-sm">
           This is where send out special announcement to all affiliate.
         </span>
       </div>
@@ -186,7 +182,7 @@ const Annoucement = () => {
 
       <div>
         <>
-          <div className="flex items-center justify-between  mb-4 w-full ">
+          <div className="flex items-center justify-between  my-5 w-full ">
             <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
               <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
                 <input
@@ -208,7 +204,7 @@ const Annoucement = () => {
                   className="w-full text-sm font-light bg-amber-600 rounded-md"
                 />
               </div>
-              <div className="bg-[#197B30] text-[#fff] px-4 py-2 rounded-md cursor-pointer">
+              <div className="bg-[#197B30] shadow-inner text-[#fff] px-4 py-[0.4rem] rounded-sm cursor-pointer active:scale-90 active:transition-all ease-in-out">
                 Go
               </div>
             </div>
@@ -216,10 +212,10 @@ const Annoucement = () => {
               <div className="flex items-center justify-between">
                 <div
                   onClick={() => setShowModal(true)}
-                  className="py-2 flex items-center justify-center gap-2 border-2 border-[#197B30] w-28 rounded-md text-[#197b30] cursor-pointer "
+                  className="py-1.5 px-3 flex items-center justify-center gap-2 border border-[#197B30]  rounded-md text-[#197b30] cursor-pointer shadow-md "
                 >
                   <AiOutlineSound />
-                  <button>Create</button>
+                  <span>Create</span>
                 </div>
               </div>
             </div>
@@ -256,23 +252,6 @@ const Annoucement = () => {
                                 >
                                   <div className="flex items-center">
                                     {column.render("Header")}
-
-                                    {/* {column.canSort === true && (
-                                      <span className="ml-2">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="10"
-                                          height="12"
-                                          viewBox="0 0 10 18"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
-                                            fill="#323232"
-                                          />
-                                        </svg>
-                                      </span>
-                                    )} */}
                                   </div>
                                 </th>
                               ))}
@@ -330,10 +309,13 @@ const Annoucement = () => {
                     />
                   )}
 
-                  <Pagination
+                  <CustomPagination
                     gotoPage={gotoPage}
                     length={data.length}
                     pageSize={pageSize}
+                    pageOptions={pageOptions}
+                    pageIndex={pageIndex}
+                    pageCount={pageCount}
                     setPageSize={setPageSize}
                   />
                 </div>
@@ -346,4 +328,4 @@ const Annoucement = () => {
   );
 };
 
-export default Annoucement;
+export default Announcement;

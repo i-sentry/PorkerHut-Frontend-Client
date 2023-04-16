@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { OrderData } from "../../pages/MyOrder";
+import { OrderData } from "./Order";
+
 
  export interface IOrderData {
    id: String;
@@ -18,10 +19,10 @@ import { OrderData } from "../../pages/MyOrder";
  }
 
 const AdminOrderTableSection = ({ order, rowEvents }: any) => {
-  
+
   const [orderId, setOrderId] = useState(null)
   const navigate = useNavigate()
-  
+
 
   const handleView = (orderid: any) => {
     setOrderId(orderid);

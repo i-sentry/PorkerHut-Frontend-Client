@@ -11,16 +11,10 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import Table_Data from "../../utils/Table_Data.json";
+import Table_Data from "../../utils/json/Table_Data.json";
 import GlobalFilter from "../../components/Table/GlobalFilter";
-import { usePaginationPages } from "../../components/Table/usePaginationPages";
+
 import Pagination from "../../components/Table/Pagination";
-import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import { OrderDropDown } from "../../components/Table/OrderDropDown";
-import { button } from "@material-tailwind/react";
-import ToggleSwitch from "../toggle-switch/ToggleSwitch";
-import { NavLink } from "react-router-dom";
 
 const ManageProductTable = () => {
   const column: Column<{
@@ -46,18 +40,12 @@ const ManageProductTable = () => {
       Header: "Product ID",
       accessor: "product_id",
     },
-   
 
     {
       Header: "All Images",
       accessor: "active",
-      Cell: ({ row }: any) => (
-        <img src="" alt="" />
-        
-       
-      ),
+      Cell: ({ row }: any) => <img src="" alt="" />,
     },
-   
   ];
 
   const [selectedRows, setSelectedRows] = useState(null);
@@ -74,69 +62,7 @@ const ManageProductTable = () => {
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect,
-
-    // (hooks) => {
-    //   hooks.visibleColumns.push((columns) => [
-    //     // Let's make a column for selection
-    //     {
-    //       id: "selection",
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }: any) => (
-    //         <div>
-    //           <IndeterminateCheckbox
-    //             {...(row as any).getToggleRowSelectedProps()}
-    //           />
-    //         </div>
-    //       ),
-    //     },
-    //     {
-    //       id: "expand",
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       Header: (
-    //         <div>
-    //           {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }: any) => (
-    //         <div>
-    //           {row.canExpand ? (
-    //             <span
-    //               className="flex items-center gap-3"
-    //               {...row.getToggleRowExpandedProps({
-    //                 style: {
-    //                   // We can even use the row.depth property
-    //                   // and paddingLeft to indicate the depth
-    //                   // of the row
-    //                   paddingLeft: `${row.depth * 2}rem`,
-    //                 },
-    //               })}
-    //             >
-    //               <span> Details </span>
-    //               {row.isExpanded ? (
-    //                 <RxCaretDown size={20} />
-    //               ) : (
-    //                 <RxCaretUp size={20} />
-    //               )}
-    //             </span>
-    //           ) : null}
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ]);
-    // }
+    useRowSelect
   ) as any;
   const {
     getTableBodyProps,
@@ -172,7 +98,6 @@ const ManageProductTable = () => {
   return (
     <>
       <div className="flex items-center justify-between  mb-4 w-full ">
-        
         <div className="flex">
           <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
         </div>

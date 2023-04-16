@@ -11,14 +11,14 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import Table_Data from "../../utils/Table_Data.json";
+import Table_Data from "../../utils/json/Table_Data.json";
 import GlobalFilter from "../../components/Table/GlobalFilter";
 import { usePaginationPages } from "../../components/Table/usePaginationPages";
 import Pagination from "../../components/Table/Pagination";
 import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { OrderDropDown } from "../../components/Table/OrderDropDown";
-import { button } from "@material-tailwind/react";
+
 import ToggleSwitch from "../toggle-switch/ToggleSwitch";
 import { NavLink } from "react-router-dom";
 
@@ -119,7 +119,7 @@ const ManageProductTable = () => {
             </div>
           ),
         },
-    
+
         ...columns,
       ]);
     }

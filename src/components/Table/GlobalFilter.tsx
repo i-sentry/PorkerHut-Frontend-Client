@@ -8,6 +8,7 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
   const handleChange = useAsyncDebounce((value) => {
     setFilter(value || undefined);
   }, 1000);
+ 
   return (
     <div className="flex w-full items-center justify-between gap-4 relative ">
       <input

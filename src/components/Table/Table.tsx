@@ -11,7 +11,7 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import mockData from "../../utils/mockData.json";
+import mockData from "../../utils/json/mockData.json";
 import { column } from "../Table/column";
 import GlobalFilter from "./GlobalFilter";
 import { usePaginationPages } from "./usePaginationPages";
@@ -154,10 +154,9 @@ const Table = () => {
             Go
           </div>
         </div>
-<div className=" flex md:justify-end xxs:justify-center">
-<GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
-</div>
-
+        <div className=" flex md:justify-end xxs:justify-center">
+          <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
+        </div>
       </div>
       <div className="  flex flex-col bg-white mb-8">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
