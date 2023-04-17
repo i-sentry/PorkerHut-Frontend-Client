@@ -1,41 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { OrderData } from "../../pages/MyOrder";
+import { OrderData } from "../../pages/admin-dashboard/Order";
 
- export interface IOrderData {
-   id: String;
-   img: String;
-   location: String;
-   time: String;
-   product_name: String;
-   store_name: String;
-   order_date: String;
-   order_id: String;
-   price: String;
-   quantity: String;
-   order_total: String;
-   order_status: String;
- }
+export interface IOrderData {
+  id: string;
+  img: string;
+  location: string;
+  time: string;
+  product_name: string;
+  store_name: string;
+  order_date: string;
+  order_id: string;
+  price: string;
+  quantity: string;
+  order_total: string;
+  order_status: string;
+}
 
 const MyOrderSection = ({ order, rowEvents }: any) => {
-  
-  const [orderId, setOrderId] = useState(null)
-  const navigate = useNavigate()
-  
+  const [orderId, setOrderId] = useState(null);
+  const navigate = useNavigate();
 
   const handleView = (orderid: any) => {
     setOrderId(orderid);
-    navigate(`/my__orders/${orderid}`, {replace:true})
-  }
+    navigate(`/my__orders/${orderid}`, { replace: true });
+  };
 
-    const [orderData, setOrderData] = useState(null);
+  const [orderData, setOrderData] = useState(null);
 
-    useEffect(() => {
-      const filteredOrder: any = OrderData.find((ord: any) => ord.id === orderId);
-      setOrderData(filteredOrder);
-    }, [orderId]);
+  useEffect(() => {
+    const filteredOrder: any = OrderData.find((ord: any) => ord.id === orderId);
+    setOrderData(filteredOrder);
+  }, [orderId]);
 
-console.log(orderData, "gekkki");
+  console.log(orderData, "gekkki");
   return (
     <tbody key={order.id}>
       <tr className="border border-[#D9D9D9]">

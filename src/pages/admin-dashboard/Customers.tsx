@@ -56,15 +56,13 @@ const Customers = () => {
   };
 
   return (
-    <div className="ml-10 mr-4 mt-4 mb-8 ">
+    <div className="p-14 ">
       <div className="mb-2">
         <h1 className="text-xl font-medium text-[#333333]">Customers</h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           All Information available
         </span>
       </div>
-
-      {/* <TabSelector></TabSelector> */}
 
       <div>
         <AdminCustomerTable

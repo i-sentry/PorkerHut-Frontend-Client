@@ -89,7 +89,6 @@ const ProductPage = () => {
                 <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2 gap-2 ">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
-                      console.log(Tdata, "Tdata");
                       return <ProductCard item={Tdata} key={Tdata.id} />;
                     }
                   )}

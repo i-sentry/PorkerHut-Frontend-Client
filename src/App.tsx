@@ -20,7 +20,7 @@ import CartPage from "./pages/CartPage";
 import BillingPage from "./pages/BillingPage";
 import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
-import Layout from "./shared/SellerLayout";
+import Layout from "./layout/SellerLayout";
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
 import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
 import SellersProductPage from "./pages/sellers-dashboard/SellersProductPage";
@@ -40,7 +40,7 @@ import AffiliatePage from "./pages/AffiliatePage";
 import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
 import { AppProvider } from "./context/SellerInfoContext";
 import StorePage from "./pages/StorePage";
-import AdminLayout from "./shared/AdminLayout";
+import AdminLayout from "./layout/AdminLayout";
 import AdminDashboard from "./pages/admin-dashboard/AdminDashboard";
 import Overview from "./pages/admin-dashboard/Overview";
 import Order from "./pages/admin-dashboard/Order";
@@ -51,14 +51,14 @@ import VetPartner from "./pages/admin-dashboard/VetPartner";
 import LogisticService from "./pages/admin-dashboard/LogisticService";
 import Calender from "./pages/admin-dashboard/Calender";
 import Blog from "./pages/admin-dashboard/Blog";
-import Annoucement from "./pages/admin-dashboard/Annoucement";
+import Announcement from "./pages/admin-dashboard/Annoucement";
 import Payment from "./pages/admin-dashboard/Payment";
 import Services from "./pages/admin-dashboard/Services";
 import ProductCreated from "./pages/admin-dashboard/ProductCreated";
 import Messages from "./pages/admin-dashboard/Messages";
 import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
-import SellerLayout from "./shared/SellerLayout";
+import SellerLayout from "./layout/SellerLayout";
 import Product from "./pages/sellers-dashboard/SellersManageProductImage";
 import PayOption from "./pages/PayOption";
 import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
@@ -74,6 +74,9 @@ import SellerStepperComponent from "./components/manage-seller-product-stepper-f
 import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
 import StoreProfile from "./pages/admin-dashboard/StoreProfile";
 import NewStore from "./pages/admin-dashboard/NewStore";
+import NewVetPartners from "./pages/admin-dashboard/NewVetPartners";
+import BlogPost from "./pages/admin-dashboard/BlogPost";
+import EditBlog from "./pages/admin-dashboard/EditBlog";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -111,64 +114,49 @@ const router = createBrowserRouter(
       <Route path="/services/agro-services" element={<AgroServices />} />
       <Route path="/switch" element={<ToggleSwitch />} />
 
-      <Route path="/sellers-dashboard" element={<SellerLayout />}>
-        <Route path="/sellers-dashboard/home" element={<SellersHome />} />
-        <Route path="/sellers-dashboard/order" element={<SellersOrderPage />} />
+      <Route path="/vendor" element={<SellerLayout />}>
+        <Route path="/vendor/home" element={<SellersHome />} />
+        <Route path="/vendor/order" element={<SellersOrderPage />} />
+        <Route path="/vendor/product" element={<SellersProductPage />} />
         <Route
-          path="/sellers-dashboard/product"
-          element={<SellersProductPage />}
-        />
-        <Route
-          path="/sellers-dashboard/product/seller-stepper/:id"
+          path="/vendor/product/seller-stepper/:id"
           element={<SellerStepperComponent />}
         />
         <Route
-          path="/sellers-dashboard/create-product/stepper"
+          path="/vendor/create-product/stepper"
           element={<StepperComponent />}
         />
+        <Route path="/vendor/create-product" element={<CreateProduct />} />
         <Route
-          path="/sellers-dashboard/create-product"
-          element={<CreateProduct />}
-        />
-        <Route
-          path="/sellers-dashboard/product/manage-product-images"
+          path="/vendor/product/manage-product-images"
           element={<SellersManageProductImage />}
         />
-        <Route path="/sellers-dashboard/setting" element={<SellersSetting />} />
-        <Route
-          path="/sellers-dashboard/performance"
-          element={<SellersPerformance />}
-        />
+        <Route path="/vendor/setting" element={<SellersSetting />} />
+        <Route path="/vendor/performance" element={<SellersPerformance />} />
       </Route>
 
-      <Route path="/admin-dashboard" element={<AdminLayout />}>
-        <Route index path="/admin-dashboard/overview" element={<Overview />} />
-        <Route path="/admin-dashboard/admin-order" element={<Order />} />
-        <Route
-          path="/admin-dashboard/admin-order/:id"
-          element={<OrderTableDetail />}
-        />
-        <Route path="/admin-dashboard/customers" element={<Customers />} />
-        <Route path="/admin-dashboard/analytics" element={<Analytics />} />
-        <Route path="/admin-dashboard/stores" element={<NewStore />} />
-        <Route path="/admin-dashboard/stores/new-store" element={<NewStore />} />
-        <Route path="/admin-dashboard/stores/store-profile" element={<StoreProfile />} />
-        <Route path="/admin-dashboard/vet-partner" element={<VetPartner />} />
-        <Route
-          path="/admin-dashboard/logistic-services"
-          element={<LogisticService />}
-        />
-        <Route path="/admin-dashboard/calender" element={<Calender />} />
-        <Route path="/admin-dashboard/blog-service" element={<Blog />} />
-        <Route path="/admin-dashboard/announcement" element={<Annoucement />} />
-        <Route path="/admin-dashboard/payment" element={<Payment />} />
-        <Route path="/admin-dashboard/service" element={<Services />} />
-        <Route
-          path="/admin-dashboard/product-created"
-          element={<ProductCreated />}
-        />
-        <Route path="/admin-dashboard/messages" element={<Messages />} />
-        <Route path="/admin-dashboard/settings" element={<Settings />} />
+      <Route path="" element={<AdminLayout />}>
+        <Route index path="/admin/overview" element={<Overview />} />
+        <Route path="/admin/admin-order" element={<Order />} />
+        <Route path="/admin/admin-order/:id" element={<OrderTableDetail />} />
+        <Route path="/admin/customers" element={<Customers />} />
+        <Route path="/admin/analytics" element={<Analytics />} />
+        <Route path="/admin/stores" element={<NewStore />} />
+        <Route path="/admin/stores/new-store" element={<NewStore />} />
+        <Route path="/admin/stores/store-profile" element={<StoreProfile />} />
+        <Route path="/admin/vet" element={<VetPartner />} />
+        <Route path="/admin/new__vet" element={<NewVetPartners />} />
+        <Route path="/admin/logistic-services" element={<LogisticService />} />
+        <Route path="/admin/calender" element={<Calender />} />
+        <Route path="/admin/create__blog" element={<Blog />} />
+        <Route path="/admin/edit__blog/:id" element={<EditBlog />} />
+        <Route path="/admin/blog" element={<BlogPost />} />
+        <Route path="/admin/announcement" element={<Announcement />} />
+        <Route path="/admin/payment" element={<Payment />} />
+        <Route path="/admin/service" element={<Services />} />
+        <Route path="/admin/product-created" element={<ProductCreated />} />
+        <Route path="/admin/messages" element={<Messages />} />
+        <Route path="/admin/settings" element={<Settings />} />
       </Route>
     </Route>
     // </AppProvider>

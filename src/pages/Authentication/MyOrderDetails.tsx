@@ -8,20 +8,21 @@ import {
 import productImg from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
-import  {OrderData}  from "../MyOrder";
+
 import { IOrderData } from "../../components/sellers-order-page-component/MyOrderSection";
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
+import { OrderData } from "../admin-dashboard/Order";
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const handleOnclose = () => setShowModal(false);
 
   const { id } = useParams();
-  
+
   const navigate = useNavigate();
 
-  const [orderData, setOrderData] = useState<IOrderData>({
+  const [order, setOrder] = useState<IOrderData>({
     id: "",
     img: "",
     location: "",
@@ -39,9 +40,9 @@ const MyOrderDetails = () => {
   useEffect(() => {
     const filteredOrder = OrderData.find((ord: IOrderData) => ord.id === id);
     //@ts-ignore
-    setOrderData(filteredOrder);
+    setOrder(filteredOrder);
   }, [id]);
-  
+
   return (
     <>
       <div className="m-auto mt-10 ">
@@ -80,7 +81,7 @@ const MyOrderDetails = () => {
                   <span className="text-[#A2A2A2] text-xs pr-2">
                     Order Date:
                   </span>
-                  {orderData?.order_date}
+                  {order?.order_date}
                 </span>
               </div>
 
@@ -89,14 +90,14 @@ const MyOrderDetails = () => {
                   <span className="text-[#A2A2A2] text-xs pr-2 block">
                     Phone
                   </span>
-                  <span className="text-xs">{orderData?.id}</span>
+                  <span className="text-xs">{order?.id}</span>
                 </div>
                 <div className="">
                   <span className="text-xs">
                     <span className="text-[#A2A2A2] text-xs pr-2 block">
                       Email
                     </span>
-                    {orderData?.store_name}
+                    {order?.store_name}
                   </span>
                 </div>
               </div>
@@ -111,7 +112,7 @@ const MyOrderDetails = () => {
                 className="underline text-sm"
                 onClick={() => setShowModal(true)}
               >
-                {orderData?.id}
+                {order?.id}
               </button>
             </div>
             <div className="flex justify-between px-4">
@@ -119,14 +120,14 @@ const MyOrderDetails = () => {
                 <span className="text-[#A2A2A2] text-xs pr-2 block">
                   Billing Address
                 </span>
-                <span className="text-xs">{orderData?.location}</span>
+                <span className="text-xs">{order?.location}</span>
               </div>
               <div className="">
                 <div className="leading-tight">
                   <span className="text-[#A2A2A2] text-xs pr-2 block">
                     Home Address
                   </span>
-                  <span className="text-xs">{orderData?.location}</span>
+                  <span className="text-xs">{order?.location}</span>
                 </div>
               </div>
             </div>
@@ -141,17 +142,17 @@ const MyOrderDetails = () => {
             <div className="flex items-center justify-between pl-4 pr-8">
               <div>
                 <span className="text-[#A2A2A2] text-xs block">Store Name</span>
-                <span className="text-xs">{orderData?.store_name}</span>
+                <span className="text-xs">{order?.store_name}</span>
               </div>
               <div>
                 <span className="text-[#A2A2A2] text-xs block">Order ID</span>
-                <span className="text-xs">{orderData?.id}</span>
+                <span className="text-xs">{order?.id}</span>
               </div>
               <div>
                 <span className="text-[#A2A2A2] text-xs block">
                   Product Name
                 </span>
-                <span className="text-xs">{orderData?.product_name} </span>
+                <span className="text-xs">{order?.product_name} </span>
               </div>
             </div>
           </div>
@@ -164,17 +165,17 @@ const MyOrderDetails = () => {
               <div className="flex items-center justify-between pl-4 pr-8">
                 <div>
                   <span className="text-[#A2A2A2] text-xs block">Price</span>
-                  <span className="text-xs">{orderData?.price}</span>
+                  <span className="text-xs">{order?.price}</span>
                 </div>
                 <div>
                   <span className="text-[#A2A2A2] text-xs block">Quantity</span>
-                  <span className="text-xs">{orderData?.quantity}</span>
+                  <span className="text-xs">{order?.quantity}</span>
                 </div>
                 <div>
                   <span className="text-[#A2A2A2] text-xs block">
                     Order Total
                   </span>
-                  <span className="text-xs">{orderData?.order_total}</span>
+                  <span className="text-xs">{order?.order_total}</span>
                 </div>
                 <div>
                   <button className="text-xs underline">Return Order</button>

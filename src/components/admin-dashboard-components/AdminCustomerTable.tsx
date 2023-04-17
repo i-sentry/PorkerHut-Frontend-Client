@@ -11,13 +11,12 @@ import {
   Hooks,
   useExpanded,
 } from "react-table";
-import customerMockData from "../../utils/customerMockData.json";
-import { column } from "../Table/column";
+
 import GlobalFilter from "../Table/GlobalFilter";
-import { usePaginationPages } from "../Table/usePaginationPages";
+
 import Pagination from "../Table/Pagination";
 import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import customerMockData from "../../utils/json/customerMockData.json"
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 
@@ -161,7 +160,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
     } else {
       setTdata(
         customerMockData.filter(
-          (d) => d?.status?.toLowerCase() === chosenTab.toLowerCase()
+          (d: any) => d?.status?.toLowerCase() === chosenTab.toLowerCase()
         )
       );
     }
@@ -174,7 +173,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
           <TabSelector
             key={index}
             className={`cursor-pointer relative underline bg-transparent  text-center p-2 px-4 text-[#5c6f7f]${
-              selectedTab === tab 
+              selectedTab === tab
                 ? " text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
                 : ""
             }`}
