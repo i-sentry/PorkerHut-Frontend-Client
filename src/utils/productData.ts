@@ -7,9 +7,9 @@ export const productData = [
     price: "3000",
     product: {
       location: "Awka",
-      name: "100% Healthy-Fed Pork Lap",
+      name: "100% Healthy-Fed Pig Lap",
       weight: "1000g",
-      productName: "100% Healthy-Fed Pork Lap",
+      productName: "100% Healthy-Fed Pig Lap",
     },
     img: "./images/productimg1.png",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",

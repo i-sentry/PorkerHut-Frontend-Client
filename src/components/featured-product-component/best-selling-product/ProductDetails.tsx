@@ -12,13 +12,16 @@ import { cartData } from "../../CartData/cartData";
 import Cards from "../../card/Cards";
 import { useLocation } from 'react-router-dom';
 import { addProductToCart } from "../../../redux/features/product/productSlice";
+import AppLayout from "../../utility/AppLayout";
 
 
 const ProductDetails = () => {
 
   const location = useLocation();
   const item = location.state.item;
-  console.log("yesssssssssssssssssssssssss", item)
+  console.log(item, "IMAGE");
+  
+  
 
   const [selectedImg, setSelectedImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -34,13 +37,15 @@ const ProductDetails = () => {
   };
 
   const images = [
+    item?.img,
     "../images/Banner.jpg",
     "../images/Banner1.jpg",
     "../images/Banner2.jpg",
 
   ]
   return (
-    <div className="bg-[#EEEEEE] md:px-10 pt-4 flex flex-col gap-6">
+    <AppLayout>
+    <div className="bg-[#EEEEEE] md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14">
       <ProductsBreadCrumbs
         items={[
           {
@@ -76,16 +81,16 @@ const ProductDetails = () => {
         <div className="md:flex-1 flex flex-col gap-3 md:pr-8 xxs:mt-16 md:mt-0" 
         >
           <div className="flex justify-between items-center">
-            <h1 className="font-semibold text-xl">100 % Healthy - Fed Pork Lap</h1>
+            <h1 className="font-semibold text-xl">{item?.product?.name}</h1>
             <span><MdFavoriteBorder /></span>
           </div>
           <span></span>
-          <span className=" font-medium text-base">N3000</span>
-          <span className=" font-normal text-base text-[#797979]">Our shipping fees are flat rates. Regardless of the size and amount of items <br />
-            ordered, only one shipping fee applies.</span>
-          <span className="font-normal text-sm text-[#797979]">Weight: <span className="font-medium text-black text-sm">3Kg</span></span>
-          <span className="font-normal text-sm text-[#797979]">Category: <span className="font-medium text-black text-sm">Pork Meat</span></span>
-          <span className="font-normal text-sm text-[#797979]">Product ID: <span className="font-medium text-black text-sm">101010</span></span>
+          <span className=" font-medium text-base">N{item?.price}</span>
+          {/* <span className=" font-normal text-base text-[#797979]">Our shipping fees are flat rates. Regardless of the size and amount of items <br />
+            ordered, only one shipping fee applies.</span> */}
+        <span className="font-normal text-sm text-[#797979]">Weight:  <span className="font-medium text-black text-sm">{item?.product?.Weight}</span></span>
+          <span className="font-normal text-sm text-[#797979]">Category: <span className="font-medium text-black text-sm">{item?.category}</span></span>
+          <span className="font-normal text-sm text-[#797979]">Product ID: <span className="font-medium text-black text-sm">{item?.id}</span></span>
           <span className="font-normal text-sm text-[#797979]">Availability: <span className="font-medium text-black text-sm">100% Available</span></span>
           <div className="flex flex-col">
             <h1 className="block font-normal text-base text-[#797979]">Quantity</h1>
@@ -179,6 +184,7 @@ const ProductDetails = () => {
 
 
     </div>
+    </AppLayout>
   );
 };
 

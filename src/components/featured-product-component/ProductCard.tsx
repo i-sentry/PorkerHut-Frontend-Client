@@ -19,15 +19,15 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
-      console.log("click");
-      // notify();
+      
+    
   };
 
   const handleCardClick = () => {
-    navigate(`/product/${item.id}`, { state: { item } });
+    navigate(`/product/${item?.id}`, { state: { item } });
   };
 
-  // console.log({ item });
+  
   return (
     <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
