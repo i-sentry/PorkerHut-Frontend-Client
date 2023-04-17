@@ -10,6 +10,8 @@ interface ProductLocationState {
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
+
+  
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
         </div>
       </div>
       <div className="z-10 bg-white">
-        <div className="flex items-center justify-between py-1 xxs:hidden ">
+        <div className="flex items-center justify-between py-1 ">
           <h2 className="text-sm text-[#A2A2A2] whitespace-normal">
             {item?.title}
           </h2>
@@ -53,10 +55,10 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <h1 className=" text-base font-light text-[#333333] ">
+          <h1 className=" text-base text-[#333333] font-medium">
             {item?.product?.productName}
           </h1>
-          <span className=" text-sm font-semibold xxs:hidden block">
+          <span className=" text-sm font-normal  block">
             {item?.product?.weight}
           </span>
         </div>
@@ -91,12 +93,14 @@ const ProductCard = ({ item }: ProductLocationState) => {
               );
             })}
           </div>
-          <span className="whitespace-nowrap text-sm font-semibold xxs:hidden block">
+    <span className="whitespace-nowrap text-sm font-normal xxs:hidden md:block">
             ₦{item?.price}
           </span>
         </div>
       </div>
     </div>
+
+    
   );
 };
 export default ProductCard;

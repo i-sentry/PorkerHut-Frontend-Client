@@ -35,7 +35,7 @@ const Category = () => {
   console.log(datas, "data");
 
   return (
-    <div className="md:p-6 xxs:px-4 md:px-14">
+    <div className="md:p-6 xxs:px-4 md:px-12">
       <div>
         <div className="flex justify-center items-center  xxs:mt-4">
           <h1 className="font-normal tracking-tight text-3xl">Shop by Categories</h1>

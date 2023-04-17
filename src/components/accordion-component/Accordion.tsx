@@ -111,30 +111,7 @@ const Filter = ({ menuItem, setData }: iProps) => {
                 </div>
               );
             })}
-            {/* <div>
-              <input type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base font-normal" htmlFor="3">
-                Duroc
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base font-normal" htmlFor="4">
-                Hampshire
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
-            </div> */}
-            {/* <div>
-              <input type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
-            </div> */}
+        
           </div>
         </AccordionBody>
       </Accordion>
@@ -285,6 +262,7 @@ const Filter = ({ menuItem, setData }: iProps) => {
         </AccordionHeader>
         <AccordionBody>
           <MultiRangeSlider min={0} max={2000} />
+        
         </AccordionBody>
       </Accordion>
     </Fragment>

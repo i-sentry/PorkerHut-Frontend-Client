@@ -11,7 +11,7 @@ const BlogCard = ({ blog }: any) => {
   const formattedDate = momentDate.format("MMMM Do YYYY");
   return (
     <>
-      <div className="max-w-[300px] bg-white rounded-md hover:shadow-md group overflow-hidden">
+      <div className="max-w-[500px] bg-white rounded-md hover:shadow-md group overflow-hidden">
         <Link to="#" className="">
           <img className="rounded-t" src={image} alt="" />
           {/* shine box */}

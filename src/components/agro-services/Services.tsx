@@ -12,7 +12,7 @@ const Services = () => {
         </div>
 
         <div className=" xxs:py-6 xxs:px-6 md:w-2/4 xs:h-7 md:max-h-[700px] md:py-10 md:px-12 xl:py-10 xl:px-12 bg-[#FFFFFF]  relative xxs:m-10 xxs:rounded-md xxs:mt-[-160px]">
-          <h1 className="xxs: text-lg xxs:font-medium">Agro Services</h1>
+          <h1 className="font-normal tracking-tight text-3xl">Agro Services</h1>
           <div className=" xxs:w-20 h-1 w-10 bg-[#197B30]"></div>
           <p className="my-8">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia

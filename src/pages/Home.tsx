@@ -25,10 +25,8 @@ const Home: React.FC = () => {
       </div>
       <div className="mt-8">
         <Category data-aos="fade-up" />
-        <Services/>
+        <Services />
         <Header />
-        {/* <Product notify={notify} /> */}
-
         <Story />
         <Blog />
       </div>
