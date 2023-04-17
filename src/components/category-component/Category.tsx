@@ -46,7 +46,7 @@ const Category = () => {
       </div>
       <div className="md:grid md:grid-cols-3 xxs:gap-4 md:gap-9 xxs:overflow-x-scroll md:overflow-hidden md:h-full">
         {datas.map((item) => (
-          //@ts-ignore
+          // @ts-ignore
           <Card {...item} />
         ))}
       </div>
