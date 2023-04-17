@@ -6,7 +6,7 @@ const transparencyPic = require("../../assets/images/Transparency.jpg");
 
 const Story = () => {
   return (
-    <div className="md:h-screen md:mt-10  xxs:pb-4">
+    <div className=" md:mt-10  xxs:pb-4">
       <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
         <h1 className="font-normal tracking-tight text-3xl">How We Are Different</h1>
       </div>
@@ -24,7 +24,7 @@ const Story = () => {
           <img src={transparencyPic} alt="" />
         </div>
       </div>
-      <div className="flex justify-center items-center md:mt-10 xxs:mt-4 xxs:mb-6">
+      <div className="flex justify-center items-center md:mt-10 xxs:mt-4 xxs:mb-6 md:mb-0">
         <NavLink
           to="/about-us"
           className="py-3 px-6 bg-[#197B30] text-white rounded"

@@ -11,7 +11,7 @@ interface ProductLocationState {
 
 const ProductCard = ({ item }: ProductLocationState) => {
 
-  
+
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -19,15 +19,15 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
-      
-    
+
+
   };
 
   const handleCardClick = () => {
     navigate(`/product/${item?.id}`, { state: { item } });
   };
 
-  
+
   return (
     <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
@@ -35,14 +35,14 @@ const ProductCard = ({ item }: ProductLocationState) => {
           src={item?.img}
           alt=""
           className="w-full h-full object-cover"
-          onClick={handleCardClick}
+
         />
 
         <div
           onClick={handleClick}
           className=" flex items-center justify-center absolute w-full xxs:h-12 md:h-14 bg-[#197B30] xxs:bottom-0 md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
         >
-          <h1 className="text-white  xxs:text-sm">ADD TO CART</h1>
+          <span className="text-white  xxs:text-sm">ADD TO CART</span>
         </div>
       </div>
       <div className="z-10 bg-white">
@@ -55,7 +55,10 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
-          <h1 className=" text-base text-[#333333] font-medium">
+          <h1
+            onClick={handleCardClick}
+            className=" text-base font-medium cursor-pointer text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out"
+          >
             {item?.product?.productName}
           </h1>
           <span className=" text-sm font-normal  block">
@@ -93,14 +96,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
               );
             })}
           </div>
-    <span className="whitespace-nowrap text-sm font-normal xxs:hidden md:block">
+          <span className="whitespace-nowrap text-sm font-normal xxs:hidden md:block">
             ₦{item?.price}
           </span>
         </div>
       </div>
     </div>
-
-    
   );
 };
 export default ProductCard;

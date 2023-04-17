@@ -13,7 +13,7 @@ const Blog = () => {
   // Function to handle drag enter
   const handleDragEnter = (evt: any) => {
     cancelDefaultBehavior(evt);
-    evt.target.classList.add("border-dashed-[#0eb683]");
+    evt.target.classList.add("border-dashed-[#197b30]");
 
     return false;
   };
