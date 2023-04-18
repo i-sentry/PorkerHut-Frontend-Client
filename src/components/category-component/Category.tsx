@@ -9,21 +9,22 @@ const Category = () => {
   const datas = [
     {
       id: 1,
-      src: "./images/Meat.jpg",
+      src: "./images/Feed.jpg",
       title: "Pork Meat",
       // name:"pork_meat"
       path: "/pork",
     },
     {
       id: 2,
-      src: "./images/Feed.jpg",
-      // title: "Animal Feed",
-      path: "/feed",
+      src: "./images/Meat.jpg",
+  
+    
+      path: "/Feed",
     },
     {
       id: 3,
       src: "./images/Livestock.jpg",
-      // title: "Livestocks",
+      
       path: "/livestock",
     },
   ];
