@@ -85,7 +85,7 @@ export const productData = [
   {
     id: "4",
     title: "Pig tail",
-    category: "pork",
+    category: "Pork",
     price: "9400",
     product: {
       location: "Abuja",
