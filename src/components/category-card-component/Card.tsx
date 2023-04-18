@@ -9,6 +9,7 @@ interface CategoryProps {
 }
 
 const Card = ({ id, title, src, path }: CategoryProps) => {
+
   return (
 
     <NavLink to={`/category/${title}`} className="md:w-full md:h-full relative xxs:w-[560px] xxs:h-56 overflow-hidden ">
