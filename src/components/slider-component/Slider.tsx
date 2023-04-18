@@ -57,7 +57,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   return (
     <div className="relative">
-      <div className=" w-full xxs:h-[450px] md:h-[580px] lg:h-[480px] overflow-hidden">
+      <div className=" w-full xxs:h-[450px] sm:h-[580px] lg:h-[480px] overflow-hidden">
         {dataSlider.map((obj, index) => {
           return (
             <div

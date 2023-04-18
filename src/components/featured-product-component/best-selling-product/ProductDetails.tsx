@@ -8,28 +8,29 @@ import {
 import StarRating from "./ProductDetailRating";
 import RatingCard from "./RatingCard";
 import ProductsBreadCrumbs from "../../story-components/ProductsBreadCrumbs";
-import { cartData } from "../../CartData/cartData";
-import Cards from "../../card/Cards";
 import { useLocation } from "react-router-dom";
 import { addProductToCart } from "../../../redux/features/product/productSlice";
 import AppLayout from "../../utility/AppLayout";
+import { useDispatch } from "react-redux";
+import { productData } from "../../../utils/productData";
+import { chunkArray } from "../../../helper/chunck";
+import ProductCard from "../ProductCard";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state.item;
-  console.log(item, "IMAGE");
 
+  const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   const [open, setOpen] = useState(1);
-
   const handleOpen = (value: React.SetStateAction<number>) => {
     setOpen(open === value ? 0 : value);
   };
 
   const handleClick = () => {
-    dispatch(addProductToCart(item));
+    dispatch(addProductToCart({ id: item?.id }));
   };
 
   const images = [
@@ -231,7 +232,7 @@ const ProductDetails = () => {
                 <StarRating rating={0} />
 
                 <div>
-                  <RatingCard />
+                  <RatingCard id={item?.id } />
                 </div>
               </AccordionBody>
             </Accordion>
@@ -244,8 +245,8 @@ const ProductDetails = () => {
           </h1>
 
           <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-            {cartData.map((item) => (
-              <Cards item={item} key={item.id} />
+            {chunkArray(productData, 8)[1 - 1].map((item) => (
+              <ProductCard item={item} key={item.id} />
             ))}
           </div>
         </div>
@@ -255,10 +256,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-function dispatch(arg0: {
-  payload: { id: string | number };
-  type: "product/addProductToCart";
-}) {
-  throw new Error("Function not implemented.");
-}

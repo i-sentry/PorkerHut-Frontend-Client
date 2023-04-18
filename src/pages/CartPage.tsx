@@ -1,23 +1,17 @@
 import React from "react";
-import NavBar from "../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import Feed from "../assets/images/Feed.png";
-import SeedsImg from "../assets/images/SeedsImg.png";
-import DriedPorkImg from "../assets/images/DriedPorkImg.png";
-import RawPorkImg from "../assets/images/RawPorkImg.png";
-import { MdOutlineShoppingCart, MdOutlineSpeakerNotes } from "react-icons/md";
-import { RiDeleteBin6Line } from "react-icons/ri";
+
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { productData } from "../utils/productData";
-import Footer from "../components/footer-component/Footer";
+
 import ProductCard from "../components/featured-product-component/ProductCard";
-import Cards from "../components/card/Cards";
-import { cartData } from "../components/CartData/cartData";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import CartCard from "../components/CartCard";
+
 import CartCard2 from "../components/CartCard2";
 import { useNavigate } from "react-router-dom";
-import { BsCart3 } from "react-icons/bs";
+
 import AppLayout from "../components/utility/AppLayout";
 
 const CartPage = () => {
@@ -30,9 +24,6 @@ const CartPage = () => {
   console.log(Object.values(cart).length, "Object.values(cart).length");
   return (
     <AppLayout>
-      {/* <nav className="mb-">
-        <NavBar />
-      </nav> */}
       <div className="  bg-[#F5F5F5]">
         <div className=" bg-[#F5F5F5] md:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col ">
           {Object.values(cart).length > 0 ? (
@@ -116,8 +107,8 @@ const CartPage = () => {
                 </h1>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 w-full">
-                  {cartData.map((item) => (
-                    <Cards item={item} key={item.id} />
+                  {productData.map((item) => (
+                    <ProductCard item={item} key={item.id} />
                   ))}
                 </div>
               </div>
@@ -154,7 +145,12 @@ const CartPage = () => {
                   <div className=" opacity-[0.1] absolute  top-40 ">
                     <MdOutlineShoppingCart size={100} />
                   </div>
-                  <button onClick={()=>{navigate("/products")}} className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-8 py-4 px-[45px] rounded-md text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      navigate("/products");
+                    }}
+                    className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-8 py-4 px-[45px] rounded-md text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                  >
                     Start Shopping
                   </button>
                 </div>
@@ -163,8 +159,6 @@ const CartPage = () => {
           )}
         </div>
       </div>
-
-      {/* <Footer /> */}
     </AppLayout>
   );
 };

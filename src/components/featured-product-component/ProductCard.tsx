@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import RatingWidget from "../RatingWidget";
 
 interface ProductLocationState {
   item: any;
@@ -31,12 +32,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   return (
     <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
-        <img
-          src={item?.img}
-          alt=""
-          className="w-full h-full object-cover"
-
-        />
+        <img src={item?.img} alt="" className="w-full h-full object-cover" />
 
         <div
           onClick={handleClick}
@@ -72,7 +68,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           {item?.title}
         </h2>
         <div className="flex items-center justify-between py-1">
-          <div className="flex text-yellow-500 cursor-pointer">
+          {/* <div className="flex text-yellow-500 cursor-pointer">
             {[...Array(5)].map((start, i) => {
               const ratingValue = i + 1;
               return (
@@ -95,7 +91,11 @@ const ProductCard = ({ item }: ProductLocationState) => {
                 </label>
               );
             })}
-          </div>
+          </div> */}
+          <RatingWidget
+            onChange={(value) => console.log(value)}
+            defaultValue={2}
+          />
           <span className="whitespace-nowrap text-sm font-normal xxs:hidden md:block">
             ₦{item?.price}
           </span>
