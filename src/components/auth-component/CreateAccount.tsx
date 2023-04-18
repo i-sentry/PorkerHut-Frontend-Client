@@ -205,7 +205,7 @@ const CreateAccount: any = () => {
                       />
                     </div>
                   ) : (
-                    "Login"
+                    "Sign Up"
                   )}
                 </button>
               </div>

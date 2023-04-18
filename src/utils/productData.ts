@@ -26,8 +26,13 @@ import livestock3 from "../../src/assets/livestock/livestock3.png";
 import livestock4 from "../../src/assets/livestock/livestock4.png";
 import livestock5 from "../../src/assets/livestock/livestock5.png";
 import livestock6 from "../../src/assets/livestock/livestock6.png";
-
-
+import PigFeed1 from "../../src/assets/livestock/PigFeed1.png";
+import PigFeed2 from "../../src/assets/livestock/PigFeed2.png";
+import PigFeed3 from "../../src/assets/livestock/PigFeed3.png";
+import PigFeed4 from "../../src/assets/livestock/PigFeed4.png";
+import PigFeed5 from "../../src/assets/livestock/PigFeed5.png";
+import PigFeed6 from "../../src/assets/livestock/PigFeed6.png";
+import PigFeed7 from "../../src/assets/livestock/PigFeed7.png";
 
 export const productData = [
   {
@@ -42,7 +47,7 @@ export const productData = [
       weight: "1000g",
       productName: "100% Healthy-Fed Pig Lap",
     },
-    img: prod1,
+    img: PigFeed7,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -57,7 +62,7 @@ export const productData = [
       weight: "1000g",
       productName: "100% Healthy-Fed Pork Lap",
     },
-    img: prod2,
+    img: PigFeed6,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela.",
   },
   {
@@ -593,7 +598,7 @@ export const productData = [
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
-    id: "42",
+    id: "41",
     title: "test Farm",
     category: "pork",
     price: "2300",
@@ -607,7 +612,7 @@ export const productData = [
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
-    id: "41",
+    id: "42",
     title: "test test",
     category: "pork",
     product: {
@@ -622,7 +627,7 @@ export const productData = [
   },
   {
     id: "43",
-    title: "data Farm",
+    title: "Data Farm",
     category: "pork",
     product: {
       location: "uyo",
@@ -633,6 +638,112 @@ export const productData = [
     price: "2300",
     img: prod1,
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
+  },
+
+  {
+    id: "44",
+    title: "Dantata Feed Store",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Osun",
+      name: "100% Healthy-Feed Pigs & Birds",
+      weight: "1000g",
+      productName: "100% Healthy-Feed Pigs & Birds",
+    },
+    img: PigFeed1,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "45",
+    title: "Khadijat Feed Store",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Jos",
+      name: "100% Healthy-Feed Pigs & Birds",
+      weight: "1000g",
+      productName: "100% Healthy-Feed Pigs & Birds",
+    },
+    img: PigFeed2,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "46",
+    title: "Dantata Feed Store",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Anambra",
+      name: "Whole Grain Mixed",
+      weight: "1000g",
+      productName: "Whole Grains for Pigs & Birds",
+    },
+    img: PigFeed3,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "47",
+    title: "Nkeke Feed Store",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Chikun City",
+      name: " Gregory Whole Grain Mixed",
+      weight: "1000g",
+      productName: " Gregory Whole Grain Mixed",
+    },
+    img: PigFeed4,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "48",
+    title: "Jumbo Feed Store Ltd.",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Kano",
+      name: "Alhaji Grain for Birds",
+      weight: "1000g",
+      productName: "Alhaji Grain for Birds",
+    },
+    img: PigFeed5,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "49",
+    title: "Madam Grace Grains",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Lagos",
+      name: "Grace Grain for Birds",
+      weight: "1000g",
+      productName: "Grace Grain for Birds",
+    },
+    img: PigFeed6,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
+  },
+  {
+    id: "50",
+    title: "Madam Grace Grains",
+    type: "Animal feed",
+    category: "Feed",
+    price: "3000",
+    product: {
+      location: "Lagos",
+      name: "Grace Grain for Birds",
+      weight: "1000g",
+      productName: "Grace Grain for Birds",
+    },
+    img: PigFeed7,
+    desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
 ];
 
