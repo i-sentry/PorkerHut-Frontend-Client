@@ -170,7 +170,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
-                            onClick={() => navigate("/settings")}
+                            onClick={() => navigate("/my__orders")}
                             className={classNames(
                               active && "bg-gray-100",
                               "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"

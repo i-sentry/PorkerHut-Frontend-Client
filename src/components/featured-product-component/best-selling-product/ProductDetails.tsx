@@ -13,11 +13,12 @@ import Cards from "../../card/Cards";
 import { useLocation } from "react-router-dom";
 import { addProductToCart } from "../../../redux/features/product/productSlice";
 import AppLayout from "../../utility/AppLayout";
+import { useDispatch } from "react-redux";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state.item;
-  console.log(item, "IMAGE");
+  const dispatch = useDispatch()
 
   const [selectedImg, setSelectedImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -256,9 +257,4 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
-function dispatch(arg0: {
-  payload: { id: string | number };
-  type: "product/addProductToCart";
-}) {
-  throw new Error("Function not implemented.");
-}
+

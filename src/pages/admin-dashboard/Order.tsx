@@ -34,7 +34,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
   }
 };
 
-export const ProductNameColumn = ({ data }: any) => {
+export const  ProductNameColumn = ({ data }: any) => {
   console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.value;
   const lowerData = adata?.toLowerCase();
