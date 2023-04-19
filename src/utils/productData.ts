@@ -43,26 +43,26 @@ export const productData = [
     price: "3000",
     product: {
       location: "Awka",
-      name: "100% Healthy-Fed Pig Lap",
+      name: "100% Healthy Pork Meat",
       weight: "1000g",
-      productName: "100% Healthy-Fed Pig Lap",
+      productName: "100% Healthy Pork Lap",
     },
-    img: PigFeed7,
+    img: prod2,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
     id: "2",
     title: "Micheal bobo store",
-    type: "Animal feed",
+    type: "Pork",
     category: "Feed",
     price: "3000",
     product: {
       location: "Calabar",
-      name: "100% Healthy-Fed Pork Lap",
+      name: "100% Healthy Pork Lap",
       weight: "1000g",
-      productName: "100% Healthy-Fed Pork Lap",
+      productName: "100% Healthy Pork Lap",
     },
-    img: PigFeed6,
+    img: prod1,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela.",
   },
   {
@@ -74,9 +74,9 @@ export const productData = [
     price: "3400",
     product: {
       location: "Calabar",
-      name: "100% Healthy-Fed Pork Lap",
+      name: "100% Healthy Pork Lap",
       weight: "1000g",
-      productName: "100% Healthy-Fed Pork Lap",
+      productName: "100% Healthy Pork Lap",
     },
 
     img: prod3,
@@ -94,7 +94,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
 
-    img: prod4,
+    img: prod9,
     desc: "A classic dish that never goes out of style. The quintessential chana kulcha  needs only a few ingredients - cumin powder, ginger, coriander powder, carom powder, and some mango powder, which is what gives the chana its sour and tangy taste.",
   },
   {

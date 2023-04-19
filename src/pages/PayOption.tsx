@@ -22,7 +22,7 @@ const PayOption = () => {
         <div className=" bg-[#F5F5F5]">
           <div className="">
             <div className="px-8">
-              <ProductsBreadCrumbs
+            <ProductsBreadCrumbs
                 items={[
                   {
                     name: "Home",
@@ -30,7 +30,15 @@ const PayOption = () => {
                   },
                   {
                     name: "Cart",
-                    link: "/cart",
+                    link: "/my-cart",
+                  },
+                  {
+                    name: "Checkout",
+                    link: "/billing",
+                  },
+                  {
+                    name: "Payment",
+                    link: "/pay-card",
                   },
                 ]}
               />

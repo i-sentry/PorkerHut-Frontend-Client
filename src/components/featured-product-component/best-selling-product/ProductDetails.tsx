@@ -15,10 +15,13 @@ import { useDispatch } from "react-redux";
 import { productData } from "../../../utils/productData";
 import { chunkArray } from "../../../helper/chunck";
 import ProductCard from "../ProductCard";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state.item;
+  const navigate = useNavigate()
+
 
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -32,6 +35,10 @@ const ProductDetails = () => {
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
   };
+
+  const handleNavigate = () => {
+    navigate("/my-cart")
+  }
 
   const images = [
     item?.img,
@@ -162,7 +169,7 @@ const ProductDetails = () => {
               >
                 Add to Cart
               </button>
-              <button className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md">
+              <button onClick={handleNavigate} className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md">
                 Buy Now
               </button>
             </div>

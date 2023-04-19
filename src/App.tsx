@@ -107,7 +107,7 @@ const router = createBrowserRouter(
       <Route path="/favorite-products" element={<FavouriteProductPage />} />
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
-      <Route path="/cart" element={<EmptyCartPage />} />
+      <Route path="/empty_cart" element={<EmptyCartPage />} />
       <Route path="/contact-us" element={<ContactPage />} />
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
