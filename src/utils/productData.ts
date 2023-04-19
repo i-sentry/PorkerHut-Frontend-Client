@@ -100,7 +100,7 @@ export const productData = [
   {
     id: "5",
     title: "Pig Loin",
-    category: "Pig",
+    category: "Pork",
     price: "5000",
     product: {
       location: "Awka",
@@ -115,7 +115,7 @@ export const productData = [
   {
     id: "6",
     title: "Williams farm",
-    category: "Animal Feed",
+    category: "Feed",
     product: {
       location: "Awka",
       name: "100% Healthy-Fed Pork Lap",
@@ -129,7 +129,7 @@ export const productData = [
   {
     id: "7",
     title: "Dan pig farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Awka",
       name: "100% Healthy-Fed Pork Lap",
@@ -171,7 +171,7 @@ export const productData = [
   {
     id: "10",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Calabar",
       name: "100% Healthy-Fed Pork Lap",
@@ -185,7 +185,7 @@ export const productData = [
   {
     id: "11",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -199,7 +199,7 @@ export const productData = [
   {
     id: "12",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     price: "2300",
     product: {
       location: "Benue",
@@ -213,7 +213,7 @@ export const productData = [
   {
     id: "13",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -227,7 +227,7 @@ export const productData = [
   {
     id: "14",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -241,7 +241,7 @@ export const productData = [
   {
     id: "15",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -255,7 +255,7 @@ export const productData = [
   {
     id: "16",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -269,7 +269,7 @@ export const productData = [
   {
     id: "17",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -283,7 +283,7 @@ export const productData = [
   {
     id: "18",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -297,7 +297,7 @@ export const productData = [
   {
     id: "19",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -311,7 +311,7 @@ export const productData = [
   {
     id: "20",
     title: "pig Farm",
-    category: "Pig",
+    category: "Livestock",
     product: {
       location: "Benue",
       name: "100% Healthy-Fed Pork Lap",
@@ -387,7 +387,7 @@ export const productData = [
   {
     id: "25",
     title: "Pig Loin",
-    category: "Pig",
+    category: "Pork",
     price: "5000",
     product: {
       location: "Kaduna",
@@ -429,7 +429,7 @@ export const productData = [
   {
     id: "28",
     title: "Dan pig farm",
-    category: "Pig",
+    category: "Pork",
     price: "1200",
     product: {
       location: "uyo",
@@ -451,7 +451,7 @@ export const productData = [
   {
     id: "30",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     price: "2300",
     img: prod8,
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
@@ -459,7 +459,7 @@ export const productData = [
   {
     id: "31",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "osun",
       name: "100% Healthy-Fed Pork Lap",
@@ -473,7 +473,7 @@ export const productData = [
   {
     id: "32",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -487,7 +487,7 @@ export const productData = [
   {
     id: "33",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -501,7 +501,7 @@ export const productData = [
   {
     id: "34",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -515,7 +515,7 @@ export const productData = [
   {
     id: "35",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -529,7 +529,7 @@ export const productData = [
   {
     id: "36",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -543,7 +543,7 @@ export const productData = [
   {
     id: "37",
     title: "pig Farm",
-    category: "Pig",
+    category: "Pork",
     price: "2300",
     product: {
       location: "uyo",
@@ -563,7 +563,7 @@ export const productData = [
       weight: "1000g",
       productName: "100% Healthy-Fed Pork Lap",
     },
-    category: "Pig",
+    category: "Pork",
     price: "2300",
     img: prod4,
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
@@ -577,7 +577,7 @@ export const productData = [
       weight: "1000g",
       productName: "100% Healthy-Fed Pork Lap",
     },
-    category: "Pig",
+    category: "Pork",
     price: "2300",
     img: prod2,
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
@@ -592,7 +592,7 @@ export const productData = [
       weight: "1000g",
       productName: "100% Healthy-Fed Pork Lap",
     },
-    category: "Pig",
+    category: "Pork",
     price: "2300",
     img: livestock4,
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
@@ -650,7 +650,7 @@ export const productData = [
       location: "Osun",
       name: "100% Healthy-Feed Pigs & Birds",
       weight: "1000g",
-      productName: "100% Healthy-Feed Pigs & Birds",
+      productName: "100% Healthy-Feed Pigs ",
     },
     img: PigFeed1,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
@@ -658,14 +658,14 @@ export const productData = [
   {
     id: "45",
     title: "Khadijat Feed Store",
-    type: "Animal feed",
+    type: " feed",
     category: "Feed",
     price: "3000",
     product: {
       location: "Jos",
-      name: "100% Healthy-Feed Pigs & Birds",
+      name: "100% Healthy-Feed Pigs ",
       weight: "1000g",
-      productName: "100% Healthy-Feed Pigs & Birds",
+      productName: "100% Healthy-Feed Pigs ",
     },
     img: PigFeed2,
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",

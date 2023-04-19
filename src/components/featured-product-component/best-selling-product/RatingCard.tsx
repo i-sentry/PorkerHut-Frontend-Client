@@ -3,7 +3,7 @@ import { MdKeyboardArrowRight, MdMessage } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
 import RatingWidget from '../../RatingWidget'
 
-const RatingCard = () => {
+const RatingCard = (id: any) => {
 
     const ratingData = [
         {
@@ -85,7 +85,7 @@ const RatingCard = () => {
 
             </div>
 
-            <NavLink to="/product/:id/rating-page" className='flex items-center justify-center underline mt-10 gap-2'>
+            <NavLink to={`/product/${id}/rating-page`} className='flex items-center justify-center underline mt-10 gap-2'>
 
                 <button className='font-semibold'>SEE ALL</button>
                 <MdKeyboardArrowRight size={20}/>

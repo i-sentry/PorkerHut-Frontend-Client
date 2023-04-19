@@ -4,19 +4,19 @@ import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
 
 const Category = () => {
-  //@ts-ignore
+  // @ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   console.log(menuItems, "kk");
   const datas = [
     {
       id: 1,
-      src: "./images/Livestock.jpg",
+      src: "./images/Meat.jpg",
       title: "Pork",
       path: "/pork",
     },
     {
       id: 2,
-      src: "./images/Meat.jpg",
+      src: "./images/Livestock.jpg",
       title: "Livestock",
       path: "/livestock",
     },
@@ -31,7 +31,9 @@ const Category = () => {
   for (let i = 0; i < datas.length; i++) {
     datas[i].title = menuItems[i];
   }
-
+  let temp = datas[0].title;
+  datas[0].title = datas[2].title;
+  datas[2].title = temp;
 
   return (
     <div className="md:p-6 xxs:px-4 md:px-12">
