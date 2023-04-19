@@ -256,3 +256,10 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+function dispatch(arg0: {
+  payload: { id: string | number };
+  type: "product/addProductToCart";
+}) {
+  throw new Error("Function not implemented.");
+}

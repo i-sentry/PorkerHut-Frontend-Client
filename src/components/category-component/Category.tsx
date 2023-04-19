@@ -4,7 +4,7 @@ import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
 
 const Category = () => {
-  //@ts-ignore
+  // @ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   console.log(menuItems, "kk");
   const datas = [
