@@ -5,9 +5,8 @@ import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCru
 import OrderCart from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
 
-
 const BillingPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div className="  bg-[#F5F5F5] min-h-screen">
@@ -26,7 +25,11 @@ const BillingPage = () => {
                   },
                   {
                     name: "Cart",
-                    link: "/cart",
+                    link: "/my-cart",
+                  },
+                  {
+                    name: "Checkout",
+                    link: "/billing",
                   },
                 ]}
               />
@@ -235,19 +238,20 @@ const BillingPage = () => {
               </div>
             </div>
             <div className=" text-center lg:bg-white rounded-md lg:rounded-t-none p-4 flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
-              
               <div className="">
                 <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
                   Continue to Shopping
                 </button>
               </div>
               <div>
-                <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap" onClick={() => navigate('/pay-card')}>
+                <button
+                  className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                  onClick={() => navigate("/pay-card")}
+                >
                   Proceed to Payments
                 </button>
               </div>
             </div>
-
           </div>
 
           <OrderCart />
