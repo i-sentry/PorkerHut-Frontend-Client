@@ -53,6 +53,11 @@ const Blog = () => {
   const handleUpload = (e: any) => {
     setCurrentImage(URL.createObjectURL(e.target.files[0]));
   };
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <div className="p-14">
       <div className="">

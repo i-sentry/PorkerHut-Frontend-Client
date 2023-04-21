@@ -13,6 +13,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Home: React.FC = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+
   React.useEffect(() => {
     AOS.init();
   });

@@ -228,6 +228,11 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const MyOrder = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method

@@ -6,6 +6,12 @@ import NavBar from "../components/nav-component/NavBar";
 import AppLayout from "../components/utility/AppLayout";
 
 const BlogPage = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+
   return (
     <AppLayout>
       {/* <NavBar /> */}

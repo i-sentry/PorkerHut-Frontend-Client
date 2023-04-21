@@ -29,6 +29,11 @@ const StorePage = () => {
      const [rating, setRating] = useState(0);
      const [hover, setHover] = useState(0);
 
+     useEffect(() => {
+      window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    }, []);
+  
+
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">

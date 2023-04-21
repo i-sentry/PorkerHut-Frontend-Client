@@ -14,6 +14,11 @@ const FeaturedProduct = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   useEffect(() => setData(productData), [productData]);
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   return (
     <>
 

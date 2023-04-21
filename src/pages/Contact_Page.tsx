@@ -7,12 +7,15 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Contact_Page = () => {
   const notify = () => toast.success("Here is your toast.");
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <AppLayout>
       <div className="overflow-x-hidden">
-        {/* <nav className="mb-20">
-        <NavBar />
-      </nav> */}
+       
         <div className="  max-w-screen-xl ">
           <div
             className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
@@ -41,7 +44,7 @@ const Contact_Page = () => {
             />
           </div>
         </div>
-        <button onClick={notify}>hello</button>
+        <button onClick={notify}></button>
         <section className="w-full h-full md:p-14">
           <ServiceForm
             text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."

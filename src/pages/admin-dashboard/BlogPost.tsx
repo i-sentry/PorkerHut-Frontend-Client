@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OrderTable from "../../components/admin-dashboard-components/OrderTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
@@ -42,6 +42,11 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const BlogPost = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <div className="p-14 ">
       <div className="mb-2">

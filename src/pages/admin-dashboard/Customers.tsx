@@ -5,6 +5,12 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { TabSelector } from "../../components/utility/TabSelector";
 
 const Customers = () => {
+
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   const optionalColumn = {
     id: "view",
     // The header can use the table's getToggleAllRowsSelectedProps method

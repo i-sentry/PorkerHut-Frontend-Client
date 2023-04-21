@@ -19,14 +19,12 @@ const ServiceForm = ({ text, title }: contactProps) => {
   const [userData, setUserData] = useState<{
     [name: string]: string | boolean;
   }>();
-  
+
   console.log(userData, "userData");
   const submitData = async (values: any) => {
     setUserData(values);
     reset();
   };
-
-  // console.log({ userData });
 
   const textData = [
     {

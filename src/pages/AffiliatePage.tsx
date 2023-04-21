@@ -7,6 +7,11 @@ import PublicMktImg from "../../src/assets/images/PublicMktImg.png";
 import { Link } from "react-router-dom";
 
 const AffiliatePage = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       <NavBar />

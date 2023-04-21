@@ -2,6 +2,13 @@ import React from "react";
 import { TbRefresh, TbRefreshOff } from "react-icons/tb";
 
 const CustomerReview: React.FC<{ rating: number }> = ({ rating }) => {
+
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+
   return (
     <div className="w-[60%] bg-[#F4F4F4] h-[255px] px-4 py-4">
       <div className="flex items-center justify-between">

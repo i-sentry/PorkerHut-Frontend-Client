@@ -37,6 +37,12 @@ const ProductCategory = () => {
   // useEffect(() => setData(productData), [productData]);
   useEffect(() => filter(title), []);
 
+  
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
@@ -59,7 +65,7 @@ const ProductCategory = () => {
           </div>
 
           <div className="md:flex">
-            <div className="md:w-1/4 static h-full px-6 bg-white mx-6 xxs:hidden md:block overflow-hidden">
+            <div className="md:w-1/4 static h-full rounded-sm px-6 bg-white mx-6 xxs:hidden md:block overflow-hidden pt-4">
               {/* <Filter setData={setData} menuItem={menuItems} /> */}
               <ProductFilter setData={setData} menuItem={menuItems} />
             </div>

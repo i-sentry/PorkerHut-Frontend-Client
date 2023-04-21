@@ -25,10 +25,14 @@ const ProductPage = () => {
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems })
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-        {/* <NavBar /> */}
+        
         <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
         <div className="bg-[#EEEEEE] pt-24 px-14">
           <div className="">

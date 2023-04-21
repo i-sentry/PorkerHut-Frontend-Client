@@ -23,14 +23,12 @@ const BlogContent = () => {
     //@ts-ignore
     setBlog(filteredOrder);
   }, [id]);
-    console.log(blog, "gekkki");
-    // const paragraphsBlog = blog?.content
-    //   .split("\n")
-    //   .map((paragraph, index) => (
-    //     <p key={index} className="text-base mb-6 bg-gray-100">
-    //       {paragraph}
-    //     </p>
-    //   ));
+   
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+  
 
   const paragraphs = blog?.content.split("\n");
   return (

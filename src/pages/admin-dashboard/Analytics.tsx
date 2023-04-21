@@ -6,6 +6,11 @@ import DoughnutChart from "./DoughnutChart";
 import { AreaChart } from "./AreaChart";
 
 const Analytics = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <div className="ml-10 mr-4 mt-4 mb-8">
       <div className="mb-2">

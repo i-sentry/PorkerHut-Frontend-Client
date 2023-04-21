@@ -11,6 +11,12 @@ const FavouriteProductPage = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
     useEffect(() => setData(productData), [productData]);
 
+
+    useEffect(() => {
+      window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    }, []);
+  
+
   return (
     <div>
       <div>

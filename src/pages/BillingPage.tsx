@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 const BillingPage = () => {
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       <div className="  bg-[#F5F5F5] min-h-screen">

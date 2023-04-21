@@ -71,8 +71,8 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
   };
 
   return (
-    <div className="">
-      <Fragment>
+    
+      <div className="">
         <h1>Filters</h1>
 
         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
@@ -125,7 +125,10 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
             Price
           </AccordionHeader>
           <AccordionBody>
+
+            <div className="mt-12 mb-20">
             <MultiRangeSlider min={0} max={2000} />
+          </div>
           </AccordionBody>
         </Accordion>
 
@@ -177,8 +180,8 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
             </div>
           </AccordionBody>
         </Accordion>
-      </Fragment>
-    </div>
+      </div>
+    
   );
 };
 

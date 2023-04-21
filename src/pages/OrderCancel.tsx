@@ -4,6 +4,11 @@ import NavBar from "../components/nav-component/NavBar";
 import OrderImg from "../assets/images/OrderImg.png";
 
 const OrderCancel = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       <NavBar />

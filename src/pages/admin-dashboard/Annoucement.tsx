@@ -40,6 +40,9 @@ interface RowData {
 }
 
 const Announcement = () => {
+
+
+
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -168,6 +171,11 @@ const Announcement = () => {
     footerGroups,
   } = table;
   const { globalFilter, pageIndex, pageSize, expanded } = state;
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
 
   return (
     <div className="p-14">

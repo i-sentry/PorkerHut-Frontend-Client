@@ -1,6 +1,10 @@
 import React from "react";
 
 export default function AdminOverviewRating() {
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       {/*        <!-- Component: Detailed Basic --> */}

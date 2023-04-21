@@ -2,6 +2,11 @@ import React from "react";
 import Img from "../../assets/images/Pig.png";
 
 const AdminOverviewTopProduct = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <div className="bg-[#D9D9D9] rounded py-3 px-3 h-64 overflow-hidden overflow-y-scroll hide-scroll-bar">
       <div className="flex justify-between items-center ">
