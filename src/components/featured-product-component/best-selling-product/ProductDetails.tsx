@@ -20,16 +20,16 @@ import { useNavigate } from "react-router-dom";
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state.item;
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  const [open, setOpen] = useState(1);
-  const handleOpen = (value: React.SetStateAction<number>) => {
-    setOpen(open === value ? 0 : value);
+  const [open, setOpen] = useState<number | null>(null);
+
+  const handleOpen = (value: number) => {
+    setOpen(open === value ? null : value);
   };
 
   const handleClick = () => {
@@ -37,8 +37,8 @@ const ProductDetails = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/my-cart")
-  }
+    navigate("/my-cart");
+  };
 
   const images = [
     item?.img,
@@ -46,6 +46,11 @@ const ProductDetails = () => {
     "../images/Banner1.jpg",
     "../images/Banner2.jpg",
   ];
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14">
@@ -169,7 +174,10 @@ const ProductDetails = () => {
               >
                 Add to Cart
               </button>
-              <button onClick={handleNavigate} className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md">
+              <button
+                onClick={handleNavigate}
+                className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md"
+              >
                 Buy Now
               </button>
             </div>
@@ -239,7 +247,7 @@ const ProductDetails = () => {
                 <StarRating rating={0} />
 
                 <div>
-                  <RatingCard id={item?.id } />
+                  <RatingCard id={item?.id} />
                 </div>
               </AccordionBody>
             </Accordion>
@@ -263,10 +271,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-function dispatch(arg0: {
-  payload: { id: string | number };
-  type: "product/addProductToCart";
-}) {
-  throw new Error("Function not implemented.");
-}

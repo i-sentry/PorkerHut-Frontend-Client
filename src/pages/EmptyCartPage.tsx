@@ -8,6 +8,12 @@ import { BsCart3 } from "react-icons/bs";
 import Footer from "../components/footer-component/Footer";
 
 const EmptyCartPage = () => {
+
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       <div className="  bg-[#F5F5F5]">

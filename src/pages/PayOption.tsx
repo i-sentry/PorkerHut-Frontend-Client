@@ -12,6 +12,11 @@ import OrderCart from "../components/order-component/OrderCart";
 export {};
 
 const PayOption = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <>
       <div className="  bg-[#F5F5F5] min-h-screen">

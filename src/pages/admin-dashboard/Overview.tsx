@@ -116,6 +116,11 @@ const Overview = () => {
         );
     }
   };
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <div className="p-14">
       <div className="mb-5">

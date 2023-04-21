@@ -12,8 +12,10 @@ import AppLayout from "../components/utility/AppLayout";
 
 
 const AgroServices = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
 
-  // console.log(agroService);
   return (
     <>
       <AppLayout>

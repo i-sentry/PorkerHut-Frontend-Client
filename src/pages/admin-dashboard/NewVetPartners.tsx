@@ -25,6 +25,11 @@ const NewVetPartners = () => {
        setCurrentPage(1);
      };
      useEffect(() => setData(vetData), [vetData]);
+
+     React.useEffect(() => {
+      window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    }, []);
+  
     return (
       <div>
         <div className="p-14">

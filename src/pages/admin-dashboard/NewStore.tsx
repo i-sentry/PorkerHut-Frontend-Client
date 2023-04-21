@@ -3,6 +3,11 @@ import AdminNewStoreTable from "../../components/admin-dashboard-components/Admi
 import { useNavigate } from "react-router-dom";
 
 const NewStore = () => {
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method

@@ -7,6 +7,12 @@ import BreadCrumbs from "../components/utility/BreadCrumbs";
 import AppLayout from "../components/utility/AppLayout";
 
 const About = () => {
+
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   return (
     <AppLayout>
       {/* <NavBar />

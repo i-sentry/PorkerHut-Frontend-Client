@@ -32,7 +32,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   return (
     <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
       <div className="w-full md:h-[302px] flex item-center justify-center relative group">
-        <img src={item?.img} alt="" className="w-full h-full object-cover" />
+        <img onClick={handleCardClick} src={item?.img} alt="" className="w-full h-full object-cover hover:cursor-pointer" />
 
         <div
           onClick={handleClick}
