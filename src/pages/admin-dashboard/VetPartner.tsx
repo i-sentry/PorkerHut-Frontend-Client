@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import OrderTable from "../../components/admin-dashboard-components/OrderTable";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import _ from "lodash";
 import VetData from "../../utils/json/vetData.json";
@@ -113,15 +113,15 @@ const VetPartner = () => {
   };
 
   return (
-    <div className="p-14 ">
-      <div className="mb-2">
+    <div className="pl-10 pt-10 pr-5 ">
+      <div className="mb-5">
         <h1 className="text-2xl font-medium "> Vets</h1>
         <span className="text-[#A2A2A2] font-light text-sm">
           All new vet partner can be approved and rejected.
         </span>
       </div>
       <div>
-        <OrderTable
+        <AdminTable
           // @ts-ignore
           optionalColumn={optionalColumn}
           tabs={["All", "Approved", "Pending", "Rejected"]}

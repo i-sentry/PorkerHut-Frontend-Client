@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OrderTable from "../../components/admin-dashboard-components/OrderTable";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
@@ -34,7 +34,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
   }
 };
 
-export const  ProductNameColumn = ({ data }: any) => {
+export const ProductNameColumn = ({ data }: any) => {
   console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.value;
   const lowerData = adata?.toLowerCase();
@@ -273,15 +273,15 @@ const Order = () => {
   };
 
   return (
-    <div className="p-14 ">
-      <div className="mb-2">
+    <div className="pl-10 pt-10 pr-5">
+      <div className="mb-5">
         <h1 className="text-2xl font-medium ">Orders</h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           All Information available
         </span>
       </div>
       <div>
-        <OrderTable
+        <AdminTable
           Tcolumns={Tcolumns}
           // @ts-ignore
           optionalColumn={optionalColumn}

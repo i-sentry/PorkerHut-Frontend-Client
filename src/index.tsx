@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./pages/admin-dashboard/App";
 import { Provider } from "react-redux";
 import { AuthProvider } from "./context/AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -17,7 +17,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <AuthProvider>
-        <ShoppingCartProvider >
+        <ShoppingCartProvider>
           <Provider store={store}>
             <App />
           </Provider>

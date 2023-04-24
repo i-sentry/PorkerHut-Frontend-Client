@@ -52,7 +52,7 @@ export const data = {
   datasets: [
     {
       fill: true,
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 100000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       borderColor: "rgba(8, 75, 40, 0.2)",
       backgroundColor: "rgba(8, 75, 40, 0.2)",
     },
@@ -61,11 +61,27 @@ export const data = {
 
 export function AreaChart() {
   return (
-    <div style={{height: '500px'}}>
+    <div style={{ height: "380px" }} className="bg-[#F4F4F4]">
+      <form className="flex items-center justify-between mt-4">
+        <div>
+          <span className=" font-medium px-3">Sales Overview</span>
+        </div>
+        <div className="flex gap-4 items-center px-4 mt-4">
+          <label className="" htmlFor="week"></label>
+          <input
+            type="week"
+            className="focus:outline-none border h-10 w-42 px-2 rounded "
+          />
+        </div>
+      </form>
       <Line
         options={options}
         data={data}
-        style={{ paddingLeft: "10px", height: "100px" }}
+        style={{
+          paddingLeft: "10px",
+          height: "60px",
+          backgroundColor: "#F4F4F4",
+        }}
       >
         {" "}
       </Line>

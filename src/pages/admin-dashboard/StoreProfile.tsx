@@ -17,7 +17,7 @@ const StoreProfile = () => {
     setSearchValue(value);
     setData(
       storeData.filter(
-        (item: { store_name: string; company_address: string; id: any; }) =>
+        (item: { store_name: string; company_address: string; id: any }) =>
           item.store_name.toLowerCase().includes(value.toLowerCase()) ||
           item.company_address.toLowerCase().includes(value.toLowerCase()) ||
           item.id === value.toLowerCase()
@@ -27,9 +27,9 @@ const StoreProfile = () => {
   };
   useEffect(() => setData(storeData), [storeData]);
   return (
-    <div className="p-14">
+    <div className="pl-10 pt-10 pr-5">
       <div className="flex items-center justify-between">
-        <div className="mb-2">
+        <div className="mb-5">
           <h1 className="text-2xl font-medium ">Store Profile</h1>
           <span className="text-[#A2A2A2] font-light text-sm">
             Here you can check all available details of each store.

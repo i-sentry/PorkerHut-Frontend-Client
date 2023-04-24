@@ -12,14 +12,18 @@ import { IoSettingsOutline } from "react-icons/io5";
 import {
   MdOutlineAnalytics,
   MdOutlineArchive,
+  MdOutlineArticle,
   MdOutlineDashboard,
+  MdOutlineDns,
   MdOutlineMessage,
   MdShare,
   MdStorefront,
 } from "react-icons/md";
 import { FaPaw, FaShuttleVan } from "react-icons/fa";
 import { CgLoadbarDoc } from "react-icons/cg";
+import { GoTag } from "react-icons/go";
 import { AiOutlineSound } from "react-icons/ai";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 export const ORDER_DASHBOARD_SIDEBAR_LINKS = [
   {
@@ -235,5 +239,215 @@ export const ADMIN_DASHBOARD_SIDEBAR_LINK = [
     label: "Settings",
     path: "/admin/settings",
     icon: <IoSettingsOutline />,
+  },
+];
+
+
+export const DashBoardData = [
+  {
+    id: 0,
+    name: "Overview",
+    url: "/admin",
+    icon: <MdOutlineDashboard width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 1,
+    name: "Order",
+    url: "/admin/order",
+    icon: <MdOutlineArchive width={"24px"} height={"24px"} />,
+  },
+  {
+    id: 2,
+    name: "Customers",
+    url: "/admin/customers",
+    icon: <HiOutlineUserGroup width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 3,
+    name: "Analytics",
+    url: "/admin/analytics",
+    icon: (
+      <MdOutlineAnalytics width={"20px"} height={"20px"} stroke="#5C6F7F" />
+    ),
+  },
+  {
+    id: 4,
+    name: "Stores",
+    url: "/admin/stores",
+    icon: <MdStorefront width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Store Profiles",
+        url: "/admin/stores",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "New Stores",
+        url: "/admin/stores/new",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "Vet Partner",
+    url: "/admin/vet",
+    icon: <FaPaw width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Vets",
+        url: "/admin/vet",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "New Vets",
+        url: "/admin/vet/new",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: "Logistic Service",
+    url: "/admin/logistic",
+    icon: <FaShuttleVan width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 7,
+    name: "Calendar",
+    url: "/admin/calender",
+    icon: <RiCalendar2Line width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 8,
+    name: "Blog",
+    url: "/admin/blog",
+    icon: <MdOutlineArticle width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Blog Post",
+        url: "/admin/blog",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Create Blog",
+        url: "/admin/blog/create",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 9,
+    name: "Announcement",
+    url: "/admin/announcement",
+    icon: <AiOutlineSound width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 10,
+    name: "Payments",
+    url: "/admin/payment/invoice",
+    icon: <TfiCreditCard width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Payment Invoice",
+        url: "/admin/payment/invoice",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Payment Tracker",
+        url: "/admin/payment/tracker",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 11,
+    name: "Category",
+    url: "/admin/category",
+    icon: <MdOutlineDns width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Pork",
+        url: "/admin/category/pork",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Farm Feeds",
+        url: "/admin/category/feed",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Livestock",
+        url: "/admin/category/livestock",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 12,
+    name: "Services",
+    url: "/admin/service/agro_service",
+    icon: <MdShare width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Agro Services",
+        url: "/admin/service/agro_service",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Vet Services",
+        url: "/admin/service/vet",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 2,
+        name: "Weekend Kill",
+        url: "/admin/service/weekend_kill",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 13,
+    name: "Product Created",
+    url: "/admin/product",
+    icon: <GoTag width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 14,
+    name: "Messages",
+    url: "/dashboard/settings",
+    icon: <MdOutlineMessage width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 14,
+    name: "Settings",
+    url: "/admin/settings",
+    icon: <IoSettingsOutline width={"20px"} height={"20px"} />,
   },
 ];

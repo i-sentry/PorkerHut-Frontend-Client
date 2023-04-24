@@ -178,8 +178,8 @@ const Announcement = () => {
 
 
   return (
-    <div className="p-14">
-      <div className="">
+    <div className="pl-10 pr-5 pt-10">
+      <div className="mt-5">
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-[#A2A2A2] font-light text-sm">
           This is where send out special announcement to all affiliate.

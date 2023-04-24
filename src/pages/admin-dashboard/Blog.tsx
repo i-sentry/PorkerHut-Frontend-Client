@@ -48,8 +48,6 @@ const Blog = () => {
     return false;
   };
 
-
-
   const handleUpload = (e: any) => {
     setCurrentImage(URL.createObjectURL(e.target.files[0]));
   };
@@ -59,7 +57,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className="p-14">
+    <div className="pl-10 pt-10 pr-5">
       <div className="">
         <div className="flex items-center justify-between">
           <div className="mb-2">

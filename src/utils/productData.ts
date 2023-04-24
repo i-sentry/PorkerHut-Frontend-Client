@@ -48,6 +48,7 @@ export const productData = [
       productName: "100% Healthy Pork Lap",
     },
     img: prod2,
+    status: "Approved",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -63,6 +64,7 @@ export const productData = [
       productName: "100% Healthy Pork Lap",
     },
     img: prod1,
+    status: "Approved",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela.",
   },
   {
@@ -80,6 +82,7 @@ export const productData = [
     },
 
     img: prod3,
+    status: "Approved",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. You can also add paneer to this recipe to amp up the nutritional value and make it, even more, protein-dense",
   },
   {
@@ -95,6 +98,7 @@ export const productData = [
     },
 
     img: prod9,
+    status: "Approved",
     desc: "A classic dish that never goes out of style. The quintessential chana kulcha  needs only a few ingredients - cumin powder, ginger, coriander powder, carom powder, and some mango powder, which is what gives the chana its sour and tangy taste.",
   },
   {
@@ -109,6 +113,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod5,
+    status: "Approved",
     desc: "Eggs are a versatile food that can be cooked for any meal of the day. From breakfast to dinner, it can be a go-to food. Here is a mildly-spiced egg curry made with garlic, onions, a whole lot of kasuri methi, fresh cream, yogurt, and fresh coriander.",
   },
 
@@ -124,6 +129,7 @@ export const productData = [
     },
     price: "9200",
     img: prod6,
+    status: "pending",
     desc: "Get your daily dose of perfect protein. Pieces of surmai fish marinated in garlic, cumin, fennel, curry leaves, and tomatoes are pan-fried in refined oil and served hot. This fish fry recipe has a host of delectable spices used for marination giving it a unique touch.",
   },
   {
@@ -138,6 +144,7 @@ export const productData = [
     },
     price: "1200",
     img: livestock,
+    status: "pending",
     desc: "Your family will thank you for this fantastic bowl of dum aloo cooked Lakhnawi style. Take some potatoes, crumbled paneer, kasuri methi, butter, onions, and some ghee.",
   },
   {
@@ -152,6 +159,7 @@ export const productData = [
     },
     price: "5000",
     img: prod8,
+    status: "pending",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -166,6 +174,7 @@ export const productData = [
     },
     price: "5000",
     img: prod9,
+    status: "pending",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -180,6 +189,7 @@ export const productData = [
     },
     price: "2300",
     img: livestock1,
+    status: "pending",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -194,6 +204,7 @@ export const productData = [
     },
     price: "2300",
     img: livestock2,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -208,6 +219,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: product2,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -222,6 +234,7 @@ export const productData = [
     },
     price: "2300",
     img: product3,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -236,6 +249,7 @@ export const productData = [
     },
     price: "2300",
     img: product4,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -250,6 +264,7 @@ export const productData = [
     },
     price: "2300",
     img: product5,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -264,6 +279,7 @@ export const productData = [
     },
     price: "2300",
     img: product6,
+    status: "rejected",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -278,6 +294,7 @@ export const productData = [
     },
     price: "2300",
     img: product7,
+    status: "Approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -292,6 +309,7 @@ export const productData = [
     },
     price: "2300",
     img: product8,
+    status: "Approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -306,6 +324,7 @@ export const productData = [
     },
     price: "2300",
     img: product9,
+    status: "Approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -320,6 +339,7 @@ export const productData = [
     },
     price: "2300",
     img: product,
+    status: "Approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -335,6 +355,7 @@ export const productData = [
       productName: "Cleaned Pork Liver",
     },
     img: liver,
+    status: "rejected",
     desc: "gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes ",
   },
   {
@@ -350,6 +371,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod1,
+    status: "rejected",
     desc: "gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes",
   },
   {
@@ -367,6 +389,7 @@ export const productData = [
     },
 
     img: prod2,
+    status: "rejected",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. You can also add paneer to this recipe to amp up the nutritional value and make it, even more, protein-dense",
   },
   {
@@ -382,6 +405,7 @@ export const productData = [
     },
 
     img: prod3,
+    status: "approved",
     desc: "A classic dish that never goes out of style. The quintessential chana kulcha  needs only a few ingredients - cumin powder, ginger, coriander powder, carom powder, and some mango powder, which is what gives the chana its sour and tangy taste.",
   },
   {
@@ -396,6 +420,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod4,
+    status: "approved",
     desc: "Eggs are a versatile food that can be cooked for any meal of the day. From breakfast to dinner, it can be a go-to food. Here is a mildly-spiced egg curry made with garlic, onions, a whole lot of kasuri methi, fresh cream, yogurt, and fresh coriander.",
   },
   {
@@ -410,6 +435,7 @@ export const productData = [
     },
     price: "2000",
     img: prod5,
+    status: "approved",
     desc: "Don't get intimidated by the list of ingredients because not only are already in your kitchen cabinet, but also because all they'll need is 20 minutes of your time. Chunks of cottage cheese cooked in some exciting spices, yogurt and a pinch of sugar.",
   },
   {
@@ -424,6 +450,7 @@ export const productData = [
     },
     price: "9200",
     img: prod6,
+    status: "approved",
     desc: "Get your daily dose of perfect protein. Pieces of surmai fish marinated in garlic, cumin, fennel, curry leaves, and tomatoes are pan-fried in refined oil and served hot. This fish fry recipe has a host of delectable spices used for marination giving it a unique touch.",
   },
   {
@@ -438,6 +465,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod7,
+    status: "approved",
     desc: "Your family will thank you for this fantastic bowl of dum aloo cooked Lakhnawi style. Take some potatoes, crumbled paneer, kasuri methi, butter, onions, and some ghee.",
   },
   {
@@ -446,6 +474,7 @@ export const productData = [
     category: "Animal Feed",
     price: "5000",
     img: "./images/productimg2.png",
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -454,6 +483,7 @@ export const productData = [
     category: "Pork",
     price: "2300",
     img: prod8,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -468,6 +498,7 @@ export const productData = [
     },
     price: "2300",
     img: prod9,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -482,6 +513,7 @@ export const productData = [
     },
     price: "2300",
     img: liver,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -496,6 +528,7 @@ export const productData = [
     },
     price: "2300",
     img: prod,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -510,6 +543,7 @@ export const productData = [
     },
     price: "2300",
     img: product,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -524,6 +558,7 @@ export const productData = [
     },
     price: "2300",
     img: product1,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -538,6 +573,7 @@ export const productData = [
     },
     price: "2300",
     img: prod1,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -552,6 +588,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod2,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -566,6 +603,7 @@ export const productData = [
     category: "Pork",
     price: "2300",
     img: prod4,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -580,6 +618,7 @@ export const productData = [
     category: "Pork",
     price: "2300",
     img: prod2,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -595,6 +634,7 @@ export const productData = [
     category: "Pork",
     price: "2300",
     img: livestock4,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -609,6 +649,7 @@ export const productData = [
       productName: "100% Healthy-Fed Pork Lap",
     },
     img: prod3,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -623,6 +664,7 @@ export const productData = [
     },
     price: "2300",
     img: prod1,
+    status: "approved",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
   {
@@ -637,6 +679,7 @@ export const productData = [
 
     price: "2300",
     img: prod1,
+    status: "pending",
     desc: "A rich gravy made of khus khus, coconut and milk that tastes best with koftas made from khoya. This velvety and creamy recipe will leave you licking your fingers. Makhmali kofte can be your go-to dish for dinner parties as this is quite different from other kofta recipes and extremely delicious.",
   },
 
@@ -653,6 +696,7 @@ export const productData = [
       productName: "100% Healthy-Feed Pigs ",
     },
     img: PigFeed1,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -668,6 +712,7 @@ export const productData = [
       productName: "100% Healthy-Feed Pigs ",
     },
     img: PigFeed2,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -683,6 +728,7 @@ export const productData = [
       productName: "Whole Grains for Pigs & Birds",
     },
     img: PigFeed3,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -698,6 +744,7 @@ export const productData = [
       productName: " Gregory Whole Grain Mixed",
     },
     img: PigFeed4,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -713,6 +760,7 @@ export const productData = [
       productName: "Alhaji Grain for Birds",
     },
     img: PigFeed5,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -728,6 +776,7 @@ export const productData = [
       productName: "Grace Grain for Birds",
     },
     img: PigFeed6,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
   {
@@ -743,6 +792,7 @@ export const productData = [
       productName: "Grace Grain for Birds",
     },
     img: PigFeed7,
+    status: "pending",
     desc: "A staple across Indian households, moong dal is widely used in a number of Indian delicacies. One such delicacy is moong dal cheela. ",
   },
 ];
@@ -755,6 +805,7 @@ export const bestSelling = [
     price: "3000",
     location: "Lagos",
     img: prod1,
+
     desc: "100%  Healthy-Fed Pork Lap ",
   },
   {
