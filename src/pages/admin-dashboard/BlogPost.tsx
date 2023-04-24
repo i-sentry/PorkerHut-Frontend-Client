@@ -3,7 +3,7 @@ import OrderTable from "../../components/admin-dashboard-components/OrderTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
-import { blogData } from "../../utils/blogData";
+import { useGetAllBlogs } from "../../services/hooks/blog";
 
 const BlogTitle = ({ data }: any) => {
   console.log(data);
@@ -42,6 +42,9 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const BlogPost = () => {
+  const getAllBlogs = useGetAllBlogs();
+
+  const blogData = getAllBlogs?.data?.data;
 
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page

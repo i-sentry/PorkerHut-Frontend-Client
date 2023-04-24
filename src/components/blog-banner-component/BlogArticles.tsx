@@ -1,23 +1,37 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import BlogCard from "./BlogCard";
-import { IBlog, blogData } from "../../utils/blogData";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { chunkArray } from "../../helper/chunck";
+import { useGetAllBlogs } from "../../services/hooks/blog";
+
+export interface IBlog {
+  _id: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+  _v: number;
+  comments: any;
+  content: string;
+  title: string;
+}
 
 const BlogArticles = () => {
+  const getAllBlogs = useGetAllBlogs();
 
-  const [data, setData] = useState(blogData);
+  const [data, setData] = useState(getAllBlogs?.data?.data);
   let itemsPerPage = 8;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(() => setData(blogData), [blogData]);
+  useEffect(() => setData(getAllBlogs?.data?.data), [getAllBlogs?.data?.data]);
+  console.log(data);
+  
   return (
     <>
-      {blogData?.length ? (
+      {getAllBlogs?.data?.data?.length ? (
         <>
           <div className="p-2 grid md:grid-cols-4 xxs:grid-cols-2 items-center justify-center gap-3">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-              (blog: IBlog, index: any) => {
+              (blog: any, index: any) => {
                 return <BlogCard blog={blog} key={index} />;
               }
             )}

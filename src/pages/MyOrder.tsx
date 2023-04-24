@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import MyOrderTable from "../components/order-component/MyOrderTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
+import AppLayout from "../components/utility/AppLayout";
 import _ from "lodash";
-
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -25,7 +25,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
   }
 };
 
-export const  ProductNameColumn = ({ data }: any) => {
+export const ProductNameColumn = ({ data }: any) => {
   console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.value;
   const lowerData = adata?.toLowerCase();
@@ -46,7 +46,6 @@ export const  ProductNameColumn = ({ data }: any) => {
   );
 };
 export const OrderData = [
-
   {
     id: "1",
     img: "./images/productimg1.png",
@@ -187,7 +186,6 @@ export const OrderData = [
     order_total: "30,000",
     order_status: "Completed",
   },
-  
 ];
 
 const Tcolumns: readonly Column<object>[] = [
@@ -228,7 +226,6 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const MyOrder = () => {
-
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -266,25 +263,26 @@ const MyOrder = () => {
   };
 
   return (
-    <div className="px-12 ">
-      <div className="flex items-center flex-col justify-center mt-6">
-        <h2 className="text-2xl font-medium">My Orders</h2>
+    <AppLayout>
+      <div className="px-12 mt-20">
+        <div className="flex items-center flex-col justify-center mt-6">
+          <h2 className="text-2xl font-medium">My Orders</h2>
 
-        <div className="h-1 w-16 bg-[#197B30] mt-1"></div>
+          <div className="h-1 w-16 bg-[#197B30] mt-1"></div>
+        </div>
+        <div>
+          <MyOrderTable
+            Tcolumns={Tcolumns}
+            // @ts-ignore
+            optionalColumn={optionalColumn}
+            tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
+            TData={OrderData}
+            placeholder={"Search product name, store names, category.... "}
+          />
+        </div>
       </div>
-      <div>
-        <MyOrderTable
-          Tcolumns={Tcolumns}
-          // @ts-ignore
-          optionalColumn={optionalColumn}
-          tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-          TData={OrderData}
-          placeholder={"Search product name, store names, category.... "}
-        />
-      </div>
-    </div>
+    </AppLayout>
   );
 };
 
 export default MyOrder;
-

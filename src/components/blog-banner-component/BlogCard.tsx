@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }: any) => {
-  const { image, title, readDuration, createdAt, content, id } = blog;
+  const { image, title, readDuration, createdAt, content, _id } = blog;
+  console.log(_id);
+  
   const moment = require("moment");
   const myDate = new Date(createdAt);
   const momentDate = moment(myDate);
@@ -31,7 +33,9 @@ const BlogCard = ({ blog }: any) => {
             {truncatedString}
           </p>
           <Link
-            to={`/blog/${id}`}
+            to={`/blog/${_id}`}
+            
+            
             className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8]focus:ring-4 focus:outline-none focus:ring-[#69a477] "
           >
             Read more
