@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";
 // import "react-quill/dist/quill.snow.css";
 import { useParams } from "react-router-dom";
-import { blogData } from "../../utils/blogData";
+import { useGetBlog } from "../../services/hooks/blog";
 
 const EditBlog = () => {
   const { id } = useParams();
-  useEffect(() => {
-    const filteredOrder = blogData.find((ord: any) => ord.id === id);
-    //@ts-ignore
-    setBlog(filteredOrder);
-  }, [id]);
+  const getSingleBlog = useGetBlog(id);
+
+
+
+
+
+  // useEffect(() => {
+  //   const filteredOrder = blogData.find((ord: any) => ord.id === id);
+  //   //@ts-ignore
+  //   setBlog(filteredOrder);
+  // }, [id]);
 
   const [blog, setBlog] = useState({
     banner: "",

@@ -18,6 +18,11 @@ export const api = {
     userSignup: "/api/user/signup",
     userLogin: "/api/user/login",
   },
+   Blogs: {
+    allBlogs: "/api/blogs/",
+    singleBlog: (id: string | undefined) => `/api/blogs/${id}`
+    
+   }
 };
 
 export const makePostRequest = async (

@@ -18,13 +18,13 @@ const AgroServices = () => {
   // console.log(agroService);
   return (
     <AppLayout>
-      <div className="overflow-x-hidden">
+      <div className="overflow-hidden">
         {/* <nav className="mb-20">
           <NavBar />
         </nav> */}
-        <div className="max-w-screen-xl ">
+        <div className="md:max-w-screen-xl md:mb-6">
           <div
-            className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[350px] bg-cover bg-center py-20 px-14"
+            className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
             style={{
               backgroundImage: ` url('${AgroservImg}')`,
               backgroundSize: "cover",
@@ -32,40 +32,47 @@ const AgroServices = () => {
               width: "100vw",
             }}
           >
-            <h1 className="mb-2 text-3xl font-medium    text-[#fff]">
-              Agro Services
-            </h1>
+            <div className=" xxs:absolute md:top-10 xxs:top-0 mt-32">
+              <h1 className="mb-2 font-normal tracking-tight text-3xl   text-[#fff]">
+                Agro Services
+              </h1>
 
-            <BreadCrumbs
-              items={[
-                {
-                  name: "Home",
-                  link: "/",
-                },
-                {
-                  name: "Agro Services",
-                  link: "/agro-services",
-                },
-              ]}
-            />
+              <BreadCrumbs
+                items={[
+                  {
+                    name: "Home",
+                    link: "/",
+                  },
+                  {
+                    name: "Agro Services",
+                    link: "/agro-services",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
-          <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1350px] m-auto md:flex">
-            <div className=" p-6 flex-1 md:p-2 md:ml-16">
-              <h1 className=" text-[20px] md:text-[40px] mb-4 font-bold text-[#333] md:mt-28">
-                Our Agro Services
+          <div className=" bg-[#F4F4F4] mt-12 rounded-md max-w-[1350px] m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
+            <div className=" md:px-10 flex-1 flex flex-col  justify-center ">
+              <h1 className=" md:font-normal md:tracking-tight md:text-3xl flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
+                What our Agro services is <br className="md:hidden"/> all about
               </h1>
               <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-                Agro services provide crucial support in the production and
-                supply chain of pork meat through various services such as
-                breeding and genetics, feed and nutrition, animal health, and
-                waste management, resulting in a sustainable and efficient
-                production of high-quality, safe and consumer-demanded pork meat
+                Agro services play a crucial role in pork meat production and
+                supply chain, which involves farrow-to-finish operations,
+                genetics, feed formulation, animal health, and waste management
+                services. These services are essential in delivering
+                high-quality, sustainable, and healthy pork meat that meets the
+                needs and preferences of customers. As a provider of agro
+                services, we take pride in our commitment to animal welfare,
+                nutrition, and sustainability, which ensures that our products
+                not only taste great but also promote the health of our
+                customers and the environment.
               </p>
             </div>
             <figure className=" flex-1">
               <img
-                className="object-cover h-full p-6 md:p-0"
+                className="object-cover h-full xxs:py-4 md:py-0 xxs:px-2 md:px-0"
                 src={FarmingImg}
                 alt=""
               />
@@ -73,22 +80,22 @@ const AgroServices = () => {
           </div>
 
           <div className=" text-center mt-12 text-[20px]">
-            <h1 className=" text-[20px] mb-4 font-bold text-[#333]">
+            <h1 className="font-normal tracking-tight md:text-3xl mb-4 text-[#333]">
               Our Agro Services
-              <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto"></div>
+              <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto mt-1"></div>
             </h1>
           </div>
 
-          <div className="flex-row md:flex gap-8 md:ml-[100px]">
-            <div className=" card-container mt-2 p-4 relative inline-block">
+          <div className="md:grid md:grid-cols-3 md:px-6">
+            <div className=" card-container md:mt-2 md:p-4 xxs:p-3 relative inline-block h-[350px]">
               <img
-                className=" brightness-50 rounded-md md:max-w-[420px]"
+                className=" brightness-50 rounded bg-cover h-full"
                 src={PigFarmingImg}
                 alt=""
               />
 
-              <div className="absolute top-5 bottom-0 mt-[70px] md:mt-24">
-                <h1 className=" text-[#E6E6E6] font-[16px] px-5 md:font-24px ">
+              <div className="absolute top-5 bottom-0 mt-[70px] md:mt-20">
+                <h1 className=" text-[#E6E6E6] text-lg font-semibold px-5 ">
                   Pig Farming
                 </h1>
                 <p className=" px-5 leading-5 text-[13px] md:text-[16px] mt-2 text-[#E6E6E6]">
@@ -103,15 +110,15 @@ const AgroServices = () => {
               </div>
             </div>
 
-            <div className=" card-container mt-2 p-4  relative ">
+            <div className=" card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px]">
               <img
-                className=" brightness-50 rounded-md md:max-w-[420px]"
+                className=" brightness-50 rounded h-full bg-cover"
                 src={FeedImg}
                 alt=""
               />
 
-              <div className="absolute top-5 bottom-0 mt-[70px] md:mt-24">
-                <h1 className=" text-[#E6E6E6] font-[16px] px-5 md:font-24px ">
+              <div className="absolute top-5 bottom-0 mt-[70px] md:mt-24]">
+                <h1 className=" text-[#E6E6E6] text-lg font-semibold px-5 ">
                   Feed and Nutrition
                 </h1>
                 <p className=" px-5 leading-5 text-[13px] md:text-[16px] mt-2 text-[#E6E6E6]">
@@ -125,15 +132,15 @@ const AgroServices = () => {
                 </p>
               </div>
             </div>
-            <div className=" card-container mt-2 p-4  relative inline-block">
+            <div className=" card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px]">
               <img
-                className=" brightness-50 rounded-md md:max-w-[420px]"
+                className=" brightness-50 rounded-md h-full bg-cover"
                 src={LivestockFarmingImg}
                 alt=""
               />
 
               <div className="absolute top-5 bottom-0 mt-[70px] md:mt-24">
-                <h1 className=" text-[#E6E6E6] font-[16px] px-5 md:font-24px ">
+                <h1 className=" text-[#E6E6E6] text-lg font-semibold  px-5  ">
                   Animal Health
                 </h1>
                 <p className=" px-5 leading-5 text-[13px] md:text-[16px] mt-2 text-[#E6E6E6]">

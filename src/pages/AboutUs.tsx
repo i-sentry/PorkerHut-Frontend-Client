@@ -7,31 +7,27 @@ import BreadCrumbs from "../components/utility/BreadCrumbs";
 import AppLayout from "../components/utility/AppLayout";
 
 const About = () => {
-
-
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
   return (
     <AppLayout>
-      {/* <NavBar />
-
-      <nav className="mb-20">
-        <NavBar />
-      </nav> */}
       <div className="mb-10">
-        <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
-          <img
-            src={Pigdesktop}
-            alt=""
-            className="w-full h-full object-cover absolute mix-blend-overlay"
-          />
-          <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
-            <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
+        <div
+          className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
+          style={{
+            backgroundImage: ` url('${Pigdesktop}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            width: "100vw",
+          }}
+        >
+          <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 absolute">
+            <h1 className="mb-2 font-normal tracking-tight text-3xl   text-[#fff]">
               About Us
             </h1>
-            <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
+            <div className="">
               <BreadCrumbs
                 items={[
                   {
@@ -49,23 +45,19 @@ const About = () => {
         </div>
       </div>
 
-      <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1360px] m-auto md:flex">
+      <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1350px] m-auto md:flex md:mx-10">
         <div className=" p-6 flex-1 md:p-16">
-          <h1 className=" text-4xl mb-4 font-bold text-[#333]">What we do</h1>
+          <h1 className=" md:font-normal md:tracking-tight md:text-3xl flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
+            What we do
+          </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-            Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-            mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-            habitant a amet volutpat. Auctor donec at nisl justo vel ut
-            faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-            velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-            nulla mollis dui in in in aliquet. Dapibus aenean sed felis
-            adipiscing habitant a amet volutpat. Auctor donec at nisl justo vel
-            ut faucibus. Ornare elit aenean at nunc integer facilisis at
-            facilisi velit.Lorem ipsum dolor sit amet consectetur. Tristique
-            rhoncus nulla mollis dui in in in aliquet. Dapibus aenean sed felis
-            adipiscing habitant a amet volutpat. Auctor donec at nisl justo vel
-            ut faucibus. Ornare elit aenean at nunc integer facilisis at
-            facilisi velit.
+            Porker Hut is a premium pork destination that offers a comprehensive
+            range of pork products, from bacon to pork cuts and sausages, all
+            crafted to surpass your expectations. As a pig farm, we are
+            committed to delivering the freshest, healthiest, and most delicious
+            pork products available. Thank you for choosing Porkerhut. We are
+            thrilled to offer you premium-quality pork products that reflect our
+            passion for responsible pig rearing and exceptional taste.
           </p>
         </div>
         <figure className=" flex-1">
@@ -77,61 +69,57 @@ const About = () => {
         </figure>
       </div>
 
-      <div className=" mt-24 p-6 bg-[#F4F4F4] flex-row">
-        <div className="max-w-[500px] md:ml-[90px] ">
-          <h1 className=" text-[20px] mb-4 font-bold text-[#333]">
+      <div className=" mt-24 p-6 bg-[#F4F4F4] ">
+        <div className="max-w-[500px] mx-4">
+          <h1 className=" mb-4 md:font-normal md:tracking-tight md:text-3xl">
             Why choose Pokerhut?
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-            Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-            mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-            habitant a amet volutpat. Auctor donec at nisl justo vel ut
-            faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-            velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-            nulla mollis dui in in in aliquet. Dapibus aenean
+            At Porkerhut, we are committed to providing the highest quality pork
+            products to our customers. Our core values include:
           </p>
         </div>
 
-        <div className=" md:flex gap-10 md:ml-[90px] md:pr-20">
-          <div className="max-w-[500px] bg-white rounded mt-12 px-4 py-4">
-            <h1 className=" text-2xl mb-2 font-bold text-[#333]">
-              Personalized Products
+        <div className="grid grid-cols-3 px-4 gap-6">
+          <div className=" bg-white rounded mt-12 px-4 py-4">
+            <h1 className="text-lg font-semibold mb-2 text-[#333]">
+              Sustainable and Responsible Farming Practices
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-              Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-              mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-              habitant a amet volutpat. Auctor donec at nisl justo vel ut
-              faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-              velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-              nulla mollis dui in in in aliquet. Dapibus aenean
+              We believe in promoting a sustainable food system, which starts
+              with the way we raise our animals. Our farm practices humane and
+              environmentally responsible pig rearing, providing a comfortable
+              and stress-free environment for our pigs to grow, with ample
+              access to natural resources like water, fresh air, and
+              high-quality grain to feed on.
             </p>
           </div>
 
-          <div className="max-w-[500px] bg-white rounded mt-12 px-4 py-4">
-            <h1 className=" text-2xl mb-2 font-bold text-[#333]">
-              Availabilty
+          <div className=" bg-white rounded mt-12 px-4 py-4">
+            <h1 className="  mb-2 text-lg font-semibold text-[#333]">
+              Unique Services
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-              Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-              mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-              habitant a amet volutpat. Auctor donec at nisl justo vel ut
-              faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-              velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-              nulla mollis dui in in in aliquet. Dapibus aenean
+              Apart from our premium pork products, Porkerhut also offers a
+              range of services to meet the specific needs and preferences of
+              our customers. Our weekend kill is an innovative and sustainable
+              solution for customers looking to enjoy fresh and delicious pork
+              while supporting ethical and responsible farming practices. In
+              addition to that, we also offer veterinary services, agro
+              services, and logistic services.
             </p>
           </div>
 
-          <div className="max-w-[500px] bg-white rounded mt-12 px-4 py-4">
-            <h1 className=" text-2xl mb-2 font-bold text-[#333] ">
-              Guaranteed Satisfaction
+          <div className=" bg-white rounded mt-12 px-4 py-4">
+            <h1 className="text-lg font-semibold mb-2 text-[#333] ">
+              High-Quality Products
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-              Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-              mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-              habitant a amet volutpat. Auctor donec at nisl justo vel ut
-              faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-              velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-              nulla mollis dui in in in aliquet. Dapibus aenean
+              Our extensive line of pork products is carefully hand-selected,
+              ensuring they meet our high-quality standards. We offer a wide
+              variety of products, including freshly cut bacon, sausage, and
+              more, each prepared with care to deliver unparalleled taste and
+              quality.
             </p>
           </div>
         </div>

@@ -2,27 +2,34 @@ import React, { useEffect, useState } from "react";
 import AppLayout from "../components/utility/AppLayout";
 import Breadcrumbs from "../../src/components/utility/BreadCrumbs";
 import { useParams } from "react-router-dom";
-import { blogData } from "../utils/blogData";
-import { IBlog } from "../utils/blogData";
+import { useGetBlog } from "../services/hooks/blog";
+
+
 
 const BlogContent = () => {
+
+ 
+
   const { id } = useParams();
-  console.log(id);
-  const [blog, setBlog] = useState<IBlog>({
-    id: "",
-    image: "",
+  const getSingleBlog = useGetBlog(id)
+
+  console.log({getSingleBlog});
+  
+  const [blog, setBlog] = useState<any>({
+    _id: "",
+    // image: "",
     title: "",
-    readDuration: "",
+    // readDuration: "",
     createdAt: "",
     content: "",
-    banner: "",
+    // banner: "",
   });
 
-  useEffect(() => {
-    const filteredOrder = blogData.find((ord: IBlog) => ord.id === id);
-    //@ts-ignore
-    setBlog(filteredOrder);
-  }, [id]);
+  // useEffect(() => {
+  //   const filteredOrder = blogData.find((ord: any) => ord.id === id);
+  //   //@ts-ignore
+  //   setBlog(filteredOrder);
+  // }, [id]);
    
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -79,7 +86,7 @@ const BlogContent = () => {
           </div>
           <div className="xxs:w-full  md:w-3/4 m-auto text-justify  ">
             <div className="py-4 px-8">
-              {paragraphs.map((paragraph, index) => (
+              {paragraphs?.map((paragraph: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined, index: React.Key | null | undefined) => (
                 <p key={index} className="mb-4 md:text-lg xxs:text-base leading-relaxed">
                   {paragraph}
                 </p>
