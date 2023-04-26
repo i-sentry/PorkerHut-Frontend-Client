@@ -7,6 +7,7 @@ import { useGetAllBlogs } from "../../services/hooks/blog";
 
 export interface IBlog {
   _id: string;
+  featuredImage: string;
   author: string;
   createdAt: string;
   updatedAt: string;
@@ -23,6 +24,8 @@ const Blog = () => {
 
 
    const [data, setData] = useState(getAllBlogs?.data?.data);
+   console.log(data, 'Blog');
+   
    let itemsPerPage = 3;
    let currentPage = 1;
    const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);

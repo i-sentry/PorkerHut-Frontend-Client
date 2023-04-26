@@ -36,7 +36,7 @@ export const links = [
           },
           {
             name: "Veterinary Services",
-            link: "/services/veterinary-services",
+            link: "/services/vet-services",
             icon: <BiHealth size={20} />,
           },
           {
