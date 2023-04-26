@@ -2,9 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }: any) => {
-  const { image, title, readDuration, createdAt, content, _id } = blog;
-  console.log(_id);
+  const {featuredImage, title, readDuration, createdAt, content, _id } = blog;
+
+  // console.log(featuredImage);
   
+  
+  const imgUrl = process.env.REACT_APP_IMAGE_BASE_URL;
+  console.log(`${imgUrl}/${featuredImage}`)
+  
+
   const moment = require("moment");
   const myDate = new Date(createdAt);
   const momentDate = moment(myDate);
@@ -15,8 +21,8 @@ const BlogCard = ({ blog }: any) => {
     <>
       <div className="max-w-[500px] bg-white rounded-md hover:shadow-md group overflow-hidden">
         <Link to="#" className="">
-          <img className="rounded-t" src={image} alt="" />
-          {/* shine box */}
+          <img className="rounded-t overflow-hidden h-[300px] object-cover w-full" src={`${imgUrl}/${featuredImage}`} alt="" />
+      
         </Link>
         <p className=" pt-2 font-normal text-[#333333] text-xs px-2">
           {formattedDate}

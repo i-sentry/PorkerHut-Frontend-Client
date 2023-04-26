@@ -9,6 +9,7 @@ import LivestockFarmingImg from "../../../src/assets/images/LivestockFarmingImg.
 import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
 import { useLocation } from "react-router-dom";
 import AppLayout from "../../components/utility/AppLayout";
+import ServiceForm from "../../components/services-component/ServiceForm";
 
 const AgroServices = () => {
   const location = useLocation();
@@ -55,7 +56,7 @@ const AgroServices = () => {
           <div className=" bg-[#F4F4F4] mt-12 rounded-md max-w-[1350px] m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
             <div className=" md:px-10 flex-1 flex flex-col  justify-center ">
               <h1 className=" md:font-normal md:tracking-tight md:text-3xl flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
-                What our Agro services is <br className="md:hidden"/> all about
+                What our Agro services is <br className="md:hidden" /> all about
               </h1>
               <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
                 Agro services play a crucial role in pork meat production and
@@ -154,10 +155,15 @@ const AgroServices = () => {
               </div>
             </div>
           </div>
-
-          {/* <Footer /> */}
         </div>
       </div>
+
+      <section className="w-full h-full mb-6">
+        <ServiceForm
+          text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."
+          title="Let's Talk Agro Services"
+        />
+      </section>
     </AppLayout>
   );
 };

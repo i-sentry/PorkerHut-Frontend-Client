@@ -15,10 +15,9 @@ const Contact_Page = () => {
   return (
     <AppLayout>
       <div className="overflow-x-hidden">
-       
         <div className="  max-w-screen-xl ">
           <div
-            className=" md:block xxs:flex flex-col items-center justify-center w-full md:h-[330px] bg-cover bg-center py-20 px-14"
+            className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
             style={{
               backgroundImage: ` url('${headerImg}')`,
               backgroundSize: "cover",
@@ -26,22 +25,24 @@ const Contact_Page = () => {
               width: "100vw",
             }}
           >
-            <h1 className="mb-2 text-3xl font-medium  text-left   text-[#fff]">
-              Contact Us
-            </h1>
+            <div className="xxs:absolute md:top-10 xxs:top-0 mt-32">
+              <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]">
+                Contact Us
+              </h1>
 
-            <BreadCrumbs
-              items={[
-                {
-                  name: "Home",
-                  link: "/",
-                },
-                {
-                  name: "Contact Us",
-                  link: "/contact-us",
-                },
-              ]}
-            />
+              <BreadCrumbs
+                items={[
+                  {
+                    name: "Home",
+                    link: "/",
+                  },
+                  {
+                    name: "Contact Us",
+                    link: "/contact-us",
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
         <button onClick={notify}></button>

@@ -12,21 +12,18 @@ const WeekendKills = () => {
     <AppLayout>
       <div>
         <div className="overflow-x-hidden">
-          {/* <nav className="mb-20">
-            <NavBar />
-          </nav> */}
           <div className="mb-10">
-            <div className=" md:block xxs:flex flex-col items-center justify-center h-[300px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
+            <div className=" md:block xxs:flex flex-col items-center justify-center h-[350px] w-full relative bg-gradient-to-r from-slate-600 to to bg-slate-700">
               <img
                 src={BlogBanner}
                 alt=""
                 className="w-full h-full object-cover absolute mix-blend-overlay"
               />
-              <div className="md:pl-20 pl- md:ml-2 md:pt-28 absolute">
-                <h1 className=" ml-6 font-bold text-3xl text-white md:inline ">
+              <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 px-14">
+                <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]">
                   Weekend Kills
                 </h1>
-                <div className="md:flex md:items-center xxs:ml-8 md:pl-0">
+                <div className="">
                   <BreadCrumbs
                     items={[
                       {
@@ -45,25 +42,27 @@ const WeekendKills = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1360px] m-auto md:flex">
+      <div className=" bg-[#F4F4F4] mt-12 rounded max-w-[1360px] m-auto md:flex mx-10">
         <div className=" p-6 flex-1 md:p-16">
-          <h1 className=" text-4xl mb-4 font-bold text-[#333]">
-            Our Weekend Kills
+          <h1 className="text-3xl font-normal tracking-tight mb-4">
+          Why Weekend Kills
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-            Lorem ipsum dolor sit amet consectetur. Tristique rhoncus nulla
-            mollis dui in in in aliquet. Dapibus aenean sed felis adipiscing
-            habitant a amet volutpat. Auctor donec at nisl justo vel ut
-            faucibus. Ornare elit aenean at nunc integer facilisis at facilisi
-            velit. Lorem ipsum dolor sit amet consectetur. Tristique rhoncus
-            nulla mollis dui in in in aliquet. Dapibus aenean sed felis
-            adipiscing habitant a amet volutpat. Auctor donec at nisl justo vel
-            ut faucibus. Ornare elit aenean at nunc integer facilisis at
-            facilisi velit.Lorem ipsum dolor sit amet consectetur. Tristique
-            rhoncus nulla mollis dui in in in aliquet. Dapibus aenean sed felis
-            adipiscing habitant a amet volutpat. Auctor donec at nisl justo vel
-            ut faucibus. Ornare elit aenean at nunc integer facilisis at
-            facilisi velit.
+            Looking for an affordable and ethical way to enjoy high-quality
+            pork? Look no further than Porker Hut. We are committed to providing
+            you with locally sourced and ethically raised pork that is not only
+            delicious but also sustainably produced. Our weekend kill program
+            offers a cost-effective solution for customers to purchase and share
+            a whole pig at a reduced price by partnering with other like-minded
+            individuals. And, our delivery service ensures that your pork
+            arrives fresh and ready for your enjoyment. At Porker Hut, we
+            believe in transparency and traceability. We carefully select our
+            pigs and use environmentally responsible rearing practices,
+            providing them with access to natural resources such as fresh air,
+            water, and high-quality grain feed. We also offer veterinary
+            services to ensure the health and well-being of our animals. Place
+            your order today and experience the difference that high-quality,
+            locally sourced-pork can make.
           </p>
         </div>
         <figure className=" flex-1">
@@ -78,13 +77,9 @@ const WeekendKills = () => {
       <section className="w-full h-full md:p-14">
         <ServiceForm
           text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."
-          title="Send us a Message"
+          title="Reach out for Weekend Kills"
         />
       </section>
-
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </AppLayout>
   );
 };

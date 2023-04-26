@@ -77,6 +77,7 @@ import NewStore from "./pages/admin-dashboard/NewStore";
 import NewVetPartners from "./pages/admin-dashboard/NewVetPartners";
 import BlogPost from "./pages/admin-dashboard/BlogPost";
 import EditBlog from "./pages/admin-dashboard/EditBlog";
+import VetServices from "./pages/services-page/VetServices";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -109,7 +110,10 @@ const router = createBrowserRouter(
       <Route path="/my__orders" element={<MyOrder />} />
       <Route path="/empty_cart" element={<EmptyCartPage />} />
       <Route path="/contact-us" element={<ContactPage />} />
-      <Route path="/services/weekend-kills" element={<WeekendKills />} />
+      <Route path="/contact-us" element={<ContactPage />} />
+      <Route path="/services/vet-services" element={<VetServices/>} />
+      <Route path="/services/weekend-kills" element={<WeekendKills/>} />
+
 
       <Route path="/services/agro-services" element={<AgroServices />} />
       <Route path="/switch" element={<ToggleSwitch />} />
