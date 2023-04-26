@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { AiFillStar } from 'react-icons/ai';
+import React, { useState } from "react";
+import { AiFillStar } from "react-icons/ai";
 
 type Product = {
   location: string;
@@ -23,16 +23,11 @@ type FavouriteProductCardProps = {
   item: Item;
 };
 
+const FavouriteProductCard = ({ item }: FavouriteProductCardProps) => {
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
 
-
-const FavouriteProductCard = ({item}: FavouriteProductCardProps) => {
-
-     const [rating, setRating] = useState(0);
-     const [hover, setHover] = useState(0);
-
-     const handleClick = () => {
-
-     };
+  const handleClick = () => {};
 
   return (
     <div>
@@ -99,6 +94,6 @@ const FavouriteProductCard = ({item}: FavouriteProductCardProps) => {
       </div>
     </div>
   );
-}
+};
 
-export default FavouriteProductCard
+export default FavouriteProductCard;
