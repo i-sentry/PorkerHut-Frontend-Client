@@ -1,5 +1,4 @@
 import React from "react";
-
 import { HiOutlineTrendingDown, HiOutlineTrendingUp } from "react-icons/hi";
 import CustomerReview from "./CustomerReview";
 import DoughnutChart from "./DoughnutChart";
@@ -12,9 +11,9 @@ const Analytics = () => {
   }, []);
 
   return (
-    <div className="ml-10 mr-4 mt-4 mb-8">
-      <div className="mb-2">
-        <h1 className="text-xl font-medium ">Analytics</h1>
+    <div className="pl-10 pt-10 pr-5">
+      <div className="mb-5">
+        <h1 className="text-2xl font-medium ">Analytics</h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           Monitor every activity here
         </span>
@@ -68,21 +67,8 @@ const Analytics = () => {
         <CustomerReview rating={0} />
       </div>
 
-
-      <div className="mt-4 bg-[#F4F4F4]">
-        <div className="flex items-center justify-between px-4 py-4">
-          <h1 className="font-medium">Sales Revenue</h1>
-          <form className="flex items-center justify-between">
-          
-          <div className="flex gap-4 items-center">
-            <label className="" htmlFor="week"></label>
-            <input type="week" className="focus:outline-none border h-10 w-42 px-2 rounded " />
-          </div>
-        </form>
-        </div>
-
+      <div className="mt-4 ">
         <AreaChart />
-
       </div>
     </div>
   );

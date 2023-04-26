@@ -53,7 +53,7 @@ import Calender from "./pages/admin-dashboard/Calender";
 import Blog from "./pages/admin-dashboard/Blog";
 import Announcement from "./pages/admin-dashboard/Annoucement";
 import Payment from "./pages/admin-dashboard/Payment";
-import Services from "./pages/admin-dashboard/Services";
+
 import ProductCreated from "./pages/admin-dashboard/ProductCreated";
 import Messages from "./pages/admin-dashboard/Messages";
 import Settings from "./pages/admin-dashboard/Settings";
@@ -157,7 +157,7 @@ const router = createBrowserRouter(
         <Route path="/admin/blog" element={<BlogPost />} />
         <Route path="/admin/announcement" element={<Announcement />} />
         <Route path="/admin/payment" element={<Payment />} />
-        <Route path="/admin/service" element={<Services />} />
+        {/* <Route path="/admin/service" element={<Services />} /> */}
         <Route path="/admin/product-created" element={<ProductCreated />} />
         <Route path="/admin/messages" element={<Messages />} />
         <Route path="/admin/settings" element={<Settings />} />

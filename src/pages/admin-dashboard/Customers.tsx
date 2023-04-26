@@ -1,8 +1,57 @@
 import React from "react";
-import AdminCustomerTable from "../../components/admin-dashboard-components/AdminCustomerTable";
 import Popover from "../../components/utility/PopOver";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { TabSelector } from "../../components/utility/TabSelector";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import customerMockData from "../../utils/json/customerMockData.json";
+import { Column } from "react-table";
+
+export const StatusColumn = ({ data }: { data: string }) => {
+  switch (data?.toLowerCase()) {
+    case "active":
+      return <span className="  text-[#22C55E] ">Active</span>;
+
+    case "inactive":
+      return <span className=" text-[#F91919]  capitalize">inactive</span>;
+    default:
+      return (
+        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+      );
+  }
+};
+
+
+const Tcolumns: readonly Column<object>[] = [
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "Phone Number",
+    accessor: "phone_number",
+  },
+  {
+    Header: "Order",
+    accessor: "order",
+  },
+  {
+    Header: "Amount Spent",
+    accessor: "amount_spent",
+  },
+  {
+    Header: "Account ID",
+    accessor: "account_id",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+  },
+];
 
 const Customers = () => {
 
@@ -62,19 +111,22 @@ const Customers = () => {
   };
 
   return (
-    <div className="p-14 ">
-      <div className="mb-2">
-        <h1 className="text-xl font-medium text-[#333333]">Customers</h1>
+    <div className="pl-10 pt-10 pr-5 ">
+      <div className="mb-5">
+        <h1 className="text-2xl font-medium text-[#333333]">Customers</h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           All Information available
         </span>
       </div>
 
       <div>
-        <AdminCustomerTable
+        <AdminTable
+          Tcolumns={Tcolumns}
           // @ts-ignore
           optionalColumn={optionalColumn}
           tabs={["All", "Active", "Inactive"]}
+          TData={customerMockData}
+          placeholder={"Search name, email, account ID....  "}
         />
       </div>
     </div>

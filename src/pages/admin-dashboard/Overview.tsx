@@ -122,10 +122,10 @@ const Overview = () => {
   }, []);
 
   return (
-    <div className="p-14">
+    <div className="pl-10 pt-10 pr-5">
       <div className="mb-5">
         <h1 className="text-2xl font-medium ">Overview</h1>
-        <span className="text-[#A2A2A2] font-light text-sm">
+        <span className="text-[#A2A2A2] font-normal text-sm">
           This is an overview of Porker Hut.
         </span>
       </div>
@@ -135,7 +135,9 @@ const Overview = () => {
             key={val.id}
             className="bg-[#F4F4F4] h-full flex flex-col flex-1 border-[#D9D9D9] border-r-[1px] gap-2 rounded-l-sm items-start justify-center px-6 py-3"
           >
-            <h1 className="text-[#A2A2A2] text-xs  font-normal">{val?.title}</h1>
+            <h1 className="text-[#A2A2A2] text-xs  font-normal">
+              {val?.title}
+            </h1>
             <span className="text-xl font-medium">{val?.figure}</span>
           </div>
         ))}
@@ -151,27 +153,15 @@ const Overview = () => {
         ))}
       </div>
 
-      <div className="bg-[#F4F4F4] mt-4 py-4 ">
-        <form className="flex items-center justify-between">
-          <div>
-            <span className=" font-medium px-3">Sales Overview</span>
-          </div>
-          <div className="flex gap-4 items-center px-4">
-            <label className="" htmlFor="week"></label>
-            <input
-              type="week"
-              className="focus:outline-none border h-10 w-42 px-2 rounded "
-            />
-          </div>
-        </form>
+      <div className="my-4">
         <AreaChart />
       </div>
 
-      <div className="grid grid-cols-3 items-center mt-8 gap-4">
+      {/* <div className="grid grid-cols-3 items-center mt-8 gap-4">
         <TopStoresRating />
         <AdminOverviewTopProduct />
         <AdminOverviewRating />
-      </div>
+      </div> */}
     </div>
   );
 };

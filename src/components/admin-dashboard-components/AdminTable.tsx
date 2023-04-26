@@ -6,6 +6,7 @@ import {
   usePagination,
   useRowSelect,
   useExpanded,
+  Column,
 } from "react-table";
 import GlobalFilter from "../Table/GlobalFilter";
 import Pagination from "../Table/Pagination";
@@ -28,14 +29,28 @@ export type IProps = {
   order_status: string;
 };
 
+export type ITable = {
+  tabs: any;
+  placeholder: string;
+  Tcolumns: readonly Column<object>[];
+  optionalColumn: null;
+  TData: any;
+};
+
 //@ts-ignore
-const OrderTable = ({ optionalColumn = null, tabs, Tcolumns, TData, placeholder }) => {
+const AdminTable = ({
+  optionalColumn,
+  tabs,
+  Tcolumns,
+  TData,
+  placeholder,
+}: ITable) => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
   const columns = useMemo(() => Tcolumns, []);
   const data = useMemo(() => Tdata, [Tdata]);
-  const [selectedTab, setSelectedTab] = useState(tabs);
+  const [selectedTab, setSelectedTab] = useState<string>(tabs);
   const [chosenTab, setChosenTab] = useState("All");
   const table = useTable(
     {
@@ -123,7 +138,7 @@ const OrderTable = ({ optionalColumn = null, tabs, Tcolumns, TData, placeholder 
 
   return (
     <>
-      <div className="tabs flex gap-4 pt-5 pb-1  ">
+      <div className="tabs flex gap-4   ">
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}
@@ -143,7 +158,7 @@ const OrderTable = ({ optionalColumn = null, tabs, Tcolumns, TData, placeholder 
           </TabSelector>
         ))}
       </div>
-      <div className="flex  items-center justify-between  my-4 w-full ">
+      <div className="flex  items-center justify-between  mt-5 my-6 w-full ">
         <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
           <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
             <input
@@ -173,7 +188,7 @@ const OrderTable = ({ optionalColumn = null, tabs, Tcolumns, TData, placeholder 
           />
         </div>
       </div>
-      <div className="  flex flex-col bg-white mb-8">
+      <div className="  flex flex-col bg-white mb-8 ">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
@@ -263,4 +278,4 @@ const OrderTable = ({ optionalColumn = null, tabs, Tcolumns, TData, placeholder 
   );
 };
 
-export default OrderTable;
+export default AdminTable;
