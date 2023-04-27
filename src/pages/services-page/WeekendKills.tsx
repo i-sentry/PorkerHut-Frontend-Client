@@ -13,7 +13,7 @@ const WeekendKills = () => {
       <div>
         <div className="overflow-x-hidden">
           <div className="mb-10">
-            <div className=" md:block xxs:flex flex-col items-center justify-center h-[350px] w-full relative bg-gradient-to-r from-slate-600 to to bg-slate-700">
+            <div className=" md:block xxs:flex flex-col items-center justify-center md:h-[350px] w-full relative bg-gradient-to-r from-slate-600 to to bg-slate-700">
               <img
                 src={BlogBanner}
                 alt=""
@@ -42,8 +42,8 @@ const WeekendKills = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-[#F4F4F4] mt-12 rounded max-w-[1360px] m-auto md:flex mx-10">
-        <div className=" p-6 flex-1 md:p-16">
+      <div className=" bg-[#F4F4F4] mt-12 rounded m-auto md:flex mx-10">
+        <div className=" p-6 md:w-1/2 md:p-16">
           <h1 className="text-3xl font-normal tracking-tight mb-4">
           Why Weekend Kills
           </h1>
@@ -65,7 +65,7 @@ const WeekendKills = () => {
             locally sourced-pork can make.
           </p>
         </div>
-        <figure className=" flex-1">
+        <figure className="md:w-1/2">
           <img
             className="object-cover h-full p-6 md:p-0 shrink-0"
             src={SuyaImg}
