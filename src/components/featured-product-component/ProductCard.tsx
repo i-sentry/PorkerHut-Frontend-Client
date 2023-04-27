@@ -26,7 +26,9 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const handleCardClick = () => {
     navigate(`/product/${item?.id}`, { state: { item } });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  
 
 
   return (

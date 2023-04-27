@@ -48,8 +48,8 @@ const VetServices = () => {
             </div>
           </div>
         </div>
-        <div className=" bg-[#F4F4F4] mt-12 rounded-md max-w-[1350px] m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
-          <div className="  md:px-10 py-8 flex-1 flex flex-col  justify-center">
+        <div className=" bg-[#F4F4F4] mt-12 rounded-md m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
+          <div className=" md:w-1/2 md:px-10 py-8 flex-1 flex flex-col  justify-center">
             <h1 className=" text-3xl tracking-tight mb-4 font-normal text-[#333]">
               Our Veterinary Services
             </h1>
@@ -74,7 +74,7 @@ const VetServices = () => {
               yourself.
             </p>
           </div>
-          <figure className=" flex-1">
+          <figure className="md:w-1/2">
             <img
               className="object-cover h-full p-6 md:p-0"
               src={VetDrImg}

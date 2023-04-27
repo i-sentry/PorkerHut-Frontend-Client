@@ -45,8 +45,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className=" bg-[#F4F4F4] mt-20 rounded-md max-w-[1350px] m-auto md:flex md:mx-10">
-        <div className=" p-6 flex-1 md:p-16">
+      <div className=" bg-[#F4F4F4] mt-20 rounded-md m-auto md:flex md:mx-10">
+        <div className="md:w-1/2 p-6 flex-1 md:p-16">
           <h1 className=" md:font-normal md:tracking-tight md:text-3xl flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
             What we do
           </h1>
@@ -60,9 +60,9 @@ const About = () => {
             passion for responsible pig rearing and exceptional taste.
           </p>
         </div>
-        <figure className=" flex-1">
+        <figure className="md:w-1/2">
           <img
-            className="object-cover h-full p-6 md:p-0"
+            className="object-cover w-full h-full p-6 md:p-0"
             src={PlantImg}
             alt=""
           />

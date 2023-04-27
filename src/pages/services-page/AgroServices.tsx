@@ -5,7 +5,7 @@ import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import AgroservImg from "../../../src/assets/images/AgroservImg.png";
 import FarmingImg from "../../../src/assets/images/FarmingImg.png";
 import FeedImg from "../../../src/assets/images/FeedImg.png";
-import LivestockFarmingImg from "../../../src/assets/images/LivestockFarmingImg.png";
+import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
 import { useLocation } from "react-router-dom";
 import AppLayout from "../../components/utility/AppLayout";
@@ -26,7 +26,7 @@ const AgroServices = () => {
               backgroundImage: ` url('${AgroservImg}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              width: "100vw",
+              // width: "100vw",
             }}
           >
             <div className=" xxs:absolute md:top-10 xxs:top-0 mt-32">
@@ -69,7 +69,7 @@ const AgroServices = () => {
             </div>
             <div className="md:w-1/2">
               <figure>
-                <img className="object-cover h-full" src={FarmingImg} alt="" />
+                <img className="object-cover w-full h-full" src={FarmingImg} alt="" />
               </figure>
             </div>
           </div>
@@ -133,7 +133,7 @@ const AgroServices = () => {
             <div
               className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px]"
               style={{
-                backgroundImage: `url(${LivestockFarmingImg})`,
+                backgroundImage: `url(${livestock1})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}

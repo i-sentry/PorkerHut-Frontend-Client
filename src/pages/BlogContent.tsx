@@ -13,23 +13,18 @@ const BlogContent = () => {
   const { id } = useParams();
   const getSingleBlog = useGetBlog(id)
 
-  console.log({getSingleBlog});
+  console.log(getSingleBlog, "getSinleblog");
+  
   
   const [blog, setBlog] = useState<any>({
     _id: "",
-    // image: "",
     title: "",
-    // readDuration: "",
     createdAt: "",
     content: "",
-    // banner: "",
+
   });
 
-  // useEffect(() => {
-  //   const filteredOrder = blogData.find((ord: any) => ord.id === id);
-  //   //@ts-ignore
-  //   setBlog(filteredOrder);
-  // }, [id]);
+
    
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
