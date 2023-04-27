@@ -8420,6 +8420,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-scroll-motion@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-scroll-motion/-/react-scroll-motion-0.3.2.tgz#78213b0ca454352b7fa86dfcd9b6189466fed76d"
+  integrity sha512-w/6btLiY4I1wh1hxRhVKN0Vd3Hrpb+ZfSBZxxMh+mMtc9oXeR+VvfLfx2VRTNl+0JyjTCciwFxtDTK6vg09Mhw==
+
 react-select@^5.7.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.0.tgz#82921b38f1fcf1471a0b62304da01f2896cd8ce6"

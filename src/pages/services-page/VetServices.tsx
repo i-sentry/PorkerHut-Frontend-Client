@@ -8,6 +8,7 @@ import Footer from "../../components/footer-component/Footer";
 import ServiceForm from "../../components/services-component/ServiceForm";
 import AppLayout from "../../components/utility/AppLayout";
 
+
 const VetServices = () => {
   return (
     <>
@@ -82,7 +83,7 @@ const VetServices = () => {
           </figure>
         </div>
 
-        <div className=" mt-12 text-[20px] bg-[#F5F9F6] py-8 px-10">
+        <div className=" mt-12 text-[20px] bg-[#F5F9F6] py-8 px-10 h-[100%] w-[100%]">
           <div className="flex items-center justify-center mb-10 ">
             <h1 className="font-normal tracking-tight md:text-3xl mb-4 text-[#333]">
               What We Provide
@@ -90,61 +91,63 @@ const VetServices = () => {
             </h1>
           </div>
 
-          <div className=" relative flex">
-            <div>
-              <div className="h-[250px] w-[300px] border  bg-white mb-4  rounded-md px-6 py-4 ">
-                <h1 className=" font-normal md:text-3xl">01</h1>
-                <h1 className=" text-lg font-semibold">
-                  Comprehensive Health <br /> Check-ups
-                </h1>
-                <p className=" text-[13px] text-[#797979]">
-                  Regular check-ups with our veterinarians ensure the overall
-                  health of your pigs. We'll perform thorough exams, check for
-                  underlying health issues, monitor weight and body condition,
-                  and ensure proper nutrition.
-                </p>
-              </div>
-
-              <div className="h-[250px] w-[300px] border  bg-white mb-4 rounded-md px-6 py-4">
-                <h1 className="font-normal tracking-tight md:text-3xl">03</h1>
-                <h1 className="text-lg font-semibold">
-                  Herd Management Assistance
-                </h1>
-                <p className=" text-[13px] text-[#797979]">
-                  We help keep your pig herd healthy and productive with our
-                  herd management services, including vaccination programs,
-                  parasite control, and biosecurity protocols.
-                </p>
-              </div>
+          <div className=" relative flex items-center justify-center h-[40rem] w-full">
+            {/* <div> */}
+            <div className="h-[250px] w-[300px] border  bg-white mb-4  rounded-md px-6 py-4 absolute top-10 left-0">
+              <h1 className=" font-normal md:text-3xl">01</h1>
+              <h1 className=" text-lg font-semibold">
+                Comprehensive Health <br /> Check-ups
+              </h1>
+              <p className=" text-[13px] text-[#797979]">
+                Regular check-ups with our veterinarians ensure the overall
+                health of your pigs. We'll perform thorough exams, check for
+                underlying health issues, monitor weight and body condition, and
+                ensure proper nutrition.
+              </p>
             </div>
 
-            <div className="w-[500px] h-full mt-12 flex items-center justify-center">
-              <img src={PigImg} alt="" className="bg-cover h-full w-full" />
+            <div className="h-[250px] w-[300px] border  bg-white mb-4  px-6 py-4 rounded-md absolute top-0 right-0">
+              <h1 className="font-normal tracking-tight md:text-3xl">02</h1>
+              <h1 className="text-lg font-semibold">Feed Consultation</h1>
+              <p className=" text-[13px] text-[#797979]">
+                Our vets help determine the best feed for your pigs to promote
+                optimal growth and health. This includes nutritional analysis
+                and personalized recommendations.
+              </p>
             </div>
 
-            <div className="">
-              <div className="h-[250px] w-[300px] border  bg-white mb-4  px-6 py-4 rounded-md absolute right-10 top-0">
-                <h1 className="font-normal tracking-tight md:text-3xl">02</h1>
-                <h1 className="text-lg font-semibold">Feed Consultation</h1>
-                <p className=" text-[13px] text-[#797979]">
-                  Our vets help determine the best feed for your pigs to promote
-                  optimal growth and health. This includes nutritional analysis
-                  and personalized recommendations.
-                </p>
-              </div>
-
-              <div className="h-[250px] w-[300px] border  bg-white mb-4 px-6 py-4 rounded-md mt-4 absolute bottom-0">
-                <h1 className="font-normal tracking-tight md:text-3xl">04</h1>
-                <h1 className="text-lg font-semibold">Reproductive Health</h1>
-                <p className=" text-[13px] text-[#797979]">
-                  Reproductive health is critical for maintaining the
-                  productivity of your pig farming business. Our veterinarians
-                  offer a range of services to optimize the reproductive health
-                  of your pigs, including artificial insemination, pregnancy
-                  diagnosis, and fertility assessments.
-                </p>
-              </div>
+            <div className="h-[250px] w-[300px] border  bg-white mb-4 rounded-md px-6 py-4 absolute bottom-0 left-20">
+              <h1 className="font-normal tracking-tight md:text-3xl">03</h1>
+              <h1 className="text-lg font-semibold">
+                Herd Management Assistance
+              </h1>
+              <p className=" text-[13px] text-[#797979]">
+                We help keep your pig herd healthy and productive with our herd
+                management services, including vaccination programs, parasite
+                control, and bio-security protocols.
+              </p>
             </div>
+
+
+            <img
+              src={PigImg}
+              alt="livestock"
+              className="object-cover w-[40%]"
+            />
+
+
+            <div className="h-[250px] w-[300px] border  bg-white mb-4 px-6 py-4 rounded-md mt-4 absolute bottom-0 right-10 ">
+              <h1 className="font-normal tracking-tight md:text-3xl">04</h1>
+              <h1 className="text-lg font-semibold">Reproductive Health</h1>
+              <p className=" text-[13px] text-[#797979]">
+                Reproductive health is critical for maintaining the productivity
+                of your pig farming business. Our veterinarians offer a range of
+                services to optimize the reproductive health of your pigs,
+                including artificial insemination, pregnancy diagnosis, and
+                fertility assessments.
+              </p>
+            </div>
+            {/* </div> */}
           </div>
         </div>
         <section className="w-full h-full md:p-14">
@@ -154,9 +157,6 @@ const VetServices = () => {
           />
         </section>
       </AppLayout>
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </>
   );
 };

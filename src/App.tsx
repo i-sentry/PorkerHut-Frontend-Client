@@ -110,10 +110,9 @@ const router = createBrowserRouter(
       <Route path="/my__orders" element={<MyOrder />} />
       <Route path="/empty_cart" element={<EmptyCartPage />} />
       <Route path="/contact-us" element={<ContactPage />} />
-      <Route path="/contact-us" element={<ContactPage />} />
+      {/* <Route path="/services/vet-services" element={<VeterinaryServices />} /> */}
       <Route path="/services/vet-services" element={<VetServices/>} />
-      <Route path="/services/weekend-kills" element={<WeekendKills/>} />
-
+      <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
       <Route path="/services/agro-services" element={<AgroServices />} />
       <Route path="/switch" element={<ToggleSwitch />} />

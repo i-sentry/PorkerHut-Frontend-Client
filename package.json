@@ -49,6 +49,7 @@
     "react-ripples": "^2.2.1",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "react-scroll-motion": "^0.3.2",
     "react-select": "^5.7.0",
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.2",

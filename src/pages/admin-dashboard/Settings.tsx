@@ -13,11 +13,15 @@ import avatar from "../../assets/account.png";
 import InputComponent from "../../components/admin-dashboard-components/InputComponent";
 import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Settings = () => {
   const [image, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [overlayVisibility, setOverlayVisibility] = useState(false);
+  const [eyeState, setEyeState] = useState(false);
+  const [eyeState2, setEyeState2] = useState(false);
+  const [eyeState3, setEyeState3] = useState(false);
   const [selectedTab, setSelectedTab] = useTabs([
     "Information",
     "Members",
@@ -119,6 +123,15 @@ const Settings = () => {
     },
   ];
 
+  const toggleEye = (e: any) => {
+    e.preventDefault();
+    setEyeState((prev) => !prev);
+  };
+  const toggleConfirmEye = (e: any) => {
+    e.preventDefault();
+    setEyeState2((prev) => !prev);
+  };
+
   return (
     <div className="pl-10 pt-10 pr-5">
       <div className="mb-5">
@@ -132,7 +145,7 @@ const Settings = () => {
       <div className="flex w-ful">
         <nav className=" border-r-2 border-[#E8E9EB] flex flex-col space-y-3 py-3 bg-[#F4F4F4]   pl-4 w-64">
           <TabSelector
-            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 ${
+            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
               selectedTab === "Information"
                 ? " block  font-normal rounded-md text-[#197B30] p-1.5"
                 : "font-light"
@@ -151,7 +164,7 @@ const Settings = () => {
           </TabSelector>
 
           <TabSelector
-            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 ${
+            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
               selectedTab === "Members"
                 ? "block  font-normal rounded-md text-[#197B30] p-1.5"
                 : "font-light"
@@ -169,7 +182,7 @@ const Settings = () => {
             Members
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 ${
+            className={` cursor-pointer relative bg-transparent  font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
               selectedTab === "Notification"
                 ? "block  font-normal  rounded-md text-[#197B30] p-1.5"
                 : "font-light"
@@ -187,7 +200,7 @@ const Settings = () => {
             Notification
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 ${
+            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
               selectedTab === "Commissions"
                 ? "block  font-normal rounded-md text-[#197B30] p-1.5"
                 : "font-light"
@@ -205,7 +218,7 @@ const Settings = () => {
             Commissions & Fees
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 ${
+            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
               selectedTab === "Password"
                 ? "block  font-normal rounded-md text-[#197B30] p-1.5"
                 : "font-light"
@@ -340,7 +353,7 @@ const Settings = () => {
                 </div>
                 <div className="flex-1 ">
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Full Name</p>
+                    <p className=" text-[#344054]">Store Name</p>
                     <div className="flex-[2]">
                       <InputComponent
                         placeholder="080 000 0000"
@@ -351,7 +364,7 @@ const Settings = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Email</p>
+                    <p className=" text-[#344054]">Store ID</p>
                     <div className="flex-[2]">
                       <InputComponent
                         placeholder="080 000 0000"
@@ -362,7 +375,7 @@ const Settings = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Street Address</p>
+                    <p className=" text-[#344054]">Location</p>
                     <div className="flex-[2]">
                       <InputComponent
                         placeholder="080 000 0000"
@@ -410,13 +423,15 @@ const Settings = () => {
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-2 mt-3 items-center">
-                    <img
-                      src={avatar}
-                      alt="avatar"
-                      className="object-contain w-8 h-8"
-                    />
+                <div className="flex items-center justify-between mt-8">
+                  <div className="flex gap-2 mt-5 items-center">
+                    <figure className="">
+                      <img
+                        src={avatar}
+                        alt="avatar"
+                        className="object-cover w-8 h-8 rounded-full"
+                      />
+                    </figure>
                     <div>
                       <h1 className="text-xs font-normal text-[#333333]">
                         Jeremiah steller
@@ -479,43 +494,43 @@ const Settings = () => {
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Commissions"}>
             <div className="w-full overflow-x-auto">
-              <table className="table-auto w-full">
+              <table className="table-auto w-full rounded-t-md bg-[#fff]">
                 <thead>
-                  <tr className="bg-gray-200">
-                    <th className="py-2 px-4 font-light text-sm text-left">
+                  <tr className="">
+                    <th className="py-3 px-4 font-light text-sm text-left">
                       Name
                     </th>
-                    <th className="py-2 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 font-light text-sm text-left">
                       Description
                     </th>
-                    <th className="py-2 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 font-light text-sm text-left">
                       Value
                     </th>
-                    <th className="py-2 px-4 font-light text-sm text-left">
-                      Option
+                    <th className="py-3 px-4 font-light text-sm text-left">
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {items.map((item, index) => (
                     <tr key={index} className="bg-white">
-                      <td className="py-2 px-4 font-light text-sm ">
+                      <td className="py-3 px-4 font-light text-sm ">
                         {item.name}
                       </td>
-                      <td className="py-2 px-4 font-light text-sm ">
+                      <td className="py-3 px-4 font-light text-sm ">
                         {item.description}
                       </td>
-                      <td className="py-2 px-1 ">
+                      <td className="py-3 px-1 ">
                         <input
                           type="number"
                           value={item.value}
                           onChange={(e) =>
                             handleValueChange(index, e.target.value)
                           }
-                          className=" py-0.5 px-1 border border-gray-400 rounded-md font-light text-sm w-24"
+                          className=" py-0.5 px-1 border border-gray-400 rounded-md font-light text-sm w-24 "
                         />
                       </td>
-                      <td className="py-2 px-4 font-light text-sm ">
+                      <td className="py-3 px-4 font-light text-sm underline active:scale-95">
                         {item.action}
                       </td>
                     </tr>
@@ -524,7 +539,105 @@ const Settings = () => {
               </table>
             </div>
           </TabPanel>
-          <TabPanel hidden={selectedTab !== "Password"}>hello 5</TabPanel>
+          <TabPanel hidden={selectedTab !== "Password"}>
+            <div className="mb-3">
+              <h1 className="text-lg font-normal text-[#333333]">
+                Change Password
+              </h1>
+              {/* <span className="text-[#A2A2A2] text-sm font-light">
+                All information available.
+              </span> */}
+            </div>
+            <div className="w-[60%] my-4">
+              <div className="w-full ">
+                <div className="mt-2 relative">
+                  <label htmlFor="" className="text-sm font-normal">
+                    Old password
+                  </label>
+                  <input
+                    autoComplete="on"
+                    type={eyeState2 ? "text" : "password"}
+                    name="password"
+                    placeholder="**********"
+                    id="password"
+                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]
+
+                    `}
+                  />
+                  <button
+                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    onClick={toggleConfirmEye}
+                  >
+                    {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                  </button>
+                </div>
+                <div className="mt-2 relative">
+                  <label htmlFor="" className="text-sm font-normal">
+                    New Password
+                  </label>
+                  <input
+                    // {...register("confirmPassword", {
+                    //   required: true,
+                    //   validate: (value) =>
+                    //     value === passwordref.current ||
+                    //     "The passwords do not match",
+                    // })}
+                    type={eyeState ? "text" : "password"}
+                    name="confirmPassword"
+                    autoComplete="on"
+                    placeholder="**********"
+                    id="confirmPassword"
+                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                  />
+                  <button
+                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    onClick={toggleEye}
+                  >
+                    {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                  </button>
+                </div>
+                <div className="mt-2 relative">
+                  <label htmlFor="" className="text-sm font-normal">
+                    Repeat Password
+                  </label>
+                  <input
+                    // {...register("confirmPassword", {
+                    //   required: true,
+                    //   validate: (value) =>
+                    //     value === passwordref.current ||
+                    //     "The passwords do not match",
+                    // })}
+                    type={eyeState3 ? "text" : "password"}
+                    name="confirmPassword"
+                    autoComplete="on"
+                    placeholder="**********"
+                    id="confirmPassword"
+                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                  />
+                  <button
+                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    onClick={toggleEye}
+                  >
+                    {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                  </button>
+                </div>
+              </div>
+              <div className="text-sm text-[#A2A2A2] py-2  text-justify">
+                <p className="text-justify font-light">
+                  {" "}
+                  The password should be at least 8 characters long. it must{" "}
+                  <br />
+                  contain upper and lower case characters and at least one
+                  number.
+                </p>
+              </div>
+              <div className="flex justify-start ">
+                <button className="px-6 py-3 text-sm font-light bg-[#197B30] text-white rounded">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </TabPanel>
         </div>
       </div>
     </div>

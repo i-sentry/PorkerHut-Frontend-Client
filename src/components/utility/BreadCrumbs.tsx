@@ -21,7 +21,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
               className="flex items-center gap-x-1 rounded-none  text-base"
             >
               <Link to={item.link}>
-                <button className="capitalize rounded-none font-light py-2">
+                <button className="capitalize rounded-none text-white font-light py-2">
                   {item.name}
                 </button>
               </Link>
@@ -31,7 +31,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <button
             key={index}
-            className="text-primary text-white py-2 rounded-md capitalize text-base font-light "
+            className="text-primary  py-2 rounded-md capitalize text-base font-light "
           >
             {item.name}
           </button>

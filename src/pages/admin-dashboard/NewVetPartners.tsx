@@ -31,8 +31,8 @@ const NewVetPartners = () => {
   }, []);
 
   return (
-    <div>
-      <div className="p-14">
+    <div className="pl-10 pt-10 pr-5">
+      <div className="mb-5">
         <div className="flex items-center justify-between">
           <div className="mb-2">
             <h1 className="text-2xl font-medium ">New Vets</h1>
@@ -59,26 +59,6 @@ const NewVetPartners = () => {
                 </div>
               )}
             </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex w-full items-center justify-between gap-4 relative ">
-            <input
-              type="search"
-              value={searchValue}
-              placeholder={
-                "Search store name, company address or ID number...."
-              }
-              className="xxs:w-full md:w-[500px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-3 py-2 placeholder:text-xs placeholder:font-light text-base text-[#333333] font-normal"
-              onChange={(e) => handleChange(e.target.value)}
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-            />
-            {!isSearchFocused && (
-              <div className="absolute right-3">
-                <BsSearch />
-              </div>
-            )}
           </div>
         </div>
       </div>
