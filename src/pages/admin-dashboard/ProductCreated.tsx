@@ -96,7 +96,7 @@ const ProductCreated = () => {
       const navigate = useNavigate();
 
       const handleView = (id: any) => {
-        navigate(`/admin/product/${id}`, {
+        navigate(`/admin/products/${id}`, {
           replace: true,
         });
       };

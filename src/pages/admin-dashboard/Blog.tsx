@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import ReactQuill, { Quill } from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Blog = () => {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
@@ -134,13 +134,13 @@ const Blog = () => {
           </div>
 
           <div className="mt-2">
-            {/* <ReactQuill
+            <ReactQuill
               className=""
               theme="snow"
               value={description}
               placeholder="Type something..."
               onChange={setDescription}
-            /> */}
+            />
           </div>
           <div className="flex items-end justify-end">
             <button className="mt-3 bg-[#197b30] py-2.5  px-6 shadow-md rounded-md text-[#fff]">

@@ -250,7 +250,7 @@ const Order = () => {
       const navigate = useNavigate();
 
       const handleView = (id: any) => {
-        navigate(`/admin/admin-order/${id}`, {
+        navigate(`/admin/order/${id}`, {
           replace: true,
         });
       };
@@ -258,7 +258,7 @@ const Order = () => {
       React.useEffect(() => {
         window.scrollTo(0, 0);
       }, []);
-    
+
       return (
         <div>
           <span

@@ -11,18 +11,20 @@ interface CategoryProps {
 const Card = ({ id, title, src, path }: CategoryProps) => {
 console.log(title,"title")
   return (
-
-    <NavLink to={`/category/${title}`} className="md:w-full md:h-full relative xxs:w-[560px] xxs:h-56 overflow-hidden ">
-        <img
-          src={src}
-          alt=""
-          className="object-cover rounded transition duration-1000 ease-in  hover:transform hover:scale-125"
-        />
-        <div className="absolute md:top-[44%] md:right-[40%] xxs:top-[44%] xxs:right-[32%]">
-          <span className="text-white font-medium text-xl">{title}</span>
-        </div>
-      </NavLink>
-
+    <NavLink
+      to={`/category/${title}`}
+      className="w-screen md:w-auto md:h-full relative h-56 overflow-scroll"
+      style={{ maxWidth: "100vw" }}
+    >
+      <img
+        src={src}
+        alt=""
+        className="object-cover rounded transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full"
+      />
+      <div className="absolute md:top-[44%] md:right-[40%] xxs:top-[44%] xxs:right-[32%]">
+        <span className="text-white font-medium text-xl">{title}</span>
+      </div>
+    </NavLink>
   );
 };
 

@@ -55,6 +55,7 @@ import Announcement from "./pages/admin-dashboard/Annoucement";
 import Payment from "./pages/admin-dashboard/Payment";
 
 import ProductCreated from "./pages/admin-dashboard/ProductCreated";
+import ProductDetail from "./pages/admin-dashboard/ProductDetail";
 import Messages from "./pages/admin-dashboard/Messages";
 import Settings from "./pages/admin-dashboard/Settings";
 import Dashboard from "./pages/sellers-dashboard/Dashboard";
@@ -111,7 +112,7 @@ const router = createBrowserRouter(
       <Route path="/empty_cart" element={<EmptyCartPage />} />
       <Route path="/contact-us" element={<ContactPage />} />
       {/* <Route path="/services/vet-services" element={<VeterinaryServices />} /> */}
-      <Route path="/services/vet-services" element={<VetServices/>} />
+      <Route path="/services/vet-services" element={<VetServices />} />
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
       <Route path="/services/agro-services" element={<AgroServices />} />
@@ -139,25 +140,26 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="" element={<AdminLayout />}>
-        <Route index path="/admin/overview" element={<Overview />} />
-        <Route path="/admin/admin-order" element={<Order />} />
-        <Route path="/admin/admin-order/:id" element={<OrderTableDetail />} />
+        <Route index path="/admin" element={<Overview />} />
+        <Route path="/admin/order" element={<Order />} />
+        <Route path="/admin/order/:id" element={<OrderTableDetail />} />
         <Route path="/admin/customers" element={<Customers />} />
         <Route path="/admin/analytics" element={<Analytics />} />
-        <Route path="/admin/stores" element={<NewStore />} />
-        <Route path="/admin/stores/new-store" element={<NewStore />} />
-        <Route path="/admin/stores/store-profile" element={<StoreProfile />} />
+        <Route path="/admin/stores" element={<StoreProfile />} />
+        <Route path="/admin/stores/new" element={<NewStore />} />
+        <Route path="/admin/stores/profile" element={<StoreProfile />} />
         <Route path="/admin/vet" element={<VetPartner />} />
-        <Route path="/admin/new__vet" element={<NewVetPartners />} />
-        <Route path="/admin/logistic-services" element={<LogisticService />} />
+        <Route path="/admin/vet/new" element={<NewVetPartners />} />
+        <Route path="/admin/logistic" element={<LogisticService />} />
         <Route path="/admin/calender" element={<Calender />} />
-        <Route path="/admin/create__blog" element={<Blog />} />
-        <Route path="/admin/edit__blog/:id" element={<EditBlog />} />
+        <Route path="/admin/blog/create" element={<Blog />} />
+        <Route path="/admin/blog/:id" element={<EditBlog />} />
         <Route path="/admin/blog" element={<BlogPost />} />
         <Route path="/admin/announcement" element={<Announcement />} />
         <Route path="/admin/payment" element={<Payment />} />
         {/* <Route path="/admin/service" element={<Services />} /> */}
-        <Route path="/admin/product-created" element={<ProductCreated />} />
+        <Route path="/admin/products" element={<ProductCreated />} />
+        <Route path="/admin/products/:id" element={<ProductDetail />} />
         <Route path="/admin/messages" element={<Messages />} />
         <Route path="/admin/settings" element={<Settings />} />
       </Route>

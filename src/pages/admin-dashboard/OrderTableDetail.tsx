@@ -85,7 +85,7 @@ const OrderTableDetail = () => {
           </span>
           <div
             onClick={() => {
-              navigate("/admin/admin-order");
+              navigate("/admin/order");
             }}
             className="hover:rotate-[-60%] hover:transform absolute right-2  transition duration-150 ease-in-out bottom-2 "
           >

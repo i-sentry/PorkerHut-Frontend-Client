@@ -45,7 +45,7 @@ const BlogPost = () => {
   const getAllBlogs = useGetAllBlogs();
 
   const blogData = getAllBlogs?.data?.data;
-
+console.log({blogData});
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -58,7 +58,7 @@ const BlogPost = () => {
           All Information available
         </span>
       </div>
-      <div>
+      {/* <div>
         <AdminTable
           Tcolumns={Tcolumns}
           // @ts-ignore
@@ -67,7 +67,7 @@ const BlogPost = () => {
           TData={blogData}
           placeholder={"Search subject.... "}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

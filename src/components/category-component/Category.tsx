@@ -2,6 +2,8 @@ import React from "react";
 import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
+import MobileCard from "../category-card-component/MobileCard";
+
 
 const Category = () => {
   // @ts-ignore
@@ -47,10 +49,14 @@ const Category = () => {
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="md:grid md:grid-cols-3 xxs:gap-4 md:gap-9 xxs:overflow-x-scroll md:overflow-hidden md:h-full">
+      <div className="md:grid grid-cols-3 gap-9 overflow-x-scroll md:overflow-hidden md:h-full xxs:hidden">
         {datas.map((item) => (
-          // @ts-ignore
-          <Card {...item} />
+          <Card key={item.id} {...item} />
+        ))}
+      </div>
+      <div className="xxs:grid grid-cols-3 gap-9 overflow-x-scroll md:overflow-hidden md:h-full md:hidden">
+        {datas.map((item) => (
+          <MobileCard key={item.id} {...item} />
         ))}
       </div>
     </div>

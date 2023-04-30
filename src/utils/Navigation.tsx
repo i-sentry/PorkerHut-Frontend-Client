@@ -435,7 +435,7 @@ export const DashBoardData = [
   {
     id: 13,
     name: "Product Created",
-    url: "/admin/product",
+    url: "/admin/products",
     icon: <GoTag width={"20px"} height={"20px"} />,
   },
   {

@@ -98,7 +98,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           ></div>
         ))}
       </div>
-      <div className="text-left absolute -top-10 left-0">
+      <div className="xxs:hidden md:block text-left absolute -top-10 left-0">
         <OverLay />
       </div>
     </div>
