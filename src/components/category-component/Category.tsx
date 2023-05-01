@@ -38,26 +38,29 @@ const Category = () => {
   datas[2].title = temp;
 
   return (
-    <div className="md:p-6 xxs:px-4 md:px-12">
+    <div className="sm:p-6 xxs:px-2 md:px-12 xxs:my-20">
       <div>
-        <div className="flex justify-center items-center  xxs:mt-4">
-          <h1 className="font-normal tracking-tight text-3xl">
+        <div className="flex justify-center items-center ">
+          <h1 className="font-normal tracking-tight xxs:text-base  md:text-3xl">
             Shop by Categories
           </h1>
         </div>
-        <div className="flex items-center justify-center mb-[3rem] mt-2">
+        <div className="flex items-center justify-center sm:mb-[3rem] mb-4 mt-2">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="md:grid grid-cols-3 gap-9 overflow-x-scroll md:overflow-hidden md:h-full xxs:hidden">
-        {datas.map((item) => (
-          <Card key={item.id} {...item} />
-        ))}
-      </div>
-      <div className="xxs:grid grid-cols-3 gap-9 overflow-x-scroll md:overflow-hidden md:h-full md:hidden">
-        {datas.map((item) => (
-          <MobileCard key={item.id} {...item} />
-        ))}
+      <div className=" ">
+        <div className="md:grid grid-cols-3 gap-9 overflow-x-scroll md:overflow-hidden md:h-full xxs:hidden">
+          {datas.map((item) => (
+            <Card key={item.id} {...item} />
+          ))}
+        </div>
+        <div className="w-full flex  gap-3  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 md:mt-4 -z-50 sm:hidden ">
+          {datas.map((item) => (
+            <MobileCard {...item} />
+          ))}
+
+        </div>
       </div>
     </div>
   );

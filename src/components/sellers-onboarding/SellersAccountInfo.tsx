@@ -13,12 +13,34 @@ export type SelectOptionType = {
   description?: string;
 } | null;
 
+const vendorType = [
+  {
+    id: 1,
+    name: "Individual",
+  },
+  {
+    id: 2,
+    name: "Business Entity",
+  },
+];
 const SellersAccountInfo = () => {
   //@ts-ignore
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [accountInfoFilled, setAccountInfoFilled] = useState(false);
+
+  React.useEffect(() => {
+    setUserData((prevUserData: any) => ({
+      ...prevUserData,
+      entity_type: dropOption?.value || "",
+    }));
+  }, [dropOption?.value]);
+
+  function isFormFilled() {
+    return console.log(Object.values(userData).every((value) => value !== ""));
+  }
   const { state, setState } = useAppState();
   // const {
   //   register,
@@ -39,23 +61,32 @@ const SellersAccountInfo = () => {
   const watchPassword = watch("password");
 
   const handleChange = (e: any) => {
-    console.log(e)
+    // console.log(e)
     const { name, value, checked } = e.target;
-    setUserData({ ...userData, [name]: value });
-
-      // setValue("checkbox", checked ? "yes" : "no");
-      // setVal(!val);
-      // setUserData({ ...userData, [name]: value, val });
-
+    console.log(name);
+    console.log(value);
+    setUserData({
+      ...userData,
+      [name]: value,
+      // value[entity_type]: dropOption?.value,
+    });
+    isFormFilled();
+    // setValue("checkbox", checked ? "yes" : "no");
+    // setVal(!val);
+    // setUserData({ ...userData, [name]: value, val });
   };
-
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  console.log({ userData });
+  console.log(dropOption?.value);
   return (
     <div>
       {" "}
       <div>
         <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
-          <div>
-            <h1 className="text-xl font-medium text-[#333333]">
+          <div className=" mb-8">
+            <h1 className="sm:text-xl font-medium text-[#333333] text-base ">
               Seller Account Information
             </h1>
             <p className="text-[#797979] text-sm">
@@ -90,7 +121,7 @@ const SellersAccountInfo = () => {
                     {data.info}
                   </span>
                   <p className="my-2 text-[red] text-xs">
-                    {/* {errors[data.name] && errors[data.name].message} */}
+                    {errors[data.name] && data.error_message}
                   </p>
                 </div>
               ))}
@@ -99,7 +130,7 @@ const SellersAccountInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[16px] mb-[6px] text-HeadingColor"
+                    className="block text-[16px] mb-[6px] whitespace-nowrap"
                   >
                     Are you an individual or Business Entity/Company
                   </label>
@@ -108,7 +139,7 @@ const SellersAccountInfo = () => {
                     selectedOption={dropOption}
                     setSelectOption={setDropOption}
                     placeholder={"-Choose an option-"}
-                    options={[]}
+                    options={vendorType}
                   />
                 </div>
               </>

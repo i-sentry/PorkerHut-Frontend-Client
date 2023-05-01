@@ -28,16 +28,20 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import { MdCancelScheduleSend, MdSendAndArchive } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
+
 // import { useAuth } from "../../context/AuthProvider";
 
 import Cookies from "js-cookie";
+import { useAppSelector } from "../../redux/hook";
+import { selectUser } from "../../redux/features/user";
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
   const [toggle, setToggle] = useState(false);
   //@ts-ignore
   const { auth, isLogin } = useContext(AuthContext);
-  console.log(auth, "auth");
+  // const user = useAppSelector(selectUser);
+  const [user, setUser] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
@@ -57,13 +61,20 @@ const NavBar = () => {
         setOpen(false);
       }
     });
+    //@ts-ignore
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser !== null) {
+      setUser(storedUser);
+    }
   }, []);
 
   const handleLogout = () => {
     window.localStorage.removeItem("accessToken");
-    Cookies.remove("accessToken");
+    window.localStorage.removeItem("user");
+
   };
-  console.log(isLogin, "isLogin");
+  //@ts-ignore
+  console.log(user?.firstName, "isLogin");
   return (
     <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
       <nav className="md:flex h-full  items-center font-medium justify-between">
@@ -79,7 +90,7 @@ const NavBar = () => {
             </button>
             <div className="flex items-center gap-2 cursor-pointer select-none">
               <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-              <h1 className="porker text-xl font-bold text-[#197B30]  font-Roboto-slab select-none">
+              <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
                 Porker Hut
               </h1>
             </div>
@@ -119,7 +130,7 @@ const NavBar = () => {
             </button>
           </div>
           <>
-            {!isLogin ? (
+            {user === null ? (
               <>
                 <NavButton className={loginBtn} text="Login" path="/login" />
                 <NavButton
@@ -134,7 +145,8 @@ const NavBar = () => {
                   <Menu.Button className="flex items-center mt-2">
                     <HiOutlineUserCircle size={22} />
                     <p className="pl-1 text-[#333333] text-sm">
-                      Hi, {auth?.data?.firstName}
+                      {/* @ts-ignore */}
+                      Hi, {user?.firstName}
                     </p>
                     <span className="rotate-180">
                       <RxCaretDown />
@@ -203,12 +215,12 @@ const NavBar = () => {
                           <div
                             className={classNames(
                               active && "bg-gray-100",
-                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200 border-[#197B30] border-t flex w-full"
+                              "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-[#197B30] focus:text-[#fff] border-[#197B30] border-t flex w-full"
                             )}
                           >
                             <h1
                               onClick={handleLogout}
-                              className="text-sm text-[#197B30]  text-center flex"
+                              className="text-sm text-[#197B30] flex justify-center w-full"
                             >
                               Logout
                             </h1>

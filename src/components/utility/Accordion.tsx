@@ -1,9 +1,14 @@
-import React , {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import StepperController from "../sellers-onboarding/StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import CustomSelect, { SelectOptionType } from "./CustomSelect";
-import { sellersBankInfo, sellersBusinessformData, sellersShopInfo, sellersformData } from "../../utils/formData";
+import {
+  sellersBankInfo,
+  sellersBusinessformData,
+  sellersShopInfo,
+  sellersformData,
+} from "../../utils/formData";
 import { useForm } from "react-hook-form";
 import { useAppState } from "../../context/SellerInfoContext";
 interface IAccordionPros {
@@ -18,8 +23,6 @@ const AccordionSection = ({
   isExpanded,
   onToggle,
 }: IAccordionPros) => {
-
-
   return (
     <div className="border-b pb-5 mt-3">
       <div className="flex items-center gap-2">
@@ -49,17 +52,18 @@ const Accordion = () => {
   const [isAccountInfoExpanded, setIsAccountInfoExpanded] =
     React.useState(false);
   const [isBankInfoExpanded, setIsBankInfoExpanded] = React.useState(false);
-    const { state, setState } = useAppState();
-    const {
-      handleSubmit,
-      register,
-      watch,
-      setValue,
-      formState: { errors },
-    } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
-    //@ts-ignore
-    const { checkoutSteps, currentStep, handleClick, userData, setUserData } = useContext(SellersStepsContext);
-    const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const { state, setState } = useAppState();
+  const {
+    handleSubmit,
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
+  //@ts-ignore
+  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+    useContext(SellersStepsContext);
+  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
   const handleChange = (e: any) => {
     console.log(e);
@@ -70,12 +74,16 @@ const Accordion = () => {
     // setVal(!val);
     // setUserData({ ...userData, [name]: value, val });
   };
-   React.useEffect(() => {
-     console.log({ userData });
-   }, []);
+  React.useEffect(() => {
+    console.log({ userData });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="rounded-md w-full md:max-w-2xl h-fit px-5 py-3 flex flex-col mb-4">
-      <h1 className="text-[#2B2B2B] font-medium text-xl">Summary</h1>
+      <h1 className="text-[#2B2B2B] font-medium sm:text-xl mb-8 text-base ">
+        Summary
+      </h1>
       <AccordionSection
         title="Seller Account Information"
         isExpanded={isAccountInfoExpanded}

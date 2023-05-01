@@ -32,13 +32,16 @@ const BankAccountInfo = () => {
    setUserData({ ...userData, [name]: value });
  };
 
+   React.useEffect(()=>{
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[])
   return (
     <div>
       {" "}
       <div>
         <div className="max-w-[600px] m-auto min-h-[400px] p-5   bg-[#F4F4F4] rounded-md">
-          <div>
-            <h1 className="text-xl font-medium text-[#333333]">Bank Account</h1>
+          <div className=" mb-8">
+            <h1 className="sm:text-xl font-medium text-[#333333] text-base ">Bank Account</h1>
             <p className="text-[#797979] text-sm">
               Please fill in the necessary information.{" "}
             </p>

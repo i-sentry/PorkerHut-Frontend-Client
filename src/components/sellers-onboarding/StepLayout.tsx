@@ -6,6 +6,7 @@ import TopNav from "./TopNav";
 import Footer from "../footer-component/Footer";
 import { CircularProgressbar } from "react-circular-progressbar";
 
+
 const StepLayout = ({
   checkoutSteps,
   currentStep,
@@ -14,14 +15,14 @@ const StepLayout = ({
 }: StepLayoutProps) => {
   const [userData, setUserData] = useState("");
   const [finalData, setFinalData] = useState([]);
-  const [progress, setProgress] = useState(25);
-  useEffect(() => {
-    if (progress < 100 && currentStep !== 1) {
-      setProgress(progress + 25);
-    } else if (currentStep > 1) {
-      setProgress(progress - 25);
-    }
-  }, [currentStep]);
+ const numSteps = 4;
+ const [progress, setProgress] = useState(25);
+
+ useEffect(() => {
+   const stepProgress = Math.round((currentStep / numSteps) * 100);
+   setProgress(stepProgress);
+ }, [currentStep, numSteps]);
+
 
   return (
     <>
@@ -29,12 +30,12 @@ const StepLayout = ({
       <div className="main-div mb-24 mt-24 ">
         <div>
           <div className="flex justify-center items-center  mt-4">
-            <h1 className="font-semibold text-2xl">
-              Create your own seller account
+            <h1 className="font-normal sm:text-2xl text-xl">
+              Create your seller account
             </h1>
           </div>
           <div className="flex items-center justify-center ">
-            <div className=" block h-1 w-20 bg-[#197B30]"></div>
+            <div className=" block h-1.5 w-20 bg-[#197B30]"></div>
           </div>
         </div>
         <div>
@@ -43,8 +44,8 @@ const StepLayout = ({
             currentStep={currentStep}
           />
         </div>
-        <div className="flex items-center gap-5">
-          <div className="w-16 my-6">
+        <div className="flex items-center gap-5 sm:hidden mx-3">
+          <div className="w-20 my-6">
             <CircularProgressbar
               value={progress}
               text={`${currentStep} of 4`}
@@ -87,9 +88,8 @@ const StepLayout = ({
           <div>
             <h1 className="text-[#333333] font-semibold text-base">
               Step {currentStep}
-              {progress}
             </h1>
-            <p className="text-base font-light">Seller Account</p>
+            <p className="text-base font-light">{checkoutSteps[currentStep-1]}</p>
           </div>
         </div>
 
