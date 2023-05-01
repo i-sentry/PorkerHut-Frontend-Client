@@ -47,13 +47,17 @@ const BusinessInfo = () => {
     setUserData({ ...userData, [name]: value });
   }
 
+    React.useEffect(()=>{
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[])
+
   return (
     <div>
       {" "}
       <div>
         <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
-          <div>
-            <h1 className="text-xl font-medium text-[#333333]">
+          <div className=" mb-8">
+            <h1 className="sm:text-xl font-medium text-[#333333]  text-base">
               Business Information
             </h1>
             <p className="text-[#797979] text-sm">
@@ -76,14 +80,13 @@ const BusinessInfo = () => {
                   <input
                     id={data.name}
                     type={data.type}
-                   name={data.name}
+                    name={data.name}
                     value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-
                   />
                   <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}
@@ -145,14 +148,13 @@ const BusinessInfo = () => {
                   <input
                     id={data.name}
                     type={data.type}
-                   name={data.name}
+                    name={data.name}
                     value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-
                   />
                   {/* <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}
@@ -187,8 +189,6 @@ const BusinessInfo = () => {
                   <CustomDND
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"}
-
-
                   />
                   <span className="text-sm text-[#797979] leading-none">
                     Tin is required for all individuals and corporates deriving
@@ -211,14 +211,13 @@ const BusinessInfo = () => {
                   <input
                     id={data.name}
                     type={data.type}
-                   name={data.name}
+                    name={data.name}
                     value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
-
                   />
                   {/* <span className="text-[#797979] text-[12px] leading-none">
                     {data.info}
@@ -245,13 +244,12 @@ const BusinessInfo = () => {
                   />
                 </div>
               </>
-              
+
               <div className="">
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController
                     checkoutSteps={checkoutSteps}
                     currentStep={currentStep}
-
                     handleClick={handleClick}
                   />
                 )}

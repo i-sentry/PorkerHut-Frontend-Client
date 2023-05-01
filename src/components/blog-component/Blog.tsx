@@ -25,7 +25,7 @@ const Blog = () => {
 
    const [data, setData] = useState(getAllBlogs?.data?.data);
    console.log(data, 'Blog');
-   
+
    let itemsPerPage = 3;
    let currentPage = 1;
    const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);

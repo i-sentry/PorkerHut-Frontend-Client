@@ -10,6 +10,8 @@ import { useUserLogin } from "../../services/hooks/users";
 import ReactLoading from "react-loading";
 import Cookies from "js-cookie";
 import AppLayout from "../utility/AppLayout";
+import { addOption, selectUser } from "../../redux/features/user";
+import { useAppDispatch } from "../../redux/hook";
 // import { redirect } from "react-router-dom";
 
 interface ILoginProps {
@@ -27,6 +29,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const login = useUserLogin();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -40,16 +43,28 @@ const Login = () => {
     login
       .mutateAsync(data)
       .then((res) => {
-        e?.target.reset();
-        setIsOpen(true);
         setLoading(false);
-        setAuth(res);
+        dispatch(
+          addOption(
+            // res?.data?.accessToken
+            res?.data?.email,
+            res?.data?.firstName,
+            res?.data?.isAdmin,
+            res?.data?.lastName,
+            res?.data?._id
+          )
+        );
+        e?.target.reset();
+        // setIsOpen(true);
+
+        // setAuth(res);
         navigate("/");
-        setIsLogin(true);
+        // setIsLogin(true);
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("user", JSON.stringify(res?.data));
-        Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
+        // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
         console.log(res);
       })
       .catch((e) => {
@@ -58,11 +73,19 @@ const Login = () => {
         setIsError(e?.response?.data);
       });
   });
+  console.log(localStorage.getItem("user"), "oookk");
+  console.log("gggoookk");
 
   const toggleEye = (e: any) => {
     e.preventDefault();
     setEyeState((prev) => !prev);
   };
+
+    React.useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+    }, []);
+
+
   return (
     <AppLayout>
       <div className="bg-[#F5F5F5] h-full ">
@@ -72,19 +95,19 @@ const Login = () => {
             onClick={() => setCustomersLogin((prev) => !prev)}
             className="rounded border-2 border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none "
           >
-            Login as a Buyer
+            {customersLogin ? "Login as a Seller" : "Login as a customer"}
           </button>
         </div>
         {customersLogin ? (
           <>
             <div className="flex items-center justify-center  h-full xxs:p-3">
-              <div className="max-w-xl w-full   bg-[#fff] p-8 shadow-md rounded">
+              <div className="max-w-xl w-full   bg-[#fff] sm:p-8 p-4 shadow-md rounded">
                 <div className="flex items-center justify-between">
                   <div className="">
-                    <h1 className="text-left  text-[#333333] font-bold ">
+                    <h1 className="text-left text-lg  text-[#333333] font-bold ">
                       Customer's Login
                     </h1>
-                    <p className="text-left  text-[#797979] text-sm mt-1 font-semibold">
+                    <p className="text-left  text-[#797979] text-base mt-1 font-light">
                       Enter your login details
                     </p>
                   </div>
@@ -97,9 +120,9 @@ const Login = () => {
                   </div>
                 </div>
 
-                <form className="mt-3" onSubmit={onSubmit}>
+                <form className="mt-8" onSubmit={onSubmit}>
                   <div>
-                    <label htmlFor="" className="text-sm font-semibold">
+                    <label htmlFor="" className="text-base font-normal">
                       Email Address
                     </label>
                     <input
@@ -115,7 +138,7 @@ const Login = () => {
                       placeholder="Enter your email address"
                       id="email"
                       onFocus={() => setIsError("")}
-                      className={`w-full p-2 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                      className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.email
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[##EEEEEE] "
@@ -123,7 +146,7 @@ const Login = () => {
                     />
                   </div>
                   <div className="mt-3 relative">
-                    <label htmlFor="" className="text-sm font-semibold">
+                    <label htmlFor="" className="text-base font-normal">
                       Password
                     </label>
                     <input
@@ -136,7 +159,7 @@ const Login = () => {
                       placeholder="**********"
                       id="password"
                       onFocus={() => setIsError("")}
-                      className={`w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                      className={`w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.password
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[##EEEEEE] "
@@ -180,7 +203,7 @@ const Login = () => {
                     <Ripples color="#f5f5f550" during={2000} className="w-full">
                       <button
                         // disabled={true}
-                        className="bg-[#197b30] py-2 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                        className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
                       >
                         {loading ? (
                           <div className="mx-auto flex items-center justify-center">
@@ -198,11 +221,11 @@ const Login = () => {
                     </Ripples>
                   </div>
                   <div className="text-center mt-3">
-                    <p className="text-[#A2A2A2] font-semibold">
+                    <p className="text-[#A2A2A2] font-normal">
                       Don't have an account yet?{" "}
                       <a
                         href="/sign-up"
-                        className="font-bold hover:underline cursor-pointer text-[#197b30]"
+                        className="font-normal hover:underline cursor-pointer text-[#197b30]"
                       >
                         Sign up
                       </a>
@@ -213,7 +236,7 @@ const Login = () => {
                   <Ripples className="w-full" color="#197b307a" during={2000}>
                     <button
                       // onClick={async () => setcustomersLogin((prev) => !prev)}
-                      className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
+                      className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
                     >
                       Login as a Seller
                     </button>
@@ -224,19 +247,19 @@ const Login = () => {
           </>
         ) : (
           <div className="flex items-center justify-center xxs:p-3 ">
-            <div className="max-w-xl w-full max-auto  bg-[#fff] p-8 shadow-md rounded">
+            <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md rounded">
               <div className="">
-                <h1 className="text-left text-[#333333] font-bold ">
-                  Sellers's Login
+                <h1 className="text-left text-[#333333] font-bold text-lg">
+                  Seller's Login
                 </h1>
-                <p className="text-left  text-[#797979] text-sm mt-1 font-semibold">
+                <p className="text-left text-base  text-[#797979]  mt-1 font-light">
                   Enter your store login details
                 </p>
               </div>
 
-              <form className="mt-3" onSubmit={onSubmit}>
+              <form className="mt-8" onSubmit={onSubmit}>
                 <div>
-                  <label htmlFor="" className="text-sm font-semibold">
+                  <label htmlFor="" className="text-base font-normal">
                     Email Address
                   </label>
                   <input
@@ -251,7 +274,7 @@ const Login = () => {
                     name="email"
                     placeholder="Enter your email address"
                     id="email"
-                    className={`w-full p-2 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                    className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                       errors.email
                         ? "border-[#e10] focus-within:border-[#e10]"
                         : "border-[##EEEEEE] "
@@ -259,7 +282,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="mt-3 relative">
-                  <label htmlFor="" className="text-sm font-semibold">
+                  <label htmlFor="" className="text-base font-normal">
                     Password
                   </label>
                   <input
@@ -271,7 +294,7 @@ const Login = () => {
                     name="password"
                     placeholder="**********"
                     id="password"
-                    className={`w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                    className={`w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                       errors.password
                         ? "border-[#e10] focus-within:border-[#e10]"
                         : "border-[##EEEEEE] "
@@ -314,17 +337,17 @@ const Login = () => {
                 <div className="mt-3">
                   <button
                     // disabled={true}
-                    className="bg-[#197b30] py-2 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                    className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
                   >
                     Login
                   </button>
                 </div>
                 <div className="text-center mt-3">
-                  <p className="text-[#A2A2A2] font-semibold">
+                  <p className="text-[#A2A2A2] font-normal">
                     Don't have an account yet?{" "}
                     <a
                       href="/sign-up"
-                      className="font-bold hover:underline cursor-pointer text-[#197b30]"
+                      className="font-normal hover:underline cursor-pointer text-[#197b30]"
                     >
                       Sign up
                     </a>
@@ -334,7 +357,7 @@ const Login = () => {
               <div className="mt-3 hidden md:block">
                 <button
                   onClick={() => setCustomersLogin((prev) => !prev)}
-                  className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
+                  className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider select-none"
                 >
                   Login as a Buyer
                 </button>

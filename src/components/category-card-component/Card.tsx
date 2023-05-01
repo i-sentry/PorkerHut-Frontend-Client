@@ -1,19 +1,21 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-interface CategoryProps {
+export interface CategoryProps {
   id: number;
   title?: string;
   src: string;
   path: string,
 }
 
+
+
 const Card = ({ id, title, src, path }: CategoryProps) => {
 console.log(title,"title")
   return (
     <NavLink
       to={`/category/${title}`}
-      className="w-screen md:w-auto md:h-full relative h-56 overflow-scroll"
+      className="w-full md:w-auto md:h-full relative h-full overflow-scroll"
       style={{ maxWidth: "100vw" }}
     >
       <img

@@ -49,7 +49,7 @@ const CustomSelect = (props: CustomSelectProps) => {
   var alteredOptions = options.map((option: any) => ({
     label: option.label ? option.label : option.name,
     value: option.value ? option.value : option.name,
-    description: option.description ? option.description : "",
+    // description: option.description ? option.description : "",
   }));
 
   var actualOption = alteredOptions.find(

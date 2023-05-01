@@ -22,7 +22,7 @@ const FeaturedProduct = () => {
   return (
     <>
 
-      <div className="w-full grid md:grid-cols-4 gap-3  xxs:grid-cols-2 px-6">
+      <div className="w-full grid md:grid-cols-4 gap-3  xxs:grid-cols-2 md:px-6 xxs:px-2">
         {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
           (item: any) => {
 

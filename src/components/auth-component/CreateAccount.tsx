@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
@@ -11,6 +11,7 @@ import { ISignUpUser } from "../../services/serviceType";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
 
 const CreateAccount: any = () => {
+  const navigate = useNavigate();
   const createUserAcc = useUserSignUp();
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
@@ -58,35 +59,40 @@ const CreateAccount: any = () => {
 
   const passwordref = useRef({});
   passwordref.current = watch("password", "");
+
+
+    React.useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+    }, []);
   return (
     <>
       <div className="mb-20">
         <NavBar />
       </div>
-      <div className="bg-[#F5F5F5]">
+      <div className="bg-[#F5F5F5] ">
         <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
           <Link
             to={"/create-account"}
-            className="rounded border border-[#197b30] py-2 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]"
+            className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff] "
           >
             Create a Sellers Account
           </Link>
         </div>
 
         <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3">
-          <div className="max-w-xl w-full max-auto  bg-[#fff] p-8 shadow-md">
+          <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md">
             <div>
-              <h1 className="text-left  text-[#333333] font-bold  ">
+              <h1 className="text-left   text-[#333333] font-semibold text-lg  ">
                 Create an account
               </h1>
-              <p className="text-left text-[#797979] text-sm mt-1 font-semibold">
+              <p className="text-left text-[#797979] text-base mt-1 font-light">
                 Register your account by filling the form below
               </p>
             </div>
 
-            <form className="mt-3" onSubmit={onSubmit}>
+            <form className="mt-8" onSubmit={onSubmit}>
               <div>
-                <label htmlFor="" className="text-sm font-semibold">
+                <label htmlFor="" className="text-base font-normal">
                   First Name
                 </label>
                 <input
@@ -95,7 +101,7 @@ const CreateAccount: any = () => {
                   name="firstName"
                   placeholder="Enter your firstName"
                   id="firstName"
-                  className={`rounded w-full p-2 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.firstName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -103,7 +109,7 @@ const CreateAccount: any = () => {
                 />
               </div>
               <div className="mt-2">
-                <label htmlFor="" className="text-sm font-semibold">
+                <label htmlFor="" className="text-base font-normal">
                   Last Name
                 </label>
                 <input
@@ -112,7 +118,7 @@ const CreateAccount: any = () => {
                   name="lastName"
                   placeholder="Enter your Lastname"
                   id="lastName"
-                  className={`rounded w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.lastName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -120,7 +126,7 @@ const CreateAccount: any = () => {
                 />
               </div>
               <div className="mt-2">
-                <label htmlFor="" className="text-sm font-semibold">
+                <label htmlFor="" className="text-base font-normal">
                   Email Address
                 </label>
                 <input
@@ -129,7 +135,7 @@ const CreateAccount: any = () => {
                   name="email"
                   placeholder="Enter your email "
                   id="email"
-                  className={`rounded w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.email
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -137,7 +143,7 @@ const CreateAccount: any = () => {
                 />
               </div>
               <div className="mt-2 relative">
-                <label htmlFor="" className="text-sm font-semibold">
+                <label htmlFor="" className="text-base font-normal">
                   Password
                 </label>
                 <input
@@ -147,7 +153,7 @@ const CreateAccount: any = () => {
                   name="password"
                   placeholder="**********"
                   id="password"
-                  className={`rounded w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.password
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -161,7 +167,7 @@ const CreateAccount: any = () => {
                 </button>
               </div>
               <div className="mt-2 relative">
-                <label htmlFor="" className="text-sm font-semibold">
+                <label htmlFor="" className="text-base font-normal">
                   Confirm Password
                 </label>
                 <input
@@ -176,7 +182,7 @@ const CreateAccount: any = () => {
                   autoComplete="on"
                   placeholder="**********"
                   id="confirmPassword"
-                  className={`rounded w-full p-2 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.confirmPassword
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -193,7 +199,7 @@ const CreateAccount: any = () => {
               <div className="mt-5">
                 <button
                   // disabled={true}
-                  className="rounded bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed font-medium "
+                  className="rounded bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed font-normal "
                 >
                   {loading ? (
                     <div className="mx-auto flex items-center justify-center">
@@ -210,31 +216,42 @@ const CreateAccount: any = () => {
                 </button>
               </div>
               <div className="text-center mt-3">
-                <p className="text-[#A2A2A2] font-semibold">
+                <p className="text-[#A2A2A2] font-normal text-sm">
                   Already have an account?{" "}
                   <a
                     href="/login  "
-                    className="font-bold hover:underline cursor-pointer text-[#197b30]"
+                    className="font-normal hover:underline cursor-pointer text-[#197b30]"
                   >
-                    Sign up
+                    Sign in
                   </a>
                 </p>
               </div>
             </form>
+
             <div className="mt-3 hidden md:block">
-              <Link
-                to={"/create-account"}
-                className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff]"
+              <button
+                onClick={() => navigate("/create-account")}
+                className="rounded bg-[#fff] py-3 px-4 w-full text-[#197b30] border border-[#197b30] tracking-wider select-none  disabled:cursor-not-allowed font-normal "
               >
-                Create a seller account
-              </Link>
+                {loading ? (
+                  <div className="mx-auto flex items-center justify-center">
+                    <ReactLoading
+                      type={"spin"}
+                      color={"#fff"}
+                      height={"5%"}
+                      width={"5%"}
+                    />
+                  </div>
+                ) : (
+                  " Create a seller account"
+                )}
+              </button>
             </div>
           </div>
         </div>
         {isOpen && <AccountCreationModal isOpen={isOpen} onClose={setIsOpen} />}
-
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
