@@ -10,6 +10,7 @@ switch (process.env.NODE_ENV) {
     break;
 }
 
+export const imageUrl = process.env.REACT_APP_IMAGE_BASE_URL;
 console.log(process.env.REACT_APP_BASE_URL, "BASEURL");
 console.log(process.env.NODE_ENV);
 
@@ -21,7 +22,7 @@ export const api = {
    Blogs: {
     allBlogs: "/api/blogs/",
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`
-    
+
    }
 };
 

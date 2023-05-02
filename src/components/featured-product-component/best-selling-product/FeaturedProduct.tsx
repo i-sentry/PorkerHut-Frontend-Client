@@ -14,15 +14,13 @@ const FeaturedProduct = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   useEffect(() => setData(productData), [productData]);
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
 
 
   return (
     <>
 
-      <div className="w-full grid md:grid-cols-4 gap-3  xxs:grid-cols-2 md:px-6 xxs:px-2">
+      <div className="w-full grid md:grid-cols-4 md:gap-3  xxs:gap-4 xxs:grid-cols-2 md:px-6 xxs:px-0 ">
         {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
           (item: any) => {
 

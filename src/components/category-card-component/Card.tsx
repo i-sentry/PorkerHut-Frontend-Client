@@ -27,6 +27,7 @@ console.log(title,"title")
         <span className="text-white font-medium text-xl">{title}</span>
       </div>
     </NavLink>
+
   );
 };
 

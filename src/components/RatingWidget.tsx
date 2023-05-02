@@ -14,7 +14,7 @@ const RatingWidget: FC<IRatingProps> = ({ onChange = (value: string | number) =>
    onChange(defaultValue)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue])
-  
+
 
   return (
     <div className="flex text-yellow-500 cursor-pointer">
@@ -30,7 +30,7 @@ const RatingWidget: FC<IRatingProps> = ({ onChange = (value: string | number) =>
                     onClick={() => setRating(ratingValue)}
                   />
                   <AiFillStar
-                    size={20}
+                    size={18}
                     color={
                       ratingValue <= (hover || rating) ? "#fe6600" : "#e4e5e9"
                     }

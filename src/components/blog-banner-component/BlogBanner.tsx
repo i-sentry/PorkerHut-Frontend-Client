@@ -12,11 +12,11 @@ const BlogBanner = () => {
           className="w-full h-full object-cover absolute mix-blend-overlay"
         />
         <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 px-14">
-          <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]">
+          <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]  ">
             Our Latest Blog
           </h1>
-          <h1 className="md:hidden font-bold text-3xl text-white">
-            Our Latest Blog</h1>
+          {/* <h1 className="md:hidden xxs:block font-bold text-3xl text-white">
+            Our Latest Blog</h1> */}
           <div className="md:flex md:items-center xxs:pl-14 md:pl-0">
             <BreadCrumb
               items={[

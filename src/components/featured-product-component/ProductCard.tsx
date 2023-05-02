@@ -28,12 +28,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
     navigate(`/product/${item?.id}`, { state: { item } });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  
+
 
 
   return (
-    <div className=" flex flex-col shadow-lg rounded-md  p-3 transform  hover:shadow-xl  cursor:pointer">
-      <div className="w-full md:h-[302px] flex item-center justify-center relative group">
+    <div className=" flex flex-col rounded-md  md:p-3 p-0 transform  hover:shadow-xl  cursor:pointer">
+      <div className="w-full md:h-[302px] xxs:h-52 flex item-center justify-center relative group">
         <img onClick={handleCardClick} src={item?.img} alt="" className="w-full h-full object-cover hover:cursor-pointer" />
 
         <div
@@ -43,8 +43,8 @@ const ProductCard = ({ item }: ProductLocationState) => {
           <span className="text-white  xxs:text-sm">ADD TO CART</span>
         </div>
       </div>
-      <div className="z-10 bg-white">
-        <div className="flex items-center justify-between py-1 ">
+      <div className="z-10 bg-white xxs:px-2 md:px-0">
+        <div className="md:flex items-center justify-between py-1 xxs:hidden">
           <h2 className="text-sm text-[#A2A2A2] whitespace-normal">
             {item?.title}
           </h2>
@@ -55,48 +55,25 @@ const ProductCard = ({ item }: ProductLocationState) => {
         <div className="flex items-center justify-between py-1">
           <h1
             onClick={handleCardClick}
-            className=" text-base font-medium cursor-pointer text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out"
+            className=" text-base font-noraml cursor-pointer md:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out xxs:text-[#a2a2a2] xxs:text-sm"
           >
             {item?.product?.productName}
           </h1>
-          <span className=" text-sm font-normal  block">
+          <span className="hidden text-sm font-normal  md:block" >
             {item?.product?.weight}
           </span>
         </div>
-        <span className="whitespace-nowrap text-2xl tracking-wider font-normal md:hidden block text-[#333333] ">
+        <span className="whitespace-nowrap md:text-2xl tracking-wider font-normal md:hidden block text-[#333333] xxs:text-lg">
           ₦{item?.price}
         </span>
-        <h2 className="text-sm text-[#A2A2A2] whitespace-normal md:hidden xxs:block">
+        <h2 className="text-xs text-[#A2A2A2] whitespace-normal md:hidden xxs:block ">
           {item?.title}
         </h2>
         <div className="flex items-center justify-between py-1">
-          {/* <div className="flex text-yellow-500 cursor-pointer">
-            {[...Array(5)].map((start, i) => {
-              const ratingValue = i + 1;
-              return (
-                <label className="">
-                  <input
-                    type="radio"
-                    name="rating"
-                    className="hidden"
-                    value={ratingValue}
-                    onClick={() => setRating(ratingValue)}
-                  />
-                  <AiFillStar
-                    size={20}
-                    color={
-                      ratingValue <= (hover || rating) ? "#fe6600" : "#e4e5e9"
-                    }
-                    onMouseEnter={() => setHover(ratingValue)}
-                    onMouseLeave={() => setHover(0)}
-                  />
-                </label>
-              );
-            })}
-          </div> */}
+
           <RatingWidget
             onChange={(value) => console.log(value)}
-            defaultValue={2}
+            defaultValue={3}
           />
           <span className="whitespace-nowrap text-sm font-normal xxs:hidden md:block">
             ₦{item?.price}

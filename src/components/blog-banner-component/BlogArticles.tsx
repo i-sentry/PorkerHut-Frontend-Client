@@ -24,12 +24,12 @@ const BlogArticles = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   useEffect(() => setData(getAllBlogs?.data?.data), [getAllBlogs?.data?.data]);
   console.log(data);
-  
+
   return (
     <>
       {getAllBlogs?.data?.data?.length ? (
         <>
-          <div className="p-2 grid md:grid-cols-4 xxs:grid-cols-2 items-center justify-center gap-3">
+          <div className="p-1 grid md:grid-cols-4 xxs:grid-cols-1 items-center justify-center gap-3">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
               (blog: any, index: any) => {
                 return <BlogCard blog={blog} key={index} />;
