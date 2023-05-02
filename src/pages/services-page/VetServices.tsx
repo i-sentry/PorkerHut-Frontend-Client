@@ -49,8 +49,8 @@ const VetServices = () => {
           </div>
         </div>
         <div className=" bg-[#F4F4F4] mt-12 rounded-md m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
-          <div className=" md:w-1/2 md:px-10 py-8 flex-1 flex flex-col  justify-center">
-            <h1 className=" text-3xl tracking-tight mb-4 font-normal text-[#333]">
+          <div className=" md:w-1/2 md:px-10 md:py-8 flex-1 flex flex-col  justify-center">
+            <h1 className="md:text-3xl tracking-tight mb-4 md:font-normal xxs:font-bold text-[#333] xxs:text-xl">
               Our Veterinary Services
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -83,19 +83,19 @@ const VetServices = () => {
           </figure>
         </div>
 
-        <div className=" mt-12 text-[20px] bg-[#F5F9F6] py-8 px-10 h-[100%] w-[100%]">
+        <div className="mt-12 xxs:mb-12 md:mb-0 text-[20px] bg-[#F5F9F6] py-8 md:px-10 xxs:px-3 md:h-[100%] md:w-[100%]">
           <div className="flex items-center justify-center mb-10 ">
-            <h1 className="font-normal tracking-tight md:text-3xl mb-4 text-[#333]">
+            <h1 className="md:font-normal tracking-tight md:text-3xl mb-4 text-[#333] xxs:font-bold">
               What We Provide
               <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto"></div>
             </h1>
           </div>
 
-          <div className=" relative flex items-center justify-center h-[40rem] w-full">
+          <div className=" md:relative md:flex md:items-center md:justify-center md:h-[40rem] w-full xxs:grid xxs:grid-cols-2 xxs:gap-3">
             {/* <div> */}
-            <div className="h-[250px] w-[300px] border  bg-white mb-4  rounded-md px-6 py-4 absolute top-10 left-0">
-              <h1 className=" font-normal md:text-3xl">01</h1>
-              <h1 className=" text-lg font-semibold">
+            <div className=" xxs:h-fit  md:h-[250px] md:w-[300px] border xxs:px-3 xxs:py-2  bg-white md:mb-4  rounded-md px-6 md:py-4 md:absolute md:top-10 md:left-0">
+              <h1 className=" md:font-normal md:text-3xl xxs:font-bold">01</h1>
+              <h1 className="md:text-lg md:font-semibold xxs:font-medium xxs:text-sm">
                 Comprehensive Health <br /> Check-ups
               </h1>
               <p className=" text-[13px] text-[#797979]">
@@ -106,9 +106,9 @@ const VetServices = () => {
               </p>
             </div>
 
-            <div className="h-[250px] w-[300px] border  bg-white mb-4  px-6 py-4 rounded-md absolute top-0 right-0">
-              <h1 className="font-normal tracking-tight md:text-3xl">02</h1>
-              <h1 className="text-lg font-semibold">Feed Consultation</h1>
+            <div className=" xxs:h-fit md:h-[250px] md:w-[300px] border xxs:px-3 xxs:py-2 bg-white md:mb-4  md:px-6 md:py-4 rounded-md md:absolute md:top-0 md:right-0">
+              <h1 className="md:font-normal md:tracking-tight md:text-3xl xxs:font-bold">02</h1>
+              <h1 className="md:text-lg md:font-semibold xxs:font-medium xxs:text-sm">Feed Consultation</h1>
               <p className=" text-[13px] text-[#797979]">
                 Our vets help determine the best feed for your pigs to promote
                 optimal growth and health. This includes nutritional analysis
@@ -116,9 +116,9 @@ const VetServices = () => {
               </p>
             </div>
 
-            <div className="h-[250px] w-[300px] border  bg-white mb-4 rounded-md px-6 py-4 absolute bottom-0 left-20">
-              <h1 className="font-normal tracking-tight md:text-3xl">03</h1>
-              <h1 className="text-lg font-semibold">
+            <div className=" xxs:h-fit  md:h-[250px] md:w-[300px]  border xxs:px-3 xxs:py-2  bg-white md:mb-4 rounded-md md:px-6 md:py-4 md:absolute md:bottom-0 md:left-20">
+              <h1 className="md:font-normal tracking-tight md:text-3xl xxs:font-bold">03</h1>
+              <h1 className="md:text-lg md:font-semibold xxs:font-medium xxs:text-sm">
                 Herd Management Assistance
               </h1>
               <p className=" text-[13px] text-[#797979]">
@@ -132,13 +132,13 @@ const VetServices = () => {
             <img
               src={PigImg}
               alt="livestock"
-              className="object-cover w-[40%]"
+              className="object-cover w-[40%] xxs:hidden md:block"
             />
 
 
-            <div className="h-[250px] w-[300px] border  bg-white mb-4 px-6 py-4 rounded-md mt-4 absolute bottom-0 right-10 ">
-              <h1 className="font-normal tracking-tight md:text-3xl">04</h1>
-              <h1 className="text-lg font-semibold">Reproductive Health</h1>
+            <div className=" xxs:h-fit  md:h-[250px] md:w-[300px] border  bg-white md:mb-4 xxs:px-3 xxs:py-2 md:px-6 md:py-4 rounded-md md:mt-4 md:absolute md:bottom-0 md:right-10 ">
+              <h1 className="md:font-normal tracking-tight md:text-3xl xxs:font-bold">04</h1>
+              <h1 className="md:text-lg md:font-semibold xxs:font-medium xxs:text-sm">Reproductive Health</h1>
               <p className=" text-[13px] text-[#797979]">
                 Reproductive health is critical for maintaining the productivity
                 of your pig farming business. Our veterinarians offer a range of
