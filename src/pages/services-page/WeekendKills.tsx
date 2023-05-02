@@ -13,14 +13,18 @@ const WeekendKills = () => {
       <div>
         <div className="overflow-x-hidden">
           <div className="mb-10">
-            <div className=" md:block xxs:flex flex-col items-center justify-center md:h-[350px] w-full relative bg-gradient-to-r from-slate-600 to to bg-slate-700">
-              <img
-                src={BlogBanner}
-                alt=""
-                className="w-full h-full object-cover absolute mix-blend-overlay"
-              />
-              <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 px-14">
-                <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]">
+            <div className="md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14  xxs:relative bg-gradient-to-r from-slate-700 to to bg-slate-800"
+             style={{
+              backgroundImage: ` url('${BlogBanner}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              // width: "100vw",
+            }}
+            
+            >
+              
+              <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 ">
+                <h1 className="mb-2 text-3xl font-normal tracking-tight xxs:text-center text-[#fff]">
                   Weekend Kills
                 </h1>
                 <div className="">
@@ -42,9 +46,9 @@ const WeekendKills = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-[#F4F4F4] mt-12 rounded m-auto md:flex mx-10">
-        <div className=" p-6 md:w-1/2 md:p-16">
-          <h1 className="text-3xl font-normal tracking-tight mb-4">
+      <div className=" bg-[#F4F4F4] mt-12 rounded m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
+        <div className=" md:p-6 md:w-1/2">
+          <h1 className="md:font-normal md:tracking-tight md:text-3xl font-bold text-[#333] whitespace-nowrap mb-2 xxs:text-xl">
           Why Weekend Kills
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">

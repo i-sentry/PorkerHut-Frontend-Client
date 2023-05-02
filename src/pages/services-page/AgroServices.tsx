@@ -26,7 +26,7 @@ const AgroServices = () => {
               backgroundImage: ` url('${AgroservImg}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              // width: "100vw",
+              
             }}
           >
             <div className=" xxs:absolute md:top-10 xxs:top-0 mt-32">
@@ -51,7 +51,7 @@ const AgroServices = () => {
 
           <div className="bg-[#F4F4F4] mt-12 rounded-md flex flex-col md:flex-row md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0 ">
             <div className="md:w-1/2 md:px-10 flex flex-col justify-center">
-              <h1 className="md:font-normal md:tracking-tight md:text-3xl font-bold text-[#333] whitespace-nowrap mb-2">
+              <h1 className="md:font-normal md:tracking-tight md:text-3xl font-bold text-[#333] whitespace-nowrap mb-2 xxs:text-xl">
                 What our Agro services is <br className="md:hidden" /> all about
               </h1>
               <p className="leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -67,7 +67,7 @@ const AgroServices = () => {
                 customers and the environment.
               </p>
             </div>
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 xxs:m-4 md:m-0">
               <figure>
                 <img className="object-cover w-full h-full" src={FarmingImg} alt="" />
               </figure>
@@ -75,15 +75,15 @@ const AgroServices = () => {
           </div>
 
           <div className=" text-center mt-12 text-[20px]">
-            <h1 className="font-normal tracking-tight md:text-3xl mb-4 text-[#333]">
+            <h1 className="md:font-normal tracking-tight md:text-3xl mb-4 text-[#333] xxs:font-bold">
               Our Agro Services
               <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto mt-1"></div>
             </h1>
           </div>
 
-          <div className="md:grid md:grid-cols-3 md:px-6 gap-3">
+          <div className="md:grid md:grid-cols-3 md:px-6 md:gap-3 ">
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3 relative inline-block h-[350px]"
+              className="card-container md:mt-2 md:p-4 xxs:p-3 relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0"
               style={{
                 backgroundImage: `url(${PigFarmingImg})`,
                 backgroundSize: "cover",
@@ -107,7 +107,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px]"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0"
               style={{
                 backgroundImage: `url(${FeedImg})`,
                 backgroundSize: "cover",
@@ -131,7 +131,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px]"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 "
               style={{
                 backgroundImage: `url(${livestock1})`,
                 backgroundSize: "cover",

@@ -52,9 +52,9 @@ const ServiceForm = ({ text, title }: contactProps) => {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center p-4 h-full">
-      <div className="max-w-[514px] ">
-        <div className="max-w-[514px] w-full bg-[#F4F4F4] p-8  rounded ">
+    <div className="flex flex-col items-center justify-center md:p-4 h-full">
+      <div className="md:max-w-[514px] ">
+        <div className="md:max-w-[514px] w-full bg-[#F4F4F4] md:p-8 xxs:px-5 xxs:py-10  rounded ">
           <h1 className="text-xl font-semibold ">{title}</h1>
           <p className="text-sm justify-end  text-[ #797979] mt-3 font-light tracking-tight">
             {text}
@@ -85,7 +85,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
                   })}
                 />
                 <p className="my-2 text-ErrorColor text-xs">
-                  {/* {errors[data.name] && errors[data.name].message} */}
+                
                 </p>
               </div>
             ))}
@@ -117,7 +117,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
             ))}
             <button
               type="submit"
-              className="bg-[#197B30] md:mt-6 text-[#fff] p-3 tracking-wider rounded-md px-10 active:scale-90 duration-300 transition-all ease-in-out"
+              className="bg-[#197B30] md:mt-6 text-[#fff] p-3 tracking-wider rounded-md px-10 active:scale-90 duration-300 transition-all ease-in-out xxs:mt-4"
             >
               Submit
             </button>
@@ -142,7 +142,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
             </p>
           </div>
         </div>
-        <div>
+        <div className="mx-5 mb-6">
           <div className="md:hidden grid  grid-rows-3 gap-4 mt-8">
             {contactInfo.map((data, index) => (
               <div className="bg-[#f4f4f4] flex flex-col h-36 w-full  items-center justify-center  p-3">
