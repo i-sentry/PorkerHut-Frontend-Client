@@ -35,7 +35,7 @@ const Services = () => {
             alt=""
             className="bg-cover bg-center md:mb-[-50px] xxs:mb-0"
           />
-          <div className="px-5">
+          <div className="px-5 md:hidden xxs:block ">
             <div className="-translate-y-16  p-5 bg-white bg">
               <h1 className="font-medium text-lg pb-1">Agro Services</h1>
               <div className="xxs:w-20 h-1 w-10 bg-[#197B30]"></div>

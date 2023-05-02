@@ -11,8 +11,7 @@ import ReactLoading from "react-loading";
 import Cookies from "js-cookie";
 import AppLayout from "../utility/AppLayout";
 import { addOption, selectUser } from "../../redux/features/user";
-import { useAppDispatch } from "../../redux/hook";
-// import { redirect } from "react-router-dom";
+// import { useAppDispatch } from "../../redux/hook";
 
 interface ILoginProps {
   email: string;
@@ -29,7 +28,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const login = useUserLogin();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -44,16 +43,16 @@ const Login = () => {
       .mutateAsync(data)
       .then((res) => {
         setLoading(false);
-        dispatch(
-          addOption(
-            // res?.data?.accessToken
-            res?.data?.email,
-            res?.data?.firstName,
-            res?.data?.isAdmin,
-            res?.data?.lastName,
-            res?.data?._id
-          )
-        );
+        // dispatch(
+        //   addOption(
+        //     // res?.data?.accessToken
+        //     res?.data?.email,
+        //     res?.data?.firstName,
+        //     res?.data?.isAdmin,
+        //     res?.data?.lastName,
+        //     res?.data?._id
+        //   )
+        // );
         e?.target.reset();
         // setIsOpen(true);
 
@@ -81,10 +80,9 @@ const Login = () => {
     setEyeState((prev) => !prev);
   };
 
-    React.useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
-    }, []);
-
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+  }, []);
 
   return (
     <AppLayout>

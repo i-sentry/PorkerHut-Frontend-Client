@@ -32,7 +32,7 @@ import AuthContext from "../../context/AuthProvider";
 // import { useAuth } from "../../context/AuthProvider";
 
 import Cookies from "js-cookie";
-import { useAppSelector } from "../../redux/hook";
+
 import { selectUser } from "../../redux/features/user";
 
 const NavBar = () => {
