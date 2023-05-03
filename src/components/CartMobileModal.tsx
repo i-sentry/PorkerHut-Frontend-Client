@@ -17,7 +17,7 @@ const CartMobileModal = ({ isVisible, onClose }: ModalProps) => {
   return (
     <div
       id="wrapper"
-      className="fixed inset-0 w-full h-full  bg-black bg-opacity-25  flex items-center z-50 py-80 px-5"
+      className="fixed inset-0 w-full h-full  bg-black bg-opacity-25  flex items-center z-50 py-60 px-5"
       onClick={handleClose}
       
     >
