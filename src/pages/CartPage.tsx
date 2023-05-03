@@ -2,7 +2,7 @@ import React from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import { chunkArray } from "../helper/chunck";
 
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdOutlineShoppingCart, MdOutlineSpeakerNotes } from "react-icons/md";
 import { productData } from "../utils/productData";
 
 import ProductCard from "../components/featured-product-component/ProductCard";
@@ -14,10 +14,13 @@ import CartCard2 from "../components/CartCard2";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import AppLayout from "../components/utility/AppLayout";
+import CartMobileModal from "../components/CartMobileModal";
+import { useState } from "react";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.product.cart);
+  const [showModal, setShowModal] = useState(false);
 
   const handleNavigate = () => {
     navigate("/products");
@@ -29,19 +32,23 @@ const CartPage = () => {
   console.log(Object.values(cart).length, "Object.values(cart).length");
   console.log(cart, "(cart)");
 
-
-
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
   }, []);
 
   return (
     <AppLayout>
+
+    <CartMobileModal
+                            isVisible={showModal}
+                            onClose={() => setShowModal(false)}
+                          />
+
       <div className="  bg-[#F5F5F5]">
-        <div className=" bg-[#F5F5F5] md:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col ">
+        <div className=" bg-[#F5F5F5] md:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
           {Object.values(cart).length > 0 ? (
             <>
-              <div className="">
+              <div className="xxs:hidden md:block">
                 <ProductsBreadCrumbs
                   items={[
                     {
@@ -57,10 +64,45 @@ const CartPage = () => {
               </div>
               <div className="cart-items bg-white flex flex-col">
                 <div className="header-text">
-                  <h1 className=" p-8 text-2xl font-semibold text-[#333333]">
-                    Cart({Object.values(cart).length})
-                  </h1>
+                  <div className=" xxs:flex xxs:items-center">
+                    <h1 className="md:p-8 xxs:p-4 text-2xl font-semibold text-[#333333]">
+                      Cart({Object.values(cart).length})
+                    </h1>
 
+                    <div className="md:hidden">
+                      <ProductsBreadCrumbs
+                        items={[
+                          {
+                            name: "Home",
+                            link: "/",
+                          },
+                          {
+                            name: "Cart",
+                            link: "/my-cart",
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
+                    {Object.values(cart).map((item, idx) => (
+                      <div>
+                        <CartCard2 item={item} key={idx} />
+                        <div className="flex items-center pl-3 gap-2 md:hidden mt-3 text-[#797979]">
+                          <MdOutlineSpeakerNotes size={24} />
+                          <button onClick={() => setShowModal(true)}>
+                            Add a note
+                          </button>
+                        
+                        </div>
+
+                        <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
+                      </div>
+                    ))}
+                  </div>
+
+                  
                   <div className="product-headers border-b hidden md:flex py-2">
                     <p className="ml-8 mr-24 md:text-[16px] text-[#BDBDBD]">
                       Product
@@ -76,7 +118,7 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 flex flex-col gap-4 order-2 md:order-none">
+                <div className="p-4 flex flex-col gap-4 order-2 md:order-none xxs:hidden md:block">
                   {Object.values(cart).map((item, idx) => (
                     <CartCard2 item={item} key={idx} />
                   ))}
@@ -123,7 +165,7 @@ const CartPage = () => {
                   Related Products
                 </h1>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 w-full">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
                   {chunkArray(productData, 8)[1 - 1].map((item) => (
                     <ProductCard item={item} key={item.id} />
                   ))}
