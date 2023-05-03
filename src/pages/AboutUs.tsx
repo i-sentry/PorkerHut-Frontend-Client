@@ -13,7 +13,7 @@ const About = () => {
 
   return (
     <AppLayout>
-      <div className="mb-10">
+      <div className="md:mb-10">
         <div
           className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
           style={{
@@ -45,9 +45,9 @@ const About = () => {
         </div>
       </div>
 
-      <div className=" bg-[#F4F4F4] mt-20 rounded-md m-auto md:flex md:mx-10">
-        <div className="md:w-1/2 p-6 flex-1 md:p-16">
-          <h1 className=" md:font-normal md:tracking-tight md:text-3xl flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
+      <div className=" bg-[#F4F4F4] mt-20 rounded-md md:m-auto md:flex md:mx-10">
+        <div className="md:w-1/2 xxs:px-3 xxs:py-6 flex-1 md:p-16">
+          <h1 className=" md:font-normal md:tracking-tight md:text-3xl xxs:font-bold flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
             What we do
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -62,16 +62,16 @@ const About = () => {
         </div>
         <figure className="md:w-1/2">
           <img
-            className="object-cover w-full h-full p-6 md:p-0"
+            className="object-cover w-full xxs:pb-10 h-full  xxs:px-6 md:p-0"
             src={PlantImg}
             alt=""
           />
         </figure>
       </div>
 
-      <div className=" mt-24 p-6 bg-[#F4F4F4] ">
-        <div className="max-w-[500px] mx-4">
-          <h1 className=" mb-4 md:font-normal md:tracking-tight md:text-3xl">
+      <div className="mt-24 md:p-6 xxs:px-3 xxs:pt-8 bg-[#F4F4F4] xxs:pb-20">
+        <div className="md:max-w-[500px] md:mx-4">
+          <h1 className=" mb-4 md:font-normal md:tracking-tight md:text-3xl xxs:font-bold">
             Why choose Pokerhut?
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -80,9 +80,9 @@ const About = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 px-4 gap-6">
+        <div className="md:grid md:grid-cols-3 md:px-4 md:gap-6">
           <div className=" bg-white rounded mt-12 px-4 py-4">
-            <h1 className="text-lg font-semibold mb-2 text-[#333]">
+            <h1 className="md:text-lg md:font-semibold mb-2 text-[#333] xxs:font-bold">
               Sustainable and Responsible Farming Practices
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -95,8 +95,8 @@ const About = () => {
             </p>
           </div>
 
-          <div className=" bg-white rounded mt-12 px-4 py-4">
-            <h1 className="  mb-2 text-lg font-semibold text-[#333]">
+          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-4 py-4">
+            <h1 className="mb-2 md:text-lg md:font-semibold text-[#333] xxs:font-bold">
               Unique Services
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -110,8 +110,8 @@ const About = () => {
             </p>
           </div>
 
-          <div className=" bg-white rounded mt-12 px-4 py-4">
-            <h1 className="text-lg font-semibold mb-2 text-[#333] ">
+          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-4 py-4">
+            <h1 className="md:text-lg md:font-semibold mb-2 text-[#333] xxs:font-bold">
               High-Quality Products
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
