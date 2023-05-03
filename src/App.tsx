@@ -79,6 +79,7 @@ import NewVetPartners from "./pages/admin-dashboard/NewVetPartners";
 import BlogPost from "./pages/admin-dashboard/BlogPost";
 import EditBlog from "./pages/admin-dashboard/EditBlog";
 import VetServices from "./pages/services-page/VetServices";
+import OrderTracking from "./pages/OrderTracking";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -99,14 +100,15 @@ const router = createBrowserRouter(
       <Route path="/store-page" element={<StorePage />} />
       <Route path="/billing" element={<BillingPage />} />
       <Route path="/pay-card" element={<PayOption />} />
-      <Route path="/order-cancel" element={<OrderCancel />} />
-      <Route path="/my-order" element={<MyOrder />} />
+      <Route path="/order+cancel" element={<OrderCancel />} />
+  
       <Route path="/rating" element={<RatingCard />} />
+      <Route path="/tracking+order" element={<OrderTracking />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
       <Route path="/pay-fail" element={<PaymentFailPage />} />
       <Route path="/affiliate" element={<AffiliatePage />} />
       <Route path="/create-account" element={<CreateSellersAcc />} />
-      <Route path="/favorite-products" element={<FavouriteProductPage />} />
+      <Route path="/favorite+products" element={<FavouriteProductPage />} />
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
       <Route path="/empty_cart" element={<EmptyCartPage />} />
@@ -116,7 +118,6 @@ const router = createBrowserRouter(
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
       <Route path="/services/agro-services" element={<AgroServices />} />
-      <Route path="/switch" element={<ToggleSwitch />} />
 
       <Route path="/vendor" element={<SellerLayout />}>
         <Route path="/vendor/home" element={<SellersHome />} />

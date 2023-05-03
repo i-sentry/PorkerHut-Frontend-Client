@@ -38,7 +38,7 @@ const Category = () => {
   datas[2].title = temp;
 
   return (
-    <div className="sm:p-6 xxs:px-2 md:px-12 xxs:my-20">
+    <div className="sm:p-6 xxs:px-3 md:px-12 xxs:my-20">
       <div>
         <div className="flex justify-center items-center ">
           <h1 className="font-normal tracking-tight xxs:text-base  md:text-3xl">
@@ -55,7 +55,7 @@ const Category = () => {
             <Card key={item.id} {...item} />
           ))}
         </div>
-        <div className="w-full flex  gap-3  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 md:mt-4 -z-50 sm:hidden ">
+        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 md:mt-4 -z-50 sm:hidden ">
           {datas.map((item) => (
             <MobileCard {...item} />
           ))}

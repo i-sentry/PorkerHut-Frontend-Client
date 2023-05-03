@@ -30,8 +30,11 @@ const Footer = () => {
         </div>
         <div className="md:flex md:justify-between gap-12 mt-7 mb-6 max-md:flex-wrap">
           <div className="flex flex-col gap-3 text-justify">
-            <div className="flex items-center gap-1 ">
-              <img src={PorkerLogo} alt="" />
+            <div
+              onClick={() => navigate("/")}
+              className="flex items-center gap-1 "
+            >
+              <img src={PorkerLogo} alt="porkerhutLogo" />
               <div className="flex flex-col md:mx-0">
                 <p className="title text-xl  font-semibold text text-left  text-[#FFFFFF] font-Roboto-slab">
                   Porker Hut
@@ -103,18 +106,27 @@ const Footer = () => {
             <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
               Products
             </h1>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            <Link
+              to={"/pork"}
+              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+            >
               Porks
-            </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            </Link>
+            <Link
+              to={"/feed"}
+              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+            >
               Animal Feeds
-            </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            </Link>
+            <Link
+              to={"/livestock"}
+              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+            >
               Livestock
-            </span>
+            </Link>
             <span
               onClick={() =>
-                navigate("/services?service=agro-service", { replace: true })
+                navigate("/services/agro-services ", { replace: true })
               }
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
@@ -164,7 +176,7 @@ const Footer = () => {
         <hr className="xxs:hidden md:block" />
 
         <div className="md:flex justify-between items-center md:mt-5">
-          <div className="md:flex xxs:flex xxs:gap-8 xxs:items-center md:items-center md:gap-10 mb-6 xxs:mb-2 ">
+          <div className="flex xxs:gap-8 items-center justify-center  md:gap-10 mb-6 xxs:mb-2 ">
             <span className="font-normal md:text-sm text-xs text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30] ">
               Legal Notice
             </span>

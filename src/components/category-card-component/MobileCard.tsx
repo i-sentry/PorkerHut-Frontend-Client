@@ -6,7 +6,7 @@ const MobileCard = (items: any) => {
   return (
     <NavLink
       to={`/category/${items?.title}`}
-      className="flex flex-auto justify-between flex-col h-full w-[95%] rounded-lg shadow-sm xxs:flex-shrink-0 md:flex-shrink relative md:hidden"
+      className="flex flex-auto justify-between flex-col h-full w-[65%] rounded-lg shadow-md xxs:flex-shrink-0 md:flex-shrink relative md:hidden"
     >
       <div className="relative">
         <img src={items?.src} alt="" className="object-cover w-full h-full" />

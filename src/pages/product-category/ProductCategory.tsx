@@ -37,7 +37,7 @@ const ProductCategory = () => {
   // useEffect(() => setData(productData), [productData]);
   useEffect(() => filter(title), []);
 
-  
+
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -47,7 +47,7 @@ const ProductCategory = () => {
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
         {/* <NavBar /> */}
-        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
+        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} setData={undefined} menuItem={undefined} />
         <div className="bg-[#EEEEEE] pt-24">
           <div className="px-8">
             <ProductsBreadCrumbs

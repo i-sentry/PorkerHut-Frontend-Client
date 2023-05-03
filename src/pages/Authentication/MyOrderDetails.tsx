@@ -13,6 +13,7 @@ import { IOrderData } from "../../components/sellers-order-page-component/MyOrde
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
 import { OrderData } from "../admin-dashboard/Order";
+import AppLayout from "../../components/utility/AppLayout";
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -44,10 +45,11 @@ const MyOrderDetails = () => {
   }, [id]);
 
   return (
-    <>
-      <div className="m-auto mt-10 ">
+
+    <AppLayout>
+      <div className="m-auto mt-24 ">
         <div className="flex items-center flex-col justify-center mb-10 relative">
-          <h2 className="text-2xl font-medium">My Orders</h2>
+          <h2 className="md:text-2xl xxs:text-lg font-medium">My Orders</h2>
 
           <div className="h-1 w-16 bg-[#197B30] mt-1"></div>
           <div
@@ -186,7 +188,7 @@ const MyOrderDetails = () => {
         </div>
       </div>
       <OrderModal onClose={handleOnclose} visible={showModal} />
-    </>
+    </AppLayout>
   );
 };
 

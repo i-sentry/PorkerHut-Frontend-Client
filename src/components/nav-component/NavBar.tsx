@@ -3,7 +3,7 @@ import classNames from "classnames";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import SearchLogo from "../../assets/images/SearchLogo.svg";
 import CartLogo from "../../assets/images/CartLogo.svg";
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
 import { HamburgerMenuIcon } from "../../assets/icons";
 import {
@@ -26,7 +26,11 @@ import { Menu, Transition } from "@headlessui/react";
 import { ImDownload } from "react-icons/im";
 import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
-import { MdCancelScheduleSend, MdSendAndArchive } from "react-icons/md";
+import {
+  MdCancelScheduleSend,
+  MdOutlineShoppingCart,
+  MdSendAndArchive,
+} from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
 
 // import { useAuth } from "../../context/AuthProvider";
@@ -38,6 +42,7 @@ import { selectUser } from "../../redux/features/user";
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
   const [toggle, setToggle] = useState(false);
+  const [temp, setTemp] = useState(false);
   //@ts-ignore
   const { auth, isLogin } = useContext(AuthContext);
   // const user = useAppSelector(selectUser);
@@ -56,6 +61,7 @@ const NavBar = () => {
   window.addEventListener("click", handleClickOutsideDropdown);
 
   useEffect(() => {
+    setTemp(false);
     window.addEventListener("click", (e) => {
       if (e.target !== dropdownRef.current) {
         setOpen(false);
@@ -63,16 +69,23 @@ const NavBar = () => {
     });
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
+    } else {
+      setUser(null);
     }
-  }, []);
+  }, [temp]);
 
   const handleLogout = () => {
+    setTemp(true);
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("user");
-
   };
+
+  // useEffect(() => {
+  //   setUser(user);
+  // }, [user]);
   //@ts-ignore
   console.log(user?.firstName, "isLogin");
   return (
@@ -95,19 +108,21 @@ const NavBar = () => {
               </h1>
             </div>
           </div>
-          <div className="action-btns flex items-center gap-3 ml-auto  md:hidden">
-            <button className=" p-[6px] rounded w-8 ">
-              <img className="w-6" src={SearchLogo} alt="" />
-            </button>
-            <button
-              className="  p-[6px] rounded w-8 "
+          <div className="action-btns flex items-center  ml-auto  md:hidden">
+            <div className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800">
+              <AiOutlineSearch size={22} />
+            </div>
+            <div
+              className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
               onClick={() => navigate("/my-cart")}
             >
-              <img className="w-6" src={CartLogo} alt="" />
-              <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-5 right-2 rounded-full text-xs">
-                {Object.values(cart).length}
-              </span>
-            </button>
+              <MdOutlineShoppingCart size={22} />
+              {Object.values(cart).length >= 1 && (
+                <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-5 right-2 rounded-full text-xs">
+                  {Object.values(cart).length}
+                </span>
+              )}
+            </div>
           </div>
           <ul className="md:flex font-normal hidden items-center text-sm  ">
             <NavLink setToggle={setToggle} />
@@ -124,9 +139,11 @@ const NavBar = () => {
               onClick={() => navigate("/my-cart")}
             >
               <img className="w-6" src={CartLogo} alt="" />
-              <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
-                {Object.values(cart).length}
-              </span>
+              {Object.values(cart).length >= 1 && (
+                <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
+                  {Object.values(cart).length}
+                </span>
+              )}
             </button>
           </div>
           <>
@@ -198,6 +215,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
+                            onClick={() => navigate("/favorite+products")}
                             className={classNames(
                               active && "bg-gray-100",
                               "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
@@ -267,7 +285,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
-                            onClick={() => navigate("/settings")}
+                            onClick={() => navigate("/tracking+order")}
                             className={classNames(
                               active && "bg-gray-100",
                               "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
@@ -298,6 +316,7 @@ const NavBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <div
+                            onClick={() => navigate("/order+cancel")}
                             className={classNames(
                               active && "bg-gray-100",
                               "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"

@@ -76,27 +76,14 @@ const Filter = ({ menuItem, setData }: iProps) => {
         <h1>Filters</h1>
         <AccordionHeader
           onClick={() => handleOpen(1)}
-          className="text-base font-medium"
+          className="text-base font-normal"
         >
           Pig
         </AccordionHeader>
         <AccordionBody>
           <div>
-            {/* <div className="">
-              <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base font-normal" htmlFor="1">
-                category
-              </label>
-            </div> */}
             {menuItem.map((menu: any) => {
               return (
-                // <div className="">
-                //   <input type="checkbox" id="2" value={2} />
-                //   <label className="ml-2 text-base font-normal" htmlFor="2">
-                //    {menu}
-                //   </label>
-                // </div>
-
                 <div className="">
                   <input
                     type="checkbox"
@@ -111,14 +98,13 @@ const Filter = ({ menuItem, setData }: iProps) => {
                 </div>
               );
             })}
-        
           </div>
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(2)}
-          className="text-base font-medium"
+          className="text-base font-normal"
         >
           Animal Feed
         </AccordionHeader>
@@ -166,7 +152,7 @@ const Filter = ({ menuItem, setData }: iProps) => {
       <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(3)}
-          className="text-base font-medium"
+          className="text-base font-normal"
         >
           Livestock
         </AccordionHeader>
@@ -214,7 +200,7 @@ const Filter = ({ menuItem, setData }: iProps) => {
       <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(4)}
-          className="text-base font-medium"
+          className="text-base font-normal"
         >
           Location
         </AccordionHeader>
@@ -256,13 +242,12 @@ const Filter = ({ menuItem, setData }: iProps) => {
       <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(5)}
-          className="text-base font-medium"
+          className="text-base font-normal"
         >
           Price
         </AccordionHeader>
         <AccordionBody>
           <MultiRangeSlider min={0} max={2000} />
-        
         </AccordionBody>
       </Accordion>
     </Fragment>

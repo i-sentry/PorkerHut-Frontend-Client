@@ -28,7 +28,7 @@ const Blog = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   useEffect(() => setData(getAllBlogs?.data?.data), [getAllBlogs?.data?.data]);
   return (
-    <section className="w-full md:h-[550px] xxs:h-[1150px] my-16">
+    <section className="w-full md:h-[550px] xxs:h-[1600px] my-16">
       <div>
         <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
           <h1 className="font-normal tracking-tight md:text-3xl xxs:text-lg">

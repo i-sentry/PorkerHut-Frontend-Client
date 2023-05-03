@@ -3,25 +3,23 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import { productData } from "../utils/productData";
+import AppLayout from "../components/utility/AppLayout";
 const FavouriteProductPage = () => {
-  const test: any[] | (() => any[]) = [];
   const [data, setData] = useState<any[]>(productData);
   let itemsPerPage = 8;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-    useEffect(() => setData(productData), [productData]);
+  useEffect(() => setData(productData), [productData]);
 
-
-    useEffect(() => {
-      window.scrollTo(0, 0); // scrolls to top-left corner of the page
-    }, []);
-  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
-    <div>
-      <div>
+    <AppLayout>
+      <div className="mt-24">
         <div className="flex justify-center items-center">
-          <h1 className="font-semibold text-2xl">My Favourite</h1>
+          <h1 className="font-medium md:text-2xl xxs:text-lg">My Favorite</h1>
         </div>
         <div className="flex items-center justify-center mb-8">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
@@ -29,16 +27,14 @@ const FavouriteProductPage = () => {
       </div>
       {data.length ? (
         <>
-          <div className="grid grid-cols-4">
-                      {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-
-                          (item: any) => {
-
+          <div className="grid md:grid-cols-4 xxs:gap-5 md:px-10 xxs:px-4 xxs:grid-cols-2">
+            {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+              (item: any) => {
                 return <ProductCard item={item} />;
               }
             )}
           </div>
-          <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 xxs:pt-8">
             <button
               onClick={() =>
                 currentPageIndex !== 1
@@ -94,7 +90,7 @@ const FavouriteProductPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </AppLayout>
   );
 };
 

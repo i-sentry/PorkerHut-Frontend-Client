@@ -12,8 +12,8 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
-import { useParams } from "react-router-dom"
-
+import { useParams } from "react-router-dom";
+import { GoSettings } from "react-icons/go";
 
 const ProductPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -24,18 +24,32 @@ const ProductPage = () => {
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   useEffect(() => setData(productData), [productData]);
-  console.log({ menuItems })
+  console.log({ menuItems });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const prev = () => {
+    if (currentPageIndex !== chunkArray(data, itemsPerPage).length) {
+      setCurrentPageIndex(currentPageIndex + 1);
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const next = () => {
+    if (currentPageIndex !== 1) {
+      setCurrentPageIndex(currentPageIndex - 1);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-        
-        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
-        <div className="bg-[#EEEEEE] pt-24 px-14">
-          <div className="">
+        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)}  setData={setData} menuItem={menuItems}/>
+        <div className="bg-[#EEEEEE] mt-24 md:px-14 xxs:px-0 ">
+          <div className="md:px-0 xxs:px-4">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -57,7 +71,7 @@ const ProductPage = () => {
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
                 <div className="md:flex md:items-center md:justify-between md:gap-8 xxs:py-4">
-                  <h1 className="text-xl text-[#333333] pl-3 font-medium">
+                  <h1 className="md:text-xl xxs:text-lg text-[#333333] md:pl-3 font-medium xxs:pl-0 ">
                     All Products
                   </h1>
                   <div>
@@ -78,9 +92,9 @@ const ProductPage = () => {
                   <span className="xxs:hidden md:block">
                     <Sort />
                   </span>
-                  <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
-                    <MdOutlineFilterAlt
-                      className="inline"
+                  <div className="md:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
+                    <GoSettings
+                      className="rotate-90 "
                       size={22}
                       onClick={() => setOpenModal(true)}
                     />
@@ -90,7 +104,7 @@ const ProductPage = () => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2 gap-2 ">
+                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2 md:gap-3  xxs:gap-4  md:px-0 xxs:px-4">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       return <ProductCard item={Tdata} key={Tdata.id} />;
@@ -103,11 +117,7 @@ const ProductPage = () => {
 
               <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
                 <button
-                  onClick={() =>
-                    currentPageIndex !== 1
-                      ? setCurrentPageIndex(currentPageIndex - 1)
-                      : null
-                  }
+                  onClick={next}
                   className={
                     (currentPageIndex === 1 ? "no-item" : "") +
                     " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
@@ -134,11 +144,7 @@ const ProductPage = () => {
                 </div>
 
                 <button
-                  onClick={() =>
-                    currentPageIndex !== chunkArray(data, itemsPerPage).length
-                      ? setCurrentPageIndex(currentPageIndex + 1)
-                      : null
-                  }
+                  onClick={prev}
                   className={
                     (currentPageIndex === chunkArray(data, itemsPerPage).length
                       ? "no-items"
@@ -151,7 +157,7 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-          {/* <Footer /> */}
+
         </div>
       </div>
     </AppLayout>

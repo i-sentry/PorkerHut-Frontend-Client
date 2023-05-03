@@ -26,9 +26,11 @@ const NavLink = ({ setToggle }: Iprop) => {
                 }}
                 className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full"
               >
-                <span className="flex items-center gap-4 ">
+                <span className="flex items-center gap-4 whitespace-nowrap">
                   <span className="md:hidden">{link?.icon}</span>
-                  <span className="md:link md:link--metis ">{link?.name}</span>
+                  <span className="md:link md:link--metis whitespace-nowrap">
+                    {link?.name}
+                  </span>
                 </span>
                 <span className=" md:hidden inline ">
                   {link?.subMenu === false ? (
@@ -53,7 +55,6 @@ const NavLink = ({ setToggle }: Iprop) => {
                   <div className="bg-[#FFFFFF]  relative  border rounded-sm border-slate-300 p-1 w-40">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>
-
                         {mySubLink.subLink.map((s: any, index: number) => (
                           <li
                             key={index}
@@ -61,7 +62,7 @@ const NavLink = ({ setToggle }: Iprop) => {
                           >
                             <Link
                               to={s?.link}
-                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2  rounded-md w-full"
+                              className=" hover:text-[#197B30] hover:bg-[#4a85584b] p-2  rounded-md w-full whitespace-nowrap"
                             >
                               {s?.name}
                             </Link>
@@ -79,7 +80,6 @@ const NavLink = ({ setToggle }: Iprop) => {
             {link?.subLinks?.map((s: any, index: number) => (
               <div key={index}>
                 <div>
-
                   <div>
                     {s?.subLink?.map((slink: any, index: number) => (
                       <li key={index} className="py-3 pl-14 md:hidden">
