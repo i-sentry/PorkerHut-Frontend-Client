@@ -1,21 +1,37 @@
-import React from 'react'
-import { MdOutlineSpeakerNotes } from 'react-icons/md'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import { decrementProductQty, deleteProductFromCart, incrementProductQty, IProduct } from '../redux/features/product/productSlice'
-import { useDispatch } from 'react-redux'
-import RatingWidget from './RatingWidget'
+import React from "react";
+import { MdOutlineSpeakerNotes } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import {
+  decrementProductQty,
+  deleteProductFromCart,
+  incrementProductQty,
+  IProduct,
+} from "../redux/features/product/productSlice";
+import { useDispatch } from "react-redux";
+import RatingWidget from "./RatingWidget";
 
-const CartCard2: React.FC<{item: IProduct}> = ({ item }) => {
-    const dispatch = useDispatch()
+const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
+  const dispatch = useDispatch();
 
   return (
     <div className="flex gap-6">
       <div className="flex gap-4">
         <div className="img flex flex-col">
           <figure className="bg-white w-[150px] flex-1">
-            <img style={{ width: 150, height: 125 }} src={item.img} alt="" />
+            <img style={{ width: 150, height: 125 }} src={item.img} alt="" className="rounded"/>
+
+            
           </figure>
+
+
+          
+         
         </div>
+
+        
+
+      
+
         <div className="product-info hidden md:flex flex-col gap-2">
           <h3 className="font-bold">{item.product?.name}</h3>
           <p>Product ID: {item.id}</p>
@@ -68,19 +84,22 @@ const CartCard2: React.FC<{item: IProduct}> = ({ item }) => {
             className=" h-16 outline-none border rounded px-5 py-4 mt-2"
           />
         </div>
-        <div className=" text-emerald-500 outline-none md:hidden inline cursor-pointer">
+        {/* <div className=" text-emerald-500 outline-none md:hidden inline cursor-pointer">
           Save for later
-        </div>
+        </div> */}
       </div>
 
-      {/* <div
+      {/* <di
         className=" mt-4 ml-4 "
         onClick={() => dispatch(deleteProductFromCart({ id: item.id }))}
       >
         <RiDeleteBin6Line size={30} />
-      </div> */}
+      </di
+      v> */}
+
+      
     </div>
   );
-}
+};
 
-export default CartCard2
+export default CartCard2;
