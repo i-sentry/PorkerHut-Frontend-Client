@@ -18,19 +18,14 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
       <div className="flex gap-4">
         <div className="img flex flex-col">
           <figure className="bg-white w-[150px] flex-1">
-            <img style={{ width: 150, height: 125 }} src={item.img} alt="" className="rounded"/>
-
-            
+            <img
+              style={{ width: 150, height: 125 }}
+              src={item.img}
+              alt=""
+              className="rounded"
+            />
           </figure>
-
-
-          
-         
         </div>
-
-        
-
-      
 
         <div className="product-info hidden md:flex flex-col gap-2">
           <h3 className="font-bold">{item.product?.name}</h3>
@@ -43,7 +38,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
         </div>
       </div>
       <div className="right-group flex flex-col gap-4 md:flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
-        <div className="details flex flex-col md:flex-row-reverse md:justify-between">
+        <div className="details flex flex-col gap-2 md:flex-row-reverse md:justify-between">
           <p className="md:hidden">{item.product?.name}</p>
           <h3 className="font-bold">
             ₦{parseFloat(item.price).toLocaleString()}
@@ -84,20 +79,10 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
             className=" h-16 outline-none border rounded px-5 py-4 mt-2"
           />
         </div>
-        {/* <div className=" text-emerald-500 outline-none md:hidden inline cursor-pointer">
-          Save for later
-        </div> */}
+        
       </div>
 
-      {/* <di
-        className=" mt-4 ml-4 "
-        onClick={() => dispatch(deleteProductFromCart({ id: item.id }))}
-      >
-        <RiDeleteBin6Line size={30} />
-      </di
-      v> */}
-
-      
+  
     </div>
   );
 };

@@ -16,8 +16,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
 import CartMobileModal from "../components/CartMobileModal";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  decrementProductQty,
+  deleteProductFromCart,
+  incrementProductQty,
+  IProduct,
+} from "../redux/features/product/productSlice";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.product.cart);
   const [showModal, setShowModal] = useState(false);
@@ -38,11 +46,10 @@ const CartPage = () => {
 
   return (
     <AppLayout>
-
-    <CartMobileModal
-                            isVisible={showModal}
-                            onClose={() => setShowModal(false)}
-                          />
+      <CartMobileModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+      />
 
       <div className="  bg-[#F5F5F5]">
         <div className=" bg-[#F5F5F5] md:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
@@ -89,12 +96,19 @@ const CartPage = () => {
                     {Object.values(cart).map((item, idx) => (
                       <div>
                         <CartCard2 item={item} key={idx} />
-                        <div className="flex items-center pl-3 gap-2 md:hidden mt-3 text-[#797979]">
-                          <MdOutlineSpeakerNotes size={24} />
-                          <button onClick={() => setShowModal(true)}>
-                            Add a note
+                        <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
+                          <div className="flex items-center gap-2">
+                            <MdOutlineSpeakerNotes size={24} />
+                            <button onClick={() => setShowModal(true)}>
+                              Add a note
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={() => dispatch(deleteProductFromCart({ id: item.id }))}
+                          >
+                            Remove
                           </button>
-                        
                         </div>
 
                         <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
@@ -102,7 +116,6 @@ const CartPage = () => {
                     ))}
                   </div>
 
-                  
                   <div className="product-headers border-b hidden md:flex py-2">
                     <p className="ml-8 mr-24 md:text-[16px] text-[#BDBDBD]">
                       Product

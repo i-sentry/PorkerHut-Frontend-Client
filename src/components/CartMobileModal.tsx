@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HiMinusSm, HiX } from "react-icons/hi";
-import { MdOutlineAccessAlarm } from "react-icons/md";
+import { MdOutlineAccessAlarm, MdOutlineCancel } from "react-icons/md";
 
 type ModalProps = {
   isVisible: boolean;
@@ -22,13 +22,17 @@ const CartMobileModal = ({ isVisible, onClose }: ModalProps) => {
       
     >
       <div className="w-full h-full"
-       onClick={handleClose}
+      
       >
         <div className="bg-white  rounded px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1>Order Notes</h1>
+          <div className="flex items-center justify-between text-[#797979]">
+            <h1 className="text-[#797979]">Order Notes</h1>
+            <MdOutlineCancel size={20}
+             onClick={onClose}
+      
+            />
           </div>
-          <div>
+          <div className="mt-2">
             <form action="" className="">
               <input
                 type="text"

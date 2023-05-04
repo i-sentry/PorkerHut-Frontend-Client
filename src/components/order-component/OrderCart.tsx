@@ -12,7 +12,7 @@ const OrderCart = () => {
   const vat = cartTotal + (cartTotal / 100 * 7.5)
 
   return (
-    <div className="min-w-[400px] w-full lg:w-auto bg-white rounded-lg self-start lg:sticky lg:top-[100px]">
+    <div className=" w-full lg:w-auto bg-white rounded-lg self-start lg:stacic lg:top-[100px]">
       <div className="p-4 pb-0">
         <h1 className="text-[20px] text-[#333333] font-semibold">Orders</h1>
       </div>
@@ -45,7 +45,7 @@ const OrderCard = ({ item }: { item: IProduct }) => {
   return (
     <div className=" flex gap-4 px-4 py-6 border-b">
       <figure className="w-[102px] overflow-hidden rounded">
-        <img src={item.img} alt="" className="w-full" />
+        <img src={item.img} alt="" className="w-full h-full object-cover" />
       </figure>
 
       <div className="flex flex-col">
