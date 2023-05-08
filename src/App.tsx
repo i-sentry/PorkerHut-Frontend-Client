@@ -80,6 +80,8 @@ import BlogPost from "./pages/admin-dashboard/BlogPost";
 import EditBlog from "./pages/admin-dashboard/EditBlog";
 import VetServices from "./pages/services-page/VetServices";
 import OrderTracking from "./pages/OrderTracking";
+import MyAccount from "./pages/MyAccount";
+import ReturnOrder from "./pages/ReturnOrder";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -88,6 +90,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
       <Route path="/blog" element={<BlogPage />} />
+      <Route path="/profile" element={<MyAccount />} />
       <Route path="/blog/:id" element={<BlogContent />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/my-cart" element={<CartPage />} />
@@ -104,6 +107,7 @@ const router = createBrowserRouter(
   
       <Route path="/rating" element={<RatingCard />} />
       <Route path="/tracking+order" element={<OrderTracking />} />
+      <Route path="/return+order" element={<ReturnOrder />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
       <Route path="/pay-fail" element={<PaymentFailPage />} />
       <Route path="/affiliate" element={<AffiliatePage />} />
