@@ -19,7 +19,8 @@ import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
   const location = useLocation();
-  const item = location.state.item;
+  const item = location?.state?.item;
+  console.log(item);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ const ProductDetails = () => {
   };
 
   const images = [
-    item?.img,
+    // item?.img,
+    "../images/Banner.jpg",
     "../images/Banner.jpg",
     "../images/Banner1.jpg",
     "../images/Banner2.jpg",
@@ -53,50 +55,52 @@ const ProductDetails = () => {
 
   return (
     <AppLayout>
-      <div className="bg-[#EEEEEE] md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14">
-        <ProductsBreadCrumbs
-          items={[
-            {
-              name: "Home",
-              link: "/",
-            },
-            {
-              name: "Products",
-              link: "/products",
-            },
-            {
-              name: "Product Details",
-              link: "/product/:id",
-            },
-          ]}
-        />
+      <div className="md:bg-[#EEEEEE] xxs:bg-white md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14 ">
+        <div className="xxs:hidden md:block">
+          <ProductsBreadCrumbs
+            items={[
+              {
+                name: "Home",
+                link: "/",
+              },
+              {
+                name: "Products",
+                link: "/products",
+              },
+              {
+                name: "Product Details",
+                link: "/product/:id",
+              },
+            ]}
+          />
+        </div>
 
-        <div className="md:flex xxs:px-6 md:4 py-8 md:gap-10 bg-white rounded-sm">
-          <div className="flex md:flex-1">
-            <div className="flex-[1]">
+        <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-10 bg-white md:rounded-sm">
+          <div className="flex md:flex-1 xxs:flex-col-reverse md:flex-row">
+            <div className="flex-[1] md:block xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
               <img
                 src={images[0]}
                 alt="img1"
                 onClick={(e) => setSelectedImg(0)}
-                className="object-cover cursor-pointer w-[75px] h-20 mb-3 rounded-sm"
+                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
               />
               <img
                 src={images[1]}
                 alt="img2 rounded"
                 onClick={(e) => setSelectedImg(1)}
-                className="object-cover cursor-pointer w-[75px] h-20 mb-3 rounded-sm"
+                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
               />
               <img
                 src={images[2]}
                 alt="img3 rounded"
                 onClick={(e) => setSelectedImg(2)}
-                className="object-cover cursor-pointer w-[75px] h-20 mb-3 rounded-sm"
+                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
               />
               <img
                 src={images[2]}
                 alt=""
                 onClick={(e) => setSelectedImg(2)}
-                className="object-cover cursor-pointer w-[75px] h-20 rounded"
+                className="object-cover cursor-pointer w-[75px] h-20 rounded xxs:hidden md:flex"
               />
             </div>
 
@@ -104,11 +108,11 @@ const ProductDetails = () => {
               <img
                 src={images[selectedImg]}
                 alt="img4"
-                className=" object-cover h-[400px] w-full rounded-sm"
+                className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
               />
             </div>
           </div>
-          <div className="md:flex-1 flex flex-col gap-3 md:pr-8 xxs:mt-16 md:mt-0">
+          <div className="md:flex-1 flex flex-col gap-3 xxs:mt-4 md:pr-8 md:mt-0">
             <div className="flex justify-between items-center">
               <h1 className="font-semibold text-xl">{item?.product?.name}</h1>
               <span className="cursor-pointer hover:text-yellow-500">
@@ -167,7 +171,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <div className="mt-2  md:flex gap-6">
+            <div className="md:mt-2  md:flex gap-6 xxs:px-4 md:px-0 xxs:mt-4">
               <button
                 onClick={handleClick}
                 className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4 shadow-md"
@@ -184,7 +188,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-sm">
+        <div className="bg-white md:p-4 xxs:p-3 rounded-sm">
           <Fragment>
             <Accordion open={open === 1}>
               <AccordionHeader
@@ -194,18 +198,20 @@ const ProductDetails = () => {
                 Product Description
               </AccordionHeader>
               <AccordionBody>
-                Our raw bacon is a versatile ingredient that provides a fresh,
-                mild, and savory flavor to any dish. Sourced from
-                premium-quality pigs, our raw bacon is made from the belly of
-                the pig and has not been cured or smoked, making it perfect for
-                those who prefer the natural taste of pork. Whether you're
-                making a classic bacon, egg, and cheese sandwich, adding a touch
-                of savory flavor to your favorite pasta dish, or simply enjoying
-                a slice of bacon as a snack, our raw bacon is the perfect
-                addition. Keep in mind that raw bacon must be cooked thoroughly
-                before consuming to reduce the risk of foodborne illness. Try it
-                today and taste the difference that comes from using
-                high-quality, raw bacon.
+                <div className=" xxs:px-4 md:px-0">
+                  Our raw bacon is a versatile ingredient that provides a fresh,
+                  mild, and savory flavor to any dish. Sourced from
+                  premium-quality pigs, our raw bacon is made from the belly of
+                  the pig and has not been cured or smoked, making it perfect
+                  for those who prefer the natural taste of pork. Whether you're
+                  making a classic bacon, egg, and cheese sandwich, adding a
+                  touch of savory flavor to your favorite pasta dish, or simply
+                  enjoying a slice of bacon as a snack, our raw bacon is the
+                  perfect addition. Keep in mind that raw bacon must be cooked
+                  thoroughly before consuming to reduce the risk of foodborne
+                  illness. Try it today and taste the difference that comes from
+                  using high-quality, raw bacon.
+                </div>
               </AccordionBody>
             </Accordion>
             <Accordion open={open === 2}>
@@ -216,10 +222,12 @@ const ProductDetails = () => {
                 Product Details
               </AccordionHeader>
               <AccordionBody>
-                We&apos;re not always in the position that we want to be at.
-                We&apos;re constantly growing. We&apos;re constantly making
-                mistakes. We&apos;re constantly trying to express ourselves and
-                actualize our dreams.
+                <div className=" xxs:px-4 md:px-0">
+                  We&apos;re not always in the position that we want to be at.
+                  We&apos;re constantly growing. We&apos;re constantly making
+                  mistakes. We&apos;re constantly trying to express ourselves
+                  and actualize our dreams.
+                </div>
               </AccordionBody>
             </Accordion>
             <Accordion open={open === 3}>
@@ -230,10 +238,12 @@ const ProductDetails = () => {
                 Delivery Info
               </AccordionHeader>
               <AccordionBody>
-                We&apos;re not always in the position that we want to be at.
-                We&apos;re constantly growing. We&apos;re constantly making
-                mistakes. We&apos;re constantly trying to express ourselves and
-                actualize our dreams.
+                <div className=" xxs:px-4 md:px-0" >
+                  We&apos;re not always in the position that we want to be at.
+                  We&apos;re constantly growing. We&apos;re constantly making
+                  mistakes. We&apos;re constantly trying to express ourselves
+                  and actualize our dreams.
+                </div>
               </AccordionBody>
             </Accordion>
             <Accordion open={open === 4}>
@@ -259,7 +269,7 @@ const ProductDetails = () => {
             Related Products
           </h1>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-4 w-full xxs:px-3 md:px-0 xxs:gap-4 ">
             {chunkArray(productData, 8)[1 - 1].map((item) => (
               <ProductCard item={item} key={item.id} />
             ))}
