@@ -8294,6 +8294,11 @@ react-hook-form@^7.42.1:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.43.5.tgz#b320405594f1506d8d57b954383166d4ff563778"
   integrity sha512-YcaXhuFHoOPipu5pC7ckxrLrialiOcU91pKu8P+isAcXZyMgByUK9PkI9j5fENO4+6XU5PwWXRGMIFlk9u9UBQ==
 
+react-hook-reading-time@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-hook-reading-time/-/react-hook-reading-time-1.0.0.tgz#5f199cdd5c9ec8977a0f5c4677fdb61717287f68"
+  integrity sha512-kIudDiGHCTzBlV95WM6xPN3EBUViQynJvcul/NL+8My6fsl0BeKoCi9Dp19g69PlyF3WLA3QAyjVL99+Ucgs6A==
+
 react-hot-toast@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-hot-toast/-/react-hot-toast-2.4.0.tgz#b91e7a4c1b6e3068fc599d3d83b4fb48668ae51d"

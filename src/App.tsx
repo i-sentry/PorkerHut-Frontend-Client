@@ -80,6 +80,7 @@ import BlogPost from "./pages/admin-dashboard/BlogPost";
 import EditBlog from "./pages/admin-dashboard/EditBlog";
 import VetServices from "./pages/services-page/VetServices";
 import OrderTracking from "./pages/OrderTracking";
+import Search from "./Search";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -88,6 +89,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
       <Route path="/blog" element={<BlogPage />} />
+      <Route path="/search" element={<Search />} />
       <Route path="/blog/:id" element={<BlogContent />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/my-cart" element={<CartPage />} />
@@ -96,12 +98,12 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/:id/rating-page" element={<CustomerRating />} />
 
-      <Route path="/category/:title" element={<ProductCategory />} />
+      <Route path="/category" element={<ProductCategory />} />
       <Route path="/store-page" element={<StorePage />} />
       <Route path="/billing" element={<BillingPage />} />
       <Route path="/pay-card" element={<PayOption />} />
       <Route path="/order+cancel" element={<OrderCancel />} />
-  
+
       <Route path="/rating" element={<RatingCard />} />
       <Route path="/tracking+order" element={<OrderTracking />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />

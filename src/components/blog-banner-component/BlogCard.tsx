@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useReadingTime from "use-reading-time";
+import { useReadingTime } from "react-hook-reading-time";
 import { imageUrl } from "../../services/api";
 
 const BlogCard = ({ blog }: any) => {
   const { featuredImage, title, createdAt, readDuration, content, _id } = blog;
-
+const {
+  text, // 1 min read
+  minutes, // 1
+  words, // 168
+  time, // 0.5309090909090909
+} = useReadingTime(content);
 
   const imgUrl = imageUrl;
 
@@ -13,7 +18,7 @@ const BlogCard = ({ blog }: any) => {
   const moment = require("moment");
   const myDate = new Date(createdAt);
   const momentDate = moment(myDate);
-  const truncatedString = content.slice(0, 200) + "...";
+  const truncatedString = content.slice(0, 250) + "...";
 
   const formattedDate = momentDate.format("MMMM Do YYYY");
   return (
@@ -26,28 +31,27 @@ const BlogCard = ({ blog }: any) => {
             alt=""
           />
         </Link>
-        <p className=" pt-2 font-normal text-[#333333] text-xs px-2">
+        <p className=" pt-2 font-normal text-[#333333] text-[14px] leading-[16px] px-2">
           {formattedDate}
         </p>
         <div className="py-2 px-2">
           <Link to="#">
-            <h1 className=" text-xl font-bold tracking-tight text-[#333333] whitespace-pre-line">
+            <h1 className=" text-[22px] leading-[28px] font-medium  text-[#333333] whitespace-pre-line">
               {title}
             </h1>
-            <p>({readDuration} read)</p>
+            <p>({minutes} min read)</p>
           </Link>
 
-          <p className="mb-3 font-normal text-[#797979] text-left text-xs ">
+          <p className="mb-3 font-normal text-[#797979] text-left text-[16px] leading-[19px] tracking-[0.04em] my-3">
             {truncatedString}
           </p>
           <Link
             to={`/blog/${_id}`}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8]focus:ring-4 focus:outline-none focus:ring-[#69a477] "
+            className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8]focus:ring-4 focus:outline-none focus:ring-[#69a477] "
           >
             Read more
           </Link>
         </div>
-
       </div>
     </>
   );

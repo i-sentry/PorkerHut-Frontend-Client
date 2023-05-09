@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BtnSlider from "./BtnSlider";
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "../nav-component/NavBar";
 
 interface SliderProps {
   sliderImages: never[];
@@ -57,7 +58,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   return (
     <div className="relative">
-      <div className=" w-full xxs:h-[450px] sm:h-[580px] lg:h-[480px] overflow-hidden">
+      <div className=" w-full xxs:h-[85vh] md:h-[95vh] overflow-hidden">
         {dataSlider.map((obj, index) => {
           return (
             <div
@@ -84,23 +85,27 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           direction={"prev"}
           customClass="top-1/2 right-20 transform -translate-y-1/2"
         />
+
+        <div>
+          <SearchBar setShowSearch={()=>{}} />
+        </div>
       </div>
       <div className=" absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
         {dataSlider.map((_, index) => (
           <div
             key={index}
             onClick={() => moveDot(index + 1)}
-            className={`w-[5px] h-[5px]  border-3 rounded-full mr-2 ${
+            className={`w-[6px] h-[6px]  border-3 rounded-full mr-2 ${
               slideIndex === index + 1
-                ? "bg-slate-500 border-slate-500"
+                ? "bg-[#197B30] border-[#197B30]"
                 : "bg-gray-300 border-gray-300"
             }`}
           ></div>
         ))}
       </div>
-      <div className="xxs:hidden md:block text-left absolute -top-10 left-0">
+      {/* <div className="xxs:hidden md:block text-left absolute ">
         <OverLay />
-      </div>
+      </div> */}
     </div>
   );
 };

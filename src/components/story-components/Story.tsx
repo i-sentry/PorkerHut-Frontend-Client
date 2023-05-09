@@ -19,59 +19,63 @@ const Story = () => {
 
   return (
     <div className=" md:mt-10  xxs:pb-4">
-      <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
-        <h1 className="font-normal tracking-tight md:text-3xl xxs:text-lg">
+      <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
+        <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-lg text-[#333333]">
           How We Are Different
         </h1>
       </div>
-      <div className="flex items-center justify-center mb-6">
-        <div className=" block h-1 w-20 bg-[#197B30]"></div>
+      <div className="flex items-center justify-center mb-16">
+        <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
-      <div className="grid md:grid-cols-3 md:gap-10 xxs:gap-5 md:px-10 xxs:px-3">
+      <div className="grid md:grid-cols-3 md:gap-12 xxs:gap-5 md:px-14 xxs:px-3">
         <div
           className="p-4 flex flex-col items-start justify-end rounded"
           style={{
             backgroundImage: `url(${ethicalPic})`,
-            height: "350px",
+            height: "480px",
             backgroundSize: "cover",
           }}
         >
           <div>
-            <h1 className="text-[#fff] font-semibold text-lg ">
+            <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
               Sustainability
             </h1>
-            <TruncatedText text={sustainability} maxLength={110} />
+            <TruncatedText text={sustainability} maxLength={120} />
           </div>
         </div>
         <div
           className="p-4 flex flex-col items-start justify-end rounded"
           style={{
             backgroundImage: `url(${qualityPic})`,
-            height: "350px",
+            height: "480px",
             backgroundSize: "cover",
           }}
         >
-          <h1 className="text-[#fff] font-semibold text-lg ">Transparency</h1>
-          <TruncatedText text={transparency} maxLength={110} />
+          <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
+            Transparency
+          </h1>
+          <TruncatedText text={transparency} maxLength={120} />
         </div>
         <div
           className="p-4 flex flex-col items-start justify-end rounded"
           style={{
             backgroundImage: `url(${transparencyPic})`,
-            height: "350px",
+            height: "480px",
             backgroundSize: "cover",
           }}
         >
-          <h1 className="text-[#fff] font-semibold text-lg ">Community</h1>
+          <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
+            Community
+          </h1>
 
-          <TruncatedText text={community} maxLength={110} />
+          <TruncatedText text={community} maxLength={120} />
         </div>
       </div>
 
       <div className="flex justify-center items-center md:my-10 xxs:my-10 md:mb-0">
         <NavLink
           to="/about-us"
-          className="py-3 px-6 bg-[#197B30] text-white rounded"
+          className="py-3 px-7 bg-[#197B30] text-[#fff] rounded text-[16px] leading-[24px] shadow-md"
         >
           Read Our Story
         </NavLink>
@@ -99,19 +103,19 @@ export const TruncatedText: React.FC<TruncatedTextProps> = ({
   const toggleTruncated = () => setIsTruncated(!isTruncated);
 
   return (
-    <>
-      <p className="text-[#fff] pt-2 tracking-normal leading-[1.1] font-light text-justify">
+    <div className="">
+      <p className="text-[#E6E6E6] pt-2  leading-[24px] font-normal text-justify text-[16px] ">
         {truncatedText}
+        {text.length > maxLength && (
+          <span
+            onClick={toggleTruncated}
+            className="text-[#7ff39a] text-sm cursor-pointer hover:opacity-100"
+          >
+            {" "}
+            {isTruncated ? " See More " : " See Less "}
+          </span>
+        )}
       </p>
-      {text.length > maxLength && (
-        <span
-          onClick={toggleTruncated}
-          className="text-[#7ff39a] text-sm cursor-pointer hover:opacity-100"
-        >
-          {" "}
-          {isTruncated ? " See More " : " See Less "}
-        </span>
-      )}
-    </>
+    </div>
   );
 };

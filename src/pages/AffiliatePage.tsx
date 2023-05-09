@@ -28,7 +28,7 @@ const AffiliatePage = () => {
           />
           <div className=" absolute text-center">
             <h1 className=" text-2xl text-white font-bold my-7 md:text-[36px]">
-              Become a Poker Hut Partner
+              Become a Porker Hut Partner
             </h1>
             <Link
               to={"/"}
@@ -120,7 +120,7 @@ const AffiliatePage = () => {
                 Sign up here
               </Link>{" "}
               {"  "}
-              to become a Poker Hut partner
+              to become a Porker Hut partner
             </p>
           </div>
           <div className=" text-center  ">

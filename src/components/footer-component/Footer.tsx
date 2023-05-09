@@ -80,21 +80,33 @@ const Footer = () => {
               </span>
             </div>
             <div className="md:hidden xxs:flex-1 xxs:flex-col xxs:flex gap-2 xxs:mt-5 xxs:py-5 xxs:gap-5">
-              <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
+              <h1
+                onClick={() => navigate("/products")}
+                className="text-xl font-semibold not-italic text-[#FFFFFF]"
+              >
                 Products
               </h1>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/category?q=porks")}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Porks
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/category?q=animal+feeds")}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Animal Feeds
               </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              <span
+                onClick={() => navigate("/category?q=livestock")}
+                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              >
                 Livestock
               </span>
               <span
                 onClick={() =>
-                  navigate("/services?service=agro-service", { replace: true })
+                  navigate("/services/agro-services", { replace: true })
                 }
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
               >
@@ -107,19 +119,19 @@ const Footer = () => {
               Products
             </h1>
             <Link
-              to={"/pork"}
+              to={"/category?q=porks"}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Porks
             </Link>
             <Link
-              to={"/feed"}
+              to={"/category?q=animal+feeds"}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Animal Feeds
             </Link>
             <Link
-              to={"/livestock"}
+              to={"/category?q=livestock"}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Livestock

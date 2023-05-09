@@ -24,10 +24,10 @@ const NavLink = ({ setToggle }: Iprop) => {
                   setSubHeading("");
                   setToggle(link?.name === "Services" ? true : false);
                 }}
-                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full"
+                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full xxs:text-[#797979]"
               >
                 <span className="flex items-center gap-4 whitespace-nowrap">
-                  <span className="md:hidden">{link?.icon}</span>
+                  <span className="md:hidden text-[#797979]">{link?.icon}</span>
                   <span className="md:link md:link--metis whitespace-nowrap">
                     {link?.name}
                   </span>
@@ -49,9 +49,7 @@ const NavLink = ({ setToggle }: Iprop) => {
             {link.subMenu && (
               <div>
                 <div className="absolute top-[50px] hidden group-hover:md:block hover:md:block shadow-sm">
-                  {/* <div className="py-3">
-                    <div className="w-4 h-4 left-3 absolute mt-1 bg-[#F5F5F5] rotate-45"></div>
-                  </div> */}
+                 
                   <div className="bg-[#FFFFFF]  relative  border rounded-sm border-slate-300 p-1 w-40">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>

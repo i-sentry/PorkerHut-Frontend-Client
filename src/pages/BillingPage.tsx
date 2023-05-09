@@ -4,6 +4,7 @@ import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
+import AppLayout from "../components/utility/AppLayout";
 
 const BillingPage = () => {
   const navigate = useNavigate();
@@ -13,15 +14,13 @@ const BillingPage = () => {
   }, []);
 
   return (
-    <>
+    <AppLayout>
       <div className="  bg-[#F5F5F5] min-h-screen">
-        <nav className="mb-20">
-          <NavBar />
-        </nav>
+
 
         <div className=" bg-[#F5F5F5]">
           <div className="">
-            <div className="mx-12 py-6" >
+            <div className=" py-6" >
               <ProductsBreadCrumbs
                 items={[
                   {
@@ -41,8 +40,8 @@ const BillingPage = () => {
             </div>
           </div>
         </div>
-       
-        <div className="flex gap-8 mx-12 pb-10 relative">
+
+        <div className="md:flex gap-8 mx-12 pb-10 relative xxs:hidden">
           <div className=" w-2/3 bg-white px-6 flex flex-col gap-4 py-6 rounded-lg">
             <h1 className=" text-[20px] text-[#333333] font-semibold">
               Billing Information
@@ -162,8 +161,7 @@ const BillingPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
-    </>
+    </AppLayout>
   );
 };
 

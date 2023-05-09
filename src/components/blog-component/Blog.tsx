@@ -28,19 +28,20 @@ const Blog = () => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   useEffect(() => setData(getAllBlogs?.data?.data), [getAllBlogs?.data?.data]);
   return (
-    <section className="w-full md:h-[550px] xxs:h-[1600px] my-16">
-      <div>
-        <div className="flex justify-center items-center md:mx-10 xxs:mt-4">
-          <h1 className="font-normal tracking-tight md:text-3xl xxs:text-lg">
-            Latest Blogs
+    <section className="w-full  my-16">
+      <div className="mb-16">
+        <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
+          <h1 className="font-medium tracking-tight md:text-[40px] md:leading-[47px] xxs:text-lg text-[#333333]">
+            Latest Blogs & Articles
           </h1>
         </div>
-        <div className="flex items-center justify-center mb-6">
-          <div className=" block h-1 w-14 bg-[#197B30]"></div>
+
+        <div className="flex items-center justify-center ">
+          <div className="  h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
       <>
-        <div className="xxs:px-4 md:px-10 grid md:grid-cols-3 xxs:grid-cols-1 items-center  gap-6 ">
+        <div className="xxs:px-4 md:px-16 grid md:grid-cols-3 xxs:grid-cols-1 items-center  gap-12 ">
           {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
             (blog: any, index: any) => {
               return <BlogCard blog={blog} key={index} />;
@@ -51,9 +52,9 @@ const Blog = () => {
 
       <Link
         to="/blog"
-        className="my-10 flex items-center justify-center hover:text-[#197b30]"
+        className="my-16 flex items-center justify-center text-[#333333] hover:text-[#197b30]"
       >
-        <span className="text-sm mr-2 underline font-medium ">VIEW ALL</span>
+        <span className="text-[16px] leading-[19px] tracking-[0.08em] mr-2 underline font-medium ">VIEW ALL</span>
         <AiOutlineRight />
       </Link>
     </section>

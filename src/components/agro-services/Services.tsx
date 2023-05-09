@@ -5,12 +5,14 @@ let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {
   return (
-    <section className=" bg-[#F4F4F4]  md:w-full md:flex-wrap md:overflow-hidden   md:mb-20 xxs:mb-0 xxs:p-4 md:p-0">
-      <div className=" flex xxs:flex-col md:flex-row items-center justify-center xxs:py-0 md:py-10">
+    <section className=" bg-[#F4F4F4]   md:w-full md:flex-wrap md:overflow-hidden   md:mb-20 xxs:mb-0 xxs:p-4 md:p-0">
+      <div className=" flex xxs:flex-col md:flex-row items-center justify-center xxs:py-0 md:py-16">
         <div className="hidden md:block md:w-[45%] xxs:w-full bg-[#FFFFFF] py-10 px-10 z-10 md:mr-[-100px] xxs:mr-0 max-h-[400px]">
-          <h1 className="font-medium text-3xl pb-1">Agro Services</h1>
-          <div className="xxs:w-20 h-1 w-10 bg-[#197B30]"></div>
-          <p className="py-5 text-justify text-[#797979] tracking-tighter">
+          <h1 className="font-medium text-[40px] leading-[47px]  pb-2">
+            Agro Services
+          </h1>
+          <div className="xxs:w-20 h-1.5 w-10 bg-[#197B30]"></div>
+          <p className="py-5 text-justify text-[#797979] tracking-tighter font-normal text-[14px] leading-[24px] mb-4">
             Agro services play a crucial role in pork meat production and supply
             chain, which involves farrow-to-finish operations, genetics, feed
             formulation, animal health, and waste management services. These
@@ -23,7 +25,7 @@ const Services = () => {
           </p>
           <Link
             to="/services/agro-services"
-            className="py-3 px-5 bg-[#197B30] rounded text-white "
+            className="py-3 px-5 bg-[#197B30] text-[14px] leading-[24px] rounded text-white font-mediul"
           >
             Learn More
           </Link>
@@ -33,7 +35,7 @@ const Services = () => {
           <img
             src={backgroundweb}
             alt=""
-            className="bg-cover bg-center md:mb-[-50px] xxs:mb-0"
+            className="bg-cover bg-center object-cover w-full"
           />
           <div className="px-5 md:hidden xxs:block ">
             <div className="-translate-y-16  p-5 bg-white bg">

@@ -3,7 +3,12 @@ import classNames from "classnames";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import SearchLogo from "../../assets/images/SearchLogo.svg";
 import CartLogo from "../../assets/images/CartLogo.svg";
-import { AiOutlineDown, AiOutlineSearch, AiOutlineUp } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineDown,
+  AiOutlineSearch,
+  AiOutlineUp,
+} from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
 import { HamburgerMenuIcon } from "../../assets/icons";
 import {
@@ -13,11 +18,10 @@ import {
   IoMdHelpCircleOutline,
   IoMdMenu,
 } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
-import NavLink, { HelpLink } from "./NavLink";
+import { useNavigate } from "react-router-dom";
+import NavLink from "./NavLink";
 import NavButton from "./NavButton";
-import Ripples from "react-ripples";
-import { FiMenu } from "react-icons/fi";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { HiOutlineUserCircle } from "react-icons/hi";
@@ -28,16 +32,11 @@ import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import {
   MdCancelScheduleSend,
+  MdOutlinePerson,
   MdOutlineShoppingCart,
   MdSendAndArchive,
 } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
-
-// import { useAuth } from "../../context/AuthProvider";
-
-import Cookies from "js-cookie";
-
-import { selectUser } from "../../redux/features/user";
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -50,7 +49,7 @@ const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
-
+  const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
 
   const handleClickOutsideDropdown = (e: any) => {
@@ -101,13 +100,17 @@ const NavBar = () => {
             >
               {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
             </button>
-            <div className="flex items-center gap-2 cursor-pointer select-none">
+            <div
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 cursor-pointer select-none"
+            >
               <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
               <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
                 Porker Hut
               </h1>
             </div>
           </div>
+
           <div className="action-btns flex items-center  ml-auto  md:hidden">
             <div className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800">
               <AiOutlineSearch size={22} />
@@ -129,11 +132,27 @@ const NavBar = () => {
           </ul>
         </div>
 
-        <div className="md:flex  hidden gap-2">
-          <div className="action-btns flex gap-3 ml-auto mr-4 ">
-            <button className=" p-[6px] rounded w-8">
-              <img className="w-6" src={SearchLogo} alt="" />
-            </button>
+        <div className="md:flex  hidden gap-2 ">
+          <div className="action-btns flex gap-3  mr-4 ">
+            <div>
+              {showSearch ? (
+                <div
+                  className={`duration-500 ease-in-out  ${
+                    showSearch ? "  right-0" : " right-[-100%]"
+                  }`}
+                >
+                  <SearchBar setShowSearch={setShowSearch} />
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowSearch(true)}
+                  className=" p-[6px] rounded w-8"
+                >
+                  <img className="w-6" src={SearchLogo} alt="" />
+                </button>
+              )}
+            </div>
+
             <button
               className=" p-[6px] rounded w-8 relative"
               onClick={() => navigate("/my-cart")}
@@ -161,7 +180,7 @@ const NavBar = () => {
                 <Menu as="div" className="relative">
                   <Menu.Button className="flex items-center mt-2">
                     <HiOutlineUserCircle size={22} />
-                    <p className="pl-1 text-[#333333] text-sm">
+                    <p className="pl-1 text-[#333333] text-sm whitespace-nowrap">
                       {/* @ts-ignore */}
                       Hi, {user?.firstName}
                     </p>
@@ -338,23 +357,34 @@ const NavBar = () => {
         </div>
 
         {/* Mobile */}
-        <ul
-          className={`md:hidden bg-[#F5F5F5] fixed  top-[76px] w-full h-screen overflow-y-auto bottom-0 py-4 pl-4
-        duration-500  ${toggle ? "  left-0" : " left-[-100%]"}`}
-        >
-          {/* <li>
-            <Link to={""} className="py-7 px-3 inline-block">
-              Home
-            </Link>
-          </li> */}
-          <NavLink setToggle={setToggle} />
-          {/* <HelpLink/> */}
-          <div className="flex flex-col md:hidden gap-2 pr-4">
-            <NavButton className={loginBtn} text="Login" path="/login" />
-
-            <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
-          </div>
-        </ul>
+        <div className="relative">
+          <ul
+            className={`md:hidden fixed bg-[#F5F5F5] top-[75px] h-screen bottom-0 py-4 duration-500 px-2 overflow-auto ${
+              toggle ? "left-0 w-4/5" : "-left-full w-0"
+            }`}
+            style={{ overflowY: "auto" }}
+          >
+            <div className="flex items-center pl-5 my-7 gap-1">
+              <MdOutlinePerson size={24} color={"#197b30"} />
+              <span className="pl-1 text-[#333333] text-[18px] leading-[21px] font-normal whitespace-nowrap">
+                {/* @ts-ignore */}
+                Hi, {user?.firstName}
+              </span>
+            </div>
+            <NavLink setToggle={setToggle} />
+            {/* <HelpLink/> */}
+            <div className="flex flex-col md:hidden gap-2 pr-4 px-5">
+              <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
+              <NavButton className={loginBtn} text="Login" path="/login" />
+            </div>
+          </ul>
+          {toggle && (
+            <div
+              className="fixed top-20 right-0 w-[20%] h-full bg-black opacity-50 z-50"
+              onClick={() => setToggle(false)}
+            />
+          )}
+        </div>
       </nav>
     </div>
   );
@@ -367,3 +397,51 @@ const signUpBtn =
 
 const loginBtn =
   "border border-[#479559] text-sm md:py-2 xxs:py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";
+
+export const SearchBar = ({
+  setShowSearch,
+}: {
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchValue) {
+      const value = searchValue.replaceAll(" ", "+");
+      navigate(`/search?q=${value.toLocaleLowerCase()}`);
+    }
+  };
+
+  return (
+    <div className="h-8 flex justify-between items-center px-3">
+      <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
+        <div className="flex items-center min-w-full">
+          <label className="relative block my-8 w-[100%] mx-1">
+            <input
+              autoFocus
+              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl outline-none rounded-bl`}
+              placeholder="search here"
+              type="text"
+              name="search"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+            />
+          </label>
+          <div className="flex h-8 rounded-r items-center  bg-[#F4F4F4] py-3 px-2">
+     
+            <button>
+              <AiOutlineClose
+                onClick={() => setShowSearch(false)}
+                size="19px"
+              />
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};

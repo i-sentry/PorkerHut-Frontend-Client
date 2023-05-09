@@ -72,7 +72,7 @@ const About = () => {
       <div className="mt-24 md:p-6 xxs:px-3 xxs:pt-8 bg-[#F4F4F4] xxs:pb-20">
         <div className="md:max-w-[500px] md:mx-4">
           <h1 className=" mb-4 md:font-normal md:tracking-tight md:text-3xl xxs:font-bold">
-            Why choose Pokerhut?
+            Why choose Porkerhut?
           </h1>
           <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
             At Porkerhut, we are committed to providing the highest quality pork

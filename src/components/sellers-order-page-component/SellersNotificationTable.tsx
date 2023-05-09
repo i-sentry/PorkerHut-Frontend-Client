@@ -7,25 +7,25 @@ const SellersNotificationTable = () => {
         {
             id: 1,
             type: "Notification about new orders",
-            email: "pokerhut@gmail.com"
+            email: "porkerhut@gmail.com"
 
         },
         {
             id: 2,
             type: "Newsletter feeds",
-            email: "pokerhut@gmail.com"
+            email: "porkerhut@gmail.com"
 
         },
         {
             id: 3,
             type: "Order Summary Report",
-            email: "pokerhut@gmail.com"
+            email: "porkerhut@gmail.com"
 
         },
         {
             id: 4,
             type: "Failed Delivery Report",
-            email: "pokerhut@gmail.com"
+            email: "porkerhut@gmail.com"
 
         },
     ]
@@ -50,11 +50,11 @@ const SellersNotificationTable = () => {
                   </tr>
               </tbody>
           ))}
-          
+
       </table>
 
 
-      
+
   )
 }
 

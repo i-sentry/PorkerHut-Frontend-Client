@@ -72,17 +72,15 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
               Remove
             </span>
           </div>
-          <input
-            type="text"
+          <textarea
+            rows={4}
+            cols={50}
             id="order-notes"
             placeholder="Type here"
             className=" h-16 outline-none border rounded px-5 py-4 mt-2"
-          />
+          ></textarea>
         </div>
-        
       </div>
-
-  
     </div>
   );
 };

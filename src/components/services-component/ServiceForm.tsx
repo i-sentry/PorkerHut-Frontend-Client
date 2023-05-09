@@ -44,7 +44,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
     },
     {
       icon: <IoMail />,
-      text: "support@pokerhut.com",
+      text: "support@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
@@ -85,7 +85,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
                   })}
                 />
                 <p className="my-2 text-ErrorColor text-xs">
-                
+
                 </p>
               </div>
             ))}

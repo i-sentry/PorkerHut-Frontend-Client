@@ -19,11 +19,11 @@ const Home: React.FC = () => {
   const notify = () => toast("Here is your toast.");
   return (
     <AppLayout>
-      <div className="mb-20 overflow-hidden"></div>
-      <div className="bg-slate-400 gg">
+
+      <div className="bg-slate-400 h-[100%]">
         <Slider sliderImages={[]} />
       </div>
-      <div className="mt-8">
+      <div className="md:mt-24 xxs:mt-16 ">
         <Category data-aos="fade-up" />
         <Services />
         <Header />
