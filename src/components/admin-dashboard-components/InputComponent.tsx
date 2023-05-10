@@ -11,6 +11,7 @@ interface Props {
   required?: boolean;
   isDisabled?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  defaultValue?:string;
 }
 const InputComponent = ({
   label,
@@ -23,6 +24,7 @@ const InputComponent = ({
   name,
   isDisabled,
   onChange,
+  defaultValue,
 }: Props) => {
   return (
     <div>
@@ -39,6 +41,7 @@ const InputComponent = ({
         required={required ? required : false}
         onChange={onChange}
         disabled={isDisabled}
+        defaultValue={defaultValue}
       />
       {/* </div> */}
     </div>
