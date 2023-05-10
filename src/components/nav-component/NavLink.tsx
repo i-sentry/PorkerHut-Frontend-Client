@@ -176,7 +176,7 @@ export const HelpLink = () => {
                               to={s?.link}
                               className="link link--metis hover:text-[#197B30]"
                             >
-                              {s?.name}
+                              {s?.name}yar
                             </Link>
                           </li>
                         ))}
