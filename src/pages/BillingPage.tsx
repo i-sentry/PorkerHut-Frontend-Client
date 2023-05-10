@@ -50,6 +50,7 @@ const BillingPage = () => {
 
   const onSubmit = (data: UserBillingInfo) => {
     console.log(JSON.stringify(data, null, 2));
+    reset()
   };
   const navigate = useNavigate();
 
@@ -59,33 +60,29 @@ const BillingPage = () => {
 
   return (
     <AppLayout>
-      <div className="  bg-[#F5F5F5] min-h-screen mt-20">
-
-
-            <div className=" ">
-              <ProductsBreadCrumbs
-                items={[
-                  {
-                    name: "Home",
-                    link: "/",
-                  },
-                  {
-                    name: "Cart",
-                    link: "/my-cart",
-                  },
-                  {
-                    name: "Checkout",
-                    link: "/billing",
-                  },
-                ]}
-              />
-            </div>
-
+      <div className="  bg-[#F5F5F5] min-h-screen my-20 px-12">
+        <div className=" py-6 ">
+          <ProductsBreadCrumbs
+            items={[
+              {
+                name: "Home",
+                link: "/",
+              },
+              {
+                name: "Cart",
+                link: "/my-cart",
+              },
+              {
+                name: "Checkout",
+                link: "/billing",
+              },
+            ]}
+          />
         </div>
 
-        <div className="md:flex gap-8 mx-12 pb-10 relative xxs:hidden">
+        <div className="md:flex gap-8  pb-10 relative xxs:hidden">
           <div className=" w-2/3 bg-white px-6 flex flex-col gap-4 py-6 rounded-lg">
-            <h1 className=" text-[20px] text-[#333333] font-semibold">
+            <h1 className=" text-[24px] leading-[28px] text-[#333333] font-medium">
               Billing Information
             </h1>
             <form onSubmit={handleSubmit(onSubmit)}>

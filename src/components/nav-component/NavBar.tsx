@@ -37,6 +37,7 @@ import {
   MdSendAndArchive,
 } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
+import { ISearch, useSearchStore } from "../../store/showSearch";
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -49,9 +50,10 @@ const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
-  const [showSearch, setShowSearch] = useState(false);
+  // const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
-
+  const showSearch = useSearchStore((state) => state.showSearch);
+  const setShowSearch = useSearchStore((state) => state.setShowSearch);
   const handleClickOutsideDropdown = (e: any) => {
     if (open && dropdownRef.current?.contains(e.target as Node)) {
       setOpen(true);
@@ -112,7 +114,10 @@ const NavBar = () => {
           </div>
 
           <div className="action-btns flex items-center  ml-auto  md:hidden">
-            <div className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800">
+            <div
+              onClick={() => setShowSearch((prev: any) => !prev)}
+              className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+            >
               <AiOutlineSearch size={22} />
             </div>
             <div
@@ -403,10 +408,10 @@ const signUpBtn =
 const loginBtn =
   "border border-[#479559] text-sm md:py-2 xxs:py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";
 
-export const SearchBar = ({
+const SearchBar = ({
   setShowSearch,
 }: {
-  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowSearch: (shouldShowSearch: any) => void;
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
@@ -423,7 +428,7 @@ export const SearchBar = ({
     <div className="h-8 flex justify-between items-center px-3">
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
         <div className="flex items-center min-w-full">
-          <label className="relative block my-8 w-[100%] mx-1">
+          <label className="relative block my-8 w-[100%] md:mx-1 ">
             <input
               autoFocus
               className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl outline-none rounded-bl`}
@@ -437,7 +442,6 @@ export const SearchBar = ({
             />
           </label>
           <div className="flex h-8 rounded-r items-center  bg-[#F4F4F4] py-3 px-2">
-
             <button>
               <AiOutlineClose
                 onClick={() => setShowSearch(false)}
@@ -450,9 +454,3 @@ export const SearchBar = ({
     </div>
   );
 };
-
-
-
-
-
-

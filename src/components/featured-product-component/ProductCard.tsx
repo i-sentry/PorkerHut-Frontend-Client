@@ -45,8 +45,8 @@ const ProductCard = ({ item }: ProductLocationState) => {
           onClick={handleClick}
           className=" flex items-center justify-center absolute w-full xxs:h-12 md:h-14 bg-[#197B30] xxs:bottom-0 md:bottom-[-72px] md:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
         >
-          <span className="text-white  xxs:text-sm rounded-b-md">
-            ADD TO CART
+          <span className="text-white  xxs:text-[11px] xxs:leading-[14px] rounded-b-md font-normal">
+            Add to cart
           </span>
         </div>
       </div>
@@ -62,7 +62,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
         <div className="flex items-center justify-between py-1">
           <h1
             onClick={handleCardClick}
-            className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer md:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-sm"
+            className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer md:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
           >
             {item?.product?.productName}
           </h1>

@@ -40,7 +40,7 @@ const Category = () => {
     <div className=" xxs:p-3 md:p-0 ">
       <div>
         <div className="flex justify-center items-center ">
-          <h1 className="font-medium tracking-tight xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-[47px] text-[#333333]">
+          <h1 className="font-medium  xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-[47px] text-[#333333]">
             Shop by Categories
           </h1>
         </div>

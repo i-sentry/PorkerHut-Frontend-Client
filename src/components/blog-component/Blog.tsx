@@ -31,7 +31,7 @@ const Blog = () => {
     <section className="w-full  my-16">
       <div className="mb-16">
         <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
-          <h1 className="font-medium tracking-tight md:text-[40px] md:leading-[47px] xxs:text-lg text-[#333333]">
+          <h1 className="font-medium tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[20px] text-[#333333] xxs:leading-[23px]">
             Latest Blogs & Articles
           </h1>
         </div>

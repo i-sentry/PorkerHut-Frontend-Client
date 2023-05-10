@@ -20,7 +20,7 @@ const Story = () => {
   return (
     <div className=" md:mt-10  xxs:pb-4">
       <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
-        <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-lg text-[#333333]">
+        <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
           How We Are Different
         </h1>
       </div>
@@ -112,7 +112,7 @@ export const TruncatedText: React.FC<TruncatedTextProps> = ({
             className="text-[#7ff39a] text-sm cursor-pointer hover:opacity-100"
           >
             {" "}
-            {isTruncated ? " See More " : " See Less "}
+            {isTruncated ? " See More " : ""}
           </span>
         )}
       </p>

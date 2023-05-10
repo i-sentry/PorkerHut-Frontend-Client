@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import BtnSlider from "./BtnSlider";
 import { useNavigate } from "react-router-dom";
-import { SearchBar } from "../nav-component/NavBar";
+
+import { AiOutlineClose } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
+import { ISearch, useSearchStore } from "../../store/showSearch";
 
 interface SliderProps {
   sliderImages: never[];
@@ -27,6 +30,8 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   ];
 
   const [slideIndex, setSlideIndex] = useState(1);
+  const showSearch = useSearchStore((state) => state.showSearch);
+  const setShowSearch = useSearchStore((state) => state.setShowSearch);
 
   const nextSlide = () => {
     if (slideIndex !== dataSlider.length) {
@@ -57,7 +62,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative  ">
       <div className=" w-full xxs:h-[85vh] md:h-[95vh] overflow-hidden">
         {dataSlider.map((obj, index) => {
           return (
@@ -85,11 +90,9 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           direction={"prev"}
           customClass="top-1/2 right-20 transform -translate-y-1/2"
         />
-
-        <div>
-          <SearchBar setShowSearch={()=>{}} />
-        </div>
       </div>
+     
+
       <div className=" absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
         {dataSlider.map((_, index) => (
           <div
@@ -145,5 +148,62 @@ const OverLay = () => {
         </div>
       </div>
     </>
+  );
+};
+
+export const SearchBar = ({
+  setShowSearch,
+}: {
+  setShowSearch: (shouldShowSearch: any) => void;
+}) => {
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchValue) {
+      const value = searchValue.replaceAll(" ", "+");
+      navigate(`/search?q=${value.toLocaleLowerCase()}`);
+    }
+  };
+
+  function handleClearClick() {
+    setSearchValue("");
+  }
+
+  function handleBlur() {
+    if (searchValue === "") {
+      handleClearClick();
+    }
+  }
+
+  return (
+    <div className="h-8 flex justify-between items-center bg-red-400 ">
+      <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
+        <div className="flex items-center min-w-full ">
+          <label className="flex relative">
+            <input
+              autoFocus
+              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-[366px] border-0  py-4  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-[12px] placeholder:leading-[14px] placeholder:font-normal rounded outline-none `}
+              placeholder="search"
+              type="type"
+              name="search"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              onBlur={handleBlur}
+            />
+
+            <button
+              className=" absolute font-bold right-1 top-[25%] text-[#A2A2A2]"
+              onClick={() => setShowSearch(false)}
+            >
+              <IoClose size={22} />
+            </button>
+          </label>
+        </div>
+      </form>
+    </div>
   );
 };

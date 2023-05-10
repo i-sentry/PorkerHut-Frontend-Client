@@ -25,7 +25,7 @@ const Services = () => {
           </p>
           <Link
             to="/services/agro-services"
-            className="py-3 px-5 bg-[#197B30] text-[14px] leading-[24px] rounded text-white font-mediul"
+            className="py-3 px-5 bg-[#197B30] text-[14px] leading-[24px] rounded text-white font-medium"
           >
             Learn More
           </Link>
@@ -37,11 +37,13 @@ const Services = () => {
             alt=""
             className="bg-cover bg-center object-cover w-full"
           />
-          <div className="px-5 md:hidden xxs:block ">
-            <div className="-translate-y-16  p-5 bg-white bg">
-              <h1 className="font-medium text-lg pb-1">Agro Services</h1>
-              <div className="xxs:w-20 h-1 w-10 bg-[#197B30]"></div>
-              <p className="py-5 text-justify text-[#797979] tracking-tighter">
+
+            <div className=" mx-5 md:hidden xxs:block -translate-y-24  p-8 bg-white bg">
+              <h1 className="font-medium text-[18px] leading-[21px] ">
+                Agro Services
+              </h1>
+              <div className="xxs:w-20 h-1.5 w-10 bg-[#197B30] my-3"></div>
+              <p className="pb-10 text-justify text-[#797979] leading-[24px] ">
                 Agro services play a crucial role in pork meat production and
                 supply chain, which involves farrow-to-finish operations,
                 genetics, feed formulation, animal health, and waste management
@@ -52,12 +54,12 @@ const Services = () => {
 
               <Link
                 to="/services/agro-services"
-                className="py-3 px-5 bg-[#197B30] rounded text-white "
+                className="py-3 px-6 bg-[#197B30] rounded text-white shadow text-[14px] leading-[24px] font-medium"
               >
                 Learn More
               </Link>
             </div>
-          </div>
+
         </div>
       </div>
     </section>

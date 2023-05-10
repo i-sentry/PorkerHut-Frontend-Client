@@ -14,14 +14,14 @@ const ProductBreadCrumb = ({ items }: BreadCrumbType) => {
         index !== items.length - 1 ? (
           <div
             key={index}
-            className="flex items-center  gap-x-2 rounded-none text-black text-lg"
+            className="flex items-center  gap-x-3 rounded-none  "
           >
             <div
               key={index}
-              className="flex items-center gap-x-1 rounded-none  text-sm  text-[#BDBDBD]"
+              className="flex items-center gap-x-2 rounded-none    text-[#BDBDBD]"
             >
               <Link to={item.link}>
-                <button className="capitalize rounded-none hover:text-[#197b30] font-light py-2">
+                <button className="capitalize rounded-none hover:text-[#197b30] font-normal text-[16px] leading-[24px] py-2">
                   {item.name}
                 </button>
               </Link>
@@ -31,7 +31,7 @@ const ProductBreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <button
             key={index}
-            className="text-[#333333] hover:text-[#197b30]  py-2 rounded-md capitalize text-sm ">
+            className="text-[#333333] hover:text-[#197b30]  py-2 rounded-md capitalize text-[16px] leading-[24px] ">
             {item.name}
           </button>
         )

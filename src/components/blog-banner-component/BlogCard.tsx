@@ -31,18 +31,18 @@ const {
             alt=""
           />
         </Link>
-        <p className=" pt-2 font-normal text-[#333333] text-[14px] leading-[16px] px-2">
+        <p className=" pt-2 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] text-[14px] leading-[16px] px-2">
           {formattedDate}
         </p>
         <div className="py-2 px-2">
           <Link to="#">
-            <h1 className=" text-[22px] leading-[28px] font-medium  text-[#333333] whitespace-pre-line">
+            <h1 className=" text-[24px] leading-[26px] font-medium  text-[#333333] whitespace-pre-line">
               {title}
             </h1>
             <p>({minutes} min read)</p>
           </Link>
 
-          <p className="mb-3 font-normal text-[#797979] text-left text-[16px] leading-[19px] tracking-[0.04em] my-3">
+          <p className="mb-3 font-normal text-[#797979] text-left text-[16px] leading-[19px] tracking-[0.04em] my-3 xxs:text-[14px] xxs:leading-[16px]">
             {truncatedString}
           </p>
           <Link
