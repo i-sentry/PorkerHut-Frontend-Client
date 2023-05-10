@@ -153,7 +153,7 @@ const BillingPage = () => {
               </div>
             </div>
           </div>
-          <div className=" w-1/3 static h-full top-28 overscroll-y-auto">
+          <div className=" w-1/3">
             <OrderCart />
           </div>
         </div>
