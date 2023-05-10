@@ -16,11 +16,9 @@ const BillingPage = () => {
   return (
     <AppLayout>
       <div className="  bg-[#F5F5F5] min-h-screen">
-
-
         <div className=" bg-[#F5F5F5]">
           <div className="">
-            <div className=" py-6" >
+            <div className=" py-6">
               <ProductsBreadCrumbs
                 items={[
                   {
@@ -48,10 +46,7 @@ const BillingPage = () => {
             </h1>
             <div className="flex gap-6">
               <div className=" w-full">
-                <label
-                  className=" text-[#333333] text-[14px] block"
-                  htmlFor=""
-                >
+                <label className=" text-[#333333] text-[14px] block" htmlFor="">
                   First Name
                 </label>
                 <input
@@ -130,7 +125,9 @@ const BillingPage = () => {
               />
             </div>
             <div className=" ">
-              <h1 className=" text-[#333333] text-[14px] mb-1">City/Town/Street</h1>
+              <h1 className=" text-[#333333] text-[14px] mb-1">
+                City/Town/Street
+              </h1>
               <input
                 type="text"
                 name=""
