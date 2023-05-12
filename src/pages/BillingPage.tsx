@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/nav-component/NavBar";
 import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
@@ -8,6 +8,13 @@ import AppLayout from "../components/utility/AppLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
 
 type UserBillingInfo = {
   firstname: string;
@@ -17,9 +24,13 @@ type UserBillingInfo = {
   address: string;
   state: string;
   city: string;
+  country: string;
 };
 
 const BillingPage = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required("First Name is required"),
     lastname: Yup.string()
@@ -31,7 +42,8 @@ const BillingPage = () => {
 
     state: Yup.string().required("State is required"),
 
-    city: Yup.string().required("State is required"),
+    city: Yup.string().required("City is required"),
+    country: Yup.string().required("Country is required"),
 
     phonenumber: Yup.string()
       .required("Valid Phone Number is required")
@@ -47,10 +59,23 @@ const BillingPage = () => {
   } = useForm<UserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
+  console.log(phoneNumber);
+  console.log(state);
+  console.log(country);
+
+
+
+
+
+console.log({errors});
+
 
   const onSubmit = (data: UserBillingInfo) => {
+    data.phonenumber = phoneNumber;
+    data.country = country;
+    data.state = state;
     console.log(JSON.stringify(data, null, 2));
-    reset()
+    reset();
   };
   const navigate = useNavigate();
 
@@ -60,8 +85,8 @@ const BillingPage = () => {
 
   return (
     <AppLayout>
-      <div className="  bg-[#F5F5F5] min-h-screen my-20 px-12">
-        <div className=" py-6 ">
+      <div className="  bg-[#F5F5F5] min-h-screen my-20 md:px-12 xxs:px-4">
+        <div className=" md:py-6 xxs:pt-4 xxs:pb-6">
           <ProductsBreadCrumbs
             items={[
               {
@@ -73,23 +98,23 @@ const BillingPage = () => {
                 link: "/my-cart",
               },
               {
-                name: "Checkout",
+                name: "Billing",
                 link: "/billing",
               },
             ]}
           />
         </div>
 
-        <div className="md:flex gap-8  pb-10 relative xxs:hidden">
-          <div className=" w-2/3 bg-white px-6 flex flex-col gap-4 py-6 rounded-lg">
-            <h1 className=" text-[24px] leading-[28px] text-[#333333] font-medium">
+        <div className="flex gap-8  pb-10 relative ">
+          <div className=" md:w-2/3 xxs:w-full bg-white px-6 flex flex-col gap-4 py-6 rounded-md">
+            <h1 className=" md:text-[24px] md:leading-[28px] text-[#333333] font-medium xxs:text-[18px] xxs:leading-[21px] mb-4">
               Billing Information
             </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex gap-6">
-                <div className=" w-full">
+              <div className="md:flex xxs:block gap-6">
+                <div className=" w-full ">
                   <label
-                    className=" text-[#333333] text-[14px] block"
+                    className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
                     htmlFor=""
                   >
                     First Name
@@ -98,7 +123,7 @@ const BillingPage = () => {
                     type="text"
                     {...register("firstname")}
                     placeholder="Enter Your First Name"
-                    className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                    className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
                       errors.firstname ? "border-[#dd1313]" : ""
                     }`}
                   />
@@ -107,9 +132,9 @@ const BillingPage = () => {
                   </div>
                 </div>
 
-                <div className="w-full">
+                <div className="w-full xxs:mt-3 md:mt-0">
                   <label
-                    className=" text-[#333333] text-[14px]  block"
+                    className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
                     htmlFor=""
                   >
                     Last Name
@@ -118,7 +143,7 @@ const BillingPage = () => {
                     type="text"
                     {...register("lastname")}
                     placeholder="Enter Your Last Name"
-                    className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                    className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
                       errors.lastname ? "border-[#dd1313]" : ""
                     }`}
                   />
@@ -127,15 +152,18 @@ const BillingPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" input my-2 ">
-                <label className=" text-[#333333] text-[14px] mb-1" htmlFor="">
+              <div className=" input my-3 ">
+                <label
+                  className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                  htmlFor=""
+                >
                   Email Address
                 </label>
                 <input
                   type="text"
                   {...register("email")}
-                  placeholder="Enter Your First Email Address"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  placeholder="Enter Your Email Address"
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.email ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -143,35 +171,45 @@ const BillingPage = () => {
                   {errors.email?.message}
                 </div>
               </div>
-              <div className="mb-2 input">
-                <label className=" text-[#333333] text-[14px] mb-1" htmlFor="">
+
+              <div className="mb-3 input">
+                <label
+                  className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                  htmlFor="phonenumber"
+                >
                   Phone Number
                 </label>
-                <input
-                  type="text"
-                  {...register("phonenumber")}
-                  placeholder="+234-555-666-6669"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                    errors.phonenumber ? "border-[#dd1313]" : ""
-                  }`}
+                <PhoneInput
+                  country={"ng"}
+                  value={phoneNumber}
+                  // {...register("phonenumber")}
+                  onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                  inputProps={{
+                    name: "phonenumber",
+
+                    id: "phonenumber",
+                    className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                      errors.phonenumber ? "border-[#dd1313]" : ""
+                    }`,
+                  }}
                 />
                 <div className="text-[#dd1313] text-sm">
                   {errors.phonenumber?.message}
                 </div>
               </div>
 
-              <h1 className=" text-[20px] text-[#333333] font-semibold lg:hidden">
-                Delivery Information
-              </h1>
-              <div className="mb-2">
-                <label className=" text-[#333333] text-[14px] mb-1" htmlFor="">
+              <div className="mb-3">
+                <label
+                  className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                  htmlFor=""
+                >
                   Address
                 </label>
                 <input
                   type="text"
                   {...register("address")}
                   placeholder="Enter Delivery Address"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.address ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -179,13 +217,47 @@ const BillingPage = () => {
                   {errors.address?.message}
                 </div>
               </div>
-              <div className="mb-2 input">
-                <h1 className=" text-[#333333] text-[14px] mb-1">State</h1>
-                <input
-                  type="text"
-                  {...register("state")}
-                  placeholder="Enter State"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+
+              <div className="mb-3 input">
+                <label
+                  className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                  htmlFor="country"
+                >
+                  Country
+                </label>
+                <CountryDropdown
+                  id="country"
+                  value={country}
+                  // style={{
+                  //   backgroundColor: "blue",
+                  //   color: "white",
+                  //   fontSize: 20,
+                  //   borderColor:
+                  // }}
+                  onChange={(val) => setCountry(val)}
+                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                    errors.country ? "border-[#dd1313]" : ""
+                  }`}
+                />
+                <div className="text-[#dd1313] text-sm">
+                  {errors.country?.message}
+                </div>
+              </div>
+              <div className="mb-3 input">
+                <label
+                  className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                  htmlFor="state"
+                >
+                  State
+                </label>
+                <RegionDropdown
+                  blankOptionLabel=""
+                  defaultOptionLabel="Select State"
+                  id="state"
+                  country={country}
+                  value={state}
+                  onChange={(val) => setState(val)}
+                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.state ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -193,15 +265,16 @@ const BillingPage = () => {
                   {errors.state?.message}
                 </div>
               </div>
-              <div className=" mb-2">
-                <h1 className=" text-[#333333] text-[14px] mb-1">
+
+              <div className=" mb-3">
+                <h1 className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1">
                   City/Town/Street
                 </h1>
                 <input
                   type="text"
                   {...register("city")}
                   placeholder="Enter City/Town/Street"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder-text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.city ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -210,16 +283,19 @@ const BillingPage = () => {
                 </div>
               </div>
 
-              <div className=" text-center lg:bg-white rounded-md lg:rounded-t-none p-4 flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
+              <div className="xxs:hidden text-center lg:bg-white rounded-md lg:rounded-t-none md:py-4 xxs:py-10 md:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
                 <div className="">
-                  <button className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
+                  <button
+                    onClick={() => navigate("/products")}
+                    className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                  >
                     Continue to Shopping
                   </button>
                 </div>
                 <div>
                   <button
                     type="submit"
-                    className=" border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                    className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
                     // onClick={() => navigate("/pay-card")}
                   >
                     Proceed to Payments
@@ -228,8 +304,27 @@ const BillingPage = () => {
               </div>
             </form>
           </div>
-          <div className=" w-1/3">
+          <div className="md:block xxs:hidden w-1/3">
             <OrderCart />
+          </div>
+        </div>
+        <div className="md:hidden text-center lg:bg-white rounded-md lg:rounded-t-none md:py-4 xxs:pb-10 xxs:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 ">
+          <div>
+            <button
+              type="submit"
+              className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              // onClick={() => navigate("/pay-card")}
+            >
+              Proceed to Payments
+            </button>
+          </div>
+          <div className="">
+            <button
+              onClick={() => navigate("/products")}
+              className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+            >
+              Continue to Shopping
+            </button>
           </div>
         </div>
       </div>

@@ -146,7 +146,7 @@ const CartPage = () => {
                 </div>
 
 
-              
+
               </div>
 
               <div>
@@ -175,10 +175,10 @@ const CartPage = () => {
                   </div>
                 ))}
               </div>
-              
+
               </div>
-             
-              
+
+
               <div className="more-items bg-white md:mt-16 xxs:mt-0 p-4">
                 <h1 className="text-[18px] text-[#333333] font-semibold py-6 md:hidden">
                   Shop More Items

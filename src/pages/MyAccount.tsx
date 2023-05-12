@@ -47,29 +47,33 @@ const MyAccount = () => {
       <div className="mb-16 mt-32">
         <div className="">
           <div className="flex justify-center items-center ">
-            <h1 className="md:font-normal xxs:font-bold tracking-tight xxs:text-2xl  md:text-3xl">
+            <h1 className="font-medium xxs:leading-[23px]  md:leading-[47px] xxs:text-[20px]  md:text-[40px]">
               Account Overview
             </h1>
           </div>
           <div className="flex items-center justify-center sm:mb-[3rem]">
-            <div className=" block h-1 w-20 bg-[#197B30]"></div>
+            <div className=" block h-1.5 w-20 bg-[#197B30] mt-1"></div>
           </div>
         </div>
         <div className="bg-[#F4F4F4] md:w-[600px] md:mx-auto md:py-4 xxs:py-4 xxs:mt-10 md:mt-0  md:px-10 xxs:px-4 xxs:mx-3  rounded">
           <div className=" xxs:hidden md:flex">
             <div className="">
-              <h1 className="text-2xl font-medium ">Default Information</h1>
-              <span className="text-[#A2A2A2] font-normal text-sm">
+              <h1 className="text-[24px] leading-[28px] font-medium ">
+                Default Information
+              </h1>
+              <span className="text-[#A2A2A2] font-normal text-[14px] leading-[24px]">
                 This contain the information that was filled by you.
               </span>
             </div>
           </div>
           <div className="">
             <div className="">
-              { user && (
-                <div className="flex-1">
+              {user && (
+                <form className="flex-1">
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Account Name*</p>
+                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                      Account Name*
+                    </p>
                     <div className="flex-[2]">
                       <InputComponent
                         placeholder="John Doe"
@@ -81,7 +85,9 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Email Address</p>
+                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                      Email Address
+                    </p>
                     <div className="flex-[2]">
                       <InputComponent
                         placeholder="johndoe@hotmail.com"
@@ -92,7 +98,9 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#6b6e72]">Phone Number</p>
+                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                      Phone Number
+                    </p>
                     <div className="flex-[2] relative">
                       <InputComponent
                         placeholder="johndoe@hotmail.com"
@@ -111,7 +119,9 @@ const MyAccount = () => {
                   </div>
 
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Shipping Address</p>
+                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                      Shipping Address
+                    </p>
                     <div className="flex-[2] relative">
                       <InputComponent
                         placeholder="Plot 145, Ikeja, Lagos Island, Lagos State"
@@ -129,15 +139,24 @@ const MyAccount = () => {
                       )}
                     </div>
                   </div>
-                  <div className="flex md:justify-end xxs:justify-start xxs:gap-3 md:gap-0 py-5 mt-2">
-                    <button className="mr-2 w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-light ">
+                  {/* <div className="flex md:justify-end xxs:justify-start xxs:gap-3 md:gap-0 py-5 mt-2">
+                    <button className="mr-2 w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px] ">
                       Cancel
                     </button>
-                    <button className="w-36 h-12 text-sm font-light bg-[#197B30] text-white rounded">
+                    <button className="w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded">
+                      Save
+                    </button>
+                  </div> */}
+
+                  <div className="flex md:justify-end xxs:justify-start gap-3  py-5 mt-2">
+                    <button className="flex-shrink-0  xxs:flex-grow md:flex-grow-0  w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px]">
+                      Cancel
+                    </button>
+                    <button className=" xxs:flex-grow md:flex-grow-0 w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded">
                       Save
                     </button>
                   </div>
-                </div>
+                </form>
               )}
             </div>
           </div>
