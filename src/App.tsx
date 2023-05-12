@@ -126,7 +126,7 @@ const router = createBrowserRouter(
       <Route path="/services/agro-services" element={<AgroServices />} />
 
       <Route path="/vendor" element={<SellerLayout />}>
-        <Route path="/vendor/home" element={<SellersHome />} />
+        <Route path="/vendor/home" element={<SellersHome sliderImages={[]} />} />
         <Route path="/vendor/order" element={<SellersOrderPage />} />
         <Route path="/vendor/product" element={<SellersProductPage />} />
         <Route
