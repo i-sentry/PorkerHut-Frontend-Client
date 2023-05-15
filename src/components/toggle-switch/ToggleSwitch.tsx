@@ -26,14 +26,14 @@ function ToggleSwitch() {
         >
           {/* Text */}
           <span
-            className={`absolute inset-0 flex items-center justify-center text-xs text-white ${
+            className={`absolute inset-0 flex items-center justify-center text-[16px] leading-[19px] font-normal text-white ${
               toggle ? "opacity-0 bg-[#22c55e]" : "opacity-100"
             }`}
           >
             ON
           </span>
           <span
-            className={`absolute inset-0 text-xs flex items-center justify-center text-white ${
+            className={`absolute inset-0 text-[16px] leading-[19px] font-normal flex items-center justify-center text-white ${
               toggle ? "opacity-100" : "opacity-0"
             }`}
           >

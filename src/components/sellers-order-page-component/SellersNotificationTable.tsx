@@ -31,20 +31,20 @@ const SellersNotificationTable = () => {
     ]
 
   return (
-      <table className="bg-white">
+      <table className="bg-white rounded mb-10">
           <thead className="">
               <tr className='border-b border-gray-300 py-3'>
-                  <th className="font-normal text-base py-3">Type</th>
-                  <th className="font-normal text-base">Email</th>
-                  <th className="font-normal text-base">Status</th>
+                  <th className="font-normal text-[16px] leading-[19px] py-3">Type</th>
+                  <th className="font-normal text-[16px] leading-[19px]">Email</th>
+                  <th className="font-normal text-[16px] leading-[19px]">Status</th>
               </tr>
           </thead>
           {data.map(item => (
               <tbody key={item.id} >
                   <tr className=' border-b border border-gray-300 '>
-                      <td className="text-sm font-normal px-12 py-3 border-r border-gray-300">{ item.type}</td>
-                      <td className="text-sm font-normal px-12 py-3">{ item.email}</td>
-                      <td className="text-sm font-normal px-12 py-3">
+                      <td className="text-[14px] leading-[16px] font-normal px-8 py-3 border-r border-gray-300">{ item.type}</td>
+                      <td className="text-[14px] leading-[16px] font-normal px-8 py-3 border-r border-gray-300">{ item.email}</td>
+                      <td className="text-[14px] leading-[16px] font-normal px-8 py-3">
                           <ToggleSwitch />
                       </td>
                   </tr>

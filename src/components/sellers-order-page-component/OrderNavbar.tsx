@@ -24,7 +24,7 @@ const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
           className="md:hidden"
         />
         <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-        <h1 className="porker md:text-xl xxs:text-lg font-bold text-[#197B30]  font-Roboto-slab select-none">
+        <h1 className="porker md:text-[20px]  xxs:text-lg  leading-[53px] text-[#197B30]  font-Roboto-slab select-none">
           Porker Hut
         </h1>
       </div>
@@ -54,7 +54,7 @@ const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
                     }}
                   ></div>
                   <div className="md:flex md:flex-col md:gap-1 xxs:hidden">
-                    <span className="text-base font-semibold leading-4">
+                    <span className="text-base font-bold leading-4">
                       John Doe
                     </span>
                     <span className="text-xs font-light">Administrator</span>
