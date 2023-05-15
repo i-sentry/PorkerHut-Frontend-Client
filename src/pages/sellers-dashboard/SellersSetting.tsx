@@ -77,7 +77,7 @@ function SettingssTab() {
 
   return (
     <>
-      <div className=" flex h-[1400px] flex-col justify-center md:block xxs:hidden ">
+      <div className=" flex mb-32 flex-col justify-center md:block xxs:hidden ">
       <div className="flex  flex-col gap-2 mb-8">
           <h1 className="text-[36px] leading-[42px] font-medium">Settings</h1>
           <span className="text-[#A2A2A2] text-[16px] leading-[18.75px] font-normal">
