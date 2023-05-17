@@ -63,12 +63,7 @@ const BillingPage = () => {
   console.log(state);
   console.log(country);
 
-
-
-
-
-console.log({errors});
-
+  console.log({ errors });
 
   const onSubmit = (data: UserBillingInfo) => {
     data.phonenumber = phoneNumber;

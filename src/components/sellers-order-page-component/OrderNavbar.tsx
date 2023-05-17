@@ -4,30 +4,85 @@ import {
   HiOutlineSearch,
   HiOutlineChatAlt,
 } from "react-icons/hi";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { ORDER_DASHBOARD_SIDEBAR_LINKS } from "../../utils/Navigation";
 import classNames from "classnames";
 
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
+import { MdOutlineClose } from "react-icons/md";
 
-const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
+interface Iprop {
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  item: any;
+}
+
+const linkClass =
+  "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-4 md:py-4 xxs:py-6 hover:text-[#197b30]";
+
+const OrderNavbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+  const [showCloseMenu, setShowCloseMenu] = useState(false);
+
+  const handleClose = () => {
+    setShowCloseMenu(false)
+  };
+  
 
   return (
-    <div className="bg-white border border-[#D9D9D9] h-16 w-full px-4 flex items-center justify-between">
+    <div className=" border border-[#D9D9D9] h-16 w-full px-4 flex items-center justify-between">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
-        <FaBars
-          size={30}
-          onClick={() => setSidebar(!sidebar)}
-          className="md:hidden"
-        />
+        <div>
+          {showCloseMenu ? (
+            <MdOutlineClose
+              size={20}
+              onClick={handleClose}
+              className="text-3xl text-textGreen cursor-pointer text-[#323232] "
+            />
+          ) : (
+            <FaBars
+              size={20}
+              onClick={() => setShowCloseMenu(true)}
+              className="md:hidden"
+            />
+          )}
+          
+        </div>
+
         <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
         <h1 className="porker md:text-[20px]  xxs:text-lg  leading-[53px] text-[#197B30]  font-Roboto-slab select-none">
           Porker Hut
         </h1>
       </div>
+
+      {showCloseMenu && (
+            <div className="absolute md:hidden top-0 left-0 w-full h-screen flex flex-col items-start">
+              <div className="w-[80%] h-full bg-[#FFFFFF] mt-20  relative transition-all duration-100">
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        {ORDER_DASHBOARD_SIDEBAR_LINKS.map((item: any) => (
+                          <SidebarLink
+                            key={item.key}
+                            item={item}
+                            setToggle={() => setShowMenu(false)}
+                            setShowMenu={setShowMenu}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+
       <div className="flex items-center justify-between gap-20">
         <div className="md:relative md:flex md:items-center md:justify-center xxs:hidden">
           <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 left-[352px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
@@ -124,3 +179,66 @@ const  OrderNavbar = ({ setSidebar, sidebar }: any) => {
 };
 
 export default OrderNavbar;
+
+function SidebarLink({ item, setToggle, setShowMenu }: Iprop) {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = useLocation();
+
+  const toggleSubMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
+  const SidebarLinkContent = () => (
+    <div className="px-4 flex gap-4 items-center">
+      <span className="text-[16px] font-semibold text-[#A2A2A2]">
+        {item.icon}
+      </span>
+      <span className="text-[16px] leading-[19px] font-medium text-[#A2A2A2]">
+        {item.label}
+      </span>
+      <span>{item.icon_two}</span>
+    </div>
+  );
+
+  const SubMenu = React.memo(() => (
+    <div className="pl-12 py-2 relative">
+      {item.subLinks[0].subLink.map((subItem: any) => (
+        <Link
+          onClick={() => {
+            setShowMenu(false);
+          }}
+          to={subItem.path}
+          key={subItem.label}
+          className="text-[16px] leading-[19px] font-medium flex flex-col py-4  text-[#A2A2A2] hover:text-[#197b30]"
+        >
+          {subItem.label}
+        </Link>
+      ))}
+    </div>
+  ));
+
+  return (
+    <>
+      {item.label === "Products" ? (
+        <div>
+          <button type="button" onClick={toggleSubMenu} className={linkClass}>
+            <SidebarLinkContent />
+          </button>
+          {isOpen && <SubMenu />}
+        </div>
+      ) : (
+        <Link
+          to={item.path}
+          className={linkClass}
+          onClick={() => {
+            setToggle(item.label === "Products");
+            setIsOpen(false);
+            setShowMenu(false);
+          }}
+        >
+          <SidebarLinkContent />
+        </Link>
+      )}
+    </>
+  );
+}

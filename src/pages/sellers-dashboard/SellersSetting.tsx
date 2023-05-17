@@ -7,8 +7,15 @@ import { RxBell } from "react-icons/rx";
 import { TfiLock } from "react-icons/tfi";
 import SellersNotificationTable from "../../components/sellers-order-page-component/SellersNotificationTable";
 import MobileTabs from "../tabs/MobileTabs";
-import { z, ZodType } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 type FormData = {
   fullName: string;
@@ -17,10 +24,7 @@ type FormData = {
   storeId: number;
   streetAddress: string;
   location: string;
-  phoneNumber: number;
-  // newPassword: string;
-  // confirmPassword: string;
-  // oldPassword: string;
+  phoneNumber: string;
 };
 
 function SettingssTab() {
@@ -28,8 +32,6 @@ function SettingssTab() {
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3, setEyeState3] = useState(false);
-
-
 
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -53,32 +55,55 @@ function SettingssTab() {
     setEyeState2((prev) => !prev);
   };
 
-  const schema: ZodType<FormData> = z.object({
-    fullName: z.string().min(2).max(100),
-    email: z.string().email(),
-    storeName: z.string(),
-    storeId: z.number(),
-    streetAddress: z.string(),
-    location: z.string(),
-    phoneNumber: z.number(),
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [email, setEmail] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required("Full Name is required"),
+    storeName: Yup.string()
+      .required("Store Name is required")
+      .min(6, "Username must be at least 6 characters")
+      .max(50, "Username must not exceed 50 characters"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    address: Yup.string().required("Address is required"),
+    storeId: Yup.string().required("Store ID is required"),
+
+    streetAddress: Yup.string().required("Street Address is required"),
+
+    location: Yup.string().required("Location is required"),
+
+    phoneNumber: Yup.string()
+      .required("Valid Phone Number is required")
+      .min(6, "Valid Phone Number must be at least 6 characters")
+      .max(12, "Valid Phone Number must not exceed 12 characters"),
   });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({
+    resolver: yupResolver(validationSchema),
+  });
 
-  const submitData = (data: FormData) => {
-    console.log("IT WORK", data);
+  console.log({ errors });
+
+  const onSubmit = (data: FormData) => {
+    data.phoneNumber = phoneNumber;
+
+    data.email = email;
+    data.storeName = storeName;
+
+    console.log(JSON.stringify(data, null, 2));
+    reset();
   };
-
- 
 
   return (
     <>
       <div className=" flex h-[1400px] flex-col justify-center md:block xxs:hidden ">
-      <div className="flex  flex-col gap-2 mb-8">
+        <div className="flex  flex-col gap-2 mb-8">
           <h1 className="text-[36px] leading-[42px] font-medium">Settings</h1>
           <span className="text-[#A2A2A2] text-[16px] leading-[18.75px] font-normal">
             All information available.
@@ -95,7 +120,9 @@ function SettingssTab() {
               >
                 <div className="flex gap-3">
                   <MdOutlinePerson size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">Account Information</span>
+                  <span className="text-[16px] leading-[18.75px] font-normal">
+                    Account Information
+                  </span>
                 </div>
               </button>
               <a
@@ -108,7 +135,9 @@ function SettingssTab() {
                 <div className="flex gap-3">
                   <BiShieldQuarter size={24} />
 
-                  <span className="text-[16px] leading-[18.75px] font-normal">Quality Control</span>
+                  <span className="text-[16px] leading-[18.75px] font-normal">
+                    Quality Control
+                  </span>
                 </div>
               </a>
               <a
@@ -120,7 +149,9 @@ function SettingssTab() {
               >
                 <div className="flex gap-3">
                   <RxBell size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">Notification</span>
+                  <span className="text-[16px] leading-[18.75px] font-normal">
+                    Notification
+                  </span>
                 </div>
               </a>
               <a
@@ -132,14 +163,16 @@ function SettingssTab() {
               >
                 <div className="flex gap-3">
                   <TfiLock size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">Change Password</span>
+                  <span className="text-[16px] leading-[18.75px] font-normal">
+                    Change Password
+                  </span>
                 </div>
               </a>
             </div>
 
             <div className="w-3/4 pt-6 pl-10 pr-8">
               <form
-                onSubmit={handleSubmit(submitData)}
+                onSubmit={handleSubmit(onSubmit)}
                 className="space-2-2 "
                 style={{ display: tab === 1 ? "block" : "none" }}
               >
@@ -195,93 +228,166 @@ function SettingssTab() {
                   }}
                 >
                   <div className="grid grid-cols-2 gap-8">
-                    <div className="w-full">
-                      <label className=" text-[14px] leading-[16px] font-normal">Full Name</label>
+                    <div className=" w-full ">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        FullName
+                      </label>
                       <input
+                        type="text"
                         {...register("fullName")}
-                        type="text"
-                        placeholder="Enter name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] focus:outline-none w-full rounded-sm  placeholder-gray-500 text-[14px] leading-[16px] font-normal text-gray-900"
+                        placeholder="Enter Your Full Name"
+                        className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                          errors.fullName ? "border-[#dd1313]" : ""
+                        }`}
                       />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.fullName?.message}
+                      </div>
                     </div>
-                    <div>
-                      <label className="text-[14px] leading-[16px] font-normal" >Store Name</label>
 
+                    <div className="w-full xxs:mt-3 md:mt-0">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        Store Name
+                      </label>
                       <input
+                        type="text"
                         {...register("storeName")}
-                        type="text"
-                        placeholder="Enter store name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] text-[14px] leading-[16px] font-normal  w-full focus:outline-none rounded-sm  placeholder-gray-500 text-gray-900"
+                        placeholder="Enter Your Last Name"
+                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                          errors.storeName ? "border-[#dd1313]" : ""
+                        }`}
                       />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.storeName?.message}
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-8">
-                    <div className="w-full">
-                      <label className="text-[14px] leading-[16px] font-normal">Email</label>
-
+                    <div className=" input my-1 ">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        Email Address
+                      </label>
                       <input
+                        type="text"
                         {...register("email")}
-                        type="text"
-                        placeholder="Enter name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] focus:outline-none text-[14px] leading-[16px] font-normal  w-full rounded-sm  placeholder-gray-500 text-gray-900"
+                        placeholder="Enter Your Email Address"
+                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                          errors.email ? "border-[#dd1313]" : ""
+                        }`}
                       />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.email?.message}
+                      </div>
                     </div>
-                    <div>
-                      <label className="text-[14px] leading-[16px] font-normal">Store ID</label>
 
+                    <div className=" input my-1 ">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        Store ID
+                      </label>
                       <input
-                        {...register("storeId", { valueAsNumber: true })}
-                        type="text"
-                        placeholder="Enter store name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] w-full focus:outline-none rounded-sm text-[14px] leading-[16px] font-normal placeholder-gray-500 text-gray-900"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-8">
-                    <div className="w-full">
-                      <label className="text-[14px] leading-[16px] font-normal">Street Address</label>
-
-                      <input
-                        {...register("streetAddress")}
-                        type="text"
-                        placeholder="Enter name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] focus:outline-none w-full rounded-sm text-[14px] leading-[16px] font-normal  placeholder-gray-500 text-gray-900"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[14px] leading-[16px] font-normal">Location</label>
-
-                      <input
-                        {...register("location")}
-                        type="text"
-                        placeholder="Enter store name"
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] w-full focus:outline-none text-[14px] leading-[16px] font-normal  rounded-sm  placeholder-gray-500 text-gray-900"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-8">
-                    <div className="w-full">
-                      <label className="text-[14px] leading-[16px] font-normal">Phone number</label>
-
-                      <input
-                        {...register("phoneNumber", { valueAsNumber: true })}
                         type="number"
-                        placeholder="Enter phone no."
-                        className="border border-[#D9D9D9] py-[12px] px-[10px] focus:outline-none w-full rounded-sm text-[14px] leading-[16px] font-normal  placeholder-gray-500 text-gray-900"
+                        {...register("storeId")}
+                        placeholder="Enter Store ID"
+                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                          errors.storeId ? "border-[#dd1313]" : ""
+                        }`}
                       />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.storeId?.message}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className=" input my-1 ">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        Street Address
+                      </label>
+                      <input
+                        type="text"
+                        {...register("streetAddress")}
+                        placeholder="Enter Street Address"
+                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                          errors.streetAddress ? "border-[#dd1313]" : ""
+                        }`}
+                      />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.streetAddress?.message}
+                      </div>
+                    </div>
+
+                    <div className=" input my-1 ">
+                      <label
+                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor=""
+                      >
+                        Location
+                      </label>
+                      <input
+                        type="text"
+                        {...register("location")}
+                        placeholder="Enter Location"
+                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                          errors.location ? "border-[#dd1313]" : ""
+                        }`}
+                      />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.location?.message}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-8">
+                    <div className="mb-3 input">
+                      <label
+                        className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        htmlFor="phonenumber"
+                      >
+                        Phone Number
+                      </label>
+                      <PhoneInput
+                        country={"ng"}
+                        value={phoneNumber}
+                        // {...register("phonenumber")}
+                        onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                        inputProps={{
+                          name: "phonenumber",
+
+                          id: "phonenumber",
+                          className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                            errors.phoneNumber ? "border-[#dd1313]" : ""
+                          }`,
+                        }}
+                      />
+                      <div className="text-[#dd1313] text-sm">
+                        {errors.phoneNumber?.message}
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex gap-6 pt-3 pb-8">
                     <button
                       type="submit"
-                      className="border border-[#F91919] text-[#F91919] py-[10px] px-[13px] rounded text-[14px] leading-[16px] font-semibold"
+                      className="border border-[#F91919]  text-[#F91919] h-12 px-[16px] rounded text-[14px] leading-[16px] font-semibold"
                     >
                       Delete Account{" "}
                     </button>
                     <button
                       type="submit"
-                      className="bg-[#197B30] text-white py-[8px] px-[13px] rounded text-[14px] leading-[16px]  font-semibold"
+                      className="bg-[#197B30] text-white h-12 px-[16px] rounded text-[14px] leading-[16px]  font-semibold"
                     >
                       Save Changes{" "}
                     </button>
@@ -345,108 +451,129 @@ function SettingssTab() {
                 style={{ display: tab === 4 ? "block" : "none" }}
               >
                 <div className="mb-3">
-              <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">
-                Change Password
-              </h1>
-              {/* <span className="text-[#A2A2A2] text-sm font-light">
+                  <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">
+                    Change Password
+                  </h1>
+                  {/* <span className="text-[#A2A2A2] text-sm font-light">
                 All information available.
               </span> */}
-            </div>
-            <div className="w-[60%] my-4">
-              <div className="w-full ">
-                <div className="mt-2 relative">
-                  <label htmlFor="" className="text-[14px] leading-[16px] font-normal">
-                    Old password
-                  </label>
-                  <input
-                    autoComplete="on"
-                    type={eyeState2 ? "text" : "password"}
-                    name="password"
-                    placeholder="**********"
-                    id="password"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]
+                </div>
+                <div className="w-[60%] my-4">
+                  <div className="w-full ">
+                    <div className="mt-2 relative">
+                      <label
+                        htmlFor=""
+                        className="text-[14px] leading-[16px] font-normal"
+                      >
+                        Old password
+                      </label>
+                      <input
+                        autoComplete="on"
+                        type={eyeState2 ? "text" : "password"}
+                        name="password"
+                        placeholder="**********"
+                        id="password"
+                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]
 
                     `}
-                  />
-                  <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
-                    onClick={toggleConfirmEye}
-                  >
-                    {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
-                  </button>
+                      />
+                      <button
+                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        onClick={toggleConfirmEye}
+                      >
+                        {eyeState2 ? (
+                          <FiEye size={20} />
+                        ) : (
+                          <FiEyeOff size={20} />
+                        )}
+                      </button>
+                    </div>
+                    <div className="mt-2 relative">
+                      <label
+                        htmlFor=""
+                        className="text-[14px] leading-[16px] font-normal"
+                      >
+                        New Password
+                      </label>
+                      <input
+                        // {...register("confirmPassword", {
+                        //   required: true,
+                        //   validate: (value) =>
+                        //     value === passwordref.current ||
+                        //     "The passwords do not match",
+                        // })}
+                        type={eyeState ? "text" : "password"}
+                        name="confirmPassword"
+                        autoComplete="on"
+                        placeholder="**********"
+                        id="confirmPassword"
+                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                      />
+                      <button
+                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        onClick={toggleEye}
+                      >
+                        {eyeState ? (
+                          <FiEye size={20} />
+                        ) : (
+                          <FiEyeOff size={20} />
+                        )}
+                      </button>
+                    </div>
+                    <div className="mt-2 relative">
+                      <label
+                        htmlFor=""
+                        className="text-[14px] leading-[16px] font-normal"
+                      >
+                        Repeat Password
+                      </label>
+                      <input
+                        // {...register("confirmPassword", {
+                        //   required: true,
+                        //   validate: (value) =>
+                        //     value === passwordref.current ||
+                        //     "The passwords do not match",
+                        // })}
+                        type={eyeState3 ? "text" : "password"}
+                        name="confirmPassword"
+                        autoComplete="on"
+                        placeholder="**********"
+                        id="confirmPassword"
+                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                      />
+                      <button
+                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        onClick={toggleEye}
+                      >
+                        {eyeState ? (
+                          <FiEye size={20} />
+                        ) : (
+                          <FiEyeOff size={20} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="text-sm text-[#A2A2A2] py-2  text-justify">
+                    <p className="text-justify text-[14px] leading-[16px] font-normal font-light">
+                      {" "}
+                      The password should be at least 8 characters long. it must{" "}
+                      <br />
+                      contain upper and lower case characters and at least one
+                      number.
+                    </p>
+                  </div>
+                  <div className="flex justify-start ">
+                    <button className="px-6 py-3 text-[14px] leading-[16px] font-semibold font-light bg-[#197B30] text-white rounded">
+                      Save Changes
+                    </button>
+                  </div>
                 </div>
-                <div className="mt-2 relative">
-                  <label htmlFor="" className="text-[14px] leading-[16px] font-normal">
-                    New Password
-                  </label>
-                  <input
-                    // {...register("confirmPassword", {
-                    //   required: true,
-                    //   validate: (value) =>
-                    //     value === passwordref.current ||
-                    //     "The passwords do not match",
-                    // })}
-                    type={eyeState ? "text" : "password"}
-                    name="confirmPassword"
-                    autoComplete="on"
-                    placeholder="**********"
-                    id="confirmPassword"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
-                  />
-                  <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
-                    onClick={toggleEye}
-                  >
-                    {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
-                  </button>
-                </div>
-                <div className="mt-2 relative">
-                  <label htmlFor="" className="text-[14px] leading-[16px] font-normal">
-                    Repeat Password
-                  </label>
-                  <input
-                    // {...register("confirmPassword", {
-                    //   required: true,
-                    //   validate: (value) =>
-                    //     value === passwordref.current ||
-                    //     "The passwords do not match",
-                    // })}
-                    type={eyeState3 ? "text" : "password"}
-                    name="confirmPassword"
-                    autoComplete="on"
-                    placeholder="**********"
-                    id="confirmPassword"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
-                  />
-                  <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
-                    onClick={toggleEye}
-                  >
-                    {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
-                  </button>
-                </div>
-              </div>
-              <div className="text-sm text-[#A2A2A2] py-2  text-justify">
-                <p className="text-justify text-[14px] leading-[16px] font-normal font-light">
-                  {" "}
-                  The password should be at least 8 characters long. it must{" "}
-                  <br />
-                  contain upper and lower case characters and at least one
-                  number.
-                </p>
-              </div>
-              <div className="flex justify-start ">
-                <button className="px-6 py-3 text-[14px] leading-[16px] font-semibold font-light bg-[#197B30] text-white rounded">
-                  Save Changes
-                </button>
-              </div>
-            </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-      <div className="md:hidden xxs:block">
+      <div className="md:hidden xxs:block ">
         <MobileTabs />
       </div>
     </>

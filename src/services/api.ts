@@ -23,6 +23,10 @@ export const api = {
     allBlogs: "/api/blogs/",
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`
 
+   },
+   Products: {
+    allProducts: "/api/products/",
+    
    }
 };
 

@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
-import { FiCamera } from 'react-icons/fi'
-import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
-import { MdOutlinePerson } from 'react-icons/md';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FiCamera } from "react-icons/fi";
+import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
+import { MdOutlinePerson } from "react-icons/md";
+import MobileTabs from "../tabs/MobileTabs";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+type FormData = {
+  fullName: string;
+  email: string;
+  storeName: string;
+  storeId: number;
+  streetAddress: string;
+  location: string;
+  phoneNumber: string;
+};
+
 interface IAccount {
-  setShowTab: React.Dispatch<React.SetStateAction<boolean>>
+  setShowTab: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const AccountInfo = ({ setShowTab }: IAccount) => {
-
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
@@ -15,42 +36,81 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
     setImage(file);
     setImageUrl(URL.createObjectURL(file));
   };
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [email, setEmail] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required("Full Name is required"),
+    storeName: Yup.string()
+      .required("Store Name is required")
+      .min(6, "Username must be at least 6 characters")
+      .max(50, "Username must not exceed 50 characters"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    address: Yup.string().required("Address is required"),
+    storeId: Yup.string().required("Store ID is required"),
+
+    streetAddress: Yup.string().required("Street Address is required"),
+
+    location: Yup.string().required("Location is required"),
+
+    phoneNumber: Yup.string()
+      .required("Valid Phone Number is required")
+      .min(6, "Valid Phone Number must be at least 6 characters")
+      .max(12, "Valid Phone Number must not exceed 12 characters"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(validationSchema),
+  });
+
+  console.log({ errors });
+
+  const onSubmit = (data: FormData) => {
+    data.phoneNumber = phoneNumber;
+
+    data.email = email;
+    data.storeName = storeName;
+
+    console.log(JSON.stringify(data, null, 2));
+    reset();
+  };
   return (
-    <div className=''>
-
-
-      <div className="flex justify-between text-[#197b30]">
-        <div onClick={() => setShowTab((prev) => !prev)} className=' text-[#197B30]'>
-          <HiOutlineArrowNarrowLeft size={30} />
+    <div className="h-screen overflow-y-scroll pb-28 mr-3">
+      <div className="flex items-center gap-2 ">
+        <div onClick={() => setShowTab((prev) => !prev)}>
+          <HiOutlineChevronLeft size={30} />
         </div>
-        <span className='flex gap-1 items-center'>
+        <span className="flex gap-1 items-center text-[#197b30]">
           <MdOutlinePerson size={24} />
           Account Information
-
         </span>
-
       </div>
-      <form className='bg-[#F4F4F4] pt-5 pb-2 rounded-md px-3'>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-[#F4F4F4] mt-4 py-8 px-4 rounded-md mb-10"
+      >
         <div className="flex flex-col items-center justify-center">
-          <div className="w-12 h-12 flex items-center justify-center border border-black rounded-full">
+          <div className="w-16 h-16 flex items-center justify-center border border-black rounded-full">
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt="uploaded image"
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
-                className="w-22 h-22 rounded-full "
+                className="w-28 h-28 rounded-full cursor-pointer"
               />
             ) : (
               <>
-
-                <label
-                  htmlFor="file"
-                  className=""
-                >
+                <label htmlFor="file" className="">
                   <FiCamera size={20} className="text-gray-400" />
-                  <span className=" cursor-pointer  my-auto text-[#197B30]">
-
-                  </span>{" "}
+                  <span className=" cursor-pointer  my-auto text-[#197B30]"></span>{" "}
                 </label>
 
                 <input
@@ -65,84 +125,195 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
           </div>
 
           <h3
-            className="text-lg font-medium  text-[#333333]"
+            className=" text-[24px] leading-[28px]  text-[#333333] pt-2 font-semibold"
             style={{ transition: "opacity 0.5s ease-in" }}
           >
             John Doe
           </h3>
           <label
             htmlFor="file"
-            onClick={handleImage}
-
             className="text-sm flex items-center gap-2 text-right"
           >
             <FiCamera className="text-[#197B30]" />
-            <span className=" cursor-pointer  text-[#197B30]">
-
+            <span className=" cursor-pointer  my-auto text-[#197B30] text-[14px] leading-[16px] py-4 font-medium">
               Change profile picture
             </span>{" "}
           </label>
         </div>
 
+        <div
+          className="flex flex-col gap-4"
+          style={{
+            transitionDelay: "0.2s",
+            transition: "opacity 0 0.5s ease-in",
+          }}
+        >
+          <div className=" w-full ">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              FullName
+            </label>
+            <input
+              type="text"
+              {...register("fullName")}
+              placeholder="Enter Your Full Name"
+              className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                errors.fullName ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.fullName?.message}
+            </div>
+          </div>
 
+          <div className="w-full xxs:mt-3 md:mt-0">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              Store Name
+            </label>
+            <input
+              type="text"
+              {...register("storeName")}
+              placeholder="Enter Your Last Name"
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                errors.storeName ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.storeName?.message}
+            </div>
+          </div>
 
+          <div className=" input my-1 ">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              Email Address
+            </label>
+            <input
+              type="text"
+              {...register("email")}
+              placeholder="Enter Your Email Address"
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                errors.email ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.email?.message}
+            </div>
+          </div>
 
+          <div className=" input my-1 ">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              Store ID
+            </label>
+            <input
+              type="number"
+              {...register("storeId")}
+              placeholder="Enter Store ID"
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                errors.storeId ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.storeId?.message}
+            </div>
+          </div>
 
+          <div className=" input my-1 ">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              Street Address
+            </label>
+            <input
+              type="text"
+              {...register("streetAddress")}
+              placeholder="Enter Street Address"
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                errors.streetAddress ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.streetAddress?.message}
+            </div>
+          </div>
 
+          <div className=" input my-1 ">
+            <label
+              className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor=""
+            >
+              Location
+            </label>
+            <input
+              type="text"
+              {...register("location")}
+              placeholder="Enter Location"
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                errors.location ? "border-[#dd1313]" : ""
+              }`}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.location?.message}
+            </div>
+          </div>
 
+          
+            <div className="mb-3 input ">
+              <label
+                className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                htmlFor="phonenumber"
+              >
+                Phone Number
+              </label>
+              <PhoneInput
+                country={"ng"}
+                value={phoneNumber}
+                // {...register("phonenumber")}
+                onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                inputProps={{
+                  name: "phonenumber",
 
-        <div className=' mb-2'>
-          <h1 className=" text-sm">Full Name</h1>
+                  id: "phonenumber",
+                  className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                    errors.phoneNumber ? "border-[#dd1313]" : ""
+                  }`,
+                }}
+              />
+              <div className="text-[#dd1313] text-sm">
+                {errors.phoneNumber?.message}
+              </div>
+            </div>
+          
 
-          <input type="text" placeholder="Enter name" className="border-2 pl-2 border-[#D9D9D9] py-1 text-xs  w-full focus:outline-none rounded-sm  placeholder-gray-500 text-gray-900" />
+          <div className="flex items-center justify-between px-4 pt-3 pb-8">
+            <button
+              type="submit"
+              className="border border-[#F91919]  text-[#F91919] h-12 px-[20px] rounded text-[14px] leading-[16px] font-semibold"
+            >
+              Delete Account{" "}
+            </button>
+            <button
+              type="submit"
+              className="bg-[#197B30] text-white h-12 px-[20px] rounded text-[14px] leading-[16px]  font-semibold"
+            >
+              Save Changes{" "}
+            </button>
+          </div>
         </div>
-        <div className='mb-2'>
-          <h1 className="text-sm">Store Name</h1>
-
-          <input type="text" placeholder="Enter store name" className="border-2 pl-2 border-[#D9D9D9] py-1 text-xs  w-full focus:outline-none rounded-sm  placeholder-gray-500 text-gray-900" />
-        </div>
-
-
-        <div className="mb-2">
-          <h1 className="text-sm">Email</h1>
-
-          <input type="text" placeholder="Enter name" className="border-2 border-[#D9D9D9] py-1 pl-2 focus:outline-none text-xs  w-full rounded-sm  placeholder-gray-500 text-gray-900" />
-        </div>
-        <div className='mb-2'>
-          <h1 className="text-sm">Store ID</h1>
-
-          <input type="text" placeholder="Enter store name" className="border-2 border-[#D9D9D9] py-1 pl-2 w-full focus:outline-none rounded-sm text-xs  placeholder-gray-500 text-gray-900" />
-        </div>
-
-
-        <div className="mb-2">
-          <h1 className="text-sm">Street Address</h1>
-
-          <input type="text" placeholder="Enter name" className="border-2 border-[#D9D9D9] py-1 pl-2 focus:outline-none w-full rounded-sm text-xs   placeholder-gray-500 text-gray-900" />
-        </div>
-        <div className='mb-2'>
-          <h1 className="text-sm">Location</h1>
-
-          <input type="text" placeholder="Enter store name" className="border-2 border-[#D9D9D9] py-1 pl-2 w-full focus:outline-none text-xs  rounded-sm  placeholder-gray-500 text-gray-900" />
-        </div>
-
-
-        <div className="">
-          <h1 className="text-sm">Phone number</h1>
-
-          <input type="number" placeholder="Enter phone no." className="border-2 border-[#D9D9D9] py-1  focus:outline-none w-full rounded-sm text-xs   placeholder-gray-500 text-gray-900 pl-2" />
-        </div>
-
-
-
-        <div className="flex justify-between mt-6">
-          <button className="border border-[#F91919] text-[#F91919] py-[7px] px-[10px] rounded text-sm">Delete Account</button>
-          <button className="bg-[#197B30] text-white py-[7px] px-[10px] rounded text-sm">Save Changes</button>
-        </div>
-
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AccountInfo
+export default AccountInfo;

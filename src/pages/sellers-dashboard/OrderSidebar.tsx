@@ -12,12 +12,12 @@ const linkClass = "flex items-center gap-4 text-[#A2A2A2] text-base font-light p
 
 const OrderSidebar = ({ sidebar }: any) => {
   return (
-    <div>
+   < div>
       <div
         className={`${
           sidebar
-            ? "left-0 xxs:w-[80%] xxs:h-full transform transition-all duration-300 ease-in-out"
-            : "left-[-100%] md:left-0"
+            ? "left-0  xxs:h-full transform transition-all duration-300 ease-in-out"
+            : " md:left-0"
         } first-letter: md:h-full md:pt-4 border-r md:border-slate-400 md:overflow-y-auto md:block xxs:fixed md:bg-white xxs:bg-white xxs:opacity-100`}
       >
         <div>

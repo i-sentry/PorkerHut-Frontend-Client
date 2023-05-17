@@ -13,12 +13,12 @@ const Layout = () => {
         <div className="">
           <OrderNavbar sidebar={sidebar} setSidebar={setSidebar} />
         </div>
-        <div className="md:flex md:w-screen md:h-screen">
-          <div className="md:flex md:flex-[1]">
+        <div className="md:flex w-screen md:h-screen">
+          <div className="md:flex md:flex-[1] xxs:hidden">
             <OrderSidebar sidebar={sidebar} setSidebar={setSidebar} />
           </div>
 
-          <div className="overflow-y-scroll md:outlet md:flex-[5]  pt-[47px] pl-[80px] pr-[25px] ">
+          <div className="overflow-y-scroll md:outlet md:flex-[5]  pt-[47px] md:pl-[80px] md:pr-[25px]">
             {<Outlet />}
           </div>
         </div>

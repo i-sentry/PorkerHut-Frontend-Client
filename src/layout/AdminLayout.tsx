@@ -9,8 +9,8 @@ const AdminLayout = () => {
   const showOverlay = useImageOverlay((state) => state.showOverlay);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden ">
-      <div className="grid grid-rows-[auto_1fr] w-full h-full ">
+    <div className="h-screen w-screen overflow-x-hidden">
+      <div className="grid grid-rows-[auto_1fr] w-full h-full">
         <div className=" h-16">
           <Navbar />
         </div>

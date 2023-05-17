@@ -14,8 +14,13 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
 import { GoSettings } from "react-icons/go";
+import { useGetAllProducts } from "../services/hooks/products";
 
 const ProductPage = () => {
+
+ const allProducts = useGetAllProducts();
+ console.log({allProducts});
+ 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [data, setData] = useState(productData);
   let itemsPerPage = 20;
