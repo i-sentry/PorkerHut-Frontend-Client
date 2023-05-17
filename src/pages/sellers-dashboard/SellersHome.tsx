@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import logo from "../../assets/images/SellerHomeBanner.png";
+import banner1 from "../../assets/images/SellerHomeBanner.png";
 
 import Modal from "../../components/announcement-component/Modal";
 import Select from "react-select";
@@ -7,114 +7,30 @@ import { AiOutlineSound } from "react-icons/ai";
 import RowModal from "../../components/announcement-component/RowModal";
 import { announcementData } from "../../utils/announcementData";
 
-import {
-  useTable,
-  useSortBy,
-  useGlobalFilter,
-  usePagination,
-  useRowSelect,
-  TableToggleAllRowsSelectedProps,
-  Column,
-  HeaderProps,
-  Hooks,
-  useExpanded,
-} from "react-table";
-import CustomPagination from "../../components/Table/CustomPagination";
 import { RiMessage2Line } from "react-icons/ri";
 
 interface SliderProps {
   sliderImages: never[];
 }
 
-interface SelectOption {
-  value: string;
-  label: string;
-}
-
-interface RowData {
-  id: number;
-  subject: string;
-  content: string;
-  date: string;
-}
-
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
-  const [selectedRows, setSelectedRows] = useState(null);
-  const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-
-  const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
-  const [rowData, setRowData] = useState<RowData[]>(announcementData);
-  const [showRowModal, setShowRowModal] = useState(false);
-
-  const handleRowClick = (rowData: RowData) => {
-    setSelectedRow(rowData);
-    setShowModal(true);
-  };
-
-  const column: Column<{
-    content: string;
-    subject: string;
-    date: string;
-  }>[] = [
-    {
-      Header: "Announcement",
-      accessor: "subject",
-    },
-  ];
-
-  const columns = useMemo(() => column, []);
-
-  const data = useMemo(() => announcementData, []);
-  const table = useTable(
-    {
-      columns,
-      data,
-    },
-    useGlobalFilter,
-    useSortBy,
-    useExpanded,
-    usePagination,
-    useRowSelect
-  ) as any;
-  const {
-    getTableBodyProps,
-    getTableProps,
-    headerGroups,
-    prepareRow,
-    page,
-    state,
-    setGlobalFilter,
-    selectedFlatRows,
-    nextPage,
-    gotoPage,
-    pageCount,
-    setPageSize,
-    previousPage,
-    pageOptions,
-    canNextPage,
-    canPreviousPage,
-    footerGroups,
-  } = table;
-  const { globalFilter, pageIndex, pageSize, expanded } = state;
-
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
   const dataSlider = [
     {
       id: 1,
-      src: "../../assets/images/SellerHomeBanner.png",
+      src: banner1,
       name: "banner_img",
     },
     {
       id: 2,
-      src: "./images/Banner1.jpg",
+      src: banner1,
       name: "banner_img",
     },
     {
       id: 3,
-      src: "./images/Banner2.jpg",
+      src: banner1,
       name: "banner_img",
     },
   ];
@@ -161,7 +77,11 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                   slideIndex === index + 1 ? "active-anim opacity-100" : ""
                 }`}
               >
-                <img src={logo} alt="" className="w-full h-full object-cover" />
+                <img
+                  src={obj.src}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
               </div>
             );
           })}
@@ -184,11 +104,10 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
       <div className="mt-20 grid grid-cols-2 gap-10 ">
         <div className="border-r border-l">
           <div className="flex items-center justify-between bg-[#F4F4F4] py-4 px-4">
-            <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2]">
+            <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
               Announcements
             </span>
-            <RiMessage2Line size={20
-            } className="text-[#F91919]" />
+            <RiMessage2Line size={20} className="text-[#F91919]" />
           </div>
 
           <div className="flex gap-10 px-4 py-4 border-b">
@@ -236,21 +155,18 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               </span>
             </div>
           </div>
-         
-
-          
         </div>
 
         <div className="flex flex-col gap-10">
           <div className="border-r border-l ">
-            <div className=" bg-[#F4F4F4] py-4 px-4">
-              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2]">
+            <div className=" bg-[#F4F4F4] py-4 px-6">
+              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
                 Total Pending Orders
               </span>
             </div>
 
             <div className="">
-              <div className="flex items-center justify-between px-4 py-4 border-b">
+              <div className="flex items-center justify-between px-[32px] py-[52px] border-b">
                 <span className="text-[24px] leading-[24px] font-normal">
                   Today
                 </span>
@@ -260,9 +176,9 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               </div>
             </div>
             <div className="">
-              <div className="flex items-center justify-between px-4 py-4 border-b">
+              <div className="flex items-center justify-between  px-[32px] py-[52px] border-b">
                 <span className="text-[24px] leading-[24px] font-normal">
-                Yesterday
+                  Yesterday
                 </span>
                 <span className="text-[24px] leading-[24px] font-normal">
                   12
@@ -270,7 +186,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               </div>
             </div>
             <div className="">
-              <div className="flex items-center justify-between px-4 py-4 border-b">
+              <div className="flex items-center justify-between  px-[32px] py-[52px] border-b">
                 <span className="text-[24px] leading-[24px] font-normal">
                   Other
                 </span>
@@ -282,23 +198,21 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           </div>
           <div className="border-r border-l ">
             <div className=" bg-[#F4F4F4] py-4 px-4">
-              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2]">
-              Your Rating
+              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
+                Your Rating
               </span>
             </div>
 
             <div className="">
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <span className="text-[24px] leading-[24px] font-normal">
-                  
-                Average Customer Rating
+                  Average Customer Rating
                 </span>
                 <span className="text-[24px] leading-[24px] font-normal">
                   12
                 </span>
               </div>
             </div>
-           
           </div>
         </div>
       </div>
