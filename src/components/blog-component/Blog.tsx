@@ -20,13 +20,13 @@ export interface IBlog {
 const Blog = () => {
   const getAllBlogs = useGetAllBlogs();
 
-  const [data, setData] = useState(getAllBlogs?.data?.data);
+  const [data, setData] = useState(getAllBlogs?.data?.data?.blogs);
   console.log(data, "Blog");
 
   let itemsPerPage = 3;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(() => setData(getAllBlogs?.data?.data), [getAllBlogs?.data?.data]);
+  useEffect(() => setData(getAllBlogs?.data?.data?.blogs), [getAllBlogs?.data?.data?.blogs]);
   return (
     <section className="w-full  my-16">
       <div className="mb-16">
