@@ -1,6 +1,4 @@
 import React from "react";
-import NavBar from "../components/nav-component/NavBar";
-import Footer from "../components/footer-component/Footer";
 import Pigdesktop from "../../src/assets/images/Pigdesktop.png";
 import PlantImg from "../../src/assets/images/PlantImg.png";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
@@ -13,76 +11,77 @@ const About = () => {
 
   return (
     <AppLayout>
-      <div className="md:mb-10">
-        <div
-          className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
-          style={{
-            backgroundImage: ` url('${Pigdesktop}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            width: "100vw",
-          }}
-        >
-          <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 absolute">
-            <h1 className="mb-2 font-normal tracking-tight text-3xl   text-[#fff]">
-              About Us
-            </h1>
-            <div className="">
-              <BreadCrumbs
-                items={[
-                  {
-                    name: "Home",
-                    link: "/",
-                  },
-                  {
-                    name: "About Us",
-                    link: "/",
-                  },
-                ]}
-              />
-            </div>
+      <div
+        className=" flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14 "
+        style={{
+          backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${Pigdesktop}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "100vw",
+
+        }}
+      >
+        <div className=" ">
+          <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+            About Us
+          </h1>
+          <div className="">
+            <BreadCrumbs
+              items={[
+                {
+                  name: "Home",
+                  link: "/",
+                },
+                {
+                  name: "About Us",
+                  link: "/",
+                },
+              ]}
+            />
           </div>
         </div>
       </div>
-
-      <div className=" bg-[#F4F4F4] mt-20 rounded-md md:m-auto md:flex md:mx-10">
-        <div className="md:w-1/2 xxs:px-3 xxs:py-6 flex-1 md:p-16">
-          <h1 className=" md:font-normal md:tracking-tight md:text-3xl xxs:font-bold flex justify-self-start font-bold text-[#333]  whitespace-nowrap mb-2">
-            What we do
-          </h1>
-          <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-            Porker Hut is a premium pork destination that offers a comprehensive
-            range of pork products, from bacon to pork cuts and sausages, all
-            crafted to surpass your expectations. As a pig farm, we are
-            committed to delivering the freshest, healthiest, and most delicious
-            pork products available. Thank you for choosing Porkerhut. We are
-            thrilled to offer you premium-quality pork products that reflect our
-            passion for responsible pig rearing and exceptional taste.
-          </p>
+      <div className="md:px-14 py-16 ">
+        <div className=" bg-[#F4F4F4]     md:flex ">
+          <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
+            <h1 className=" md:font-medium  md:text-[40px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
+              What we do
+            </h1>
+            <p className=" leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+              Porker Hut is a premium pork destination that offers a
+              comprehensive range of pork products, from bacon to pork cuts and
+              sausages, all crafted to surpass your expectations. As a pig farm,
+              we are committed to delivering the freshest, healthiest, and most
+              delicious pork products available. Thank you for choosing
+              Porkerhut. We are thrilled to offer you premium-quality pork
+              products that reflect our passion for responsible pig rearing and
+              exceptional taste.
+            </p>
+          </div>
+          <figure className="md:w-1/2">
+            <img
+              className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+              src={PlantImg}
+              alt="aboutImg"
+            />
+          </figure>
         </div>
-        <figure className="md:w-1/2">
-          <img
-            className="object-cover w-full xxs:pb-10 h-full  xxs:px-6 md:p-0"
-            src={PlantImg}
-            alt=""
-          />
-        </figure>
       </div>
 
-      <div className="mt-24 md:p-6 xxs:px-3 xxs:pt-8 bg-[#F4F4F4] xxs:pb-20">
-        <div className="md:max-w-[500px] md:mx-4">
-          <h1 className=" mb-4 md:font-normal md:tracking-tight md:text-3xl xxs:font-bold">
+      <div className="md:p-14 xxs:mt-7 md:mt-0 xxs:px-3 xxs:py-16 bg-[#F4F4F4] mb-16">
+        <div className="md:max-w-[500px] ">
+          <h1 className=" mb-4 md:font-medium md:leading-[47px] md:text-[40px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
             Why choose Porkerhut?
           </h1>
-          <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
+          <p className=" md:leading-6 text-[14px] md:text-[16px] text-[#797979] xxs:text-[14px] xxs:leading-[24px]">
             At Porkerhut, we are committed to providing the highest quality pork
             products to our customers. Our core values include:
           </p>
         </div>
 
-        <div className="md:grid md:grid-cols-3 md:px-4 md:gap-6">
-          <div className=" bg-white rounded mt-12 px-4 py-4">
-            <h1 className="md:text-lg md:font-semibold mb-2 text-[#333] xxs:font-bold">
+        <div className="md:grid md:grid-cols-3  md:gap-8">
+          <div className=" bg-white rounded mt-12 px-8 py-10 shadow-md">
+            <h1 className="md:text-lg xxs:text-[18px] xxs:leading-[21px] font-medium mb-4 text-[#333333]">
               Sustainable and Responsible Farming Practices
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -95,8 +94,8 @@ const About = () => {
             </p>
           </div>
 
-          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-4 py-4">
-            <h1 className="mb-2 md:text-lg md:font-semibold text-[#333] xxs:font-bold">
+          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-8 py-10 shadow-md">
+            <h1 className="mb-4 md:text-lg xxs:text-[18px] xxs:leading-[21px] font-medium text-[#333333] ">
               Unique Services
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -110,8 +109,8 @@ const About = () => {
             </p>
           </div>
 
-          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-4 py-4">
-            <h1 className="md:text-lg md:font-semibold mb-2 text-[#333] xxs:font-bold">
+          <div className=" bg-white rounded md:mt-12 xxs:mt-5 px-8 py-10 shadow-md">
+            <h1 className="md:text-lg xxs:text-[18px] xxs:leading-[21px] font-medium mb-4 text-[#333333]">
               High-Quality Products
             </h1>
             <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -124,8 +123,6 @@ const About = () => {
           </div>
         </div>
       </div>
-
-      {/* <Footer /> */}
     </AppLayout>
   );
 };

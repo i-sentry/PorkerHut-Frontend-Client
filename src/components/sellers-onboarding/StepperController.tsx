@@ -24,7 +24,7 @@ const StepperController = ({
         Back
       </button>
       <button
-        disabled
+        // disabled
         onClick={() => handleClick("next")}
         className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5 disabled:bg-[#197b30ac] rounded text-button   shadow-lg hover:opacity-50 duration-100 ease-in-out"
       >

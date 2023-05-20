@@ -11,20 +11,19 @@ const WeekendKills = () => {
   return (
     <AppLayout>
       <div>
-        <div className="overflow-x-hidden">
-          <div className="mb-10">
-            <div className="md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14  xxs:relative bg-gradient-to-r from-slate-700 to to bg-slate-800"
-             style={{
-              backgroundImage: ` url('${BlogBanner}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              // width: "100vw",
-            }}
-            
+        <div className="">
+          <div className="">
+            <div
+              className="flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+              style={{
+                backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${BlogBanner}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                width: "100vw",
+              }}
             >
-              
-              <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 ">
-                <h1 className="mb-2 text-3xl font-normal tracking-tight xxs:text-center text-[#fff]">
+              <div className="">
+                <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                   Weekend Kills
                 </h1>
                 <div className="">
@@ -46,36 +45,38 @@ const WeekendKills = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-[#F4F4F4] mt-12 rounded m-auto md:flex md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0">
-        <div className=" md:p-6 md:w-1/2">
-          <h1 className="md:font-normal md:tracking-tight md:text-3xl font-bold text-[#333] whitespace-nowrap mb-2 xxs:text-xl">
-          Why Weekend Kills
-          </h1>
-          <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
-            Looking for an affordable and ethical way to enjoy high-quality
-            pork? Look no further than Porker Hut. We are committed to providing
-            you with locally sourced and ethically raised pork that is not only
-            delicious but also sustainably produced. Our weekend kill program
-            offers a cost-effective solution for customers to purchase and share
-            a whole pig at a reduced price by partnering with other like-minded
-            individuals. And, our delivery service ensures that your pork
-            arrives fresh and ready for your enjoyment. At Porker Hut, we
-            believe in transparency and traceability. We carefully select our
-            pigs and use environmentally responsible rearing practices,
-            providing them with access to natural resources such as fresh air,
-            water, and high-quality grain feed. We also offer veterinary
-            services to ensure the health and well-being of our animals. Place
-            your order today and experience the difference that high-quality,
-            locally sourced-pork can make.
-          </p>
+      <div className="md:px-14 pt-16 ">
+        <div className=" bg-[#F4F4F4]     md:flex">
+          <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
+            <h1 className="md:font-medium  md:text-[40px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
+              Why Weekend Kills
+            </h1>
+            <p className=" leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+              Looking for an affordable and ethical way to enjoy high-quality
+              pork? Look no further than Porker Hut. We are committed to
+              providing you with locally sourced and ethically raised pork that
+              is not only delicious but also sustainably produced. Our weekend
+              kill program offers a cost-effective solution for customers to
+              purchase and share a whole pig at a reduced price by partnering
+              with other like-minded individuals. And, our delivery service
+              ensures that your pork arrives fresh and ready for your enjoyment.
+              At Porker Hut, we believe in transparency and traceability. We
+              carefully select our pigs and use environmentally responsible
+              rearing practices, providing them with access to natural resources
+              such as fresh air, water, and high-quality grain feed. We also
+              offer veterinary services to ensure the health and well-being of
+              our animals. Place your order today and experience the difference
+              that high-quality, locally sourced-pork can make.
+            </p>
+          </div>
+          <figure className="md:w-1/2">
+            <img
+              className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+              src={SuyaImg}
+              alt="weekendImg"
+            />
+          </figure>
         </div>
-        <figure className="md:w-1/2">
-          <img
-            className="object-cover h-full p-6 md:p-0 shrink-0"
-            src={SuyaImg}
-            alt=""
-          />
-        </figure>
       </div>
 
       <section className="w-full h-full md:p-14">

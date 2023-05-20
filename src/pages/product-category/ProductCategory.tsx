@@ -23,18 +23,19 @@ const ProductCategory = () => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
-  const filter = (cate: any) => {
-    const newItems = productData.filter((newVal: any) => {
-      return newVal.category === cate;
-    });
-    //@ts-ignore
-    setData(newItems);
-  };
+
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   const { title } = params;
   console.log({ params });
   // useEffect(() => setData(productData), [productData]);
+   const filter = (cate: any) => {
+     const newItems = productData.filter((newVal: any) => {
+       return newVal.category === cate;
+     });
+     //@ts-ignore
+     setData(newItems);
+   };
   useEffect(() => filter(title), []);
 
 
@@ -46,7 +47,7 @@ const ProductCategory = () => {
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-        {/* <NavBar /> */}
+      
         <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} setData={undefined} menuItem={undefined} />
         <div className="bg-[#EEEEEE] pt-24">
           <div className="px-8">

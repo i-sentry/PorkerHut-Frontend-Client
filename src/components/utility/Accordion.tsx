@@ -12,12 +12,12 @@ import {
 import { useForm } from "react-hook-form";
 import { useAppState } from "../../context/SellerInfoContext";
 interface IAccordionPros {
-  title: string;
+  title: any;
   children: React.ReactNode;
   onToggle: () => void;
   isExpanded: boolean;
 }
-const AccordionSection = ({
+ const AccordionSection = ({
   title,
   children,
   isExpanded,
@@ -32,7 +32,7 @@ const AccordionSection = ({
         >
           {isExpanded ? <IoChevronDown size={20} /> : <IoChevronUp size={20} />}
         </button>
-        <h1 className="text-[#2B2B2B] font-light text-lg">{title}</h1>
+        <div className="text-[#2B2B2B] font-light text-lg">{title}</div>
       </div>
       <div
         className={

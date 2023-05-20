@@ -12,6 +12,7 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
   return (
     <div>
       <NavBar />
+      <div className="mt-10"></div>
       <div className="relative">
         {showSearch && (
           <div className="absolute flex items-center justify-center w-full top-28 md:hidden z-30">

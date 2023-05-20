@@ -63,7 +63,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   return (
     <div className="relative  ">
-      <div className=" w-full xxs:h-[85vh] md:h-[95vh] overflow-hidden">
+      <div className=" w-full xxs:h-[80vh] md:h-[90vh] overflow-hidden">
         {dataSlider.map((obj, index) => {
           return (
             <div
@@ -91,7 +91,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           customClass="top-1/2 right-20 transform -translate-y-1/2"
         />
       </div>
-     
+
 
       <div className=" absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
         {dataSlider.map((_, index) => (
