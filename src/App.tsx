@@ -71,6 +71,7 @@ import Search from "./Search";
 import MyAccount from "./pages/MyAccount";
 import ReturnOrder from "./pages/ReturnOrder";
 import ReturnRequest from "./pages/Authentication/ReturnRequest";
+import Category from "./pages/admin-dashboard/Category";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -115,7 +116,10 @@ const router = createBrowserRouter(
       <Route path="/services/agro-services" element={<AgroServices />} />
 
       <Route path="/vendor" element={<SellerLayout />}>
-        <Route path="/vendor/home" element={<SellersHome sliderImages={[]} />} />
+        <Route
+          path="/vendor/home"
+          element={<SellersHome sliderImages={[]} />}
+        />
         <Route path="/vendor/order" element={<SellersOrderPage />} />
         <Route path="/vendor/product" element={<SellersProductPage />} />
         <Route
@@ -151,6 +155,7 @@ const router = createBrowserRouter(
         <Route path="/admin/blog/:id" element={<EditBlog />} />
         <Route path="/admin/blog" element={<BlogPost />} />
         <Route path="/admin/announcement" element={<Announcement />} />
+        <Route path="/admin/manage+category" element={<Category />} />
         <Route path="/admin/payment" element={<Payment />} />
         <Route path="/admin/products" element={<ProductCreated />} />
         <Route path="/admin/products/:id" element={<ProductDetail />} />

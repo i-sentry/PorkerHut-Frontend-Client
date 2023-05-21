@@ -10,6 +10,7 @@ import { useUserSignUp } from "../../services/hooks/users";
 import { ISignUpUser } from "../../services/serviceType";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
 
+
 const CreateAccount: any = () => {
   const navigate = useNavigate();
   const createUserAcc = useUserSignUp();
@@ -243,7 +244,7 @@ const CreateAccount: any = () => {
                     />
                   </div>
                 ) : (
-                  " Create a seller account"
+                  "Create a seller account"
                 )}
               </button>
             </div>
