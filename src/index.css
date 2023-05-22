@@ -151,3 +151,7 @@
 .ql-editor {
   min-height: 250px;
 }
+/* order scroll bar mobile */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

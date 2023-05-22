@@ -3,10 +3,14 @@ import AdminDashboard from "../pages/admin-dashboard/AdminDashboard";
 import Navbar from "../pages/admin-dashboard/Navbar";
 import Sidebar from "../components/admin-dashboard-components/Sidebar";
 import ImageOverLay from "../components/admin-dashboard-components/ImageOverLay";
-import { useImageOverlay } from "../store/ImageOverlay";
+import { useCategoryModal, useImageOverlay } from "../store/overlay";
+import CustomCatModal from "../components/admin-dashboard-components/CustomCatModal";
+import { SetStateAction } from "react";
 
 const AdminLayout = () => {
   const showOverlay = useImageOverlay((state) => state.showOverlay);
+  const showModal = useCategoryModal((state) => state.showModal);
+
 
   return (
     <div className="h-screen w-screen overflow-x-hidden">
@@ -24,6 +28,7 @@ const AdminLayout = () => {
         </div>
       </div>
       {showOverlay && <ImageOverLay />}
+      {showModal && <CustomCatModal  />}
     </div>
   );
 };

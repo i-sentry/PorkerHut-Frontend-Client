@@ -8,7 +8,7 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
   const handleChange = useAsyncDebounce((value) => {
     setFilter(value || undefined);
   }, 1000);
- 
+
   return (
     <div className="flex w-full items-center justify-between gap-4 relative ">
       <input
@@ -16,7 +16,9 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
         value={value || ""}
         placeholder={placeholder}
         // placeholder="Order  number, item name or other criteria"
+
         className="xxs:w-full md:w-[500px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-3 py-2 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[19px]"
+
         onChange={(e) => {
           setValue(e.target.value);
           handleChange(e.target.value);

@@ -45,13 +45,14 @@ const MyOrderDetails = () => {
   }, [id]);
 
   return (
-
     <AppLayout>
-      <div className="m-auto mt-24 ">
-        <div className="flex items-center flex-col justify-center mb-10 relative">
-          <h2 className="md:text-2xl xxs:text-lg font-medium">My Orders</h2>
+      <div className="m-auto my-24 ">
+        <div className="flex items-center flex-col justify-center py-10 relative">
+          <h2 className="md:text-[40px] md:leading-[47px] xxs:text-lg font-medium text-[#333333]">
+            My Orders
+          </h2>
 
-          <div className="h-1 w-16 bg-[#197B30] mt-1"></div>
+          <div className="h-1.5 w-16 bg-[#197B30] mt-1"></div>
           <div
             onClick={() => {
               navigate("/my__orders");
@@ -59,11 +60,11 @@ const MyOrderDetails = () => {
             className="hover:rotate-[-60%] hover:transform absolute right-20 cursor:pointer transition duration-150 ease-in-out"
           >
             <Tooltip message="close">
-              <IoMdClose />
+              <IoMdClose size={20} />
             </Tooltip>
           </div>
         </div>
-        <div className="flex gap-6 px-20">
+        <div className="flex gap-6 px-14">
           <div
             className="w-1/4 h-40 rounded-lg"
             style={{
@@ -72,115 +73,155 @@ const MyOrderDetails = () => {
               backgroundPosition: "center",
             }}
           ></div>
-          <div className="w-1/2 bg-[#D9D9D9]  rounded-lg pl-4 pr-8 pt-4">
+          <div className="w-1/2 bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg pl-4 pr-8 pt-4 shadow-sm">
             <div className="flex flex-col gap-[48px]">
               <div className="">
                 <div className="flex gap-2">
                   <MdPersonOutline size={20} />
-                  <span className=" text-sm">William Nado</span>
+                  <span className=" text-[16px] leading-[19px] text-[#333333] font-normal">
+                    William Nado
+                  </span>
                 </div>
-                <span className="text-xs">
-                  <span className="text-[#A2A2A2] text-xs pr-2">
+                <div className="">
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
                     Order Date:
                   </span>
-                  {order?.order_date}
-                </span>
+                  <span className="text-[#333333] text-[14px] leading-[16px] pr-2">
+                    {" "}
+                    {order?.order_date}
+                  </span>{" "}
+                </div>
               </div>
 
               <div className="flex justify-between">
                 <div className="">
-                  <span className="text-[#A2A2A2] text-xs pr-2 block">
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal pr-2 block">
                     Phone
                   </span>
-                  <span className="text-xs">{order?.id}</span>
+                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                    {order?.id}
+                  </span>
                 </div>
                 <div className="">
-                  <span className="text-xs">
-                    <span className="text-[#A2A2A2] text-xs pr-2 block">
+                  <div className="text-xs">
+                    <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal pr-2 block">
                       Email
                     </span>
-                    {order?.store_name}
-                  </span>
+                    <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                      {order?.store_name}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-1/2 h-40 bg-[#D9D9D9] rounded-lg flex flex-col gap-[54px]">
+          <div className="w-1/2 h-40 border border-[#D9D9D9] rounded-lg flex flex-col gap-[54px] bg-[#F4F4F4] shadow-sm">
             <div className="flex items-center justify-between pt-4 px-4">
               <div className="flex gap-2">
                 <MdOutlinePersonPinCircle size={20} />
               </div>
               <button
-                className="underline text-sm"
+                className="underline text-[16px] leading-[19px] font-normal text-[#333333] cursor-pointer hover:text-[#197b30]"
                 onClick={() => setShowModal(true)}
               >
-                {order?.id}
+                Track Order
               </button>
             </div>
             <div className="flex justify-between px-4">
-              <div className="leading-tight">
-                <span className="text-[#A2A2A2] text-xs pr-2 block">
+              <div className="">
+                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
                   Billing Address
                 </span>
-                <span className="text-xs">{order?.location}</span>
+                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                  {order?.location}
+                </span>
               </div>
               <div className="">
-                <div className="leading-tight">
-                  <span className="text-[#A2A2A2] text-xs pr-2 block">
+                <div className="">
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
                     Home Address
                   </span>
-                  <span className="text-xs">{order?.location}</span>
+                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                    {order?.location}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex  mt-8 px-20 gap-6">
-          <div className="w-1/2 bg-[#D9D9D9] h-40 rounded-lg flex flex-col gap-[72px]">
+        <div className="flex  mt-8 px-14 gap-6">
+          <div className="w-1/2 border border-[#D9D9D9] bg-[#F4F4F4] h-40 rounded-lg flex flex-col gap-[72px]">
             <div className="flex justify-between items-center pt-4 px-4">
               <MdOutlineStorefront size={20} />
               <span className="text-sm">Abuja</span>
             </div>
             <div className="flex items-center justify-between pl-4 pr-8">
               <div>
-                <span className="text-[#A2A2A2] text-xs block">Store Name</span>
-                <span className="text-xs">{order?.store_name}</span>
+                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
+                  Store Name
+                </span>
+                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                  {order?.store_name}
+                </span>
               </div>
               <div>
-                <span className="text-[#A2A2A2] text-xs block">Order ID</span>
-                <span className="text-xs">{order?.id}</span>
+                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
+                  Order ID
+                </span>
+                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                  {order?.id}
+                </span>
               </div>
               <div>
-                <span className="text-[#A2A2A2] text-xs block">
+                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
                   Product Name
                 </span>
-                <span className="text-xs">{order?.product_name} </span>
+                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                  {order?.product_name}{" "}
+                </span>
               </div>
             </div>
           </div>
-          <div className="w-1/2 bg-[#D9D9D9] h-40 rounded-lg">
+          <div className="w-1/2 border border-[#D9D9D9] h-40 rounded-lg bg-[#F4F4F4]">
             <div className=" flex flex-col gap-[70px]">
               <div className="flex justify-between items-center pt-4 px-4">
                 <IoBasketOutline size={20} />
-                <span className="text-sm">Completed</span>
+                <span className="text-[#22C55E] text-[16px] leading-[19px] font-normal">
+                  {order?.order_status}
+                </span>
               </div>
               <div className="flex items-center justify-between pl-4 pr-8">
                 <div>
-                  <span className="text-[#A2A2A2] text-xs block">Price</span>
-                  <span className="text-xs">{order?.price}</span>
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
+                    Price
+                  </span>
+                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                    {order?.price}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[#A2A2A2] text-xs block">Quantity</span>
-                  <span className="text-xs">{order?.quantity}</span>
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
+                    Quantity
+                  </span>
+                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                    {order?.quantity}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-[#A2A2A2] text-xs block">
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
                     Order Total
                   </span>
-                  <span className="text-xs">{order?.order_total}</span>
+                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
+                    {order?.order_total}
+                  </span>
                 </div>
                 <div>
-                  <button className="text-xs underline">Return Order</button>
+                  <button
+                    onClick={() => navigate(`/my__orders/${order.id}/${order?.order_id}`)}
+                    className="underline text-[16px] leading-[19px] font-normal text-[#333333] cursor-pointer hover:text-[#197b30]"
+                  >
+                    Return Order
+                  </button>
                 </div>
               </div>
             </div>

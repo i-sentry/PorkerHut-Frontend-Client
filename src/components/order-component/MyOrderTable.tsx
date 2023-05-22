@@ -41,7 +41,7 @@ const MyOrderTable = ({
   const [Tdata, setTdata] = useState(TData);
   const columns = useMemo(() => Tcolumns, []);
   const data = useMemo(() => Tdata, [Tdata]);
-  const [selectedTab, setSelectedTab] = useState(tabs);
+  const [selectedTab, setSelectedTab] = useState("All");
   const [chosenTab, setChosenTab] = useState("All");
   const table = useTable(
     {
@@ -127,6 +127,11 @@ const MyOrderTable = ({
     }
   }, [chosenTab]);
 
+
+
+  console.log(selectedTab, "selectedTab");
+  console.log(chosenTab, "chosenTab");
+
   return (
     <>
       <div className="flex items-center justify-between my-4">
@@ -134,9 +139,9 @@ const MyOrderTable = ({
           {tabs.map((tab: string, index: React.Key | null | undefined) => (
             <TabSelector
               key={index}
-              className={`cursor-pointer relative underline bg-transparent  text-center p-2 px-4 text-[#5c6f7f]${
+              className={`cursor-pointer relative underline bg-transparent text-[16px] leading-[19px] font-normal text-center p-2 px-5 text-[#5c6f7f]${
                 selectedTab === tab
-                  ? " text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
+                  ? " text-[#197B30] no-underline border border-[#197B30] rounded-[8px] shadow-md transition-all ease-in-out duration-100"
                   : ""
               }`}
               isActive={selectedTab === tab}
@@ -151,7 +156,7 @@ const MyOrderTable = ({
           ))}
         </div>
 
-        <div className=" flex md:justify-end xxs:justify-center">
+        <div className=" flex md:justify-end xxs:justify-center mb-5">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -159,7 +164,7 @@ const MyOrderTable = ({
           />
         </div>
       </div>
-      <div className="  flex flex-col bg-white mb-8">
+      <div className="  flex flex-col bg-white my-8">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
@@ -180,13 +185,13 @@ const MyOrderTable = ({
                         <tr key={key} {...restHeaderProps}>
                           {headerGroup.headers.map((column) => (
                             <th
-                              className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
+                              className="font-normal text-sm text-primary py-7   text-left whitespace-nowrap px-4 rounded-t-md"
                               {...column.getHeaderProps(
                                 column.getSortByToggleProps()
                               )}
                               key={column.id}
                             >
-                              <div className="flex items-center text-[#333333]">
+                              <div className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal ">
                                 {column.render("Header")}
                               </div>
                             </th>
@@ -221,7 +226,7 @@ const MyOrderTable = ({
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-light text-sm text-[#202223] py-4 px-4 border-r"
+                                  className="font-normal text-[14px] leading-[16px]  py-4 px-4 border-r text-[#333333]"
                                 >
                                   {cell.render("Cell")}
                                 </td>

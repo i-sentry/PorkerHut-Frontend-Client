@@ -19,18 +19,19 @@ const AgroServices = () => {
   return (
     <AppLayout>
       <div className="">
-        <div className="md:w-full md:mb-6">
+        <div className="md:w-full md:mb-12">
           <div
-            className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
+            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
-              backgroundImage: ` url('${AgroservImg}')`,
+              backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${AgroservImg}')`,
+
               backgroundSize: "cover",
               backgroundPosition: "center",
-              
+              width: "100vw",
             }}
           >
-            <div className=" xxs:absolute md:top-10 xxs:top-0 mt-32">
-              <h1 className="mb-2 font-normal tracking-tight text-3xl   text-[#fff]">
+            <div className=" ">
+              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 Agro Services
               </h1>
 
@@ -48,53 +49,60 @@ const AgroServices = () => {
               />
             </div>
           </div>
-
-          <div className="bg-[#F4F4F4] mt-12 rounded-md flex flex-col md:flex-row md:mx-10 xxs:py-10 md:py-0 xxs:px-3 md:px-0 ">
-            <div className="md:w-1/2 md:px-10 flex flex-col justify-center">
-              <h1 className="md:font-normal md:tracking-tight md:text-3xl font-bold text-[#333] whitespace-nowrap mb-2 xxs:text-xl">
-                What our Agro services is <br className="md:hidden" /> all about
-              </h1>
-              <p className="leading-6 text-[14px] md:text-[16px] text-[#797979]">
-                Agro services play a crucial role in pork meat production and
-                supply chain, which involves farrow-to-finish operations,
-                genetics, feed formulation, animal health, and waste management
-                services. These services are essential in delivering
-                high-quality, sustainable, and healthy pork meat that meets the
-                needs and preferences of customers. As a provider of agro
-                services, we take pride in our commitment to animal welfare,
-                nutrition, and sustainability, which ensures that our products
-                not only taste great but also promote the health of our
-                customers and the environment.
-              </p>
-            </div>
-            <div className="md:w-1/2 xxs:m-4 md:m-0">
-              <figure>
-                <img className="object-cover w-full h-full" src={FarmingImg} alt="" />
-              </figure>
+          <div className="md:px-14 pt-16 ">
+            <div className="bg-[#F4F4F4]     md:flex ">
+              <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
+                <h1 className="md:font-medium  md:text-[35px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
+                  What our Agro services is <br className="md:hidden" /> all
+                  about
+                </h1>
+                <p className="leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+                  Agro services play a crucial role in pork meat production and
+                  supply chain, which involves farrow-to-finish operations,
+                  genetics, feed formulation, animal health, and waste
+                  management services. These services are essential in
+                  delivering high-quality, sustainable, and healthy pork meat
+                  that meets the needs and preferences of customers. As a
+                  provider of agro services, we take pride in our commitment to
+                  animal welfare, nutrition, and sustainability, which ensures
+                  that our products not only taste great but also promote the
+                  health of our customers and the environment.
+                </p>
+              </div>
+              <div className="md:w-1/2 ">
+                <figure>
+                  <img
+                    className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+                    src={FarmingImg}
+                    alt="AgroImage"
+                  />
+                </figure>
+              </div>
             </div>
           </div>
 
-          <div className=" text-center mt-12 text-[20px]">
-            <h1 className="md:font-normal tracking-tight md:text-3xl mb-4 text-[#333] xxs:font-bold">
+          <div className=" text-center my-12 xxs:mt-14 ">
+            <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]  ">
               Our Agro Services
-              <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto mt-1"></div>
+              <div className=" xxs:w-20 h-1.5 w-14 bg-[#197B30] m-auto mt-2"></div>
             </h1>
           </div>
 
-          <div className="md:grid md:grid-cols-3 md:px-6 md:gap-3 ">
+          <div className="md:grid md:grid-cols-3 md:px-14 md:gap-10 xxs:mb-12 md:mb-0">
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3 relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0"
+              className="card-container md:mt-2 md:p-4 xxs:p-3 relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
               style={{
-                backgroundImage: `url(${PigFarmingImg})`,
+                backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${PigFarmingImg})`,
+
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <div className="absolute bottom-0 left-0 pb-4 pl-4">
-                <h1 className="text-[#E6E6E6] text-lg font-semibold">
+              <div className="absolute bottom-0 left-0 p-4">
+                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Pig Farming
                 </h1>
-                <p className="text-[#E6E6E6] mt-2 leading-5">
+                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
                   Pig animal farming is better for the world. This is why we
                   raise our livestock on pasture based farms which are
                   environmentally beneficial and allows our livestock produce
@@ -107,18 +115,18 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
               style={{
-                backgroundImage: `url(${FeedImg})`,
+                backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${FeedImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <div className="absolute bottom-0 left-0 pb-4 pl-4">
-                <h1 className="text-[#E6E6E6] text-lg font-semibold">
+              <div className="absolute bottom-0 left-0 p-4 ">
+                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Feed and Nutrition
                 </h1>
-                <p className="text-[#E6E6E6] mt-2 leading-5">
+                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
                   Proper feed and nutrition are essential for the health and
                   growth of pigs. Feed and nutrition services provide farmers
                   with the knowledge and resources to formulate and deliver
@@ -131,18 +139,19 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative h-[350px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 "
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
               style={{
-                backgroundImage: `url(${livestock1})`,
+                backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%), url(${livestock1})`,
+
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <div className="absolute bottom-0 left-0 pb-4 pl-4">
-                <h1 className="text-[#E6E6E6] text-lg font-semibold">
+              <div className="absolute bottom-0 left-0 p-4">
+                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Animal Health
                 </h1>
-                <p className="text-[#E6E6E6] mt-2 leading-5">
+                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
                   A healthy herd of pigs is essential for a successful pork
                   production. Animal health services provide farmers with the
                   tools and expertise to prevent and treat diseases, improve
