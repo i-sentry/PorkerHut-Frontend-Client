@@ -27,8 +27,8 @@ export interface Iprops {
   borderColor: string;
   textColor: string;
   navigate: string;
-    disable: boolean;
-    text: string
+  disable: boolean;
+  text: string;
 }
 
 const PerformanceWidget = ({
@@ -42,9 +42,8 @@ const PerformanceWidget = ({
   borderColor: buttonColor,
   textColor,
   type,
-    value,
-    text
-
+  value,
+  text,
 }: Iprops) => {
   const openModal = (e: any) => {
     e.preventDefault();
@@ -56,70 +55,68 @@ const PerformanceWidget = ({
 
   const percentageValue = ((percentage - min) / (max - min)) * 100;
 
-    return (
-      <div className="w-[300px]">
-        <div
-          className={`flex flex-auto justify-between flex-col p-3 xxs:w-[280px] h-[162px] w-full rounded-lg shadow-sm xxs:flex-shrink-0 md:flex-shrink border border-[${buttonColor}] shadow-md`}
-          style={{
-            backgroundColor: color,
-            border: border,
-            borderColor: buttonColor,
-          }}
-        >
-          <div className="flex items-start ">
-            <div className="text-[#333333] text-base  font-medium ">{type}</div>
-          </div>
-          <div className="text-[#333333] font-bold   text-xl">
-            <span>{value}</span>
-          </div>
-          <div>
-            {/* AiOutlineRise */}
-            <div className="">
-              {/* AiOutlineFall */}
-              <span
-                className={`bg-[${buttonColor}] text-[${textColor}] flex py-2 rounded-md  transition-all active:scale-90 disabled:cursor-not-allowed`}
-              >
-                {percentage > 50 ? (
-                  <span>
-                    {" "}
-                    <AiOutlineFall color="red" size={20} />
-                  </span>
-                ) : (
-                  <span className="text-[##77e49d]">
-                    {" "}
-                    <AiOutlineRise color="lime" size={23} />
-                  </span>
-                )}
+  return (
+    <div className="">
+      <div
+        className={`flex flex-auto justify-between flex-col p-3  h-[162px] w-full rounded-lg shadow-sm xxs:flex-shrink-0 md:flex-shrink border border-[${buttonColor}] shadow-md`}
+        style={{
+          backgroundColor: color,
+          border: border,
+          borderColor: buttonColor,
+        }}
+      >
+        <div className="flex items-start ">
+          <div className="text-[#333333] text-base  font-medium ">{type}</div>
+        </div>
+        <div className="text-[#333333] font-bold   text-xl">
+          <span>{value}</span>
+        </div>
+        <div>
+          {/* AiOutlineRise */}
+          <div className="">
+            {/* AiOutlineFall */}
+            <span
+              className={`bg-[${buttonColor}] text-[${textColor}] flex py-2 rounded-md  transition-all active:scale-90 disabled:cursor-not-allowed`}
+            >
+              {percentage > 50 ? (
+                <span>
+                  {" "}
+                  <AiOutlineFall color="red" size={20} />
+                </span>
+              ) : (
+                <span className="text-[##77e49d]">
+                  {" "}
+                  <AiOutlineRise color="lime" size={23} />
+                </span>
+              )}
 
-                <div>
-                  <p className="flex text-sm">
-                    <span
-                      className={`text-sm font-bold ${
-                        percentage > 50 ? "text-red-700" : "text-[#58FD4B]"
-                      }  px-1`}
-                    >
-                      {percentageValue}%
+              <div>
+                <p className="flex text-sm">
+                  <span
+                    className={`text-sm font-bold ${
+                      percentage > 50 ? "text-red-700" : "text-[#58FD4B]"
+                    }  px-1`}
+                  >
+                    {percentageValue}%
+                  </span>
+                  {percentage > 50 ? (
+                    <span className="pr-1 text-[#333333]">
+                      Decrease from yesterday
                     </span>
-                    {percentage > 50 ? (
-                      <span className="pr-1 text-[#333333]">
-                        Decrease from yesterday
-                      </span>
-                    ) : (
-                      <span className="pr-1 text-[#333333]">
-                        Increase from yesterday
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </span>
-            </div>
+                  ) : (
+                    <span className="pr-1 text-[#333333]">
+                      Increase from yesterday
+                    </span>
+                  )}
+                </p>
+              </div>
+            </span>
           </div>
         </div>
-        <p className=" text-center text-sm text-[#a2a2a2] mt-5">
-         {text}
-        </p>
       </div>
-    );
+      <p className=" text-center text-sm text-[#a2a2a2] mt-5">{text}</p>
+    </div>
+  );
 };
 
 export default PerformanceWidget;

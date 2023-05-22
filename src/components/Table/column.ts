@@ -2,7 +2,6 @@ import { Column } from "react-table";
 const moment = require("moment");
 
 export const column: Column<{
-  id: number;
   Order_number: string;
   confirmation_date: string;
   updated_price: string;
@@ -10,10 +9,7 @@ export const column: Column<{
   quality: number;
   status: string;
 }>[] = [
-  {
-    Header: "Id",
-    accessor: "id",
-  },
+ 
   {
     Header: "Order Number",
     accessor: "Order_number",

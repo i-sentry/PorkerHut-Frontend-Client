@@ -13,6 +13,48 @@ interface SliderProps {
   sliderImages: never[];
 }
 
+const items = [
+  {
+    date: "Dec 3",
+    title: "December Sales!!!",
+    description:
+      "Prepare for the December sales and stock up your products because we will be experiencing high traffic on our site. It...",
+  },
+  {
+    date: "April 3",
+    title: "April Offer!",
+    description:
+      "Check out our latest collection of products. We have added exciting new items that you do not want to miss.",
+  },
+  {
+    date: "May 04",
+    title: "May Offer!",
+    description:
+      "Don't miss our special limited-time offer. Grab your favorite products at discounted prices before it ends!",
+  },
+  {
+    date: "June 1",
+    title: "Upcoming Event Announcement",
+    description:
+      "Mark your calendars! We have an exciting event coming up. Stay tuned for more details and join us for a memorable experience.",
+  },
+];
+
+const totalItem = [
+  {
+    day: "Today",
+    total: 12,
+  },
+  {
+    day: "Yesterday",
+    total: 30,
+  },
+  {
+    day: "Older",
+    total: 12,
+  },
+];
+
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -102,59 +144,30 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
       </div>
 
       <div className="mt-20 grid grid-cols-2 gap-10 ">
-        <div className="border-r border-l">
+        <div className="">
           <div className="flex items-center justify-between bg-[#F4F4F4] py-4 px-4">
             <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
               Announcements
             </span>
-            <RiMessage2Line size={20} className="text-[#F91919]" />
+            <RiMessage2Line size={20} className="text-[#c5a0a0]" />
           </div>
 
-          <div className="flex gap-10 px-4 py-4 border-b">
-            <span className=" whitespace-nowrap text-[16px] leading-[24px] font-normal">
-              Dec 3
-            </span>
+          {items.map((item, index) => (
+            <div key={index} className="flex gap-10 px-4 py-4 border">
+              <span className="whitespace-nowrap text-[16px] leading-[24px] font-normal">
+                {item.date}
+              </span>
 
-            <div className="flex gap-1 flex-col ">
-              <span className="block text-[20px] leading-[24px] font-medium">
-                December Sales!!!
-              </span>
-              <span className="text-[16px] font-normal leading-[24px]">
-                Prepare for the December sales and stock up your products
-                because we will be experiencing high traffic on our site. It...
-              </span>
+              <div className="flex gap-1 flex-col">
+                <span className="block text-[20px] leading-[24px] font-medium">
+                  {item.title}
+                </span>
+                <span className="text-[16px] font-normal leading-[24px]">
+                  {item.description}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-10 px-4 py-4 border-b">
-            <span className=" whitespace-nowrap text-[16px] leading-[24px] font-normal">
-              Dec 3
-            </span>
-
-            <div className="flex gap-1 flex-col">
-              <span className="block text-[20px] leading-[24px] font-medium">
-                December Sales!!!
-              </span>
-              <span className="text-[16px] font-normal leading-[24px]">
-                Prepare for the December sales and stock up your products
-                because we will be experiencing high traffic on our site. It...
-              </span>
-            </div>
-          </div>
-          <div className="flex gap-10 px-4 py-4 border-b">
-            <span className=" whitespace-nowrap text-[16px] leading-[24px] font-normal">
-              Dec 3
-            </span>
-
-            <div className="flex gap-1 flex-col">
-              <span className="block text-[20px] leading-[24px] font-medium">
-                December Sales!!!
-              </span>
-              <span className="text-[16px] font-normal leading-[24px]">
-                Prepare for the December sales and stock up your products
-                because we will be experiencing high traffic on our site. It...
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="flex flex-col gap-10">
@@ -165,36 +178,18 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               </span>
             </div>
 
-            <div className="">
-              <div className="flex items-center justify-between px-[32px] py-[52px] border-b">
-                <span className="text-[24px] leading-[24px] font-normal">
-                  Today
-                </span>
-                <span className="text-[24px] leading-[24px] font-normal">
-                  12
-                </span>
+            {totalItem.map((item, index) => (
+              <div key={index} className="">
+                <div className="flex items-center justify-between px-[32px] py-[50px] border-b">
+                  <span className="text-[24px] leading-[24px] font-normal">
+                    {item.day}
+                  </span>
+                  <span className="text-[24px] leading-[24px] font-normal">
+                    {item.total}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="">
-              <div className="flex items-center justify-between  px-[32px] py-[52px] border-b">
-                <span className="text-[24px] leading-[24px] font-normal">
-                  Yesterday
-                </span>
-                <span className="text-[24px] leading-[24px] font-normal">
-                  12
-                </span>
-              </div>
-            </div>
-            <div className="">
-              <div className="flex items-center justify-between  px-[32px] py-[52px] border-b">
-                <span className="text-[24px] leading-[24px] font-normal">
-                  Other
-                </span>
-                <span className="text-[24px] leading-[24px] font-normal">
-                  12
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="border-r border-l ">
             <div className=" bg-[#F4F4F4] py-4 px-4">

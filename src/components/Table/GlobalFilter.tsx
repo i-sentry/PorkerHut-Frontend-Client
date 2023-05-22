@@ -16,7 +16,9 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
         value={value || ""}
         placeholder={placeholder}
         // placeholder="Order  number, item name or other criteria"
-        className="xxs:w-full md:w-[500px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-4   py-3 placeholder:text-[16px] placeholder:leading-[19px] placeholder:font-light"
+
+        className="xxs:w-full md:w-[500px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-3 py-2 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[19px]"
+
         onChange={(e) => {
           setValue(e.target.value);
           handleChange(e.target.value);

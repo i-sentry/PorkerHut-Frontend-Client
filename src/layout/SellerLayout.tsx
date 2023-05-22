@@ -18,7 +18,7 @@ const Layout = () => {
             <OrderSidebar sidebar={sidebar} setSidebar={setSidebar} />
           </div>
 
-          <div className="overflow-y-scroll md:outlet md:flex-[5]  pt-[47px] md:pl-[80px] md:pr-[25px]">
+          <div className="overflow-y-scroll md:outlet md:flex-[5]  pt-[47px] md:pl-[100px] md:pr-[25px]">
             {<Outlet />}
           </div>
         </div>

@@ -95,7 +95,7 @@ const SellersPerformance = () => {
       <p className="text-[#545353bf] text-sm ">
         This is an overview of your performance
       </p>
-      <div className="w-full  flex xxs:gap-5 md:gap-3  whitespace-no wrap   overflow-x-auto xxs:mt-0 md:mt-4">
+      <div className="w-full grid grid-cols-4 gap-4 xxs:gap-5 md:gap-3  whitespace-no wrap  xxs:mt-0 md:mt-4">
         <PerformanceWidget
           color={"#F4F4F4"}
           currency={"thr"}
