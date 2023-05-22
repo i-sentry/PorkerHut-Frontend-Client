@@ -14,20 +14,7 @@ import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 
-export type IProps = {
-  id: string;
-  img: string;
-  location: string;
-  time: string;
-  product_name: string;
-  store_name: string;
-  order_date: string;
-  order_id: string;
-  price: string;
-  quantity: string;
-  order_total: string;
-  order_status: string;
-};
+
 
 export type ITable = {
   tabs: any;
@@ -35,6 +22,8 @@ export type ITable = {
   Tcolumns: readonly Column<object>[];
   optionalColumn: null;
   TData: any;
+  sortButton?: React.ReactNode;
+  showIcon?: boolean;
 };
 
 //@ts-ignore
@@ -44,6 +33,8 @@ const AdminTable = ({
   Tcolumns,
   TData,
   placeholder,
+  sortButton,
+  showIcon,
 }: ITable) => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
@@ -52,6 +43,7 @@ const AdminTable = ({
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState<string>(tabs);
   const [chosenTab, setChosenTab] = useState("All");
+  
   const table = useTable(
     {
       columns,
@@ -175,6 +167,7 @@ const AdminTable = ({
           </div>
           <div className="max-w-xl ">
             <OrderDropDown />
+            
           </div>
           <div className="bg-[#197B30] text-[#fff] px-4 py-1.5 text-sm rounded-md cursor-pointer">
             Go
@@ -209,14 +202,36 @@ const AdminTable = ({
                         <tr key={key} {...restHeaderProps}>
                           {headerGroup.headers.map((column) => (
                             <th
-                              className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
+                              className=" font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
                               {...column.getHeaderProps(
                                 column.getSortByToggleProps()
                               )}
                               key={column.id}
                             >
-                              <div className="flex items-center text-[#333333]">
-                                {column.render("Header")}
+                              <div className="flex items-center">
+                                <span className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal">
+                                  {" "}
+                                  {column.render("Header")}
+                                </span>
+
+                               { showIcon && <>
+                                  {column.canSort === true && (
+                                    <span className="ml-2">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="10"
+                                        height="12"
+                                        viewBox="0 0 10 18"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
+                                          fill="#323232"
+                                        />
+                                      </svg>
+                                    </span>
+                                  )}
+                                </>}
                               </div>
                             </th>
                           ))}
@@ -250,7 +265,7 @@ const AdminTable = ({
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-light text-sm text-[#202223] py-4 px-4 border-r"
+                                  className=" text-[16px] leading-[19px] font-normal text-[#202223] py-4 px-4 border-r"
                                 >
                                   {cell.render("Cell")}
                                 </td>

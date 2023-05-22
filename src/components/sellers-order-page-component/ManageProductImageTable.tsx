@@ -97,9 +97,15 @@ const ManageProductTable = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between  mb-4 w-full ">
-        <div className="flex">
-          <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
+      <div className="  mb-4 w-full ">
+        <div className="flex items-center justify-between">
+          <div className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal">
+            Here you can work on your product image
+          </div>
+
+          <div className="flex items-end">
+            <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />
+          </div>
         </div>
       </div>
       <div className="  flex flex-col bg-white mb-8">
@@ -129,7 +135,7 @@ const ManageProductTable = () => {
                               )}
                               key={column.id}
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center text-[16px] leading-[19px] font-normal">
                                 {column.render("Header")}
 
                                 {column.canSort === true && (
@@ -181,7 +187,7 @@ const ManageProductTable = () => {
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-normal text-sm text-[#202223] py-4 px-4 border-r"
+                                  className="text-[16px] leading-[19px] font-normal text-[#202223] py-4 px-4 border-r"
                                 >
                                   {cell.render("Cell")}
                                 </td>

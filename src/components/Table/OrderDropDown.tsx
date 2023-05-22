@@ -20,6 +20,6 @@ export const OrderDropDown: React.FC = () => (
   <Select<SelectOption>
     defaultValue={options?.[0]}
     options={options}
-    className="w-full text-sm font-light bg-amber-600 rounded-md"
+    className="w-full text-[16px] leading-[19px] font-normal bg-amber-600 rounded-md"
   />
 );
