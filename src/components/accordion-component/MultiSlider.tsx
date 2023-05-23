@@ -51,7 +51,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
 
  
   return (
-    <div className="md:container xxs:w-full xxs:mb-[40px] xxs:flex xxs:items-center xxs:justify-between mt-12">
+    <div className="md:container xxs:w-full xxs:mb-[40px] xxs:flex xxs:items-center xxs:justify-between z-0">
       <input
         type="range"
         min={min}

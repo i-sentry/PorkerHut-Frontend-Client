@@ -15,7 +15,17 @@ import AppLayout from "../../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
 import ProductFilter from "./ProductFilter";
 
-const ProductCategory = () => {
+interface iProps {
+  setData: React.SetStateAction<any>;
+  menuItem: any;
+  handleClick: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const params = useParams();
   const [data, setData] = useState([]);
@@ -23,32 +33,35 @@ const ProductCategory = () => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
-
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   const { title } = params;
   console.log({ params });
   // useEffect(() => setData(productData), [productData]);
-   const filter = (cate: any) => {
-     const newItems = productData.filter((newVal: any) => {
-       return newVal.category === cate;
-     });
-     //@ts-ignore
-     setData(newItems);
-   };
+  const filter = (cate: any) => {
+    const newItems = productData.filter((newVal: any) => {
+      return newVal.category === cate;
+    });
+    //@ts-ignore
+    setData(newItems);
+  };
   useEffect(() => filter(title), []);
-
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
-
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-      
-        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} setData={undefined} menuItem={undefined} />
+        {/* <NavBar /> */}
+        <FilterSidebar
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          setData={undefined}
+          menuItem={undefined}
+          handleClick={handleClick}
+        />
         <div className="bg-[#EEEEEE] pt-24">
           <div className="px-8">
             <ProductsBreadCrumbs

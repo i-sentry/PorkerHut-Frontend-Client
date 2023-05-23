@@ -86,12 +86,26 @@ const router = createBrowserRouter(
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
-      <Route path="/products" element={<ProductPage />} />
+      <Route
+        path="/products"
+        element={
+          //@ts-ignore
+          <ProductPage />
+        }
+      />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/:id/rating-page" element={<CustomerRating />} />
 
-      <Route path="/category" element={<ProductCategory />} />
-      <Route path="/store-page" element={<StorePage />} />
+      <Route path="/category" element={
+         //@ts-ignore
+        <ProductCategory />} />
+      <Route
+        path="/store-page"
+        element={
+          //@ts-ignore
+          <StorePage />
+        }
+      />
       <Route path="/billing" element={<BillingPage />} />
       <Route path="/pay-card" element={<PayOption />} />
       <Route path="/order+cancel" element={<OrderCancel />} />
@@ -176,3 +190,4 @@ function App() {
 }
 
 export default App;
+
