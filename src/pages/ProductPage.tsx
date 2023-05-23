@@ -16,11 +16,20 @@ import { useParams } from "react-router-dom";
 import { GoSettings } from "react-icons/go";
 import { useGetAllProducts } from "../services/hooks/products";
 
-const ProductPage = () => {
+interface iProps {
+  setData: React.SetStateAction<any>;
+  menuItem: any;
+  handleClick: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
 
- const allProducts = useGetAllProducts();
- console.log({allProducts});
- 
+const ProductPage: React.FC<iProps> = ({ handleClick }) => {
+  const allProducts = useGetAllProducts();
+  console.log({ allProducts });
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [data, setData] = useState(productData);
   let itemsPerPage = 20;
@@ -52,7 +61,13 @@ const ProductPage = () => {
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)}  setData={setData} menuItem={menuItems}/>
+        <FilterSidebar
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          setData={setData}
+          menuItem={menuItems}
+          handleClick={handleClick}
+        />
         <div className="bg-[#EEEEEE] mt-24 md:px-14 xxs:px-0 ">
           <div className="md:px-0 xxs:px-4">
             <ProductsBreadCrumbs
@@ -71,7 +86,7 @@ const ProductPage = () => {
 
           <div className="md:flex gap-8 ">
             <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden md:block overflow-hidden rounded-sm">
-              <Filter setData={setData} menuItem={menuItems} />
+              <Filter setData={setData} menuItem={menuItems} handleClick={handleClick} />
             </div>
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
@@ -162,7 +177,6 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </AppLayout>

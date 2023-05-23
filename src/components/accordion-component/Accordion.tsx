@@ -17,6 +17,7 @@ interface IconProps {
 interface iProps {
   setData: React.SetStateAction<any>;
   menuItem: any;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Icon: React.FC<IconProps> = ({ id, open }) => {
@@ -36,10 +37,15 @@ const Icon: React.FC<IconProps> = ({ id, open }) => {
   );
 };
 
-const Filter = ({ menuItem, setData }: iProps) => {
+const Filter = ({
+  menuItem,
+  setData,
+}: 
+iProps) => {
   // State to keep track of open Accordion
   const [open, setOpen] = useState(0);
-  const [color, setColor] = useState("#197B30");
+  const [selected, setSelected] = React.useState(null);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   // Handle to toggle Accordion open state
   const handleOpen = (value: number) => {
@@ -52,13 +58,25 @@ const Filter = ({ menuItem, setData }: iProps) => {
     });
     setData(newItems);
   };
-  const [selected, setSelected] = React.useState(null);
 
   console.log(selected);
+
+  const handleSelectedItem = (value: string) => {
+    setSelectedItems((prevSelectedItems) => {
+      const itemIndex = prevSelectedItems.indexOf(value);
+
+      if (itemIndex > -1) {
+        return prevSelectedItems.filter((item) => item !== value);
+      } else {
+        return [...prevSelectedItems, value];
+      }
+    });
+  };
 
   const handleChange = (event: any) => {
     const value = event.target.value;
     setSelected(value === selected ? null : value);
+    handleSelectedItem(value);
   };
 
   const handleClick = (event: any) => {
@@ -71,186 +89,190 @@ const Filter = ({ menuItem, setData }: iProps) => {
   };
 
   return (
-    <Fragment>
-      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-        <h1>Filters</h1>
-        <AccordionHeader
-          onClick={() => handleOpen(1)}
-          className="text-base font-normal"
-        >
-          Pig
-        </AccordionHeader>
-        <AccordionBody>
-          <div>
-            {menuItem.map((menu: any) => {
-              return (
-                <div className="">
-                  <input
-                    type="checkbox"
-                    id={menu}
-                    value={menu}
-                    checked={selected === menu}
-                    onChange={handleClick}
-                  />
-                  <label className="ml-2 text-base font-normal" htmlFor="2">
-                    {menu}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(2)}
-          className="text-base font-normal"
-        >
-          Animal Feed
-        </AccordionHeader>
-        <AccordionBody>
-          <div>
+    <>
+      <Fragment>
+        <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
+          <h1>Filters</h1>
+          <AccordionHeader
+            onClick={() => handleOpen(1)}
+            className="text-base font-normal"
+          >
+            Pig
+          </AccordionHeader>
+          <AccordionBody>
             <div>
-              <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base font-normal" htmlFor="1">
-                Berkshire
-              </label>
+              {menuItem.map((menu: any) => {
+                return (
+                  <div className="">
+                    <input
+                      type="checkbox"
+                      id={menu}
+                      value={menu}
+                      checked={selected === menu}
+                      onChange={handleClick}
+                    />
+                    <label className="ml-2 text-base font-normal" htmlFor="2">
+                      {menu}
+                    </label>
+                  </div>
+                );
+              })}
             </div>
+          </AccordionBody>
+        </Accordion>
+        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+          <AccordionHeader
+            onClick={() => handleOpen(2)}
+            className="text-base font-normal"
+          >
+            Animal Feed
+          </AccordionHeader>
+          <AccordionBody>
             <div>
-              <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base font-normal" htmlFor="2">
-                Chester White
-              </label>
+              <div>
+                <input type="checkbox" id="1" value={1} />
+                <label className="ml-2 text-base font-normal" htmlFor="1">
+                  Berkshire
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="2" value={2} />
+                <label className="ml-2 text-base font-normal" htmlFor="2">
+                  Chester White
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="3" value={3} />
+                <label className="ml-2 text-base font-normal" htmlFor="3">
+                  Duroc
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="" value={4} />
+                <label className="ml-2 text-base font-normal" htmlFor="4">
+                  Hampshire
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="1" value={5} />
+                <label className="ml-2 text-base font-normal" htmlFor="5">
+                  Landrace
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="1" value={6} />
+                <label className="ml-2 text-base font-normal" htmlFor="5">
+                  Landrace
+                </label>
+              </div>
             </div>
+          </AccordionBody>
+        </Accordion>
+        <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
+          <AccordionHeader
+            onClick={() => handleOpen(3)}
+            className="text-base font-normal"
+          >
+            Livestock
+          </AccordionHeader>
+          <AccordionBody>
             <div>
-              <input type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base font-normal" htmlFor="3">
-                Duroc
-              </label>
+              <div>
+                <input type="checkbox" id="1" value={1} />
+                <label className="ml-2 text-base font-normal" htmlFor="1">
+                  Berkshire
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="2" value={2} />
+                <label className="ml-2 text-base font-normal" htmlFor="2">
+                  Chester White
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="3" value={3} />
+                <label className="ml-2 text-base font-normal" htmlFor="3">
+                  Duroc
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="" value={4} />
+                <label className="ml-2 text-base font-normal" htmlFor="4">
+                  Hampshire
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="1" value={5} />
+                <label className="ml-2 text-base font-normal" htmlFor="5">
+                  Landrace
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="1" value={6} />
+                <label className="ml-2 text-base font-normal" htmlFor="5">
+                  Landrace
+                </label>
+              </div>
             </div>
+          </AccordionBody>
+        </Accordion>
+        <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
+          <AccordionHeader
+            onClick={() => handleOpen(4)}
+            className="text-base font-normal"
+          >
+            Location
+          </AccordionHeader>
+          <AccordionBody>
             <div>
-              <input type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base font-normal" htmlFor="4">
-                Hampshire
-              </label>
+              <div>
+                <input type="checkbox" id="1" value={1} />
+                <label className="ml-2 text-base font-normal" htmlFor="1">
+                  Abuja
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="2" value={2} />
+                <label className="ml-2 text-base font-normal" htmlFor="2">
+                  Lagos
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="3" value={3} />
+                <label className="ml-2 text-base font-normal" htmlFor="3">
+                  Osun
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="" value={4} />
+                <label className="ml-2 text-base font-normal" htmlFor="4">
+                  Ekiti
+                </label>
+              </div>
+              <div>
+                <input type="checkbox" id="1" value={5} />
+                <label className="ml-2 text-base font-normal" htmlFor="5">
+                  Port Harcourt
+                </label>
+              </div>
             </div>
-            <div>
-              <input type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
+          </AccordionBody>
+        </Accordion>
+        <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
+          <AccordionHeader
+            onClick={() => handleOpen(5)}
+            className="text-base font-normal z-50"
+          >
+            Price
+          </AccordionHeader>
+          <AccordionBody>
+            <div className="relative z-50 py-3">
+              <MultiRangeSlider min={0} max={2000} />
             </div>
-            <div>
-              <input type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
-            </div>
-          </div>
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(3)}
-          className="text-base font-normal"
-        >
-          Livestock
-        </AccordionHeader>
-        <AccordionBody>
-          <div>
-            <div>
-              <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base font-normal" htmlFor="1">
-                Berkshire
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base font-normal" htmlFor="2">
-                Chester White
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base font-normal" htmlFor="3">
-                Duroc
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base font-normal" htmlFor="4">
-                Hampshire
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="1" value={6} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Landrace
-              </label>
-            </div>
-          </div>
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(4)}
-          className="text-base font-normal"
-        >
-          Location
-        </AccordionHeader>
-        <AccordionBody>
-          <div>
-            <div>
-              <input type="checkbox" id="1" value={1} />
-              <label className="ml-2 text-base font-normal" htmlFor="1">
-                Abuja
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="2" value={2} />
-              <label className="ml-2 text-base font-normal" htmlFor="2">
-                Lagos
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="3" value={3} />
-              <label className="ml-2 text-base font-normal" htmlFor="3">
-                Osun
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="" value={4} />
-              <label className="ml-2 text-base font-normal" htmlFor="4">
-                Ekiti
-              </label>
-            </div>
-            <div>
-              <input type="checkbox" id="1" value={5} />
-              <label className="ml-2 text-base font-normal" htmlFor="5">
-                Port Harcourt
-              </label>
-            </div>
-          </div>
-        </AccordionBody>
-      </Accordion>
-      <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
-        <AccordionHeader
-          onClick={() => handleOpen(5)}
-          className="text-base font-normal"
-        >
-          Price
-        </AccordionHeader>
-        <AccordionBody>
-          <MultiRangeSlider min={0} max={2000} />
-        </AccordionBody>
-      </Accordion>
-    </Fragment>
+          </AccordionBody>
+        </Accordion>
+      </Fragment>
+    </>
   );
 };
 

@@ -14,7 +14,17 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
 
-const StorePage = () => {
+interface iProps {
+  setData: React.SetStateAction<any>;
+  menuItem: any;
+  handleClick: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [data, setData] = useState(productData);
@@ -24,21 +34,24 @@ const StorePage = () => {
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
-    useEffect(() => setData(productData), [productData]);
-    
-     const [rating, setRating] = useState(0);
-     const [hover, setHover] = useState(0);
+  useEffect(() => setData(productData), [productData]);
 
-     useEffect(() => {
-      window.scrollTo(0, 0); // scrolls to top-left corner of the page
-    }, []);
-  
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
 
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
         {/* <NavBar /> */}
-        <FilterSidebar open={openModal} onClose={() => setOpenModal(false)} />
+        <FilterSidebar
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          handleClick={handleClick}
+        />
         <div className="bg-[#EEEEEE] pt-24">
           <div className="px-8">
             <ProductsBreadCrumbs
@@ -94,7 +107,12 @@ const StorePage = () => {
                   </div>
                 </div>
                 <div className="bg-white p-6 mx-6">
-                  <Filter setData={setData} menuItem={menuItems} />
+                  <Filter
+                    setData={setData}
+                    menuItem={menuItems}
+                    handleClick={handleClick}
+                
+                  />
                 </div>
               </div>
             </div>
