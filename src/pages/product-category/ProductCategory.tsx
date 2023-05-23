@@ -33,6 +33,11 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
+  //@ts-ignore
+  const menuItems = [...new Set(productData.map((d: any) => d.category))];
+  const { title } = params;
+  console.log({ params });
+  // useEffect(() => setData(productData), [productData]);
   const filter = (cate: any) => {
     const newItems = productData.filter((newVal: any) => {
       return newVal.category === cate;
@@ -40,11 +45,6 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     //@ts-ignore
     setData(newItems);
   };
-  //@ts-ignore
-  const menuItems = [...new Set(productData.map((d: any) => d.category))];
-  const { title } = params;
-  console.log({ params });
-  // useEffect(() => setData(productData), [productData]);
   useEffect(() => filter(title), []);
 
   React.useEffect(() => {
@@ -60,7 +60,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
           onClose={() => setOpenModal(false)}
           setData={undefined}
           menuItem={undefined}
-                 handleClick={handleClick}
+          handleClick={handleClick}
         />
         <div className="bg-[#EEEEEE] pt-24">
           <div className="px-8">

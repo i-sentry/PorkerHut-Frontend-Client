@@ -17,16 +17,17 @@ const Contact_Page = () => {
       <div className="overflow-x-hidden">
         <div className="  max-w-screen-xl ">
           <div
-            className=" md:block xxs:flex md:flex-col  md:items-center justify-center w-full md:h-[350px] xxs:h-[300px] bg-cover bg-center md:py-20 md:px-14 xxs:relative"
+            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
-              backgroundImage: ` url('${headerImg}')`,
+              backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${headerImg}')`,
+         
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vw",
             }}
           >
-            <div className="xxs:absolute md:top-10 xxs:top-0 mt-32">
-              <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]">
+            <div className="">
+              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 Contact Us
               </h1>
 
@@ -44,9 +45,10 @@ const Contact_Page = () => {
               />
             </div>
           </div>
-        </div>
-        <button onClick={notify}></button>
-        <section className="w-full h-full md:p-14">
+          </div>
+
+        {/* <button onClick={notify}></button> */}
+        <section className="w-full h-full md:p-14 xxs:mt-16 md:mt-0">
           <ServiceForm
             text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."
             title="Send us a Message"

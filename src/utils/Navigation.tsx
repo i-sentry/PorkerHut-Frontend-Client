@@ -378,31 +378,31 @@ export const DashBoardData = [
   },
   {
     id: 11,
-    name: "Category",
-    url: "/admin/category",
+    name: "Manage Category",
+    url: "/admin/manage+category",
     icon: <MdOutlineDns width={"20px"} height={"20px"} />,
-    iconClosed: <BiChevronDown />,
-    iconOpen: <BiChevronUp />,
-    subNav: [
-      {
-        id: 0,
-        name: "Pork",
-        url: "/admin/category/pork",
-        // icon: <WalletIcon width={"20px"} height={"20px"} />,
-      },
-      {
-        id: 1,
-        name: "Farm Feeds",
-        url: "/admin/category/feed",
-        // icon: <WalletIcon width={"20px"} height={"20px"} />,
-      },
-      {
-        id: 1,
-        name: "Livestock",
-        url: "/admin/category/livestock",
-        // icon: <WalletIcon width={"20px"} height={"20px"} />,
-      },
-    ],
+    // iconClosed: <BiChevronDown />,
+    // iconOpen: <BiChevronUp />,
+    // subNav: [
+    //   {
+    //     id: 0,
+    //     name: "Pork",
+    //     url: "/admin/category/pork",
+    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
+    //   },
+    //   {
+    //     id: 1,
+    //     name: "Farm Feeds",
+    //     url: "/admin/category/feed",
+    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
+    //   },
+    //   {
+    //     id: 1,
+    //     name: "Livestock",
+    //     url: "/admin/category/livestock",
+    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
+    //   },
+    // ],
   },
   {
     id: 12,

@@ -3,7 +3,7 @@ import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { productData } from "../../utils/productData";
 import { useParams } from "react-router-dom";
-import { useImageOverlay } from "../../store/ImageOverlay";
+import { useImageOverlay } from "../../store/overlay";
 interface IProd {
   id: string;
   title: string;
@@ -21,8 +21,8 @@ interface IProd {
   desc: string;
 }
 const ProductDetails = () => {
-  const setShowOverlay = useImageOverlay((state) =>state.setShowOverlays)
-  const setImage = useImageOverlay((state) =>state.setImage)
+  const setShowOverlay = useImageOverlay((state) => state.setShowOverlays);
+  const setImage = useImageOverlay((state) => state.setImage);
   const { id } = useParams();
   const [images, setImages] = useState("");
   const [productdata, setProductData] = useState<IProd>();

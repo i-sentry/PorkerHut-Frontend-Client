@@ -9,7 +9,7 @@ type BreadCrumbType = {
 };
 const BreadCrumb = ({ items }: BreadCrumbType) => {
   return (
-    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-1 flex-wrap rounded-none text-gray-400 relative">
+    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-2 flex-wrap rounded-none text-gray-400 relative">
       {items.map((item, index) =>
         index !== items.length - 1 ? (
           <div
@@ -18,7 +18,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
           >
             <div
               key={index}
-              className="flex items-center gap-x-1 rounded-none  text-base"
+              className="flex items-center gap-x-2 rounded-none  text-base"
             >
               <Link to={item.link}>
                 <button className="capitalize rounded-none text-white font-light py-2">
@@ -31,7 +31,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <button
             key={index}
-            className="text-primary  py-2 rounded-md capitalize text-base font-light "
+            className="text-primary  py-2 rounded-md capitalize text-base xxs:text-[] font-light "
           >
             {item.name}
           </button>

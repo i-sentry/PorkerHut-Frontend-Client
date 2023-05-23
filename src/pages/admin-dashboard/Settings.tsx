@@ -3,7 +3,7 @@ import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { productData } from "../../utils/productData";
 import { useParams } from "react-router-dom";
-import { useImageOverlay } from "../../store/ImageOverlay";
+import { useImageOverlay } from "../../store/overlay";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiLockPasswordLine, RiSecurePaymentFill } from "react-icons/ri";
@@ -645,7 +645,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
-
-
-

@@ -1,36 +1,36 @@
 import React from "react";
-import BreadCrumb from "../utility/BreadCrumbs";
-import blog from "../../assets/images/BlogBanner.png";
+import Breadcrumbs from "../utility/BreadCrumbs";
+import blog from "../../assets/blog.png";
 
 const BlogBanner = () => {
   return (
-    <div className="mb-10">
-      <div className="h-[350px] w-full relative bg-gradient-to-r from-slate-600 to to bg-slate-700">
-        <img
-          src={blog}
-          alt=""
-          className="w-full h-full object-cover absolute mix-blend-overlay"
-        />
-        <div className="xxs:absolute md:top-10 xxs:top-0 mt-32 px-14">
-          <h1 className="mb-2 text-3xl font-normal tracking-tight text-left   text-[#fff]  ">
-            Our Latest Blog
-          </h1>
-          {/* <h1 className="md:hidden xxs:block font-bold text-3xl text-white">
-            Our Latest Blog</h1> */}
-          <div className="md:flex md:items-center xxs:pl-14 md:pl-0">
-            <BreadCrumb
-              items={[
-                {
-                  name: "Home",
-                  link: "/",
-                },
-                {
-                  name: "Blogs",
-                  link: "/blog",
-                },
-              ]}
-            />
-          </div>
+    <div
+      className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+      style={{
+        backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${blog}')`,
+
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: "100vw",
+      }}
+    >
+      <div className=" ">
+        <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+          Our Latest Blog
+        </h1>
+        <div className="xxs:text-center">
+          <Breadcrumbs
+            items={[
+              {
+                name: "Home",
+                link: "/",
+              },
+              {
+                name: "Blogs",
+                link: "/blog",
+              },
+            ]}
+          />
         </div>
       </div>
     </div>

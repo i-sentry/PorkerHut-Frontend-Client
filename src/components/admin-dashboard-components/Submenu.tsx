@@ -10,6 +10,7 @@ const SideBarLink = styled(NavLink)`
   justify-items: space-between;
   padding: 28px;
   height: 60px;
+  padding-top: 20px;
 
   &:hover {
     color: #197b30;

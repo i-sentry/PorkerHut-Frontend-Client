@@ -36,50 +36,53 @@ const BlogContent = () => {
       </nav> */}
         <div className="  max-w-screen-xl ">
           <div
-            className=" md:block xxs:flex flex-col  w-full md:h-[330px] bg-cover bg-center py-20 md:px-14 xxs:px-5"
+            className=" flex   items-center md:justify-start xxs:justify-center w-full md:h-[500px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
-              backgroundImage: ` url('${img}/${getSingleBlog?.data?.data?.featuredImage}')`,
+
+              backgroundImage: ` linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  url('${img}/${getSingleBlog?.data?.data?.featuredImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vw",
             }}
           >
-            <h1 className="mt-16 xxs:text-lg font-normal  tracking-tight md:text-3xl md:text-left xxs:text-center   text-[#fff]">
-              {getSingleBlog?.data?.data?.title}
-            </h1>
-            <div className="xxs:flex xxs:justify-center md:text-left w-full">
-              <Breadcrumbs
-                items={[
-                  {
-                    name: "Home",
-                    link: "/",
-                  },
-                  {
-                    name: "blog",
-                    link: "/blog",
-                  },
-                  {
-                    name: `content`,
-                    link: "/contact-us",
-                  },
-                ]}
-              />
+            <div>
+              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+                {getSingleBlog?.data?.data?.title}
+              </h1>
+              <div className="xxs:flex xxs:justify-center md:text-left w-full">
+                <Breadcrumbs
+                  items={[
+                    {
+                      name: "Home",
+                      link: "/",
+                    },
+                    {
+                      name: "blog",
+                      link: "/blog",
+                    },
+                    {
+                      name: `content`,
+                      link: "/contact-us",
+                    },
+                  ]}
+                />
+              </div>
             </div>
           </div>
         </div>
         <div className="max-w-screen-lg md:m-auto py-8 bg-white relative top-[-90px] xxs:m-5 border ">
           <div className="mb-8">
-            <p className="text-xs text-slate-400 text-center mb-5">
+            <p className="text-[16px] leading-[19px] text-[#B4B4B4] text-center mb-5">
               {formattedDate}
             </p>
-            <h2 className="md:text-3xl font-bold  text-center xxs:text-base">
+            <h2 className="md:text-[40px] md:leading-[47px] font-medium  text-center xxs:text-base text-[#333333]">
               {getSingleBlog?.data?.data?.title}
             </h2>
-            <div className="w-40 h-1 bg-[#197B30] mx-auto"></div>
+            <div className="w-40 h-1.5 bg-[#197B30] mx-auto mt-2"></div>
           </div>
           <div className="xxs:w-full  md:w-3/4  text-justify  ">
             <div className="py-4 px-8">
-              <p className="mb-4 md:text-lg xxs:text-base leading-relaxed">
+              <p className="mb-4 md:text-[16px] xxs:text-base leading-[19px]">
                 {getSingleBlog?.data?.data?.content}
               </p>
             </div>

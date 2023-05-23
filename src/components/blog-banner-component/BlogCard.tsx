@@ -4,16 +4,16 @@ import { useReadingTime } from "react-hook-reading-time";
 import { imageUrl } from "../../services/api";
 
 const BlogCard = ({ blog }: any) => {
+  const log = console.log;
   const { featuredImage, title, createdAt, readDuration, content, _id } = blog;
-const {
-  text, // 1 min read
-  minutes, // 1
-  words, // 168
-  time, // 0.5309090909090909
-} = useReadingTime(content);
-
+  const {
+    text, // 1 min read
+    minutes, // 1
+    words, // 168
+    time, // 0.5309090909090909
+  } = useReadingTime(content);
+  log(blog);
   const imgUrl = imageUrl;
-
 
   const moment = require("moment");
   const myDate = new Date(createdAt);

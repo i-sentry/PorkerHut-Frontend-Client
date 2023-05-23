@@ -101,7 +101,7 @@ const BillingPage = () => {
         </div>
 
         <div className="flex gap-8  pb-10 relative ">
-          <div className=" md:w-2/3 xxs:w-full bg-white px-6 flex flex-col gap-4 py-6 rounded-md">
+          <div className=" md:w-2/3 xxs:w-full bg-white md:px-6 xxs:px-3 flex flex-col gap-4 py-6 rounded-md">
             <h1 className=" md:text-[24px] md:leading-[28px] text-[#333333] font-medium xxs:text-[18px] xxs:leading-[21px] mb-4">
               Billing Information
             </h1>
@@ -308,7 +308,7 @@ const BillingPage = () => {
             <button
               type="submit"
               className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
-              // onClick={() => navigate("/pay-card")}
+              onClick={() => navigate("/pay-card")}
             >
               Proceed to Payments
             </button>

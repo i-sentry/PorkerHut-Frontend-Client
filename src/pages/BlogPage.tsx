@@ -13,9 +13,9 @@ const BlogPage = () => {
 
   return (
     <AppLayout>
-      {/* <NavBar /> */}
+
       <BlogBanner />
-      <div className="md:p-4 xxs:p-2">
+      <div className="md:p-14 md: xxs:p-2">
         <BlogArticles />
       </div>
 
