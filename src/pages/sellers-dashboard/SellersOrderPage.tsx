@@ -6,8 +6,10 @@ import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import Table from "../../components/Table/Table";
-import { column } from "../../components/Table/column";
+
 import mockData from "../../utils/json/mockData.json";
+import { column } from "../../components/Table/column";
+import { Carousel } from "./SellersAccount";
 
 type OrderDataProps = {
   id: string;
@@ -274,33 +276,6 @@ const SellersOrderPage = () => {
     }
   };
 
-  const dataSlider = [
-    {
-      id: 1,
-      name: "Today",
-      total: "",
-    },
-    {
-      id: 2,
-      name: "Today",
-      total: 400,
-    },
-    {
-      id: 3,
-      name: "Today",
-      total: 400,
-    },
-    {
-      id: 4,
-      name: "Today",
-      total: 400,
-    },
-    {
-      id: 5,
-      name: "Today",
-      total: 400,
-    },
-  ];
 
   const Tcolumns: readonly Column<object>[] = [
     {
@@ -333,39 +308,27 @@ const SellersOrderPage = () => {
   ];
 
   const optionalColumn = {
-    id: "expand",
+    id: "view",
     // The header can use the table's getToggleAllRowsSelectedProps method
     // to render a checkbox
-    Header: (
-      <div>
-        {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
-      </div>
-    ),
+    Header: () => <div></div>,
     // The cell can use the individual row's getToggleRowSelectedProps method
     // to the render a checkbox
+    Cell: () => <div></div>,
   };
 
-  const sortButton = (
-    <span className="ml-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="10"
-        height="12"
-        viewBox="0 0 10 18"
-        fill="none"
-      >
-        <path
-          d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
-          fill="#323232"
-        />
-      </svg>
-    </span>
+  const card = orderData.map(
+    (val: { title: string; figure?: string | undefined }) => (
+      <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] md:border-r-[1px] xxs:h-[124px]">
+        <div>{color(val)}</div>
+      </div>
+    )
   );
 
   return (
-    <div className="pb-10">
-      <h1 className="text-[36px] leading-[42px] font-medium mb-6 ">Orders</h1>
-      <div className="md:flex h-20 items-center justify-center">
+    <div className="pb-10 xxs:px-4 md:px-0">
+      <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">Orders</h1>
+      <div className="md:flex h-20 items-center justify-center xxs: hidden">
         {orderData.map(
           (val: { title: string; figure?: string | undefined }) => (
             <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
@@ -375,7 +338,11 @@ const SellersOrderPage = () => {
         )}
       </div>
 
-      <div className="mt-6 mb-8">
+      <div className=" mx-auto md:hidden xxs:block">
+        <Carousel cards={card} />
+      </div>
+
+      <div className="md:mt-6 xxs:mt-16 mb-8">
         <h1 className="my-4 text-[24px] leading-[28px] font-normal">
           Overview
         </h1>
@@ -385,12 +352,12 @@ const SellersOrderPage = () => {
         <AdminTable
           // @ts-ignore
           Tcolumns={column}
-          // @ts-ignore
-          optionalColumn={false}
           tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
           TData={mockData}
-          placeholder={"Search product name, store names, category.... "}
+          placeholder={"Search product name, store names, category...."}
           showIcon={true}
+          showCheckbox={true}
+          showDropDown={true}
         />
       </div>
     </div>

@@ -2,10 +2,10 @@ import { SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
 import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
-import { MdOutlinePerson } from "react-icons/md";
+import { MdOutlineEnhancedEncryption, MdOutlineNotifications, MdOutlinePerson } from "react-icons/md";
 import { RxBell } from "react-icons/rx";
 import { TfiLock } from "react-icons/tfi";
-import SellersNotificationTable from "../../components/sellers-order-page-component/SellersNotificationTable";
+import SellersNotificationTable from "../../components/vendors-component/SellersNotificationTable";
 import MobileTabs from "../tabs/MobileTabs";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -16,6 +16,7 @@ import {
 } from "react-country-region-selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import Snackbar from "../../components/utility/snackbar/Snackbar";
 
 type FormData = {
   fullName: string;
@@ -102,11 +103,13 @@ function SettingssTab() {
 
   return (
     <>
-      <div className=" flex mb-32 flex-col justify-center md:block xxs:hidden ">
-      <div className="flex  flex-col gap-2 mb-8">
-          <h1 className="text-[36px] leading-[42px] font-medium">Settings</h1>
-          <span className="text-[#A2A2A2] text-[16px] leading-[18.75px] font-normal">
-            All information available.
+      <div className=" flex mb-20 flex-col justify-center md:block xxs:hidden ">
+        <div className="flex  flex-col gap-2 mb-8">
+          <h1 className="md:text-[36px] md:leading-[42px] font-medium xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
+            Settings
+          </h1>
+          <span className="text-[#A2A2A2] md:text-[16px] md:leading-[18.75px] font-normal xxs:text-[14px] xxs:leading-[16px] mt-1">
+            All information's available.
           </span>
         </div>
         <section className=" space-y-1 bg-[#F4F4F4]  rounded-[4px]">
@@ -114,60 +117,57 @@ function SettingssTab() {
             <div className="flex flex-col justify-start w-1/4 space-y-2 md:border-r md:border-gray-400 p-4">
               <button
                 onClick={() => handleClick(1)}
-                className={` py-2 text-base ${
-                  tab === 1 ? "z-20 text-[#197B30] " : "text-[#797979]"
+                className={` py-2 cursor-pointer  ${
+                  tab === 1 ? " text-[#197B30] " : "text-[#797979]"
                 }`}
               >
-                <div className="flex gap-3">
+                <div className="flex gap-3 ">
                   <MdOutlinePerson size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">
+                  <span className="text-[16px] leading-[19px] font-normal ">
                     Account Information
                   </span>
                 </div>
               </button>
-              <a
-                href="#"
+              <span
                 onClick={() => handleClick(2)}
-                className={` py-2 text-base ${
-                  tab === 2 ? "z-20 text-[#197B30]" : "text-[#797979]"
+                className={` py-2 cursor-pointer  ${
+                  tab === 2 ? " text-[#197B30]" : "text-[#797979]"
                 }`}
               >
-                <div className="flex gap-3">
+                <div className="flex gap-3 ">
                   <BiShieldQuarter size={24} />
 
-                  <span className="text-[16px] leading-[18.75px] font-normal">
+                  <span className="text-[16px] leading-[19px] font-normal ">
                     Quality Control
                   </span>
                 </div>
-              </a>
-              <a
-                href="#"
+              </span>
+              <span
                 onClick={() => handleClick(3)}
-                className={` py-2 text-base ${
+                className={` py-2 cursor-pointer  ${
                   tab === 3 ? "z-20 text-[#197B30]" : "text-[#797979]"
                 }`}
               >
-                <div className="flex gap-3">
-                  <RxBell size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">
+                <div className="flex gap-3 ">
+                  <MdOutlineNotifications size={24} />
+                  <span className="text-[16px] leading-[19px] font-normal ">
                     Notification
                   </span>
                 </div>
-              </a>
-              <a
-                href="#"
+              </span>
+              <span
                 onClick={() => handleClick(4)}
-                className={` py-2 ${
+                className={` py-2 cursor-pointer ${
                   tab === 4 ? "z-20 text-[#197B30]" : "text-[#797979]"
                 }`}
               >
-                <div className="flex gap-3">
-                  <TfiLock size={24} />
-                  <span className="text-[16px] leading-[18.75px] font-normal">
+                <div className="flex gap-3 ">
+                  <MdOutlineEnhancedEncryption size={24} />
+                  <span className="text-[16px] leading-[19px] font-normal ">
                     Change Password
                   </span>
                 </div>
-              </a>
+              </span>
             </div>
 
             <div className="w-3/4 pt-6 pl-10 pr-8">
@@ -554,7 +554,7 @@ function SettingssTab() {
                     </div>
                   </div>
                   <div className="text-sm text-[#A2A2A2] py-2  text-justify">
-                    <p className="text-justify text-[14px] leading-[16px] font-normal font-light">
+                    <p className="text-justify text-[14px] leading-[16px] font-normal ">
                       {" "}
                       The password should be at least 8 characters long. it must{" "}
                       <br />
@@ -563,7 +563,7 @@ function SettingssTab() {
                     </p>
                   </div>
                   <div className="flex justify-start ">
-                    <button className="px-6 py-3 text-[14px] leading-[16px] font-semibold font-light bg-[#197B30] text-white rounded">
+                    <button className="px-6 py-3 text-[14px] leading-[16px] font-semibold  bg-[#197B30] text-white rounded">
                       Save Changes
                     </button>
                   </div>
@@ -576,6 +576,7 @@ function SettingssTab() {
       <div className="md:hidden xxs:block ">
         <MobileTabs />
       </div>
+      {/* <Snackbar message="successfull  "/> */}
     </>
   );
 }

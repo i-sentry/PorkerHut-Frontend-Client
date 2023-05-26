@@ -44,3 +44,16 @@ export const useCategoryModal = create<IModal>((set) => ({
   setSelectedCategoryId: (id: string) =>
     set((state: any) => ({ selectedCategoryId: id })),
 }));
+
+interface ISideBarState {
+  sideBarOpen: boolean;
+
+  toggleSidebar: (value?: boolean) => void;
+}
+
+export const useSidebarState = create<ISideBarState>((set) => ({
+  sideBarOpen: false,
+
+  toggleSidebar: (value?: boolean) =>
+    set((state) => ({ sideBarOpen: value ?? !state.sideBarOpen })),
+}));

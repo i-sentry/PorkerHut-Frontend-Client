@@ -12,13 +12,13 @@ import {
   useExpanded,
 } from "react-table";
 import mockData from "../../utils/json/mockData.json";
-import { column } from "../Table/column";
 import GlobalFilter from "./GlobalFilter";
-import { usePaginationPages } from "./usePaginationPages";
+
 import Pagination from "./Pagination";
 import IndeterminateCheckbox from "./IndeterminateCheckBox";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { OrderDropDown } from "./OrderDropDown";
+import { column } from "./column";
 
 const Table = () => {
   const [selectedRows, setSelectedRows] = useState(null);

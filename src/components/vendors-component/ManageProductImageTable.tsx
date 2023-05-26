@@ -12,9 +12,9 @@ import {
   useExpanded,
 } from "react-table";
 import Table_Data from "../../utils/json/Table_Data.json";
-import GlobalFilter from "../../components/Table/GlobalFilter";
+import GlobalFilter from "../Table/GlobalFilter";
 
-import Pagination from "../../components/Table/Pagination";
+import Pagination from "../Table/Pagination";
 
 const ManageProductTable = () => {
   const column: Column<{
@@ -98,10 +98,8 @@ const ManageProductTable = () => {
   return (
     <>
       <div className="  mb-4 w-full ">
-        <div className="flex items-center justify-between">
-          <div className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal">
-            Here you can work on your product image
-          </div>
+        <div className="flex ">
+
 
           <div className="flex items-end">
             <GlobalFilter setFilter={setGlobalFilter} filter={globalFilter} />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppLayout from "../../components/utility/AppLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import { OrderData } from "../MyOrder";
-import { IOrderData } from "../../components/sellers-order-page-component/MyOrderSection";
+import { IOrderData } from "../../components/vendors-component/MyOrderSection";
 import { MdFavoriteBorder } from "react-icons/md";
 
 const ReturnRequest = () => {

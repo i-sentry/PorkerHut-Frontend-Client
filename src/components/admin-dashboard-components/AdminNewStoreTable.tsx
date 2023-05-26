@@ -12,12 +12,10 @@ import {
   useExpanded,
 } from "react-table";
 import newStoreData from "../../utils/json/newStoreData.json";
-import { column } from "../Table/column";
 import GlobalFilter from "../Table/GlobalFilter";
-import { usePaginationPages } from "../Table/usePaginationPages";
+
 import Pagination from "../Table/Pagination";
 import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 

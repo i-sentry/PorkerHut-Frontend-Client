@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-import ChartLayout from "../../components/sellers-order-page-component/ChatLayout";
+import ChartLayout from "../../components/vendors-component/ChatLayout";
 
 // ChartJS.register(
 //   CategoryScale,
@@ -64,31 +64,27 @@ export const options = {
 };
 
 const SellersPerformance = () => {
-
-
-
-
- const data = {
-   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-   datasets: [
-     {
-       label: "Assets Status",
-       data: [33, 53, 85, 41, 44, 65],
-       fill: true,
-       backgroundColor: (context: ScriptableContext<"line">) => {
-         const chart = context.chart;
-         const { ctx, chartArea } = chart;
-         if (!chartArea) return "";
-         const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.height);
-         gradient.addColorStop(1, "rgba(166, 240, 187, 0.4)");
-         gradient.addColorStop(0, "rgb(46,106,75)");
-         return gradient;
-       },
-       borderColor: "#197b30",
-       borderWidth: 0.9,
-     },
-   ],
- };
+  const data = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+      {
+        label: "Assets Status",
+        data: [33, 53, 85, 41, 44, 65],
+        fill: true,
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+          if (!chartArea) return "";
+          const gradient = ctx.createLinearGradient(0, 0, 0, chartArea.height);
+          gradient.addColorStop(1, "rgba(166, 240, 187, 0.4)");
+          gradient.addColorStop(0, "rgb(46,106,75)");
+          return gradient;
+        },
+        borderColor: "#197b30",
+        borderWidth: 0.9,
+      },
+    ],
+  };
   return (
     <div className="overflow-hidden">
       <h1 className="text-2xl text-[#333333] font-bold">Performance</h1>

@@ -25,225 +25,66 @@ import { GoTag } from "react-icons/go";
 import { AiOutlineSound } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-export const ORDER_DASHBOARD_SIDEBAR_LINKS = [
+export const vendorsSideBarLink = [
   {
-    key: "home",
-    label: "Home",
-    path: "/vendor/home",
-    icon: <BsShopWindow />,
+    id: 0,
+    name: "Home",
+    url: "/vendor",
+    icon: <BsShopWindow size={20} />,
   },
   {
-    key: "orders",
-    label: "Orders",
-    path: "/vendor/order",
-    icon: <RiFileDownloadLine />,
+    id: 1,
+    name: "Orders",
+    url: "/vendor/order",
+    icon: <RiFileDownloadLine size={20} />,
   },
   {
-    key: "products",
-    label: "Products",
-    path: "/vendor/product",
-    icon: <BsTag />,
-    icon_two: <RiArrowDownSLine />,
-    subLinks: [
+    id: 2,
+    name: "Products",
+    url: "/vendor/products",
+    icon: <BsTag size={20} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
       {
-        subLink: [
-          {
-            label: "Manage Products",
-            path: "/vendor/product",
-          },
-          {
-            label: "Manage Product Images",
-            path: "/vendor/product/manage-product-images",
-          },
-        ],
+        id: 0,
+        name: "Manage Products",
+        url: "/vendor/products",
+      },
+      {
+        id: 1,
+        name: "Manage Product Images",
+        url: "/vendor/product/manage",
       },
     ],
   },
   {
-    key: "create Products",
-    label: "Create Products",
-    path: "/vendor/create-product",
-    icon: <FiFolderPlus />,
+    id: 3,
+    name: "Create Products",
+    url: "/vendor/create",
+    icon: <FiFolderPlus size={20} />,
   },
   {
-    key: "account statement",
-    label: "Account Statement",
-    path: "/vendor/account",
-    icon: <TfiCreditCard />,
+    id: 4,
+    name: "Account Statement",
+    url: "/vendor/account+statement",
+    icon: <TfiCreditCard size={20} />,
   },
   {
-    key: "performance",
-    label: "Performance",
-    path: "/vendor/performance",
-    icon: <HiChartBar />,
+    id: 5,
+    name: "Performance",
+    url: "/vendor/performance",
+    icon: <HiChartBar size={20} />,
   },
   {
-    key: "settings",
-    label: "Settings",
-    path: "/vendor/setting",
-    icon: <IoSettingsOutline />,
+    id: 6,
+    name: "Settings",
+    url: "/vendor/settings",
+    icon: <IoSettingsOutline size={20} />,
   },
 ];
 
-export const ADMIN_DASHBOARD_SIDEBAR_LINK = [
-  {
-    key: "overview",
-    label: "Overview",
-    path: "/admin/overview",
-    icon: <MdOutlineDashboard />,
-  },
-  {
-    key: "order",
-    label: "Order",
-    path: "/admin/admin-order",
-    icon: <MdOutlineArchive />,
-  },
-  {
-    key: "customers",
-    label: "Customers",
-    path: "/admin/customers",
-    icon: <HiOutlineUserGroup />,
-  },
-  {
-    key: "analytics",
-    label: "Analytics",
-    path: "/admin/analytics",
-    icon: <MdOutlineAnalytics />,
-  },
-  {
-    key: "stores",
-    label: "Stores",
-    path: "/admin/stores",
-    icon: <MdStorefront />,
-    icon_two: <RiArrowDownSLine />,
-    subLinks: [
-      {
-        subLink: [
-          {
-            label: "New Stores",
-            path: "/admin/stores/new-store",
-          },
-          {
-            label: "Store Profiles",
-            path: "/admin/stores/store-profile",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "vet-partner",
-    label: "Vet Partner",
-    path: "/admin/new__vet",
-    icon: <FaPaw />,
-    icon_two: <RiArrowDownSLine />,
-    subLinks: [
-      {
-        subLink: [
-          {
-            label: "New Vets",
-            path: "/admin/new__vet",
-          },
-          {
-            label: "Vets",
-            path: "/admin/vet",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "logistics-service",
-    label: "Logistic Service",
-    path: "/admin/logistic-services",
-    icon: <FaShuttleVan />,
-  },
-  {
-    key: "calender",
-    label: "Calendar",
-    path: "/admin/calender",
-    icon: <RiCalendar2Line />,
-  },
-  {
-    key: "blog",
-    label: "Blog",
-    path: "/admin/create__blog",
-    icon: <CgLoadbarDoc />,
-    icon_two: <RiArrowDownSLine />,
-    subLinks: [
-      {
-        subLink: [
-          {
-            label: "Create Blog",
-            path: "/admin/create__blog",
-          },
-          {
-            label: "Blog Post",
-            path: "/admin/blog",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "announcement",
-    label: "Announcement",
-    path: "/admin/announcement",
-    icon: <AiOutlineSound />,
-  },
-  {
-    key: "payments",
-    label: "Payments",
-    path: "/admin/payment",
-    icon: <TfiCreditCard />,
-  },
-  {
-    key: "services",
-    label: "Services",
-    path: "/admin/service",
-    icon: <MdShare />,
-    icon_two: <RiArrowDownSLine />,
-    subLinks: [
-      {
-        subLink: [
-          {
-            label: "Agro Services",
-            path: "/admin/agro_services",
-          },
-          {
-            label: "Vet Services",
-            path: "/admin/vet__services",
-          },
-          {
-            label: "Weekend Kill",
-            path: "/admin/weekend_kill",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "product-created",
-    label: "Product Created",
-    path: "/admin/product-created",
-    icon: <BsTag />,
-  },
-  {
-    key: "messages",
-    label: "Messages",
-    path: "/admin/messages",
-    icon: <MdOutlineMessage />,
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    path: "/admin/settings",
-    icon: <IoSettingsOutline />,
-  },
-];
-
-
-export const DashBoardData = [
+export const AdminSideBarLink = [
   {
     id: 0,
     name: "Overview",
@@ -381,28 +222,7 @@ export const DashBoardData = [
     name: "Manage Category",
     url: "/admin/manage+category",
     icon: <MdOutlineDns width={"20px"} height={"20px"} />,
-    // iconClosed: <BiChevronDown />,
-    // iconOpen: <BiChevronUp />,
-    // subNav: [
-    //   {
-    //     id: 0,
-    //     name: "Pork",
-    //     url: "/admin/category/pork",
-    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
-    //   },
-    //   {
-    //     id: 1,
-    //     name: "Farm Feeds",
-    //     url: "/admin/category/feed",
-    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
-    //   },
-    //   {
-    //     id: 1,
-    //     name: "Livestock",
-    //     url: "/admin/category/livestock",
-    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
-    //   },
-    // ],
+
   },
   {
     id: 12,

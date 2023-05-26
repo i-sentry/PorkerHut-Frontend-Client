@@ -108,14 +108,14 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   };
 
   return (
-    <div className="pb-40">
+    <div className="mb-20">
       <div className="relative">
-        <div className=" w-full h-[200px] ">
+        <div className=" w-full h-[320px]  ">
           {dataSlider.map((obj, index) => {
             return (
               <div
                 key={index}
-                className={`w-full h-full absolute opacity-0 transition-opacity duration-400 ${
+                className={`w-full h-full absolute opacity-0 transition-opacity duration-400 xxs:px-5 md:px-0 ${
                   slideIndex === index + 1 ? "active-anim opacity-100" : ""
                 }`}
               >
@@ -143,26 +143,29 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
         </div>
       </div>
 
-      <div className="mt-20 grid grid-cols-2 gap-10 ">
+      <div className="mt-28 grid md:grid-cols-2 xxs:grid-rows-1 md:gap-10 xxs:px-4 xxs:gap-14">
         <div className="">
-          <div className="flex items-center justify-between bg-[#F4F4F4] py-4 px-4">
-            <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
+          <div className="flex items-center justify-between bg-[#F4F4F4] py-8 px-4 rounded-t-md">
+            <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
               Announcements
             </span>
-            <RiMessage2Line size={20} className="text-[#c5a0a0]" />
+            <RiMessage2Line size={26} className="text-[#F91919]" />
           </div>
 
           {items.map((item, index) => (
-            <div key={index} className="flex gap-10 px-4 py-4 border">
+            <div
+              key={index}
+              className="flex xxs:flex-col md:flex-row md:gap-10 xxs:gap-8 px-4 py-10 border-t-0 border border-[#A2A2A2]"
+            >
               <span className="whitespace-nowrap text-[16px] leading-[24px] font-normal">
                 {item.date}
               </span>
 
-              <div className="flex gap-1 flex-col">
-                <span className="block text-[20px] leading-[24px] font-medium">
+              <div className="flex gap-2 flex-col">
+                <span className=" text-[18px] leading-[24px] font-medium">
                   {item.title}
                 </span>
-                <span className="text-[16px] font-normal leading-[24px]">
+                <span className="text-[16px] font-normal leading-[24px] text-[#333333]">
                   {item.description}
                 </span>
               </div>
@@ -171,43 +174,49 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
         </div>
 
         <div className="flex flex-col gap-10">
-          <div className="border-r border-l ">
-            <div className=" bg-[#F4F4F4] py-4 px-6">
-              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
+          <div className=" ">
+            <div className=" bg-[#F4F4F4] py-8 px-4 rounded-t-md">
+              <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
                 Total Pending Orders
               </span>
             </div>
 
             {totalItem.map((item, index) => (
-              <div key={index} className="">
-                <div className="flex items-center justify-between px-[32px] py-[50px] border-b">
-                  <span className="text-[24px] leading-[24px] font-normal">
-                    {item.day}
-                  </span>
-                  <span className="text-[24px] leading-[24px] font-normal">
-                    {item.total}
-                  </span>
-                </div>
+              <div
+                key={index}
+                className="flex items-center justify-between px-4 py-10 border border-t-0 border-[#A2A2A2] "
+              >
+                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
+                  {item.day}
+                </span>
+                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
+                  {item.total}
+                </span>
               </div>
             ))}
           </div>
-          <div className="border-r border-l ">
-            <div className=" bg-[#F4F4F4] py-4 px-4">
-              <span className="text-[24px] leading-[24px] font-normal text-[#A2A2A2] tracking-[0.15px]">
+          <div className=" ">
+            <div className=" bg-[#F4F4F4] py-8 px-4">
+              <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
                 Your Rating
               </span>
             </div>
 
-            <div className="">
-              <div className="flex items-center justify-between px-4 py-4 border-b">
-                <span className="text-[24px] leading-[24px] font-normal">
-                  Average Customer Rating
-                </span>
-                <span className="text-[24px] leading-[24px] font-normal">
+
+              <div className="flex items-center justify-between px-4 py-4 border-t-0 border border-[#A2A2A2]">
+                <div className=" ">
+                  <p className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#333333] tracking-[0.15px]">
+                    Average Customer Rating
+                  </p>
+                  <p className="text-[#22C55E] text-[13px] leading-[24px] mt-2">
+                    Excellent
+                  </p>
+                </div>
+                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
                   12
                 </span>
               </div>
-            </div>
+
           </div>
         </div>
       </div>

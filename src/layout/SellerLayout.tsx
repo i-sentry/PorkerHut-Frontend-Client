@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import OrderNavbar from "../components/sellers-order-page-component/OrderNavbar";
-import OrderSidebar from "../pages/sellers-dashboard/OrderSidebar";
+import VendorsNav from "../components/vendors-component/VendorsNav";
 
+import VendorAside from "../pages/sellers-dashboard/VendorAside";
+import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
+import { useSidebarState } from "../store/overlay";
 
 const Layout = () => {
-  const [sidebar, setSidebar] = useState(false);
+
+
 
   return (
-    <div className="h-screen w-screen overflow-hidden md:overflow-x-hidden">
-      <div className=" ">
-        <div className="">
-          <OrderNavbar sidebar={sidebar} setSidebar={setSidebar} />
+    <div className="h-screen w-screen overflow-hidden ">
+      <div className="grid grid-rows-[auto_1fr] w-full h-full">
+        <div className="sticky top-0 left-0 right-0 z-50">
+          <VendorsNav />
         </div>
-        <div className="md:flex w-screen md:h-screen">
-          <div className="md:flex md:flex-[1] xxs:hidden">
-            <OrderSidebar sidebar={sidebar} setSidebar={setSidebar} />
+        <div className="md:flex h-full w-full overflow-x-hidden">
+          <div className=" ">
+            <SellerSideNav />
           </div>
-
-          <div className="overflow-y-scroll md:outlet md:flex-[5]  pt-[47px] md:pl-[100px] md:pr-[25px]">
-            {<Outlet />}
+          <div className="overflow-y-auto flex-1 pt-[40px] md:pl-20 md:pr-6 ">
+            <Outlet />
           </div>
         </div>
       </div>

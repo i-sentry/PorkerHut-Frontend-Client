@@ -9,7 +9,7 @@ import productImg from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { IOrderData } from "../../components/sellers-order-page-component/MyOrderSection";
+import { IOrderData } from "../../components/vendors-component/MyOrderSection";
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
 import { OrderData } from "../admin-dashboard/Order";
@@ -217,7 +217,9 @@ const MyOrderDetails = () => {
                 </div>
                 <div>
                   <button
-                    onClick={() => navigate(`/my__orders/${order.id}/${order?.order_id}`)}
+                    onClick={() =>
+                      navigate(`/my__orders/${order.id}/${order?.order_id}`)
+                    }
                     className="underline text-[16px] leading-[19px] font-normal text-[#333333] cursor-pointer hover:text-[#197b30]"
                   >
                     Return Order

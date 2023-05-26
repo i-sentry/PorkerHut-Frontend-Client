@@ -9,7 +9,6 @@ import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 
-
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
     case "completed":
@@ -93,31 +92,25 @@ const SellersProductPage = () => {
     },
   ];
 
-  
-
   return (
-    <div className="pb-10">
+    <div className="pb-10 xxs:px-4 md:px-0">
       <div className="">
-        <h1 className="text-[36px] leading-[42px] font-medium mb-6 ">
+        <h1 className="md:text-[36px] md:leading-[42px] font-medium mb-3 xxs:text-[20px] xxs:leading-[23px] ">
           Manage Products
         </h1>
-        <div className="mb-8 ">
-          <span className="text-[14px] leading-[16px] font-normal text-[#A2A2A2]">
+        <div className="mb-4 ">
+          <span className="text-[14px] leading-[16px] font-normal text-[#A2A2A2] ">
             The product overview where all products are managed.
           </span>
         </div>
       </div>
 
-      <div className="mt-10">
+      <div className="mt-5">
         <AdminTable
           Tcolumns={Tcolumns}
-          // @ts-ignore
-          // optionalColumn={optionalColumn}
           tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
           TData={Table_Data}
           placeholder={"Search product name, store names, category.... "}
-          optionalColumn={null}
-         
         />
       </div>
     </div>

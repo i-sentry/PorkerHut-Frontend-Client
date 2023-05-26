@@ -74,6 +74,7 @@ import ReturnRequest from "./pages/Authentication/ReturnRequest";
 import Category from "./pages/admin-dashboard/Category";
 import VetPartnerAccount from "./pages/VetPartnerAccount";
 import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
+import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -140,12 +141,9 @@ const router = createBrowserRouter(
       <Route path="/services/agro-services" element={<AgroServices />} />
 
       <Route path="/vendor" element={<SellerLayout />}>
-        <Route
-          path="/vendor/home"
-          element={<SellersHome sliderImages={[]} />}
-        />
+        <Route path="/vendor" element={<SellersHome sliderImages={[]} />} />
         <Route path="/vendor/order" element={<SellersOrderPage />} />
-        <Route path="/vendor/product" element={<SellersProductPage />} />
+        <Route path="/vendor/products" element={<SellersProductPage />} />
         <Route
           path="/vendor/product/seller-stepper/:id"
           element={<SellerStepperComponent />}
@@ -154,12 +152,13 @@ const router = createBrowserRouter(
           path="/vendor/create-product/stepper"
           element={<StepperComponent />}
         />
-        <Route path="/vendor/create-product" element={<CreateProduct />} />
+        <Route path="/vendor/create" element={<CreateProduct />} />
+        <Route path="/vendor/account+statement" element={<SellersAccount />} />
         <Route
-          path="/vendor/product/manage-product-images"
+          path="/vendor/product/manage"
           element={<SellersManageProductImage />}
         />
-        <Route path="/vendor/setting" element={<SellersSetting />} />
+        <Route path="/vendor/settings" element={<SellersSetting />} />
         <Route path="/vendor/performance" element={<SellersPerformance />} />
       </Route>
       <Route path="" element={<AdminLayout />}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useSidebarState } from "../../store/overlay";
 
 const SideBarLink = styled(NavLink)`
   display: flex;
@@ -10,7 +11,7 @@ const SideBarLink = styled(NavLink)`
   justify-items: space-between;
   padding: 28px;
   height: 60px;
-  padding-top: 20px;
+  padding-top: 24px;
 
   &:hover {
     color: #197b30;
@@ -22,9 +23,11 @@ const SideBarLink = styled(NavLink)`
   }
 `;
 const SideBarLabel = styled.span`
-  margin-left: 20px;
-  font-weight: 300;
-  font-size: 15px;
+  margin-left: 18px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
 `;
 
 const DropDownLink = styled(Link)`
@@ -48,21 +51,11 @@ const DropDownLink = styled(Link)`
 const Submenu = ({ item }: { item: any }) => {
   const location = useLocation();
   const [subnav, setSubnav] = useState(false);
-  const [menuActive, setMenuActive] = useState(false);
-  const [menuColor, setMenuColor] = useState("text-[#676767]");
+  const toggleSideBar = useSidebarState((state) => state.toggleSidebar);
 
-  const activeLink = `text-[#197B30] border-r-4  border-[#197B30] font-bold`;
-  const normal = `text-[#A2A2A2] h-16 pl-1 pb-5 flex items-center hover:cursor-pointer `;
-
-  const active = "text-[#197B30] font-bold";
-  const notActive = `text-[#A2A2A2]`;
+  const activeLink = `text-[#197B30] rounded-tl-lg rounded-bl-lg border-r-4 border-[#197B30] font-bold`;
 
   const showSubnav = () => setSubnav(!subnav);
-
-  // useEffect((evt) => {
-  //   location?.pathname.includes(e.target.innerHTML.toLowerCase());
-
-  // }, [location, e])
 
   return (
     <>
@@ -74,7 +67,7 @@ const Submenu = ({ item }: { item: any }) => {
               ? activeLink
               : "text-[#A2A2A2] font-light hover:cursor-pointer"
           }`}
-          onClick={item.subNav && showSubnav}
+          onClick={() => (item.subNav ? showSubnav() : toggleSideBar(false))}
         >
           <div>{item.icon}</div>
           <SideBarLabel>{item.name}</SideBarLabel>
@@ -96,6 +89,7 @@ const Submenu = ({ item }: { item: any }) => {
                   location.pathname === item.url ? activeLink : "text-[#A2A2A2]"
                 }`}
                 key={index.id}
+                onClick={() => toggleSideBar(false)}
               >
                 <p className="ml-14 ">{item.icon}</p>
                 <SideBarLabel>{item.name}</SideBarLabel>

@@ -62,38 +62,37 @@ const MobileTabs = () => {
     //do somthing
   }
   return (
-    <div className='ml-4 mr-1 mt-2'>
+    <div className="px-4">
       <>
         {!showTab ? (
           <>
+            <div>
+              <div className="mt-8 mb-6">
+                <h1 className="text-2xl font-medium">Settings</h1>
+                <span className="text-[#A2A2A2] text-base">
+                  All information available.
+                </span>
+              </div>
 
-            <div >
-            <div className="mt-8 mb-6">
-              <h1 className="text-2xl font-medium">Settings</h1>
-              <span className="text-[#A2A2A2] text-base">All information available.</span>
-            </div>
-
-              {
-                tabs.map(tab => (
-                  <div onClick={() => handleTab(tab?.name)} className='flex gap-4  items-center mt-6   rounded-sm select-none'>
-                    <span className=''>{tab.icon}</span>
-                    <span className='text-lg'>{tab.name}</span>
-                  </div>
-                ))
-              }
+              {tabs.map((tab) => (
+                <div
+                  onClick={() => handleTab(tab?.name)}
+                  className="flex gap-4  items-center mt-10    rounded-sm select-none text-[#797979]"
+                >
+                  <span className="">{tab.icon}</span>
+                  <span className="text-[16px] leading-[19px] text-[#797979]">
+                    {tab.name}
+                  </span>
+                </div>
+              ))}
             </div>
           </>
         ) : (
-
-          <div>
-            {displayTab(currentTab)}
-          </div>
+          <div>{displayTab(currentTab)}</div>
         )}
       </>
-
-
     </div>
-  )
+  );
 }
 
 export default MobileTabs

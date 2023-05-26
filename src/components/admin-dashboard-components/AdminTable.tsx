@@ -14,16 +14,16 @@ import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 
-
-
 export type ITable = {
   tabs: any;
   placeholder: string;
   Tcolumns: readonly Column<object>[];
-  optionalColumn: null;
+  optionalColumn?: Column<object>; // Make optionalColumn prop optional
   TData: any;
   sortButton?: React.ReactNode;
   showIcon?: boolean;
+  showCheckbox?: boolean;
+  showDropDown?: boolean;
 };
 
 //@ts-ignore
@@ -35,6 +35,8 @@ const AdminTable = ({
   placeholder,
   sortButton,
   showIcon,
+  showCheckbox,
+  showDropDown,
 }: ITable) => {
   const [selectedRows, setSelectedRows] = useState(null);
   const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
@@ -43,56 +45,50 @@ const AdminTable = ({
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState<string>(tabs);
   const [chosenTab, setChosenTab] = useState("All");
-  
+
+  const tableColumns = useMemo(() => {
+    const columns = [
+      ...(showCheckbox
+        ? [
+            {
+              id: "selection",
+              Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
+                <div>
+                  <IndeterminateCheckbox
+                    {...getToggleAllPageRowsSelectedProps()}
+                  />
+                </div>
+              ),
+              Cell: ({ row }: any) => (
+                <div>
+                  <IndeterminateCheckbox
+                    {...(row as any).getToggleRowSelectedProps()}
+                  />
+                </div>
+              ),
+            },
+          ]
+        : []),
+      ...Tcolumns,
+    ];
+
+    if (optionalColumn) {
+      columns.push(optionalColumn);
+    }
+
+    return columns;
+  }, [Tcolumns, optionalColumn, showCheckbox]);
+
   const table = useTable(
     {
-      columns,
+      columns: tableColumns,
       data,
     },
     useGlobalFilter,
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect,
-
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        // Let's make a column for selection
-        {
-          id: "selection",
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }: any) => (
-            <div>
-              <IndeterminateCheckbox
-                {...(row as any).getToggleRowSelectedProps()}
-              />
-            </div>
-          ),
-        },
-
-        ...columns,
-
-        optionalColumn
-          ? optionalColumn
-          : {
-              id: "view",
-              // The header can use the table's getToggleAllRowsSelectedProps method
-              // to render a checkbox
-              Header: () => <div></div>,
-              // The cell can use the individual row's getToggleRowSelectedProps method
-              // to the render a checkbox
-              Cell: () => <div></div>,
-            },
-      ]);
-    }
+    useRowSelect
   ) as any;
   const {
     getTableBodyProps,
@@ -130,19 +126,18 @@ const AdminTable = ({
 
   return (
     <>
-      <div className="tabs flex gap-4   ">
+      <div className="flex gap-4 w-full overflow-x-scroll xxs:py-4 md:py-0">
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}
-            className={`cursor-pointer relative underline bg-transparent  text-center p-2 px-4 text-[#5c6f7f]${
+            className={`cursor-pointer relative underline bg-transparent text-center p-2 px-4 text-[#5c6f7f] ${
               selectedTab === tab
-                ? " text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
+                ? "text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
                 : ""
             }`}
             isActive={selectedTab === tab}
             onClick={() => {
               setSelectedTab(tab);
-
               setChosenTab(tab);
             }}
           >
@@ -150,30 +145,36 @@ const AdminTable = ({
           </TabSelector>
         ))}
       </div>
-      <div className="flex  items-center justify-between  mt-5 my-6 w-full ">
-        <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
-          <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
-            <input
-              type="checkbox"
-              className="text-primary  accent-[#197B30] text-xs md:text-sm"
-              readOnly
-              checked={numOfSelectedRow > 0 ? true : false}
-            />
-            {numOfSelectedRow > 0 && (
-              <span className="mx-3 text-slate-400">
-                {numOfSelectedRow} Selected
-              </span>
-            )}
+
+      <div
+        className={`md:flex  items-center ${
+          showDropDown ? "justify-between" : "justify-end"
+        }  mt-5 my-6 w-full `}
+      >
+        {showDropDown && (
+          <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
+            <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+              <input
+                type="checkbox"
+                className="text-primary  accent-[#197B30] text-xs md:text-sm"
+                readOnly
+                checked={numOfSelectedRow > 0 ? true : false}
+              />
+              {numOfSelectedRow > 0 && (
+                <span className="mx-3 text-slate-400">
+                  {numOfSelectedRow} Selected
+                </span>
+              )}
+            </div>
+            <div className="max-w-xl ">
+              <OrderDropDown />
+            </div>
+            <div className="bg-[#197B30] text-[#fff] px-4 py-1.5 text-sm rounded-md cursor-pointer">
+              Go
+            </div>
           </div>
-          <div className="max-w-xl ">
-            <OrderDropDown />
-            
-          </div>
-          <div className="bg-[#197B30] text-[#fff] px-4 py-1.5 text-sm rounded-md cursor-pointer">
-            Go
-          </div>
-        </div>
-        <div className=" flex md:justify-end xxs:justify-center">
+        )}
+        <div className=" md:flex md:justify-end xxs:block">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -214,24 +215,26 @@ const AdminTable = ({
                                   {column.render("Header")}
                                 </span>
 
-                               { showIcon && <>
-                                  {column.canSort === true && (
-                                    <span className="ml-2">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="10"
-                                        height="12"
-                                        viewBox="0 0 10 18"
-                                        fill="none"
-                                      >
-                                        <path
-                                          d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
-                                          fill="#323232"
-                                        />
-                                      </svg>
-                                    </span>
-                                  )}
-                                </>}
+                                {showIcon && (
+                                  <>
+                                    {column.canSort === true && (
+                                      <span className="ml-2">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="10"
+                                          height="12"
+                                          viewBox="0 0 10 18"
+                                          fill="none"
+                                        >
+                                          <path
+                                            d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
+                                            fill="#323232"
+                                          />
+                                        </svg>
+                                      </span>
+                                    )}
+                                  </>
+                                )}
                               </div>
                             </th>
                           ))}

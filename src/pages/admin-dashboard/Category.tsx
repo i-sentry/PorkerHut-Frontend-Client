@@ -164,7 +164,7 @@ const Category = () => {
             <h1 className="text-[36px] leading-[42px] font-medium ">
               Manage Categories
             </h1>
-            <span className="text-[#A2A2A2] font-normal text-[16px] leading-[19px] mt-1">
+            <span className="text-[#A2A2A2] font-normal text-[16px] leading-[19px] mt-3">
               Create categories for sold items.
             </span>
           </div>

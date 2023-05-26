@@ -30,7 +30,7 @@ interface IAccount {
 const AccountInfo = ({ setShowTab }: IAccount) => {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleImage = (e: any) => {
     const file = e.target.files[0];
     setImage(file);
@@ -81,13 +81,28 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
     console.log(JSON.stringify(data, null, 2));
     reset();
   };
+
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    // Perform the delete operation
+    // ...
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteCancelled = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="h-screen overflow-y-scroll pb-28 mr-3">
-      <div className="flex items-center gap-2 ">
+    <div className="">
+      <div className="flex items-center gap-2  ">
         <div onClick={() => setShowTab((prev) => !prev)}>
-          <HiOutlineChevronLeft size={30} />
+          <HiOutlineChevronLeft size={20} />
         </div>
-        <span className="flex gap-1 items-center text-[#197b30]">
+        <span className="flex gap-1 items-center text-[#197b30] text-[16px] md:leading-[19px]">
           <MdOutlinePerson size={24} />
           Account Information
         </span>
@@ -98,7 +113,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
         className="bg-[#F4F4F4] mt-4 py-8 px-4 rounded-md mb-10"
       >
         <div className="flex flex-col items-center justify-center">
-          <div className="w-16 h-16 flex items-center justify-center border border-black rounded-full">
+          <div className="w-16 h-16 flex items-center justify-center border border-slate-400 rounded-full">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -118,16 +133,13 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
                   type="file"
                   name="file"
                   onClick={handleImage}
-                  className=" hidden appearance-none outline-none text-sm "
+                  className=" hidden appearance-none outline-none text-sm cursor-pointer"
                 />
               </>
             )}
           </div>
 
-          <h3
-            className=" text-[24px] leading-[28px]  text-[#333333] pt-2 font-semibold"
-            style={{ transition: "opacity 0.5s ease-in" }}
-          >
+          <h3 className=" text-[18px] leading-[21px]  text-[#333333] pt-2 font-semibold">
             John Doe
           </h3>
           <label
@@ -135,7 +147,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             className="text-sm flex items-center gap-2 text-right"
           >
             <FiCamera className="text-[#197B30]" />
-            <span className=" cursor-pointer  my-auto text-[#197B30] text-[14px] leading-[16px] py-4 font-medium">
+            <span className=" cursor-pointer  my-auto text-[#197B30] text-[13px] leading-[15px] py-4 font-medium">
               Change profile picture
             </span>{" "}
           </label>
@@ -199,7 +211,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
               type="text"
               {...register("email")}
               placeholder="Enter Your Email Address"
-              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                 errors.email ? "border-[#dd1313]" : ""
               }`}
             />
@@ -219,7 +231,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
               type="number"
               {...register("storeId")}
               placeholder="Enter Store ID"
-              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                 errors.storeId ? "border-[#dd1313]" : ""
               }`}
             />
@@ -239,7 +251,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
               type="text"
               {...register("streetAddress")}
               placeholder="Enter Street Address"
-              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                 errors.streetAddress ? "border-[#dd1313]" : ""
               }`}
             />
@@ -259,7 +271,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
               type="text"
               {...register("location")}
               placeholder="Enter Location"
-              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+              className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                 errors.location ? "border-[#dd1313]" : ""
               }`}
             />
@@ -268,52 +280,99 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             </div>
           </div>
 
-          
-            <div className="mb-3 input ">
-              <label
-                className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
-                htmlFor="phonenumber"
-              >
-                Phone Number
-              </label>
-              <PhoneInput
-                country={"ng"}
-                value={phoneNumber}
-                // {...register("phonenumber")}
-                onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
-                inputProps={{
-                  name: "phonenumber",
+          <div className="mb-3 input ">
+            <label
+              className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+              htmlFor="phonenumber"
+            >
+              Phone Number
+            </label>
+            <PhoneInput
+              country={"ng"}
+              value={phoneNumber}
+              // {...register("phonenumber")}
+              onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              inputProps={{
+                name: "phonenumber",
 
-                  id: "phonenumber",
-                  className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                    errors.phoneNumber ? "border-[#dd1313]" : ""
-                  }`,
-                }}
-              />
-              <div className="text-[#dd1313] text-sm">
-                {errors.phoneNumber?.message}
-              </div>
+                id: "phonenumber",
+                className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                  errors.phoneNumber ? "border-[#dd1313]" : ""
+                }`,
+              }}
+            />
+            <div className="text-[#dd1313] text-sm">
+              {errors.phoneNumber?.message}
             </div>
-          
+          </div>
 
-          <div className="flex items-center justify-between px-4 pt-3 pb-8">
-            <button
-              type="submit"
-              className="border border-[#F91919]  text-[#F91919] h-12 px-[20px] rounded text-[14px] leading-[16px] font-semibold"
+          <div className="flex items-center justify-between  pt-3 pb-8">
+            <div
+              onClick={handleDeleteClick}
+              className="border border-[#F91919] px-6 py-4  text-[#F91919]  rounded text-[14px] leading-[16px] font-semibold"
             >
               Delete Account{" "}
-            </button>
+            </div>
             <button
               type="submit"
-              className="bg-[#197B30] text-white h-12 px-[20px] rounded text-[14px] leading-[16px]  font-semibold"
+              className="bg-[#197B30] border-[#197B30] border text-white px-8 py-4 rounded text-[14px] leading-[16px]  font-semibold"
             >
               Save Changes{" "}
             </button>
           </div>
         </div>
       </form>
+
+      {/* Render the modal if open */}
+      {isModalOpen && (
+        <DeleteConfirmationModal
+          onDelete={handleDeleteConfirmed}
+          onCancel={handleDeleteCancelled}
+        />
+      )}
     </div>
   );
 };
 
 export default AccountInfo;
+
+// Modal component
+const DeleteConfirmationModal = ({
+  onDelete,
+  onCancel,
+}: {
+  onDelete: () => void;
+  onCancel: () => void;
+}) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-gray-800 bg-opacity-50"></div>
+      <div className="bg-white w-80 p-6 rounded-lg shadow-lg relative">
+        <h2 className="text-xl text-[#197B30] font-medium mb-4">
+          Delete Confirmation
+        </h2>
+        <p className="text-[#F91919]">
+          Are you sure you want to delete your account?
+        </p>
+        <p className="text-[#797979] text-sm mt-3 border-t border-b py-2">
+          Note: When you delete your account, all your information will be
+          deleted permanently and cannot be recovered back after deletion.
+        </p>
+        <div className="flex justify-end mt-6">
+          <button
+            className="px-4 py-2 mr-2 bg-red-500 border border-[#F91919] text-white rounded "
+            onClick={onDelete}
+          >
+            Delete
+          </button>
+          <button
+            className="px-4 py-2 bg-[#197B30] text-[#fff] rounded "
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
