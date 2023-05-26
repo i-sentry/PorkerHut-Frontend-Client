@@ -9,14 +9,9 @@ import SellersNotificationTable from "../../components/vendors-component/Sellers
 import MobileTabs from "../tabs/MobileTabs";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import Snackbar from "../../components/utility/snackbar/Snackbar";
+
 
 type FormData = {
   fullName: string;

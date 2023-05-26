@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
-
-import VendorAside from "../pages/sellers-dashboard/VendorAside";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
-import { useSidebarState } from "../store/overlay";
 
 const Layout = () => {
 
@@ -17,7 +14,7 @@ const Layout = () => {
           <VendorsNav />
         </div>
         <div className="md:flex h-full w-full overflow-x-hidden">
-          <div className=" ">
+          <div className="">
             <SellerSideNav />
           </div>
           <div className="overflow-y-auto flex-1 pt-[40px] md:pl-20 md:pr-6 ">
