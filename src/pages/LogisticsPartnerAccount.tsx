@@ -121,7 +121,7 @@ const VetPartnerAccount = () => {
     <div className="pb-20">
       <div className="bg-[#197B30] h-fit md:h-[275px] my-[80px] md:mx-20">
         <div className="p-10">
-          <h1 className="xxs:hidden text-[20px] leading-[23px]  md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
+          <h1 className="md:flex text-[20px] leading-[23px]  md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
             Becoming a Logistics Partner
           </h1>
           <h1 className="md:hidden text-[20px] leading-[23px]  md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
