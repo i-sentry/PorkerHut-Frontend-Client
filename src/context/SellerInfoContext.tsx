@@ -6,7 +6,7 @@ interface IChildren {
 }
 
 export interface ISellerInfo {
-  shop_name: string;
+  shop_name?: string;
   entity_type: string;
   account_owner_name: string;
   phone_number: string;

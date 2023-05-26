@@ -10,15 +10,19 @@ const MyAccount = () => {
   const [disabledNumber, setDisabledNumber] = useState(true);
   const [user, setUser] = useState<any>(null);
   const [temp, setTemp] = useState(false);
+  const [editStatus, setEditStatus] = useState(false);
+
 
   console.log(user);
 
   const handleEditAddress = () => {
     setDisabledAddress(false);
+    setEditStatus(true);
   };
 
   const handleEditNumber = () => {
     setDisabledNumber(false);
+    setEditStatus(true);
   };
 
   const handleSubmit = (e: any) => {
@@ -139,20 +143,18 @@ const MyAccount = () => {
                       )}
                     </div>
                   </div>
-                  {/* <div className="flex md:justify-end xxs:justify-start xxs:gap-3 md:gap-0 py-5 mt-2">
-                    <button className="mr-2 w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px] ">
-                      Cancel
-                    </button>
-                    <button className="w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded">
-                      Save
-                    </button>
-                  </div> */}
+                 
 
                   <div className="flex md:justify-end xxs:justify-start gap-3  py-5 mt-2">
-                    <button className="flex-shrink-0  xxs:flex-grow md:flex-grow-0  w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px]">
+                    <button
+                     
+                      className="flex-shrink-0  xxs:flex-grow md:flex-grow-0  w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px]"
+                    >
                       Cancel
                     </button>
-                    <button className=" xxs:flex-grow md:flex-grow-0 w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded">
+                    <button 
+                     disabled={!editStatus}
+                    className={`xxs:flex-grow md:flex-grow-0 w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded ${!editStatus && 'opacity-50 cursor-not-allowed'}`}>
                       Save
                     </button>
                   </div>

@@ -11,10 +11,10 @@ const OrderTracking = () => {
 
   return (
     <AppLayout>
-      <div className=" text-center mt-24">
-        <h1 className="  xxs:text-lg md:text-2xl font-medium">
+      <div className=" text-center pt-20">
+        <h1 className="  xxs:text-lg md:text-[40px] leading-[47px] font-semibold">
           How to track your orders
-          <div className=" xxs:w-20 h-1 w-10 bg-[#197B30] m-auto"></div>
+          <div className=" xxs:w-20 h-2 w-20 bg-[#197B30] m-auto mt-3"></div>
         </h1>
       </div>
       <div className=" mt-8 mb-14 md:px-12 xxs:px-4">

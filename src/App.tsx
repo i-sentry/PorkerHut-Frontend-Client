@@ -72,6 +72,8 @@ import MyAccount from "./pages/MyAccount";
 import ReturnOrder from "./pages/ReturnOrder";
 import ReturnRequest from "./pages/Authentication/ReturnRequest";
 import Category from "./pages/admin-dashboard/Category";
+import VetPartnerAccount from "./pages/VetPartnerAccount";
+import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -103,13 +105,21 @@ const router = createBrowserRouter(
       <Route path="/pay-fail" element={<PaymentFailPage />} />
       <Route path="/affiliate" element={<AffiliatePage />} />
       <Route path="/create-account" element={<CreateSellersAcc />} />
+      <Route
+        path="/affiliate/vet-partner-account"
+        element={<VetPartnerAccount />}
+      />
+      <Route
+        path="/affiliate/logistics-partner-account"
+        element={<LogisticsPartnerAccount />}
+      />
+
       <Route path="/favorite+products" element={<FavouriteProductPage />} />
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
       <Route path="/my__orders/:id/:orderid" element={<ReturnRequest />} />
       <Route path="/empty_cart" element={<EmptyCartPage />} />
       <Route path="/contact-us" element={<ContactPage />} />
-      {/* <Route path="/services/vet-services" element={<VeterinaryServices />} /> */}
       <Route path="/services/vet-services" element={<VetServices />} />
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
 
