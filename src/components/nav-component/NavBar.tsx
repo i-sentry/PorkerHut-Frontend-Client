@@ -145,7 +145,7 @@ const NavBar = () => {
                 {showSearch ? (
                   <div
                     className={`duration-500 ease-in-out  ${
-                      showSearch ? "  right-0" : " right-[-100%]"
+                      showSearch ? "right-0" : "right-[-100%]"
                     }`}
                   >
                     <SearchBar setShowSearch={setShowSearch} />
@@ -187,7 +187,7 @@ const NavBar = () => {
                   <Menu as="div" className="relative">
                     <Menu.Button className="flex items-center mt-2">
                       <HiOutlineUserCircle size={22} />
-                      <p className="pl-1 text-[#333333] text-sm whitespace-nowrap">
+                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
                         {/* @ts-ignore */}
                         Hi, {user?.firstName}
                       </p>
@@ -215,7 +215,7 @@ const NavBar = () => {
                                 "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] font-normal  text-[#333333] flex items-center gap-3">
                                 <HiOutlineUserCircle size={24} />
                                 My Account
                               </h1>
@@ -231,7 +231,7 @@ const NavBar = () => {
                                 "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
                                 <ImDownload size={24} />
                                 My Order
                               </h1>
@@ -247,7 +247,7 @@ const NavBar = () => {
                                 "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
                                 <IoMdHeartEmpty size={24} />
                                 My Favorites
                               </h1>
@@ -264,7 +264,7 @@ const NavBar = () => {
                             >
                               <h1
                                 onClick={handleLogout}
-                                className="text-sm text-[#197B30] flex justify-center w-full"
+                                className="text-[14px] leading-[16px] font-normal text-[#197B30] flex justify-center w-full"
                               >
                                 Logout
                               </h1>
@@ -277,7 +277,7 @@ const NavBar = () => {
                   <Menu as="div" className="relative">
                     <Menu.Button className="flex items-center mt-2">
                       <IoMdHelpCircleOutline size={22} />
-                      <p className="pl-1 text-[#333333] text-sm"> Help</p>
+                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold"> Help</p>
                       <span className="rotate-180">
                         <RxCaretDown />
                       </span>
@@ -295,13 +295,13 @@ const NavBar = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <div
-                              onClick={() => navigate("/profile")}
+                              onClick={() => navigate("/contact-us")}
                               className={classNames(
                                 active && "bg-gray-100",
                                 "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
                                 <FaHandsHelping size={23} />
                                 Help Center
                               </h1>
@@ -317,7 +317,7 @@ const NavBar = () => {
                                 "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="ext-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
                                 <MdSendAndArchive size={23} />
                                 Tracking Orders
                               </h1>
@@ -327,12 +327,13 @@ const NavBar = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <div
+                              onClick={() => navigate("/return+order")}
                               className={classNames(
                                 active && "bg-gray-100",
                                 "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
                               )}
                             >
-                              <h1 className="text-sm text-[#333333] font-light flex items-center gap-3">
+                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
                                 <TbTruckReturn size={23} />
                                 Return Order
                               </h1>
@@ -348,7 +349,7 @@ const NavBar = () => {
                                 "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
                               )}
                             >
-                              <h1 className="text-sm text-[#197B30]  text-center flex">
+                              <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
                                 <MdCancelScheduleSend size={23} />
                                 <span className="m-auto">
                                   Order Cancellation
