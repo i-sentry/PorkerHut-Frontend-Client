@@ -34,9 +34,6 @@ const vendorType = [
   },
 ];
 
-interface VetPartnerMobileFormBProps {
-  onPrev: () => void;
-}
 
 type UserBillingInfo = {
   name: string;
@@ -52,9 +49,7 @@ type UserBillingInfo = {
   typeOfVet: string;
 };
 
-const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
-  onPrev,
-}) => {
+const VetPartnerMobileB: React.FC = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
@@ -136,7 +131,7 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
       <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
         <div className="p-10">
           <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-            Become a Vet Partner
+            Join our Vet Team
           </h1>
           <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
             Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
@@ -162,17 +157,9 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
         {" "}
         <div>
           <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
-            <div className=" mb-8">
-              <h1 className="sm:text-xl  text-[#333333] md:text-[24px] leading-[28px] font-medium mb-4">
-                Vet Partner Information
-              </h1>
-              <p className="text-[#797979] text-[14px] leading-[24px] font-normal">
-                Please fill in the necessary information.{" "}
-              </p>
-            </div>
             <div>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="my-2 w-full ">
+                <div className="my-4 w-full ">
                   <label
                     htmlFor=""
                     className={`block text-[16px] mb-[6px] text-HeadingColor `}
@@ -183,7 +170,7 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                     type="number"
                     {...register("companyRc")}
                     placeholder="Enter your rc number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30] mb-1 sm:text-sm ${"border-ErrorBorder"} ${
                       errors.companyRc ? "border-[#dd1313]" : ""
                     }`}
                   />
@@ -191,13 +178,13 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                   <div className="text-[#dd1313] text-sm">
                     {errors.companyRc?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal ">
                     We need your company registration number.
                   </span>
                   <p className="my-2 text-[red] text-xs"></p>
                 </div>
 
-                <div className="mb-3 input">
+                <div className=" w-full">
                   <label
                     className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
                     htmlFor="country"
@@ -223,97 +210,94 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="my-2 w-full">
-                    <label
-                      className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                      htmlFor="state"
-                    >
-                      State
-                    </label>
-                    <RegionDropdown
-                      blankOptionLabel=""
-                      defaultOptionLabel="Select State"
-                      id="state"
-                      country={country}
-                      value={state}
-                      onChange={(val) => setState(val)}
-                      classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                        errors.state ? "border-[#dd1313]" : ""
-                      }`}
-                    />
-                    <div className="text-[#dd1313] text-sm">
-                      {errors.state?.message}
-                    </div>
-                  </div>
-                  <div className="my-2 w-full ">
-                    <label
-                      htmlFor=""
-                      className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                    >
-                      City / Town
-                    </label>
-                    <input
-                      type="text"
-                      {...register("city")}
-                      placeholder="Enter city/town"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.city ? "border-[#dd1313]" : ""
-                      }`}
-                    />
-                    <div className="text-[#dd1313] text-sm">
-                      {errors.city?.message}
-                    </div>
-                    <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                    <p className="my-2 text-[red] text-xs"></p>
+                <div className="my-6 w-full">
+                  <label
+                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    htmlFor="state"
+                  >
+                    State
+                  </label>
+                  <RegionDropdown
+                    blankOptionLabel=""
+                    defaultOptionLabel="Select State"
+                    id="state"
+                    country={country}
+                    value={state}
+                    onChange={(val) => setState(val)}
+                    classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      errors.state ? "border-[#dd1313]" : ""
+                    }`}
+                  />
+                  <div className="text-[#dd1313] text-sm">
+                    {errors.state?.message}
                   </div>
                 </div>
-                <div className="flex gap-4">
-                  <div className="my-2 w-full ">
-                    <label
-                      htmlFor=""
-                      className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                    >
-                      Years of Operation
-                    </label>
-                    <input
-                      type="number"
-                      {...register("yearOfOperation")}
-                      placeholder="Number of years"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.yearOfOperation ? "border-[#dd1313]" : ""
-                      }`}
-                    />
-                    <div className="text-[#dd1313] text-sm">
-                      {errors.yearOfOperation?.message}
-                    </div>
-                    <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                    <p className="my-2 text-[red] text-xs"></p>
+                <div className="my-6 w-full ">
+                  <label
+                    htmlFor=""
+                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                  >
+                    City / Town
+                  </label>
+                  <input
+                    type="text"
+                    {...register("city")}
+                    placeholder="Enter city/town"
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.city ? "border-[#dd1313]" : ""
+                    }`}
+                  />
+                  <div className="text-[#dd1313] text-sm">
+                    {errors.city?.message}
                   </div>
-                  <div className="my-2 w-full ">
-                    <label
-                      htmlFor=""
-                      className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                    >
-                      Type of Vet
-                    </label>
-                    <input
-                      type="text"
-                      {...register("typeOfVet")}
-                      placeholder="Enter the type of vet you are"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.typeOfVet ? "border-[#dd1313]" : ""
-                      }`}
-                    />
-                    <div className="text-[#dd1313] text-sm">
-                      {errors.typeOfVet?.message}
-                    </div>
-                    <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                    <p className="my-2 text-[red] text-xs"></p>
-                  </div>
+                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
+                  <p className="my-2 text-[red] text-xs"></p>
                 </div>
 
-                <div className="my-2 w-full ">
+                <div className="my-6 w-full ">
+                  <label
+                    htmlFor=""
+                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                  >
+                    Years of Operation
+                  </label>
+                  <input
+                    type="number"
+                    {...register("yearOfOperation")}
+                    placeholder="Number of years"
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.yearOfOperation ? "border-[#dd1313]" : ""
+                    }`}
+                  />
+                  <div className="text-[#dd1313] text-sm">
+                    {errors.yearOfOperation?.message}
+                  </div>
+                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
+                  <p className="my-2 text-[red] text-xs"></p>
+                </div>
+                <div className="my-6 w-full ">
+                  <label
+                    htmlFor=""
+                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                  >
+                    Type of Vet
+                  </label>
+                  <input
+                    type="text"
+                    {...register("typeOfVet")}
+                    placeholder="Enter the type of vet you are"
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.typeOfVet ? "border-[#dd1313]" : ""
+                    }`}
+                  />
+                  <div className="text-[#dd1313] text-sm">
+                    {errors.typeOfVet?.message}
+                  </div>
+                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
+                  <p className="my-2 text-[red] text-xs"></p>
+                </div>
+
+                <div className="my-6 w-full ">
                   <label
                     htmlFor=""
                     className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
@@ -328,7 +312,7 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
                   <p className="my-2 text-[red] text-xs"></p>
                 </div>
-                <div className="my-2 w-full ">
+                <div className="my-3 w-full ">
                   <label
                     htmlFor=""
                     className={`block text-[16px] mb-[6px] text-HeadingColor  `}
@@ -345,7 +329,7 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                   </span>
                   <p className="my-2 text-[red] text-xs"></p>
                 </div>
-                <div className="my-2 w-full ">
+                <div className="my-6 w-full ">
                   <label
                     htmlFor=""
                     className={`block text-[16px] mb-[6px] text-HeadingColor  `}
@@ -379,13 +363,6 @@ const VetPartnerMobileB: React.FC<VetPartnerMobileFormBProps> = ({
                     </Link>
                   </label>
                 </div>
-
-                <button
-                  type="submit"
-                  className="text-[14px] leading-[24px] font-semibold  bg-[#197B30] px-6 py-3 rounded text-[#FFFFFF] my-8 ml-auto flex justify-end"
-                >
-                  Submit
-                </button>
               </form>
             </div>
           </div>

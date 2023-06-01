@@ -1,57 +1,91 @@
 import React, { useState } from "react";
 import VetPartnerMobileA from "./VetPartnerMobileFormA";
 import VetPartnerMobileB from "./VetPartnerMobileFormB";
-import { Title } from "chart.js";
 
-const VetPartnerFormMobile: React.FC = () => {
-  const [currentForm, setCurrentForm] = useState(1);
+function VerPartnerFormMobile() {
+  const [page, setPage] = useState(0);
 
-  const title = "Become a Vet Partner"
+  const FormTitles = ["Sign Up", "Personal Info"];
 
-
-  const handleNextForm = () => {
-    console.log("Next button clicked");
-    if (currentForm === 1) {
-      setCurrentForm(2);
-    }
-  };
-
-  const handlePrevForm = () => {
-    if (currentForm === 2) {
-      setCurrentForm(1);
+  const PageDisplay = () => {
+    if (page === 0) {
+      return <VetPartnerMobileA />;
+    } else {
+      return <VetPartnerMobileB />;
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mb-20">
-      <div className="w-full max-w-md">
-        {currentForm === 1 && <VetPartnerMobileA  onNext={handleNextForm} title={title} />}
-        {currentForm === 2 && <VetPartnerMobileB onPrev={handlePrevForm} />}
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        {currentForm === 2 && (
-          <div className="mt-6">
+    <div className="mb-20">
+      <div className="">
+        <div className="">{PageDisplay()}</div>
+
+        <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-4">
             <button
-              className="h-14 w-40 bg-[#197b30] text-white text-[14px] leading-[24px] font-semibold rounded"
-              onClick={handlePrevForm}
-            >
-              Back
-            </button>
-          </div>
-        )}
-        {currentForm === 1 && (
-          <div className="mt-6">
+              disabled={page === 0}
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              }}
+              className={`h-3 w-3 rounded-full focus:outline-none ${
+                page === 0 ? " bg-[#197b30]" : "bg-[#197b30]"
+              }`}
+            ></button>
+
             <button
-              className="h-14 w-40 bg-[#197b30] text-white text-[14px] leading-[24px] font-semibold rounded"
-              onClick={handleNextForm}
-            >
-              Next
-            </button>
+              onClick={() => {
+                setPage((currPage) => currPage + 1);
+              }}
+              className={`h-3 w-3 rounded-full  focus:outline-none ${
+                page === 1
+              } ? 'bg-[#197b30]' : 'bg-[#197b30]'`}
+            ></button>
           </div>
-        )}
+
+          <div className="flex items-center justify-center mt-4">
+            <button
+              disabled={page === 0}
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              }}
+              className={`h-3 w-3 rounded-full  focus:outline-none ${
+                page === 0 ? "bg-gray-300" : "bg-[#197b30]"
+              }`}
+            ></button>
+
+            <button
+              onClick={() => {
+                setPage((currPage) => currPage + 1);
+              }}
+              className={`h-3 w-3 rounded-full  focus:outline-none ${
+                page === 1
+              } ? 'bg-[#197b30]' : 'bg-[#197b30]'`}
+            ></button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center mt-6 gap-10">
+          <button
+            disabled={page === 0}
+            onClick={() => {
+              setPage((currPage) => currPage - 1);
+            }}
+            className="bg-white text-[#197b30] border border-[#197] w-[132px] h-[48px] rounded text-[14px] leading-[24px] font-semibold"
+          >
+            Back
+          </button>
+          <button
+            onClick={() => {
+              setPage((currPage) => currPage + 1);
+            }}
+            className="bg-[#197b30] text-white w-[132px] h-[48px] rounded text-[14px] leading-[24px] font-semibold"
+          >
+            {page === FormTitles.length - 1 ? "Submit" : "Next"}
+          </button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default VetPartnerFormMobile;
+export default VerPartnerFormMobile;
