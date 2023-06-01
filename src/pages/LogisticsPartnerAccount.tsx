@@ -130,7 +130,7 @@ const LogisticsPartnerAccount = () => {
 
   return (
     <>
-      <div className="pb-20">
+      <div className="pb-20 xxs:hidden md:block">
         <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
           <div className="p-10">
             <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
@@ -517,9 +517,11 @@ const LogisticsPartnerAccount = () => {
           </div>
         </div>
       </div>
-    
-      
-      <LogisticPartnerMobileForm />
+      <div>
+        <div className="md:hidden xxs:block">
+          <LogisticPartnerMobileForm />
+        </div>
+      </div>
     </>
   );
 };

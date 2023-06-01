@@ -34,8 +34,6 @@ const vendorType = [
   },
 ];
 
-
-
 type UserBillingInfo = {
   name: string;
   businessName: string;
@@ -50,13 +48,12 @@ type UserBillingInfo = {
   typeOfVet: string;
 };
 
-const VetPartnerMobileA: React.FC = () => {
+const LogisticPartnerMobileFormA: React.FC = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
   //@ts-ignore
-  const { vetData, setVetData } =
-    useContext(VetPartnerContexts);
+  const { vetData, setVetData } = useContext(VetPartnerContexts);
 
   const getBusinessDocFromInput = (files: IFile[]) => {
     setBusinessDocUrl(files);
@@ -122,7 +119,7 @@ const VetPartnerMobileA: React.FC = () => {
       <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
         <div className="p-10">
           <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-            Join our Vet Team
+            Join our Logistic Team
           </h1>
           <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
             Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
@@ -150,7 +147,7 @@ const VetPartnerMobileA: React.FC = () => {
           <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
             <div className=" mb-8">
               <h1 className="sm:text-xl  text-[#333333] md:text-[24px] leading-[28px] font-medium mb-4">
-                Vet Partner Information
+                Logistic Partner Information
               </h1>
               <p className="text-[#797979] text-[14px] leading-[24px] font-normal">
                 Please fill in the necessary information.{" "}
@@ -317,4 +314,4 @@ const VetPartnerMobileA: React.FC = () => {
   );
 };
 
-export default VetPartnerMobileA;
+export default LogisticPartnerMobileFormA;
