@@ -3,7 +3,7 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
-import { useGetAllBlogs } from "../../services/hooks/blog";
+import { useGetAllBlogs } from "../../services/hooks/users/blog";
 
 const BlogTitle = ({ data }: any) => {
   console.log(data);
@@ -45,7 +45,7 @@ const BlogPost = () => {
   const getAllBlogs = useGetAllBlogs();
 
   const blogData = getAllBlogs?.data?.data;
-console.log({blogData});
+  console.log({ blogData });
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);

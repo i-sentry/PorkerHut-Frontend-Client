@@ -14,7 +14,7 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
 import { GoSettings } from "react-icons/go";
-import { useGetAllProducts } from "../services/hooks/products";
+import { useGetAllProducts } from "../services/hooks/users/products";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -86,7 +86,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
           <div className="md:flex gap-8 ">
             <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden md:block overflow-hidden rounded-sm">
-              <Filter setData={setData} menuItem={menuItems} handleClick={handleClick} />
+              <Filter
+                setData={setData}
+                menuItem={menuItems}
+                handleClick={handleClick}
+              />
             </div>
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">

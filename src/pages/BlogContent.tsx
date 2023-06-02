@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppLayout from "../components/utility/AppLayout";
 import Breadcrumbs from "../../src/components/utility/BreadCrumbs";
 import { useParams } from "react-router-dom";
-import { useGetBlog } from "../services/hooks/blog";
+import { useGetBlog } from "../services/hooks/users/blog";
 import { imageUrl } from "../services/api";
 
 const BlogContent = () => {
@@ -38,7 +38,6 @@ const BlogContent = () => {
           <div
             className=" flex   items-center md:justify-start xxs:justify-center w-full md:h-[500px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
-
               backgroundImage: ` linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  url('${img}/${getSingleBlog?.data?.data?.featuredImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",

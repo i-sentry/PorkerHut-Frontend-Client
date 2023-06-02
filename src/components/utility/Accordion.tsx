@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import StepperController from "../sellers-onboarding/StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
@@ -11,18 +11,31 @@ import {
 } from "../../utils/formData";
 import { useForm } from "react-hook-form";
 import { useAppState } from "../../context/SellerInfoContext";
+import { useGetBankList } from "../../services/hooks/users/banks";
+import { IBankData } from "../../services/serviceType";
+import { useBankStore } from "../../store";
+import { vendorType } from "../sellers-onboarding/SellersAccountInfo";
 interface IAccordionPros {
   title: any;
   children: React.ReactNode;
   onToggle: () => void;
   isExpanded: boolean;
 }
- const AccordionSection = ({
+
+const AccordionSection = ({
   title,
   children,
   isExpanded,
   onToggle,
 }: IAccordionPros) => {
+  const setBankData = useBankStore((state) => state.setBankData);
+  const bankData = useBankStore((state) => state.bankData);
+  //@ts-ignore
+  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+    useContext(SellersStepsContext);
+
+  console.log(bankData, "pp");
+  console.log({ userData });
   return (
     <div className="border-b pb-5 mt-3">
       <div className="flex items-center gap-2">
@@ -32,11 +45,13 @@ interface IAccordionPros {
         >
           {isExpanded ? <IoChevronDown size={20} /> : <IoChevronUp size={20} />}
         </button>
-        <div className="text-[#2B2B2B] font-light text-lg">{title}</div>
+        <div className="text-[#333333] font-normal text-[20px] leading-[24px]">
+          {title}
+        </div>
       </div>
       <div
         className={
-          (isExpanded ? "flex" : "hidden") +
+          (isExpanded ? "flex flex-col" : "hidden") +
           " transition-all duration-700 ease-in-out"
         }
       >
@@ -52,6 +67,7 @@ const Accordion = () => {
   const [isAccountInfoExpanded, setIsAccountInfoExpanded] =
     React.useState(false);
   const [isBankInfoExpanded, setIsBankInfoExpanded] = React.useState(false);
+  const bankData = useBankStore((state) => state.bankData);
   const { state, setState } = useAppState();
   const {
     handleSubmit,
@@ -64,6 +80,9 @@ const Accordion = () => {
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+
+  const foundObject = bankData.find((obj) => obj.value === userData?.bank);
+  console.log({ foundObject });
 
   const handleChange = (e: any) => {
     console.log(e);
@@ -81,7 +100,7 @@ const Accordion = () => {
 
   return (
     <div className="rounded-md w-full md:max-w-2xl h-fit px-5 py-3 flex flex-col mb-4">
-      <h1 className="text-[#2B2B2B] font-medium sm:text-xl mb-8 text-base ">
+      <h1 className=" sm:text-xl mb-8 font-medium text-[#333333] text-[24px] leading-[28px] ">
         Summary
       </h1>
       <AccordionSection
@@ -94,12 +113,12 @@ const Accordion = () => {
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
-                className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
                   data.required &&
                   "after:content-['*'] after:ml-0.5 after:text-red-500"
                 } }`}
               >
-                {data.label}
+                {data?.label}
               </label>
               <input
                 id={data.name}
@@ -126,16 +145,16 @@ const Accordion = () => {
             <div className="my-2 w-full">
               <label
                 htmlFor={"asset"}
-                className="block text-[16px] mb-[6px] text-HeadingColor"
+                className="block leading-[16px] text-[14px] mb-[6px] text-[#333333]"
               >
                 Are you an individual or Business Entity/Company
               </label>
               {/* Custom Field */}
               <CustomSelect
-                selectedOption={dropOption}
+                selectedOption={dropOption || userData.entity_type}
                 setSelectOption={setDropOption}
                 placeholder={"-Choose an option-"}
-                options={[]}
+                options={vendorType || []}
               />
             </div>
           </>
@@ -144,12 +163,12 @@ const Accordion = () => {
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
-                className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                className={`block leading-[16px] text-[14px] mb-[6px] text-[#333333] ${
                   data.required &&
                   "after:content-['*'] after:ml-0.5 after:text-red-500"
                 } }`}
               >
-                {data.label}
+                {data?.label}
               </label>
               <input
                 id={data.name}
@@ -170,24 +189,6 @@ const Accordion = () => {
               </p>
             </div>
           ))}
-          {/* <>
-            <div className="flex items-center ">
-              <input
-                // {...register("checkbox")}
-                type="checkbox"
-                name="checkbox"
-                onChange={handleChange}
-                checked={val}
-                className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
-              />
-              <label htmlFor="" className="ml-2 text-sm text-slate-500">
-                I have read and accepted{" "}
-                <Link to={""} className="text-[#197B30] underline">
-                  Porker Hut E-contract
-                </Link>
-              </label>
-            </div>
-          </> */}
         </form>
       </AccordionSection>
       <AccordionSection
@@ -205,7 +206,7 @@ const Accordion = () => {
                   "after:content-['*'] after:ml-0.5 after:text-red-500"
                 } }`}
               >
-                {data.label}
+                {data?.label}
               </label>
               <input
                 id={data.name}
@@ -244,14 +245,14 @@ const Accordion = () => {
               </label>
               {/* Custom Field */}
               <CustomSelect
-                selectedOption={dropOption}
+                selectedOption={dropOption === null ? foundObject : dropOption}
                 setSelectOption={setDropOption}
                 placeholder={"Select bank"}
-                options={[]}
+                options={bankData || []}
               />
             </div>
           </>
-          {sellersBankInfo.map((data, index) => (
+          {BankInfo.map((data, index) => (
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
@@ -297,3 +298,24 @@ const Accordion = () => {
 };
 
 export default Accordion;
+
+const BankInfo = [
+  {
+    label: "Bank account name",
+    name: "accountName",
+    place_holder: "Enter full name",
+    error_message: "Business owner Name is Required",
+    type: "text",
+    info: "Please fill in your account name as it appears on your bvn",
+    required: true,
+  },
+  {
+    label: "Bank account number",
+    name: "bank_account",
+    place_holder: "Enter account number ",
+    error_message: "Account Number is Required",
+    type: "number",
+    info: "Please fill in your account number",
+    required: true,
+  },
+];

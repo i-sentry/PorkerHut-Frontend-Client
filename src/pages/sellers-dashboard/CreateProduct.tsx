@@ -15,7 +15,7 @@ export default function ProductAccordion() {
   };
 
   return (
-    <div className="md:pl-10 md:pr-6">
+    <div className=" xxs:px-4 md:px-0">
       <div className="md:flex md:items-center md:justify-between ">
         <div className="">
           <div className="mb-10">
@@ -65,10 +65,7 @@ export default function ProductAccordion() {
           }}
         >
           <div className="px-8 flex flex-col gap-2">
-            <Link
-              to="/sellers-dashboard/create-product/stepper"
-              className="underline"
-            >
+            <Link to="/vendor/create-product/stepper" className="underline">
               Bacon
             </Link>
             <span className="underline">Pork Belly</span>

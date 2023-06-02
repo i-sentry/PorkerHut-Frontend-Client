@@ -36,14 +36,6 @@ export const formData = [
 
 export const sellersformData = [
 
-  // {
-  //   label: "Are you an individual or Business Entity/Company",
-  //   name: "confirmation",
-  //   place_holder: "-Choose an option-",
-  //   error_message: "Email Address is Required",
-  //   type: "text",
-  //   required: true,
-  // },
   {
     label: "Account Owner’s Name",
     name: "account_owners_name",
@@ -193,15 +185,15 @@ export const businessTIN = [
 
 
 export const sellersBankInfo = [
-  {
-    label: "Bank account name",
-    name: "bank_account_name",
-    place_holder: "Enter full name",
-    error_message: "Business owner Name is Required",
-    type: "text",
-    info: "Please fill in your account name as it appears on your bvn",
-    required: true,
-  },
+  // {
+  //   label: "Bank account name",
+  //   name: "bank_account_name",
+  //   place_holder: "Enter full name",
+  //   error_message: "Business owner Name is Required",
+  //   type: "text",
+  //   info: "Please fill in your account name as it appears on your bvn",
+  //   required: true,
+  // },
   {
     label: "Bank account number",
     name: "bank_account",

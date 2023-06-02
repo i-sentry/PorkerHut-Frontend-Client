@@ -13,7 +13,7 @@ export type SelectOptionType = {
   description?: string;
 } | null;
 
-const vendorType = [
+export const vendorType = [
   {
     id: 1,
     name: "Individual",
@@ -23,12 +23,15 @@ const vendorType = [
     name: "Business Entity",
   },
 ];
+
 const SellersAccountInfo = () => {
   //@ts-ignore
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
+  // const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const [accountInfoFilled, setAccountInfoFilled] = useState(false);
 
   React.useEffect(() => {
@@ -42,14 +45,7 @@ const SellersAccountInfo = () => {
     return console.log(Object.values(userData).every((value) => value !== ""));
   }
   const { state, setState } = useAppState();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   control,
-  //   setValue,
-  //   getValues,
-  //   formState: { isValid, errors },
-  // } = useForm<any>();
+
 
   const {
     handleSubmit,
@@ -84,12 +80,12 @@ const SellersAccountInfo = () => {
     <div>
       {" "}
       <div>
-        <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
+        <div className="max-w-[600px] m-auto min-h-[600px] p-8   bg-[#F4F4F4] rounded-md">
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-base ">
+            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
               Seller Account Information
             </h1>
-            <p className="text-[#797979] text-sm">
+            <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
               Please fill in the necessary information.{" "}
             </p>
           </div>
@@ -99,7 +95,7 @@ const SellersAccountInfo = () => {
                 <div className="my-2 w-full " key={index}>
                   <label
                     htmlFor={data.name}
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                    className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
                       data.required &&
                       "after:content-['*'] after:ml-0.5 after:text-red-500"
                     } }`}
@@ -130,7 +126,7 @@ const SellersAccountInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[16px] mb-[6px] whitespace-nowrap"
+                    className="block text-[14px] leading-[16px] text-[#333333] mb-[6px] whitespace-nowrap"
                   >
                     Are you an individual or Business Entity/Company
                   </label>
@@ -148,7 +144,7 @@ const SellersAccountInfo = () => {
                 <div className="my-2 w-full " key={index}>
                   <label
                     htmlFor={data.name}
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                    className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px]  ${
                       data.required &&
                       "after:content-['*'] after:ml-0.5 after:text-red-500"
                     } }`}

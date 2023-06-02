@@ -30,8 +30,8 @@ const StepLayout = ({
       <div className="main-div mb-24 mt-24 ">
         <div>
           <div className="flex justify-center items-center  mt-4">
-            <h1 className="font-normal sm:text-2xl text-xl">
-              Create your seller account
+            <h1 className="font-medium sm:text-2xl text-[#333333] text-[40px] leading-[47px]">
+              Create your own seller account
             </h1>
           </div>
           <div className="flex items-center justify-center ">
@@ -89,7 +89,9 @@ const StepLayout = ({
             <h1 className="text-[#333333] font-semibold text-base">
               Step {currentStep}
             </h1>
-            <p className="text-base font-light">{checkoutSteps[currentStep-1]}</p>
+            <p className="text-base font-light">
+              {checkoutSteps[currentStep - 1]}
+            </p>
           </div>
         </div>
 

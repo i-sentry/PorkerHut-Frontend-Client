@@ -19,15 +19,22 @@ export const api = {
     userSignup: "/api/user/signup",
     userLogin: "/api/user/login",
   },
-   Blogs: {
+  Vendors: {
+    vendorSignup: "/api/vendor/signup",
+    userLogin: "/api/user/login",
+  },
+  Blogs: {
     allBlogs: "/api/blogs/",
-    singleBlog: (id: string | undefined) => `/api/blogs/${id}`
-
-   },
-   Products: {
+    singleBlog: (id: string | undefined) => `/api/blogs/${id}`,
+  },
+  Products: {
     allProducts: "/api/products/",
-    
-   }
+  },
+  Banks: {
+    getBanks: "/api/pay/banks",
+    resolveAcc: (account_number: string | number, bank_code?: string | number) =>
+      `/api/pay/account-details?account_number=${account_number}&bank_code=${bank_code}`,
+  },
 };
 
 export const makePostRequest = async (

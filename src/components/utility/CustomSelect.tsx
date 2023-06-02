@@ -25,6 +25,7 @@ type CustomSelectProps = {
   getValues?: UseFormGetValues<any>;
   placeholder?: string;
   errors?: any;
+  defaultValue?: SelectOptionType;
 };
 
 const CustomSelect = (props: CustomSelectProps) => {

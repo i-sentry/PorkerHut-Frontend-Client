@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";
 // import "react-quill/dist/quill.snow.css";
 import { useParams } from "react-router-dom";
-import { useGetBlog } from "../../services/hooks/blog";
+import { useGetBlog } from "../../services/hooks/users/blog";
 
 const EditBlog = () => {
   const { id } = useParams();
   const getSingleBlog = useGetBlog(id);
-
-
-
-
 
   // useEffect(() => {
   //   const filteredOrder = blogData.find((ord: any) => ord.id === id);

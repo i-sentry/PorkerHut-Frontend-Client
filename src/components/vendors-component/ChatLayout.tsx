@@ -31,7 +31,7 @@ function ChartLayout({
   return (
     <div
       className={[
-        "bg-[#fafafa] border p-6 pb-0 shadow-md rounded-lg",
+        "bg-[#fafafa] border p-6 pb-0 shadow-md rounded-lg mt-10",
         className,
       ].join(" ")}
       style={style}

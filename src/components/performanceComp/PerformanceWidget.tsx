@@ -2,19 +2,6 @@ import React from "react";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-// const Container = styled.div`
-//   display: flex;
-//   flex: 1;
-//   justify-content: space-between;
-//   flex-direction: column;
-//   gap: 3;
-//   box-shadow: -1px 3px 5px 0px rgba(237, 220, 220, 0.75);
-//   -webkit-box-shadow: -1px 3px 5px 0px rgba(237, 220, 220, 0.75);
-//   -moz-box-shadow: -1px 3px 5px 0px rgba(237, 220, 220, 0.75);
-//   padding: 10px;
-//   height: 150px;
-//   border-radius: 8px;
-// `;
 export interface Iprops {
   color: string;
   currency: string;
@@ -66,10 +53,14 @@ const PerformanceWidget = ({
         }}
       >
         <div className="flex items-start ">
-          <div className="text-[#333333] text-base  font-medium ">{type}</div>
+          <div className="text-[#333333] text-[16px] leading-[18px]  font-normal ">
+            {type}
+          </div>
         </div>
-        <div className="text-[#333333] font-bold   text-xl">
-          <span>{value}</span>
+        <div>
+          <span className="text-[#333333] font-normal   text-[24px] leading-[24px]">
+            {value}
+          </span>
         </div>
         <div>
           {/* AiOutlineRise */}
@@ -81,30 +72,30 @@ const PerformanceWidget = ({
               {percentage > 50 ? (
                 <span>
                   {" "}
-                  <AiOutlineFall color="red" size={20} />
+                  <AiOutlineFall color="#F91919" size={23} />
                 </span>
               ) : (
-                <span className="text-[##77e49d]">
+                <span className="text-[#22C55E]">
                   {" "}
-                  <AiOutlineRise color="lime" size={23} />
+                  <AiOutlineRise color="#22C55E" size={23} />
                 </span>
               )}
 
               <div>
-                <p className="flex text-sm">
+                <p className="flex ">
                   <span
-                    className={`text-sm font-bold ${
-                      percentage > 50 ? "text-red-700" : "text-[#58FD4B]"
+                    className={`text-[12px] leading-[24px] font-normal  ${
+                      percentage > 50 ? "text-[#F91919]" : "text-[#22C55E]"
                     }  px-1`}
                   >
                     {percentageValue}%
                   </span>
                   {percentage > 50 ? (
-                    <span className="pr-1 text-[#333333]">
+                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
                       Decrease from yesterday
                     </span>
                   ) : (
-                    <span className="pr-1 text-[#333333]">
+                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
                       Increase from yesterday
                     </span>
                   )}
@@ -114,7 +105,9 @@ const PerformanceWidget = ({
           </div>
         </div>
       </div>
-      <p className=" text-center text-sm text-[#a2a2a2] mt-5">{text}</p>
+      <p className=" text-center text-[12px] leading-[24px] font-normal text-[#a2a2a2] mt-5">
+        {text}
+      </p>
     </div>
   );
 };

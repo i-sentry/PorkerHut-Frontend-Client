@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 
 export interface IFile {
-  dataUrl: string;
-  blob: Blob;
-  formData: FormData;
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Buffer;
 }
 
 const CustomDND = ({
   getFiles,
   inputId,
 }: {
-  getFiles: (files: IFile[]) => void;
+  getFiles: (files: any) => void;
   inputId: string;
 }) => {
-  const [filenames, setFilenames] = useState<string[]>([]);
   const [componentFiles, setComponentFiles] = useState<IFile[]>([]);
+  const [filenames, setFilenames] = useState<string[]>([]);
+  const [fileArr, setFileArr] = useState<any[]>([]);
   // Cancel Default DnD Behavior using events preventDefault & stopPropagation
   const cancelDefaultBehavior = (e: any) => {
     e.preventDefault();
@@ -25,37 +29,40 @@ const CustomDND = ({
 
   // Function to convert files to dataUrl && Blob
   const handleFileProcessing = (
-    files: File[],
+    files: any[],
     doneFn: (files: IFile[]) => void
   ) => {
-    const fileList: IFile[] = [];
-    Array.from(files).forEach((file: File, index: number) => {
+    const processedFiles: IFile[] = [];
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.addEventListener("load", async (e: ProgressEvent<FileReader>) => {
-        let result = e.target?.result as string;
-        const blob = await (await fetch(result)).blob();
-        const formData = new FormData(document.createElement("form"));
+      reader.onload = (evt) => {
+        const dataUrl = evt?.target?.result as string;
 
-        formData.append(file.name, blob);
-
-        fileList.push({ dataUrl: result, blob, formData });
-        if (index === files.length - 1) {
-          doneFn([...componentFiles, ...fileList]);
-          setComponentFiles(fileList);
+        const processedFile: any = {
+          dataUrl,
+          name: file?.name,
+          type: file?.type,
+          size: file?.size,
+        };
+        processedFiles.push(processedFile);
+        if (processedFiles.length === files?.length) {
+          doneFn(processedFiles);
         }
-      });
-    });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const processFiles = (files: File[]) => {
+  const processFiles = (files: any[]) => {
+    getFiles([...files]);
     setFilenames(
-      [...filenames].concat(Array.from(files).map((file: File) => file.name))
+      [...filenames].concat(Array.from(files).map((file: any) => file.name))
     );
 
-    handleFileProcessing(files, (processedFiles) => {
-      getFiles(processedFiles);
-    });
+    // handleFileProcessing(files, (processedFiles) => {
+    //   getFiles(processedFiles);
+    // });
   };
 
   // Function to listen for and handle input change
@@ -160,7 +167,7 @@ const CustomDND = ({
       </div>
       </div>
 
-    </div>
+      </div>
   );
 };
 

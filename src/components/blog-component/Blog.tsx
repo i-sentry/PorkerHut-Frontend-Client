@@ -3,7 +3,7 @@ import { AiOutlineRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { chunkArray } from "../../helper/chunck";
 import BlogCard from "../blog-banner-component/BlogCard";
-import { useGetAllBlogs } from "../../services/hooks/blog";
+import { useGetAllBlogs } from "../../services/hooks/users/blog";
 
 export interface IBlog {
   _id: string;
@@ -26,7 +26,10 @@ const Blog = () => {
   let itemsPerPage = 3;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(() => setData(getAllBlogs?.data?.data?.blogs), [getAllBlogs?.data?.data?.blogs]);
+  useEffect(
+    () => setData(getAllBlogs?.data?.data?.blogs),
+    [getAllBlogs?.data?.data?.blogs]
+  );
   return (
     <section className="w-full  my-16">
       <div className="mb-16">
@@ -54,7 +57,9 @@ const Blog = () => {
         to="/blog"
         className="my-16 flex items-center justify-center text-[#333333] hover:text-[#197b30]"
       >
-        <span className="text-[16px] leading-[19px] tracking-[0.08em] mr-2 underline font-medium ">VIEW ALL</span>
+        <span className="text-[16px] leading-[19px] tracking-[0.08em] mr-2 underline font-medium ">
+          VIEW ALL
+        </span>
         <AiOutlineRight />
       </Link>
     </section>

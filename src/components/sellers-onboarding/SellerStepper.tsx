@@ -92,8 +92,8 @@ const SellerStepper = ({
             </div>
             <div
               className={`text-center ${
-                step.completed ? "text-[#197B30] " : 'text-[#A2A2A2]'
-              } text-xs sm:text-sm ${step.highlighted ? "" : " opacity-70"}`}
+                step.completed ? "text-[#197B30] font-medium " : 'text-[#A2A2A2]'
+              } text-[16px] leading-[19px] font-normal sm:text-sm ${step.highlighted ? "" : " opacity-70"}`}
             >
               {step.description}
             </div>
