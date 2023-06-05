@@ -13,6 +13,7 @@ import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -25,6 +26,11 @@ interface iProps {
 }
 
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
+
+  const { storeTitle } = useParams();
+
+  
+  
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [data, setData] = useState(productData);
@@ -40,12 +46,20 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const [hover, setHover] = useState(0);
 
   useEffect(() => {
+    const filteredData = productData.filter(
+      (item) => item.title === storeTitle
+    );
+    setData(filteredData);
+  }, [storeTitle]);
+
+
+  useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
   return (
     <AppLayout>
-      <div className="bg-[#EEEEEE] overflow-hidden relative">
+      <div className="bg-[#EEEEEE] overflow-hidden relative pb-10 md:px-14">
         {/* <NavBar /> */}
         <FilterSidebar
           open={openModal}
@@ -53,7 +67,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           handleClick={handleClick}
         />
         <div className="bg-[#EEEEEE] pt-24">
-          <div className="px-8">
+          <div className="">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -68,12 +82,12 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
             />
           </div>
 
-          <div className="md:flex">
-            <div className="md:w-1/4 static h-full top-[50px]  xxs:hidden md:block overflow-hidden">
+          <div className="md:flex gap-8">
+            <div className="md:w-1/4 static h-full top-[50px]   xxs:hidden md:block overflow-hidden">
               <div className="flex flex-col gap-4">
-                <div className="bg-white px-6 mx-6 py-2 rounded-sm">
+                <div className="bg-white px-6 py-2 rounded-sm">
                   <div className=" border-b">
-                    <h1 className=" font-medium">Dangote Farm Store</h1>
+                    <h1 className=" font-medium">{storeTitle}</h1>
                     <span className="text-xs">Location covered: Abuja</span>
                   </div>
                   <div>
@@ -106,20 +120,19 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white p-6 mx-6">
+                <div className="bg-white p-6 ">
                   <Filter
                     setData={setData}
                     menuItem={menuItems}
                     handleClick={handleClick}
-                
                   />
                 </div>
               </div>
             </div>
-            <div className="md:w-3/4 bg-white xxs:w-full">
-              <div className="flex items-center justify-between  pl-3">
+            <div className="md:w-3/4 bg-white xxs:w-full px-4">
+              <div className="flex items-center justify-between ">
                 <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
-                  <h1 className="text-xl font-medium">Dangote Farm Store</h1>
+                  <h1 className="text-xl font-medium md:pl-4">{storeTitle}</h1>
                   <div>
                     <p className="text-l text-gray-700">
                       Showing{" "}
@@ -150,7 +163,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-4 mb-6 xxs:grid-cols-2">
+                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       console.log(Tdata, "Tdata");
