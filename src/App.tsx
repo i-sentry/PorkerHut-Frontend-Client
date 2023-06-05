@@ -103,7 +103,7 @@ const router = createBrowserRouter(
          //@ts-ignore
         <ProductCategory />} />
       <Route
-        path="/store-page"
+        path="/store-page/:storeTitle"
         element={
           //@ts-ignore
           <StorePage />

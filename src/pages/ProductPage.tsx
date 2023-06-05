@@ -60,7 +60,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
   return (
     <AppLayout>
-      <div className="bg-[#EEEEEE] overflow-hidden relative">
+      <div className="bg-[#EEEEEE] overflow-hidden relative md:pb-10">
         <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
