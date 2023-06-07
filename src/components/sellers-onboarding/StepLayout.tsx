@@ -1,28 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
+// import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
 import SellerStepper from "./SellerStepper";
-import { SellersStepsContext } from "../../context/SellersStepsContext";
+import {
+  SellersStepsContext,
+  SellersStepsContextValue,
+} from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
 import Footer from "../footer-component/Footer";
 import { CircularProgressbar } from "react-circular-progressbar";
+import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
+import SellersAccountInfo from "./SellersAccountInfo";
+import BusinessInfo from "./BusinessInfo";
+import BankAccountInfo from "./BankAccountInfo";
+import SummaryInfo from "./SummaryInfo";
 
 
-const StepLayout = ({
-  checkoutSteps,
-  currentStep,
-  handleClick,
-  displayStep,
-}: StepLayoutProps) => {
-  const [userData, setUserData] = useState("");
+export const sellersStep = [
+  "Seller Account",
+  "Business Information",
+  "Bank Account",
+  "Summary",
+];
+
+const StepLayout = () => {
+  const { state: userData, setState: setUserData } = useAppState();
   const [finalData, setFinalData] = useState([]);
- const numSteps = 4;
- const [progress, setProgress] = useState(25);
+    const [currentStep, setCurrentStep] = useState(1);
+    const checkoutSteps = sellersStep;
+  const numSteps = 4;
+  const [progress, setProgress] = useState(25);
 
- useEffect(() => {
-   const stepProgress = Math.round((currentStep / numSteps) * 100);
-   setProgress(stepProgress);
- }, [currentStep, numSteps]);
+    const displayStep = (sellersStep: any) => {
+      switch (sellersStep) {
+        case 1:
+          return <SellersAccountInfo />;
+        case 2:
+          return <BusinessInfo />;
+        case 3:
+          return <BankAccountInfo />;
+        case 4:
+          return <SummaryInfo />;
+        default:
+      }
+    };
 
+    const handleClick = (direction: string) => {
+      let newStep = currentStep;
+
+      direction === "next" ? newStep++ : newStep--;
+      newStep > 0 &&
+        newStep <= checkoutSteps?.length &&
+        setCurrentStep(newStep);
+    };
+
+  useEffect(() => {
+    const stepProgress = Math.round((currentStep / numSteps) * 100);
+    setProgress(stepProgress);
+  }, [currentStep, numSteps]);
 
   return (
     <>
@@ -41,7 +75,7 @@ const StepLayout = ({
         <div>
           <SellerStepper
             checkoutSteps={checkoutSteps}
-            currentStep={currentStep}
+            currentStep={currentStep  }
           />
         </div>
         <div className="flex items-center gap-5 sm:hidden mx-3">

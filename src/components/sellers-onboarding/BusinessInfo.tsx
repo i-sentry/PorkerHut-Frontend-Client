@@ -30,7 +30,7 @@ const documents = [
 ];
 
 const BusinessInfo = () => {
-  //@ts-ignore
+
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
@@ -138,7 +138,7 @@ const BusinessInfo = () => {
  React.useEffect(() => {
    updateUserData("Country", select);
  }, [select]);
-  
+
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -172,7 +172,7 @@ const BusinessInfo = () => {
                     id={data.name}
                     type={data.type}
                     name={data.name}
-                    value={userData[data?.name] || ""}
+                    // value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -239,7 +239,7 @@ const BusinessInfo = () => {
                     id={data.name}
                     type={data.type}
                     name={data.name}
-                    value={userData[data?.name] || ""}
+                    // value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -296,7 +296,7 @@ const BusinessInfo = () => {
                     id={data.name}
                     type={data.type}
                     name={data.name}
-                    value={userData[data?.name] || ""}
+                    // value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -332,9 +332,7 @@ const BusinessInfo = () => {
               <div className="">
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController
-                    checkoutSteps={checkoutSteps}
-                    currentStep={currentStep}
-                    handleClick={handleClick}
+                 
                   />
                 )}
               </div>

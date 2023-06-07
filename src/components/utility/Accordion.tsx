@@ -81,8 +81,8 @@ const Accordion = () => {
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
-  const foundObject = bankData.find((obj) => obj.value === userData?.bank);
-  console.log({ foundObject });
+  // const foundObject = bankData.find((obj) => obj.value === userData?.bank);
+  // console.log({ foundObject });
 
   const handleChange = (e: any) => {
     console.log(e);
@@ -124,10 +124,10 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                value={userData[data?.name] || ""}
+                // value={userData[data?.name] || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
-                defaultValue={userData[data?.name]}
+                // defaultValue={userData[data?.name]}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
@@ -151,7 +151,8 @@ const Accordion = () => {
               </label>
               {/* Custom Field */}
               <CustomSelect
-                selectedOption={dropOption || userData.entity_type}
+                selectedOption={dropOption}
+                // selectedOption={dropOption || userData.entitytype}
                 setSelectOption={setDropOption}
                 placeholder={"-Choose an option-"}
                 options={vendorType || []}
@@ -176,7 +177,7 @@ const Accordion = () => {
                 placeholder={data.place_holder}
                 name={data.name}
                 onChange={handleChange}
-                value={userData[data?.name] || ""}
+                // value={userData[data?.name] || ""}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
@@ -212,7 +213,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                value={userData[data?.name] || ""}
+                // value={userData[data?.name] || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -245,7 +246,8 @@ const Accordion = () => {
               </label>
               {/* Custom Field */}
               <CustomSelect
-                selectedOption={dropOption === null ? foundObject : dropOption}
+                selectedOption={dropOption }
+                // selectedOption={dropOption === null ? foundObject : dropOption}
                 setSelectOption={setDropOption}
                 placeholder={"Select bank"}
                 options={bankData || []}
@@ -267,7 +269,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                value={userData[data?.name] || ""}
+                // value={userData[data?.name] || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -287,9 +289,9 @@ const Accordion = () => {
       <div className="">
         {currentStep !== checkoutSteps?.length - 1 && (
           <StepperController
-            checkoutSteps={checkoutSteps}
-            currentStep={currentStep}
-            handleClick={handleClick}
+            // checkoutSteps={checkoutSteps}
+            // currentStep={currentStep}
+            // handleClick={handleClick}
           />
         )}
       </div>

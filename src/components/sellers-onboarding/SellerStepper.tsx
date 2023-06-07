@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
+import React, { useContext, useEffect, useRef, useState } from "react";
+// import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
 import { SiAcclaim } from "react-icons/si";
+import { SellersStepsContext, SellersStepsContextValue } from "../../context/SellersStepsContext";
 
 type Step = {
   description: string;
@@ -18,6 +19,9 @@ const SellerStepper = ({
 }) => {
   const [newStep, setNewStep] = useState<Step[]>([]);
   const stepRef = useRef<Step[]>([]);
+  console.log(typeof checkoutSteps);
+  console.log(checkoutSteps, "kkkkii");
+
   const updateStep = (stepNumber: number, checkoutSteps: any) => {
     const newSteps = [...checkoutSteps];
     let count = 0;
@@ -92,8 +96,12 @@ const SellerStepper = ({
             </div>
             <div
               className={`text-center ${
-                step.completed ? "text-[#197B30] font-medium " : 'text-[#A2A2A2]'
-              } text-[16px] leading-[19px] font-normal sm:text-sm ${step.highlighted ? "" : " opacity-70"}`}
+                step.completed
+                  ? "text-[#197B30] font-medium "
+                  : "text-[#A2A2A2]"
+              } text-[16px] leading-[19px] font-normal sm:text-sm ${
+                step.highlighted ? "" : " opacity-70"
+              }`}
             >
               {step.description}
             </div>

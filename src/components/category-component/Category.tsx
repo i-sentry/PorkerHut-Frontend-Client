@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
@@ -27,6 +27,30 @@ const Category = () => {
       title: "Feed",
       path: "/feed",
     },
+    // {
+    //   id: 4,
+    //   src: "./images/Feed.jpg",
+    //   title: "Feed",
+    //   path: "/feed",
+    // },
+    // {
+    //   id: 5,
+    //   src: "./images/Feed.jpg",
+    //   title: "Feed",
+    //   path: "/feed",
+    // },
+    // {
+    //   id: 6,
+    //   src: "./images/Feed.jpg",
+    //   title: "Feed",
+    //   path: "/feed",
+    // },
+    // {
+    //   id: 7,
+    //   src: "./images/Feed.jpg",
+    //   title: "Feed",
+    //   path: "/feed",
+    // },
   ];
 
   for (let i = 0; i < datas.length; i++) {
@@ -35,6 +59,23 @@ const Category = () => {
   let temp = datas[0].title;
   datas[0].title = datas[2].title;
   datas[2].title = temp;
+
+  const TCard = ({ src, title, path }: { src: any; title: any; path: any }) => {
+    return (
+      <div className="relative w-72 h-72 rounded-md overflow-hidden shadow-lg cursor-pointer">
+        <img
+          src={src}
+          alt=""
+          className="object-cover rounded-sm transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full opacity-95"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
+
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-4">
+          <h2 className="text-2xl font-medium">{title}</h2>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className=" xxs:p-3 md:p-0 ">
@@ -48,12 +89,26 @@ const Category = () => {
           <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className=" md:p-12 my-8">
-        <div className="md:grid grid-cols-3 gap-12 overflow-x-scroll md:overflow-hidden md:h-[420px] xxs:hidden">
+      <div className=" container mx-auto px-4 overflow-x-scroll">
+        <div className=" md:flex gap-8 py-8 xxs:hidden">
           {datas.map((item) => (
-            <Card key={item.id} {...item} />
+            <Card key={item.id} item={item} data={ datas} />
           ))}
         </div>
+
+
+        {/* <div className="container mx-auto px-4 overflow-x-scroll">
+          <div className="flex gap-8 py-8">
+            {datas.map((data) => (
+              <TCard
+                key={data.id}
+                src={data.src}
+                title={data.title}
+                path={data.path}
+              />
+            ))}
+          </div>
+        </div> */}
         <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 md:mt-4 -z-50 sm:hidden ">
           {datas.map((item) => (
             <MobileCard {...item} />
@@ -65,3 +120,62 @@ const Category = () => {
 };
 
 export default Category;
+
+interface CardData {
+  id: number;
+  src: string;
+  title: string;
+  path: string;
+}
+
+interface CardsSectionProps {
+  data: CardData[];
+}
+
+
+
+
+const CardsSection: React.FC<CardsSectionProps> = ({ data }) => {
+  const cardContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleRightButtonClick = () => {
+    if (cardContainerRef.current) {
+      cardContainerRef.current.scrollBy({
+        left: 200, // Adjust the scroll amount as needed
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleLeftButtonClick = () => {
+    if (cardContainerRef.current) {
+      cardContainerRef.current.scrollBy({
+        left: -200, // Adjust the scroll amount as needed
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <div className="md:flex gap-8 py-8 xxs:hidden relative">
+      <div ref={cardContainerRef} className="flex">
+        {data.map((item: { id: React.Key | null | undefined; }) => (
+          <Card key={item.id} item={item} data={data} />
+        ))}
+      </div>
+      <button
+        className="absolute top-1/2 -translate-y-1/2 left-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:-translate-x-full"
+        onClick={handleLeftButtonClick}
+      >
+        Left Button
+      </button>
+      <button
+        className="absolute top-1/2 -translate-y-1/2 right-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:translate-x-full"
+        onClick={handleRightButtonClick}
+      >
+        Right Button
+      </button>
+    </div>
+  );
+};
+

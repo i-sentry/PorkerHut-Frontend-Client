@@ -1,3 +1,17 @@
 import { createContext } from "react";
+import { ISellerInfo } from "./SellerInfoContext";
 
-export const SellersStepsContext = createContext({})
+export interface SellersStepsContextValue {
+  checkoutSteps: string[];
+  currentStep: number;
+  handleClick: (direction: string) => void;
+  userData: ISellerInfo;
+  finalData: any[];
+  displayStep: (sellersStep: any) => JSX.Element | undefined;
+  setFinalData: React.Dispatch<React.SetStateAction<never[]>>;
+  setUserData: React.Dispatch<React.SetStateAction<ISellerInfo>>;
+}
+
+export const SellersStepsContext = createContext<SellersStepsContextValue>(
+  {} as SellersStepsContextValue
+);

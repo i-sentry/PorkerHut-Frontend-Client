@@ -31,23 +31,23 @@ const BlogCard = ({ blog }: any) => {
             alt=""
           />
         </Link>
-        <p className=" pt-2 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] text-[14px] leading-[16px] px-2">
+        <p className=" py-3 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] md:text-[14px] md:leading-[16px] px-2">
           {formattedDate}
         </p>
-        <div className="py-2 px-2">
-          <Link to="#">
+        <div className="pb-3 px-2">
+          {/* <Link to="#"> */}
             <h1 className=" text-[24px] leading-[26px] font-medium  text-[#333333] whitespace-pre-line">
               {title}
+            <span className="block">({minutes} min read)</span>
             </h1>
-            <p>({minutes} min read)</p>
-          </Link>
+          {/* </Link> */}
 
           <p className="mb-3 font-normal text-[#797979] text-left text-[16px] leading-[19px] tracking-[0.04em] my-3 xxs:text-[14px] xxs:leading-[16px]">
             {truncatedString}
           </p>
           <Link
             to={`/blog/${_id}`}
-            className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8]focus:ring-4 focus:outline-none focus:ring-[#69a477] "
+            className="inline-flex items-center px-6 py-2 text-[14px]  leading-[24px] font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8] focus:ring-4 focus:outline-none focus:ring-[#69a477] "
           >
             Read more
           </Link>

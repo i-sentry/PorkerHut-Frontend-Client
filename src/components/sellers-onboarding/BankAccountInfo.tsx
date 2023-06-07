@@ -33,17 +33,17 @@ const BankAccountInfo = () => {
   const [ID, setID] = useState<FormData>();
   const [invoice, setInvoice] = useState("Payment Invoice");
   const [accName, setAccName] = useState("");
-  const shouldFetchData =
-    userData.bank_account?.length === 10 && dropOption?.value !== "";
+  // const shouldFetchData =
+  //   userData.bank_account?.length === 10 && dropOption?.value !== "";
 
-  const url = shouldFetchData
-    ? `${BASEURL}/api/pay/account-details?account_number=${userData.bank_account}&bank_code=${dropOption?.value}`
-    : null;
-  const {
-    data: resolveBankNameResult,
-    error: resolveErr,
-    isLoading,
-  } = useSWR(url, fetchResolveBankName);
+  // const url = shouldFetchData
+  //   ? `${BASEURL}/api/pay/account-details?account_number=${userData.bank_account}&bank_code=${dropOption?.value}`
+  //   : null;
+  // const {
+  //   data: resolveBankNameResult,
+  //   error: resolveErr,
+  //   isLoading,
+  // } = useSWR(url, fetchResolveBankName);
 
   const {
     register,
@@ -67,13 +67,13 @@ const BankAccountInfo = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  useEffect(() => {
-    setAccName(resolveBankNameResult?.data?.account_name);
-    setUserData((prevUserData: any) => ({
-      ...prevUserData,
-      accountName: accName || "",
-    }));
-  }, [resolveBankNameResult, accName]);
+  // useEffect(() => {
+  //   setAccName(resolveBankNameResult?.data?.account_name);
+  //   setUserData((prevUserData: any) => ({
+  //     ...prevUserData,
+  //     accountName: accName || "",
+  //   }));
+  // }, [resolveBankNameResult, accName]);
 
   const [bank, setBank] = useState<{
     label?: string;
@@ -92,7 +92,7 @@ const BankAccountInfo = () => {
     [bankList?.data]
   );
   console.log(bankOptions, "bankList");
-  console.log(resolveBankNameResult, "userData");
+  // console.log(resolveBankNameResult, "userData");
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -155,7 +155,7 @@ const BankAccountInfo = () => {
                       id={data.name}
                       type={data.type}
                       name={data.name}
-                      value={userData[data?.name] || ""}
+                      // value={userData[data?.name] || ""}
                       placeholder={data.place_holder}
                       onChange={handleChange}
                       maxLength={10} // Add maxLength attribute to limit input to 10 characters
@@ -173,11 +173,11 @@ const BankAccountInfo = () => {
                 </>
               ))}
               <div className="my-2 w-full relative">
-                {isLoading && (
+                {/* {isLoading && (
                   <div className="absolute top-[-5%] right-4 bottom-0 flex items-center justify-center bg-transparent">
                     <ImSpinner2 className="animate-spin w-5 h-5 text-[#197b30]" />
                   </div>
-                )}
+                )} */}
                 <label
                   htmlFor={"account_name"}
                   className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333]
@@ -191,27 +191,25 @@ const BankAccountInfo = () => {
                   type="text"
                   name="account_name"
                   value={accName}
-                  placeholder={`${
-                    isLoading
-                      ? "Resolving Account Name.."
-                      : "Account name will be auto generated"
-                  }`}
+                  // placeholder={`${
+                  //   isLoading
+                  //     ? "Resolving Account Name.."
+                  //     : "Account name will be auto generated"
+                  // }`}
                   disabled
                   className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm`}
                 />
-                {resolveErr && (
+                {/* {resolveErr && (
                   <p className="my-2 text-[#F91919] text-xs">
                     Error:Please check inputted values and try again!
                   </p>
-                )}
+                )} */}
               </div>
 
               <div className="">
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController
-                    checkoutSteps={checkoutSteps}
-                    currentStep={currentStep}
-                    handleClick={handleClick}
+
                   />
                 )}
               </div>

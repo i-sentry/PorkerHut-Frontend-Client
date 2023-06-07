@@ -20,7 +20,7 @@ export const api = {
     userLogin: "/api/user/login",
   },
   Vendors: {
-    vendorSignup: "/api/vendor/signup",
+    vendorSignup: "/api/vendors/",
     userLogin: "/api/user/login",
   },
   Blogs: {

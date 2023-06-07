@@ -25,7 +25,6 @@ export const vendorType = [
 ];
 
 const SellersAccountInfo = () => {
-  //@ts-ignore
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
@@ -37,7 +36,8 @@ const SellersAccountInfo = () => {
   React.useEffect(() => {
     setUserData((prevUserData: any) => ({
       ...prevUserData,
-      entity_type: dropOption?.value || "",
+
+      entityType: dropOption?.value || "",
     }));
   }, [dropOption?.value]);
 
@@ -45,7 +45,6 @@ const SellersAccountInfo = () => {
     return console.log(Object.values(userData).every((value) => value !== ""));
   }
   const { state, setState } = useAppState();
-
 
   const {
     handleSubmit,
@@ -106,7 +105,7 @@ const SellersAccountInfo = () => {
                     id={data.name}
                     type={data.type}
                     name={data.name}
-                    value={userData[data?.name] || ""}
+                    // value={userData[data?.name] || ""}
                     placeholder={data.place_holder}
                     onChange={handleChange}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -157,7 +156,7 @@ const SellersAccountInfo = () => {
                     placeholder={data.place_holder}
                     name={data.name}
                     onChange={handleChange}
-                    value={userData[data?.name] || ""}
+                    // value={userData[data?.name] || ""}
                     className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                       errors[data.name] && "border-ErrorBorder"
                     }`}
@@ -189,13 +188,7 @@ const SellersAccountInfo = () => {
                 </div>
               </>
               <div className="">
-                {currentStep !== checkoutSteps?.length && (
-                  <StepperController
-                    checkoutSteps={checkoutSteps}
-                    currentStep={currentStep}
-                    handleClick={handleClick}
-                  />
-                )}
+                {currentStep !== checkoutSteps?.length && <StepperController />}
               </div>
             </form>
           </div>
