@@ -21,11 +21,11 @@
   
 }
 
-/* .slider__track {
-  /* background-color: #ced4da; */
-  /* width: 100%; */
-  /* z-index: 1;
-} */ 
+.slider__track {
+   background-color: #ced4da; 
+   width: 100%; 
+   z-index: 1;
+} 
 
 .slider__range {
   background-color: #197B30;
