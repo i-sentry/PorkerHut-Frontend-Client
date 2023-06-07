@@ -5,14 +5,13 @@ import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
+import { useParams } from "react-router-dom";
 
 interface ProductLocationState {
   item: any;
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-
-
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -20,19 +19,15 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
-
-
   };
 
   const handleCardClick = () => {
     navigate(`/product/${item?.id}`, { state: { item } });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
-
   return (
-    <div className=" flex flex-col   md:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm">
+    <div className=" flex flex-col   md:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
         <img
           onClick={handleCardClick}
@@ -52,9 +47,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
       </div>
       <div className="z-10 bg-white xxs:px-2 md:px-0">
         <div className="md:flex items-center justify-between py-1 xxs:hidden">
-          <h2 className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
+          <NavLink
+            to={`/store-page/${item.title}`}
+            className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
+          >
             {item?.title}
-          </h2>
+          </NavLink>
           <span className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
             {item?.product?.location}
           </span>

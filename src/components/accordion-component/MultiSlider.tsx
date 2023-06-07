@@ -62,7 +62,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
           setMinVal(value);
           minValRef.current = value;
         }}
-        className="thumb thumb--left"
+        className="thumb thumb--left "
         style={{ zIndex: minVal > max - 100 ? "5" : undefined }}
       />
       <input
@@ -78,7 +78,7 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
         className="thumb thumb--right"
       />
 
-      <div className="slider">
+      <div className="slider ">
         <div className="slider__track"></div>
         <div ref={range} className="slider__range"></div>
         <div className="slider__left-value">
@@ -86,15 +86,15 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
             <TbCurrencyNaira />
           </span>
           <span>{minVal}</span>
-         </div>
+        </div>
         <div className="slider__right-value">
           <span>
-           <TbCurrencyNaira />
+            <TbCurrencyNaira />
           </span>
-           <span>{maxVal}</span>
-         </div>
-       </div>
-     </div>
+          <span>{maxVal}</span>
+        </div>
+      </div>
+    </div>
   );
 };
 

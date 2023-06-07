@@ -14,12 +14,18 @@ const OrderCart = () => {
   return (
     <div className=" w-full lg:w-auto bg-white rounded-lg self-start lg:stacic lg:top-[100px]">
       <div className="px-4 py-6">
-        <h1 className="text-[24px] leading-[28px] text-[#333333] font-semibold">Orders</h1>
+        <h1 className="text-[24px] leading-[28px] text-[#333333] font-semibold">
+          Orders
+        </h1>
       </div>
 
-      {Object.values(cart).map((item, idx) => (
-        <OrderCard item={item} key={idx} />
-      ))}
+      <div className="overflow-y-auto max-h-[440px] ">
+        {Object.values(cart).map((item, idx) => (
+          <div key={idx}>
+            <OrderCard item={item} />
+          </div>
+        ))}
+      </div>
 
       <div className="">
         <div className="py-4">
