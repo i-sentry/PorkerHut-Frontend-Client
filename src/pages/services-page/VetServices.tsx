@@ -15,7 +15,7 @@ const VetServices = () => {
         <div className="overflow-x-hidden">
           <div className="md:w-full md:mb-16">
             <div
-              className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+              className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
               style={{
                 backgroundImage: ` linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  url('${VetImg}')`,
 
@@ -25,7 +25,7 @@ const VetServices = () => {
               }}
             >
               <div className="">
-                <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+                <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                   Veterinary Services
                 </h1>
 
@@ -47,8 +47,8 @@ const VetServices = () => {
         </div>
         <div className="md:px-14  ">
           <div className=" bg-[#F4F4F4]     md:flex">
-            <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
-              <h1 className="md:font-medium  md:text-[35px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
+            <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+              <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
                 Our Veterinary Services
               </h1>
               <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979]">
@@ -84,7 +84,7 @@ const VetServices = () => {
 
         <div className="mt-16 mb-14 xxs:py-12  bg-[#F5F9F6] md:p-14  xxs:px-3 md:h-[100%] md:w-[100%]">
           <div className="flex items-center justify-center mb-10 ">
-            <h1 className="font-normal  md:text-[40px] mb-4 text-[#333333] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] ">
+            <h1 className="font-normal  md:text-[32px] mb-4 text-[#333333] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] ">
               What We Provide
               <div className=" xxs:w-20 h-1.5 w-14 bg-[#197B30] m-auto"></div>
             </h1>

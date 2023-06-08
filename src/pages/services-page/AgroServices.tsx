@@ -21,7 +21,7 @@ const AgroServices = () => {
       <div className="">
         <div className="md:w-full md:mb-12">
           <div
-            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
               backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${AgroservImg}')`,
 
@@ -31,7 +31,7 @@ const AgroServices = () => {
             }}
           >
             <div className=" ">
-              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+              <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 Agro Services
               </h1>
 
@@ -50,13 +50,13 @@ const AgroServices = () => {
             </div>
           </div>
           <div className="md:px-14 pt-16 ">
-            <div className="bg-[#F4F4F4]     md:flex ">
-              <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
-                <h1 className="md:font-medium  md:text-[35px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
-                  What our Agro services is <br className="md:hidden" /> all
+            <div className="bg-[#F4F4F4] md:flex ">
+              <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+                <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
+                  What our Agro services is <br className=" xxs:hidden md:flex" /> all
                   about
                 </h1>
-                <p className="leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+                <p className="leading-6 xxs:text-[14px] md:text-[14px] text-[#797979] text-justify">
                   Agro services play a crucial role in pork meat production and
                   supply chain, which involves farrow-to-finish operations,
                   genetics, feed formulation, animal health, and waste
@@ -82,7 +82,7 @@ const AgroServices = () => {
           </div>
 
           <div className=" text-center my-12 xxs:mt-14 ">
-            <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]  ">
+            <h1 className="font-medium  md:text-[32px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]  ">
               Our Agro Services
               <div className=" xxs:w-20 h-1.5 w-14 bg-[#197B30] m-auto mt-2"></div>
             </h1>

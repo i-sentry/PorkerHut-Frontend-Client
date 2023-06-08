@@ -8,6 +8,7 @@ export interface IProduct {
   type?: string;
   category: string;
   price: string;
+  rating?: string;
   product?: {
     name: string;
     location: string;
@@ -16,7 +17,6 @@ export interface IProduct {
   };
   img: string;
   desc: string;
-  rating?: number;
   images?: string[];
   availability?: string;
   quantity?: number;
