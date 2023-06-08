@@ -26,9 +26,26 @@ interface iProps {
   ) => void;
 }
 
+interface Product {
+  id: string;
+  title: string;
+  type?: any;
+  category: string;
+  price: string;
+  rating?: any;
+  product: {
+    location: string;
+    name: string;
+    weight: string;
+    productName: string;
+  };
+  img: string;
+  status: string;
+  desc: string;
+}
+
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
-  const allProducts = useGetAllProducts();
-  console.log({ allProducts });
+  
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [data, setData] = useState(productData);
@@ -39,6 +56,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems });
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,7 +132,8 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     Sort by:
                   </span>
                   <span className="xxs:hidden md:block">
-                    <Sort />
+                  
+                    <Sort data ={data } setData={setData} />
                   </span>
                   <div className="md:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
                     <GoSettings
