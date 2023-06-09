@@ -92,10 +92,10 @@ iProps) => {
     <>
       <Fragment>
         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <h1>Filters</h1>
+          <h1 className="text-[16px] leading-[19px] font-normal">Filters</h1>
           <AccordionHeader
             onClick={() => handleOpen(1)}
-            className="text-base font-normal"
+            className="text-[16px] leading-[19px] font-medium"
           >
             Pig
           </AccordionHeader>
@@ -123,7 +123,7 @@ iProps) => {
         <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
           <AccordionHeader
             onClick={() => handleOpen(2)}
-            className="text-base font-normal"
+            className="text-[16px] leading-[19px] font-medium"
           >
             Animal Feed
           </AccordionHeader>
@@ -171,7 +171,7 @@ iProps) => {
         <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
           <AccordionHeader
             onClick={() => handleOpen(3)}
-            className="text-base font-normal"
+            className="text-[16px] leading-[19px] font-medium"
           >
             Livestock
           </AccordionHeader>
@@ -219,7 +219,7 @@ iProps) => {
         <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
           <AccordionHeader
             onClick={() => handleOpen(4)}
-            className="text-base font-normal"
+            className="text-[16px] leading-[19px] font-medium"
           >
             Location
           </AccordionHeader>
@@ -261,7 +261,7 @@ iProps) => {
         <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
           <AccordionHeader
             onClick={() => handleOpen(5)}
-            className="text-base font-normal z-50"
+            className="text-[16px] leading-[19px] font-medium"
           >
             Price
           </AccordionHeader>

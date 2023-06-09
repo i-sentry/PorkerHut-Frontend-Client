@@ -99,10 +99,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Pig Farming
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   Pig animal farming is better for the world. This is why we
                   raise our livestock on pasture based farms which are
                   environmentally beneficial and allows our livestock produce
@@ -123,10 +123,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4 ">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Feed and Nutrition
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   Proper feed and nutrition are essential for the health and
                   growth of pigs. Feed and nutrition services provide farmers
                   with the knowledge and resources to formulate and deliver
@@ -148,10 +148,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Animal Health
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   A healthy herd of pigs is essential for a successful pork
                   production. Animal health services provide farmers with the
                   tools and expertise to prevent and treat diseases, improve
