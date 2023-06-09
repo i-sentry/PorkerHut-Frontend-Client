@@ -14,7 +14,7 @@ const WeekendKills = () => {
         <div className="">
           <div className="">
             <div
-              className="flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+              className="flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
               style={{
                 backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${BlogBanner}')`,
                 backgroundSize: "cover",
@@ -23,7 +23,7 @@ const WeekendKills = () => {
               }}
             >
               <div className="">
-                <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+                <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                   Weekend Kills
                 </h1>
                 <div className="">
@@ -47,8 +47,8 @@ const WeekendKills = () => {
       </div>
       <div className="md:px-14 pt-16 ">
         <div className=" bg-[#F4F4F4]     md:flex">
-          <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
-            <h1 className="md:font-medium  md:text-[40px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
+          <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+            <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
               Why Weekend Kills
             </h1>
             <p className=" leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
