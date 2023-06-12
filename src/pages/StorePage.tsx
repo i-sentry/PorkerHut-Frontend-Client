@@ -14,6 +14,7 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import { GoSettings } from "react-icons/go";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -26,11 +27,8 @@ interface iProps {
 }
 
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
-
   const { storeTitle } = useParams();
 
-  
-  
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [data, setData] = useState(productData);
@@ -52,7 +50,6 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
     setData(filteredData);
   }, [storeTitle]);
 
-
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -65,9 +62,12 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           open={openModal}
           onClose={() => setOpenModal(false)}
           handleClick={handleClick}
+          setData={setData}
+          menuItem={menuItems}
+     
         />
-        <div className="bg-[#EEEEEE] pt-24">
-          <div className="">
+        <div className="bg-[#EEEEEE] pt-24 ">
+          <div className="xxs:hidden md:block">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -83,16 +83,27 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           </div>
 
           <div className="md:flex gap-8">
-            <div className="md:w-1/4 static h-full top-[50px]   xxs:hidden md:block overflow-hidden">
+            <div className="md:w-1/4 static h-full top-[50px]  md:block overflow-hidden">
               <div className="flex flex-col gap-4">
-                <div className="bg-white px-6 py-2 rounded-sm">
+                <div className="bg-white px-6 xxs:py-6 md:py-4 rounded-sm mx-4 mb-10 md:mb-0 md:mx-0">
                   <div className=" border-b">
-                    <h1 className=" font-medium">{storeTitle}</h1>
-                    <span className="text-xs">Location covered: Abuja</span>
+                    <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0">
+                      {storeTitle}
+                    </h1>
+
+                    <div className="mb-2">
+                      <span className="text-[14px] leading-[16px] font-normal text-[#333333] ">
+                        Location covered: Abuja
+                      </span>
+                    </div>
                   </div>
                   <div>
-                    <span className="font-medium">Average Rating: 4.7/5</span>
-                    <div className="flex text-yellow-500 cursor-pointer">
+                    <div className="mt-2">
+                      <span className="text-[18px] leading-[12px] font-medium pb-2 mt-2">
+                        Average Rating: 4.7/5
+                      </span>
+                    </div>
+                    <div className="flex text-yellow-500 cursor-pointer mt-2">
                       {[...Array(5)].map((start, i) => {
                         const ratingValue = i + 1;
                         return (
@@ -120,7 +131,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white p-6 ">
+                <div className="bg-white p-6 xxs:hidden md:block">
                   <Filter
                     setData={setData}
                     menuItem={menuItems}
@@ -151,9 +162,9 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   <span className="xxs:hidden md:block">
                     <Sort data={data} setData={setData} />
                   </span>
-                  <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
-                    <MdOutlineFilterAlt
-                      className="inline"
+                  <div className="md:hidden flex justify-center items-end gap-2 px-2">
+                    <GoSettings
+                      className="rotate-90 "
                       size={22}
                       onClick={() => setOpenModal(true)}
                     />
@@ -163,7 +174,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2">
+                <div className="grid md:grid-cols-3 gap-4 mb-6 xxs:grid-cols-2">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       console.log(Tdata, "Tdata");
