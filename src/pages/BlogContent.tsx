@@ -36,7 +36,7 @@ const BlogContent = () => {
       </nav> */}
         <div className="  max-w-screen-xl ">
           <div
-            className=" flex   items-center md:justify-start xxs:justify-center w-full md:h-[500px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+            className=" flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
               backgroundImage: ` linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  url('${img}/${getSingleBlog?.data?.data?.featuredImage}')`,
               backgroundSize: "cover",
@@ -45,7 +45,7 @@ const BlogContent = () => {
             }}
           >
             <div>
-              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+              <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 {getSingleBlog?.data?.data?.title}
               </h1>
               <div className="xxs:flex xxs:justify-center md:text-left w-full">
@@ -74,14 +74,14 @@ const BlogContent = () => {
             <p className="text-[16px] leading-[19px] text-[#B4B4B4] text-center mb-5">
               {formattedDate}
             </p>
-            <h2 className="md:text-[40px] md:leading-[47px] font-medium  text-center xxs:text-base text-[#333333]">
+            <h2 className="md:text-[32px] md:leading-[47px] font-medium  text-center xxs:text-base text-[#333333]">
               {getSingleBlog?.data?.data?.title}
             </h2>
             <div className="w-40 h-1.5 bg-[#197B30] mx-auto mt-2"></div>
           </div>
           <div className="xxs:w-full  md:w-3/4  text-justify  ">
             <div className="py-4 px-8">
-              <p className="mb-4 md:text-[16px] xxs:text-base leading-[19px]">
+              <p className="mb-4 md:text-[14px] xxs:text-base leading-[19px]">
                 {getSingleBlog?.data?.data?.content}
               </p>
             </div>
