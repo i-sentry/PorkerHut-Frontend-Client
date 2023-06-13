@@ -100,10 +100,10 @@ iProps) => {
             Pig
           </AccordionHeader>
           <AccordionBody>
-            <div>
+            <div className="flex flex-col gap-2">
               {menuItem.map((menu: any) => {
                 return (
-                  <div className="">
+                  <div className="flex gap-2 items-center">
                     <input
                       type="checkbox"
                       id={menu}
@@ -128,38 +128,38 @@ iProps) => {
             Animal Feed
           </AccordionHeader>
           <AccordionBody>
-            <div>
-              <div>
+            <div className="flex flex-col gap-2 ">
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={1} />
                 <label className="ml-2 text-base font-normal" htmlFor="1">
                   Berkshire
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="2" value={2} />
                 <label className="ml-2 text-base font-normal" htmlFor="2">
                   Chester White
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="3" value={3} />
                 <label className="ml-2 text-base font-normal" htmlFor="3">
                   Duroc
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="" value={4} />
                 <label className="ml-2 text-base font-normal" htmlFor="4">
                   Hampshire
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={5} />
                 <label className="ml-2 text-base font-normal" htmlFor="5">
                   Landrace
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={6} />
                 <label className="ml-2 text-base font-normal" htmlFor="5">
                   Landrace
@@ -176,38 +176,38 @@ iProps) => {
             Livestock
           </AccordionHeader>
           <AccordionBody>
-            <div>
-              <div>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={1} />
                 <label className="ml-2 text-base font-normal" htmlFor="1">
                   Berkshire
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="2" value={2} />
                 <label className="ml-2 text-base font-normal" htmlFor="2">
                   Chester White
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="3" value={3} />
                 <label className="ml-2 text-base font-normal" htmlFor="3">
                   Duroc
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="" value={4} />
                 <label className="ml-2 text-base font-normal" htmlFor="4">
                   Hampshire
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={5} />
                 <label className="ml-2 text-base font-normal" htmlFor="5">
                   Landrace
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={6} />
                 <label className="ml-2 text-base font-normal" htmlFor="5">
                   Landrace
@@ -224,32 +224,32 @@ iProps) => {
             Location
           </AccordionHeader>
           <AccordionBody>
-            <div>
-              <div>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={1} />
                 <label className="ml-2 text-base font-normal" htmlFor="1">
                   Abuja
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="2" value={2} />
                 <label className="ml-2 text-base font-normal" htmlFor="2">
                   Lagos
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="3" value={3} />
                 <label className="ml-2 text-base font-normal" htmlFor="3">
                   Osun
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="" value={4} />
                 <label className="ml-2 text-base font-normal" htmlFor="4">
                   Ekiti
                 </label>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <input type="checkbox" id="1" value={5} />
                 <label className="ml-2 text-base font-normal" htmlFor="5">
                   Port Harcourt

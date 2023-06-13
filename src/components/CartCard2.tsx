@@ -14,7 +14,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex gap-6">
+    <div className="flex items-center px-5 gap-6">
       <div className="flex gap-4">
         <div className="img flex flex-col">
           <figure className="bg-white w-[150px] flex-1">
@@ -80,6 +80,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
             className=" h-16 outline-none border rounded px-5 py-4 mt-2"
           ></textarea>
         </div>
+        
       </div>
     </div>
   );

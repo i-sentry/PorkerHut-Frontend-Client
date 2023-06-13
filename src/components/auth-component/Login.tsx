@@ -98,12 +98,12 @@ const Login = () => {
         </div>
         {customersLogin ? (
           <>
-            <div className="flex items-center justify-center  h-full xxs:p-3">
+            <div className="flex items-center justify-center  h-full xxs:p-3 md:pb-4">
               <div className="max-w-xl w-full   bg-[#fff] sm:p-8 p-4 shadow-md rounded">
                 <div className="flex items-center justify-between">
                   <div className="">
                     <h1 className="text-left text-lg  text-[#333333] font-bold ">
-                      Customer's Login
+                      Login
                     </h1>
                     <p className="text-left  text-[#797979] text-base mt-1 font-light">
                       Enter your login details
@@ -136,7 +136,7 @@ const Login = () => {
                       placeholder="Enter your email address"
                       id="email"
                       onFocus={() => setIsError("")}
-                      className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                      className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.email
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[##EEEEEE] "
@@ -157,14 +157,14 @@ const Login = () => {
                       placeholder="**********"
                       id="password"
                       onFocus={() => setIsError("")}
-                      className={`w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                      className={`w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                         errors.password
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[##EEEEEE] "
                       }`}
                     />
                     <button
-                      className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                      className="outline-[#0eb683] rounded-r-md text-center text-[#A2A2A2] absolute right-0 pt-4 pr-5"
                       onClick={toggleEye}
                     >
                       {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}

@@ -51,7 +51,7 @@ const VetServices = () => {
               <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
                 Our Veterinary Services
               </h1>
-              <p className=" leading-6 text-[14px] md:text-[16px] text-[#797979] text-justify">
+              <p className=" leading-6 text-[14px]  text-[#797979] text-justify">
                 Are you looking for a partner to help your pigs reach their full
                 potential? Turn to Porkerhut. We understand that the health and
                 well-being of your animals are critical to the success of your
@@ -92,11 +92,11 @@ const VetServices = () => {
 
           <div className=" md:relative md:flex md:items-center md:justify-center md:h-[40rem] w-full xxs:grid xxs:grid-cols-2 xxs:gap-3 ">
             {/* <div> */}
-            <div className="   md:h-[299px] md:w-[373px] border   bg-white md:mb-4  rounded-md md:p-6 xxs:p-3 md:absolute md:top-10 md:left-0 ">
-              <h1 className=" font-medium md:text-[32px] md:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px] ">
+            <div className=" md:h-[299px] md:w-[373px] border   bg-white md:mb-4  rounded-md md:p-6 xxs:p-3 md:absolute md:top-10 md:left-0 ">
+              <h1 className=" font-medium md:text-[32px] md:leading-[30px] text-left xxs:text-[32px] xxs:leading-[38px] ">
                 01
               </h1>
-              <h1 className="md:text-[32px] md:leading-[23px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
+              <h1 className="md:text-[32px] md:leading-[30px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
                 Comprehensive Health Check-ups
               </h1>
               <p className=" md:text-[14px] text-justify md:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px]">
@@ -111,7 +111,7 @@ const VetServices = () => {
               <h1 className="font-medium md:text-[32px] md:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 02
               </h1>
-              <h1 className="md:text-[32px] md:leading-[23px] md:font-medium xxs:font-normal xxs:text-[14px] xxs:leading-[16px] text-left">
+              <h1 className="md:text-[32px] md:leading-[30px] md:font-medium xxs:font-normal xxs:text-[14px] xxs:leading-[16px] text-left">
                 Feed Consultation
               </h1>
               <p className="  md:text-[16px] md:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
@@ -125,7 +125,7 @@ const VetServices = () => {
               <h1 className="font-medium md:text-[32px] md:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 03
               </h1>
-              <h1 className="md:text-[32px] md:leading-[23px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
+              <h1 className="md:text-[32px] md:leading-[30px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
                 Herd Management Assistance
               </h1>
               <p className=" md:text-[14px] md:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
@@ -145,7 +145,7 @@ const VetServices = () => {
               <h1 className="font-medium md:text-[32px] md:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 04
               </h1>
-              <h1 className="md:text-[32px] md:leading-[23px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[16px] text-left">
+              <h1 className="md:text-[32px] md:leading-[30px] md:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[16px] text-left">
                 Reproductive Health
               </h1>
               <p className="md:text-[14px] md:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
