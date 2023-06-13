@@ -102,7 +102,7 @@ const CreateAccount: any = () => {
                   name="firstName"
                   placeholder="Enter your firstName"
                   id="firstName"
-                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.firstName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -119,7 +119,7 @@ const CreateAccount: any = () => {
                   name="lastName"
                   placeholder="Enter your Lastname"
                   id="lastName"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.lastName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -136,7 +136,7 @@ const CreateAccount: any = () => {
                   name="email"
                   placeholder="Enter your email "
                   id="email"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.email
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -154,7 +154,7 @@ const CreateAccount: any = () => {
                   name="password"
                   placeholder="**********"
                   id="password"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.password
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -183,7 +183,7 @@ const CreateAccount: any = () => {
                   autoComplete="on"
                   placeholder="**********"
                   id="confirmPassword"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.confirmPassword
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
