@@ -29,10 +29,9 @@ const Story = () => {
       </div>
       <div className="grid md:grid-cols-3 md:gap-12 xxs:gap-5 md:px-14 xxs:px-3">
         <div
-          className="p-4 flex flex-col items-start justify-end rounded"
+          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
           style={{
             backgroundImage: `url(${ethicalPic})`,
-            height: "480px",
             backgroundSize: "cover",
           }}
         >
@@ -44,10 +43,9 @@ const Story = () => {
           </div>
         </div>
         <div
-          className="p-4 flex flex-col items-start justify-end rounded"
+          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
           style={{
             backgroundImage: `url(${qualityPic})`,
-            height: "480px",
             backgroundSize: "cover",
           }}
         >
@@ -57,10 +55,9 @@ const Story = () => {
           <TruncatedText text={transparency} maxLength={120} />
         </div>
         <div
-          className="p-4 flex flex-col items-start justify-end rounded"
+          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
           style={{
             backgroundImage: `url(${transparencyPic})`,
-            height: "480px",
             backgroundSize: "cover",
           }}
         >

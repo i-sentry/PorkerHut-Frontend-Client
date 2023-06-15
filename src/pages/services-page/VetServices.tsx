@@ -47,7 +47,7 @@ const VetServices = () => {
         </div>
         <div className="md:px-14  ">
           <div className=" bg-[#F4F4F4]     md:flex">
-            <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+            <div className=" md:w-1/2 xxs:px-4 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
               <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
                 Our Veterinary Services
               </h1>
@@ -74,7 +74,7 @@ const VetServices = () => {
             </div>
             <figure className="md:w-1/2">
               <img
-                className="object-cover h-full p-6 md:p-0"
+                className="object-cover h-full py-6 px-4 md:py-6 md:px-6 md:p-0"
                 src={VetDrImg}
                 alt=""
               />

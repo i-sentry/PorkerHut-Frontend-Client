@@ -47,11 +47,11 @@ const WeekendKills = () => {
       </div>
       <div className="md:px-14 pt-16 ">
         <div className=" bg-[#F4F4F4]     md:flex">
-          <div className=" md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+          <div className=" md:w-1/2 xxs:px-4 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
             <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
               Why Weekend Kills
             </h1>
-            <p className=" leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+            <p className=" leading-6 xxs:text-[14px] md:text-[14px] text-[#797979] text-justify">
               Looking for an affordable and ethical way to enjoy high-quality
               pork? Look no further than Porker Hut. We are committed to
               providing you with locally sourced and ethically raised pork that
@@ -71,7 +71,7 @@ const WeekendKills = () => {
           </div>
           <figure className="md:w-1/2">
             <img
-              className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+              className="object-cover w-full xxs:py-10 h-full  xxs:px-4 md:p-0"
               src={SuyaImg}
               alt="weekendImg"
             />

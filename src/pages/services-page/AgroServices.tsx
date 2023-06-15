@@ -51,7 +51,7 @@ const AgroServices = () => {
           </div>
           <div className="md:px-14 pt-16 ">
             <div className="bg-[#F4F4F4] md:flex ">
-              <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+              <div className="md:w-1/2 xxs:px-4 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
                 <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
                   What our Agro services is <br className=" xxs:hidden md:flex" /> all
                   about
@@ -72,7 +72,7 @@ const AgroServices = () => {
               <div className="md:w-1/2 ">
                 <figure>
                   <img
-                    className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+                    className="object-cover w-full xxs:py-10 h-full  xxs:px-4 md:p-0"
                     src={FarmingImg}
                     alt="AgroImage"
                   />
@@ -90,7 +90,7 @@ const AgroServices = () => {
 
           <div className="md:grid md:grid-cols-3 md:px-14 md:gap-10 xxs:mb-12 md:mb-0">
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3 relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3 relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${PigFarmingImg})`,
 
@@ -115,7 +115,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${FeedImg})`,
                 backgroundSize: "cover",
@@ -139,7 +139,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%), url(${livestock1})`,
 
