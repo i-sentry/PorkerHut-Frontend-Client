@@ -98,7 +98,7 @@ const Login = () => {
         </div>
         {customersLogin ? (
           <>
-            <div className="flex items-center justify-center  h-full xxs:p-3 md:pb-4">
+            <div className="flex items-center justify-center  h-full xxs:p-3 md:py-8">
               <div className="max-w-xl w-full   bg-[#fff] sm:p-8 p-4 shadow-md rounded">
                 <div className="flex items-center justify-between">
                   <div className="">

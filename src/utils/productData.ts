@@ -365,7 +365,7 @@ export const productData = [
     id: "21",
     title: "John Doe farm store",
     type: "Animal feed",
-    category: "feed",
+    category: "Feed",
     price: "3000",
     rating: "2.90",
     product: {
@@ -382,7 +382,7 @@ export const productData = [
     id: "22",
     title: "Micheal bobo store",
     type: "Animal feed",
-    category: "feed",
+    category: "Feed",
     price: "3000",
     rating: "2.5",
     product: {
@@ -417,7 +417,7 @@ export const productData = [
   {
     id: "24",
     title: "Pig tail",
-    category: "pork",
+    category: "Pork",
     price: "9400",
     rating: "2.5",
     product: {
@@ -679,7 +679,7 @@ export const productData = [
   {
     id: "41",
     title: "test Farm",
-    category: "pork",
+    category: "Pork",
     price: "2300",
     rating: "2.5",
     product: {
@@ -695,7 +695,7 @@ export const productData = [
   {
     id: "42",
     title: "test test",
-    category: "pork",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "pork Loin",
@@ -711,7 +711,7 @@ export const productData = [
   {
     id: "43",
     title: "Data Farm",
-    category: "pork",
+    category: "Pork",
     product: {
       location: "uyo",
       name: "pork Loin",
@@ -745,7 +745,7 @@ export const productData = [
   {
     id: "45",
     title: "Khadijat Feed Store",
-    type: " feed",
+    type: " Feed",
     category: "Feed",
     price: "3000",
     rating: "2.5",

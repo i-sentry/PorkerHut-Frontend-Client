@@ -230,7 +230,7 @@ const BillingPage = () => {
                   //   borderColor:
                   // }}
                   onChange={(val) => setCountry(val)}
-                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5  rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-[#197b30] focus:outline-1  ${
                     errors.country ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -252,7 +252,7 @@ const BillingPage = () => {
                   country={country}
                   value={state}
                   onChange={(val) => setState(val)}
-                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  classes={`w-full h-12 text-[#333333]  border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.state ? "border-[#dd1313]" : ""
                   }`}
                 />

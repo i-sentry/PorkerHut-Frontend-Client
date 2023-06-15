@@ -70,7 +70,7 @@ const CreateAccount: any = () => {
       <div className="mb-20">
         <NavBar />
       </div>
-      <div className="bg-[#F5F5F5] ">
+      <div className="bg-[#F5F5F5] md:py-6">
         <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
           <Link
             to={"/create-account"}
