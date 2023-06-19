@@ -22,7 +22,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/product/${item?.id}`, { state: { item } });
+    navigate(`/product/${item?.id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
