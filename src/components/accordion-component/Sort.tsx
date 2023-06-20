@@ -64,7 +64,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
       <div className="w-full flex justify-center">
         <div className="relative">
           <button
-            className="flex bg-gray-200 items-center justify-around pr-4 w-[150px] py-2 mt-2 text-sm font-normal text-left bg-transparent rounded-lg"
+            className="flex bg-gray-200 items-center justify-around  w-[150px] py-2 mt-2 text-sm font-normal text-left bg-transparent rounded-lg"
             onClick={() => setOpenSort(!openSort)}
           >
             <span>{sortType}</span>

@@ -80,7 +80,7 @@ const CreateAccount: any = () => {
           </Link>
         </div>
 
-        <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3">
+        <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3 mb-5">
           <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md">
             <div>
               <h1 className="text-left   text-[#333333] font-semibold text-lg  ">
@@ -197,7 +197,7 @@ const CreateAccount: any = () => {
                 </button>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-12">
                 <button
                   // disabled={true}
                   className="rounded bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed font-normal "
