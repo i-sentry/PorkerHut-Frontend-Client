@@ -22,7 +22,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/product/${item?.id}`, { state: { item } });
+    navigate(`/product/${item?.id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -71,9 +71,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
         <span className="whitespace-nowrap md:text-2xl tracking-wider font-normal md:hidden block text-[#333333] xxs:text-lg">
           ₦{item?.price}
         </span>
-        <h2 className="text-xs text-[#A2A2A2] whitespace-normal md:hidden xxs:block ">
+        <NavLink
+          to={`/store-page/${item.title}`}
+          className="text-xs text-[#A2A2A2] whitespace-normal md:hidden xxs:block "
+        >
           {item?.title}
-        </h2>
+        </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget
             onChange={(value) => console.log(value)}

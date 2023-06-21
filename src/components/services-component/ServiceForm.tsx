@@ -66,7 +66,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
   ];
   return (
     <div className="flex flex-col items-center justify-center md:p-4 h-full">
-      <div className="md:max-w-[700px] xxs:w-full ">
+      <div className="md:max-w-[500px] xxs:w-full ">
         <div className="md:max-w-[700px] xxs:w-full bg-[#F4F4F4] md:p-8 xxs:px-5 xxs:py-10  rounded ">
           <h1 className="md:text-[24px] md:leading-[28px] text-[#333333] xxs:text-[20px] xxs:leading-[23px] font-medium ">
             {title}

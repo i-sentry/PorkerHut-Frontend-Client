@@ -21,7 +21,7 @@ const AgroServices = () => {
       <div className="">
         <div className="md:w-full md:mb-12">
           <div
-            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[400px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
             style={{
               backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${AgroservImg}')`,
 
@@ -31,7 +31,7 @@ const AgroServices = () => {
             }}
           >
             <div className=" ">
-              <h1 className="mb-2 font-normal tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+              <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 Agro Services
               </h1>
 
@@ -50,13 +50,13 @@ const AgroServices = () => {
             </div>
           </div>
           <div className="md:px-14 pt-16 ">
-            <div className="bg-[#F4F4F4]     md:flex ">
-              <div className="md:w-1/2 xxs:px-3 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-20 flex-col md:pr-8">
-                <h1 className="md:font-medium  md:text-[35px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
-                  What our Agro services is <br className="md:hidden" /> all
+            <div className="bg-[#F4F4F4] md:flex ">
+              <div className="md:w-1/2 xxs:px-4 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
+                <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333] whitespace-nowrap  mb-2">
+                  What our Agro services is <br className=" xxs:hidden md:flex" /> all
                   about
                 </h1>
-                <p className="leading-6 xxs:text-[14px] md:text-[16px] text-[#797979] text-justify">
+                <p className="leading-6 xxs:text-[14px] md:text-[14px] text-[#797979] text-justify">
                   Agro services play a crucial role in pork meat production and
                   supply chain, which involves farrow-to-finish operations,
                   genetics, feed formulation, animal health, and waste
@@ -72,7 +72,7 @@ const AgroServices = () => {
               <div className="md:w-1/2 ">
                 <figure>
                   <img
-                    className="object-cover w-full xxs:py-10 h-full  xxs:px-3 md:p-0"
+                    className="object-cover w-full xxs:py-10 h-full  xxs:px-4 md:p-0"
                     src={FarmingImg}
                     alt="AgroImage"
                   />
@@ -82,7 +82,7 @@ const AgroServices = () => {
           </div>
 
           <div className=" text-center my-12 xxs:mt-14 ">
-            <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]  ">
+            <h1 className="font-medium  md:text-[32px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]  ">
               Our Agro Services
               <div className=" xxs:w-20 h-1.5 w-14 bg-[#197B30] m-auto mt-2"></div>
             </h1>
@@ -90,7 +90,7 @@ const AgroServices = () => {
 
           <div className="md:grid md:grid-cols-3 md:px-14 md:gap-10 xxs:mb-12 md:mb-0">
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3 relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3 relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${PigFarmingImg})`,
 
@@ -99,10 +99,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Pig Farming
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   Pig animal farming is better for the world. This is why we
                   raise our livestock on pasture based farms which are
                   environmentally beneficial and allows our livestock produce
@@ -115,7 +115,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%), url(${FeedImg})`,
                 backgroundSize: "cover",
@@ -123,10 +123,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4 ">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Feed and Nutrition
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   Proper feed and nutrition are essential for the health and
                   growth of pigs. Feed and nutrition services provide farmers
                   with the knowledge and resources to formulate and deliver
@@ -139,7 +139,7 @@ const AgroServices = () => {
             </div>
 
             <div
-              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-3 md:mx-0 rounded-sm"
+              className="card-container md:mt-2 md:p-4 xxs:p-3  relative xxs:h-[340px] md:h-[480px] xxs:mb-4 md:mb-0 xxs:mx-4 md:mx-0 rounded-sm"
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%), url(${livestock1})`,
 
@@ -148,10 +148,10 @@ const AgroServices = () => {
               }}
             >
               <div className="absolute bottom-0 left-0 p-4">
-                <h1 className="text-[#E6E6E6] md:text-[24px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
+                <h1 className="text-[#E6E6E6] md:text-[32px] md:leading-[28px] font-medium xxs:text-[16px] xxs:leading-[19px]">
                   Animal Health
                 </h1>
-                <p className="text-[#E6E6E6] mt-3 md:text-[16px] leading-[24px] font-normal xxs:text-[13px]">
+                <p className="text-[#E6E6E6] mt-3 md:text-[14px] leading-[24px] font-normal xxs:text-[13px] text-justify">
                   A healthy herd of pigs is essential for a successful pork
                   production. Animal health services provide farmers with the
                   tools and expertise to prevent and treat diseases, improve

@@ -20,7 +20,6 @@ import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
 
 import SellersHome from "./pages/sellers-dashboard/SellersHome";
-import CreateProduct from "./pages/sellers-dashboard/CreateProduct";
 import SellersProductPage from "./pages/sellers-dashboard/SellersProductPage";
 import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
 import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
@@ -75,6 +74,7 @@ import Category from "./pages/admin-dashboard/Category";
 import VetPartnerAccount from "./pages/VetPartnerAccount";
 import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
 import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
+import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -99,9 +99,13 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/:id/rating-page" element={<CustomerRating />} />
 
-      <Route path="/category" element={
-         //@ts-ignore
-        <ProductCategory />} />
+      <Route
+        path="/category"
+        element={
+          //@ts-ignore
+          <ProductCategory />
+        }
+      />
       <Route
         path="/store-page/:storeTitle"
         element={
@@ -152,7 +156,7 @@ const router = createBrowserRouter(
           path="/vendor/create-product/stepper"
           element={<StepperComponent />}
         />
-        <Route path="/vendor/create" element={<CreateProduct />} />
+        <Route path="/vendor/create" element={<ProductAccordion />} />
         <Route path="/vendor/account+statement" element={<SellersAccount />} />
         <Route
           path="/vendor/product/manage"

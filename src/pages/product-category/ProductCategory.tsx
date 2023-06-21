@@ -103,7 +103,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                     Sort by:
                   </span>
                   <span className="xxs:hidden md:block">
-                    <Sort />
+                    <Sort data={data} setData={ setData} />
                   </span>
                   <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
                     <MdOutlineFilterAlt

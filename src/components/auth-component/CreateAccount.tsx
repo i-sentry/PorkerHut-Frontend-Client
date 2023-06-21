@@ -70,7 +70,7 @@ const CreateAccount: any = () => {
       <div className="mb-20">
         <NavBar />
       </div>
-      <div className="bg-[#F5F5F5] ">
+      <div className="bg-[#F5F5F5] md:py-6">
         <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
           <Link
             to={"/create-account"}
@@ -80,7 +80,7 @@ const CreateAccount: any = () => {
           </Link>
         </div>
 
-        <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3">
+        <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3 mb-5">
           <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md">
             <div>
               <h1 className="text-left   text-[#333333] font-semibold text-lg  ">
@@ -102,7 +102,7 @@ const CreateAccount: any = () => {
                   name="firstName"
                   placeholder="Enter your firstName"
                   id="firstName"
-                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.firstName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -119,7 +119,7 @@ const CreateAccount: any = () => {
                   name="lastName"
                   placeholder="Enter your Lastname"
                   id="lastName"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.lastName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -136,7 +136,7 @@ const CreateAccount: any = () => {
                   name="email"
                   placeholder="Enter your email "
                   id="email"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                     errors.email
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -154,7 +154,7 @@ const CreateAccount: any = () => {
                   name="password"
                   placeholder="**********"
                   id="password"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.password
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -183,7 +183,7 @@ const CreateAccount: any = () => {
                   autoComplete="on"
                   placeholder="**********"
                   id="confirmPassword"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                     errors.confirmPassword
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -197,7 +197,7 @@ const CreateAccount: any = () => {
                 </button>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-12">
                 <button
                   // disabled={true}
                   className="rounded bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed font-normal "

@@ -31,7 +31,7 @@ const BlogCard = ({ blog }: any) => {
             alt=""
           />
         </Link>
-        <p className=" py-3 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] md:text-[14px] md:leading-[16px] px-2">
+        <p className=" py-3 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] md:text-[12px] md:leading-[16px] px-2">
           {formattedDate}
         </p>
         <div className="pb-3 px-2">

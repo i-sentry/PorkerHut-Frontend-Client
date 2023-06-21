@@ -26,9 +26,26 @@ interface iProps {
   ) => void;
 }
 
+interface Product {
+  id: string;
+  title: string;
+  type?: any;
+  category: string;
+  price: string;
+  rating?: any;
+  product: {
+    location: string;
+    name: string;
+    weight: string;
+    productName: string;
+  };
+  img: string;
+  status: string;
+  desc: string;
+}
+
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
-  const allProducts = useGetAllProducts();
-  console.log({ allProducts });
+  
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [data, setData] = useState(productData);
@@ -39,6 +56,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems });
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,7 +113,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
                 <div className="md:flex md:items-center md:justify-between md:gap-8 xxs:py-4">
-                  <h1 className="md:text-xl xxs:text-lg text-[#333333] md:pl-3 font-medium xxs:pl-0 ">
+                  <h1 className="md:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
                     All Products
                   </h1>
                   <div>
@@ -114,7 +132,8 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     Sort by:
                   </span>
                   <span className="xxs:hidden md:block">
-                    <Sort />
+                  
+                    <Sort data ={data } setData={setData} />
                   </span>
                   <div className="md:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
                     <GoSettings

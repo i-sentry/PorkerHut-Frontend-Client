@@ -92,7 +92,7 @@ const CartPage = () => {
                     </div>
                   </div>
 
-                  <div className="product-headers border-b hidden md:flex py-2">
+                  <div className="product-headers border-b  hidden md:flex pb-2">
                     <p className="ml-8 mr-24 md:text-[16px] text-[#BDBDBD]">
                       Product
                     </p>
@@ -107,9 +107,13 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 flex flex-col gap-4 order-2 md:order-none xxs:hidden md:block">
+                <div>
                   {Object.values(cart).map((item, idx) => (
-                    <CartCard2 item={item} key={idx} />
+                    <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
+                      <CartCard2 item={item} key={idx} />
+
+                      <hr className="mt-4" />
+                    </div>
                   ))}
                 </div>
 
@@ -144,40 +148,35 @@ const CartPage = () => {
                     </div>
                   </div>
                 </div>
-
-
-
               </div>
 
               <div>
-                 <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
-                {Object.values(cart).map((item, idx) => (
-                  <div>
-                    <CartCard2 item={item} key={idx} />
-                    <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
-                      <div className="flex items-center gap-2">
-                        <MdOutlineSpeakerNotes size={24} />
-                        <button onClick={() => setShowModal(true)}>
-                          Add a note
+                <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
+                  {Object.values(cart).map((item, idx) => (
+                    <div>
+                      <CartCard2 item={item} key={idx} />
+                      <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
+                        <div className="flex items-center gap-2">
+                          <MdOutlineSpeakerNotes size={24} />
+                          <button onClick={() => setShowModal(true)}>
+                            Add a note
+                          </button>
+                        </div>
+
+                        <button
+                          onClick={() =>
+                            dispatch(deleteProductFromCart({ id: item.id }))
+                          }
+                        >
+                          Remove
                         </button>
                       </div>
 
-                      <button
-                        onClick={() =>
-                          dispatch(deleteProductFromCart({ id: item.id }))
-                        }
-                      >
-                        Remove
-                      </button>
+                      <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
                     </div>
-
-                    <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-
-              </div>
-
 
               <div className="more-items bg-white md:mt-16 xxs:mt-0 p-4">
                 <h1 className="text-[18px] text-[#333333] font-semibold py-6 md:hidden">
