@@ -32,8 +32,10 @@ export default function ProductAccordion() {
       <div className="md:flex md:items-center md:justify-between ">
         <div className="">
           <div className="mb-10">
-            <h1 className=" text-xl font-medium">Create Products</h1>
-            <span className="text-xs text-[#A2A2A2]">
+            <h1 className="md:text-[36px] md:leading-[42px] md:font-medium  xxs:font-normal  mb-3 xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
+              Create Products
+            </h1>
+            <span className="text-[#A2A2A2] md:text-[16px] md:leading-[18.75px] font-normal xxs:text-[13px] xxs:leading-[15px] mt-1">
               Please select a primary category for your product
             </span>
           </div>
