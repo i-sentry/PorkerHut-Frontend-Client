@@ -99,9 +99,13 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/:id/rating-page" element={<CustomerRating />} />
 
-      <Route path="/category" element={
-         //@ts-ignore
-        <ProductCategory />} />
+      <Route
+        path="/category"
+        element={
+          //@ts-ignore
+          <ProductCategory />
+        }
+      />
       <Route
         path="/store-page/:storeTitle"
         element={
