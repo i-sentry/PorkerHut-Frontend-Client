@@ -113,7 +113,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
             <div className="md:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
                 <div className="md:flex md:items-center md:justify-between md:gap-8 xxs:py-4">
-                  <h1 className="md:text-xl xxs:text-lg text-[#333333] md:pl-3 font-medium xxs:pl-0 ">
+                  <h1 className="md:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
                     All Products
                   </h1>
                   <div>
