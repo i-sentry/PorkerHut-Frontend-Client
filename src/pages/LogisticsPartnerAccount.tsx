@@ -48,15 +48,14 @@ type UserBillingInfo = {
   country: string;
   yearOfOperation: number;
   typeOfVet: string;
-  
 };
 
 const LogisticsPartnerAccount = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
-  const getBusinessDocFromInput = (files: IFile[]) => {
-    setBusinessDocUrl(files);
+  const getBusinessDocFromInput = (files: File[]) => {
+    // setBusinessDocUrl(files);
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -445,10 +444,10 @@ const LogisticsPartnerAccount = () => {
                     >
                       Upload a copy of Vet License
                     </label>
-                    <CustomDND
+                    {/* <CustomDND
                       getFiles={getBusinessDocFromInput}
                       inputId={"uuudd"}
-                    />
+                    /> */}
 
                     <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
                     <p className="my-2 text-[red] text-xs"></p>
@@ -460,10 +459,10 @@ const LogisticsPartnerAccount = () => {
                     >
                       Additional Document.
                     </label>
-                    <CustomDND
-                      getFiles={getBusinessDocFromInput}
-                      inputId={"uuudd"}
-                    />
+                      {/* <CustomDND
+                        getFiles={getBusinessDocFromInput}
+                        inputId={"uuudd"}
+                      /> */}
 
                     <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                       Documents allowed are images and PDF files.

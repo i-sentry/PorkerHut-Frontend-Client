@@ -5,19 +5,24 @@ import {
   sellersBusinessformData,
 } from "../../utils/formData";
 import CustomSelect from "../utility/CustomSelect";
-import { SelectOptionType } from "./SellersAccountInfo";
 import { useForm } from "react-hook-form";
 import CustomDND, { IFile } from "../utility/CustomDND";
 import ReactFlagsSelect from "react-flags-select";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
-import StepperController from "./StepperController";
+import StepperController, { IFormFiles } from "./StepperController";
+import { ISellerInfo } from "../../context/SellerInfoContext";
+import { FileContext } from "../../context/FileContext";
 
 interface IFlagsSelectProps {
   selected: string;
   onSelect: (code: string) => void;
   countries: string[];
 }
-
+export type SelectOptionType = {
+  label: string;
+  value: string;
+  description: string;
+} | null;
 const documents = [
   { id: 1, value: "driver_license", label: "Driver's License" },
   { id: 2, value: "permanent_voter_card", label: "Permanent Voter's Card" },
@@ -29,22 +34,35 @@ const documents = [
   { id: 4, value: "international_passport", label: "International Passport" },
 ];
 
-const BusinessInfo = () => {
+interface FileData {
+  name: string;
+  file: File;
+}
 
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
-    useContext(SellersStepsContext);
+const BusinessInfo = () => {
+  const {
+    checkoutSteps,
+    currentStep,
+    handleClick,
+    userData,
+    setUserData,
+    handleChange,
+  } = useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
   const [IDType, setIDType] = useState<SelectOptionType>(null);
   const [select, setSelect] = useState<string>("");
   const onSelect = (code: string): void => setSelect(code);
-  const [IDFile, setIDFile] = useState<FormData>();
-  const [cacFile, setCACFile] = useState<FormData>();
-  const [tinFile, setTINFile] = useState<FormData>();
-  const [docType, setInvoice] = useState("ID");
-  const [cac, setCac] = useState("CAC");
-  const [tin, setTin] = useState("TIN");
+  const [componentFiles, setComponentFiles] = useState<File[]>([]);
+  const [filenames, setFilenames] = useState<string[]>([]);
+  const [docsUrl, setDocsUrl] = useState<FormData>();
+  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [selecFile, setSelecFile] = useState<any>(null);
+  const [seFile, setSeFile] = useState<any>(null);
+  const [documentType, setDocumentType] = useState("Incorporation Document");
+  // const fileContext = useContext<FileContextProps>(FileContext);
+  const { setFiles } = useContext(FileContext);
 
   const vat = [
     {
@@ -56,6 +74,106 @@ const BusinessInfo = () => {
       name: "No",
     },
   ];
+
+  const files: any = {
+    selectedFile: selectedFile,
+    selecFile: selecFile,
+    seFile: seFile,
+  };
+
+  // useEffect(() => {}, []);
+
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0] || null;
+  //   setSelectedFile(file);
+  // };
+
+  // const handleFileChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  //   setFiles: React.Dispatch<React.SetStateAction<FileData[]>>
+  // ) => {
+  //   const selectedFiles = Array.from(event.target.files || []);
+
+  //   const updatedFiles: FileData[] = selectedFiles.map((file) => ({
+  //     name: file.name,
+  //     file: file,
+  //   }));
+
+  //   setFiles(updatedFiles);
+  // };
+
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    const selectedFiles = Array.from(event.target.files || []);
+
+    const updatedFiles: FileData[] = selectedFiles.map((file) => ({
+      name: file.name,
+      file: file,
+    }));
+
+    console.log(updatedFiles, "hhhyuyuy");
+
+    setFiles(field, updatedFiles);
+  };
+
+  // const handleFileUpload = (event: string) => {
+  //   event.preventDefault();
+
+  //   const data = new FormData();
+  //   if (selectedFile) {
+  //     const formData = new FormData();
+  //     formData.append("file", selectedFile);
+
+  //     setUserData((prevUserData: any) => ({
+  //       ...prevUserData,
+  //       businessInformation: {
+  //         ...prevUserData.businessInformation,
+  //         [fieldName]: formData,
+  //       },
+  //     }));
+  //   }
+  // };
+
+  // const handChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0] || null;
+  //   setSelecFile(file);
+  // };
+
+  // const handUpload = (fieldName: string) => {
+  //   if (selecFile) {
+  //     const formData = new FormData();
+  //     formData.append("file", selecFile);
+
+  //     setUserData((prevUserData: any) => ({
+  //       ...prevUserData,
+  //       businessInformation: {
+  //         ...prevUserData.businessInformation,
+  //         [fieldName]: formData,
+  //       },
+  //     }));
+  //   }
+  // };
+  // const Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0] || null;
+  //   setSeFile(file);
+  // };
+
+  // const Upload = (fieldName: string) => {
+  //   if (seFile) {
+  //     const formData = new FormData();
+  //     formData.append("file", seFile);
+
+  //     setUserData((prevUserData: any) => ({
+  //       ...prevUserData,
+  //       businessInformation: {
+  //         ...prevUserData.businessInformation,
+  //         [fieldName]: formData,
+  //       },
+  //     }));
+  //   }
+  // };
 
   const {
     register,
@@ -71,73 +189,63 @@ const BusinessInfo = () => {
     countries: ["NG", "GH", "KE", "UG", "ZA", "TZ"],
   };
 
-  const getID = (files: any) => {
+  const handleGetFiles = (files: File[], fieldName: string) => {
+    // console.log(files, "handle")
+    if (files.length > 0) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append(fieldName, file);
+      setComponentFiles([...componentFiles, file]);
+      setFilenames([...filenames, file.name]);
+      //@ts-ignore
+      setUserData((prevUserData: ISellerInfo) => ({
+        ...prevUserData,
+        businessInformation: {
+          ...prevUserData.businessInformation,
+          [fieldName]: formData,
+        },
+      }));
+
+      console.log("File name:", file.name);
+      console.log("File data:", file);
+    }
+  };
+
+  const getDocs = (files: any) => {
+    // console.log(files, "getfike")
     const formData = new FormData();
     files.forEach((file: string | Blob, index: any) => {
       formData.append(`documents`, file);
     });
-    formData.append("ID", docType);
-    setIDFile(formData);
-    if (formData) {
-      setUserData((prevUserData: any) => ({
-        ...prevUserData,
-        IDFile: IDFile || [],
-      }));
+    formData.append("documentType", documentType);
+    setDocsUrl(formData);
+  };
+  console.log(files, "gyguygyg");
+  const updateUserData = (property: string, value: string) => {
+    setUserData((prevUserData: ISellerInfo) => ({
+      ...prevUserData,
+      businessInformation: {
+        ...prevUserData.businessInformation,
+        [property]: value || "",
+      },
+    }));
+  };
+
+  React.useEffect(() => {
+    if (vatRegistered) {
+      updateUserData("VATRegistered", vatRegistered.value);
     }
-  };
-  const getCAC = (files: any) => {
-    const formData = new FormData();
-    files.forEach((file: string | Blob, index: any) => {
-      formData.append(`documents`, file);
-    });
-    formData.append("cac", cac);
-    setCACFile(formData);
-    if (formData) {
-      setUserData((prevUserData: any) => ({
-        ...prevUserData,
-        CACCertificateFile: cacFile || [],
-      }));
+  }, [vatRegistered]);
+
+  React.useEffect(() => {
+    if (IDType) {
+      updateUserData("IDType", IDType.value);
     }
-  };
-  const getTAX = (files: any) => {
-    const formData = new FormData();
-    files.forEach((file: string | Blob, index: any) => {
-      formData.append(`documents`, file);
-    });
-    formData.append("tin", tin);
-    setTINFile(formData);
-    if (formData) {
-      setUserData((prevUserData: any) => ({
-        ...prevUserData,
-        TINCertificateFile: tinFile || [],
-      }));
-    }
-  };
+  }, [IDType]);
 
-  const handleChange = (e: any) => {
-    console.log(e);
-    const { name, value, checked } = e.target;
-    setUserData({ ...userData, [name]: value });
-  };
-
- const updateUserData = (property: string, value: string | number | undefined) => {
-   setUserData((prevUserData: any) => ({
-     ...prevUserData,
-     [property]: value || "",
-   }));
- };
-
- React.useEffect(() => {
-   updateUserData("VATRegistered", vatRegistered?.value);
- }, [vatRegistered]);
-
- React.useEffect(() => {
-   updateUserData("IDType", IDType?.value);
- }, [IDType]);
-
- React.useEffect(() => {
-   updateUserData("Country", select);
- }, [select]);
+  React.useEffect(() => {
+    updateUserData("Country", select);
+  }, [select]);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -157,36 +265,42 @@ const BusinessInfo = () => {
           </div>
           <div>
             <form>
-              {sellersBusinessformData.map((data, index) => (
-                <div className="my-2 w-full " key={index}>
-                  <label
-                    htmlFor={data.name}
-                    className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px]  ${
-                      data.required &&
-                      "after:content-['*'] after:ml-0.5 after:text-red-500"
-                    } }`}
-                  >
-                    {data.label}
-                  </label>
-                  <input
-                    id={data.name}
-                    type={data.type}
-                    name={data.name}
-                    // value={userData[data?.name] || ""}
-                    placeholder={data.place_holder}
-                    onChange={handleChange}
-                    className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                      errors[data.name] && "border-ErrorBorder"
-                    }`}
-                  />
-                  <span className="text-[#797979] text-[12px] leading-none">
-                    {data.info}
-                  </span>
-                  <p className="my-2 text-[red] text-xs">
-                    {/* {errors[data.name] && errors[data.name].message} */}
-                  </p>
-                </div>
-              ))}
+              {sellersBusinessformData.map((data, index) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = userData[section][field]; // Access the nested property value
+
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.label}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={data.type}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {data.info}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
               <>
                 <span className="text-[#333333] text-[14px] leading-[16px]">
                   Choose country of operation
@@ -216,7 +330,25 @@ const BusinessInfo = () => {
                   Upload a copy of the ID
                 </span>
                 <div className="mt-2">
-                  <CustomDND getFiles={getID} inputId={"ID"} />
+                  <CustomDND
+                    getFiles={(files: File[]) =>
+                      handleGetFiles(files, "IDFile")
+                    }
+                    inputId={"ID"}
+                    // componentFiles={componentFiles}
+                    // filenames={filenames}
+                  />
+                  <div>
+                    <input
+                      type="file"
+                      onChange={(event) => handleFileChange(event, "selected")}
+                    />
+                    {/* <button onClick={() => handleFileUpload("IDFile")}>
+                      Upload
+                    </button>{" "} */}
+                  </div>
+
+                  {/* <CustomDND inputId="dkke" getFiles={getDocs} /> */}
                   <span className=" text-[#797979]  text-[12px] leading-none">
                     Documents allowed are images, PDF files and MS word
                     documents.
@@ -224,42 +356,65 @@ const BusinessInfo = () => {
                 </div>
               </>
 
-              {businessCac.map((data, index) => (
-                <div className="my-2 w-full " key={index}>
-                  <label
-                    htmlFor={data.name}
-                    className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
-                      data.required &&
-                      "after:content-['*'] after:ml-0.5 after:text-red-500"
-                    } }`}
-                  >
-                    {data.label}
-                  </label>
-                  <input
-                    id={data.name}
-                    type={data.type}
-                    name={data.name}
-                    // value={userData[data?.name] || ""}
-                    placeholder={data.place_holder}
-                    onChange={handleChange}
-                    className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                      errors[data.name] && "border-ErrorBorder"
-                    }`}
-                  />
-                  {/* <span className="text-[#797979] text-[12px] leading-none">
-                    {data.info}
-                  </span> */}
-                  <p className="my-2 text-[red] text-xs">
-                    {/* {errors[data.name] && errors[data.name].message} */}
-                  </p>
-                </div>
-              ))}
+              {businessCac.map((data, index) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = userData[section][field]; // Access the nested property value
+
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.label}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={data.type}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {/* {data.info} */}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
               <>
                 <span className="text-[#333333] text-[14px] leading-[16px] mb-10">
                   Upload a copy of your CAC Certificate
                 </span>
                 <div className="mt-2">
-                  <CustomDND getFiles={getCAC} inputId={"cac"} />
+                  <CustomDND
+                    getFiles={(files: File[]) =>
+                      handleGetFiles(files, "CACCertificateFile")
+                    }
+                    inputId={"cac"}
+                    // componentFiles={componentFiles}
+                    // filenames={filenames}
+                  />
+
+                  <div>
+                    <input
+                      type="file"
+                      onChange={(event) => handleFileChange(event, "selec")}
+                    />
+                    {/* <button onClick={() => handUpload("CACCertificateFile")}>
+                      Upload
+                    </button>{" "} */}
+                  </div>
                   <span className=" text-[#797979] text-[12px] leading-none">
                     Please ensure that the document that you provide includes
                     the list of the company ultimate beneficial owners. Porker
@@ -273,7 +428,23 @@ const BusinessInfo = () => {
                   certificate
                 </span>
                 <div className="mt-2">
-                  <CustomDND getFiles={getTAX} inputId={"tax"} />
+                  <CustomDND
+                    getFiles={(files: File[]) =>
+                      handleGetFiles(files, "TINCertificateFile")
+                    }
+                    inputId={"tax"}
+                    // componentFiles={componentFiles}
+                    // filenames={filenames}
+                  />
+                  <div>
+                    <input
+                      type="file"
+                      onChange={(event) => handleFileChange(event, "se")}
+                    />
+                    {/* <button onClick={() => Upload("TINCertificateFile")}>
+                      Upload
+                    </button>{" "} */}
+                  </div>
                   <span className=" text-[#797979] text-[12px] leading-none">
                     Tin is required for all individuals and corporate deriving
                     income Under Nigeria’s legislation.
@@ -281,36 +452,42 @@ const BusinessInfo = () => {
                 </div>
               </div>
 
-              {businessTIN.map((data, index) => (
-                <div className="my-2 w-full " key={index}>
-                  <label
-                    htmlFor={data.name}
-                    className={`block text-[14px] leading-[16px] mb-[6px] text-HeadingColor ${
-                      data.required &&
-                      "after:content-['*'] after:ml-0.5 after:text-red-500"
-                    } }`}
-                  >
-                    {data.label}
-                  </label>
-                  <input
-                    id={data.name}
-                    type={data.type}
-                    name={data.name}
-                    // value={userData[data?.name] || ""}
-                    placeholder={data.place_holder}
-                    onChange={handleChange}
-                    className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                      errors[data.name] && "border-ErrorBorder"
-                    }`}
-                  />
-                  {/* <span className="text-[#797979] text-[12px] leading-none">
-                    {data.info}
-                  </span> */}
-                  <p className="my-2 text-[red] text-xs">
-                    {/* {errors[data.name] && errors[data.name].message} */}
-                  </p>
-                </div>
-              ))}
+              {businessTIN.map((data, index) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = userData[section][field]; // Access the nested property value
+
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.label}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={data.type}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {/* {data.info} */}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
               <>
                 <div className="my-2 w-full">
                   <label
@@ -331,9 +508,7 @@ const BusinessInfo = () => {
 
               <div className="">
                 {currentStep !== checkoutSteps?.length && (
-                  <StepperController
-                 
-                  />
+                  <StepperController formFiles={files} />
                 )}
               </div>
             </form>

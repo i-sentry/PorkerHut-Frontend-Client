@@ -43,6 +43,7 @@ export interface ISellerInfo {
     phoneNumber: string;
     additionalPhoneNumber: string;
     password: string;
+    [key: string]: string;
   };
   businessInformation: {
     companyRegisteredName: string;
@@ -50,19 +51,24 @@ export interface ISellerInfo {
     address2: string;
     city: string;
     businessOwnerName: string;
+    TINRegistrationNumber: string;
     dateOfBirth: string;
     IDType: string;
     CACRegistrationNumber: string;
     VATRegistered: string;
-    IDFile: IFile | null;
-    CACCertificateFile: IFile | null;
-    TINCertificateFile: IFile | null;
+    // IDFile: IFile | null;
+    // CACCertificateFile: IFile | null;
+    // TINCertificateFile: IFile | null;
+    // [key: string]: string | IFile | null;
+    [key: string]: string;
   };
   vendorBankAccount: {
     bankName: string;
     accountName: string;
     accountNumber: string;
+    [key: string]: string;
   };
+  [key: string]: any;
 }
 
 interface IContextProps {
@@ -89,13 +95,14 @@ export function AppProvider({ children }: IChildren) {
       address2: "",
       city: "",
       businessOwnerName: "",
+      TINRegistrationNumber: "",
       dateOfBirth: "",
       IDType: "",
       CACRegistrationNumber: "",
       VATRegistered: "",
-      IDFile: null,
-      CACCertificateFile: null,
-      TINCertificateFile: null,
+      // IDFile?: null,
+      // CACCertificateFile?: null,
+      // TINCertificateFile?: null,
     },
     vendorBankAccount: {
       bankName: "",

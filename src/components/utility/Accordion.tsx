@@ -77,22 +77,32 @@ const Accordion = () => {
     formState: { errors },
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+  const { checkoutSteps, currentStep, handleClick, handleChange, userData, setUserData } =
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  // const [formData, setFormData] = useState(userData);
 
   // const foundObject = bankData.find((obj) => obj.value === userData?.bank);
   // console.log({ foundObject });
 
-  const handleChange = (e: any) => {
-    console.log(e);
-    const { name, value, checked } = e.target;
-    setUserData({ ...userData, [name]: value });
+  // const handleChange = (e: any) => {
+  //   console.log(e);
+  //   const { name, value, checked } = e.target;
+  //   setUserData({ ...userData, [name]: value });
 
-    // setValue("checkbox", checked ? "yes" : "no");
-    // setVal(!val);
-    // setUserData({ ...userData, [name]: value, val });
-  };
+  //   // setValue("checkbox", checked ? "yes" : "no");
+  //   // setVal(!val);
+  //   // setUserData({ ...userData, [name]: value, val });
+  // };
+
+  // const handleChange = (e: { target: { name: any; value: any } }) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
   React.useEffect(() => {
     console.log({ userData });
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -109,37 +119,40 @@ const Accordion = () => {
         onToggle={() => setIsAccountInfoExpanded((prev) => !prev)}
       >
         <form>
-          {sellersShopInfo.map((data, index) => (
-            <div className="my-2 w-full " key={index}>
-              <label
-                htmlFor={data.name}
-                className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
-                  data.required &&
-                  "after:content-['*'] after:ml-0.5 after:text-red-500"
-                } }`}
-              >
-                {data?.label}
-              </label>
-              <input
-                id={data.name}
-                type={data.type}
-                name={data.name}
-                // value={userData[data?.name] || ""}
-                placeholder={data.place_holder}
-                onChange={handleChange}
-                // defaultValue={userData[data?.name]}
-                className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                  errors[data.name] && "border-ErrorBorder"
-                }`}
-              />
-              <span className="text-[#797979] text-[12px] leading-none">
-                {data.info}
-              </span>
-              <p className="my-2 text-[red] text-xs">
-                {/* {errors[data.name] && errors[data.name].message} */}
-              </p>
-            </div>
-          ))}
+          {sellersShopInfo.map((data, index) => {
+            console.log()
+            return (
+              <div className="my-2 w-full " key={index}>
+                <label
+                  htmlFor={data.name}
+                  className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
+                    data.required &&
+                    "after:content-['*'] after:ml-0.5 after:text-red-500"
+                  } }`}
+                >
+                  {data?.label}
+                </label>
+                <input
+                  id={data.name}
+                  type={data.type}
+                  name={data.name}
+                  defaultValue={userData[data?.name] || ""}
+                  placeholder={data.place_holder}
+                  onChange={handleChange}
+                  // defaultValue={userData[data?.name]}
+                  className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                    errors[data.name] && "border-ErrorBorder"
+                  }`}
+                />
+                <span className="text-[#797979] text-[12px] leading-none">
+                  {data.info}
+                </span>
+                <p className="my-2 text-[red] text-xs">
+                  {/* {errors[data.name] && errors[data.name].message} */}
+                </p>
+              </div>
+            );
+          })}
 
           <>
             <div className="my-2 w-full">
@@ -177,7 +190,7 @@ const Accordion = () => {
                 placeholder={data.place_holder}
                 name={data.name}
                 onChange={handleChange}
-                // value={userData[data?.name] || ""}
+                defaultValue={userData[data?.name] || ""}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
@@ -213,7 +226,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                // value={userData[data?.name] || ""}
+                defaultValue={userData[data?.name] || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -246,7 +259,7 @@ const Accordion = () => {
               </label>
               {/* Custom Field */}
               <CustomSelect
-                selectedOption={dropOption }
+                selectedOption={dropOption}
                 // selectedOption={dropOption === null ? foundObject : dropOption}
                 setSelectOption={setDropOption}
                 placeholder={"Select bank"}
@@ -269,7 +282,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                // value={userData[data?.name] || ""}
+                defaultValue={userData[data?.name] || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -289,9 +302,9 @@ const Accordion = () => {
       <div className="">
         {currentStep !== checkoutSteps?.length - 1 && (
           <StepperController
-            // checkoutSteps={checkoutSteps}
-            // currentStep={currentStep}
-            // handleClick={handleClick}
+          // checkoutSteps={checkoutSteps}
+          // currentStep={currentStep}
+          // handleClick={handleClick}
           />
         )}
       </div>

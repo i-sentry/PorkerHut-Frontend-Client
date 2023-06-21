@@ -53,8 +53,8 @@ const VetPartnerMobileB: React.FC = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
-  const getBusinessDocFromInput = (files: IFile[]) => {
-    setBusinessDocUrl(files);
+  const getBusinessDocFromInput = (files: File[]) => {
+    // setBusinessDocUrl(files);
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -307,6 +307,7 @@ const VetPartnerMobileB: React.FC = () => {
                   <CustomDND
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"}
+                    // componentFiles={[]} filenames={[]}
                   />
 
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
@@ -322,7 +323,8 @@ const VetPartnerMobileB: React.FC = () => {
                   <CustomDND
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"}
-                  />
+                    //  componentFiles={[]} filenames={[]}
+                               />
 
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     Documents allowed are images and PDF files.

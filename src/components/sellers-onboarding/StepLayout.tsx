@@ -58,6 +58,60 @@ const StepLayout = () => {
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
 
+    function isFormFilled() {
+      return console.log(
+        Object.values(userData).every((value) => value !== ""),
+        "filled?"
+      );
+    }
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const { name, value } = e.target;
+     console.log(name, value);
+
+     // Split the name into nested properties
+     const [section, field] = name.split(".");
+
+     // Update the userData state
+     setUserData((prevUserData: ISellerInfo) => ({
+       ...prevUserData,
+       [section]: {
+         ...prevUserData[section],
+         [field]: value,
+       },
+     }));
+     isFormFilled();
+   };
+
+    const handleGetFiles = (files: File[], fieldName: string) => {
+      if (files.length > 0) {
+        const file = files[0];
+        const formData = new FormData();
+        formData.append(fieldName, file);
+        //@ts-ignore
+        setUserData((prevUserData: ISellerInfo) => ({
+          ...prevUserData,
+          businessInformation: {
+            ...prevUserData.businessInformation,
+            [fieldName]: formData,
+          },
+        }));
+
+        console.log("File name:", file.name);
+        console.log("File data:", file);
+      }
+    };
+
+    const updateUserData = (property: string, value: string) => {
+      setUserData((prevUserData: ISellerInfo) => ({
+        ...prevUserData,
+        businessInformation: {
+          ...prevUserData.businessInformation,
+          [property]: value || "",
+        },
+      }));
+    };
+
   return (
     <>
       <TopNav />
@@ -75,7 +129,7 @@ const StepLayout = () => {
         <div>
           <SellerStepper
             checkoutSteps={checkoutSteps}
-            currentStep={currentStep  }
+            currentStep={currentStep}
           />
         </div>
         <div className="flex items-center gap-5 sm:hidden mx-3">
@@ -140,6 +194,7 @@ const StepLayout = () => {
               checkoutSteps,
               currentStep,
               handleClick,
+              handleChange,
             }}
           >
             {displayStep(currentStep)}
@@ -152,3 +207,6 @@ const StepLayout = () => {
 };
 
 export default StepLayout;
+
+
+

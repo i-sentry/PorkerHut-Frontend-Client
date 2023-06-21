@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { sellersBankInfo } from "../../utils/formData";
 import CustomSelect from "../utility/CustomSelect";
 import { SelectOptionType } from "./SellersAccountInfo";
@@ -17,33 +17,46 @@ import { BASEURL } from "../../services/api";
 import { FaSpinner } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { useBankStore } from "../../store";
+import { ISellerInfo } from "../../context/SellerInfoContext";
 
 const BankAccountInfo = () => {
   const setBankData = useBankStore((state) => state.setBankData);
   const bankData = useBankStore((state) => state.bankData);
   const { data: bankList, error, isLoading: isBankLoading } = useGetBankList();
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
-    useContext(SellersStepsContext);
+  const {
+    checkoutSteps,
+    currentStep,
+    handleClick,
+    userData,
+    setUserData,
+    handleChange,
+  } = useContext(SellersStepsContext);
 
   console.log(bankList);
-
+  console.log(userData);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [fetch, setFetch] = useState(false)
   const [accountName, setAccountName] = useState("");
   const [ID, setID] = useState<FormData>();
   const [invoice, setInvoice] = useState("Payment Invoice");
   const [accName, setAccName] = useState("");
-  // const shouldFetchData =
-  //   userData.bank_account?.length === 10 && dropOption?.value !== "";
 
-  // const url = shouldFetchData
-  //   ? `${BASEURL}/api/pay/account-details?account_number=${userData.bank_account}&bank_code=${dropOption?.value}`
-  //   : null;
-  // const {
-  //   data: resolveBankNameResult,
-  //   error: resolveErr,
-  //   isLoading,
-  // } = useSWR(url, fetchResolveBankName);
+  const bankAccount = userData.vendorBankAccount.accountNumber;
+  const bankCode = dropOption?.value;
+  console.log(bankAccount && bankCode,"hhh");
+const url =
+ `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
+        bankAccount
+      )}&bank_code=${ (bankCode)}`
+
+
+  const {
+    data: resolveBankNameResult,
+    error: resolveErr,
+    isLoading,
+  } = useSWR( fetch ? url : null, fetchResolveBankName);
 
   const {
     register,
@@ -56,24 +69,34 @@ const BankAccountInfo = () => {
   React.useEffect(() => {
     setUserData((prevUserData: any) => ({
       ...prevUserData,
-      bank: dropOption?.value || "",
+      vendorBankAccount: {
+        ...prevUserData.vendorBankAccount,
+        bankName: "" || dropOption?.label,
+      },
     }));
-  }, [dropOption?.value]);
+  }, [dropOption?.label]);
 
-  const handleChange = (e: any) => {
-    console.log(e);
-    const { name, value, checked } = e.target;
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.length
+    console.log(value,"value")
+    if (value === 10) {
 
-    setUserData({ ...userData, [name]: value });
+      console.log("feting.ddedeedeedeeeeedeeded.")
+     setFetch(true)
+   }
+    handleChange(e)
   };
-
-  // useEffect(() => {
-  //   setAccName(resolveBankNameResult?.data?.account_name);
-  //   setUserData((prevUserData: any) => ({
-  //     ...prevUserData,
-  //     accountName: accName || "",
-  //   }));
-  // }, [resolveBankNameResult, accName]);
+  useEffect(() => {
+    setAccName(resolveBankNameResult?.data?.account_name);
+    setAccountName(resolveBankNameResult?.data);
+    setUserData((prevUserData: ISellerInfo) => ({
+      ...prevUserData,
+      vendorBankAccount: {
+        ...prevUserData.vendorBankAccount,
+        accountName: accName || "",
+      },
+    }));
+  }, [resolveBankNameResult, accName]);
 
   const [bank, setBank] = useState<{
     label?: string;
@@ -84,7 +107,7 @@ const BankAccountInfo = () => {
 
   const bankOptions = useMemo(
     () =>
-      bankList?.data?.data.map((bank: any) => ({
+      bankList?.data?.data?.map((bank: any) => ({
         label: bank.name,
         value: bank.code,
         bank,
@@ -139,7 +162,7 @@ const BankAccountInfo = () => {
                   />
                 </div>
               </>
-              {sellersBankInfo.map((data, index) => (
+              {sellersBankInfo?.map((data, index) => (
                 <>
                   <div className="my-2 w-full " key={index}>
                     <label
@@ -157,7 +180,7 @@ const BankAccountInfo = () => {
                       name={data.name}
                       // value={userData[data?.name] || ""}
                       placeholder={data.place_holder}
-                      onChange={handleChange}
+                      onChange={onChange}
                       maxLength={10} // Add maxLength attribute to limit input to 10 characters
                       className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                         errors[data.name] && "border-ErrorBorder"
@@ -173,11 +196,11 @@ const BankAccountInfo = () => {
                 </>
               ))}
               <div className="my-2 w-full relative">
-                {/* {isLoading && (
+                {isLoading && (
                   <div className="absolute top-[-5%] right-4 bottom-0 flex items-center justify-center bg-transparent">
                     <ImSpinner2 className="animate-spin w-5 h-5 text-[#197b30]" />
                   </div>
-                )} */}
+                )}
                 <label
                   htmlFor={"account_name"}
                   className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333]
@@ -207,11 +230,7 @@ const BankAccountInfo = () => {
               </div>
 
               <div className="">
-                {currentStep !== checkoutSteps?.length && (
-                  <StepperController
-
-                  />
-                )}
+                {currentStep !== checkoutSteps?.length && <StepperController />}
               </div>
             </form>
           </div>

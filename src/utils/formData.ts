@@ -37,7 +37,7 @@ export const formData = [
 export const sellersformData = [
   {
     label: "Account Owner’s Name",
-    name: "accountOwnersName",
+    name: "sellerAccountInformation.accountOwnersName",
     place_holder: "Enter full name",
     error_message: "Account Owner’s Name is Required",
     type: "text",
@@ -47,7 +47,7 @@ export const sellersformData = [
   },
   {
     label: "Account Owner’s Phone Number",
-    name: "phoneNumber",
+    name: "sellerAccountInformation.phoneNumber",
     place_holder: "Enter Your Phone Number",
     error_message: "Phone Number is Required",
     type: "tel",
@@ -56,7 +56,7 @@ export const sellersformData = [
   },
   {
     label: "Additional Phone Number",
-    name: "additionalPhoneNumber",
+    name: "sellerAccountInformation.additionalPhoneNumber",
     place_holder: "Enter Additional Phone Number",
     error_message: "",
     type: "tel",
@@ -66,16 +66,16 @@ export const sellersformData = [
 
   {
     label: "Email Address",
-    name: "email",
-    place_holder: "Enter Email Address*",
-    error_message: "Email Address* is Required",
+    name: "sellerAccountInformation.email",
+    place_holder: "Enter Email Address",
+    error_message: "Email Address is Required",
     type: "email",
     required: true,
     info: "Your account will be linked to this email address and we will use it to send all our communications.",
   },
   {
     label: "Password",
-    name: "password",
+    name: "sellerAccountInformation.password",
     place_holder: "Enter your password",
     error_message: "Password is Required",
     type: "password",
@@ -86,7 +86,7 @@ export const sellersformData = [
 export const sellersShopInfo = [
   {
     label: "Shop Name",
-    name: "shopName",
+    name: "sellerAccountInformation.shopName",
     place_holder: "Enter Shop Name",
     error_message: "Shop Name is Required",
     type: "text",
@@ -97,17 +97,10 @@ export const sellersShopInfo = [
 
 
 export const sellersBusinessformData = [
-  // {
-  //   label: "Are you an individual or Business Entity/Company",
-  //   name: "confirmation",
-  //   place_holder: "-Choose an option-",
-  //   error_message: "Email Address is Required",
-  //   type: "text",
-  //   required: true,
-  // },
+
   {
     label: "Company Registered Name",
-    name: "companyRegisteredName",
+    name: "businessInformation.companyRegisteredName",
     place_holder: "Enter company's registered name",
     error_message: "Company Registered Name is Required",
     type: "text",
@@ -116,7 +109,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Address 1",
-    name: "address1",
+    name: "businessInformation.address1",
     place_holder: "Enter company address",
     error_message: "Company's Address is Required",
     type: "text",
@@ -125,7 +118,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Address 2",
-    name: "address2",
+    name: "businessInformation.address2",
     place_holder: "Enter company address",
     error_message: "",
     type: "text",
@@ -135,7 +128,7 @@ export const sellersBusinessformData = [
 
   {
     label: "City / Town",
-    name: "city",
+    name: "businessInformation.city",
     place_holder: "Enter company location",
     error_message: "Company's city is Required",
     type: "text",
@@ -144,7 +137,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Business owner or legal representative",
-    name: "businessOwnerName",
+    name: "businessInformation.businessOwnerName",
     place_holder: "Enter full name ",
     error_message: "Business owner Name is Required",
     type: "text",
@@ -153,7 +146,7 @@ export const sellersBusinessformData = [
   },
   {
     label: "Business owner date of birth",
-    name: "dateOfBirth",
+    name: "businessInformation.dateOfBirth",
     place_holder: "Enter your date of birth",
     error_message: "DOB is Required",
     type: "date",
@@ -164,7 +157,7 @@ export const sellersBusinessformData = [
 export const businessCac = [
   {
     label: "CAC Registration Number",
-    name: "CACRegistrationNumber",
+    name: "businessInformation.CACRegistrationNumber",
     place_holder: "Enter registration number",
     error_message: "CAC Number is Required",
     type: "text",
@@ -174,7 +167,7 @@ export const businessCac = [
 export const businessTIN = [
   {
     label: "Tax Identification Number (TIN)",
-    name: "tin",
+    name: "businessInformation.TINRegistrationNumber",
     place_holder: "Enter TIN number",
     error_message: "TIN Number is Required",
     type: "text",
@@ -195,7 +188,7 @@ export const sellersBankInfo = [
   // },
   {
     label: "Bank account number",
-    name: "accountNumber",
+    name: "vendorBankAccount.accountNumber",
     place_holder: "Enter account number ",
     error_message: "Account Number is Required",
     type: "number",

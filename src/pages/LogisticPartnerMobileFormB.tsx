@@ -52,9 +52,9 @@ const LogisticPartnerMobileFormB: React.FC = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
-  const getBusinessDocFromInput = (files: IFile[]) => {
-    setBusinessDocUrl(files);
-  };
+  // const getBusinessDocFromInput = (files: File[]) => {
+  //   // setBusinessDocUrl(files);
+  // };
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
@@ -156,7 +156,6 @@ const LogisticPartnerMobileFormB: React.FC = () => {
         {" "}
         <div>
           <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
-           
             <div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-4 w-full ">
@@ -304,10 +303,9 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                   >
                     Upload a copy of Vet License
                   </label>
-                  <CustomDND
+                  {/* <CustomDND
                     getFiles={getBusinessDocFromInput}
-                    inputId={"uuudd"}
-                  />
+                    inputId={"uuudd"} componentFiles={[]} filenames={[]}                  /> */}
 
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
                   <p className="my-2 text-[red] text-xs"></p>
@@ -319,10 +317,9 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                   >
                     Additional Document.
                   </label>
-                  <CustomDND
+                  {/* <CustomDND
                     getFiles={getBusinessDocFromInput}
-                    inputId={"uuudd"}
-                  />
+                    inputId={"uuudd"} componentFiles={[]} filenames={[]}                  /> */}
 
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     Documents allowed are images and PDF files.

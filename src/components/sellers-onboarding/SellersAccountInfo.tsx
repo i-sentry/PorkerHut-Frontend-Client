@@ -9,24 +9,32 @@ import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
 
 export type SelectOptionType = {
   label: string | number;
-  value: string | number;
+  value: string;
   description?: string;
 } | null;
 
 export const vendorType = [
   {
     id: 1,
-    name: "Individual",
+    label: "Individual",
+    value: "individual",
   },
   {
     id: 2,
-    name: "Business Entity",
+    label: "Business Entity",
+    value: "business",
   },
 ];
 
 const SellersAccountInfo = () => {
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
-    useContext(SellersStepsContext);
+  const {
+    checkoutSteps,
+    currentStep,
+    handleClick,
+    userData,
+    setUserData,
+    handleChange,
+  } = useContext(SellersStepsContext);
   const [val, setVal] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
@@ -34,16 +42,15 @@ const SellersAccountInfo = () => {
   const [accountInfoFilled, setAccountInfoFilled] = useState(false);
 
   React.useEffect(() => {
-    setUserData((prevUserData: any) => ({
+    setUserData((prevUserData: ISellerInfo) => ({
       ...prevUserData,
-
-      entityType: dropOption?.value || "",
+      sellerAccountInformation: {
+        ...prevUserData.sellerAccountInformation,
+        entityType: dropOption?.value || "",
+      },
     }));
   }, [dropOption?.value]);
 
-  function isFormFilled() {
-    return console.log(Object.values(userData).every((value) => value !== ""));
-  }
   const { state, setState } = useAppState();
 
   const {
@@ -55,21 +62,42 @@ const SellersAccountInfo = () => {
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
   const watchPassword = watch("password");
 
-  const handleChange = (e: any) => {
-    // console.log(e)
-    const { name, value, checked } = e.target;
-    console.log(name);
-    console.log(value);
-    setUserData({
-      ...userData,
-      [name]: value,
-      // value[entity_type]: dropOption?.value,
-    });
-    isFormFilled();
-    // setValue("checkbox", checked ? "yes" : "no");
-    // setVal(!val);
-    // setUserData({ ...userData, [name]: value, val });
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+
+  //   // Split the name into nested properties
+  //   const [section, field] = name.split(".");
+
+  //   // Update the userData state
+  //   setUserData((prevUserData: ISellerInfo) => ({
+  //     ...prevUserData,
+  //     [section]: {
+  //       ...prevUserData[section],
+  //       [field]: value,
+  //     },
+  //   }));
+
+  //   isFormFilled();
+  // };
+
+  //  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //    const { name, value } = e.target;
+  //    console.log(name, value)
+
+  //    // Split the name into nested properties
+  //    const [section, field] = name.split(".");
+
+  //    // Update the userData state
+  //    setUserData((prevUserData: ISellerInfo) => ({
+  //      ...prevUserData,
+  //      [section]: {
+  //        ...prevUserData[section],
+  //        [field]: value,
+  //      },
+  //    }));
+  //    isFormFilled();
+  //  };
+
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -90,36 +118,42 @@ const SellersAccountInfo = () => {
           </div>
           <div>
             <form>
-              {sellersShopInfo.map((data, index) => (
-                <div className="my-2 w-full " key={index}>
-                  <label
-                    htmlFor={data.name}
-                    className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
-                      data.required &&
-                      "after:content-['*'] after:ml-0.5 after:text-red-500"
-                    } }`}
-                  >
-                    {data.label}
-                  </label>
-                  <input
-                    id={data.name}
-                    type={data.type}
-                    name={data.name}
-                    // value={userData[data?.name] || ""}
-                    placeholder={data.place_holder}
-                    onChange={handleChange}
-                    className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                      errors[data.name] && "border-ErrorBorder"
-                    }`}
-                  />
-                  <span className="text-[#797979] text-[12px] leading-none">
-                    {data.info}
-                  </span>
-                  <p className="my-2 text-[red] text-xs">
-                    {errors[data.name] && data.error_message}
-                  </p>
-                </div>
-              ))}
+              {sellersShopInfo.map((data, index) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = userData[section][field]; // Access the nested property value
+
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.label}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={data.type}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {data.info}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
 
               <>
                 <div className="my-2 w-full">
@@ -139,36 +173,42 @@ const SellersAccountInfo = () => {
                 </div>
               </>
 
-              {sellersformData.map((data, index) => (
-                <div className="my-2 w-full " key={index}>
-                  <label
-                    htmlFor={data.name}
-                    className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px]  ${
-                      data.required &&
-                      "after:content-['*'] after:ml-0.5 after:text-red-500"
-                    } }`}
-                  >
-                    {data.label}
-                  </label>
-                  <input
-                    id={data.name}
-                    type={data.type}
-                    placeholder={data.place_holder}
-                    name={data.name}
-                    onChange={handleChange}
-                    // value={userData[data?.name] || ""}
-                    className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
-                      errors[data.name] && "border-ErrorBorder"
-                    }`}
-                  />
-                  <span className="text-[#797979] text-[12px] leading-none">
-                    {data.info}
-                  </span>
-                  <p className="my-2 text-[red] text-xs">
-                    {/* {errors[data.name] && errors[data.name].message} */}
-                  </p>
-                </div>
-              ))}
+              {sellersformData.map((data, index) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = userData[section][field]; // Access the nested property value
+
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.label}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={data.type}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {data.info}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
               <>
                 <div className="flex items-center ">
                   <input

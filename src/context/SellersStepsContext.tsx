@@ -10,6 +10,7 @@ export interface SellersStepsContextValue {
   displayStep: (sellersStep: any) => JSX.Element | undefined;
   setFinalData: React.Dispatch<React.SetStateAction<never[]>>;
   setUserData: React.Dispatch<React.SetStateAction<ISellerInfo>>;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const SellersStepsContext = createContext<SellersStepsContextValue>(
