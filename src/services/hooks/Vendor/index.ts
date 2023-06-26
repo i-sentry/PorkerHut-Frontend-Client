@@ -12,6 +12,6 @@ export const useVendorSignUp = () => {
 export const useVendorLogin = () => {
   return useQueryMutation({
     mutationFn: (data: ILoginUser) =>
-      makePostRequest(data, api.Users.userLogin),
+      makePostRequest(data, api.Vendors.vendorLogin),
   });
 };

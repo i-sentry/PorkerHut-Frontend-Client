@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { HiOutlineCheck, HiOutlineChevronDoubleRight } from "react-icons/hi";
+import { MdDoubleArrow } from "react-icons/md";
 
 interface IStepProps {
   steps: string[];
@@ -13,7 +14,7 @@ const Stepper = ({ steps, currentStep }: IStepProps) => {
 
   const updateStep = (stepNumber: number, steps: string[]) => {
     const newSteps = [...steps];
-    
+
     let count = 0;
     while (count < newSteps.length) {
       //current step
@@ -93,9 +94,9 @@ const Stepper = ({ steps, currentStep }: IStepProps) => {
             }`}
           >
             {step.completed ? (
-                        <span className="text-white font-bold text-xl">
-                            <HiOutlineCheck />
-                        </span>
+              <span className="text-white font-bold text-xl">
+                <HiOutlineCheck />
+              </span>
             ) : (
               index + 1
             )}
@@ -108,11 +109,11 @@ const Stepper = ({ steps, currentStep }: IStepProps) => {
         </div>
         <div
           className={`flex items-center justify-between gap-2 text-xs transition pl-2 duration-500 ease-in-out  ${
-            step.completed ? "text-green-600" : "border-gray-300 "
+            step.completed ? "text-green-600" : "border-gray-300 text-[#A2A2A2]"
           }  `}
         >
           <span className="">{step.description}</span>
-          <HiOutlineChevronDoubleRight />
+          <MdDoubleArrow />
         </div>
       </div>
     );

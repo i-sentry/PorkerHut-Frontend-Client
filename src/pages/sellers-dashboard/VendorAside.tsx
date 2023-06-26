@@ -7,8 +7,8 @@ const VendorAside = () => {
   const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
   return (
     <div
-      className={`md:flex fixed md:relative xxs:top-16 md:top-0 left-0 z-40 bg-[#EEEEEE] md:bg-white  w-[284px] border-r   h-screen flex-col  md:pt-8 xxs:pt-8 transition-all duration-500 overflow-y-hidden ${
-        !sideBarOpen ? "-translate-x-full md:translate-x-0" : ""
+      className={`lg:flex fixed lg:relative md:top-16 lg:top-0 left-0 z-40 bg-[#EEEEEE] lg:bg-white  w-[284px] border-r   h-screen flex-col  lg:pt-8 md:pt-8 transition-all duration-500 overflow-y-hidden ${
+        !sideBarOpen ? "-translate-x-full lg:translate-x-0" : ""
       }`}
     >
       {vendorsSideBarLink.map((item, index) => {

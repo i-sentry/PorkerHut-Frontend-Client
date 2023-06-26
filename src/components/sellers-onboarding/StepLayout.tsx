@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
 import SellerStepper from "./SellerStepper";
 import {
   SellersStepsContext,
-  SellersStepsContextValue,
+
 } from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
 import Footer from "../footer-component/Footer";

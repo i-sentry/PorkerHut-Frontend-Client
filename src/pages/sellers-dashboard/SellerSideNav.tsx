@@ -8,7 +8,7 @@ const SellerSideNav = () => {
   return (
     <div className="">
       <div
-        className={`fixed bg-[#020101a6] w-full h-[100%]   top-0  left-0 z-10 md:hidden overflow-y-hidden border-r  ${
+        className={`fixed bg-[#020101a6] w-full h-[100%]   top-0  left-0 z-10 lg:hidden overflow-y-hidden border-r  ${
           !sideBarOpen ? "hidden" : ""
         }`}
         onClick={() => toggleSideBarOpen()}

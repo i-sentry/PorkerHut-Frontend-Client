@@ -57,7 +57,7 @@ import CustomerRating from "./components/featured-product-component/best-selling
 import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
 import ProductCategory from "./pages/product-category/ProductCategory";
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
-import SellerStepperComponent from "./components/manage-seller-product-stepper-form-components/SellerStepperComponent";
+
 import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
 import StoreProfile from "./pages/admin-dashboard/StoreProfile";
 import NewStore from "./pages/admin-dashboard/NewStore";
@@ -75,6 +75,8 @@ import VetPartnerAccount from "./pages/VetPartnerAccount";
 import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
 import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
 import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
+import VendorLogin from "./components/auth-component/VendorLogin";
+import { ProductProvider } from "./context/ProductInfoContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -89,6 +91,7 @@ const router = createBrowserRouter(
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
+      <Route path="/sign-in" element={<VendorLogin />} />
       <Route
         path="/products"
         element={
@@ -144,18 +147,15 @@ const router = createBrowserRouter(
 
       <Route path="/services/agro-services" element={<AgroServices />} />
 
-      <Route path="/vendor" element={<SellerLayout />}>
+      <Route path="" element={<SellerLayout />}>
         <Route path="/vendor" element={<SellersHome sliderImages={[]} />} />
         <Route path="/vendor/order" element={<SellersOrderPage />} />
         <Route path="/vendor/products" element={<SellersProductPage />} />
-        <Route
+        {/* <Route
           path="/vendor/product/seller-stepper/:id"
-          element={<SellerStepperComponent />}
-        />
-        <Route
-          path="/vendor/create-product/stepper"
-          element={<StepperComponent />}
-        />
+          element={<SellStepperComponent />}
+        /> */}
+        <Route path="/vendor/create-product" element={<StepperComponent />} />
         <Route path="/vendor/create" element={<ProductAccordion />} />
         <Route path="/vendor/account+statement" element={<SellersAccount />} />
         <Route
@@ -197,10 +197,11 @@ const router = createBrowserRouter(
 function App() {
   return (
     <AppProvider>
-      <RouterProvider router={router} />
+      <ProductProvider>
+        <RouterProvider router={router} />
+      </ProductProvider>
     </AppProvider>
   );
 }
 
 export default App;
-

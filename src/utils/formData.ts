@@ -95,9 +95,7 @@ export const sellersShopInfo = [
   },
 ];
 
-
 export const sellersBusinessformData = [
-
   {
     label: "Company Registered Name",
     name: "businessInformation.companyRegisteredName",
@@ -175,7 +173,6 @@ export const businessTIN = [
   },
 ];
 
-
 export const sellersBankInfo = [
   // {
   //   label: "Bank account name",
@@ -194,5 +191,74 @@ export const sellersBankInfo = [
     type: "number",
     info: "Please fill in your account number",
     required: true,
+  },
+];
+
+export const productInfo = [
+  {
+    label: "Product Name",
+    name: "productInformation.productName",
+    place_holder: "Enter product weight",
+    error_message: "",
+    type: "text",
+    info: "Name of the product. For better listing, the name should match actual product.",
+    required: "true",
+  },
+  {
+    label: "Product Breed",
+    name: "productInformation.productBreed",
+    place_holder: "Enter product breed",
+    error_message: "",
+    type: "text",
+    info: "Breed of the product.",
+    required: "true",
+  },
+  {
+    label: "Type of pork",
+    name: "productInformation.typeOfMeat",
+    place_holder: "Enter product Breed",
+    error_message: "",
+    type: "text",
+    info: "Please the type of pork. Example:Thighs, Breast and tenderloin, Ham, Pork Belly, Pork Rib Roast",
+    required: "true",
+  },
+];
+
+export const productDetails = [
+  {
+    label: "Product Weight",
+    name: "productDetails.weight",
+    place_holder: "Enter product weight",
+    error_message: "",
+    type: "number",
+    info: "Please fill in the product weight.",
+    required: "true",
+  },
+  {
+    label: "Product Content",
+    name: "productDetails.content",
+    place_holder: "Enter product content",
+    error_message: "Product content is required",
+    type: "text",
+    info: "The product content should give the customer an overview of what they ordered.",
+    required: "true",
+  },
+  {
+    label: "Cooking Method",
+    name: "productDetails.cookingMethod",
+    place_holder: "Enter cooking method",
+    error_message: "Cooking method is required",
+    type: "text",
+    info: "Give a brief details on how its being Cooked. Example: Fried, Roasting, Boiling, Grilling.",
+    required: "false",
+  },
+  {
+    label: "Delivery Details",
+    name: "productDetails.deliveryDetails",
+    place_holder: "Enter delivery details",
+    error_message: "Cooking method is required",
+    type: "text",
+    info: "Please fill in where this product can be delivered to.",
+    required: "true",
   },
 ];

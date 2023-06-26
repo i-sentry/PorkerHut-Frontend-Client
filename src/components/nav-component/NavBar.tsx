@@ -175,7 +175,7 @@ const NavBar = () => {
             <>
               {user === null ? (
                 <>
-                  <NavButton className={loginBtn} text="Login" path="/login" />
+                  <NavButton className={loginBtn} text="Login" path="/login?q=customer" />
                   <NavButton
                     className={signUpBtn}
                     text="Sign Up"

@@ -1,24 +1,36 @@
-export default function StepperControl({
-  handleClick,
-  currentStep,
-  steps,
-}: any) {
+import { useContext } from "react";
+import { productStepsContext } from "../../context/StepperContext";
+
+export default function StepperControl() {
+  const {
+    checkoutSteps,
+    currentStep,
+    handleClick,
+    productData,
+    setProductData,
+    handleChange,
+  } = useContext(productStepsContext);
+console.log(checkoutSteps?.length);
+console.log(currentStep, "currentStep");
   return (
-    <div className="flex justify-center gap-8">
+    <div className="flex justify-center gap-8 mt-10">
       <button
-        onClick={() => handleClick()}
-        className={`cursor-pointer rounded border border-[#AED1B9] bg-[#F4F4F4] py-2 px-6  text-sm text-[#AED1B7] transition duration-200 ease-in-out  ${
-          currentStep === 1 ? " cursor-not-allowed opacity-50 " : ""
+        disabled={currentStep === 1}
+        onClick={() => {
+          handleClick("");
+        }}
+        className={`bg-[#fff] border border-[#197B30] text-[#197B30] px-8 py-2.5 rounded  shadow-lg hover:opacity-50 duration-100 ease-in-out disabled:bg-[#ddddddfd] ${
+          currentStep === 1 ? "cursor-not-allowed" : ""
         }`}
       >
         Back
       </button>
-
       <button
+        // disabled
         onClick={() => handleClick("next")}
-        className="cursor-pointer rounded bg-[#197B30] py-2 px-6  text-sm text-white transition duration-200 ease-in-out hover:bg-slate-700 hover:text-white"
+        className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5 disabled:bg-[#197b30ac] rounded text-button   shadow-lg hover:opacity-50 duration-100 ease-in-out"
       >
-        {currentStep === steps.length - 1 ? "Confirm" : "Continue"}
+        {currentStep === checkoutSteps?.length ? "Confirm" : "Continue"}
       </button>
     </div>
   );

@@ -302,9 +302,7 @@ const Accordion = () => {
       <div className="">
         {currentStep !== checkoutSteps?.length - 1 && (
           <StepperController
-          // checkoutSteps={checkoutSteps}
-          // currentStep={currentStep}
-          // handleClick={handleClick}
+
           />
         )}
       </div>

@@ -55,7 +55,7 @@ export default function ProductAccordion() {
               onClick={handleRecent}
               className={`text-[16px] leading-[19px] font-normal ${
                 recent
-                  ? "border-[1px] rounded-md border-[#197B30] px-3 py-2 text-[#197b30] py-2"
+                  ? "border-[1px] rounded-md border-[#197B30] px-3 py-2 text-[#197b30]"
                   : "underline"
               } `}
             >
@@ -64,7 +64,7 @@ export default function ProductAccordion() {
           </div>
         </div>
 
-        <div className="xxs:mb-10 md:mb-0">
+        {/* <div className="xxs:mb-10 md:mb-0">
           <div className="relative flex items-center justify-center md:px-5 ">
             <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 md:left-[350px] xxs:left-[300px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
               <HiOutlineSearch size={20} />
@@ -75,7 +75,7 @@ export default function ProductAccordion() {
               className="text-sm focus:outline-none active:outline-none h-9 w-[350px] bg-[#F4F4F4] rounded-l-lg pl-4 rounded-r-lg"
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div>

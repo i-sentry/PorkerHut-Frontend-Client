@@ -56,6 +56,7 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <FileContext.Provider value={contextValue}>{children}</FileContext.Provider>
+    <FileContext.Provider value={contextValue}>{children}
+    </FileContext.Provider>
   );
 };

@@ -62,7 +62,11 @@ const BusinessInfo = () => {
   const [seFile, setSeFile] = useState<any>(null);
   const [documentType, setDocumentType] = useState("Incorporation Document");
   // const fileContext = useContext<FileContextProps>(FileContext);
-  const { setFiles } = useContext(FileContext);
+  const { setFiles, seFiles, selecFiles, selectedFiles } = useContext(FileContext);
+
+  console.log(seFiles,"seFiles");
+  console.log(selecFiles,"selecFiles");
+  console.log(selectedFiles, "selectedFiles");
 
   const vat = [
     {
@@ -81,31 +85,12 @@ const BusinessInfo = () => {
     seFile: seFile,
   };
 
-  // useEffect(() => {}, []);
-
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0] || null;
-  //   setSelectedFile(file);
-  // };
-
-  // const handleFileChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  //   setFiles: React.Dispatch<React.SetStateAction<FileData[]>>
-  // ) => {
-  //   const selectedFiles = Array.from(event.target.files || []);
-
-  //   const updatedFiles: FileData[] = selectedFiles.map((file) => ({
-  //     name: file.name,
-  //     file: file,
-  //   }));
-
-  //   setFiles(updatedFiles);
-  // };
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string
   ) => {
+    console.log(event, "jio,");
     const selectedFiles = Array.from(event.target.files || []);
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
@@ -113,67 +98,11 @@ const BusinessInfo = () => {
       file: file,
     }));
 
-    console.log(updatedFiles, "hhhyuyuy");
+    console.log(updatedFiles[0].name, "hhhyuyuy");
 
     setFiles(field, updatedFiles);
   };
 
-  // const handleFileUpload = (event: string) => {
-  //   event.preventDefault();
-
-  //   const data = new FormData();
-  //   if (selectedFile) {
-  //     const formData = new FormData();
-  //     formData.append("file", selectedFile);
-
-  //     setUserData((prevUserData: any) => ({
-  //       ...prevUserData,
-  //       businessInformation: {
-  //         ...prevUserData.businessInformation,
-  //         [fieldName]: formData,
-  //       },
-  //     }));
-  //   }
-  // };
-
-  // const handChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0] || null;
-  //   setSelecFile(file);
-  // };
-
-  // const handUpload = (fieldName: string) => {
-  //   if (selecFile) {
-  //     const formData = new FormData();
-  //     formData.append("file", selecFile);
-
-  //     setUserData((prevUserData: any) => ({
-  //       ...prevUserData,
-  //       businessInformation: {
-  //         ...prevUserData.businessInformation,
-  //         [fieldName]: formData,
-  //       },
-  //     }));
-  //   }
-  // };
-  // const Change = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0] || null;
-  //   setSeFile(file);
-  // };
-
-  // const Upload = (fieldName: string) => {
-  //   if (seFile) {
-  //     const formData = new FormData();
-  //     formData.append("file", seFile);
-
-  //     setUserData((prevUserData: any) => ({
-  //       ...prevUserData,
-  //       businessInformation: {
-  //         ...prevUserData.businessInformation,
-  //         [fieldName]: formData,
-  //       },
-  //     }));
-  //   }
-  // };
 
   const {
     register,
@@ -190,7 +119,7 @@ const BusinessInfo = () => {
   };
 
   const handleGetFiles = (files: File[], fieldName: string) => {
-    // console.log(files, "handle")
+    console.log(files, "handle");
     if (files.length > 0) {
       const file = files[0];
       const formData = new FormData();
@@ -330,14 +259,44 @@ const BusinessInfo = () => {
                   Upload a copy of the ID
                 </span>
                 <div className="mt-2">
-                  <CustomDND
-                    getFiles={(files: File[]) =>
-                      handleGetFiles(files, "IDFile")
-                    }
-                    inputId={"ID"}
-                    // componentFiles={componentFiles}
-                    // filenames={filenames}
-                  />
+
+
+                  <div className="flex flex-col">
+                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                      <label
+                        htmlFor={"inputId"}
+                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                      >
+                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                          Select file
+                        </span>{" "}
+                      </label>
+                      <input
+                        onChange={(event) =>
+                          handleFileChange(event, "selected")
+                        }
+                        className="hidden"
+                        accept="image/*,.pdf,.docx,.doc,.txt"
+                        type="file"
+                        name={"inputId"}
+                        id={"inputId"}
+                      />
+
+                      <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+
+                          <div
+
+                            className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                          >
+                            <span>{selectedFile?.name}</span>
+                            {/* <button className="p-2" onClick={() => removeFile(index)}>
+              <RiCloseLine />
+            </button> */}
+                          </div>
+
+                      </div>
+                    </div>
+                  </div>
                   <div>
                     <input
                       type="file"

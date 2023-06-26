@@ -32,7 +32,7 @@ const VendorsNav = () => {
   return (
     <div className="  border-b border-[#D9D9D9] h-[80px] w-full px-4 flex items-center justify-between shadow z-50 bg-[#fff]">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
-        <div className="md:hidden xxs:block">
+        <div className="lg:hidden md:block block">
           {showSideBar ? (
             <div
               onClick={() => toggleSidebar(false)}
@@ -62,7 +62,7 @@ const VendorsNav = () => {
       </div>
 
       <div className="flex items-center justify-between gap-20">
-        <div className="md:relative md:flex md:items-center md:justify-center xxs:hidden">
+        <div className="lg:relative lg:flex lg:items-center lg:justify-center md:hidden hidden">
           <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 left-[352px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
             <HiOutlineSearch size={20} />
           </div>
@@ -86,7 +86,7 @@ const VendorsNav = () => {
                         'url("https://source.unsplash.com/80x80?face")',
                     }}
                   ></div>
-                  <div className="md:flex md:flex-col md:gap-1 xxs:hidden">
+                  <div className="lg:flex lg:flex-col lg:gap-1 md:hidden hidden">
                     <span className="text-base font-bold leading-4">
                       John Doe
                     </span>

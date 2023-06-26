@@ -17,7 +17,7 @@ const Layout = () => {
           <div className="">
             <SellerSideNav />
           </div>
-          <div className="overflow-y-auto flex-1 pt-[40px] md:pl-20 md:pr-6 ">
+          <div className="overflow-y-auto flex-1 pt-0 md:pt-4 lg:pt-[40px] md:px-4 lg:pl-20  lg::pr-6 ">
             <Outlet />
           </div>
         </div>

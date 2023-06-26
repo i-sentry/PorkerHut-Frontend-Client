@@ -62,41 +62,6 @@ const SellersAccountInfo = () => {
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
   const watchPassword = watch("password");
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-
-  //   // Split the name into nested properties
-  //   const [section, field] = name.split(".");
-
-  //   // Update the userData state
-  //   setUserData((prevUserData: ISellerInfo) => ({
-  //     ...prevUserData,
-  //     [section]: {
-  //       ...prevUserData[section],
-  //       [field]: value,
-  //     },
-  //   }));
-
-  //   isFormFilled();
-  // };
-
-  //  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //    const { name, value } = e.target;
-  //    console.log(name, value)
-
-  //    // Split the name into nested properties
-  //    const [section, field] = name.split(".");
-
-  //    // Update the userData state
-  //    setUserData((prevUserData: ISellerInfo) => ({
-  //      ...prevUserData,
-  //      [section]: {
-  //        ...prevUserData[section],
-  //        [field]: value,
-  //      },
-  //    }));
-  //    isFormFilled();
-  //  };
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
