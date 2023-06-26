@@ -51,7 +51,7 @@ const MyAccount = () => {
       <div className="mb-16 mt-32">
         <div className="">
           <div className="flex justify-center items-center ">
-            <h1 className="font-medium xxs:leading-[23px]  md:leading-[47px] xxs:text-[20px]  md:text-[40px]">
+            <h1 className="font-medium xxs:leading-[23px]  lg:leading-[47px] xxs:text-[20px]  lg:text-[40px]">
               Account Overview
             </h1>
           </div>
@@ -59,8 +59,8 @@ const MyAccount = () => {
             <div className=" block h-1.5 w-20 bg-[#197B30] mt-1"></div>
           </div>
         </div>
-        <div className="bg-[#F4F4F4] md:w-[600px] md:mx-auto md:py-4 xxs:py-4 xxs:mt-10 md:mt-0  md:px-10 xxs:px-4 xxs:mx-3  rounded">
-          <div className=" xxs:hidden md:flex">
+        <div className="bg-[#F4F4F4] lg:w-[600px] lg:mx-auto lg:py-4 xxs:py-4 xxs:mt-10 lg:mt-0  lg:px-10 xxs:px-4 xxs:mx-3  rounded">
+          <div className=" xxs:hidden lg:flex">
             <div className="">
               <h1 className="text-[24px] leading-[28px] font-medium ">
                 Default Information
@@ -75,7 +75,7 @@ const MyAccount = () => {
               {user && (
                 <form className="flex-1">
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                    <p className=" text-[#333333] lg:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] lg:leading-[]">
                       Account Name*
                     </p>
                     <div className="flex-[2]">
@@ -89,7 +89,7 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                    <p className=" text-[#333333] lg:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] lg:leading-[]">
                       Email Address
                     </p>
                     <div className="flex-[2]">
@@ -102,7 +102,7 @@ const MyAccount = () => {
                     </div>
                   </div>
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                    <p className=" text-[#333333] lg:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] lg:leading-[]">
                       Phone Number
                     </p>
                     <div className="flex-[2] relative">
@@ -123,7 +123,7 @@ const MyAccount = () => {
                   </div>
 
                   <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#333333] md:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] md:leading-[]">
+                    <p className=" text-[#333333] lg:text-[] xxs:leading-[16px] mb-1 xxs:text-[14px] lg:leading-[]">
                       Shipping Address
                     </p>
                     <div className="flex-[2] relative">
@@ -145,16 +145,16 @@ const MyAccount = () => {
                   </div>
                  
 
-                  <div className="flex md:justify-end xxs:justify-start gap-3  py-5 mt-2">
+                  <div className="flex lg:justify-end xxs:justify-start gap-3  py-5 mt-2">
                     <button
                      
-                      className="flex-shrink-0  xxs:flex-grow md:flex-grow-0  w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px]"
+                      className="flex-shrink-0  xxs:flex-grow lg:flex-grow-0  w-36 h-12 bg-[#fff] border border-[#197B30] text-[#197B30] rounded text-sm font-normal xxs:text-[14] xxs:leading-[16px]"
                     >
                       Cancel
                     </button>
                     <button 
                      disabled={!editStatus}
-                    className={`xxs:flex-grow md:flex-grow-0 w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded ${!editStatus && 'opacity-50 cursor-not-allowed'}`}>
+                    className={`xxs:flex-grow lg:flex-grow-0 w-36 h-12 text-sm font-normal xxs:text-[14] xxs:leading-[16px] bg-[#197B30] text-white rounded ${!editStatus && 'opacity-50 cursor-not-allowed'}`}>
                       Save
                     </button>
                   </div>

@@ -90,15 +90,15 @@ const NavBar = () => {
   //@ts-ignore
   console.log(user?.firstName, "isLogin");
   return (
-    <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md md:py-0 px-[4%]">
-      <nav className="md:flex h-full w-full  items-center font-medium justify-between">
+    <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md lg:py-0 px-[4%]">
+      <nav className="lg:flex h-full w-full  items-center font-medium justify-between">
         {/* Menu Btn */}
 
-        <div className="z-50 h-full  md:w-auto w-full flex items-center gap-4">
+        <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-4">
           <div className="flex gap-2">
             <button
               onClick={() => setToggle(!toggle)}
-              className="text-3xl md:hidden flex"
+              className="text-3xl lg:hidden flex"
             >
               {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
             </button>
@@ -106,40 +106,40 @@ const NavBar = () => {
               onClick={() => navigate("/")}
               className="flex items-center gap-2 cursor-pointer select-none"
             >
-              <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
+              <img src={PorkerLogo} alt="" className="lg:cursor-pointer h-9" />
               <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
                 Porker Hut
               </h1>
             </div>
           </div>
 
-          <div className="action-btns flex items-center  ml-auto  md:hidden">
+          <div className="action-btns flex items-center  ml-auto  lg:hidden">
             <div
               onClick={() => setShowSearch((prev: any) => !prev)}
               className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
             >
-              <AiOutlineSearch size={22} />
+              <AiOutlineSearch size={28} />
             </div>
             <div
               className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
               onClick={() => navigate("/my-cart")}
             >
-              <MdOutlineShoppingCart size={22} />
+              <MdOutlineShoppingCart size={28} />
               {Object.values(cart).length >= 1 && (
-                <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-5 right-2 rounded-full text-xs">
+                <span className="flex justify-center items-center xxs:w-[18px] xxs:h-[18px] md:w-[20px] md:h-[20px] bg-emerald-500 text-white absolute top-5 xxs:right-2 md:right-6 rounded-full text-xs">
                   {Object.values(cart).length}
                 </span>
               )}
             </div>
           </div>
-          <ul className="md:flex font-normal hidden items-center text-sm  ">
+          <ul className="lg:flex font-normal hidden items-center text-sm  ">
             <NavLink setToggle={setToggle} />
           </ul>
         </div>
 
         <div>
           {" "}
-          <div className="md:flex  hidden gap-2 ">
+          <div className="lg:flex  hidden gap-2 ">
             <div className="action-btns flex gap-3  mr-4 ">
               <div>
                 {showSearch ? (
@@ -368,7 +368,7 @@ const NavBar = () => {
         </div>
 
         {/* Mobile */}
-        <div className="md:hidden relative">
+        <div className="lg:hidden relative">
           <ul
             className={` fixed bg-[#F5F5F5] top-[75px] h-screen bottom-0 py-4 duration-500 px-2 overflow-auto ${
               toggle ? "left-0 w-4/5" : "-left-full w-0"
@@ -384,7 +384,7 @@ const NavBar = () => {
             </div>
             <NavLink setToggle={setToggle} />
             {/* <HelpLink/> */}
-            <div className="flex flex-col md:hidden gap-2 pr-4 px-5">
+            <div className="flex flex-col lg:hidden gap-2 pr-4 px-5">
               <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
               <NavButton className={loginBtn} text="Login" path="/login" />
             </div>
@@ -404,10 +404,10 @@ const NavBar = () => {
 export default NavBar;
 
 const signUpBtn =
-  "border border-[#479559] text-sm md:py-2 xxs:py-3 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] md:inline-block select-none tracking-wider font-medium whitespace-nowrap";
+  "border border-[#479559] text-sm lg:py-2 xxs:py-3 px-[30px] rounded-md text-[#fff] bg-[#479559] hover:bg-white hover:text-[#479559] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap";
 
 const loginBtn =
-  "border border-[#479559] text-sm md:py-2 xxs:py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";
+  "border border-[#479559] text-sm lg:py-2 xxs:py-3 px-[35px] rounded-md text-[#197B30] hover:text-white hover:bg-[#479559] transition-all duration-500 active:scale-90 select-none tracking-wider font-medium whitespace-nowrap";
 
 const SearchBar = ({
   setShowSearch,
@@ -429,7 +429,7 @@ const SearchBar = ({
     <div className="h-8 flex justify-between items-center px-3">
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
         <div className="flex items-center min-w-full">
-          <label className="relative block my-8 w-[100%] md:mx-1 ">
+          <label className="relative block my-8 w-[100%] lg:mx-1 ">
             <input
               autoFocus
               className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl outline-none rounded-bl`}

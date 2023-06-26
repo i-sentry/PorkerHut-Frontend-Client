@@ -33,8 +33,8 @@ const Blog = () => {
   return (
     <section className="w-full  my-16">
       <div className="mb-16">
-        <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
-          <h1 className="font-medium tracking-tight md:text-[40px] md:leading-[47px] xxs:text-[20px] text-[#333333] xxs:leading-[23px]">
+        <div className="flex justify-center items-center llg:mx-10 xxs:mt-4 mb-2">
+          <h1 className="font-medium md:text-[40px] tracking-tight lg:text-[40px] lg:leading-[47px] xxs:text-[20px] text-[#333333] xxs:leading-[23px]">
             Latest Blogs & Articles
           </h1>
         </div>
@@ -44,7 +44,7 @@ const Blog = () => {
         </div>
       </div>
       <>
-        <div className="xxs:px-4 md:px-16 grid md:grid-cols-3 xxs:grid-cols-1 items-center  gap-12 ">
+        <div className="xxs:px-4 lg:px-16 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
           {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
             (blog: any, index: any) => {
               return <BlogCard blog={blog} key={index} />;

@@ -78,10 +78,10 @@ const Category = () => {
   };
 
   return (
-    <div className=" xxs:p-3 md:p-0 ">
+    <div className=" xxs:p-3 lg:p-0 ">
       <div>
         <div className="flex justify-center items-center ">
-          <h1 className="font-medium  xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-[47px] text-[#333333]">
+          <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-[47px] text-[#333333]">
             Shop by Categories
           </h1>
         </div>
@@ -90,7 +90,7 @@ const Category = () => {
         </div>
       </div>
       <div className=" container mx-auto px-4 overflow-x-scroll">
-        <div className=" md:flex gap-8 py-8 xxs:hidden">
+        <div className=" lg:flex gap-8 py-8 xxs:hidden md:flex">
           {datas.map((item) => (
             <Card key={item.id} item={item} data={ datas} />
           ))}
@@ -109,7 +109,7 @@ const Category = () => {
             ))}
           </div>
         </div> */}
-        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 md:mt-4 -z-50 sm:hidden ">
+        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 lg:mt-4 -z-50 sm:hidden ">
           {datas.map((item) => (
             <MobileCard {...item} />
           ))}
@@ -157,7 +157,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({ data }) => {
   };
 
   return (
-    <div className="md:flex gap-8 py-8 xxs:hidden relative">
+    <div className="lg:flex gap-8 py-8 xxs:hidden relative">
       <div ref={cardContainerRef} className="flex">
         {data.map((item: { id: React.Key | null | undefined; }) => (
           <Card key={item.id} item={item} data={data} />

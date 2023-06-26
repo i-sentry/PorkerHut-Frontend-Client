@@ -78,14 +78,14 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
             />
           </div>
 
-          <div className="md:flex">
-            <div className="md:w-1/4 static h-full rounded-sm px-6 bg-white mx-6 xxs:hidden md:block overflow-hidden pt-4">
+          <div className="lg:flex">
+            <div className="lg:w-1/4 static h-full rounded-sm px-6 bg-white mx-6 xxs:hidden lg:block overflow-hidden pt-4">
               {/* <Filter setData={setData} menuItem={menuItems} /> */}
               <ProductFilter setData={setData} menuItem={menuItems} />
             </div>
-            <div className="md:w-3/4 bg-white xxs:w-full">
+            <div className="lg:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
-                <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
+                <div className="lg:flex lg:items-center lg:justify-between lg:gap-16 xxs:py-4">
                   <h1 className="text-xl font-medium">{title}</h1>
                   <div>
                     <p className="text-l text-gray-700">
@@ -99,13 +99,13 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                 </div>
 
                 <div className="flex items-center ">
-                  <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD] xxs:hidden md:block">
+                  <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD] xxs:hidden lg:block">
                     Sort by:
                   </span>
-                  <span className="xxs:hidden md:block">
+                  <span className="xxs:hidden lg:block">
                     <Sort data={data} setData={ setData} />
                   </span>
-                  <div className="md:hidden xxs:block flex justify-center items-end gap-2 px-2">
+                  <div className="lg:hidden xxs:block flex justify-center items-end gap-2 px-2">
                     <MdOutlineFilterAlt
                       className="inline"
                       size={22}
@@ -117,7 +117,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-4 mb-6 xxs:grid-cols-2">
+                <div className="grid lg:grid-cols-4 mb-6 xxs:grid-cols-2">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       //@ts-ignore

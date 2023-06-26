@@ -40,7 +40,7 @@ const BlogArticles = () => {
     <>
       {getAllBlogs?.data?.data?.blogs?.length ? (
         <>
-          <div className="p-1 grid md:grid-cols-3 xxs:grid-cols-1 items-center justify-center md:gap-10 xxs:gap-6">
+          <div className="p-1 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-2 items-center justify-center lg:gap-10 xxs:gap-6">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
               (blog: any, index: any) => {
                 return <BlogCard blog={blog} key={index} />;
@@ -56,7 +56,7 @@ const BlogArticles = () => {
               }
               className={
                 (currentPageIndex === 1 ? "no-item" : "") +
-                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md "
+                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
               }
             >
               <RxCaretLeft size={22} />
@@ -69,8 +69,8 @@ const BlogArticles = () => {
                     onClick={() => setCurrentPageIndex(index + 1)}
                     className={` border   border-[#A2A2A2]  ${
                       currentPageIndex === index + 1
-                        ? "active-page-index    rounded-md text-[#197B30] border-[#197B30] bg-[#3b554115]"
-                        : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-md"
+                        ? "active-page-index    rounded-lg text-[#197B30] border-[#197B30] bg-[#3b554115]"
+                        : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
                     }`}
                   >
                     <span className="text-sm px-1.5">{index + 1}</span>
@@ -89,7 +89,7 @@ const BlogArticles = () => {
                 (currentPageIndex === chunkArray(data, itemsPerPage).length
                   ? "no-items"
                   : "") +
-                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-md"
+                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
               }
             >
               <span className="">
