@@ -9,11 +9,11 @@ const Header = () => {
   return (
     <div className="p-3 my-10">
       <div className="flex justify-center items-center mb-2">
-        <h1 className="font-medium md:leading-[47px] md:text-[40px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
+        <h1 className="font-medium lg:leading-[47px] lg:text-[40px] md:text-[40px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
           Featured Products
         </h1>
       </div>
-      <div className="flex items-center justify-center md:mb-16 xxs:mb-6">
+      <div className="flex items-center justify-center lg:mb-16 xxs:mb-6">
         <div className=" block h-1.5 w-20 bg-[#197B30]"></div>
       </div>
       <FeaturedProduct />

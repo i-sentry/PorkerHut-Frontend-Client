@@ -13,12 +13,12 @@ const OrderCancel = () => {
   return (
     <AppLayout>
       <div className="text-center pt-20">
-        <h1 className=" xxs:text-lg md:text-[40px] leading-[47px] font-semibold">
+        <h1 className=" xxs:text-lg lg:text-[40px] leading-[47px] font-semibold">
           How to cancel your orders
           <div className="xxs:w-20 h-2 w-20 bg-[#197B30] m-auto mt-3"></div>
         </h1>
       </div>
-      <div className=" mt-8 mb-14 md:px-14 xxs:px-4">
+      <div className=" mt-8 mb-14 lg:px-14 xxs:px-4">
         <figure>
           <img className=" w-full" src={OrderImg} alt="img" />
         </figure>

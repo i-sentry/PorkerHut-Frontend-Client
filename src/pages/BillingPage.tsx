@@ -80,8 +80,8 @@ const BillingPage = () => {
 
   return (
     <AppLayout>
-      <div className="  bg-[#F5F5F5] min-h-screen my-20 md:px-12 xxs:px-4">
-        <div className=" md:py-6 xxs:pt-4 xxs:pb-6">
+      <div className="  bg-[#F5F5F5] min-h-screen my-20 lg:px-12 xxs:px-4">
+        <div className=" lg:py-6 xxs:pt-4 xxs:pb-6">
           <ProductsBreadCrumbs
             items={[
               {
@@ -101,12 +101,12 @@ const BillingPage = () => {
         </div>
 
         <div className="flex gap-8  pb-10 relative ">
-          <div className=" md:w-2/3 xxs:w-full bg-white md:px-6 xxs:px-3 flex flex-col gap-4 py-6 rounded-md">
-            <h1 className=" md:text-[24px] md:leading-[28px] text-[#333333] font-medium xxs:text-[18px] xxs:leading-[21px] mb-4">
+          <div className=" lg:w-2/3 xxs:w-full bg-white lg:px-6 xxs:px-3 flex flex-col gap-4 py-6 rounded-lg">
+            <h1 className=" lg:text-[24px] lg:leading-[28px] text-[#333333] font-medium xxs:text-[18px] xxs:leading-[21px] mb-4">
               Billing Information
             </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="md:flex xxs:block gap-6">
+              <div className="lg:flex xxs:block gap-6">
                 <div className=" w-full ">
                   <label
                     className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
@@ -118,7 +118,7 @@ const BillingPage = () => {
                     type="text"
                     {...register("firstname")}
                     placeholder="Enter Your First Name"
-                    className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                    className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
                       errors.firstname ? "border-[#dd1313]" : ""
                     }`}
                   />
@@ -127,7 +127,7 @@ const BillingPage = () => {
                   </div>
                 </div>
 
-                <div className="w-full xxs:mt-3 md:mt-0">
+                <div className="w-full xxs:mt-3 lg:mt-0">
                   <label
                     className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
                     htmlFor=""
@@ -138,7 +138,7 @@ const BillingPage = () => {
                     type="text"
                     {...register("lastname")}
                     placeholder="Enter Your Last Name"
-                    className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                    className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
                       errors.lastname ? "border-[#dd1313]" : ""
                     }`}
                   />
@@ -158,7 +158,7 @@ const BillingPage = () => {
                   type="text"
                   {...register("email")}
                   placeholder="Enter Your Email Address"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.email ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -183,7 +183,7 @@ const BillingPage = () => {
                     name: "phonenumber",
 
                     id: "phonenumber",
-                    className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                    className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
                       errors.phonenumber ? "border-[#dd1313]" : ""
                     }`,
                   }}
@@ -204,7 +204,7 @@ const BillingPage = () => {
                   type="text"
                   {...register("address")}
                   placeholder="Enter Delivery Address"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.address ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -230,7 +230,7 @@ const BillingPage = () => {
                   //   borderColor:
                   // }}
                   onChange={(val) => setCountry(val)}
-                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5  rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-[#197b30] focus:outline-1  ${
+                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5  rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-[#197b30] focus:outline-1  ${
                     errors.country ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -252,7 +252,7 @@ const BillingPage = () => {
                   country={country}
                   value={state}
                   onChange={(val) => setState(val)}
-                  classes={`w-full h-12 text-[#333333]  border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  classes={`w-full h-12 text-[#333333]  border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.state ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -269,7 +269,7 @@ const BillingPage = () => {
                   type="text"
                   {...register("city")}
                   placeholder="Enter City/Town/Street"
-                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                  className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.city ? "border-[#dd1313]" : ""
                   }`}
                 />
@@ -278,11 +278,11 @@ const BillingPage = () => {
                 </div>
               </div>
 
-              <div className="xxs:hidden text-center lg:bg-white rounded-md lg:rounded-t-none md:py-4 xxs:py-10 md:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
+              <div className="xxs:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:py-10 lg:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
                 <div className="">
                   <button
                     onClick={() => navigate("/products")}
-                    className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                    className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
                   >
                     Continue to Shopping
                   </button>
@@ -290,7 +290,7 @@ const BillingPage = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                    className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
                     // onClick={() => navigate("/pay-card")}
                   >
                     Proceed to Payments
@@ -299,15 +299,15 @@ const BillingPage = () => {
               </div>
             </form>
           </div>
-          <div className="md:block xxs:hidden w-1/3">
+          <div className="lg:block xxs:hidden w-1/3">
             <OrderCart />
           </div>
         </div>
-        <div className="md:hidden text-center lg:bg-white rounded-md lg:rounded-t-none md:py-4 xxs:pb-10 xxs:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 ">
+        <div className="lg:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:pb-10 xxs:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 ">
           <div>
             <button
               type="submit"
-              className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
               onClick={() => navigate("/pay-card")}
             >
               Proceed to Payments
@@ -316,7 +316,7 @@ const BillingPage = () => {
           <div className="">
             <button
               onClick={() => navigate("/products")}
-              className="w-full border border-[#479559] md:text-[14px] text-[16px] md:py-3 md:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
             >
               Continue to Shopping
             </button>

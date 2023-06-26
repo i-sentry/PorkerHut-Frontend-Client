@@ -52,7 +52,7 @@ const CartPage = () => {
       />
 
       <div className="  md:bg-[#F5F5F5]">
-        <div className=" md:bg-[#F5F5F5] md:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
+        <div className=" md:bg-[#F5F5F5]  lg:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
           {Object.values(cart).length > 0 ? (
             <>
               <div className="xxs:hidden md:block">
@@ -186,7 +186,7 @@ const CartPage = () => {
                   Related Products
                 </h1>
 
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4 w-full">
+                <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full">
                   {chunkArray(productData, 8)[1 - 1].map((item) => (
                     <ProductCard item={item} key={item.id} />
                   ))}

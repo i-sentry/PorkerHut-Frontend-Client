@@ -18,16 +18,16 @@ const Story = () => {
     " Sustainability is a vital part of our business ethos. We are dedicated to raising our pigs using humane and environmentally-friendly practices, ensuring the longevity of our operations and the world we live in. All of our pork products are responsibly sourced from farms that employ sustainable farming methods, ensuring that we play our part in creating a sustainable future.";
 
   return (
-    <div className=" md:mt-10  xxs:pb-4">
-      <div className="flex justify-center items-center md:mx-10 xxs:mt-4 mb-2">
-        <h1 className="font-medium  md:text-[40px] md:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
+    <div className=" lg:mt-10  xxs:pb-4">
+      <div className="flex justify-center items-center lg:mx-10 xxs:mt-4 mb-2">
+        <h1 className="font-medium md:text-[40px] lg:text-[40px] lg:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
           How We Are Different
         </h1>
       </div>
       <div className="flex items-center justify-center mb-16">
         <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
-      <div className="grid md:grid-cols-3 md:gap-12 xxs:gap-5 md:px-14 xxs:px-3">
+      <div className="grid lg:grid-cols-3 lg:gap-12 xxs:gap-5 lg:px-14 xxs:px-3">
         <div
           className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
           style={{
@@ -69,7 +69,7 @@ const Story = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center md:my-10 xxs:my-10 md:mb-0">
+      <div className="flex justify-center items-center lg:my-10 xxs:my-10 lg:mb-0">
         <NavLink
           to="/about-us"
           className="py-3 px-7 bg-[#197B30] text-[#fff] rounded text-[16px] leading-[24px] shadow-md"
