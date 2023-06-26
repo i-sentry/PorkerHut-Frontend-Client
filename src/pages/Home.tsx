@@ -23,7 +23,7 @@ const Home: React.FC = () => {
       <div className="bg-slate-400 h-[100%]">
         <Slider sliderImages={[]} />
       </div>
-      <div className="md:mt-24 xxs:mt-16 ">
+      <div className="lg:mt-24 xxs:mt-16 ">
         <Category data-aos="fade-up" />
         <Services />
         <Header />

@@ -13,7 +13,7 @@ const NavLink = ({ setToggle }: Iprop) => {
     <>
       {links.map((link: any, index: number) => (
         <div key={index}>
-          <div className="px-3 text-left md:cursor-pointer group ">
+          <div className="px-3 text-left lg:cursor-pointer group ">
             <div className="relative">
               <Link
                 to={link?.path}
@@ -24,15 +24,15 @@ const NavLink = ({ setToggle }: Iprop) => {
                   setSubHeading("");
                   setToggle(link?.name === "Services" ? true : false);
                 }}
-                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full xxs:text-[#797979]"
+                className="py-7 flex justify-between lg:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] lg:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full xxs:text-[#797979]"
               >
                 <span className="flex items-center gap-4 whitespace-nowrap">
-                  <span className="md:hidden xxs:text-[#797979] md:text-[#333333]">{link?.icon}</span>
-                  <span className="md:link md:link--metis whitespace-nowrap">
+                  <span className="lg:hidden xxs:text-[#797979] lg:text-[#333333]">{link?.icon}</span>
+                  <span className="lg:link lg:link--metis whitespace-nowrap">
                     {link?.name}
                   </span>
                 </span>
-                <span className=" md:hidden inline ">
+                <span className=" lg:hidden inline ">
                   {link?.subMenu === false ? (
                     ""
                   ) : heading === link?.name ? (
@@ -41,14 +41,14 @@ const NavLink = ({ setToggle }: Iprop) => {
                     <IoChevronDown />
                   )}
                 </span>
-                <span className=" md:mt-1 md:ml-2 hidden md:block group-hover:rotate-180">
+                <span className=" lg:mt-1 lg:ml-2 hidden lg:block group-hover:rotate-180">
                   {link?.subMenu === false ? "" : <IoChevronDown />}
                 </span>
               </Link>
             </div>
             {link.subMenu && (
               <div>
-                <div className="absolute top-[50px] hidden group-hover:md:block hover:md:block shadow-sm">
+                <div className="absolute top-[50px] hidden group-hover:lg:block hover:lg:block shadow-sm">
 
                   <div className="bg-[#FFFFFF]  relative  border rounded-sm border-slate-300 p-1 w-40">
                     {link.subLinks.map((mySubLink: any, index: number) => (
@@ -74,13 +74,13 @@ const NavLink = ({ setToggle }: Iprop) => {
             )}
           </div>
           {/* Mobile menu */}
-          <div className={`${heading === link?.name ? "md:hidden" : "hidden"}`}>
+          <div className={`${heading === link?.name ? "lg:hidden" : "hidden"}`}>
             {link?.subLinks?.map((s: any, index: number) => (
               <div key={index}>
                 <div>
                   <div>
                     {s?.subLink?.map((slink: any, index: number) => (
-                      <li key={index} className="py-3 pl-14 md:hidden">
+                      <li key={index} className="py-3 pl-14 lg:hidden">
                         <Link
                           onClick={() => setToggle(false)}
                           to={slink?.link}
@@ -124,7 +124,7 @@ export const HelpLink = () => {
     <>
       {helpLink?.map((link: any, index: number) => (
         <div key={index}>
-          <div className="px-3 text-left md:cursor-pointer group ">
+          <div className="px-3 text-left lg:cursor-pointer group ">
             <div className="relative">
               <Link
                 to={link?.path}
@@ -135,13 +135,13 @@ export const HelpLink = () => {
                 //   setSubHeading("");
                 //   setToggle(link?.name === "Services" ? true : false);
                 // }}
-                className="py-7 flex justify-between md:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] md:hover:bg-transparent   md:link md:link--metis"
+                className="py-7 flex justify-between mg:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] lg:hover:bg-transparent   lg:link lg:link--metis"
               >
-                <span className="flex items-center gap-4 md:link md:link--metis">
-                  <span className="md:hidden">{link?.icon}</span>
-                  <span className="md:link md:link--metis">{link?.name}</span>
+                <span className="flex items-center gap-4 lg:link lg:link--metis">
+                  <span className="lg:hidden">{link?.icon}</span>
+                  <span className="lg:link lg:link--metis">{link?.name}</span>
                 </span>
-                <span className="text-xl md:hidden inline">
+                <span className="text-xl lg:hidden inline">
                   {/* {link?.subMenu === false ? (
                     ""
                   ) : heading === link?.name ? (
@@ -150,14 +150,14 @@ export const HelpLink = () => {
                     <IoChevronDown />
                   )} */}
                 </span>
-                <span className="text-xl md:mt-1 md:ml-2 hidden md:block group-hover:rotate-180">
+                <span className="text-xl lg:mt-1 lg:ml-2 hidden lg:block group-hover:rotate-180">
                   {link?.subMenu === false ? "" : <IoChevronDown />}
                 </span>
               </Link>
             </div>
             {link.subMenu && (
               <div>
-                <div className="absolute top-20 hidden group-hover:md:block hover:md:block">
+                <div className="absolute top-20 hidden group-hover:lg:block hover:lg:block">
                   <div className="py-3">
                     <div className="w-4 h-4 left-3 absolute mt-1 bg-[#F5F5F5] rotate-45"></div>
                   </div>
@@ -188,7 +188,7 @@ export const HelpLink = () => {
             )}
           </div>
           {/* Mobile menu */}
-          <div className={`${heading === link?.name ? "md:hidden" : "hidden"}`}>
+          <div className={`${heading === link?.name ? "lg:hidden" : "hidden"}`}>
             {link?.subLinks?.map((s: any, index: number) => (
               <div key={index}>
                 <div>
@@ -198,13 +198,13 @@ export const HelpLink = () => {
                         ? setSubHeading(s?.head)
                         : setSubHeading("")
                     }
-                    className="py-4 pl-14 font-semibold md:pr-0 pr-5 flex justify-between items-center  md:hidden"
+                    className="py-4 pl-14 font-semibold lg:pr-0 pr-5 flex justify-between items-center  lg:hidden"
                   >
                     {s.head}
                   </h1> */}
                   <div>
                     {s?.subLink?.map((slink: any, index: number) => (
-                      <li key={index} className="py-3 pl-14 md:hidden">
+                      <li key={index} className="py-3 pl-14 lg:hidden">
                         <Link
                           // onClick={() => setToggle(false)}
                           to={slink?.link}

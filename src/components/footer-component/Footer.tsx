@@ -8,8 +8,8 @@ const Footer = () => {
     <div className="bg-[#333333] xxs:p-5 md:p-0">
       <div className="flex flex-col md:px-10 max-md:mx-0 mx-4 ">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
-          <div className="wrapper flex lg:justify-between items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
-            <span className="font-semibold md:text-2xl sm:text-base  md:mb-2">
+          <div className=" flex md:justify-between md:flex-col lg:flex-row  items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
+            <span className="font-semibold  md:text-[32px] md:mb-4 lg:mb-0 md:text-2xl sm:text-base  md::mb-2 ">
               Subscribe to Our Newsletter
             </span>
 
@@ -21,7 +21,7 @@ const Footer = () => {
               />
               <button
                 type="submit"
-                className="p-2 z-50 text-white bg-[#197B30] w-32 rounded border-hidden items-center max-md:rounded-l-md tracking-wider select-none max-sm:w-full max-sm:rounded-md hover:bg-green-900"
+                className="p-2 z-50 text-white bg-[#197B30] md:w-32 rounded border-hidden items-center max-md:rounded-l-md tracking-wider select-none max-sm:w-full   max-sm:rounded-md hover:bg-green-900 "
               >
                 Submit
               </button>
@@ -114,7 +114,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className=" md:flex xxs:hidden flex-col gap-3 text-justify">
+          <div className="md:flex xxs:hidden flex-col gap-3 text-justify">
             <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
               Products
             </h1>

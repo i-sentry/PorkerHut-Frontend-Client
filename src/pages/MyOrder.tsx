@@ -294,13 +294,13 @@ const MyOrder = () => {
 
   return (
     <AppLayout>
-      <div className="md:px-12 xxs:px-4 mt-20">
-        <div className="xxs:hidden md:flex items-center flex-col justify-center py-10">
+      <div className="lg:px-12 xxs:px-4 mt-20">
+        <div className="xxs:hidden lg:flex items-center flex-col justify-center py-10">
           <h2 className="text-[40px] leading-[47px] font-medium">My Orders</h2>
 
           <div className="h-1.5 w-24 bg-[#197B30] mt-1"></div>
         </div>
-        <div className="xxs:hidden md:block">
+        <div className="xxs:hidden lg:block">
           <MyOrderTable
             Tcolumns={Tcolumns}
             // @ts-ignore
@@ -311,7 +311,7 @@ const MyOrder = () => {
           />
         </div>
         {/* mobile */}
-        <div className="md:hidden flex flex-col py-10">
+        <div className="lg:hidden flex flex-col py-10">
           <div className=" flex items-center w-full">
             <label htmlFor="simple-search" className="sr-only">
               Search
@@ -347,7 +347,7 @@ const MyOrder = () => {
                 key={index}
                 className={`cursor-pointer relative underline bg-transparent text-[16px] leading-[19px] font-normal text-center p-2 px-5 text-[#5c6f7f]${
                   selectedTab === tab
-                    ? " text-[#197B30] no-underline border border-[#197B30] rounded-[8px] shadow-md transition-all ease-in-out duration-100"
+                    ? " text-[#197B30] no-underline border border-[#197B30] rounded-[8px] shadow-lg transition-all ease-in-out duration-100"
                     : ""
                 }`}
                 isActive={selectedTab === tab}
@@ -469,7 +469,7 @@ const AccordionSection = ({
   onToggle,
 }: IAccordionPros) => {
   return (
-    <div className="p-4 w-full rounded-md shadow-md bg-[#fff] mt-3">
+    <div className="p-4 w-full rounded-lg shadow-lg bg-[#fff] mt-3">
       <div className=" w-full h-full">
         <div className=" w-full h-full">{title}</div>
       </div>

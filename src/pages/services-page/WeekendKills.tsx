@@ -14,7 +14,7 @@ const WeekendKills = () => {
         <div className="">
           <div className="">
             <div
-              className="flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+              className="flex   items-center lg:justify-start xxs:justify-center w-full lg:h-[300px] xxs:h-[300px] bg-cover bg-center  lg:px-14"
               style={{
                 backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${BlogBanner}')`,
                 backgroundSize: "cover",
@@ -23,7 +23,7 @@ const WeekendKills = () => {
               }}
             >
               <div className="">
-                <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+                <h1 className="mb-2 font-normal tracking-tight lg:text-[32px] lg:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                   Weekend Kills
                 </h1>
                 <div className="">
@@ -45,13 +45,13 @@ const WeekendKills = () => {
           </div>
         </div>
       </div>
-      <div className="md:px-14 pt-16 ">
-        <div className=" bg-[#F4F4F4]     md:flex">
-          <div className=" md:w-1/2 xxs:px-4 xxs:pt-16 md:pt-0 flex-1 flex justify-center md:pl-10 flex-col md:pr-8">
-            <h1 className="md:font-medium  md:text-[32px] md:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
+      <div className="lg:px-14 pt-16 ">
+        <div className=" bg-[#F4F4F4]     lg:flex">
+          <div className=" lg:w-1/2 xxs:px-4 xxs:pt-16 lg:pt-0 flex-1 flex justify-center lg:pl-10 flex-col lg:pr-8">
+            <h1 className="lg:font-medium  lg:text-[32px] lg:leading-[47px] xxs:font-normal xxs:text-[20px] xxs:leading-[23px] flex justify-self-start font-bold text-[#333333]   mb-2">
               Why Weekend Kills
             </h1>
-            <p className=" leading-6 xxs:text-[14px] md:text-[14px] text-[#797979] text-justify">
+            <p className=" leading-6 xxs:text-[14px] lg:text-[14px] text-[#797979] text-justify">
               Looking for an affordable and ethical way to enjoy high-quality
               pork? Look no further than Porker Hut. We are committed to
               providing you with locally sourced and ethically raised pork that
@@ -69,9 +69,9 @@ const WeekendKills = () => {
               that high-quality, locally sourced-pork can make.
             </p>
           </div>
-          <figure className="md:w-1/2">
+          <figure className="lg:w-1/2">
             <img
-              className="object-cover w-full xxs:py-10 h-full  xxs:px-4 md:p-0"
+              className="object-cover w-full xxs:py-10 h-full  xxs:px-4 lg:p-0"
               src={SuyaImg}
               alt="weekendImg"
             />
@@ -79,7 +79,7 @@ const WeekendKills = () => {
         </div>
       </div>
 
-      <section className="w-full h-full md:p-14">
+      <section className="w-full h-full lg:p-14">
         <ServiceForm
           text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."
           title="Reach out for Weekend Kills"

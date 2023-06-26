@@ -78,7 +78,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
   return (
     <AppLayout>
-      <div className="bg-[#EEEEEE] overflow-hidden relative md:pb-10">
+      <div className="bg-[#EEEEEE] overflow-hidden relative lg:pb-10">
         <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
@@ -86,8 +86,8 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
           menuItem={menuItems}
           handleClick={handleClick}
         />
-        <div className="bg-[#EEEEEE] mt-24 md:px-14 xxs:px-0 ">
-          <div className="md:px-0 xxs:px-4">
+        <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0 ">
+          <div className="lg:px-0 xxs:px-4">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -102,18 +102,18 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
             />
           </div>
 
-          <div className="md:flex gap-8 ">
-            <div className="md:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden md:block overflow-hidden rounded-sm">
+          <div className="lg:flex gap-8 ">
+            <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
               <Filter
                 setData={setData}
                 menuItem={menuItems}
                 handleClick={handleClick}
               />
             </div>
-            <div className="md:w-3/4 bg-white xxs:w-full">
+            <div className="lg:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between  pl-3">
-                <div className="md:flex md:items-center md:justify-between md:gap-8 xxs:py-4">
-                  <h1 className="md:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
+                <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
+                  <h1 className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
                     All Products
                   </h1>
                   <div>
@@ -128,14 +128,14 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                 </div>
 
                 <div className="flex items-center ">
-                  <span className="pt-2 ml-14 text-sm font-normal text-[#BDBDBD] xxs:hidden md:block">
+                  <span className="pt-2 ml-14 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
                     Sort by:
                   </span>
-                  <span className="xxs:hidden md:block">
+                  <span className="xxs:hidden lg:block">
                   
                     <Sort data ={data } setData={setData} />
                   </span>
-                  <div className="md:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
+                  <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
                     <GoSettings
                       className="rotate-90 "
                       size={22}
@@ -147,7 +147,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               {data?.length ? (
-                <div className="grid md:grid-cols-3 mb-6 xxs:grid-cols-2 md:gap-3  xxs:gap-4  md:px-0 xxs:px-4">
+                <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       return <ProductCard item={Tdata} key={Tdata.id} />;

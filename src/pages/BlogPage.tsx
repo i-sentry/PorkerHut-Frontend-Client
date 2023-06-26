@@ -15,7 +15,7 @@ const BlogPage = () => {
     <AppLayout>
 
       <BlogBanner />
-      <div className="md:p-14 md: xxs:p-2">
+      <div className="lg:p-14 lg: xxs:p-2">
         <BlogArticles />
       </div>
 

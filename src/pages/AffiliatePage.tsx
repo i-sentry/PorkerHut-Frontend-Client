@@ -20,14 +20,14 @@ const AffiliatePage = () => {
         <NavBar />
       </nav>
       <div className="mb-10">
-        <div className=" xxs:flex flex-col md:flex-col md:flex md:items-center md:justify-center items-center justify-center h-[350px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
+        <div className=" xxs:flex flex-col lg:flex-col lg:flex lg:items-center lg:justify-center items-center justify-center h-[350px] w-full relative bg-gradient-to-r from-slate-500 to to bg-slate-600">
           <img
             src={AffiPageImg}
             alt=""
             className="w-full h-full object-cover absolute mix-blend-overlay"
           />
           <div className=" absolute text-center">
-            <h1 className="xxs:text-2xl text-white font-semibold my-7 md:text-[40px] leading-[47px]">
+            <h1 className="xxs:text-2xl text-white font-semibold my-7 lg:text-[40px] leading-[47px]">
               Become a Porker Hut Partner
             </h1>
           </div>
@@ -39,7 +39,7 @@ const AffiliatePage = () => {
             Terms of Services
             <div className=" xxs:w-20 h-2  w-20 bg-[#197B30] m-auto"></div>
           </h1>
-          <p className=" p-4 md:px-28 text-justify font-normal leading-[19px] text-[#333333] text-[16px]">
+          <p className=" p-4 lg:px-28 text-justify font-normal leading-[19px] text-[#333333] text-[16px]">
             Lorem ipsum dolor sit amet consectetur. Vel ac velit pretium mi elit
             in eu massa nisi. Auctor imperdiet magna viverra dignissim.
             Consectetur at quisque pharetra laoreet varius eget. Phasellus
@@ -56,33 +56,33 @@ const AffiliatePage = () => {
         </div>
       </div>
 
-      <div className="w-full xxs:block md:flex justify-center py-5 md:px-16 xxs:px-2">
-        <div className="md:w-1/2 xxs:w-full">
-          <h1 className="xxs:block md:hidden text-2xl font-medium text-[ #333333] mb-8  text-left">
+      <div className="w-full xxs:block lg:flex justify-center py-5 lg:px-16 xxs:px-2">
+        <div className="lg:w-1/2 xxs:w-full">
+          <h1 className="xxs:block lg:hidden text-2xl font-medium text-[ #333333] mb-8  text-left">
             About Marketplace
           </h1>
           <div className=" ">
             <img
-              // className="md:ml-10 flex-1 h-full w-full p-4"
+              // className="lg:ml-10 flex-1 h-full w-full p-4"
               src={PublicMktImg}
               alt=""
               width="100%"
             />
           </div>
         </div>
-        <div className="md:w-1/2 xxs:w-full  md:px-3">
+        <div className="lg:w-1/2 xxs:w-full  lg:px-3">
           <div className=" w-full">
-            <h1 className="md:block xxs:hidden text-[24px] leading-[28px] font-medium text-[ #333333]  text-center">
+            <h1 className="lg:block xxs:hidden text-[24px] leading-[28px] font-medium text-[ #333333]  text-center">
               About Marketplace
             </h1>
             <div className="  w-full">
-              <p className="xxs:py-4 md:p-4 text-[#797979] text-[16px] leading-[24px] font-normal tracking-normal ">
+              <p className="xxs:py-4 lg:p-4 text-[#797979] text-[16px] leading-[24px] font-normal tracking-normal ">
                 The marketplace is going first to our farmer’s whitelist. In
                 order to guarantee sales/distribution for farmers, not all
                 registered accounts will be activated immediately. However,
                 activation of account depends on:
               </p>
-              <ul className="space-y-3 list-disc text-[#797979]  xxs:px-4 md:px-0 text-sm md:ml-10 xxs:ml-3">
+              <ul className="space-y-3 list-disc text-[#797979]  xxs:px-4 lg:px-0 text-sm lg:ml-10 xxs:ml-3">
                 <li className="text-[16px] leading-[24px] font-normal">
                   The location of the farmer
                 </li>
@@ -116,15 +116,15 @@ const AffiliatePage = () => {
         </div>
       </div>
       <div className="pt-10 pb-20">
-        <div className=" md:my-4">
-          <h1 className="text-xl md:text-[58px] leading-[68px]  text-center font-bold  tracking-wider">
+        <div className=" lg:my-4">
+          <h1 className="text-xl lg:text-[58px] leading-[68px]  text-center font-bold  tracking-wider">
             Become Our Partner Today
           </h1>
         </div>
-        <div className=" grid md:grid-cols-3 xxs:gap-8 mt-10">
+        <div className=" grid lg:grid-cols-3 xxs:gap-8 mt-10">
           <div className=" text-center  ">
             <span className=" text-[40px] leading-[47px] font-bold">1</span>
-            <h1 className=" xxs:text-lg text-[#333] my-2 font-medium leading-[38px] md:text-[32px] ">
+            <h1 className=" xxs:text-lg text-[#333] my-2 font-medium leading-[38px] lg:text-[32px] ">
               Sell on Porker Hut
             </h1>
             <p className=" xxs:text-lg text-[#333] text-[16px] leading-[19px] font-semibold">
@@ -140,7 +140,7 @@ const AffiliatePage = () => {
           </div>
           <div className=" text-center  ">
             <span className="text-[40px] leading-[47px] font-bold">2</span>
-            <h1 className=" text-lg text-[#333] my-2 font-medium leading-[38px] md:text-[32px]">
+            <h1 className=" text-lg text-[#333] my-2 font-medium leading-[38px] lg:text-[32px]">
               Become a Vet Partner
             </h1>
             <p className="text-[16px] leading-[19px] font-semibold text-[#333] ">
@@ -156,7 +156,7 @@ const AffiliatePage = () => {
           </div>
           <div className=" text-center  ">
             <span className="text-[40px] leading-[47px] font-bold ">3</span>
-            <h1 className=" xxs:text-lg text-[#333] my-2 font-medium leading-[38px] md:text-[32px]">
+            <h1 className=" xxs:text-lg text-[#333] my-2 font-medium leading-[38px] lg:text-[32px]">
               Become Logistics Service Partner
             </h1>
             <p className="text-[16px] leading-[19px] font-semibold text-[#333] ">

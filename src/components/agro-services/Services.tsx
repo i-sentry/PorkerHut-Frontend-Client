@@ -5,9 +5,9 @@ let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {
   return (
-    <section className=" bg-[#F4F4F4]   md:w-full md:flex-wrap md:overflow-hidden   md:mb-20 xxs:mb-0 xxs:p-4 md:p-0">
-      <div className=" flex xxs:flex-col md:flex-row items-center justify-center xxs:py-0 md:py-16">
-        <div className="hidden md:block md:w-[45%] xxs:w-full bg-[#FFFFFF] py-10 px-10 z-10 md:mr-[-100px] xxs:mr-0 max-h-[400px]">
+    <section className=" bg-[#F4F4F4]   lg:w-full lg:flex-wrap lg:overflow-hidden   lg:mb-20 xxs:mb-0 xxs:p-4 lg:p-0">
+      <div className=" flex xxs:flex-col lg:flex-row items-center justify-center xxs:py-0 lg:py-16">
+        <div className="hidden lg:block lg:w-[45%] xxs:w-full bg-[#FFFFFF] py-10 px-10 z-10 lg:mr-[-100px] xxs:mr-0 max-h-[400px]">
           <h1 className="font-medium text-[40px] leading-[47px]  pb-2">
             Agro Services
           </h1>
@@ -31,14 +31,14 @@ const Services = () => {
           </Link>
         </div>
 
-        <div className="block md:w-[55%] xxs:w-full relative">
+        <div className="block lg:w-[55%] xxs:w-full relative">
           <img
             src={backgroundweb}
             alt=""
             className="bg-cover bg-center object-cover w-full"
           />
 
-            <div className=" mx-5 md:hidden xxs:block -translate-y-24  p-8 bg-white bg">
+            <div className=" mx-5 lg:hidden xxs:block -translate-y-24  p-8 bg-white bg">
               <h1 className="font-medium text-[18px] leading-[21px] ">
                 Agro Services
               </h1>
