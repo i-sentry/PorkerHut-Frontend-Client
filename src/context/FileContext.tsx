@@ -12,6 +12,7 @@ export interface FileData {
 }
 
 export interface FileContextProps {
+  selectedFileNames: any;
   selectedFiles: FileData[] | null;
   selecFiles: FileData[] | null;
   seFiles: FileData[] | null;
@@ -19,6 +20,11 @@ export interface FileContextProps {
 }
 
 export const FileContext = createContext<FileContextProps>({
+  selectedFileNames: {
+    selected1: "",
+    selected2: "",
+    selected3: "",
+  },
   selectedFiles: null,
   selecFiles: null,
   seFiles: null,
@@ -31,6 +37,11 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
   const [selectedFiles, setSelectedFiles] = useState<FileData[] | null>(null);
   const [selecFiles, setSelecFiles] = useState<FileData[] | null>(null);
   const [seFiles, setSeFiles] = useState<FileData[] | null>(null);
+  const [selectedFileNames, setSelectedFileNames] = useState({
+    selected1: "",
+    selected2: "",
+    selected3: "",
+  });
 
   const setFiles = (field: string, files: FileData[]) => {
     switch (field) {
@@ -49,6 +60,7 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const contextValue: FileContextProps = {
+    selectedFileNames,
     selectedFiles,
     selecFiles,
     seFiles,
@@ -56,7 +68,6 @@ export const FileProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <FileContext.Provider value={contextValue}>{children}
-    </FileContext.Provider>
+    <FileContext.Provider value={contextValue}>{children}</FileContext.Provider>
   );
 };

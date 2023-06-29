@@ -5,6 +5,7 @@ import {
   SellersStepsContextValue,
 } from "../../context/SellersStepsContext";
 import { FileContext, FileData } from "../../context/FileContext";
+import { useSignUpState } from "../../store/overlay";
 
 export interface IFormFiles {
   selectedFile: any;
@@ -23,6 +24,8 @@ const StepperController: React.FC<fileProps> = ({
     useContext(SellersStepsContext);
   const onboardVendor = useVendorSignUp();
   const { selectedFiles, selecFiles, seFiles } = useContext(FileContext);
+   const isOpen = useSignUpState((state) => state.isOpen);
+  const setIsOpen = useSignUpState((state) => state.setIsOpen);
   // const { seFile, selecFile, selectedFile } = formFiles;
   // const submitDetails = () => {
   //   handleClick("next");
@@ -56,7 +59,9 @@ const StepperController: React.FC<fileProps> = ({
     }
   };
 
-  const submitDetails = () => {
+  const submitDetails = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+      setIsOpen(!isOpen);
     console.log(selectedFiles, selecFiles, seFiles, ",....loading");
     handleClick("next");
     if (!selectedFiles || !selecFiles || !seFiles) return;
@@ -156,6 +161,7 @@ const StepperController: React.FC<fileProps> = ({
         .mutateAsync(data)
         .then((res) => {
           console.log(res);
+             setIsOpen(!isOpen);
         })
         .catch((err) => {
           // Handle error
@@ -166,7 +172,7 @@ const StepperController: React.FC<fileProps> = ({
   console.log(checkoutSteps, "checkoutSteps");
   console.log(currentStep, "currentStep");
   return (
-    <div className="flex gap-3 w-full my-5 parent-class justify-end">
+    <div className="flex gap-3 w-full my-5 parent-class justify-center lg:justify-end">
       <button
         disabled={currentStep === 1}
         onClick={() => {

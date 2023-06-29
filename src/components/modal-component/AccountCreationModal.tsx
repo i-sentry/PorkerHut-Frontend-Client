@@ -7,7 +7,7 @@ import tick from "../../assets/images/success_tick.png"
 
 interface ModalProps {
   isOpen: boolean | string;
-  onClose: Dispatch<SetStateAction<boolean>>;
+  onClose: any;
 }
 
 const backdrop = {

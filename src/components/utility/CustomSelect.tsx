@@ -39,6 +39,7 @@ const CustomSelect = (props: CustomSelectProps) => {
     control,
     placeholder,
     errors,
+    defaultValue,
   } = props;
 
   const [defaultVal, setDefaultVal] = useState<SelectOptionType>(null);
@@ -84,18 +85,16 @@ const CustomSelect = (props: CustomSelectProps) => {
     }),
   };
 
-  // useEffect(() => {
-  //   var value =
-  //     getValues &&
-  //     alteredOptions.find(
-  //       (option: SelectOptionType) =>
-  //         option?.label === getValues(_.camelCase(name))
-  //     );
-  //   setDefaultVal(value);
-  // }, [options, getValues, name]);
-
-  // useEffect(() => {
-  // }, [defaultVal]);
+ useEffect(() => {
+   if (defaultValue) {
+     const defaultOption = alteredOptions.find(
+       (option: SelectOptionType) =>
+         option?.value === defaultValue.value ||
+         (option?.value === defaultValue.value && defaultValue.value.toString())
+     );
+     setSelectOption(defaultOption);
+   }
+ }, [defaultValue]);
 
   return (
     <div className="w-full">

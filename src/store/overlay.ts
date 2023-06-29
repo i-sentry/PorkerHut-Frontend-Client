@@ -57,3 +57,14 @@ export const useSidebarState = create<ISideBarState>((set) => ({
   toggleSidebar: (value?: boolean) =>
     set((state) => ({ sideBarOpen: value ?? !state.sideBarOpen })),
 }));
+
+interface ISignUpSuccess {
+  isOpen: boolean;
+  setIsOpen: (value?: boolean) => void;
+}
+
+export const useSignUpState = create<ISignUpSuccess>((set) => ({
+  isOpen: false,
+
+  setIsOpen: (open: any) => set((state: any) => ({ isOpen: open })),
+}));

@@ -117,8 +117,8 @@ const StepLayout = () => {
       <div className="main-div mb-24 mt-24 ">
         <div>
           <div className="flex justify-center items-center  mt-4">
-            <h1 className="font-medium sm:text-2xl text-[#333333] text-[40px] leading-[47px]">
-              Create your own seller account
+            <h1 className="font-medium text-[20px] leading-[27px] md:leading-[] text-[#333333] lg:text-[40px] lg:leading-[47px]">
+              Create your seller account
             </h1>
           </div>
           <div className="flex items-center justify-center ">

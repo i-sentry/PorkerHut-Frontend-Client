@@ -72,7 +72,7 @@ const SellersAccountInfo = () => {
     <div>
       {" "}
       <div>
-        <div className="max-w-[600px] m-auto min-h-[600px] p-8   bg-[#F4F4F4] rounded-md">
+        <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
           <div className=" mb-8">
             <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
               Seller Account Information

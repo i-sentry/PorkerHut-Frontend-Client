@@ -103,13 +103,26 @@ const Accordion = () => {
   //   }));
   // };
 
+ const getNestedValue = (object: any, path: string): any => {
+   const keys = path.split(".");
+   let value = object;
+   for (const key of keys) {
+     value = value?.[key];
+     if (value === undefined) {
+       return undefined;
+     }
+   }
+   return value;
+ };
+
+
   React.useEffect(() => {
     console.log({ userData });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
-    <div className="rounded-md w-full md:max-w-2xl h-fit px-5 py-3 flex flex-col mb-4">
+    <div className="rounded-md w-full md:max-w-2xl h-fit px-0 lg:px-5 py-3 flex flex-col mb-4">
       <h1 className=" sm:text-xl mb-8 font-medium text-[#333333] text-[24px] leading-[28px] ">
         Summary
       </h1>
@@ -120,7 +133,7 @@ const Accordion = () => {
       >
         <form>
           {sellersShopInfo.map((data, index) => {
-            console.log()
+            console.log(data, "rhr");
             return (
               <div className="my-2 w-full " key={index}>
                 <label
@@ -136,7 +149,7 @@ const Accordion = () => {
                   id={data.name}
                   type={data.type}
                   name={data.name}
-                  defaultValue={userData[data?.name] || ""}
+                  defaultValue={getNestedValue(userData, data.name) || ""}
                   placeholder={data.place_holder}
                   onChange={handleChange}
                   // defaultValue={userData[data?.name]}
@@ -190,7 +203,7 @@ const Accordion = () => {
                 placeholder={data.place_holder}
                 name={data.name}
                 onChange={handleChange}
-                defaultValue={userData[data?.name] || ""}
+                defaultValue={getNestedValue(userData, data.name) || ""}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
@@ -226,7 +239,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                defaultValue={userData[data?.name] || ""}
+                defaultValue={getNestedValue(userData, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -282,7 +295,7 @@ const Accordion = () => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                defaultValue={userData[data?.name] || ""}
+                defaultValue={getNestedValue(userData, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
@@ -300,11 +313,7 @@ const Accordion = () => {
         </form>
       </AccordionSection>
       <div className="">
-        {currentStep !== checkoutSteps?.length - 1 && (
-          <StepperController
-
-          />
-        )}
+        {currentStep !== checkoutSteps?.length - 1 && <StepperController />}
       </div>
     </div>
   );
@@ -315,7 +324,7 @@ export default Accordion;
 const BankInfo = [
   {
     label: "Bank account name",
-    name: "accountName",
+    name: "vendorBankAccount.accountName",
     place_holder: "Enter full name",
     error_message: "Business owner Name is Required",
     type: "text",
@@ -324,7 +333,7 @@ const BankInfo = [
   },
   {
     label: "Bank account number",
-    name: "bank_account",
+    name: "vendorBankAccount.accountNumber",
     place_holder: "Enter account number ",
     error_message: "Account Number is Required",
     type: "number",

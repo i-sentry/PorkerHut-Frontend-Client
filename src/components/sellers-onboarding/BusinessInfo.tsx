@@ -12,6 +12,7 @@ import { SellersStepsContext } from "../../context/SellersStepsContext";
 import StepperController, { IFormFiles } from "./StepperController";
 import { ISellerInfo } from "../../context/SellerInfoContext";
 import { FileContext } from "../../context/FileContext";
+import { RiCloseLine } from "react-icons/ri";
 
 interface IFlagsSelectProps {
   selected: string;
@@ -61,11 +62,16 @@ const BusinessInfo = () => {
   const [selecFile, setSelecFile] = useState<any>(null);
   const [seFile, setSeFile] = useState<any>(null);
   const [documentType, setDocumentType] = useState("Incorporation Document");
-  // const fileContext = useContext<FileContextProps>(FileContext);
-  const { setFiles, seFiles, selecFiles, selectedFiles } = useContext(FileContext);
+  const [selectedFileNames, setSelectedFileNames] = useState({
+    selected1: "",
+    selected2: "",
+    selected3: "",
+  });
+  const { setFiles, seFiles, selecFiles, selectedFiles } =
+    useContext(FileContext);
 
-  console.log(seFiles,"seFiles");
-  console.log(selecFiles,"selecFiles");
+  console.log(seFiles, "seFiles");
+  console.log(selecFiles, "selecFiles");
   console.log(selectedFiles, "selectedFiles");
 
   const vat = [
@@ -85,7 +91,6 @@ const BusinessInfo = () => {
     seFile: seFile,
   };
 
-
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string
@@ -102,7 +107,20 @@ const BusinessInfo = () => {
 
     setFiles(field, updatedFiles);
   };
-
+  const removeFile = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+    files: FileData[] | null,
+    field: string,
+  ) => {
+    event.preventDefault();
+    if (files) {
+      const updatedFiles = [...files];
+      updatedFiles.splice(index, 1);
+      console.log(updatedFiles, "updatedFiles");
+      setFiles(field, updatedFiles);
+    }
+  };
 
   const {
     register,
@@ -259,12 +277,10 @@ const BusinessInfo = () => {
                   Upload a copy of the ID
                 </span>
                 <div className="mt-2">
-
-
                   <div className="flex flex-col">
                     <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
                       <label
-                        htmlFor={"inputId"}
+                        htmlFor={"selected"}
                         className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
                       >
                         <span className="text-[#333333] cursor-pointer px-8 my-auto">
@@ -278,36 +294,33 @@ const BusinessInfo = () => {
                         className="hidden"
                         accept="image/*,.pdf,.docx,.doc,.txt"
                         type="file"
-                        name={"inputId"}
-                        id={"inputId"}
+                        name={"selected"}
+                        id={"selected"}
                       />
-
-                      <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
-
-                          <div
-
-                            className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
-                          >
-                            <span>{selectedFile?.name}</span>
-                            {/* <button className="p-2" onClick={() => removeFile(index)}>
-              <RiCloseLine />
-            </button> */}
-                          </div>
-
-                      </div>
+                      {selectedFiles && Array.isArray(selectedFiles) && (
+                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                          {selectedFiles.map((file, index) => {
+                            console.log(file, "filess");
+                            return (
+                              <div
+                                key={index}
+                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                              >
+                                <span>{file.name}</span>
+                                <button
+                                  className="p-2"
+                                  onClick={(event) => removeFile(event, index, selectedFiles, "selected")}
+                                >
+                                  <RiCloseLine />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div>
-                    <input
-                      type="file"
-                      onChange={(event) => handleFileChange(event, "selected")}
-                    />
-                    {/* <button onClick={() => handleFileUpload("IDFile")}>
-                      Upload
-                    </button>{" "} */}
-                  </div>
 
-                  {/* <CustomDND inputId="dkke" getFiles={getDocs} /> */}
                   <span className=" text-[#797979]  text-[12px] leading-none">
                     Documents allowed are images, PDF files and MS word
                     documents.
@@ -351,66 +364,118 @@ const BusinessInfo = () => {
                   </div>
                 );
               })}
+
               <>
-                <span className="text-[#333333] text-[14px] leading-[16px] mb-10">
+                <span className="text-[#333333] text-[14px] leading-[16px]">
                   Upload a copy of your CAC Certificate
                 </span>
                 <div className="mt-2">
-                  <CustomDND
-                    getFiles={(files: File[]) =>
-                      handleGetFiles(files, "CACCertificateFile")
-                    }
-                    inputId={"cac"}
-                    // componentFiles={componentFiles}
-                    // filenames={filenames}
-                  />
+                  <div className="flex flex-col">
+                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                      <label
+                        htmlFor={"selec"}
+                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                      >
+                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                          Select file
+                        </span>{" "}
+                      </label>
 
-                  <div>
-                    <input
-                      type="file"
-                      onChange={(event) => handleFileChange(event, "selec")}
-                    />
-                    {/* <button onClick={() => handUpload("CACCertificateFile")}>
-                      Upload
-                    </button>{" "} */}
+                      <input
+                        onChange={(event) => handleFileChange(event, "selec")}
+                        className="hidden"
+                        accept="image/*,.pdf,.docx,.doc,.txt"
+                        type="file"
+                        name={"selec"}
+                        id={"selec"}
+                      />
+                      {selecFiles && Array.isArray(selecFiles) && (
+                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                          {selecFiles.map((file, index) => {
+                            console.log(file, "filess");
+                            return (
+                              <div
+                                key={index}
+                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                              >
+                                <span>{file.name}</span>
+                                <button
+                                  className="p-2"
+                                  onClick={(event) => removeFile(event, index, selecFiles, "selec")}
+                                >
+                                  <RiCloseLine />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <span className=" text-[#797979] text-[12px] leading-none">
+
+                  <span className=" text-[#797979]  text-[12px] leading-none">
                     Please ensure that the document that you provide includes
                     the list of the company ultimate beneficial owners. Porker
                     Hut reserves the right to contact you to confirm.
                   </span>
                 </div>
               </>
-              <div className="mt-3">
+
+              <>
                 <span className="text-[#333333] text-[14px] leading-[16px]">
                   Upload a copy of your Tax Identification Number(TIN)
                   certificate
                 </span>
                 <div className="mt-2">
-                  <CustomDND
-                    getFiles={(files: File[]) =>
-                      handleGetFiles(files, "TINCertificateFile")
-                    }
-                    inputId={"tax"}
-                    // componentFiles={componentFiles}
-                    // filenames={filenames}
-                  />
-                  <div>
-                    <input
-                      type="file"
-                      onChange={(event) => handleFileChange(event, "se")}
-                    />
-                    {/* <button onClick={() => Upload("TINCertificateFile")}>
-                      Upload
-                    </button>{" "} */}
+                  <div className="flex flex-col">
+                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                      <label
+                        htmlFor={"se"}
+                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                      >
+                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                          Select file
+                        </span>{" "}
+                      </label>
+
+                      <input
+                        onChange={(event) => handleFileChange(event, "se")}
+                        className="hidden"
+                        accept="image/*,.pdf,.docx,.doc,.txt"
+                        type="file"
+                        name={"se"}
+                        id={"se"}
+                      />
+                      {seFiles && Array.isArray(seFiles) && (
+                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                          {seFiles.map((file, index) => {
+                            console.log(file, "filess");
+                            return (
+                              <div
+                                key={index}
+                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                              >
+                                <span>{file.name}</span>
+                                <button
+                                  className="p-2"
+                                  onClick={(event) => removeFile(event, index, seFiles, "se")}
+                                >
+                                  <RiCloseLine />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <span className=" text-[#797979] text-[12px] leading-none">
+
+                  <span className=" text-[#797979]  text-[12px] leading-none">
                     Tin is required for all individuals and corporate deriving
                     income Under Nigeria’s legislation.
                   </span>
                 </div>
-              </div>
-
+              </>
               {businessTIN.map((data, index) => {
                 const [section, field] = data.name.split("."); // Split the name into section and field
                 const value = userData[section][field]; // Access the nested property value
