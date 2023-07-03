@@ -29,6 +29,7 @@ const CartPage = () => {
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.product.cart);
   const [showModal, setShowModal] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const handleNavigate = () => {
     navigate("/products");
@@ -44,6 +45,19 @@ const CartPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
   }, []);
 
+ React.useEffect(() => {
+   const handleScroll = () => {
+     const scrollY = window.scrollY;
+     const threshold = window.innerHeight * 0.2;
+     setIsScrolling(scrollY > threshold);
+   };
+
+   window.addEventListener("scroll", handleScroll);
+   return () => {
+     window.removeEventListener("scroll", handleScroll);
+   };
+ }, []);
+
   return (
     <AppLayout>
       <CartMobileModal
@@ -51,7 +65,7 @@ const CartPage = () => {
         onClose={() => setShowModal(false)}
       />
 
-      <div className="  md:bg-[#F5F5F5]">
+      <div className="  md:bg-[#F5F5F5] ">
         <div className=" md:bg-[#F5F5F5]  lg:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
           {Object.values(cart).length > 0 ? (
             <>
@@ -128,16 +142,19 @@ const CartPage = () => {
                         ₦{cartTotal.toLocaleString()}
                       </h1>
                     </div>
-                    <div className=" p-5 flex gap-5">
+                    <div className=" p-5 flex gap-5 justify-center ">
                       <button
                         onClick={handleNavigate}
                         className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center hidden"
                       >
                         Continue to Shopping
                       </button>
-
                       <button
-                        className=" border  border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center"
+                        className={`border z-50 border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center w-full ${
+                          isScrolling
+                            ? " fixed top-[79px] w-[92%]"
+                            : ""
+                        }`}
                         onClick={() => navigate("/billing")}
                       >
                         Checkout{" "}
