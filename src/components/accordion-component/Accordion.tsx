@@ -92,7 +92,7 @@ iProps) => {
     <>
       <Fragment>
         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <h1 className="text-[16px] leading-[19px] font-normal">Filters</h1>
+          <h1 className="xxs:hidden text-[16px] leading-[19px] font-normal">Filters</h1>
           <AccordionHeader
             onClick={() => handleOpen(1)}
             className="text-[16px] leading-[19px] font-medium"
