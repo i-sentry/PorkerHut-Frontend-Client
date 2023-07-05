@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
     "@hookform/resolvers": "^3.1.0",
     "@material-tailwind/react": "^1.2.5",
+    "@mui/material": "^5.13.6",
     "@popperjs/core": "^2.11.7",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
