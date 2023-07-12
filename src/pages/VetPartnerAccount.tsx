@@ -5,24 +5,36 @@ import { Link } from "react-router-dom";
 import StepperController from "../components/sellers-onboarding/StepperController";
 import { ISellerInfo, useAppState } from "../context/SellerInfoContext";
 import { SellersStepsContext } from "../context/SellersStepsContext";
-import CustomDND, { IFile } from "../components/utility/CustomDND";
-import PhoneInput from "react-phone-input-2";
+import CustomDND, {
+  IFile as CustomDNDFile,
+} from "../components/utility/CustomDND";
+// import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {
   CountryDropdown,
   RegionDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
 import VetPartnerFormMobile from "./VertPartnerFormMobile";
+import { useCreateVet } from "../services/hooks/service/vet";
+import { FileContext } from "../context/FileContext";
+import { RiCloseLine } from "react-icons/ri";
+import ReactLoading from "react-loading";
 
 export type SelectOptionType = {
   label: string | number;
   value: string | number;
   description?: string;
 } | null;
+
+
+interface FileData {
+  name: string;
+  file: File;
+}
 
 const vendorType = [
   {
@@ -34,6 +46,15 @@ const vendorType = [
     name: "Business Entity",
   },
 ];
+
+interface IFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Uint8Array | undefined;
+}
 
 type UserBillingInfo = {
   name: string;
@@ -47,15 +68,62 @@ type UserBillingInfo = {
   country: string;
   yearOfOperation: number;
   typeOfVet: string;
+  checkbox: string;
 };
+interface IFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Uint8Array | undefined;
+}
+interface ExtendedUserBillingInfo extends UserBillingInfo {
+  businessDocUrl: IFile[] | undefined;
+}
 
 const VetPartnerAccount = () => {
   const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const formData = new FormData();
 
-  const getBusinessDocFromInput = (files: File[]) => {
-    // setBusinessDocUrl(files);
+
+  const { setFiles, seFiles, selecFiles } = useContext(FileContext);
+
+
+
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    console.log(event, "jio,");
+    const selectedFiles = Array.from(event.target.files || []);
+
+    const updatedFiles: FileData[] = selectedFiles.map((file) => ({
+      name: file.name,
+      file: file,
+    }));
+
+    console.log(updatedFiles[0].name, "hhhyuyuy");
+
+    setFiles(field, updatedFiles);
   };
+
+  const removeFile = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+    files: FileData[] | null,
+    field: string,
+  ) => {
+    event.preventDefault();
+    if (files) {
+      const updatedFiles = [...files];
+      updatedFiles.splice(index, 1);
+      setFiles(field, updatedFiles);
+    }
+  };
+
+  const createVet = useCreateVet();
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
@@ -72,10 +140,10 @@ const VetPartnerAccount = () => {
       .email("Email is invalid"),
     typeOfVet: Yup.string().required("Type of Vet is required"),
 
-    state: Yup.string().required("State is required"),
+    // state: Yup.string().required("State is required"),
 
     city: Yup.string().required("City is required"),
-    country: Yup.string().required("Country is required"),
+    // country: Yup.string().required("Country is required"),
     companyRc: Yup.number().required("Company Rc number is required"),
     yearOfOperation: Yup.number().required("Year of Operation is required"),
 
@@ -89,38 +157,69 @@ const VetPartnerAccount = () => {
     register,
     handleSubmit,
     reset,
+    control,
+    watch,
+    getValues,
     formState: { errors },
-  } = useForm<UserBillingInfo>({
+  } = useForm<ExtendedUserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
-  console.log(phoneNumber);
-  console.log(state);
-  console.log(country);
+
+
+  const appendFilesToFormData = (
+    fieldName: string,
+    files: FileData[] | null,
+    formData: FormData
+  ) => {
+
+    if (files) {
+      for (const fileData of files) {
+        formData.append(fieldName, fileData.file);
+        console.log(fileData.file);
+      }
+    }
+  };
 
   console.log({ errors });
-  const onSubmit = (data: UserBillingInfo) => {
-    data.phone = phoneNumber;
-    data.country = country;
-    data.state = state;
-    console.log(JSON.stringify(data, null, 2));
-    reset();
+  const onSubmit = (data: ExtendedUserBillingInfo) => {
+    const formData = new FormData();
+    console.log("submit");
+
+    if (!seFiles || !selecFiles) return;
+
+
+    formData.append("accountName", data.name);
+    formData.append("businessName", data.businessName);
+    formData.append("businessAddress", data.businessAddress);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("companyRcNumber", data.companyRc.toString());
+    formData.append("state", data.state);
+    formData.append("city", data.city);
+    formData.append("country", data.country);
+    formData.append("yearsOfOperation", data.yearOfOperation.toString());
+    formData.append("vetType", data.typeOfVet);
+    // formData.append("checkbox", data.checkbox);
+
+
+    appendFilesToFormData("vetLicense", selecFiles, formData);
+
+    appendFilesToFormData("additionalDocuments", seFiles, formData);
+
+    console.log(formData, "FORMDATA");
+
+    createVet.mutateAsync(formData)
+      .then((res) => {
+        console.log({ res });
+      })
+      .catch((e) => {
+
+        console.log(e);
+      });
+
   };
 
-  const handleChange = (e: any) => {
-    // console.log(e)
-    const { name, value, checked } = e.target;
-    console.log(name);
-    console.log(value);
-    // setUserData({
-    //   ...userData,
-    //   [name]: value,
-    //   // value[entity_type]: dropOption?.value,
-    // });
-    // isFormFilled();
-    // setValue("checkbox", checked ? "yes" : "no");
-    // setVal(!val);
-    // setUserData({ ...userData, [name]: value, val });
-  };
+
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -178,11 +277,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="text"
+                      id="name"
                       {...register("name")}
                       placeholder="Enter your name"
-                      className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.name ? " border-[1px] border-[#dd1313]" : ""
-                      }`}
+                      className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.name ? " border-[1px] border-[#dd1313]" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -204,11 +303,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="text"
+                      id="businessName"
                       {...register("businessName")}
                       placeholder="Enter your business name"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.businessName ? " border-[#dd1313]" : ""
-                      }`}
+                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessName ? " border-[#dd1313]" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -229,11 +328,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="text"
+                      id="businessAddress"
                       {...register("businessAddress")}
                       placeholder="Enter business address"
-                      className={`  relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.businessAddress ? "border-[#dd1313]" : ""
-                      }`}
+                      className={`  relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessAddress ? "border-[#dd1313]" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -254,11 +353,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="email"
+                      id="email"
                       {...register("email")}
                       placeholder="Enter email address"
-                      className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.email ? "border-[#dd1313]" : ""
-                      }`}
+                      className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.email ? "border-[#dd1313]" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -279,11 +378,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="number"
+                      id="phone"
                       {...register("phone")}
                       placeholder="Enter your phone number"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${
-                        errors.phone ? "border-[#dd1313] border" : ""
-                      }`}
+                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${errors.phone ? "border-[#dd1313] border" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -304,11 +403,11 @@ const VetPartnerAccount = () => {
                     </label>
                     <input
                       type="number"
+                      id="companyRc"
                       {...register("companyRc")}
                       placeholder="Enter your rc number"
-                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                        errors.companyRc ? "border-[#dd1313]" : ""
-                      }`}
+                      className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.companyRc ? "border-[#dd1313]" : ""
+                        }`}
                     />
 
                     <div className="text-[#dd1313] text-sm">
@@ -327,20 +426,21 @@ const VetPartnerAccount = () => {
                     >
                       Country
                     </label>
-                    <CountryDropdown
-                      id="country"
-                      value={country}
-                      // style={{
-                      //   backgroundColor: "blue",
-                      //   color: "white",
-                      //   fontSize: 20,
-                      //   borderColor:
-                      // }}
-                      onChange={(val) => setCountry(val)}
-                      classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                        errors.country ? "border-[#dd1313]" : ""
-                      }`}
+
+                    <Controller
+                      name="country"
+                      control={control}
+                      render={({ field }) => (
+                        <CountryDropdown
+                          value={field.value}
+                          onChange={field.onChange}
+                          classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 
+                         errors.country ? "border-[#dd1313]" : ""
+                      `}
+                        />
+                      )}
                     />
+
                     <div className="text-[#dd1313] text-sm">
                       {errors.country?.message}
                     </div>
@@ -354,17 +454,20 @@ const VetPartnerAccount = () => {
                       >
                         State
                       </label>
-                      <RegionDropdown
-                        blankOptionLabel=""
-                        defaultOptionLabel="Select State"
-                        id="state"
-                        country={country}
-                        value={state}
-                        onChange={(val) => setState(val)}
-                        classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                          errors.state ? "border-[#dd1313]" : ""
-                        }`}
+                      <Controller
+                        name="state"
+                        control={control}
+                        render={({ field }) => (
+                          <RegionDropdown
+                            country={watch("country")}
+                            value={field.value}
+                            onChange={field.onChange}
+                            classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${errors.country ? "border-[#dd1313]" : ""
+                              }`}
+                          />
+                        )}
                       />
+
                       <div className="text-[#dd1313] text-sm">
                         {errors.state?.message}
                       </div>
@@ -380,9 +483,8 @@ const VetPartnerAccount = () => {
                         type="text"
                         {...register("city")}
                         placeholder="Enter city/town"
-                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                          errors.city ? "border-[#dd1313]" : ""
-                        }`}
+                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.city ? "border-[#dd1313]" : ""
+                          }`}
                       />
                       <div className="text-[#dd1313] text-sm">
                         {errors.city?.message}
@@ -403,9 +505,8 @@ const VetPartnerAccount = () => {
                         type="number"
                         {...register("yearOfOperation")}
                         placeholder="Number of years"
-                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                          errors.yearOfOperation ? "border-[#dd1313]" : ""
-                        }`}
+                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.yearOfOperation ? "border-[#dd1313]" : ""
+                          }`}
                       />
                       <div className="text-[#dd1313] text-sm">
                         {errors.yearOfOperation?.message}
@@ -422,11 +523,11 @@ const VetPartnerAccount = () => {
                       </label>
                       <input
                         type="text"
+                        id="typeOfVet"
                         {...register("typeOfVet")}
                         placeholder="Enter the type of vet you are"
-                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                          errors.typeOfVet ? "border-[#dd1313]" : ""
-                        }`}
+                        className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.typeOfVet ? "border-[#dd1313]" : ""
+                          }`}
                       />
                       <div className="text-[#dd1313] text-sm">
                         {errors.typeOfVet?.message}
@@ -437,36 +538,117 @@ const VetPartnerAccount = () => {
                   </div>
 
                   <div className="my-2 w-full ">
-                    <label
-                      htmlFor=""
-                      className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                    >
-                      Upload a copy of Vet License
-                    </label>
-                    {/* <CustomDND
-                      getFiles={getBusinessDocFromInput}
-                      inputId={"uuudd"}
-                    /> */}
 
-                    <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                    <p className="my-2 text-[red] text-xs"></p>
+
+                    <>
+                      <span className="text-[#333333] text-[16px] leading-[16px]">
+                        Upload a copy of Vet License
+                      </span>
+                      <div className="mt-2">
+                        <div className="flex flex-col">
+                          <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                            <label
+                              htmlFor={"selec"}
+                              className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                            >
+                              <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                                Select file
+                              </span>{" "}
+                            </label>
+
+                            <input
+                              onChange={(event) => handleFileChange(event, "selec")}
+                              className="hidden"
+                              accept="image/*,.pdf,.docx,.doc,.txt"
+                              type="file"
+                              name={"selec"}
+                              id={"selec"}
+                            />
+                            {selecFiles && Array.isArray(selecFiles) && (
+                              <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                                {selecFiles.map((file, index) => {
+                                  console.log(file, "filess");
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                    >
+                                      <span>{file.name}</span>
+                                      <button
+                                        className="p-2"
+                                        onClick={(event) =>
+                                          removeFile(event, index, selecFiles, "selec")
+                                        }
+                                      >
+                                        <RiCloseLine />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </>
                   </div>
                   <div className="my-2 w-full ">
-                    <label
-                      htmlFor=""
-                      className={`block text-[16px] mb-[6px] text-HeadingColor  `}
-                    >
-                      Additional Document.
-                    </label>
-                    {/* <CustomDND
-                      getFiles={getBusinessDocFromInput}
-                      inputId={"uuudd"}
-                    /> */}
 
-                    <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
-                      Documents allowed are images and PDF files.
-                    </span>
-                    <p className="my-2 text-[red] text-xs"></p>
+                    <>
+                      <span className="text-[#333333] text-[16px] leading-[16px]">
+                        Additional Document.
+                      </span>
+                      <div className="mt-2">
+                        <div className="flex flex-col">
+                          <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                            <label
+                              htmlFor={"se"}
+                              className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                            >
+                              <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                                Select file
+                              </span>{" "}
+                            </label>
+
+                            <input
+                              onChange={(event) => handleFileChange(event, "se")}
+                              className="hidden"
+                              accept="image/*,.pdf,.docx,.doc,.txt"
+                              type="file"
+                              name={"se"}
+                              id={"se"}
+                            />
+                            {seFiles && Array.isArray(seFiles) && (
+                              <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                                {seFiles.map((file, index) => {
+                                  console.log(file, "filess");
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                    >
+                                      <span>{file.name}</span>
+                                      <button
+                                        className="p-2"
+                                        onClick={(event) => removeFile(event, index, seFiles, "se")}
+                                      >
+                                        <RiCloseLine />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <span className=" text-[#797979]  text-[12px] leading-none">
+                          Documents allowed are images and PDF files.
+                        </span>
+                      </div>
+                    </>
                   </div>
                   <div className="my-2 w-full ">
                     <label
@@ -485,11 +667,9 @@ const VetPartnerAccount = () => {
 
                   <div className="flex items-center mt-10">
                     <input
-                      // {...register("checkbox")}
+                      {...register("checkbox")}
                       type="checkbox"
                       name="checkbox"
-                      onChange={handleChange}
-                      // checked={val}
                       className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
                     />
                     <label
@@ -507,7 +687,16 @@ const VetPartnerAccount = () => {
                     type="submit"
                     className="text-[14px] leading-[24px] font-semibold  bg-[#197B30] px-6 py-3 rounded text-[#FFFFFF] my-8 ml-auto flex justify-end"
                   >
-                    Submit
+                    {/* {createVet.isLoading ? ( <div className="mx-auto flex items-center justify-center">
+                    <ReactLoading
+                      type={"spin"}
+                      color={"#fff"}
+                      height={"5%"}
+                      width={"5%"}
+                    />
+                  </div>) : ("Submit")} */}
+                  Submit
+                    
                   </button>
                 </form>
               </div>

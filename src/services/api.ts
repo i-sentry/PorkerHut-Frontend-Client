@@ -38,6 +38,10 @@ export const api = {
     ) =>
       `/api/pay/account-details?account_number=${account_number}&bank_code=${bank_code}`,
   },
+
+  Vet: {
+    createVet: "/api/vets",
+  }
 };
 
 export const makePostRequest = async (
