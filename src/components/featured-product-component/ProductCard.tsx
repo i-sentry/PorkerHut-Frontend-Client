@@ -27,7 +27,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   };
 
   return (
-    <div className=" flex flex-col   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
+    <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
         <img
           onClick={handleCardClick}

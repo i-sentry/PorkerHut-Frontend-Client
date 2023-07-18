@@ -1,7 +1,7 @@
 import React from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import { chunkArray } from "../helper/chunck";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { MdOutlineShoppingCart, MdOutlineSpeakerNotes } from "react-icons/md";
 import { productData } from "../utils/productData";
 
@@ -30,6 +30,8 @@ const CartPage = () => {
   const cart = useSelector((state: RootState) => state.product.cart);
   const [showModal, setShowModal] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+
+  const isMobileScreen = useMediaQuery("(max-width: 639px)");
 
   const handleNavigate = () => {
     navigate("/products");
@@ -150,9 +152,11 @@ const CartPage = () => {
                         Continue to Shopping
                       </button>
                       <button
-                        className={`border z-50 border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center w-full ${
-                          isScrolling
-                            ? " fixed top-[79px] w-[92%]"
+                        className={`border xxs:z-20 md:z-0 border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center w-full  ${
+                          isMobileScreen
+                            ? isScrolling
+                              ? "fixed top-[79px] w-[92%]"
+                              : ""
                             : ""
                         }`}
                         onClick={() => navigate("/billing")}
