@@ -6,24 +6,30 @@ interface IChildren {
 
 export interface IProductInfo {
   productInformation: {
+    category: string;
+    subCategory: string;
     productName: string;
     productBreed: string;
+    productBrand: string;
     typeOfMeat: string;
+    typeOfProduct: string;
+    mainColour: string;
     [key: string]: string;
   };
   productDetails: {
     productWeight: number;
     productContent: string;
     cookingMethod: string;
+    nutritionalValue: string;
     deliveryDetails: string;
     productDescription: string;
-    [key: string]: string | number;
+    [key: string]: string | number | undefined;
   };
   pricing: {
     salesStartDate: string;
     salesEndDate: string;
     productPrice: number;
-    quantity: number;
+    productQuantity: number;
     [key: string]: string | number;
   };
   [key: string]: any;
@@ -39,14 +45,20 @@ export const ProductStateContext = createContext({} as IProductContextProps);
 export const ProductProvider = ({ children }: IChildren) => {
   const initialState: IProductInfo = {
     productInformation: {
+      category: "",
+      subCategory: "",
+      typeOfProduct: "",
       productName: "",
+      mainColour: "",
       productBreed: "",
+      productBrand: "",
       typeOfMeat: "",
     },
     productDetails: {
       productWeight: 0,
       productContent: "",
       cookingMethod: "",
+      nutritionalValue: "",
       deliveryDetails: "",
       productDescription: "",
     },
@@ -54,7 +66,7 @@ export const ProductProvider = ({ children }: IChildren) => {
       salesStartDate: "",
       salesEndDate: "",
       productPrice: 0,
-      quantity: 0,
+      productQuantity: 0,
     },
   };
   const [productData, setProductData] = useState<IProductInfo>(initialState);

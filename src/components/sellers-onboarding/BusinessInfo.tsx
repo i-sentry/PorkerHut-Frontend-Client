@@ -111,7 +111,7 @@ const BusinessInfo = () => {
     event: React.MouseEvent<HTMLButtonElement>,
     index: number,
     files: FileData[] | null,
-    field: string,
+    field: string
   ) => {
     event.preventDefault();
     if (files) {
@@ -178,21 +178,17 @@ const BusinessInfo = () => {
     }));
   };
 
-  React.useEffect(() => {
-    if (vatRegistered) {
-      updateUserData("VATRegistered", vatRegistered.value);
-    }
-  }, [vatRegistered]);
+  const useUpdateUserDataEffect = (property: string, value: any) => {
+    React.useEffect(() => {
+      if (value) {
+        updateUserData(property, value);
+      }
+    }, [value]);
+  };
 
-  React.useEffect(() => {
-    if (IDType) {
-      updateUserData("IDType", IDType.value);
-    }
-  }, [IDType]);
-
-  React.useEffect(() => {
-    updateUserData("Country", select);
-  }, [select]);
+  useUpdateUserDataEffect("VATRegistered", vatRegistered);
+  useUpdateUserDataEffect("IDType", IDType);
+  useUpdateUserDataEffect("Country", select);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -309,7 +305,14 @@ const BusinessInfo = () => {
                                 <span>{file.name}</span>
                                 <button
                                   className="p-2"
-                                  onClick={(event) => removeFile(event, index, selectedFiles, "selected")}
+                                  onClick={(event) =>
+                                    removeFile(
+                                      event,
+                                      index,
+                                      selectedFiles,
+                                      "selected"
+                                    )
+                                  }
                                 >
                                   <RiCloseLine />
                                 </button>
@@ -401,7 +404,14 @@ const BusinessInfo = () => {
                                 <span>{file.name}</span>
                                 <button
                                   className="p-2"
-                                  onClick={(event) => removeFile(event, index, selecFiles, "selec")}
+                                  onClick={(event) =>
+                                    removeFile(
+                                      event,
+                                      index,
+                                      selecFiles,
+                                      "selec"
+                                    )
+                                  }
                                 >
                                   <RiCloseLine />
                                 </button>
@@ -458,7 +468,9 @@ const BusinessInfo = () => {
                                 <span>{file.name}</span>
                                 <button
                                   className="p-2"
-                                  onClick={(event) => removeFile(event, index, seFiles, "se")}
+                                  onClick={(event) =>
+                                    removeFile(event, index, seFiles, "se")
+                                  }
                                 >
                                   <RiCloseLine />
                                 </button>

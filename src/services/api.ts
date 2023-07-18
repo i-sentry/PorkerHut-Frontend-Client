@@ -29,6 +29,7 @@ export const api = {
   },
   Products: {
     allProducts: "/api/products/",
+    createProducts: "/api/products",
   },
   Banks: {
     getBanks: "/api/pay/banks",
@@ -37,6 +38,13 @@ export const api = {
       bank_code?: string | number
     ) =>
       `/api/pay/account-details?account_number=${account_number}&bank_code=${bank_code}`,
+  },
+  ProductsCategory: {
+    getAllCategories: "/api/categories/",
+    getAllCategoriesQuestion: "/api/categoryquestions",
+    categoryQuestion: (id: string | null) =>
+      `/api/categoryquestions/category/${id}`,
+    getOneCategory: (id: string | null) => `/api/categories/${id}`,
   },
 };
 
