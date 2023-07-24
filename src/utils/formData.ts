@@ -198,36 +198,19 @@ export const productInfo = [
   {
     label: "Product Name",
     name: "productInformation.productName",
-    place_holder: "Enter product weight",
+    place_holder: "Enter product name",
     error_message: "",
     type: "text",
     info: "Name of the product. For better listing, the name should match actual product.",
     required: "true",
   },
-  {
-    label: "Product Breed",
-    name: "productInformation.productBreed",
-    place_holder: "Enter product breed",
-    error_message: "",
-    type: "text",
-    info: "Breed of the product.",
-    required: "true",
-  },
-  {
-    label: "Type of pork",
-    name: "productInformation.typeOfMeat",
-    place_holder: "Enter product Breed",
-    error_message: "",
-    type: "text",
-    info: "Please the type of pork. Example:Thighs, Breast and tenderloin, Ham, Pork Belly, Pork Rib Roast",
-    required: "true",
-  },
+
 ];
 
 export const productDetails = [
   {
     label: "Product Weight",
-    name: "productDetails.weight",
+    name: "productDetails.productWeight",
     place_holder: "Enter product weight",
     error_message: "",
     type: "number",
@@ -236,7 +219,7 @@ export const productDetails = [
   },
   {
     label: "Product Content",
-    name: "productDetails.content",
+    name: "productDetails.productContent",
     place_holder: "Enter product content",
     error_message: "Product content is required",
     type: "text",
@@ -250,6 +233,15 @@ export const productDetails = [
     error_message: "Cooking method is required",
     type: "text",
     info: "Give a brief details on how its being Cooked. Example: Fried, Roasting, Boiling, Grilling.",
+    required: "false",
+  },
+  {
+    label: "Nutritional Value",
+    name: "productDetails.nutritionalValue",
+    place_holder: "Enter nutritional value ",
+    error_message: "Nutritional Value is required",
+    type: "text",
+    info: "Give a brief details on how its nutritional value . Example: Protein, Carbohydrates, vitamins, Fats.",
     required: "false",
   },
   {

@@ -39,12 +39,7 @@ const StepperController: React.FC<fileProps> = ({
   //   }
   // };
 
-  console.log(
-    selectedFiles,
-    selecFiles,
-    seFiles,
-    "hhhhjujujujujujujujujujujuju"
-  );
+
 
   const appendFilesToFormData = (
     fieldName: string,
@@ -61,7 +56,7 @@ const StepperController: React.FC<fileProps> = ({
 
   const submitDetails = (e: { preventDefault: () => void; }) => {
     e.preventDefault()
-      setIsOpen(!isOpen);
+      // setIsOpen(!isOpen);
     console.log(selectedFiles, selecFiles, seFiles, ",....loading");
     handleClick("next");
     if (!selectedFiles || !selecFiles || !seFiles) return;

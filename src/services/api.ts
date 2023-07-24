@@ -29,6 +29,7 @@ export const api = {
   },
   Products: {
     allProducts: "/api/products/",
+    createProducts: "/api/products",
   },
   Banks: {
     getBanks: "/api/pay/banks",
@@ -38,10 +39,13 @@ export const api = {
     ) =>
       `/api/pay/account-details?account_number=${account_number}&bank_code=${bank_code}`,
   },
-
-  Vet: {
-    createVet: "/api/vets",
-  }
+  ProductsCategory: {
+    getAllCategories: "/api/categories/",
+    getAllCategoriesQuestion: "/api/categoryquestions",
+    categoryQuestion: (id: string | null) =>
+      `/api/categoryquestions/category/${id}`,
+    getOneCategory: (id: string | null) => `/api/categories/${id}`,
+  },
 };
 
 export const makePostRequest = async (

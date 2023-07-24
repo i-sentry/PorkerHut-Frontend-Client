@@ -1,35 +1,54 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useContext } from "react";
 import { FaTimes } from "react-icons/fa";
+import { ProductImagesContext } from "../../context/ProductImagesContext";
+import { FileData } from "../../context/FileContext";
 
 interface CreateProductImageProps {
-  onImageUpload: (imageData: FormData) => void;
+  img: string;
+  imageUrl: string;
+  handleImage: (e: ChangeEvent<HTMLInputElement>, field: string) => void;
+  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CreateProductImage: React.FC<CreateProductImageProps> = ({
-  onImageUpload,
+  img,
+  handleImage,
+  imageUrl,
+  setImageUrl,
 }) => {
   const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
+  // const { setImg, img1, img2, img3, img4, img5, img6, img7 } =
+  //   useContext(ProductImagesContext);
 
-  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+  // const removeFile = (
+  //   event: React.MouseEvent<HTMLButtonElement>,
+  //   index: number,
+  //   files: FileData[] | null,
+  //   field: string
+  // ) => {
+  //   event.preventDefault();
+  //   if (files) {
+  //     const updatedFiles = [...files];
+  //     updatedFiles.splice(index, 1);
+  //     console.log(updatedFiles, "updatedFiles");
+  //     setImg(field, updatedFiles);
+  //   }
+  // };
+
+  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       setImage(file);
       setImageUrl(URL.createObjectURL(file));
     }
-  };
-
-  const handleUpload = () => {
-    if (image) {
-      const formData = new FormData();
-      formData.append("image", image);
-      onImageUpload(formData);
-    }
+    handleImage(e, img);
   };
 
   const handleRemoveImage = () => {
     setImage(null);
     setImageUrl("");
+    // setImg([], img)
   };
 
   return (
@@ -41,7 +60,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
               <img
                 src={imageUrl}
                 alt="uploaded image"
-              className="w-full h-full"
+                className="w-full h-full"
               />
               <button
                 className="absolute top-2 right-2 bg-white rounded-full p-1 shadow"
@@ -61,7 +80,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
                 id="file"
                 type="file"
                 name="file"
-                onChange={handleImage}
+                onChange={(evt) => uploadImg(evt)}
                 className="hidden appearance-none outline-none text-sm"
               />
             </>

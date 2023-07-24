@@ -3,8 +3,15 @@ import { productStepsContext } from "../../context/StepperContext";
 import { productDetails } from "../../utils/formData";
 import StepperControl from "./StepperControl";
 import { useForm } from "react-hook-form";
+import { IProductInfo } from "../../context/ProductInfoContext";
 
-export default function ProductDetails() {
+export default function ProductDetails({
+  cate,
+  subCate,
+}: {
+  cate: string | null;
+  subCate: string | null;
+}) {
   const {
     checkoutSteps,
     currentStep,
@@ -14,6 +21,8 @@ export default function ProductDetails() {
     handleChange,
   } = useContext(productStepsContext);
 
+  console.log(cate, "jjuuuu");
+
   const {
     handleSubmit,
     register,
@@ -21,6 +30,24 @@ export default function ProductDetails() {
     setValue,
     formState: { errors },
   } = useForm<any>({ defaultValues: "", mode: "onSubmit" });
+
+  const handleTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value, "ooooo");
+
+    // Split the name into nested properties
+    const [section, field] = name.split(".");
+
+    // Update the userData state
+    setProductData((prevUserData: IProductInfo) => ({
+      ...prevUserData,
+      [section]: {
+        ...prevUserData[section],
+        [field]: value,
+      },
+    }));
+    // isFormFilled();
+  };
 
   return (
     <div>
@@ -39,7 +66,20 @@ export default function ProductDetails() {
             <form>
               {productDetails?.map((data, index) => {
                 const [section, field] = data.name.split("."); // Split the name into section and field
-                const value = productData?.[section][field]; // Access the nested property value
+                const value = productData?.[section][field];
+                if (section === "productDetails" && field === "cookingMethod") {
+                  if (cate === "Livestocks" || cate === "Farm feeds") {
+                    return null; // Skip rendering this input
+                  }
+                }
+                if (
+                  section === "productDetails" &&
+                  field === "nutritionalValue"
+                ) {
+                  if (cate === "Pork") {
+                    return null; // Skip rendering this input
+                  }
+                }
 
                 return (
                   <div className="my-2 w-full" key={index}>
@@ -97,6 +137,8 @@ export default function ProductDetails() {
                     : ""
                 }`}
                 placeholder="Enter product description"
+                value={productData.productDetails.productDescription || ""}
+                onChange={handleTextArea}
               ></textarea>
               <span className="text-[#797979] text-[12px] leading-none">
                 The product description should give the customer useful

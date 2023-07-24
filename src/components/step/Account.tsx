@@ -1,11 +1,29 @@
 import { useForm } from "react-hook-form";
-import React, { useContext, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import StepperControl from "./StepperControl";
 import { productStepsContext } from "../../context/StepperContext";
 import { productInfo } from "../../utils/formData";
+import {
+  useGetAllCategoriesQuestions,
+  useGetCategoryQuestion,
+  useGetOneCategory,
+} from "../../services/hooks/Vendor/category";
+import { useLocation } from "react-router-dom";
 
-export default function Account() {
+export default function Account({
+  cate,
+  subCate,
+}: {
+  cate: string | null;
+  subCate: string | null;
+}) {
   const {
     checkoutSteps,
     currentStep,
@@ -14,6 +32,44 @@ export default function Account() {
     setProductData,
     handleChange,
   } = useContext(productStepsContext);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get("cate");
+  const subcategory = queryParams.get("sub");
+  const catQuestions = useGetAllCategoriesQuestions();
+  const { data: question } = useGetCategoryQuestion(category);
+  const Acategory = useGetOneCategory(category);
+  const convertToCamelCase = useCallback((str: string) => {
+    return str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) => {
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+      })
+      .replace(/\s+/g, "");
+  }, []);
+
+  const questions = useMemo(() => {
+    if (question?.data) {
+      const updatedQuestions = question.data.map((obj: any) => {
+        const camelCaseQuestion = convertToCamelCase(obj.question);
+        const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
+        return {
+          ...obj,
+          name: `productInformation.${camelCaseQuestion}`,
+          place_holder: placeHolder,
+        };
+      });
+      return updatedQuestions;
+    }
+  }, [question?.data, convertToCamelCase]);
+
+  console.log(questions, "questions");
+  console.log({ category }, "lloo");
+
+  // const subCategory = () => {
+  //   category?.data?.data.subcategories.filter(
+  //     (cat: { _id: string | null }) => cat._id === subCate
+  //   );
+  // };
 
   const {
     register,
@@ -28,6 +84,8 @@ export default function Account() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   console.log(productInfo, "jj");
+  console.log({ catQuestions });
+  console.log(question?.data, "lopp");
 
   return (
     <div>
@@ -46,7 +104,7 @@ export default function Account() {
             <form>
               {productInfo?.map((data, index) => {
                 const [section, field] = data.name.split("."); // Split the name into section and field
-                const value = productData?.[section][field]; // Access the nested property value
+                const value = productData[section][field]; // Access the nested property value
 
                 return (
                   <div className="my-2 w-full" key={index}>
@@ -80,9 +138,48 @@ export default function Account() {
                   </div>
                 );
               })}
+              {questions?.map((data: any, index: any) => {
+                const [section, field] = data.name.split("."); // Split the name into section and field
+                const value = productData[section][field]; // Access the nested property value
+                console.log(productData, "JJ");
+                console.log(data.name, "Jdata.nameJ");
+                return (
+                  <div className="my-2 w-full" key={index}>
+                    <label
+                      htmlFor={data.name}
+                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                        data.required
+                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          : ""
+                      }`}
+                    >
+                      {data.question}
+                    </label>
+                    <input
+                      id={data.name}
+                      type={"text"}
+                      placeholder={data.place_holder}
+                      name={data.name}
+                      onChange={handleChange}
+                      value={value || ""}
+                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        errors[data.name] ? "border-ErrorBorder" : ""
+                      }`}
+                    />
+                    <span className="text-[#797979] text-[12px] leading-none">
+                      {data.questionHint}
+                    </span>
+                    <p className="my-2 text-[red] text-xs">
+                      {/* {errors[data.name] && errors[data.name].message} */}
+                    </p>
+                  </div>
+                );
+              })}
 
               <div>
-                {currentStep !== checkoutSteps?.length && <StepperControl />}
+                {currentStep !== checkoutSteps?.length && (
+                  <StepperControl  />
+                )}
               </div>
             </form>
           </div>

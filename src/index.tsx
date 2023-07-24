@@ -9,6 +9,7 @@ import { store } from "./redux/store";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 import App from "./App";
 import { FileProvider } from "./context/FileContext";
+import { ImgProvider } from "./context/ProductImagesContext";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,7 +22,9 @@ root.render(
         <ShoppingCartProvider>
           <Provider store={store}>
             <FileProvider>
+            <ImgProvider>
               <App />
+            </ImgProvider>
             </FileProvider>
           </Provider>
         </ShoppingCartProvider>

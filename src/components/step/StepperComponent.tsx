@@ -15,6 +15,7 @@ import {
 } from "../../context/ProductInfoContext";
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
+import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 
 export const steps = [
   "Product Information",
@@ -25,17 +26,35 @@ export const steps = [
 
 function StepperComponent() {
   const { state: productData, setState: setProductData } = useProductState();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get("cate");
+  const subcategory = queryParams.get("sub");
+  const Tcategory = useGetOneCategory(category);
+
+  const subCategory = () => {
+    return Tcategory?.data?.data.subcategories?.filter(
+      (cat: { _id: string | null }) => cat._id === subcategory
+    );
+  };
+  const cateName = Tcategory?.data?.data?.name;
+  const categoryName = cateName
+    ? cateName.charAt(0).toUpperCase() + cateName.slice(1)
+    : "";
+
   const [finalData, setFinalData] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
   const checkoutSteps = steps;
   const numSteps = 4;
   const [progress, setProgress] = useState(25);
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const category = queryParams.get("category");
-  const subcategory = queryParams.get("subcategory");
+  const filteredSubcategories = subCategory();
+  const filtered =
+    filteredSubcategories?.find(
+      (subcategory: { name: string }) => subcategory.name
+    )?.name ?? "";
 
   console.log(productData, "LL");
+  console.log(category, subcategory);
   if (typeof setProductData === "function") {
     console.log("oooooooolll");
   } else {
@@ -45,13 +64,13 @@ function StepperComponent() {
   const displayStep = (step: number) => {
     switch (step) {
       case 1:
-        return <Account />;
+        return <Account cate={categoryName} subCate={filtered} />;
       case 2:
-        return <ProductDetails />;
+        return <ProductDetails cate={categoryName} subCate={filtered} />;
       case 3:
-        return <ProductPricing />;
+        return <ProductPricing cate={categoryName} subCate={filtered} />;
       case 4:
-        return <ProductImage />;
+        return <ProductImage cate={categoryName} subCate={filtered} />;
       default:
     }
   };
@@ -96,12 +115,12 @@ function StepperComponent() {
         <div className="flex items-center gap-2">
           <AiOutlineLine size={30} />
           <span className="text-[16px] leading-[19px] font-normal text-[#A2A2A2]">
-            {category}
+            {categoryName}
           </span>
           <GoChevronRight className="text-[#A2A2A2]" />
 
           <span className="ext-[16px] leading-[19px] font-normal text-[#A2A2A2]">
-            {subcategory}
+            {filtered && filtered}
           </span>
         </div>
       </div>
