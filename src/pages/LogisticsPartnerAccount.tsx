@@ -16,7 +16,7 @@ import {
   RegionDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
-import VetPartnerFormMobile from "./VertPartnerFormMobile";
+// import VetPartnerFormMobile from "../components/vet-form/useMultistepForm";
 import LogisticPartnerMobileForm from "./LogisticsPartnerMobileForm";
 
 export type SelectOptionType = {

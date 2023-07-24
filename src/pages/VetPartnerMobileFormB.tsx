@@ -2,20 +2,22 @@ import React, { useState, useContext } from "react";
 import CustomSelect from "../components/utility/CustomSelect";
 import { sellersShopInfo, sellersformData } from "../utils/formData";
 import { Link } from "react-router-dom";
-import StepperController from "../components/sellers-onboarding/StepperController";
 import { ISellerInfo, useAppState } from "../context/SellerInfoContext";
 import { SellersStepsContext } from "../context/SellersStepsContext";
-import CustomDND, { IFile } from "../components/utility/CustomDND";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
+
 import { useForm } from "react-hook-form";
 import {
   CountryDropdown,
   RegionDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
+
+import { useCreateVet } from "../services/hooks/service/vet";
+import { FileContext } from "../context/FileContext";
+import { RiCloseLine } from "react-icons/ri";
+import Header from "../components/vet-form/Header";
 
 export type SelectOptionType = {
   label: string | number;
@@ -35,55 +37,85 @@ const vendorType = [
 ];
 
 
-type UserBillingInfo = {
+interface FileData {
   name: string;
-  businessName: string;
-  businessAddress: string;
-  email: string;
-  phone: string;
-  companyRc: number;
+  file: File;
+}
+
+type UserData = {
   state: string;
   city: string;
   country: string;
-  yearOfOperation: number;
-  typeOfVet: string;
+  yearsOfOperation: string;
+  vetType: string;
+  aboutYou: string;
+  chexbox: string;
+  error: null,
+
+
 };
 
-const VetPartnerMobileB: React.FC = () => {
-  const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+type UserBillingInfo = UserData & {
+  updateFields: (fields: Partial<UserData>) => void;
+  selecFiles: FileData[] | null;
+  seFiles: FileData[] | null;
+};
 
-  const getBusinessDocFromInput = (files: File[]) => {
-    // setBusinessDocUrl(files);
+const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, aboutYou, chexbox, updateFields, error }: UserBillingInfo) => {
+
+
+
+
+
+
+
+  const { setFiles, seFiles, selecFiles } = useContext(FileContext);
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    console.log(event, "jio,");
+    const selectedFiles = Array.from(event.target.files || []);
+
+    const updatedFiles: FileData[] = selectedFiles.map((file) => ({
+      name: file.name,
+      file: file,
+    }));
+
+    console.log(updatedFiles[0].name, "hhhyuyuy");
+
+    setFiles(field, updatedFiles);
   };
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    businessName: Yup.string()
-      .required("Business Name is required")
-      .min(0, "Business Name must be at least 0 characters")
-      .max(100, "Business Name must not exceed 100 characters"),
-    businessAddress: Yup.string().required("Business Address is requires"),
-    email: Yup.string()
-      .required("Official Email Address is required")
-      .email("Email is invalid"),
-    typeOfVet: Yup.string().required("Type of Vet is required"),
+  const removeFile = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+    files: FileData[] | null,
+    field: string,
+  ) => {
+    event.preventDefault();
+    if (files) {
+      const updatedFiles = [...files];
+      updatedFiles.splice(index, 1);
+      setFiles(field, updatedFiles);
+    }
+  };
 
-    state: Yup.string().required("State is required"),
+  const appendFilesToFormData = (
+    fieldName: string,
+    files: FileData[] | null,
+    formData: FormData
+  ) => {
 
-    city: Yup.string().required("City is required"),
-    country: Yup.string().required("Country is required"),
-    companyRc: Yup.number().required("Company Rc number is required"),
-    yearOfOperation: Yup.number().required("Year of Operation is required"),
+    if (files) {
+      for (const fileData of files) {
+        formData.append(fieldName, fileData.file);
+        console.log(fileData.file);
+      }
+    }
+  };
 
-    phone: Yup.string()
-      .required("Valid Phone Number is required")
-      .min(6, "Valid Phone Number must be at least 6 characters")
-      .max(12, "Valid Phone Number must not exceed 12 characters"),
-  });
+
 
   const {
     register,
@@ -91,36 +123,11 @@ const VetPartnerMobileB: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<UserBillingInfo>({
-    resolver: yupResolver(validationSchema),
+
   });
-  console.log(phoneNumber);
-  console.log(state);
-  console.log(country);
 
-  console.log({ errors });
-  const onSubmit = (data: UserBillingInfo) => {
-    data.phone = phoneNumber;
-    data.country = country;
-    data.state = state;
-    console.log(JSON.stringify(data, null, 2));
-    reset();
-  };
 
-  const handleChange = (e: any) => {
-    // console.log(e)
-    const { name, value, checked } = e.target;
-    console.log(name);
-    console.log(value);
-    // setUserData({
-    //   ...userData,
-    //   [name]: value,
-    //   // value[entity_type]: dropOption?.value,
-    // });
-    // isFormFilled();
-    // setValue("checkbox", checked ? "yes" : "no");
-    // setVal(!val);
-    // setUserData({ ...userData, [name]: value, val });
-  };
+
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -129,60 +136,32 @@ const VetPartnerMobileB: React.FC = () => {
   return (
     <div className="">
       <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
-        <div className="p-10">
-          <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-            Join our Vet Team
-          </h1>
-          <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
-            Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
-            morbi nulla scelerisque enim. Fringilla fringilla felis non magna
-            erat at facilisi. Ligula elementum praesent interdum adipiscing eu
-            convallis tellus augue. Et tempor mauris donec mattis enim sapien a
-            nibh. Pretium felis maecenas suspendisse eros nibh arcu quis. Tellus
-            quam ultricies sodales at ac odio diam risus. Facilisis aliquet
-            tempus tristique donec integer pretium cursus mi a. Integer laoreet
-            commodo diam erat erat amet. Tellus congue sapien convallis maecenas
-            tortor auctor. Morbi tincidunt a libero interdum. Enim enim turpis
-            rutrum egestas malesuada turpis amet tempor potenti. Nulla tincidunt
-            sit amet at enim sit commodo condimentum curabitur. Nisl netus sed
-            arcu eros hendrerit ut. Dui lorem at ligula et diam pellentesque mi
-            maecenas. Aliquet congue nunc porta risus morbi et. Ac habitant
-            metus sem malesuada ac faucibus. Dapibus natoque mi sed ipsum
-            facilisis felis aliquet sit.{" "}
-          </p>
-        </div>
+        <Header />
+
       </div>
 
       <div>
         {" "}
         <div>
           <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
-            <div>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="my-4 w-full ">
-                  <label
-                    htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor `}
-                  >
-                    Company Rc Number
-                  </label>
-                  <input
-                    type="number"
-                    {...register("companyRc")}
-                    placeholder="Enter your rc number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30] mb-1 sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.companyRc ? "border-[#dd1313]" : ""
-                    }`}
-                  />
 
-                  <div className="text-[#dd1313] text-sm">
-                    {errors.companyRc?.message}
-                  </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal ">
-                    We need your company registration number.
+            <div>
+              {error && (
+                <p className=" my-3 flex items-center justify-between rounded">
+                  <span className="text-[#dd1313] text-sm">{error}</span>
+
+                  <span
+                    // onClick={() => setError(false)}
+                    className="rounded-full w-6 h-6 cursor-pointer text-center"
+                  >
+
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
-                </div>
+                </p>
+              )}
+            </div>
+            <div>
+              <div>
+
 
                 <div className=" w-full">
                   <label
@@ -194,16 +173,10 @@ const VetPartnerMobileB: React.FC = () => {
                   <CountryDropdown
                     id="country"
                     value={country}
-                    // style={{
-                    //   backgroundColor: "blue",
-                    //   color: "white",
-                    //   fontSize: 20,
-                    //   borderColor:
-                    // }}
-                    onChange={(val) => setCountry(val)}
-                    classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                      errors.country ? "border-[#dd1313]" : ""
-                    }`}
+                    onChange={(val) => updateFields({ country: val })}
+
+                    classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${errors.country ? "border-[#dd1313]" : ""
+                      }`}
                   />
                   <div className="text-[#dd1313] text-sm">
                     {errors.country?.message}
@@ -218,15 +191,12 @@ const VetPartnerMobileB: React.FC = () => {
                     State
                   </label>
                   <RegionDropdown
-                    blankOptionLabel=""
-                    defaultOptionLabel="Select State"
-                    id="state"
                     country={country}
+                    id="state"
                     value={state}
-                    onChange={(val) => setState(val)}
-                    classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                      errors.state ? "border-[#dd1313]" : ""
-                    }`}
+                    onChange={(val) => updateFields({ state: val })}
+                    classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${errors.state ? "border-[#dd1313]" : ""
+                      }`}
                   />
                   <div className="text-[#dd1313] text-sm">
                     {errors.state?.message}
@@ -241,11 +211,11 @@ const VetPartnerMobileB: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("city")}
+                    value={city}
+                    onChange={(e) => updateFields({ city: e.target.value })}
                     placeholder="Enter city/town"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.city ? "border-[#dd1313]" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.city ? "border-[#dd1313]" : ""
+                      }`}
                   />
                   <div className="text-[#dd1313] text-sm">
                     {errors.city?.message}
@@ -263,14 +233,13 @@ const VetPartnerMobileB: React.FC = () => {
                   </label>
                   <input
                     type="number"
-                    {...register("yearOfOperation")}
+                    value={yearsOfOperation}
+                    onChange={(e) => updateFields({ yearsOfOperation: e.target.value })}
                     placeholder="Number of years"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.yearOfOperation ? "border-[#dd1313]" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} `}
                   />
                   <div className="text-[#dd1313] text-sm">
-                    {errors.yearOfOperation?.message}
+                    {/* {errors.yearOfOperation?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
                   <p className="my-2 text-[red] text-xs"></p>
@@ -284,52 +253,138 @@ const VetPartnerMobileB: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("typeOfVet")}
+                    value={vetType}
+                    onChange={(e) => updateFields({ vetType: e.target.value })}
                     placeholder="Enter the type of vet you are"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.typeOfVet ? "border-[#dd1313]" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}`}
                   />
                   <div className="text-[#dd1313] text-sm">
-                    {errors.typeOfVet?.message}
+                    {/* {errors.typeOfVet?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
                   <p className="my-2 text-[red] text-xs"></p>
                 </div>
 
                 <div className="my-6 w-full ">
-                  <label
-                    htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
-                  >
-                    Upload a copy of Vet License
-                  </label>
-                  <CustomDND
-                    getFiles={getBusinessDocFromInput}
-                    inputId={"uuudd"}
-                    // componentFiles={[]} filenames={[]}
-                  />
+                  <div className="my-2 w-full ">
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  </div>
                 </div>
-                <div className="my-3 w-full ">
-                  <label
-                    htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor  `}
-                  >
-                    Additional Document.
-                  </label>
-                  <CustomDND
-                    getFiles={getBusinessDocFromInput}
-                    inputId={"uuudd"}
-                    //  componentFiles={[]} filenames={[]}
-                               />
+                <div className="my-2 w-full ">
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
-                    Documents allowed are images and PDF files.
-                  </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+
+                  <>
+                    <span className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}>
+                      Upload a copy of Vet License
+                    </span>
+                    <div className="mt-2">
+                      <div className="flex flex-col">
+                        <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                          <label
+                            htmlFor={"selec"}
+                            className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                          >
+                            <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                              Select file
+                            </span>{" "}
+                          </label>
+
+                          <input
+                            onChange={(event) => handleFileChange(event, "selec")}
+
+                            className="hidden"
+                            accept="image/*,.pdf,.docx,.doc,.txt"
+                            type="file"
+                            name={"selec"}
+                            id={"selec"}
+                          />
+                          {selecFiles && Array.isArray(selecFiles) && (
+                            <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                              {selecFiles.map((file, index) => {
+                                console.log(file, "filess");
+                                return (
+                                  <div
+                                    key={index}
+                                    className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                  >
+                                    <span>{file.name.substring(0, 20) + "..."}</span>
+                                    <button
+                                      className="p-2"
+                                      onClick={(event) =>
+                                        removeFile(event, index, selecFiles, "selec")
+                                      }
+                                    >
+                                      <RiCloseLine />
+                                    </button>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+
+                    </div>
+
+
+                  </>
+                </div>
+                <div className="my-2 w-full ">
+
+                  <>
+                    <span className="text-[#333333] text-[16px] leading-[16px]">
+                      Additional Document.
+                    </span>
+                    <div className="mt-2">
+                      <div className="flex flex-col">
+                        <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                          <label
+                            htmlFor={"se"}
+                            className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                          >
+                            <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                              Select file
+                            </span>{" "}
+                          </label>
+
+                          <input
+                            onChange={(event) => handleFileChange(event, "se")}
+                            className="hidden"
+                            accept="image/*,.pdf,.docx,.doc,.txt"
+                            type="file"
+                            name={"se"}
+                            id={"se"}
+                          />
+                          {seFiles && Array.isArray(seFiles) && (
+                            <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                              {seFiles.map((file, index) => {
+                                console.log(file, "filess");
+                                return (
+                                  <div
+                                    key={index}
+                                    className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                  >
+                                    <span>{file.name.substring(0, 20) + "..."}</span>
+                                    <button
+                                      className="p-2"
+                                      onClick={(event) => removeFile(event, index, seFiles, "se")}
+                                    >
+                                      <RiCloseLine />
+                                    </button>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <span className=" text-[#797979]  text-[12px] leading-none">
+                        Documents allowed are images and PDF files.
+                      </span>
+                    </div>
+                  </>
                 </div>
                 <div className="my-6 w-full ">
                   <label
@@ -339,6 +394,8 @@ const VetPartnerMobileB: React.FC = () => {
                     About You
                   </label>
                   <textarea
+                    value={aboutYou}
+                    onChange={(e) => updateFields({ aboutYou: e.target.value })}
                     className={`appearance-none  relative block w-full px-[14px] py-[10px] h-32 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${"border-ErrorBorder"}`}
                   />
 
@@ -351,7 +408,7 @@ const VetPartnerMobileB: React.FC = () => {
                     // {...register("checkbox")}
                     type="checkbox"
                     name="checkbox"
-                    onChange={handleChange}
+
                     // checked={val}
                     className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
                   />
@@ -365,7 +422,20 @@ const VetPartnerMobileB: React.FC = () => {
                     </Link>
                   </label>
                 </div>
-              </form>
+              </div>
+
+
+              <div className="flex items-center justify-center mt-8 gap-4">
+                <button
+
+                  className={`h-3 w-3 rounded-full focus:outline-none bg-[#197b30]`}
+                ></button>
+
+                <button
+
+                  className={`h-3 w-3 rounded-full  focus:outline-none  bg-[#197b30]`}
+                ></button>
+              </div>
             </div>
           </div>
         </div>

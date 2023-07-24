@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import VetPartnerFormMobile from "../pages/VertPartnerFormMobile";
+// import VetPartnerFormMobile from "../components/vet-form/useMultistepForm";
 
 export const VetPartnerContexts = createContext({});
 
@@ -21,7 +21,7 @@ const VetPartnerContext = () => {
           setVetData,
         }}
       >
-        <VetPartnerFormMobile />
+        {/* <VetPartnerFormMobile /> */}
       </VetPartnerContexts.Provider>
     </div>
   );
