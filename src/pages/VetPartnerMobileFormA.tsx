@@ -16,6 +16,8 @@ import {
   CountryRegionData,
 } from "react-country-region-selector";
 import { VetPartnerContexts } from "../context/VetPartnerContext";
+import Header from "../components/vet-form/Header";
+import { useNavigate } from "react-router-dom";
 
 export type SelectOptionType = {
   label: string | number;
@@ -34,84 +36,31 @@ const vendorType = [
   },
 ];
 
-
-
-type UserBillingInfo = {
-  name: string;
+type UserData = {
+  accountName: string;
   businessName: string;
   businessAddress: string;
   email: string;
   phone: string;
-  companyRc: number;
-  state: string;
-  city: string;
-  country: string;
-  yearOfOpe: number;
-  typeOfVet: string;
+  companyRcNumber: string;
+}
+
+type UserBillingInfo = UserData & {
+  updateFields: (fields: Partial<UserData>) => void;
 };
 
-const VetPartnerMobileA: React.FC = () => {
-  const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, email, phone, companyRcNumber, updateFields }: UserBillingInfo) => {
 
-  //@ts-ignore
-  const { vetData, setVetData } =
-    useContext(VetPartnerContexts);
-
-  const getBusinessDocFromInput = (files: IFile[]) => {
-    setBusinessDocUrl(files);
-  };
-
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    businessName: Yup.string()
-      .required("Business Name is required")
-      .min(0, "Business Name must be at least 0 characters")
-      .max(100, "Business Name must not exceed 100 characters"),
-    businessAddress: Yup.string().required("Business Address is requires"),
-    email: Yup.string()
-      .required("Official Email Address is required")
-      .email("Email is invalid"),
-    typeOfVet: Yup.string().required("Type of Vet is required"),
-
-    state: Yup.string().required("State is required"),
-
-    city: Yup.string().required("City is required"),
-    country: Yup.string().required("Country is required"),
-    companyRc: Yup.number().required("Company Rc number is required"),
-    yearOfOperation: Yup.number().required("Year of Operation is required"),
-
-    phone: Yup.string()
-      .required("Valid Phone Number is required")
-      .min(6, "Valid Phone Number must be at least 6 characters")
-      .max(12, "Valid Phone Number must not exceed 12 characters"),
-  });
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UserBillingInfo>({
-    resolver: yupResolver(validationSchema),
+  } = useForm({
+
   });
-  console.log(phoneNumber);
-  console.log(state);
-  console.log(country);
 
-  console.log({ errors });
-  const onSubmit = (data: UserBillingInfo) => {
-    data.phone = phoneNumber;
-    data.country = country;
-    data.state = state;
-    console.log(JSON.stringify(data, null, 2));
-    reset();
-  };
-
-  const handleChange = (e: any) => {};
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -120,28 +69,7 @@ const VetPartnerMobileA: React.FC = () => {
   return (
     <div className="">
       <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
-        <div className="p-10">
-          <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-            Join our Vet Team
-          </h1>
-          <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
-            Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
-            morbi nulla scelerisque enim. Fringilla fringilla felis non magna
-            erat at facilisi. Ligula elementum praesent interdum adipiscing eu
-            convallis tellus augue. Et tempor mauris donec mattis enim sapien a
-            nibh. Pretium felis maecenas suspendisse eros nibh arcu quis. Tellus
-            quam ultricies sodales at ac odio diam risus. Facilisis aliquet
-            tempus tristique donec integer pretium cursus mi a. Integer laoreet
-            commodo diam erat erat amet. Tellus congue sapien convallis maecenas
-            tortor auctor. Morbi tincidunt a libero interdum. Enim enim turpis
-            rutrum egestas malesuada turpis amet tempor potenti. Nulla tincidunt
-            sit amet at enim sit commodo condimentum curabitur. Nisl netus sed
-            arcu eros hendrerit ut. Dui lorem at ligula et diam pellentesque mi
-            maecenas. Aliquet congue nunc porta risus morbi et. Ac habitant
-            metus sem malesuada ac faucibus. Dapibus natoque mi sed ipsum
-            facilisis felis aliquet sit.{" "}
-          </p>
-        </div>
+        <Header />
       </div>
 
       <div>
@@ -157,7 +85,7 @@ const VetPartnerMobileA: React.FC = () => {
               </p>
             </div>
             <div>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
                 <div className="my-2 w-full ">
                   <label
                     htmlFor="name"
@@ -166,16 +94,18 @@ const VetPartnerMobileA: React.FC = () => {
                     Name
                   </label>
                   <input
+                    required
+                    autoFocus
                     type="text"
-                    {...register("name")}
+                    value={accountName}
+                    onChange={(e) => updateFields({ accountName: e.target.value })}
                     placeholder="Enter your name"
-                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.name ? " border-[1px] border-[#dd1313]" : ""
-                    }`}
+                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.name ? " border-[1px] border-[#dd1313]" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.name?.message}
+
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     This is the name of the person managing this account. This
@@ -192,16 +122,18 @@ const VetPartnerMobileA: React.FC = () => {
                     Business Name
                   </label>
                   <input
+                    required
                     type="text"
-                    {...register("businessName")}
+                    value={businessName}
+                    onChange={(e) => updateFields({ businessName: e.target.value })}
+                    // {...register("businessName")}
                     placeholder="Enter your business name"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.businessName ? " border-[#dd1313]" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessName ? " border-[#dd1313]" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.businessName?.message}
+                    {/* {errors.businessName?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     This is the name that will appear on porker hut! Please do
@@ -217,16 +149,19 @@ const VetPartnerMobileA: React.FC = () => {
                     Business Address
                   </label>
                   <input
+                    required
                     type="text"
-                    {...register("businessAddress")}
+                    // {...register("businessAddress")}
+                    value={businessAddress}
+                    onChange={(e) => updateFields({ businessAddress: e.target.value })}
+
                     placeholder="Enter business address"
-                    className={`  relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.businessAddress ? "border-[#dd1313]" : ""
-                    }`}
+                    className={`  relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessAddress ? "border-[#dd1313]" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.businessAddress?.message}
+
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     Please indicate the official address of the entity. If you
@@ -242,16 +177,19 @@ const VetPartnerMobileA: React.FC = () => {
                     Official Email Address
                   </label>
                   <input
+                    required
                     type="email"
-                    {...register("email")}
+                    // {...register("email")}
+                    value={email}
+                    onChange={(e) => updateFields({ email: e.target.value })}
+
                     placeholder="Enter email address"
-                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.email ? "border-[#dd1313]" : ""
-                    }`}
+                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.email ? "border-[#dd1313]" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.email?.message}
+                    {/* {errors.email?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     This is will be one of the means we can use to reach out to
@@ -267,16 +205,18 @@ const VetPartnerMobileA: React.FC = () => {
                     Phone Number
                   </label>
                   <input
+                    required
                     type="number"
-                    {...register("phone")}
+                    // {...register("phone")}
+                    value={phone}
+                    onChange={(e) => updateFields({ phone: e.target.value })}
                     placeholder="Enter your phone number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${
-                      errors.phone ? "border-[#dd1313] border" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${errors.phone ? "border-[#dd1313] border" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.phone?.message}
+                    {/* {errors.phone?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     When we need to contact you urgently, this is the number we
@@ -292,23 +232,38 @@ const VetPartnerMobileA: React.FC = () => {
                     Company Rc Number
                   </label>
                   <input
+                    required
                     type="number"
-                    {...register("companyRc")}
+                    // {...register("companyRc")}
+                    value={companyRcNumber}
+                    onChange={(e) => updateFields({ companyRcNumber: e.target.value })}
                     placeholder="Enter your rc number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
-                      errors.companyRc ? "border-[#dd1313]" : ""
-                    }`}
+                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.companyRc ? "border-[#dd1313]" : ""
+                      }`}
                   />
 
                   <div className="text-[#dd1313] text-sm">
-                    {errors.companyRc?.message}
+                    {/* {errors.companyRc?.message} */}
                   </div>
                   <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
                     We need your company registration number.
                   </span>
                   <p className="my-2 text-[red] text-xs"></p>
                 </div>
-              </form>
+              </div>
+
+
+              <div className="flex items-center justify-center mt-8 gap-4">
+                <button
+
+                  className={`h-3 w-3 rounded-full focus:outline-none bg-gray-300`}
+                ></button>
+
+                <button
+
+                  className={`h-3 w-3 rounded-full  focus:outline-none  bg-[#197b30]`}
+                ></button>
+              </div>
             </div>
           </div>
         </div>
@@ -317,4 +272,4 @@ const VetPartnerMobileA: React.FC = () => {
   );
 };
 
-export default VetPartnerMobileA;
+export default VetPartnerMobileFormA;
