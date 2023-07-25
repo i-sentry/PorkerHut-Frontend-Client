@@ -31,6 +31,9 @@ export const api = {
     allProducts: "/api/products/",
     createProducts: "/api/products",
   },
+  Vets: {
+    createVet: "/api/vets",
+  },
   Banks: {
     getBanks: "/api/pay/banks",
     resolveAcc: (

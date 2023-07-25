@@ -89,10 +89,7 @@ const VertPartnerFormMobile = () => {
             formData.append(key, value);
         }
         appendFilesToFormData("vetLicense", selecFiles, formData);
-
         appendFilesToFormData("additionalDocuments", seFiles, formData);
-
-
         next();
 
         console.log(formData, "FORMDATA");
@@ -119,14 +116,12 @@ const VertPartnerFormMobile = () => {
     return (
         <form onSubmit={onSubmit} className='pb-10'>
             {step}
-
             <div className="flex items-center justify-between px-9 mt-6 gap-10">
                 <button
                     type='button'
                     onClick={back}
                     className="bg-white text-[#197b30] border border-[#197] w-[132px] h-[48px] rounded text-[14px] leading-[24px] font-semibold"
-
-                >
+                    >
                     Back
                 </button>
                 <button
