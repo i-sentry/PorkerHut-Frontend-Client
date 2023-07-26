@@ -1,30 +1,41 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { ICategory, SkeletonLoader } from "../category-component/Category";
 
-export interface CategoryProps {
-  id: number;
-  title?: string;
-  src: string;
-  path: string;
+export interface CardProps {
+  item: ICategory;
 }
+export const cap = (arg?: string) => {
+  return arg
+    ?.toLowerCase()
+    .split(" ")
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 
-const Card = ({ item, data }: { item: any; data: any }) => {
-  console.log(data.length, "title");
+
+
+const Card: React.FC<CardProps> = ({ item }) => {
+  // console.log(item, "title");
+  if (!item) {
+    //Render the skeleton loader when item is not available
+    return <SkeletonLoader />;
+  }
+
   return (
     <NavLink
-      to={`/category?q=${item.title}`}
-      className={` ${
-        data.length > 3 ? "w-[380px]" : "w-[400px]"
-      }   h-[400px]  relative  overflow-hidden `}
+      to={`/category?q=${item?._id}`}
+      className="overflow-hidden relative"
     >
       <img
-        src={item.src}
+        src={item?.featuredImage}
         alt=""
         className="object-cover rounded-sm transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full opacity-95"
       />
-      {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div> */}
       <div className="absolute md:top-[44%] md:right-[40%] xxs:top-[44%] xxs:right-[32%]">
-        <span className="text-white font-medium text-2xl">{item.title}</span>
+        <span className="text-white font-medium text-[24px] leading-normal">
+          {cap(item?.name)}
+        </span>
       </div>
     </NavLink>
   );

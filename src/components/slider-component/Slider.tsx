@@ -61,6 +61,19 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     setSlideIndex(index);
   };
 
+  useEffect(() => {
+    const scaleInImage = () => {
+      const image = document.querySelector(".scale-in-image");
+      if (image) {
+        setTimeout(() => {
+          image.classList.add("scale-in");
+        }, 1000);
+      }
+    };
+
+    scaleInImage();
+  }, []);
+
   return (
     <div className="relative  ">
       <div className=" w-full xxs:h-[80vh] md:h-[90vh] overflow-hidden">
@@ -75,7 +88,9 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               <img
                 src={obj.src}
                 alt=""
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover ${
+                  slideIndex === index + 1 ? "scale-in" : ""
+                }`}
               />
             </div>
           );
@@ -91,7 +106,6 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           customClass="top-1/2 right-20 transform -translate-y-1/2"
         />
       </div>
-
 
       <div className=" absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
         {dataSlider.map((_, index) => (

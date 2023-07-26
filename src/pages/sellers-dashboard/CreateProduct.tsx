@@ -23,7 +23,7 @@ function CreateProduct() {
       )}&sub=${encodeURIComponent(subcategory)}`
     );
   };
-  const { data: catagories } = allCategories;
+  const { data: catagories, isLoading } = allCategories;
 
   const handleCategory = () => {
     setCategory(true);
@@ -44,7 +44,9 @@ function CreateProduct() {
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
-  // return <div>hekk</div>
+  if (isLoading === true) {
+    return <Loader />;
+  }
   return (
     <div className="xxs:px-0  md:px-0 bg-[#F4F4F4] rounded-[8px]">
       {catagories?.data.map((item: any, index: any) => {
@@ -93,3 +95,13 @@ function CreateProduct() {
 }
 
 export default CreateProduct;
+
+const Loader = () => (
+  <div className="overflow-hidden relative w-full">
+    <div className="skeleton-loader h-20"></div>
+    {/* <div className="header-loader"></div>
+    <div className="text-loader"></div>
+    <div className="text-loader"></div>
+    <div className="btn-loader"></div> */}
+  </div>
+);

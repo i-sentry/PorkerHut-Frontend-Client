@@ -22,6 +22,15 @@ export const useImageOverlay = create<IOverlay>((set) => ({
     set((state: any) => ({ selectedOrderId: id })),
 }));
 
+export const useSuccessOverlay = create<any>(
+  (set: (arg0: (state: any) => { showOverlay: boolean }) => any) => ({
+    showOverlay: false,
+
+    setShowOverlays: (shouldShow: boolean) =>
+      set((state: any) => ({ showOverlay: shouldShow })),
+  })
+);
+
 //edit category
 interface IModal {
   showModal: boolean;
