@@ -15,8 +15,6 @@ import { RiCloseLine } from "react-icons/ri";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import PorkerLogo from "../assets/images/PorkerLogo.svg";
-import VetPartnerMobileA from "./VetPartnerMobileFormA";
-import VetPartnerMobileFormA from "./VetPartnerMobileFormA";
 import VertPartnerFormMobile from "./VertPartnerFormMobile";
 
 
@@ -33,16 +31,6 @@ interface FileData {
   file: File;
 }
 
-const vendorType = [
-  {
-    id: 1,
-    name: "Individual",
-  },
-  {
-    id: 2,
-    name: "Business Entity",
-  },
-];
 
 type UserBillingInfo = {
   name: string;
@@ -80,7 +68,6 @@ const VetPartnerAccount = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  console.log(error);
 
   const formData = new FormData();
   const { setFiles, seFiles, selecFiles } = useContext(FileContext);
@@ -89,7 +76,7 @@ const VetPartnerAccount = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     field: string
   ) => {
-    console.log(event, "jio,");
+
     const selectedFiles = Array.from(event.target.files || []);
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
@@ -175,56 +162,59 @@ const VetPartnerAccount = () => {
     }
   };
 
-
-
   console.log({ errors });
   const onSubmit = (data: ExtendedUserBillingInfo) => {
     setIsLoading(true)
     const formData = new FormData();
     console.log("submit");
 
-    if (!seFiles || !selecFiles) return;
+    if (!selecFiles) {
+      setIsLoading(false)
+      alert("Please attached a document!")
+
+    } else {
+
+      formData.append("accountName", data.name);
+      formData.append("businessName", data.businessName);
+      formData.append("businessAddress", data.businessAddress);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("aboutYou", data.aboutYou);
+      formData.append("companyRcNumber", data.companyRc.toString());
+      formData.append("state", data.state);
+      formData.append("city", data.city);
+      formData.append("country", data.country);
+      formData.append("yearsOfOperation", data.yearOfOperation.toString());
+      formData.append("vetType", data.typeOfVet);
+      formData.append("checkbox", data.checkbox);
 
 
-    formData.append("accountName", data.name);
-    formData.append("businessName", data.businessName);
-    formData.append("businessAddress", data.businessAddress);
-    formData.append("email", data.email);
-    formData.append("phone", data.phone);
-    formData.append("aboutYou", data.aboutYou);
-    formData.append("companyRcNumber", data.companyRc.toString());
-    formData.append("state", data.state);
-    formData.append("city", data.city);
-    formData.append("country", data.country);
-    formData.append("yearsOfOperation", data.yearOfOperation.toString());
-    formData.append("vetType", data.typeOfVet);
-    formData.append("checkbox", data.checkbox);
+      appendFilesToFormData("vetLicense", selecFiles, formData);
+
+      appendFilesToFormData("additionalDocuments", seFiles, formData);
+
+      console.log(formData, "FORMDATA");
+
+      createVet.mutateAsync(formData)
+        .then((res) => {
+          setIsOpen(true);
+          setIsLoading(false)
+          navigate('/vet-success');
+        })
+        .catch((err) => {
+          const error = err.response?.data?.message || err.message;
+          setIsLoading(false)
+          // console.log(error);
+          if (error.includes("duplicate key error")) {
+            setError("Email already registered. Please use a different email.");
+          }
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        })
+
+    }
 
 
-    appendFilesToFormData("vetLicense", selecFiles, formData);
-
-    appendFilesToFormData("additionalDocuments", seFiles, formData);
-
-    console.log(formData, "FORMDATA");
-
-    createVet.mutateAsync(formData)
-      .then((res) => {
-        setIsOpen(true);
-        console.log({ res });
-        navigate('/vet-success');
-      })
-      .catch((err) => {
-        const error = err.response?.data?.message || err.message;
-        // console.log(error);
-        if (error.includes("duplicate key error")) {
-          setError("Email already registered. Please use a different email.");
-        }
-
-      })
-      .finally(() => {
-        setIsLoading(false);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+    ;
 
   };
 
@@ -234,6 +224,7 @@ const VetPartnerAccount = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
   }, []);
+
 
   return (
     <>
@@ -759,12 +750,13 @@ const VetPartnerAccount = () => {
                     </div>
 
                     <button
+
                       type="submit"
                       className={`text-[14px] leading-[24px] font-semibold bg-[#197B30] px-6 py-3 rounded text-[#FFFFFF] my-8 ml-auto flex justify-end ${loading ? 'opacity-50 pointer-events-none' : ''
                         }`}
                     >
                       {loading ? (
-                        <div className="flex items-center justify-end">
+                        <div className="flex items-center px-6 py-3 justify-end">
                           <ReactLoading type="spin" color="#FFFFFF" height={20} width={20} />
 
                         </div>
