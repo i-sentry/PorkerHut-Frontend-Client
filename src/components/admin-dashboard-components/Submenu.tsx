@@ -25,9 +25,9 @@ const SideBarLink = styled(NavLink)`
 const SideBarLabel = styled.span`
   margin-left: 18px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
-  line-height: 19px;
+  line-height: normal;
 `;
 
 const DropDownLink = styled(Link)`
@@ -53,7 +53,7 @@ const Submenu = ({ item }: { item: any }) => {
   const [subnav, setSubnav] = useState(false);
   const toggleSideBar = useSidebarState((state) => state.toggleSidebar);
 
-  const activeLink = `text-[#197B30] rounded-tl-lg rounded-bl-lg border-r-4 border-[#197B30] font-bold`;
+  const activeLink = `text-[#197B30] rounded-tl-lg rounded-bl-lg border-r-4 border-[#197B30] font-bold bg-[#e3f9e985]`;
 
   const showSubnav = () => setSubnav(!subnav);
 

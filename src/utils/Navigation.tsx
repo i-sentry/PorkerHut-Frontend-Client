@@ -25,6 +25,15 @@ import { GoTag } from "react-icons/go";
 import { AiOutlineSound } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
+import { BsBoxSeam } from "react-icons/bs";
+import { IoHomeOutline } from "react-icons/io5";
+import { ImBlog } from "react-icons/im";
+import { GiPig } from "react-icons/gi";
+import { BiHealth } from "react-icons/bi";
+import { TbMeat } from "react-icons/tb";
+import { RiHandHeartLine, RiContactsLine, RiBook3Line } from "react-icons/ri";
+
+
 export const vendorsSideBarLink = [
   {
     id: 0,
@@ -265,9 +274,70 @@ export const AdminSideBarLink = [
     icon: <MdOutlineMessage width={"20px"} height={"20px"} />,
   },
   {
-    id: 14,
+    id: 15,
     name: "Settings",
     url: "/admin/settings",
     icon: <IoSettingsOutline width={"20px"} height={"20px"} />,
+  },
+];
+
+export const MainSideBarLinks = [
+  {
+    id: 0,
+    name: "Home",
+    url: "/",
+    icon: <IoHomeOutline width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 1,
+    name: "Products",
+    icon: <BsBoxSeam width={"20px"} height={"20px"} />,
+    url: "/products",
+  },
+  {
+    id: 2,
+    name: "Services",
+    url: "",
+    icon: <RiHandHeartLine width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Agro Services",
+        url: "/services/agro-services",
+        icon: <GiPig width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Vet Services",
+        url: "services/vet-services",
+        icon: <BiHealth width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 2,
+        name: "Weekend Kill",
+        url: "/services/weekend-kills",
+        icon: <TbMeat width={"20px"} height={"20px"} />,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "About Us",
+    url: "/about-us",
+    icon: <RiBook3Line width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 4,
+    name: "Blog",
+    url: "/blog",
+    icon: <ImBlog width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 5,
+    name: "Contact",
+    url: "/contact-us",
+    icon: <RiContactsLine width={"20px"} height={"20px"} />,
   },
 ];

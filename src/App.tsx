@@ -78,9 +78,6 @@ import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
 import VendorLogin from "./components/auth-component/VendorLogin";
 import { ProductProvider } from "./context/ProductInfoContext";
 import VetPartnerCreationModal from "./components/modal-component/VetPartnerCreationModal";
-import VetPartnerMobileA from "./pages/VetPartnerMobileFormA";
-import VetPartnerMobileB from "./pages/VetPartnerMobileFormB";
-import VetPartnerMobileFormA from "./pages/VetPartnerMobileFormA";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -137,8 +134,6 @@ const router = createBrowserRouter(
         element={<VetPartnerAccount />}
       />
 
-    
-
       <Route
         path="/affiliate/logistics-partner-account"
         element={<LogisticsPartnerAccount />}
@@ -159,7 +154,7 @@ const router = createBrowserRouter(
         <Route path="/vendor" element={<SellersHome sliderImages={[]} />} />
         <Route path="/vendor/order" element={<SellersOrderPage />} />
         <Route path="/vendor/products" element={<SellersProductPage />} />
-       
+
         <Route path="/vendor/create-product" element={<StepperComponent />} />
         <Route path="/vendor/create" element={<ProductAccordion />} />
         <Route path="/vendor/account+statement" element={<SellersAccount />} />

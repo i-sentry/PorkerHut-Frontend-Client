@@ -38,6 +38,8 @@ import {
 } from "react-icons/md";
 import AuthContext from "../../context/AuthProvider";
 import { ISearch, useSearchStore } from "../../store/showSearch";
+import { useSidebarState } from "../../store/overlay";
+import MainSideNav from "./MainSideNav";
 
 const NavBar = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -50,8 +52,10 @@ const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
-  // const [showSearch, setShowSearch] = useState(false);
+  const showSideBar = useSidebarState((state) => state.sideBarOpen);
+  const toggleSidebar = useSidebarState((state) => state.toggleSidebar);
   const navigate = useNavigate();
+
   const showSearch = useSearchStore((state) => state.showSearch);
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
   const handleClickOutsideDropdown = (e: any) => {
@@ -97,10 +101,10 @@ const NavBar = () => {
         <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-4">
           <div className="flex gap-2">
             <button
-              onClick={() => setToggle(!toggle)}
+              onClick={() => toggleSidebar(!showSideBar)}
               className="text-3xl lg:hidden flex"
             >
-              {toggle ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
+              {showSideBar ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
             </button>
             <div
               onClick={() => navigate("/")}
@@ -175,7 +179,11 @@ const NavBar = () => {
             <>
               {user === null ? (
                 <>
-                  <NavButton className={loginBtn} text="Login" path="/login?q=customer" />
+                  <NavButton
+                    className={loginBtn}
+                    text="Login"
+                    path="/login?q=customer"
+                  />
                   <NavButton
                     className={signUpBtn}
                     text="Sign Up"
@@ -277,7 +285,10 @@ const NavBar = () => {
                   <Menu as="div" className="relative">
                     <Menu.Button className="flex items-center mt-2">
                       <IoMdHelpCircleOutline size={22} />
-                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold"> Help</p>
+                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
+                        {" "}
+                        Help
+                      </p>
                       <span className="rotate-180">
                         <RxCaretDown />
                       </span>
@@ -369,32 +380,8 @@ const NavBar = () => {
 
         {/* Mobile */}
         <div className="lg:hidden relative">
-          <ul
-            className={` fixed bg-[#F5F5F5] top-[75px] h-screen bottom-0 py-4 duration-500 px-2 overflow-auto ${
-              toggle ? "left-0 w-4/5" : "-left-full w-0"
-            }`}
-            style={{ overflowY: "auto" }}
-          >
-            <div className="flex items-center pl-5 my-7 gap-1">
-              <MdOutlinePerson size={24} color={"#197b30"} />
-              <span className="pl-1 text-[#333333] text-[18px] leading-[21px] font-normal whitespace-nowrap">
-                {/* @ts-ignore */}
-                Hi, {user?.firstName}
-              </span>
-            </div>
-            <NavLink setToggle={setToggle} />
-            {/* <HelpLink/> */}
-            <div className="flex flex-col lg:hidden gap-2 pr-4 px-5">
-              <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
-              <NavButton className={loginBtn} text="Login" path="/login" />
-            </div>
-          </ul>
-          {toggle && (
-            <div
-              className="fixed top-20 right-0 w-[20%] h-full bg-black opacity-50 z-50"
-              onClick={() => setToggle(false)}
-            />
-          )}
+          <MainSideNav/>
+
         </div>
       </nav>
     </div>

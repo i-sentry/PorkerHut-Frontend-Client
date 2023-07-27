@@ -77,6 +77,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   return (
     <div className="relative  ">
       <div className=" w-full xxs:h-[80vh] md:h-[90vh] overflow-hidden">
+
         {dataSlider.map((obj, index) => {
           return (
             <div
@@ -88,9 +89,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               <img
                 src={obj.src}
                 alt=""
-                className={`w-full h-full object-cover ${
-                  slideIndex === index + 1 ? "scale-in" : ""
-                }`}
+                className={`w-full h-full object-cover `}
               />
             </div>
           );

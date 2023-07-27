@@ -3,12 +3,23 @@ import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import { SearchBar } from "../slider-component/Slider";
 import { ISearch, useSearchStore } from "../../store/showSearch";
+import { useSidebarState } from "../../store/overlay";
 interface IAppLayoutProps {
   children: ReactNode;
 }
 const AppLayout = ({ children }: IAppLayoutProps) => {
   const showSearch = useSearchStore((state) => state.showSearch);
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
+  const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
+  const toggleSideBarOpen = useSidebarState((state) => state.toggleSidebar);
+
+  const toggleBodyScrolling = () => {
+    document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
+  };
+
+  React.useEffect(() => {
+    toggleBodyScrolling();
+  }, [sideBarOpen]);
   return (
     <div>
       <NavBar />
