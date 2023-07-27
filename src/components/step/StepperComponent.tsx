@@ -106,7 +106,7 @@ function StepperComponent() {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
-// return <SuccessScreen />;
+return <SuccessScreen />;
   return (
     <div className=" ">
       <div className="lg:flex md:hidden hidden items-center gap-2 py-5">
