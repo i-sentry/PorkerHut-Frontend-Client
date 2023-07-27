@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
 import { productData } from "../../utils/productData";
+import { useGetAllProducts } from "../../services/hooks/Vendor/products";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -81,6 +82,8 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const ProductCreated = () => {
+  const product = useGetAllProducts()
+  console.log({product});
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method

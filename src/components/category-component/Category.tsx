@@ -3,11 +3,29 @@ import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
 import MobileCard from "../category-card-component/MobileCard";
+import { useGetAllCategories } from "../../services/hooks/Vendor/category";
+
+export interface ICategory {
+  createdAt: string;
+  description: string;
+  featuredImage: string;
+  name: string;
+  subcategories: Subcategory[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
+interface Subcategory {
+  _id: string;
+  name: string;
+}
 
 const Category = () => {
   // @ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   console.log(menuItems, "kk");
+  const { data: allCategories, error, isLoading } = useGetAllCategories();
   const datas = [
     {
       id: 1,
@@ -53,6 +71,8 @@ const Category = () => {
     // },
   ];
 
+  console.log(allCategories?.data);
+
   for (let i = 0; i < datas.length; i++) {
     datas[i].title = menuItems[i];
   }
@@ -81,7 +101,7 @@ const Category = () => {
     <div className=" xxs:p-3 lg:p-0 ">
       <div>
         <div className="flex justify-center items-center ">
-          <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-[47px] text-[#333333]">
+          <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal text-[#333333]">
             Shop by Categories
           </h1>
         </div>
@@ -89,13 +109,19 @@ const Category = () => {
           <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className=" container mx-auto px-4 overflow-x-scroll">
-        <div className=" lg:flex gap-8 py-8 xxs:hidden md:flex">
-          {datas.map((item) => (
-            <Card key={item.id} item={item} data={ datas} />
-          ))}
+      <div className="  mx-auto  overflow-x-scroll">
+        <div className="lg:flex gap-10 p-14 xxs:hidden md:flex">
+          {isLoading
+            ? // Render skeleton loaders when loading
+            Array.from({ length: 3 }).map((_, index) => (
+                //@ts-ignore
+                <Card key={index} item={null} />
+              ))
+            : // Render cards when data is available
+              allCategories?.data.map((item: ICategory, index: number) => (
+                <Card key={index} item={item} />
+              ))}
         </div>
-
 
         {/* <div className="container mx-auto px-4 overflow-x-scroll">
           <div className="flex gap-8 py-8">
@@ -109,9 +135,9 @@ const Category = () => {
             ))}
           </div>
         </div> */}
-        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll xxs:mt-0 lg:mt-4 -z-50 sm:hidden ">
-          {datas.map((item) => (
-            <MobileCard {...item} />
+        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll py-10 lg:mt-4 -z-50 sm:hidden ">
+          {allCategories?.data.map((item: ICategory, index: number) => (
+            <MobileCard key={index} item={item} />
           ))}
         </div>
       </div>
@@ -121,23 +147,9 @@ const Category = () => {
 
 export default Category;
 
-interface CardData {
-  id: number;
-  src: string;
-  title: string;
-  path: string;
-}
-
-interface CardsSectionProps {
-  data: CardData[];
-}
-
-
-
-
-const CardsSection: React.FC<CardsSectionProps> = ({ data }) => {
+const CardsSection = () => {
   const cardContainerRef = useRef<HTMLDivElement>(null);
-
+  const { data: allCategories, error } = useGetAllCategories();
   const handleRightButtonClick = () => {
     if (cardContainerRef.current) {
       cardContainerRef.current.scrollBy({
@@ -159,8 +171,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({ data }) => {
   return (
     <div className="lg:flex gap-8 py-8 xxs:hidden relative">
       <div ref={cardContainerRef} className="flex">
-        {data.map((item: { id: React.Key | null | undefined; }) => (
-          <Card key={item.id} item={item} data={data} />
+        {allCategories?.data.map((item: ICategory, index: number) => (
+          <Card key={index} item={item} />
         ))}
       </div>
       <button
@@ -179,3 +191,11 @@ const CardsSection: React.FC<CardsSectionProps> = ({ data }) => {
   );
 };
 
+export const SkeletonLoader = () => {
+  return (
+    // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
+    <div className="overflow-hidden relative w-full">
+      <div className="skeleton-loader"></div>
+    </div>
+  );
+};

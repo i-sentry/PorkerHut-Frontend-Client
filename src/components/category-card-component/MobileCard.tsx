@@ -1,16 +1,17 @@
-import React from 'react'
-import { CategoryProps } from './Card';
-import { NavLink } from 'react-router-dom';
+import React from "react";
 
-const MobileCard = (items: any) => {
+import { NavLink } from "react-router-dom";
+import { CardProps, cap } from "./Card";
+
+const MobileCard: React.FC<CardProps> = ({ item }) => {
   return (
     <NavLink
-      to={`/category?q=${items?.title}`}
+      to={`/category?q=${item._id}`}
       className="flex flex-auto justify-between flex-col h-[264px] w-[65%] rounded-lg shadow-md xxs:flex-shrink-0 md:flex-shrink relative md:hidden"
     >
       <div className="relative h-[264px]">
         <img
-          src={items?.src}
+          src={item.featuredImage}
           alt=""
           className="object-cover w-full h-[264px]"
         />
@@ -18,7 +19,7 @@ const MobileCard = (items: any) => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
           <div className="flex flex-col items-center">
             <span className="text-white font-medium text-[20px] leading-[24px]">
-              {items?.title}
+              {cap(item.name)}
             </span>
             <span className="bg-[#fff] w-14 h-[1px]"></span>
             <p className="font-light text-[12px] leading-[14px] mt-1 text-[#fff]">
@@ -31,4 +32,4 @@ const MobileCard = (items: any) => {
   );
 };
 
-export default MobileCard
+export default MobileCard;

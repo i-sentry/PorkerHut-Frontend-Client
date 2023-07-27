@@ -19,17 +19,18 @@ export interface IBlog {
 
 const Blog = () => {
   const getAllBlogs = useGetAllBlogs();
+  const [data, setData] = useState<IBlog[]>([]);
+  const itemsPerPage = 3;
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
-  const [data, setData] = useState(getAllBlogs?.data?.data?.blogs);
-  console.log(data, "Blog");
+  useEffect(() => {
+    if (getAllBlogs?.data?.data?.blogs) {
+      setData(getAllBlogs.data.data.blogs);
+    }
+  }, [getAllBlogs]);
 
-  let itemsPerPage = 3;
-  let currentPage = 1;
-  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(
-    () => setData(getAllBlogs?.data?.data?.blogs),
-    [getAllBlogs?.data?.data?.blogs]
-  );
+  const isLoading = getAllBlogs.isLoading || data.length === 0;
+
   return (
     <section className="w-full  my-16">
       <div className="mb-16">
@@ -46,11 +47,20 @@ const Blog = () => {
       <>
         <div className="xxs:px-4 lg:px-16 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
           {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-            (blog: any, index: any) => {
+            (blog, index: number) => {
               return <BlogCard blog={blog} key={index} />;
             }
           )}
         </div>
+        {/* <div className="xxs:px-4 lg:px-16 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <BlogCard key={index} blog={null} />
+              ))
+            : chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+                (blog, index: number) => <BlogCard blog={blog} key={index} />
+              )}
+        </div> */}
       </>
 
       <Link

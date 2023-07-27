@@ -16,6 +16,8 @@ import {
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
 import { useGetOneCategory } from "../../services/hooks/Vendor/category";
+import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
+import { useSuccessOverlay } from "../../store/overlay";
 
 export const steps = [
   "Product Information",
@@ -31,7 +33,7 @@ function StepperComponent() {
   const category = queryParams.get("cate");
   const subcategory = queryParams.get("sub");
   const Tcategory = useGetOneCategory(category);
-
+ const showOverlay = useSuccessOverlay((state: { showOverlay: any; }) => state.showOverlay);
   const subCategory = () => {
     return Tcategory?.data?.data.subcategories?.filter(
       (cat: { _id: string | null }) => cat._id === subcategory
@@ -104,7 +106,7 @@ function StepperComponent() {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
-
+return <SuccessScreen />;
   return (
     <div className=" ">
       <div className="lg:flex md:hidden hidden items-center gap-2 py-5">
@@ -204,6 +206,7 @@ function StepperComponent() {
           steps={steps}
         />
       )} */}
+      {showOverlay && <SuccessScreen/>}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
+import SuccessScreen from "../pages/sellers-dashboard/SuccessScreen";
 
 const Layout = () => {
 
@@ -22,6 +23,7 @@ const Layout = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

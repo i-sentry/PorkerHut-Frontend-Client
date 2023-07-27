@@ -161,7 +161,82 @@
   transition: transform 0.3s ease-in-out;
 }
 
-/* 
-.cart-items {
-  padding-top: 200px; 
-} */
+.skeleton-loader {
+  width: 100%;
+  height: 350px; /* Adjust the height as needed */
+border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    rgba(253, 252, 252, 0.1) 0%,
+    rgba(245, 210, 210, 0.4) 50%,
+    rgba(188, 184, 184, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+.text-loader {
+  width: 100%;
+  height: 10px; /* Adjust the height as needed */
+border-radius: 4px;
+margin-top: 4px;
+  background: linear-gradient(
+    to right,
+    rgba(253, 252, 252, 0.1) 0%,
+    rgba(245, 210, 210, 0.4) 50%,
+    rgba(188, 184, 184, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+.header-loader {
+  width: 100%;
+  height: 20px; /* Adjust the height as needed */
+border-radius: 4px;
+margin-top: 4px;
+  background: linear-gradient(
+    to right,
+    rgba(253, 252, 252, 0.1) 0%,
+    rgba(245, 210, 210, 0.4) 50%,
+    rgba(188, 184, 184, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+.btn-loader {
+  width: 30%;
+  height: 50px; /* Adjust the height as needed */
+border-radius: 4px;
+margin-top: 4px;
+  background: linear-gradient(
+    to right,
+    rgba(253, 252, 252, 0.1) 0%,
+    rgba(245, 210, 210, 0.4) 50%,
+    rgba(188, 184, 184, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1s infinite linear;
+}
+
+
+
+
+.scale-in {
+  animation: scaleInAnimation 1s ease-in-out;
+}
+
+@keyframes scaleInAnimation {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: -100% 0%;
+  }
+}

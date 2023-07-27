@@ -11,7 +11,6 @@ const AdminLayout = () => {
   const showOverlay = useImageOverlay((state) => state.showOverlay);
   const showModal = useCategoryModal((state) => state.showModal);
 
-
   return (
     <div className="h-screen w-screen overflow-x-hidden">
       <div className="grid grid-rows-[auto_1fr] w-full h-full">
@@ -28,7 +27,7 @@ const AdminLayout = () => {
         </div>
       </div>
       {showOverlay && <ImageOverLay />}
-      {showModal && <CustomCatModal  />}
+      {showModal && <CustomCatModal />}
     </div>
   );
 };

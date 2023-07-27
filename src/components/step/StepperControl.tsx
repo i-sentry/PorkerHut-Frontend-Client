@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import { ProductImagesContext } from "../../context/ProductImagesContext";
 import { useLocation } from "react-router-dom";
 import { FileData } from "../../context/FileContext";
 import { useCreateProduct } from "../../services/hooks/Vendor/products";
 import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
+import { useSuccessOverlay } from "../../store/overlay";
+import ReactLoading from "react-loading";
 
 export default function StepperControl() {
   const location = useLocation();
@@ -12,7 +14,11 @@ export default function StepperControl() {
   const category: any = queryParams.get("cate");
   const subcategory: any = queryParams.get("sub");
   const createProduct = useCreateProduct();
+  const [loading, setIsLoading] = useState(false);
   const { data: questions } = useGetCategoryQuestion(category);
+  const setShowOverlay = useSuccessOverlay(
+    (state: { setShowOverlays: any }) => state.setShowOverlays
+  );
   const {
     checkoutSteps,
     currentStep,
@@ -44,6 +50,7 @@ export default function StepperControl() {
     e.preventDefault();
     handleClick("next");
     if (currentStep === checkoutSteps?.length) {
+      setIsLoading(true);
       console.log("ooooooo", "jjttttt");
       const data = new FormData();
       const productInformation = productData.productInformation ?? {};
@@ -148,9 +155,13 @@ export default function StepperControl() {
       createProduct
         .mutateAsync(data)
         .then((res) => {
+          setIsLoading(false);
+          setShowOverlay(true);
           console.log({ res });
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setIsLoading(false);
+        });
     }
   };
 
@@ -174,7 +185,13 @@ export default function StepperControl() {
         }}
         className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5  rounded text-button   shadow-lg  duration-100 ease-in-out"
       >
-        {currentStep === checkoutSteps?.length ? "Confirm" : "Continue"}
+        {loading ? (
+          <div className="flex items-center justify-end">
+            <ReactLoading type="spin" color="#FFFFFF" height={20} width={20} />
+          </div>
+        ) : (
+          <>{currentStep === checkoutSteps?.length ? "Confirm" : "Continue"}</>
+        )}
       </button>
     </div>
   );
