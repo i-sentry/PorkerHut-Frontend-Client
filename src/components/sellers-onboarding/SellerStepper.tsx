@@ -19,8 +19,7 @@ const SellerStepper = ({
 }) => {
   const [newStep, setNewStep] = useState<Step[]>([]);
   const stepRef = useRef<Step[]>([]);
-  console.log(typeof checkoutSteps);
-  console.log(checkoutSteps, "kkkkii");
+
 
   const updateStep = (stepNumber: number, checkoutSteps: any) => {
     const newSteps = [...checkoutSteps];

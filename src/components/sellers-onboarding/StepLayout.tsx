@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SellerStepper from "./SellerStepper";
-import {
-  SellersStepsContext,
-
-} from "../../context/SellersStepsContext";
+import { SellersStepsContext } from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
 import Footer from "../footer-component/Footer";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -12,7 +9,8 @@ import SellersAccountInfo from "./SellersAccountInfo";
 import BusinessInfo from "./BusinessInfo";
 import BankAccountInfo from "./BankAccountInfo";
 import SummaryInfo from "./SummaryInfo";
-
+import { useSignUpState } from "../../store/overlay";
+import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
 
 export const sellersStep = [
   "Seller Account",
@@ -24,92 +22,101 @@ export const sellersStep = [
 const StepLayout = () => {
   const { state: userData, setState: setUserData } = useAppState();
   const [finalData, setFinalData] = useState([]);
-    const [currentStep, setCurrentStep] = useState(1);
-    const checkoutSteps = sellersStep;
+  const [currentStep, setCurrentStep] = useState(1);
+  const checkoutSteps = sellersStep;
   const numSteps = 4;
+  const isOpen = useSignUpState((state) => state.isOpen);
   const [progress, setProgress] = useState(25);
 
-    const displayStep = (sellersStep: any) => {
-      switch (sellersStep) {
-        case 1:
-          return <SellersAccountInfo />;
-        case 2:
-          return <BusinessInfo />;
-        case 3:
-          return <BankAccountInfo />;
-        case 4:
-          return <SummaryInfo />;
-        default:
-      }
-    };
+  const displayStep = (sellersStep: any) => {
+    switch (sellersStep) {
+      case 1:
+        return <SellersAccountInfo />;
+      case 2:
+        return <BusinessInfo />;
+      case 3:
+        return <BankAccountInfo />;
+      case 4:
+        return <SummaryInfo />;
+      default:
+    }
+  };
 
-    const handleClick = (direction: string) => {
-      let newStep = currentStep;
+  const handleClick = (direction: string) => {
+    let newStep = currentStep;
 
-      direction === "next" ? newStep++ : newStep--;
-      newStep > 0 &&
-        newStep <= checkoutSteps?.length &&
-        setCurrentStep(newStep);
-    };
+    direction === "next" ? newStep++ : newStep--;
+    newStep > 0 && newStep <= checkoutSteps?.length && setCurrentStep(newStep);
+  };
 
   useEffect(() => {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
 
-    function isFormFilled() {
-      return console.log(
-        Object.values(userData).every((value) => value !== ""),
-        "filled?"
-      );
-    }
+  function isFormFilled() {
+    return console.log(
+      Object.values(userData).every((value) => value !== ""),
+      "filled?"
+    );
+  }
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     const { name, value } = e.target;
-     console.log(name, value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value);
 
-     // Split the name into nested properties
-     const [section, field] = name.split(".");
+    // Split the name into nested properties
+    const [section, field] = name.split(".");
 
-     // Update the userData state
-     setUserData((prevUserData: ISellerInfo) => ({
-       ...prevUserData,
-       [section]: {
-         ...prevUserData[section],
-         [field]: value,
-       },
-     }));
-     isFormFilled();
-   };
+    // Update the userData state
+    setUserData((prevUserData: ISellerInfo) => ({
+      ...prevUserData,
+      [section]: {
+        ...prevUserData[section],
+        [field]: value,
+      },
+    }));
+    isFormFilled();
+  };
 
-    const handleGetFiles = (files: File[], fieldName: string) => {
-      if (files.length > 0) {
-        const file = files[0];
-        const formData = new FormData();
-        formData.append(fieldName, file);
-        //@ts-ignore
-        setUserData((prevUserData: ISellerInfo) => ({
-          ...prevUserData,
-          businessInformation: {
-            ...prevUserData.businessInformation,
-            [fieldName]: formData,
-          },
-        }));
-
-        console.log("File name:", file.name);
-        console.log("File data:", file);
-      }
-    };
-
-    const updateUserData = (property: string, value: string) => {
+  const handleGetFiles = (files: File[], fieldName: string) => {
+    if (files.length > 0) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append(fieldName, file);
+      //@ts-ignore
       setUserData((prevUserData: ISellerInfo) => ({
         ...prevUserData,
         businessInformation: {
           ...prevUserData.businessInformation,
-          [property]: value || "",
+          [fieldName]: formData,
         },
       }));
-    };
+
+      console.log("File name:", file.name);
+      console.log("File data:", file);
+    }
+  };
+
+  const updateUserData = (property: string, value: string) => {
+    setUserData((prevUserData: ISellerInfo) => ({
+      ...prevUserData,
+      businessInformation: {
+        ...prevUserData.businessInformation,
+        [property]: value || "",
+      },
+    }));
+  };
+
+  if (isOpen) {
+    return (
+      <SuccessScreen
+        title={"Account Created Successfully"}
+        msg={"Please Proceed to login to access your dashboard"}
+        url={"/login"}
+      />
+    );
+  }
 
   return (
     <>
@@ -206,6 +213,3 @@ const StepLayout = () => {
 };
 
 export default StepLayout;
-
-
-

@@ -33,7 +33,9 @@ function StepperComponent() {
   const category = queryParams.get("cate");
   const subcategory = queryParams.get("sub");
   const Tcategory = useGetOneCategory(category);
- const showOverlay = useSuccessOverlay((state: { showOverlay: any; }) => state.showOverlay);
+  const showOverlay = useSuccessOverlay(
+    (state: { showOverlay: any }) => state.showOverlay
+  );
   const subCategory = () => {
     return Tcategory?.data?.data.subcategories?.filter(
       (cat: { _id: string | null }) => cat._id === subcategory
@@ -106,7 +108,16 @@ function StepperComponent() {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
-return <SuccessScreen />;
+
+  if (showOverlay) {
+    return (
+      <SuccessScreen
+        title={"Product created successfully"}
+        msg={"We’re on it! Please be patient for Poker Hut Approval."}
+        url={"/vendor/create"}
+      />
+    );
+  }
   return (
     <div className=" ">
       <div className="lg:flex md:hidden hidden items-center gap-2 py-5">
@@ -206,7 +217,7 @@ return <SuccessScreen />;
           steps={steps}
         />
       )} */}
-      {showOverlay && <SuccessScreen/>}
+      {showOverlay && <SuccessScreen title={""} msg={""} url={""} />}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
 } from "../../context/SellersStepsContext";
 import { FileContext, FileData } from "../../context/FileContext";
 import { useSignUpState } from "../../store/overlay";
+import ReactLoading from "react-loading";
 
 export interface IFormFiles {
   selectedFile: any;
@@ -24,20 +25,11 @@ const StepperController: React.FC<fileProps> = ({
     useContext(SellersStepsContext);
   const onboardVendor = useVendorSignUp();
   const { selectedFiles, selecFiles, seFiles } = useContext(FileContext);
+    const [loading, setIsLoading] = useState(false);
    const isOpen = useSignUpState((state) => state.isOpen);
   const setIsOpen = useSignUpState((state) => state.setIsOpen);
-  // const { seFile, selecFile, selectedFile } = formFiles;
-  // const submitDetails = () => {
-  //   handleClick("next");
-  //   if (currentStep === checkoutSteps?.length) {
-  //     onboardVendor
-  //       .mutateAsync(userData)
-  //       .then((res) => {
-  //         console.log(res)
-  //       })
-  //       .catch((err) => {});
-  //   }
-  // };
+
+
 
 
 
@@ -61,6 +53,9 @@ const StepperController: React.FC<fileProps> = ({
     handleClick("next");
     if (!selectedFiles || !selecFiles || !seFiles) return;
     if (currentStep === checkoutSteps?.length) {
+
+ setIsLoading(true);
+
       const data = new FormData();
 
       data.append(
@@ -155,11 +150,11 @@ const StepperController: React.FC<fileProps> = ({
         //@ts-ignore
         .mutateAsync(data)
         .then((res) => {
-          console.log(res);
+    setIsLoading(false);
              setIsOpen(!isOpen);
         })
         .catch((err) => {
-          // Handle error
+     setIsLoading(false);
         });
     }
   };
@@ -184,7 +179,13 @@ const StepperController: React.FC<fileProps> = ({
         onClick={submitDetails}
         className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5 disabled:bg-[#197b30ac] rounded text-button   shadow-lg hover:opacity-50 duration-100 ease-in-out"
       >
-        {currentStep === checkoutSteps?.length ? "Get Started" : "Next"}
+        {loading ? (
+          <div className="flex items-center justify-end">
+            <ReactLoading type="spin" color="#FFFFFF" height={20} width={20} />
+          </div>
+        ) : (
+          <>{currentStep === checkoutSteps?.length ? "Get Started" : "Next"}</>
+        )}
       </button>
     </div>
   );
