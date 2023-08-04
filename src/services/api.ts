@@ -30,6 +30,7 @@ export const api = {
   Products: {
     allProducts: "/api/products/",
     createProducts: "/api/products",
+    getSingleProduct: (id: string | undefined) =>  `/api/products/${id}`
   },
   Vets: {
     createVet: "/api/vets",

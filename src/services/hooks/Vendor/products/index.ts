@@ -15,3 +15,10 @@ export const useGetAllProducts = () => {
     queryKey: ["allProducts"],
   });
 };
+
+export const useGetSingleProduct = (id: string | undefined) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.getSingleProduct(id)),
+    queryKey: ["product +"],
+  });
+};
