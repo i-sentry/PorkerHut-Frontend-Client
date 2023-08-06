@@ -268,7 +268,7 @@ const AdminTable = ({
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className=" text-[16px] leading-[19px] font-normal text-[#202223] py-4 px-4 border-r"
+                                  className="font-light text-sm  leading-[19px]  text-[#202223] py-4 text-center px-4 whitespace-nowrap border-r"
                                 >
                                   {cell.render("Cell")}
                                 </td>

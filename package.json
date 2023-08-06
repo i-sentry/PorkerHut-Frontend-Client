@@ -28,6 +28,7 @@
     "axios": "^1.2.2",
     "button-ripple-react": "^1.0.8",
     "chart.js": "^3.9.1",
+    "date-fns": "^2.30.0",
     "faker": "^6.6.6",
     "framer-motion": "^10.12.2",
     "js-cookie": "^3.0.1",
