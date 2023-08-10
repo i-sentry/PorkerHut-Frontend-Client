@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import { ProductImagesContext } from "../../context/ProductImagesContext";
 import { useLocation } from "react-router-dom";
@@ -7,6 +7,17 @@ import { useCreateProduct } from "../../services/hooks/Vendor/products";
 import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import { useSuccessOverlay } from "../../store/overlay";
 import ReactLoading from "react-loading";
+interface VendorData {
+  token: string;
+  vendor: {
+    email: string;
+    entityType: string;
+    id: string;
+    phoneNumber: string;
+    shopName: string;
+    storeStatus: string;
+  };
+}
 
 export default function StepperControl() {
   const location = useLocation();
@@ -32,7 +43,7 @@ export default function StepperControl() {
   console.log(checkoutSteps?.length);
   console.log(currentStep, "currentStep");
   console.log(productData, "productData");
-  // const { } = questions;
+
   const appendFilesToFormData = (
     fieldName: string,
     formData: FormData,
@@ -45,13 +56,25 @@ export default function StepperControl() {
       }
     }
   };
+  const [vendorData, setVendorData] = useState<VendorData | null>(null);
 
+  useEffect(() => {
+    // Retrieve the data from localStorage
+    const storedData = localStorage.getItem("vendor");
+
+    // If there's data in localStorage, parse it and set the state
+    if (storedData) {
+      const parsedData: VendorData = JSON.parse(storedData);
+      setVendorData(parsedData);
+    }
+  }, []);
+  console.log(vendorData, "hj");
   const initiateCreateProduct = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     handleClick("next");
     if (currentStep === checkoutSteps?.length) {
       setIsLoading(true);
-      console.log("ooooooo", "jjttttt");
+      // console.log("ooooooo", "jjttttt");
       const data = new FormData();
       const productInformation = productData.productInformation ?? {};
       const productDetails = productData.productDetails ?? {};
@@ -62,15 +85,15 @@ export default function StepperControl() {
         productInformation.typeOfMeat ||
         productInformation.typeOfProducts;
 
-      console.log(productInformation.mainColor, "productInformation.mainColor");
-      console.log(
-        productInformation.typeOfMeat,
-        "   productInformation.typeOfMeat"
-      );
-      console.log(
-        productInformation.typeOfProducts,
-        "productInformation.typeOfProducts"
-      );
+      // console.log(productInformation.mainColor, "productInformation.mainColor");
+      // console.log(
+      //   productInformation.typeOfMeat,
+      //   "   productInformation.typeOfMeat"
+      // );
+      // console.log(
+      //   productInformation.typeOfProducts,
+      //   "productInformation.typeOfProducts"
+      // );
       const answer =
         productInformation.productBrand !== ""
           ? productInformation.productBrand
@@ -99,6 +122,7 @@ export default function StepperControl() {
         "details[productWeight]",
         productDetails.productWeight?.toString() ?? ""
       );
+
       data.append(
         "details[productContent]",
         productDetails.productContent ?? ""
@@ -142,6 +166,7 @@ export default function StepperControl() {
         "pricing[quantity]",
         pricing.productQuantity?.toString() ?? ""
       );
+      data.append("vendorId", vendorData?.vendor.id.toString() ?? "");
 
       appendFilesToFormData("productImages", data, img1);
       appendFilesToFormData("productImages", data, img2);
