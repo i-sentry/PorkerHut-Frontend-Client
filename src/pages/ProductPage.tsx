@@ -13,7 +13,7 @@ import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
-import { GoSettings } from "react-icons/go";
+import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
 
 interface iProps {
@@ -45,8 +45,6 @@ interface Product {
 }
 
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
-  
-
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [data, setData] = useState(productData);
   let itemsPerPage = 20;
@@ -56,7 +54,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems });
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -137,7 +134,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       <Sort data={data} setData={setData} />
                     </span>
                     <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
-                      <GoSettings
+                      <FiSettings
                         className="rotate-90 "
                         size={22}
                         onClick={() => setOpenModal(true)}

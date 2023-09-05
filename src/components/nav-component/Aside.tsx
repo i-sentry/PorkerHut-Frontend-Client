@@ -6,7 +6,7 @@ import NavButton from "./NavButton";
 import { MdOutlinePerson } from "react-icons/md";
 
 const Aside = () => {
-  const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
+    const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
   return (
     <div
       className={`lg:flex fixed lg:relative md:top-16 lg:top-0 left-0 z-40 bg-[#EEEEEE] lg:bg-white  w-[284px] border-r   h-screen flex-col  pt-20 transition-all duration-500 overflow-y-hidden ${
@@ -28,10 +28,10 @@ const Aside = () => {
           </>
         );
       })}
-      <div className="flex flex-col lg:hidden gap-3 pr-4 px-5 mt-4">
-        <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
-        <NavButton className={loginBtn} text="Login" path="/login" />
-      </div>
+<div className="flex flex-col lg:hidden gap-3 pr-4 px-5 mt-4">
+  <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
+  <NavButton className={loginBtn} text="Login" path="/login" />
+</div>
     </div>
   );
 };
