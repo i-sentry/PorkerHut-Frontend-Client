@@ -22,16 +22,17 @@ import {
 import { FaPaw, FaShuttleVan } from "react-icons/fa";
 import { CgLoadbarDoc } from "react-icons/cg";
 import { GoTag } from "react-icons/go";
-import { AiOutlineSound } from "react-icons/ai";
+import { AiOutlineSound, AiOutlineQuestionCircle } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { BsBoxSeam } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { ImBlog } from "react-icons/im";
-import { GiPig } from "react-icons/gi";
-import { BiHealth } from "react-icons/bi";
-import { TbMeat } from "react-icons/tb";
+// import { GiPig } from "react-icons/gi";
+// import { BiHealth } from "react-icons/bi";
+// import { TbMeat } from "react-icons/tb";
 import { RiHandHeartLine, RiContactsLine, RiBook3Line } from "react-icons/ri";
+
 
 
 export const vendorsSideBarLink = [
@@ -306,19 +307,16 @@ export const MainSideBarLinks = [
         id: 0,
         name: "Agro Services",
         url: "/services/agro-services",
-        icon: <GiPig width={"20px"} height={"20px"} />,
       },
       {
         id: 1,
         name: "Vet Services",
         url: "services/vet-services",
-        icon: <BiHealth width={"20px"} height={"20px"} />,
       },
       {
         id: 2,
         name: "Weekend Kill",
         url: "/services/weekend-kills",
-        icon: <TbMeat width={"20px"} height={"20px"} />,
       },
     ],
   },
@@ -339,5 +337,35 @@ export const MainSideBarLinks = [
     name: "Contact",
     url: "/contact-us",
     icon: <RiContactsLine width={"20px"} height={"20px"} />,
+  },
+  {
+    id: 6,
+    name: "Help",
+    url: "",
+    icon: <AiOutlineQuestionCircle width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Help Center",
+        url: "/contact-us",
+      },
+      {
+        id: 1,
+        name: "Tracking Orders",
+        url: "/tracking+order",
+      },
+      {
+        id: 2,
+        name: "Return Order",
+        url: "/return+order",
+      },
+      {
+        id: 3,
+        name: "Order Concellation",
+        url: "/order+cancel",
+      },
+    ],
   },
 ];

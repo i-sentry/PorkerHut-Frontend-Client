@@ -14,7 +14,8 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { GoSettings } from "react-icons/go";
+import { FiSettings } from "react-icons/fi";
+// import { GoSettings } from "react-icons/go";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -163,7 +164,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     <Sort data={data} setData={setData} />
                   </span>
                   <div className="md:hidden flex justify-center items-end gap-2 px-2">
-                    <GoSettings
+                    <FiSettings
                       className="rotate-90 "
                       size={22}
                       onClick={() => setOpenModal(true)}
