@@ -197,7 +197,7 @@ const NavBar = () => {
                       <HiOutlineUserCircle size={22} />
                       <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
                         {/* @ts-ignore */}
-                        Hi, {user?.firstName}
+                        Hi, {user?.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : ''}
                       </p>
                       <span className="rotate-180">
                         <RxCaretDown />
