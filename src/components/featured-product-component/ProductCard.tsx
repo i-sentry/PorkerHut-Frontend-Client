@@ -31,7 +31,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
         <img
           onClick={handleCardClick}
-          src={item?.img}
+          src={item?.images?.[0] || `https://via.placeholder.com/350x150`}
           alt=""
           className="w-full h-full object-cover hover:cursor-pointer rounded-sm"
         />
@@ -48,13 +48,13 @@ const ProductCard = ({ item }: ProductLocationState) => {
       <div className="z-10 bg-white xxs:px-2 lg:px-0">
         <div className="lg:flex items-center justify-between py-1 xxs:hidden">
           <NavLink
-            to={`/store-page/${item.title}`}
+            to={`/store-page/${item?._id}`}
             className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
           >
-            {item?.title}
+            {item?.vendor?.sellerAccountInformation?.shopName}
           </NavLink>
           <span className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
-            {item?.product?.location}
+            {item?.vendor?.businessInformation?.city}
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
@@ -62,20 +62,21 @@ const ProductCard = ({ item }: ProductLocationState) => {
             onClick={handleCardClick}
             className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer lg:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
           >
-            {item?.product?.productName}
+            {item?.information?.productName}
           </h1>
           <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
-            {item?.product?.weight}
+            {item?.details?.productWeight}g
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.price}
+          ₦{item?.pricing?.productPrice}
         </span>
+        
         <NavLink
-          to={`/store-page/${item.title}`}
+          to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
         >
-          {item?.title}
+          {item?.vendor?.sellerAccountInformation?.shopName}
         </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget
@@ -83,7 +84,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
             defaultValue={3}
           />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
-            ₦{item?.price}
+            ₦{item?.pricing?.productPrice}
           </span>
         </div>
       </div>

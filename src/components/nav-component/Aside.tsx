@@ -65,7 +65,7 @@ const Aside = () => {
           <div className="flex items-center pl-5 my-7 gap-2">
             <MdOutlinePerson size={24} color={"#197b30"} />
             <span className="pl-1 text-[#333333] text-[18px] leading-[21px] font-normal whitespace-nowrap">
-              Hi, {user?.firstName}
+              Hi, {user?.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : ''}
             </span>
             {isOpen ? (
               <BiChevronUp
@@ -93,7 +93,7 @@ const Aside = () => {
               leaveTo="transform opacity-0 scale-95"
               show={isOpen}
             >
-              <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="origin-top-right z-10 absolute right-4 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
                   {({ active }) => (
                     <div
