@@ -189,7 +189,7 @@ const NavBar = () => {
                     text="Sign Up"
                     path="/sign-up"
                   />
-                </>
+                </> 
               ) : (
                 <>
                   <Menu as="div" className="relative">

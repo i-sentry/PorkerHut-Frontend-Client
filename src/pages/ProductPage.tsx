@@ -55,6 +55,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems });
 
+  const {data:getAllProducts} = useGetAllProducts()
+  console.log(getAllProducts)
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -148,12 +151,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </div>
                   </div>
                 </div>
-
-                {data?.length ? (
+                {getAllProducts?.data?.length ? (
                   <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
-                    {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+                    {chunkArray(getAllProducts?.data, itemsPerPage)[currentPageIndex - 1]?.map(
                       (Tdata, index) => {
-                        return <ProductCard item={Tdata} key={Tdata.id} />;
+                        return <ProductCard item={Tdata} key={index} />;
                       }
                     )}
                   </div>
