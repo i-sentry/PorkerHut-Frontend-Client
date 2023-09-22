@@ -14,6 +14,7 @@ import { chunkArray } from "../../helper/chunck";
 import AppLayout from "../../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
 import ProductFilter from "./ProductFilter";
+import { SkeletonLoader } from "../../components/category-component/Category";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -126,7 +127,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                   )}
                 </div>
               ) : (
-                <div>Fetching Data...</div>
+                <SkeletonLoader />
               )}
 
               <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">

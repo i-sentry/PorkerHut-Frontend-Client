@@ -15,6 +15,9 @@ import AppLayout from "../components/utility/AppLayout";
 import { useParams } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
+import { Card } from "@material-tailwind/react";
+import { SkeletonLoader } from "../components/category-component/Category";
+import Spinner from "../components/Spinner/Spinner";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -55,8 +58,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   useEffect(() => setData(productData), [productData]);
   console.log({ menuItems });
 
-  const {data:getAllProducts} = useGetAllProducts()
-  console.log(getAllProducts)
+  const { data: getAllProducts } = useGetAllProducts();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,14 +120,20 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     <h1 className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
                       All Products
                     </h1>
-                    <div>
-                      <p className="text-sm text-[#A2A2A2] ">
-                        Showing{" "}
-                        <span className="font-medium">{currentPageIndex}</span>{" "}
-                        - <span className="font-medium">{itemsPerPage}</span> of{" "}
-                        <span className="font-medium">{data?.length}</span>{" "}
-                        results
-                      </p>
+                    <div className="flex items-center gap-3 border">
+                      {getAllProducts?.data?.length ? (
+                        <p className="text-sm text-[#A2A2A2] ">
+                          Showing{" "}
+                          <span className="font-medium">
+                            {currentPageIndex}
+                          </span>{" "}
+                          - <span className="font-medium">{itemsPerPage}</span>{" "}
+                          of <span className="font-medium">{data?.length}</span>{" "}
+                          results
+                        </p>
+                      ) : (
+                        <Spinner />
+                      )}
                     </div>
                   </div>
 
@@ -153,14 +161,18 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                 </div>
                 {getAllProducts?.data?.length ? (
                   <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
-                    {chunkArray(getAllProducts?.data, itemsPerPage)[currentPageIndex - 1]?.map(
-                      (Tdata, index) => {
-                        return <ProductCard item={Tdata} key={index} />;
-                      }
-                    )}
+                    {chunkArray(getAllProducts?.data, itemsPerPage)[
+                      currentPageIndex - 1
+                    ]?.map((Tdata, index) => {
+                      return <ProductCard item={Tdata} key={index} />;
+                    })}
                   </div>
                 ) : (
-                  <div>Fetching Data...</div>
+                  <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-4 xxs:px-4 ">
+                    {Array.from({ length: 12 }).map((_, index) => (
+                      <SkeletonLoader />
+                    ))}
+                  </div>
                 )}
 
                 <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
