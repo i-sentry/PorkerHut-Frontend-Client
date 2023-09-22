@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
 import { useParams } from "react-router-dom";
+import noImage from "../../assets/no-image.png"
 
 interface ProductLocationState {
   item: any;
@@ -25,15 +26,16 @@ const ProductCard = ({ item }: ProductLocationState) => {
     navigate(`/product/${item?.id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  
 
   return (
     <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
         <img
           onClick={handleCardClick}
-          src={item?.images?.[0] || `https://via.placeholder.com/350x150`}
+          src={item?.images?.[0] || noImage}
           alt=""
-          className="w-full h-full object-cover hover:cursor-pointer rounded-sm"
+          className="w-full h-full object-contain hover:cursor-pointer rounded-sm"
         />
 
         <div
@@ -62,21 +64,21 @@ const ProductCard = ({ item }: ProductLocationState) => {
             onClick={handleCardClick}
             className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer lg:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
           >
-            {item?.information?.productName}
+            {item?.information?.productName ||  "100% Healthy Pork Lap"}
           </h1>
           <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
             {item?.details?.productWeight}g
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.pricing?.productPrice}
+          ₦{item?.pricing?.productPrice }
         </span>
         
         <NavLink
           to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
         >
-          {item?.vendor?.sellerAccountInformation?.shopName}
+          {item?.vendor?.sellerAccountInformation?.shopName }
         </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget
