@@ -30,7 +30,9 @@ const CartPage = () => {
   const cart = useSelector((state: RootState) => state.product.cart);
   const [showModal, setShowModal] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-
+  const totalQuantity = useSelector(
+    (state: RootState) => state.product.totalQuantity
+  );
   const isMobileScreen = useMediaQuery("(max-width: 639px)");
 
   const handleNavigate = () => {
@@ -47,18 +49,18 @@ const CartPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
   }, []);
 
- React.useEffect(() => {
-   const handleScroll = () => {
-     const scrollY = window.scrollY;
-     const threshold = window.innerHeight * 0.2;
-     setIsScrolling(scrollY > threshold);
-   };
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const threshold = window.innerHeight * 0.2;
+      setIsScrolling(scrollY > threshold);
+    };
 
-   window.addEventListener("scroll", handleScroll);
-   return () => {
-     window.removeEventListener("scroll", handleScroll);
-   };
- }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <AppLayout>
@@ -89,7 +91,7 @@ const CartPage = () => {
                 <div className="header-text">
                   <div className=" xxs:flex xxs:items-center xxs:mb-3 md:mb-0">
                     <h1 className="md:p-8  xxs:p-4 text-2xl font-semibold text-[#333333]">
-                      Cart({Object.values(cart).length})
+                      Cart({Object.values(cart).length}) Cart({totalQuantity})
                     </h1>
 
                     <div className="md:hidden">

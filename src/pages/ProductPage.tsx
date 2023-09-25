@@ -18,6 +18,8 @@ import { useGetAllProducts } from "../services/hooks/users/products";
 import { Card } from "@material-tailwind/react";
 import { SkeletonLoader } from "../components/category-component/Category";
 import Spinner from "../components/Spinner/Spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -59,6 +61,18 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   console.log({ menuItems });
 
   const { data: getAllProducts } = useGetAllProducts();
+  const handleShowSuccessToast = () => {
+    toast.success("this is a a toast", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -117,7 +131,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               <div className="lg:w-3/4 bg-white xxs:w-full">
                 <div className="flex items-center justify-between  pl-3">
                   <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
-                    <h1 className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
+                    <h1
+                      onClick={handleShowSuccessToast}
+                      className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 "
+                    >
                       All Products
                     </h1>
                     <div className="flex items-center gap-3 border">

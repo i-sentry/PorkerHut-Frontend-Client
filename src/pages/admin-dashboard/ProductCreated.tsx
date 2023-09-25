@@ -1,159 +1,236 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
 import { useGetAllProducts } from "../../services/hooks/Vendor/products";
-import { format } from "date-fns"
-import productAvatar from "../../assets/products/liver.png"
-
-type RowProps = {
-  productName: string;
-  images: [],
-  category: string;
-  location: string;
-  price: number;
-  status: boolean;
-  title: string;
-  weight: number;
-}
-
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
-    case "approved":
-      return <span className="text-[#22C55E]">Approved</span>;
-
-    case "rejected":
-      return <span className=" text-[#F91919]">Rejected</span>;
-    case "pending":
-      return <span className=" text-[#F29339]">Pending</span>;
-    default:
-      return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
-      );
-  }
-};
+import moment from "moment";
+import { capitalizeFirstLetter } from "./ProductDetail";
 
 const ProductNameColumn = ({ d }: any) => {
-  const { productName, images } = d;
+  const { information } = d;
 
   return (
     <div className="flex items-center gap-2">
-      {images && images.length ? (
-        <figure className="h-9 w-9 rounded-full border">
-          <img
-            src={images[0]}
-            alt="product"
-            className="rounded-full object-cover w-full h-full"
-          />
-        </figure>
-      ) : (
-        <figure className="h-9 w-9 rounded-full border">
-          <img
-            src={productAvatar}
-            alt="avatar"
-            className="rounded-full object-cover w-full h-full"
-          />
-        </figure>
-      )}
-      <span className="font-light text-sm whitespace-nowrap text-[#333333]">
-        {productName}
+      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {information?.productName}
+      </span>
+    </div>
+  );
+};
+const StoreNameColumn = ({ d }: any) => {
+  const { vendor } = d;
+  const storeName = vendor?.sellerAccountInformation?.shopName;
+  return (
+    <div className="flex items-center gap-2">
+      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {storeName}
       </span>
     </div>
   );
 };
 
+const CategoryColumn = ({ d }: any) => {
+  console.log(d, "category");
+  const category = d.information.category?.name;
 
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {capitalizeFirstLetter(category) || ""}
+      </span>
+    </div>
+  );
+};
+const DateColumn = ({ d }: any) => {
+  const { createdAt } = d;
+
+  const formattedDate = moment(createdAt).format("Do MMMM YYYY");
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {formattedDate}
+      </span>
+    </div>
+  );
+};
+const QuantityColumn = ({ d }: any) => {
+  const { pricing } = d;
+
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {pricing?.quantity}
+      </span>
+    </div>
+  );
+};
+const PriceColumn = ({ d }: any) => {
+  const { pricing } = d;
+
+  const formattedPrice = pricing?.productPrice?.toLocaleString("en-US"); // Adjust the locale as needed
+
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        ₦ {formattedPrice}
+      </span>
+    </div>
+  );
+};
+const StatusColumn = ({ d }: any) => {
+  const { approvalStatus } = d;
+
+  let statusClassName = "";
+  let formattedStatus = "";
+
+  switch (approvalStatus) {
+    case "rejected":
+      statusClassName = "text-[#F91919]";
+      formattedStatus = "Rejected";
+      break;
+    case "approved":
+      statusClassName = "text-[#22C55E]";
+      formattedStatus = "Approved";
+      break;
+    case "false":
+    case "pending":
+      statusClassName = "text-[#F29339]";
+      formattedStatus = "Pending";
+      break;
+    default:
+      statusClassName = "text-gray-500";
+      formattedStatus = "Unknown";
+  }
+
+  return (
+    <div>
+      <span
+        className={`text-[14px] font-normal leading-[normal] whitespace-nowrap ${statusClassName}`}
+      >
+        {formattedStatus}
+      </span>
+    </div>
+  );
+};
 
 const ProductCreated = () => {
-
   const navigate = useNavigate();
 
   const { data: products, isLoading } = useGetAllProducts();
 
-  if (isLoading || !products?.data) {
+  const productData = useMemo(() => {
+    if (!products?.data) {
+      return [];
+    }
 
+    const dataCopy = [...products.data];
+
+    dataCopy.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    return dataCopy;
+  }, [products?.data]);
+
+  if (isLoading || !products?.data) {
     return <div>Loading...</div>;
   }
 
-  console.log(products);
+  console.log({ productData });
 
-
-  const handleView = (id: any) => {
-    navigate(`/admin/products/${id}`, {
-      replace: true,
-    });
-    window.location.reload();
+  const handleView = (id: any, catId: any) => {
+    navigate(
+      `/admin/products__details?id=${encodeURIComponent(
+        id
+      )}&catId=${encodeURIComponent(catId)}`,
+      {
+        replace: true,
+      }
+    );
   };
 
   const Tcolumns: readonly Column<object>[] = [
     {
       Header: "Product Name",
       Cell: (data) => {
-        const d = data.row.original
-        return <ProductNameColumn d={d} />
-      }
+        const d = data.row.original;
+        return <ProductNameColumn d={d} />;
+      },
     },
 
     {
       Header: "Store Name",
-      accessor: "title",
+      Cell: (data) => {
+        const d = data.row.original;
+        return <StoreNameColumn d={d} />;
+      },
     },
     {
       Header: "Category",
-      accessor: "category",
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <CategoryColumn d={d} />;
+      },
     },
     {
       Header: "Product ID",
-      accessor: "id",
+      accessor: "_id",
     },
     {
       Header: "Created",
-      accessor: "location",
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <DateColumn d={d} />;
+      },
     },
     {
       Header: "Quantity",
-      accessor: "weight",
+
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <QuantityColumn d={d} />;
+      },
     },
     {
       Header: "Price",
-      accessor: "price",
+
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <PriceColumn d={d} />;
+      },
     },
     {
       Header: "Status",
-      accessor: "status",
-      Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <StatusColumn d={d} />;
+      },
     },
   ];
-  const tableData = products.data.map((product: any) => ({
-    productName: product.information.productName,
-    title: product.details.storeName,
-    category: product.category,
-    id: product._id,
-    location: format(new Date(product.createdAt), "dd-MM-yy"),
-    weight: product.details.productWeight,
-    price: product.pricing.productPrice,
-    status: product.approvalStatus ? "Approved" : "Pending",
-    images: product.images,
-  }));
 
   const optionalColumn = {
     id: "expand",
-    // The header can use the table's getToggleAllRowsSelectedProps method
-    // to render a checkbox
     Header: (
       <div>
         {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
       </div>
     ),
-    // The cell can use the individual row's getToggleRowSelectedProps method
-    // to the render a checkbox
     Cell: ({ row }: any) => {
+      const id = row?.original?._id;
+      const catId = row?.original?.information?.category?._id;
 
       return (
         <div>
           <span
-            onClick={() => handleView(row?.original?.id)}
+            onClick={() => handleView(id, catId)}
             className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
           >
             View
@@ -165,20 +242,24 @@ const ProductCreated = () => {
 
   return (
     <div className="pl-10 pt-10 pr-5">
-      <div className="mb-5">
-        <h1 className="text-2xl font-medium ">Product Created</h1>
+      <div className="mb-10">
+        <h1 className="text-[36px] font-semibold leading-normal ">
+          Product Created
+        </h1>
         <span className="text-[#A2A2A2] font-normal text-sm">
           Find all created product here for approval.
         </span>
       </div>
-      <div>
+      <div className="">
         <AdminTable
           Tcolumns={Tcolumns}
-          // @ts-ignore
           optionalColumn={optionalColumn}
           tabs={["All", "Pending", "Approved", "Rejected"]}
-          TData={tableData}
+          TData={productData}
           placeholder={"Search product name, store names, category.... "}
+          showIcon={true}
+          showCheckbox={true}
+          showDropDown={true}
         />
       </div>
     </div>

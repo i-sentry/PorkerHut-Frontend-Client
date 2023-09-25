@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
-import Account from "./Account";
+import ProductInformation from "./ProductInformation";
 
 import ProductPricing from "./ProductPricing";
 import Stepper from "./Steppers";
@@ -57,18 +57,12 @@ function StepperComponent() {
       (subcategory: { name: string }) => subcategory.name
     )?.name ?? "";
 
-  console.log(productData, "LL");
-  console.log(category, subcategory);
-  if (typeof setProductData === "function") {
-    console.log("oooooooolll");
-  } else {
-    console.log("function is not defined.");
-  }
+
 
   const displayStep = (step: number) => {
     switch (step) {
       case 1:
-        return <Account cate={categoryName} subCate={filtered} />;
+        return <ProductInformation cate={categoryName} subCate={filtered} />;
       case 2:
         return <ProductDetails cate={categoryName} subCate={filtered} />;
       case 3:

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
 import { useParams } from "react-router-dom";
 import noImage from "../../assets/no-image.png"
+import { toast } from "react-toastify";
 
 interface ProductLocationState {
   item: any;
@@ -17,16 +18,22 @@ const ProductCard = ({ item }: ProductLocationState) => {
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.id }));
+    toast.success(`${item?.product?.productName} has been added to cart`);
   };
 
   const handleCardClick = () => {
     navigate(`/product/${item?.id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
+
+
+  const handleLoading = () => {
+    setIsLoading(false);
+  };
 
   return (
     <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
@@ -35,7 +42,14 @@ const ProductCard = ({ item }: ProductLocationState) => {
           onClick={handleCardClick}
           src={item?.images?.[0] || noImage}
           alt=""
-          className="w-full h-full object-contain hover:cursor-pointer rounded-sm"
+          className={cn(
+            "w-full h-full object-cover hover:cursor-pointer rounded-sm duration-700 ease-in-out group-hover:opacity-75 ",
+            isLoading
+              ? "scale-110 blur-2xl grayscale"
+              : "scale-100 blur-0 grayscale-0"
+          )}
+          onLoad={handleLoading}
+          loading="lazy"
         />
 
         <div
@@ -73,7 +87,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
           ₦{item?.pricing?.productPrice }
         </span>
-        
+
         <NavLink
           to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
@@ -93,4 +107,8 @@ const ProductCard = ({ item }: ProductLocationState) => {
     </div>
   );
 };
+
+function cn(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 export default ProductCard;

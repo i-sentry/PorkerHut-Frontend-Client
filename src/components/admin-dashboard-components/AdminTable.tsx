@@ -182,103 +182,77 @@ const AdminTable = ({
           />
         </div>
       </div>
-      <div className="  flex flex-col bg-white mb-8 ">
+      <div className="flex flex-col bg-white mb-8">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
               <table
                 {...getTableProps()}
-                className="appearance-none bg-white min-w-full  mb-6 "
-                id="my-table"
+                className="appearance-none bg-white min-w-full mb-6 border border-gray-300 rounded-lg"
               >
-                <thead className="bg-[#F4F4F4] appearance-none ">
-                  {headerGroups.map(
-                    (headerGroup: {
-                      getHeaderGroupProps: () => { [x: string]: any; key: any };
-                      headers: any[];
-                    }) => {
-                      const { key, ...restHeaderProps } =
-                        headerGroup.getHeaderGroupProps();
-                      return (
-                        <tr key={key} {...restHeaderProps}>
-                          {headerGroup.headers.map((column) => (
-                            <th
-                              className=" font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
-                              {...column.getHeaderProps(
-                                column.getSortByToggleProps()
-                              )}
-                              key={column.id}
-                            >
-                              <div className="flex items-center">
-                                <span className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal">
-                                  {" "}
-                                  {column.render("Header")}
+                <thead className="bg-[#F4F4F4]">
+                  {headerGroups.map((headerGroup: { getHeaderGroupProps: () => { [x: string]: any; key: any; }; headers: any[]; }) => {
+                    const { key, ...restHeaderProps } =
+                      headerGroup.getHeaderGroupProps();
+                    return (
+                      <tr key={key} {...restHeaderProps}>
+                        {headerGroup.headers.map((column: { getHeaderProps: (arg0: any) => JSX.IntrinsicAttributes & React.ClassAttributes<HTMLTableHeaderCellElement> & React.ThHTMLAttributes<HTMLTableHeaderCellElement>; getSortByToggleProps: () => any; id: React.Key | null | undefined; render: (arg0: string) => string | number | boolean | React.ReactFragment | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactPortal | null | undefined; canSort: boolean; }) => (
+                          <th
+                            className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            key={column.id}
+                          >
+                            <div className="flex items-center">
+                              <span className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal">
+                                {column.render("Header")}
+                              </span>
+                              {showIcon && column.canSort === true && (
+                                <span className="ml-2">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="10"
+                                    height="12"
+                                    viewBox="0 0 10 18"
+                                    fill="none"
+                                  >
+                                    <path
+                                      d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
+                                      fill="#323232"
+                                    />
+                                  </svg>
                                 </span>
-
-                                {showIcon && (
-                                  <>
-                                    {column.canSort === true && (
-                                      <span className="ml-2">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="10"
-                                          height="12"
-                                          viewBox="0 0 10 18"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M5.00016 2.83L8.17016 6L9.58016 4.59L5.00016 0L0.410156 4.59L1.83016 6L5.00016 2.83ZM5.00016 15.17L1.83016 12L0.420156 13.41L5.00016 18L9.59016 13.41L8.17016 12L5.00016 15.17Z"
-                                            fill="#323232"
-                                          />
-                                        </svg>
-                                      </span>
-                                    )}
-                                  </>
-                                )}
-                              </div>
-                            </th>
-                          ))}
-                        </tr>
-                      );
-                    }
-                  )}
+                              )}
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    );
+                  })}
                 </thead>
                 <tbody
                   {...getTableBodyProps()}
-                  className="mt-3 pt-3 w-full space-y-8 border-r"
+                  className="mt-3 pt-3 w-full space-y-8"
                 >
-                  {page.map(
-                    (row: {
-                      subRows: any;
-                      getRowProps: () => JSX.IntrinsicAttributes &
-                        React.ClassAttributes<HTMLTableRowElement> &
-                        React.HTMLAttributes<HTMLTableRowElement>;
-                      cells: any[];
-                    }) => {
-                      prepareRow(row);
-                      // console.log(row?.subRows, "sub");
-                      // prepareRow(row?.subRows);
-                      return (
-                        <>
-                          <tr
-                            {...row.getRowProps()}
-                            className="appearance-none my-4 border "
+                  {page.map((row: { getRowProps: () => JSX.IntrinsicAttributes & React.ClassAttributes<HTMLTableRowElement> & React.HTMLAttributes<HTMLTableRowElement>; cells: any[]; }) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        {...row.getRowProps()}
+                        className="border-t border-gray-300 hover:bg-green-100"
+                      >
+                        {row.cells.map((cell: { getCellProps: () => JSX.IntrinsicAttributes & React.ClassAttributes<HTMLTableDataCellElement> & React.TdHTMLAttributes<HTMLTableDataCellElement>; render: (arg0: string) => string | number | boolean | React.ReactFragment | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactPortal | null | undefined; }) => (
+                          <td
+                            {...cell.getCellProps()}
+                            className="font-light text-sm leading-[19px] text-[#202223] py-4 text-center px-4 whitespace-nowrap"
                           >
-                            {row.cells.map((cell) => {
-                              return (
-                                <td
-                                  {...cell.getCellProps()}
-                                  className="font-light text-sm  leading-[19px]  text-[#202223] py-4 text-center px-4 whitespace-nowrap border-r"
-                                >
-                                  {cell.render("Cell")}
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        </>
-                      );
-                    }
-                  )}
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
 

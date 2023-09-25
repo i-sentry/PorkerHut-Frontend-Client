@@ -4,6 +4,8 @@ import Footer from "../footer-component/Footer";
 import { SearchBar } from "../slider-component/Slider";
 import { ISearch, useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface IAppLayoutProps {
   children: ReactNode;
 }
@@ -30,6 +32,7 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
             <SearchBar setShowSearch={setShowSearch} />
           </div>
         )}
+        <ToastContainer style={{ width: "500px" }}  />
         <div className="children">{children}</div>
       </div>
       <Footer />

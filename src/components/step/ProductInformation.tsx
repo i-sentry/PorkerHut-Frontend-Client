@@ -17,7 +17,7 @@ import {
 } from "../../services/hooks/Vendor/category";
 import { useLocation } from "react-router-dom";
 
-export default function Account({
+export default function ProductInformation({
   cate,
   subCate,
 }: {
@@ -39,6 +39,7 @@ export default function Account({
   const catQuestions = useGetAllCategoriesQuestions();
   const { data: question } = useGetCategoryQuestion(category);
   const Acategory = useGetOneCategory(category);
+
   const convertToCamelCase = useCallback((str: string) => {
     return str
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) => {
@@ -62,14 +63,7 @@ export default function Account({
     }
   }, [question?.data, convertToCamelCase]);
 
-  console.log(questions, "questions");
-  console.log({ category }, "lloo");
 
-  // const subCategory = () => {
-  //   category?.data?.data.subcategories.filter(
-  //     (cat: { _id: string | null }) => cat._id === subCate
-  //   );
-  // };
 
   const {
     register,

@@ -25,15 +25,7 @@ function CreateProduct() {
   };
   const { data: catagories, isLoading } = allCategories;
 
-  const handleCategory = () => {
-    setCategory(true);
-    setRecent(false);
-  };
-
-  const handleRecent = () => {
-    setRecent(true);
-    setCategory(false);
-  };
+ 
   const handleOpen = (value: any) => {
     setOpen(open === value ? 0 : value);
   };

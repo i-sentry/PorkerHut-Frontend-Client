@@ -185,7 +185,7 @@ const router = createBrowserRouter(
         <Route path="/admin/manage+category" element={<Category />} />
         <Route path="/admin/payment" element={<Payment />} />
         <Route path="/admin/products" element={<ProductCreated />} />
-        <Route path="/admin/products/:id" element={<ProductDetail />} />
+        <Route path="/admin/products__details" element={<ProductDetail />} />
         <Route path="/admin/messages" element={<Messages />} />
         <Route path="/admin/settings" element={<Settings />} />
       </Route>

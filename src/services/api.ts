@@ -30,7 +30,8 @@ export const api = {
   Products: {
     allProducts: "/api/products/",
     createProducts: "/api/products",
-    getSingleProduct: (id: string | undefined) =>  `/api/products/${id}`
+    getSingleProduct: (id: string | null) => `/api/products/${id}`,
+    productStatus: (id: string | null)=> `/api/products/${id}/approvalStatus`
   },
   Vets: {
     createVet: "/api/vets",
@@ -103,6 +104,17 @@ export const makePatchRequest = async (
   includeAuthHeader: boolean = true
 ) => {
   return await axios.patch(`${BASEURL}${url}`, data, {
+    headers: {
+      "x-access-token": localStorage.getItem("accessToken") as string,
+    },
+  });
+};
+export const makePutRequest = async (
+  data: any,
+  url: string,
+  includeAuthHeader: boolean = true
+) => {
+  return await axios.put(`${BASEURL}${url}`, data, {
     headers: {
       "x-access-token": localStorage.getItem("accessToken") as string,
     },

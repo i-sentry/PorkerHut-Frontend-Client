@@ -12,6 +12,7 @@ import RatingWidget from "./RatingWidget";
 
 const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
   const dispatch = useDispatch();
+  
 
   return (
     <div className="flex items-center px-5 gap-6">
@@ -80,7 +81,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
             className=" h-16 outline-none border rounded px-5 py-4 mt-2"
           ></textarea>
         </div>
-        
+
       </div>
     </div>
   );
