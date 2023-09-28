@@ -16,7 +16,7 @@ export const cap = (arg?: string) => {
 
 
 const Card: React.FC<CardProps> = ({ item }) => {
-  // console.log(item, "title");
+  console.log(item, "title");
   if (!item) {
     //Render the skeleton loader when item is not available
     return <SkeletonLoader />;
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ item }) => {
 
   return (
     <NavLink
-      to={`/category?q=${item?._id}`}
+      to={`/category/${item._id}?q=${item?.name}`}
       className="overflow-hidden relative"
     >
       <img

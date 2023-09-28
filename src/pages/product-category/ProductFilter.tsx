@@ -71,8 +71,8 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
   };
 
   return (
-    
-      <div className="">
+
+      <div className=" h-full">
         <h1>Filters</h1>
 
         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
@@ -181,7 +181,7 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
           </AccordionBody>
         </Accordion>
       </div>
-    
+
   );
 };
 

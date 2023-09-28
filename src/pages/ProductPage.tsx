@@ -129,7 +129,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                 />
               </div>
               <div className="lg:w-3/4 bg-white xxs:w-full">
-                <div className="flex items-center justify-between  pl-3">
+                <div className="flex items-center justify-between border-b   pl-3">
                   <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
                     <h1
                       onClick={handleShowSuccessToast}
