@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
 import { useParams } from "react-router-dom";
-import noImage from "../../assets/no-image.png"
+import noImage from "../../assets/imgn.png"
 import { toast } from "react-toastify";
 
 interface ProductLocationState {
