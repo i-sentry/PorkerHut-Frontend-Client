@@ -8,25 +8,29 @@ import RatingWidget from "../RatingWidget";
 import { useParams } from "react-router-dom";
 import noImage from "../../assets/imgn.png"
 import { toast } from "react-toastify";
+import { CgUnavailable } from "react-icons/cg";
 
 interface ProductLocationState {
   item: any;
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
+  // console.log(item)
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+  const isOutOfStock = item?.pricing?.quantity < 1;
+
   const handleClick = () => {
-    dispatch(addProductToCart({ id: item?.id }));
-    toast.success(`${item?.product?.productName} has been added to cart`);
+    dispatch(addProductToCart({ id: item?._id}));
+    toast.success(`${item?.information?.productName} has been added to cart`);
   };
 
   const handleCardClick = () => {
-    navigate(`/product/${item?.id}`, { state: { item: true } });
+    navigate(`/product/${item?._id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -38,7 +42,9 @@ const ProductCard = ({ item }: ProductLocationState) => {
   return (
     <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
-        <img
+  
+
+<img
           onClick={handleCardClick}
           src={item?.images?.[0] || noImage}
           alt=""
@@ -53,11 +59,17 @@ const ProductCard = ({ item }: ProductLocationState) => {
         />
 
         <div
-          onClick={handleClick}
-          className=" flex items-center justify-center absolute w-full xxs:h-12 lg:h-14 bg-[#197B30] xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 duration-700 cursor-pointer active:opacity-50 active:scale-90 transition-all"
-        >
-          <span className="text-white  xxs:text-[11px] xxs:leading-[14px] rounded-b-md font-normal">
-            Add to cart
+          onClick={isOutOfStock ? () => {} : handleClick}
+          className={`flex items-center justify-center absolute w-full xxs:h-12 lg:h-14 ${
+            isOutOfStock ? 'bg-[#BB0101]' : 'bg-[#197B30]'
+          } xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 duration-700 cursor-pointer ${
+            isOutOfStock ? '' : 'active:opacity-50 active:scale-90 transition-all'
+          }`}
+         
+      >
+          
+          <span className="text-white  xxs:text-[11px] xxs:leading-[14px] md:text-base rounded-b-md font-normal ">
+            {isOutOfStock? <div className="flex items-center gap-2"><CgUnavailable size={16} color="white"/><p>Out Of Stock</p></div> : "Add to cart"}
           </span>
         </div>
       </div>
@@ -67,10 +79,10 @@ const ProductCard = ({ item }: ProductLocationState) => {
             to={`/store-page/${item?._id}`}
             className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
           >
-            {item?.vendor?.sellerAccountInformation?.shopName}
+            {item?.vendor?.sellerAccountInformation?.shopName || "Test Shop"}
           </NavLink>
           <span className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
-            {item?.vendor?.businessInformation?.city}
+            {item?.vendor?.businessInformation?.city || "Abuja"}
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
@@ -81,18 +93,18 @@ const ProductCard = ({ item }: ProductLocationState) => {
             {item?.information?.productName ||  "100% Healthy Pork Lap"}
           </h1>
           <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
-            {item?.details?.productWeight}g
+            {item?.details?.productWeight || "80"}g
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.pricing?.productPrice }
+          ₦{item?.pricing?.productPrice || "3000"}
         </span>
 
         <NavLink
           to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
         >
-          {item?.vendor?.sellerAccountInformation?.shopName }
+          {item?.vendor?.sellerAccountInformation?.shopName || "Test Shop" }
         </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget
@@ -100,7 +112,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
             defaultValue={3}
           />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
-            ₦{item?.pricing?.productPrice}
+            ₦{item?.pricing?.productPrice || "3000"}
           </span>
         </div>
       </div>

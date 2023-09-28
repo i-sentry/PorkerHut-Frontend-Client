@@ -13,3 +13,12 @@ export const useGetAllProducts = () => {
 //         queryKey: ['blogs', id]
 //     })
 // }
+
+
+
+export const useGetSingleProduct = (id: string | null) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.getSingleProduct(id)),
+    queryKey: ["product +"],
+  });
+};

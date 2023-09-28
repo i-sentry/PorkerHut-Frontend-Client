@@ -39,17 +39,17 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
     switch (type) {
       case "High to Low":
         sortedProducts.sort(
-          (a, b) => parseFloat(b.price) - parseFloat(a.price)
+          (a, b) => parseFloat(b.pricing.productPrice) - parseFloat(a.pricing.productPrice)
         );
         break;
       case "Low to High":
         sortedProducts.sort(
-          (a, b) => parseFloat(a.price) - parseFloat(b.price)
+          (a, b) => parseFloat(a.pricing.productPrice) - parseFloat(b.pricing.productPrice)
         );
         break;
       case "Product Rating":
         sortedProducts.sort(
-          (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
+          (a, b) => parseFloat(b.avgRating) - parseFloat(a.avgRating)
         );
         break;
       default:
@@ -61,7 +61,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="w-full flex justify-center">
+      <div className="w-full fl justify-center">
         <div className="relative">
           <button
             className="flex bg-gray-200 items-center justify-around  w-[150px] py-2 mt-2 text-sm font-normal text-left bg-transparent rounded-lg"
