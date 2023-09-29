@@ -22,57 +22,9 @@ interface Subcategory {
 }
 
 const Category = () => {
-  // @ts-ignore
-  // const menuItems = [...new Set(productData.map((d: any) => d.category))];
-  // console.log(menuItems, "kk");
   const { data: allCategories, error, isLoading } = useGetAllCategories();
-  // const datas = [
-  //   {
-  //     id: 1,
-  //     src: "./images/Meat.jpg",
-  //     title: "Pork",
-  //     path: "/pork",
-  //   },
-  //   {
-  //     id: 2,
-  //     src: "./images/Livestock.jpg",
-  //     title: "Livestock",
-  //     path: "/livestock",
-  //   },
-  //   {
-  //     id: 3,
-  //     src: "./images/Feed.jpg",
-  //     title: "Feed",
-  //     path: "/feed",
-  //   },
 
-  // ];
-
-  console.log(allCategories?.data);
-
-  // for (let i = 0; i < datas.length; i++) {
-  //   datas[i].title = menuItems[i];
-  // }
-  // let temp = datas[0].title;
-  // datas[0].title = datas[2].title;
-  // datas[2].title = temp;
-
-  // const TCard = ({ src, title, path }: { src: any; title: any; path: any }) => {
-  //   return (
-  //     <div className="relative w-72 h-72 rounded-md overflow-hidden shadow-lg cursor-pointer">
-  //       <img
-  //         src={src}
-  //         alt=""
-  //         className="object-cover rounded-sm transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full opacity-95"
-  //       />
-  //       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-
-  //       <div className="absolute inset-0 flex flex-col justify-center items-center text-white p-4">
-  //         <h2 className="text-2xl font-medium">{title}</h2>
-  //       </div>
-  //     </div>
-  //   );
-  // };
+  console.log(allCategories?.data, "time");
 
   return (
     <div className=" xxs:p-3 lg:p-0 ">

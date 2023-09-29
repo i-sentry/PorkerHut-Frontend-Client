@@ -31,6 +31,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
   const handleSort = (type: string) => {
     setOpenSort(false);
     setSortType(type);
+   
   };
 
   const sortProducts = (type: string) => {
@@ -57,6 +58,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
     }
     setData(sortedProducts);
     setSortType(type);
+    setOpenSort(!openSort)
   };
 
   return (
@@ -79,7 +81,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
                     href="#"
                     onClick={() => sortProducts("High to Low")}
                   >
-                    <div>
+                    <div >
                       <p className="text-[14px] leading-[16px] font-normal">
                         Price: High to Low
                       </p>
