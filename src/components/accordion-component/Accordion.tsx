@@ -8,6 +8,7 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import MultiSlider from "./MultiSlider";
 import MultiRangeSlider from "./MultiSlider";
 import { productData } from "../../utils/productData";
+import { useGetAllProducts } from "../../services/hooks/users/products";
 
 interface IconProps {
   id: number;
@@ -37,15 +38,12 @@ const Icon: React.FC<IconProps> = ({ id, open }) => {
   );
 };
 
-const Filter = ({
-  menuItem,
-  setData,
-}: 
-iProps) => {
+const Filter = ({ menuItem, setData }: iProps) => {
   // State to keep track of open Accordion
   const [open, setOpen] = useState(0);
   const [selected, setSelected] = React.useState(null);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const { data: getAllProducts } = useGetAllProducts();
 
   // Handle to toggle Accordion open state
   const handleOpen = (value: number) => {
@@ -53,13 +51,13 @@ iProps) => {
   };
 
   const filter = (cate: any) => {
-    const newItems = productData.filter((newVal: any) => {
+    const newItems = getAllProducts?.data.filter((newVal: any) => {
       return newVal.category === cate;
     });
     setData(newItems);
   };
 
-  console.log(selected);
+  console.log({ menuItem });
 
   const handleSelectedItem = (value: string) => {
     setSelectedItems((prevSelectedItems) => {
@@ -91,36 +89,45 @@ iProps) => {
   return (
     <>
       <Fragment>
-        <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <h1 className="xxs:hidden text-[16px] leading-[19px] font-normal">Filters</h1>
-          <AccordionHeader
-            onClick={() => handleOpen(1)}
-            className="text-[16px] leading-[19px] font-medium"
+        {menuItem?.map((menu: any, index: number) => (
+          <Accordion
+            open={open === index}
+            icon={<Icon id={index} open={open} />}
           >
-            Pig
-          </AccordionHeader>
-          <AccordionBody>
-            <div className="flex flex-col gap-2">
-              {menuItem.map((menu: any) => {
-                return (
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="checkbox"
-                      id={menu}
-                      value={menu}
-                      checked={selected === menu}
-                      onChange={handleClick}
-                    />
-                    <label className="ml-2 text-base font-normal" htmlFor="2">
-                      {menu}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+            <AccordionHeader
+              onClick={() => handleOpen(index)}
+              className="text-[16px] leading-[19px] font-medium"
+            >
+              {menu?.name}
+            </AccordionHeader>
+            <AccordionBody>
+              <div className="flex flex-col gap-2 ">
+                {menu?.subcategories?.length > 0 ? (
+                  <>
+                    {menu?.subcategories?.map((sub: any, index: number) => (
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id={index.toString()}
+                          value={sub?._id}
+                          onClick={handleClick}
+                        />
+                        <label
+                          className="ml-2 text-base font-normal"
+                          htmlFor={index.toString()}
+                        >
+                          {sub?.name}
+                        </label>
+                      </div>
+                    ))}
+                  </>
+                ) : null}
+              </div>
+            </AccordionBody>
+          </Accordion>
+        ))}
+
+        {/* <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
           <AccordionHeader
             onClick={() => handleOpen(2)}
             className="text-[16px] leading-[19px] font-medium"
@@ -270,7 +277,7 @@ iProps) => {
               <MultiRangeSlider min={0} max={2000} />
             </div>
           </AccordionBody>
-        </Accordion>
+        </Accordion> */}
       </Fragment>
     </>
   );

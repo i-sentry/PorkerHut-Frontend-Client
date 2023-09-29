@@ -8,7 +8,7 @@ import {
 import StarRating from "./ProductDetailRating";
 import RatingCard from "./RatingCard";
 import ProductsBreadCrumbs from "../../story-components/ProductsBreadCrumbs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { addProductToCart } from "../../../redux/features/product/productSlice";
 import AppLayout from "../../utility/AppLayout";
 import { useDispatch } from "react-redux";
@@ -16,12 +16,17 @@ import { productData } from "../../../utils/productData";
 import { chunkArray } from "../../../helper/chunck";
 import ProductCard from "../ProductCard";
 import { useNavigate } from "react-router-dom";
+import { useGetSingleProduct } from "../../../services/hooks/Vendor/products";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location?.state?.item;
-  console.log(item);
+  const { id } = useParams();
+  // @ts-ignore
+  const {data: singleProduct} = useGetSingleProduct(id);
   const navigate = useNavigate();
+
+  console.log(singleProduct?.data, "Stack")
 
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -34,20 +39,14 @@ const ProductDetails = () => {
   };
 
   const handleClick = () => {
-    dispatch(addProductToCart({ id: item?.id }));
+    dispatch(addProductToCart({ id: singleProduct?.data?._id}));
+    console.log(singleProduct?.data?._id)
   };
 
   const handleNavigate = () => {
     navigate("/my-cart");
   };
 
-  const images = [
-    // item?.img,
-    "../images/Banner.jpg",
-    "../images/Banner.jpg",
-    "../images/Banner1.jpg",
-    "../images/Banner2.jpg",
-  ];
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -78,35 +77,21 @@ const ProductDetails = () => {
         <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-10 bg-white md:rounded-sm">
           <div className="flex md:flex-1 xxs:flex-col-reverse md:flex-row">
             <div className="flex-[1] md:block xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
-              <img
-                src={images[0]}
-                alt="img1"
-                onClick={(e) => setSelectedImg(0)}
-                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
-              />
-              <img
-                src={images[1]}
-                alt="img2 rounded"
-                onClick={(e) => setSelectedImg(1)}
-                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
-              />
-              <img
-                src={images[2]}
-                alt="img3 rounded"
-                onClick={(e) => setSelectedImg(2)}
-                className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
-              />
-              <img
-                src={images[2]}
-                alt=""
-                onClick={(e) => setSelectedImg(2)}
-                className="object-cover cursor-pointer w-[75px] h-20 rounded xxs:hidden md:flex"
-              />
+              {
+                singleProduct?.data?.images.map((image:any, index:number) => (
+                  <img
+                  src={image}
+                  alt="ProductImg"
+                  onClick={(e) => setSelectedImg(index)}
+                  className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
+                />
+                ))
+              }
             </div>
 
             <div className="md:flex-[5]">
               <img
-                src={images[selectedImg]}
+                src={singleProduct?.data?.images[selectedImg]}
                 alt="img4"
                 className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
               />
@@ -114,19 +99,19 @@ const ProductDetails = () => {
           </div>
           <div className="md:flex-1 flex flex-col gap-3 xxs:mt-4 md:pr-8 md:mt-0">
             <div className="flex justify-between items-center">
-              <h1 className="font-semibold text-xl">{item?.product?.name}</h1>
+              <h1 className="font-semibold text-xl">{singleProduct?.data?.information?.productName}</h1>
               <span className="cursor-pointer hover:text-yellow-500">
                 <MdFavoriteBorder />
               </span>
             </div>
             <span></span>
-            <span className=" font-medium text-base">N{item?.price}</span>
+            <span className=" font-medium text-base">N{singleProduct?.data?.pricing?.productPrice}</span>
             {/* <span className=" font-normal text-base text-[#797979]">Our shipping fees are flat rates. Regardless of the size and amount of items <br />
             ordered, only one shipping fee applies.</span> */}
             <span className="font-normal text-sm text-[#797979]">
               Weight:{" "}
               <span className="font-medium text-black text-sm">
-                {item?.product?.Weight}
+                {singleProduct?.data?.details?.productWeight}
               </span>
             </span>
             <span className="font-normal text-sm text-[#797979]">
@@ -137,12 +122,13 @@ const ProductDetails = () => {
             </span>
             <span className="font-normal text-sm text-[#797979]">
               Product ID:{" "}
-              <span className="font-medium text-black text-sm">{item?.id}</span>
+              <span className="font-medium text-black text-sm">{singleProduct?.data?._id}</span>
             </span>
             <span className="font-normal text-sm text-[#797979]">
               Availability:{" "}
               <span className="font-medium text-black text-sm">
                 100% Available
+                {/* {singleProduct?.data?.pricing?.quantity > 0 ? 100% Available : Out of stock} */}
               </span>
             </span>
             <div className="flex flex-col">
@@ -199,18 +185,8 @@ const ProductDetails = () => {
               </AccordionHeader>
               <AccordionBody>
                 <div className=" xxs:px-4 md:px-0">
-                  Our raw bacon is a versatile ingredient that provides a fresh,
-                  mild, and savory flavor to any dish. Sourced from
-                  premium-quality pigs, our raw bacon is made from the belly of
-                  the pig and has not been cured or smoked, making it perfect
-                  for those who prefer the natural taste of pork. Whether you're
-                  making a classic bacon, egg, and cheese sandwich, adding a
-                  touch of savory flavor to your favorite pasta dish, or simply
-                  enjoying a slice of bacon as a snack, our raw bacon is the
-                  perfect addition. Keep in mind that raw bacon must be cooked
-                  thoroughly before consuming to reduce the risk of foodborne
-                  illness. Try it today and taste the difference that comes from
-                  using high-quality, raw bacon.
+                  {singleProduct?.data?.details?.productDescription}
+                  
                 </div>
               </AccordionBody>
             </Accordion>
@@ -223,10 +199,8 @@ const ProductDetails = () => {
               </AccordionHeader>
               <AccordionBody>
                 <div className=" xxs:px-4 md:px-0">
-                  We&apos;re not always in the position that we want to be at.
-                  We&apos;re constantly growing. We&apos;re constantly making
-                  mistakes. We&apos;re constantly trying to express ourselves
-                  and actualize our dreams.
+                  {singleProduct?.data?.details?.productDescription}
+                  
                 </div>
               </AccordionBody>
             </Accordion>
@@ -239,10 +213,7 @@ const ProductDetails = () => {
               </AccordionHeader>
               <AccordionBody>
                 <div className=" xxs:px-4 md:px-0" >
-                  We&apos;re not always in the position that we want to be at.
-                  We&apos;re constantly growing. We&apos;re constantly making
-                  mistakes. We&apos;re constantly trying to express ourselves
-                  and actualize our dreams.
+                  { singleProduct?.data?.details?.deliveryDetails}
                 </div>
               </AccordionBody>
             </Accordion>

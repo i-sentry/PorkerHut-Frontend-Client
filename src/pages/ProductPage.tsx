@@ -18,8 +18,7 @@ import { useGetAllProducts } from "../services/hooks/users/products";
 import { Card } from "@material-tailwind/react";
 import { SkeletonLoader } from "../components/category-component/Category";
 import Spinner from "../components/Spinner/Spinner";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useGetAllCategories } from "../services/hooks/Vendor/category";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -51,29 +50,24 @@ interface Product {
 
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [data, setData] = useState(productData);
+  const [data, setData] = useState([]);
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  //@ts-ignore
-  const menuItems = [...new Set(productData.map((d: any) => d.category))];
-  useEffect(() => setData(productData), [productData]);
-  console.log({ menuItems });
-
   const { data: getAllProducts } = useGetAllProducts();
-  const handleShowSuccessToast = () => {
-    toast.success("this is a a toast", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
 
+  const { data: allCategories, error, isLoading } = useGetAllCategories();
+  console.log({allCategories,data}, "donedeal")
+
+  //@ts-ignore
+  const menuItems = [...new Set(allCategories?.data?.map((d: any) => d?.name))];
+  console.log({menuItems}, "here")
+  useEffect(
+    () => setData(getAllProducts?.data),
+  [getAllProducts?.data]);
+ 
+
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -98,7 +92,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         setData={setData}
-        menuItem={menuItems}
+        menuItem={allCategories?.data}
         handleClick={handleClick}
       />
 
@@ -124,21 +118,18 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
                 <Filter
                   setData={setData}
-                  menuItem={menuItems}
+                  menuItem={allCategories?.data}
                   handleClick={handleClick}
                 />
               </div>
               <div className="lg:w-3/4 bg-white xxs:w-full">
                 <div className="flex items-center justify-between border-b   pl-3">
                   <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
-                    <h1
-                      onClick={handleShowSuccessToast}
-                      className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 "
-                    >
+                    <h1 className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
                       All Products
                     </h1>
                     <div className="flex items-center gap-3 border">
-                      {getAllProducts?.data?.length ? (
+                      {data?.length ? (
                         <p className="text-sm text-[#A2A2A2] ">
                           Showing{" "}
                           <span className="font-medium">
@@ -176,9 +167,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </div>
                   </div>
                 </div>
-                {getAllProducts?.data?.length ? (
+                {data?.length ? (
                   <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
-                    {chunkArray(getAllProducts?.data, itemsPerPage)[
+                    {chunkArray(data, itemsPerPage)[
                       currentPageIndex - 1
                     ]?.map((Tdata, index) => {
                       return <ProductCard item={Tdata} key={index} />;
