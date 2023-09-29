@@ -2,11 +2,13 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 import { CardProps, cap } from "./Card";
+import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 
 const MobileCard: React.FC<CardProps> = ({ item }) => {
+  const { data: allCategories, error, isLoading } = useGetAllCategories();
   return (
     <NavLink
-      to={`/category?q=${item._id}`}
+    to={`/category/${item?._id}?q=${item?.name}`}
       className="flex flex-auto justify-between flex-col h-[264px] w-[65%] rounded-lg shadow-md xxs:flex-shrink-0 md:flex-shrink relative md:hidden"
     >
       <div className="relative h-[264px]">

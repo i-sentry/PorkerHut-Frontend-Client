@@ -17,16 +17,17 @@ import { chunkArray } from "../../../helper/chunck";
 import ProductCard from "../ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleProduct } from "../../../services/hooks/Vendor/products";
+import RatingWidget from "../../RatingWidget";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location?.state?.item;
   const { id } = useParams();
   // @ts-ignore
-  const {data: singleProduct} = useGetSingleProduct(id);
+  const { data: singleProduct } = useGetSingleProduct(id);
   const navigate = useNavigate();
 
-  console.log(singleProduct?.data, "Stack")
+  console.log(singleProduct?.data, "Stack");
 
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -39,14 +40,13 @@ const ProductDetails = () => {
   };
 
   const handleClick = () => {
-    dispatch(addProductToCart({ id: singleProduct?.data?._id}));
-    console.log(singleProduct?.data?._id)
+    dispatch(addProductToCart({ id: singleProduct?.data?._id }));
+    console.log(singleProduct?.data?._id);
   };
 
   const handleNavigate = () => {
     navigate("/my-cart");
   };
-
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -77,16 +77,14 @@ const ProductDetails = () => {
         <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-10 bg-white md:rounded-sm">
           <div className="flex md:flex-1 xxs:flex-col-reverse md:flex-row">
             <div className="flex-[1] md:block xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
-              {
-                singleProduct?.data?.images.map((image:any, index:number) => (
-                  <img
+              {singleProduct?.data?.images.map((image: any, index: number) => (
+                <img
                   src={image}
                   alt="ProductImg"
                   onClick={(e) => setSelectedImg(index)}
                   className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
                 />
-                ))
-              }
+              ))}
             </div>
 
             <div className="md:flex-[5]">
@@ -99,19 +97,36 @@ const ProductDetails = () => {
           </div>
           <div className="md:flex-1 flex flex-col gap-3 xxs:mt-4 md:pr-8 md:mt-0">
             <div className="flex justify-between items-center">
-              <h1 className="font-semibold text-xl">{singleProduct?.data?.information?.productName}</h1>
+              <h1 className="font-semibold text-xl">
+                {singleProduct?.data?.information?.productName}
+              </h1>
               <span className="cursor-pointer hover:text-yellow-500">
                 <MdFavoriteBorder />
               </span>
             </div>
+
+            <div className="flex items-center justify-between py-1">
+              <RatingWidget
+                onChange={(value) => console.log(value)}
+                defaultValue={3}
+              />
+              <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
+                ₦{item?.pricing?.productPrice || "3000"}
+              </span>
+            </div>
+
             <span></span>
-            <span className=" font-medium text-base">N{singleProduct?.data?.pricing?.productPrice}</span>
-            {/* <span className=" font-normal text-base text-[#797979]">Our shipping fees are flat rates. Regardless of the size and amount of items <br />
-            ordered, only one shipping fee applies.</span> */}
+            <span className=" font-medium text-base">
+              N{singleProduct?.data?.pricing?.productPrice}
+            </span>
+
+           
+
+      
             <span className="font-normal text-sm text-[#797979]">
               Weight:{" "}
               <span className="font-medium text-black text-sm">
-                {singleProduct?.data?.details?.productWeight}
+                {singleProduct?.data?.details?.productWeight}g
               </span>
             </span>
             <span className="font-normal text-sm text-[#797979]">
@@ -122,7 +137,9 @@ const ProductDetails = () => {
             </span>
             <span className="font-normal text-sm text-[#797979]">
               Product ID:{" "}
-              <span className="font-medium text-black text-sm">{singleProduct?.data?._id}</span>
+              <span className="font-medium text-black text-sm">
+                {singleProduct?.data?._id}
+              </span>
             </span>
             <span className="font-normal text-sm text-[#797979]">
               Availability:{" "}
@@ -186,7 +203,6 @@ const ProductDetails = () => {
               <AccordionBody>
                 <div className=" xxs:px-4 md:px-0">
                   {singleProduct?.data?.details?.productDescription}
-                  
                 </div>
               </AccordionBody>
             </Accordion>
@@ -200,7 +216,6 @@ const ProductDetails = () => {
               <AccordionBody>
                 <div className=" xxs:px-4 md:px-0">
                   {singleProduct?.data?.details?.productDescription}
-                  
                 </div>
               </AccordionBody>
             </Accordion>
@@ -212,8 +227,8 @@ const ProductDetails = () => {
                 Delivery Info
               </AccordionHeader>
               <AccordionBody>
-                <div className=" xxs:px-4 md:px-0" >
-                  { singleProduct?.data?.details?.deliveryDetails}
+                <div className=" xxs:px-4 md:px-0">
+                  {singleProduct?.data?.details?.deliveryDetails}
                 </div>
               </AccordionBody>
             </Accordion>
