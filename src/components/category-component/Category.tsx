@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { productData } from "../../utils/productData";
+// import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 import Header from "../header-component/Header";
 import MobileCard from "../category-card-component/MobileCard";

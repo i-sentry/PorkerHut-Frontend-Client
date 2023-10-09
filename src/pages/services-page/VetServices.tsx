@@ -213,7 +213,7 @@ const VetServices = () => {
               <h1 className=" font-medium lg:text-[32px] lg:leading-[30px] text-left xxs:text-[32px] xxs:leading-[38px] ">
                 01
               </h1>
-              <h1 className="lg:text-[32px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
+              <h1 className="lg:text-[16px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
                 Comprehensive Health Check-ups
               </h1>
               <p className=" lg:text-[14px] text-justify lg:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px]">
@@ -228,7 +228,7 @@ const VetServices = () => {
               <h1 className="font-medium lg:text-[32px] lg:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 02
               </h1>
-              <h1 className="lg:text-[32px] lg:leading-[30px] lg:font-medium xxs:font-normal xxs:text-[14px] xxs:leading-[16px] text-left">
+              <h1 className="lg:text-[16px] lg:leading-[30px] lg:font-medium xxs:font-normal xxs:text-[14px] xxs:leading-[16px] text-left">
                 Feed Consultation
               </h1>
               <p className="  lg:text-[16px] lg:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
@@ -242,7 +242,7 @@ const VetServices = () => {
               <h1 className="font-medium lg:text-[32px] lg:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 03
               </h1>
-              <h1 className="lg:text-[32px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
+              <h1 className="lg:text-[16px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[20px] text-left">
                 Herd Management Assistance
               </h1>
               <p className=" lg:text-[14px] lg:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
@@ -262,7 +262,7 @@ const VetServices = () => {
               <h1 className="font-medium lg:text-[32px] lg:leading-[56px] text-left xxs:text-[32px] xxs:leading-[38px]">
                 04
               </h1>
-              <h1 className="lg:text-[32px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[16px] text-left">
+              <h1 className="lg:text-[16px] lg:leading-[30px] lg:font-medium xxs:font-normal  xxs:text-[14px] xxs:leading-[16px] text-left">
                 Reproductive Health
               </h1>
               <p className="lg:text-[14px] lg:leading-[24px] mt-2 text-[#797979] xxs:text-[13px] xxs:leading-[20px] text-justify">
@@ -409,13 +409,13 @@ const VetServices = () => {
                     <label
                       htmlFor=""
                       className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333]
-                        "after:content-['*'] after:ml-0.5 after:text-red-500"
+                        "after:content-['*'] after:ml-0.5 after:text-red-500 "
                         } }`}
                     >
                       Message
                     </label>
                     <textarea
-                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm 
+                      className={`appearance-none  relative block w-full px-[14px]  resize: none py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm 
                         }`}
                       placeholder="Type message here"
                       {...register("message")}
@@ -481,3 +481,23 @@ const VetServices = () => {
 };
 
 export default VetServices;
+
+
+
+
+
+
+// color: #4A4A4A;
+// font-family: Roboto;
+// font-size: 20px;
+// font-style: normal;
+// font-weight: 700;
+// line-height: normal;
+// this are the properties for the nnumbering
+
+// color: #323232;
+// font-family: Roboto;
+// font-size: 48px;
+// font-style: normal;
+// font-weight: 700;
+// line-height: normal;

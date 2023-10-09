@@ -112,8 +112,8 @@ const StepLayout = () => {
     return (
       <SuccessScreen
         title={"Account Created Successfully"}
-        msg={"Please Proceed to login to access your dashboard"}
-        url={"/login"}
+        msg={"Please proceed to login to access your dashboard"}
+        url={"/sign-in?q=vendor"}
       />
     );
   }
