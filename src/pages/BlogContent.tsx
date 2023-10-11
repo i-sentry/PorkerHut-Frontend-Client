@@ -12,7 +12,7 @@ const BlogContent = () => {
   console.log(getSingleBlog, "getSinleblog");
 
   const img = imageUrl;
-  const [blog, setBlog] = useState<any>({
+  const [, ] = useState<any>({
     _id: "",
     title: "",
     createdAt: "",

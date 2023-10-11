@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AiFillStar } from "react-icons/ai";
-import { BsArrowRightShort } from "react-icons/bs";
 import { productData } from "../../../utils/productData";
 import ProductCard from "../ProductCard";
 import { chunkArray } from "../../../helper/chunck";
@@ -8,10 +6,10 @@ import { useGetAllProducts } from "../../../services/hooks/users/products";
 import { SkeletonLoader } from "../../category-component/Category";
 
 const FeaturedProduct = () => {
-  const [data, setData] = useState(productData);
+  const [ , setData] = useState(productData);
   let itemsPerPage = 12;
   let currentPage = 1;
-  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
+  const [currentPageIndex, ] = useState(currentPage);
   useEffect(() => setData(productData), [productData]);
 
   const { data: getAllProducts } = useGetAllProducts();

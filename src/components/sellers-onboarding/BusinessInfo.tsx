@@ -6,10 +6,10 @@ import {
 } from "../../utils/formData";
 import CustomSelect from "../utility/CustomSelect";
 import { useForm } from "react-hook-form";
-import CustomDND, { IFile } from "../utility/CustomDND";
+// import CustomDND, { IFile } from "../utility/CustomDND";
 import ReactFlagsSelect from "react-flags-select";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
-import StepperController, { IFormFiles } from "./StepperController";
+import StepperController from "./StepperController";
 import { ISellerInfo } from "../../context/SellerInfoContext";
 import { FileContext } from "../../context/FileContext";
 import { RiCloseLine } from "react-icons/ri";
@@ -44,28 +44,26 @@ const BusinessInfo = () => {
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
     userData,
     setUserData,
     handleChange,
   } = useContext(SellersStepsContext);
-  const [val, setVal] = useState(false);
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  
   const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
   const [IDType, setIDType] = useState<SelectOptionType>(null);
   const [select, setSelect] = useState<string>("");
   const onSelect = (code: string): void => setSelect(code);
-  const [componentFiles, setComponentFiles] = useState<File[]>([]);
-  const [filenames, setFilenames] = useState<string[]>([]);
-  const [docsUrl, setDocsUrl] = useState<FormData>();
-  const [selectedFile, setSelectedFile] = useState<any>(null);
-  const [selecFile, setSelecFile] = useState<any>(null);
-  const [seFile, setSeFile] = useState<any>(null);
-  const [documentType, setDocumentType] = useState("Incorporation Document");
-  const [selectedFileNames, setSelectedFileNames] = useState({
+  // const [componentFiles, setComponentFiles] = useState<File[]>([]);
+  // const [filenames, setFilenames] = useState<string[]>([]);
+  
+  const [selectedFile, ] = useState<any>(null);
+  const [selecFile,] = useState<any>(null);
+  const [seFile, ] = useState<any>(null);
+  // const [documentType, setDocumentType] = useState("Incorporation Document");
+  const [, ] = useState({
     selected1: "",
     selected2: "",
-    selected3: "",
+    selected3: ""
   });
   const { setFiles, seFiles, selecFiles, selectedFiles } =
     useContext(FileContext);
@@ -123,11 +121,11 @@ const BusinessInfo = () => {
   };
 
   const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    formState: { isValid, errors },
+    // register,
+    // handleSubmit,
+    // control,
+    // setValue,
+    formState: { errors },
   } = useForm<any>();
 
   const flagsSelectProps: IFlagsSelectProps = {
@@ -136,37 +134,37 @@ const BusinessInfo = () => {
     countries: ["NG", "GH", "KE", "UG", "ZA", "TZ"],
   };
 
-  const handleGetFiles = (files: File[], fieldName: string) => {
-    console.log(files, "handle");
-    if (files.length > 0) {
-      const file = files[0];
-      const formData = new FormData();
-      formData.append(fieldName, file);
-      setComponentFiles([...componentFiles, file]);
-      setFilenames([...filenames, file.name]);
-      //@ts-ignore
-      setUserData((prevUserData: ISellerInfo) => ({
-        ...prevUserData,
-        businessInformation: {
-          ...prevUserData.businessInformation,
-          [fieldName]: formData,
-        },
-      }));
+  // const handleGetFiles = (files: File[], fieldName: string) => {
+  //   console.log(files, "handle");
+  //   if (files.length > 0) {
+  //     const file = files[0];
+  //     const formData = new FormData();
+  //     formData.append(fieldName, file);
+  //     setComponentFiles([...componentFiles, file]);
+  //     setFilenames([...filenames, file.name]);
+  //     //@ts-ignore
+  //     setUserData((prevUserData: ISellerInfo) => ({
+  //       ...prevUserData,
+  //       businessInformation: {
+  //         ...prevUserData.businessInformation,
+  //         [fieldName]: formData,
+  //       },
+  //     }));
 
-      console.log("File name:", file.name);
-      console.log("File data:", file);
-    }
-  };
+  //     console.log("File name:", file.name);
+  //     console.log("File data:", file);
+  //   }
+  // };
 
-  const getDocs = (files: any) => {
-    // console.log(files, "getfike")
-    const formData = new FormData();
-    files.forEach((file: string | Blob, index: any) => {
-      formData.append(`documents`, file);
-    });
-    formData.append("documentType", documentType);
-    setDocsUrl(formData);
-  };
+  // const getDocs = (files: any) => {
+  //   // console.log(files, "getfike")
+  //   const formData = new FormData();
+  //   files.forEach((file: string | Blob, index: any) => {
+  //     formData.append(`documents`, file);
+  //   });
+  //   formData.append("documentType", documentType);
+  //   setDocsUrl(formData);
+  // };
   console.log(files, "gyguygyg");
   const updateUserData = (property: string, value: string) => {
     setUserData((prevUserData: ISellerInfo) => ({
@@ -183,7 +181,7 @@ const BusinessInfo = () => {
       if (value) {
         updateUserData(property, value);
       }
-    }, [value]);
+    }, [value, property]);
   };
 
   useUpdateUserDataEffect("VATRegistered", vatRegistered);

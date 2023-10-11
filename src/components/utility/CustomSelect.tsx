@@ -1,10 +1,9 @@
 import _ from "lodash-es";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Control,
   Controller,
-  useForm,
   UseFormGetValues,
 } from "react-hook-form";
 import Select from "react-select";
@@ -41,8 +40,6 @@ const CustomSelect = (props: CustomSelectProps) => {
     errors,
     defaultValue,
   } = props;
-
-  const [defaultVal, setDefaultVal] = useState<SelectOptionType>(null);
 
   const handleChange = (option: any) => {
     setSelectOption(option);
@@ -94,7 +91,7 @@ const CustomSelect = (props: CustomSelectProps) => {
      );
      setSelectOption(defaultOption);
    }
- }, [defaultValue]);
+ }, [defaultValue, alteredOptions, setSelectOption]);
 
   return (
     <div className="w-full">

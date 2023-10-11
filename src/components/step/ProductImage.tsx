@@ -12,7 +12,7 @@ const ProductImage = ({
   cate: string | null;
   subCate: string | null;
 }) => {
-  const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<File | null>(null);
   const [imageUrl1, setImageUrl1] = useState<string>("");
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [imageUrl3, setImageUrl3] = useState<string>("");
@@ -21,33 +21,29 @@ const ProductImage = ({
   const [imageUrl6, setImageUrl6] = useState<string>("");
   const [imageUrl7, setImageUrl7] = useState<string>("");
   const [imageUrl8, setImageUrl8] = useState<string>("");
-  const { setImg, img1, img2, img3, img4, img5, img6, img7 } =
+  const { setImg } =
     useContext(ProductImagesContext);
   const {
     checkoutSteps,
-    currentStep,
-    handleClick,
-    productData,
-    setProductData,
-    handleChange,
+    currentStep
   } = useContext(productStepsContext);
 
-  const handleImageUpload = (imageData: any) => {
-    console.log(imageData, "jkl");
-    fetch("your-endpoint-url", {
-      method: "POST",
-      body: imageData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the endpoint
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the request
-        console.error(error);
-      });
-  };
+  // const handleImageUpload = (imageData: any) => {
+  //   console.log(imageData, "jkl");
+  //   fetch("your-endpoint-url", {
+  //     method: "POST",
+  //     body: imageData,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // Handle the response from the endpoint
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle any errors that occurred during the request
+  //       console.error(error);
+  //     });
+  // };
 
   const handleImage = (
     e: React.ChangeEvent<HTMLInputElement>,

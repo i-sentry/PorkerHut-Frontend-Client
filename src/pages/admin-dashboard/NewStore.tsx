@@ -1,5 +1,4 @@
 import React from "react";
-import AdminNewStoreTable from "../../components/admin-dashboard-components/AdminNewStoreTable";
 import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";

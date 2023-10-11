@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiMinus } from "react-icons/bi";
 import { IoMdAdd } from "react-icons/io";
-import { IoAdd, IoChevronUp } from "react-icons/io5";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
+import { IoAdd } from "react-icons/io5";
 import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -94,7 +91,7 @@ export const categories = [
 const Category = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const [editIndex, setEditIndex] = useState(-1);
-  const [categoryName, setCategoryName] = useState("");
+  const [, setCategoryName] = useState("");
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const location = useLocation();
   const navigate = useNavigate();
@@ -127,7 +124,7 @@ const Category = () => {
     setBlueDivs(updatedBlueDivs);
   };
 
-  const validationSchema = Yup.object().shape({});
+  // const validationSchema = Yup.object().shape({});
 
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
@@ -142,11 +139,11 @@ const Category = () => {
     setCategoryName(categories[index].name);
   };
 
-  const handleSave = (index: any) => {
-    // Perform save/update logic here
-    console.log("Saved category:", categoryName);
-    setEditIndex(-1);
-  };
+  // const handleSave = (index: any) => {
+  //   // Perform save/update logic here
+  //   console.log("Saved category:", categoryName);
+  //   setEditIndex(-1);
+  // };
 
   const handleSubCat = (index: any) => {
     setShowModal(true);

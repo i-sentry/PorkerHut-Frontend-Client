@@ -5,7 +5,7 @@ import { orderStatement } from "../../utils/orderStatement";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Statementcolumn } from "../../components/Table/column";
-import { useLocation, useNavigate } from "react-router-dom";
+
 
 
 const data = [
@@ -354,7 +354,7 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [handleNext]);
 
   return (
     <div className="relative">

@@ -30,16 +30,15 @@ const SellersAccountInfo = () => {
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
     userData,
     setUserData,
     handleChange,
   } = useContext(SellersStepsContext);
-  const [val, setVal] = useState(false);
+  const [val, ] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
-  const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
+  // const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
   // const [dropOption, setDropOption] = useState<SelectOptionType>(null);
-  const [accountInfoFilled, setAccountInfoFilled] = useState(false);
+  // const [accountInfoFilled, setAccountInfoFilled] = useState(false);
 
   React.useEffect(() => {
     setUserData((prevUserData: ISellerInfo) => ({
@@ -49,18 +48,13 @@ const SellersAccountInfo = () => {
         entityType: dropOption?.value || "",
       },
     }));
-  }, [dropOption?.value]);
+  }, [dropOption?.value, setUserData]);
 
-  const { state, setState } = useAppState();
+  const { state,  } = useAppState();
 
-  const {
-    handleSubmit,
-    register,
-    watch,
-    setValue,
-    formState: { errors },
+  const {formState: { errors },
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
-  const watchPassword = watch("password");
+  
 
 
   React.useEffect(() => {

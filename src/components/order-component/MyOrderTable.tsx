@@ -9,8 +9,8 @@ import {
 } from "react-table";
 import GlobalFilter from "../Table/GlobalFilter";
 import Pagination from "../Table/Pagination";
-import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
-import { OrderDropDown } from "../Table/OrderDropDown";
+// import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
+// import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 
 export type IProps = {
@@ -36,10 +36,11 @@ const MyOrderTable = ({
   TData,
   placeholder,
 }: any) => {
-  const [selectedRows, setSelectedRows] = useState(null);
-  const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
+  // const [selectedRows, setSelectedRows] = useState(null);
+  // const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
-  const columns = useMemo(() => Tcolumns, []);
+  const columns = useMemo(() => Tcolumns, [Tcolumns]);
+
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState("All");
   const [chosenTab, setChosenTab] = useState("All");
@@ -101,18 +102,18 @@ const MyOrderTable = ({
     page,
     state,
     setGlobalFilter,
-    selectedFlatRows,
-    nextPage,
+    // selectedFlatRows,
+    // nextPage,
     gotoPage,
-    pageCount,
+    // pageCount,
     setPageSize,
-    previousPage,
-    pageOptions,
-    canNextPage,
-    canPreviousPage,
-    footerGroups,
+    // previousPage,
+    // pageOptions,
+    // canNextPage,
+    // canPreviousPage,
+    // footerGroups,
   } = table;
-  const { globalFilter, pageIndex, pageSize, expanded } = state;
+  const { globalFilter, pageSize } = state;
 
   useEffect(() => {
     if (chosenTab === "All") {
@@ -125,9 +126,7 @@ const MyOrderTable = ({
         )
       );
     }
-  }, [chosenTab]);
-
-
+  }, [chosenTab, TData]);
 
   console.log(selectedTab, "selectedTab");
   console.log(chosenTab, "chosenTab");

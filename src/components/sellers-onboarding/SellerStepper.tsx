@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { StepLayoutProps } from "../../pages/Authentication/CreateSellersAcc";
 import { SiAcclaim } from "react-icons/si";
-import { SellersStepsContext, SellersStepsContextValue } from "../../context/SellersStepsContext";
+
 
 type Step = {
   description: string;

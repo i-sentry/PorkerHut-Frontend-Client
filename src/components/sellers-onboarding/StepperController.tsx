@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useVendorSignUp } from "../../services/hooks/Vendor";
 import {
-  SellersStepsContext,
-  SellersStepsContextValue,
+  SellersStepsContext
 } from "../../context/SellersStepsContext";
 import { FileContext, FileData } from "../../context/FileContext";
 import { useSignUpState } from "../../store/overlay";
@@ -21,7 +20,7 @@ interface fileProps {
 const StepperController: React.FC<fileProps> = ({
   formFiles = { selectedFile: null, selecFile: null, seFile: null },
 }) => {
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+  const { checkoutSteps, currentStep, handleClick, userData } =
     useContext(SellersStepsContext);
   const onboardVendor = useVendorSignUp();
   const { selectedFiles, selecFiles, seFiles } = useContext(FileContext);

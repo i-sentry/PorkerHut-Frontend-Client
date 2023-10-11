@@ -1,16 +1,9 @@
-import { Fragment, useState } from "react";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
-import { HiOutlineSearch } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import CreateProduct from "./CreateProduct";
 import RecentCreatedProduct from "./RecentCreatedProduct";
 
 export default function ProductAccordion() {
-  const [open, setOpen] = useState(0);
+  // const [open, setOpen] = useState(0);
   const [category, setCategory] = useState(true);
   const [recent, setRecent] = useState(false);
 
@@ -23,9 +16,9 @@ export default function ProductAccordion() {
     setRecent(true);
     setCategory(false);
   };
-  const handleOpen = (value: any) => {
-    setOpen(open === value ? 0 : value);
-  };
+  // const handleOpen = (value: any) => {
+  //   setOpen(open === value ? 0 : value);
+  // };
 
   return (
     <div className=" xxs:px-4 md:px-0">

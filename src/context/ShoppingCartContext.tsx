@@ -9,14 +9,14 @@ type CartItem = {
     quantity: number;
 }
 
-type ShoppingCartContext = {
+type ShoppingCartContextType = {
     getItemQuantity: (id: number) => number
     increaseCartQuantity: (id: number) => void
     decreaseCartQuantity: (id: number) => void
     removeFromCart: (id: number) => void
 }
 
-const ShoppingCartContext = createContext({} as ShoppingCartContext)
+const ShoppingCartContext = createContext({} as ShoppingCartContextType)
 
 export function useShoppingCart() {
     return useContext(ShoppingCartContext)

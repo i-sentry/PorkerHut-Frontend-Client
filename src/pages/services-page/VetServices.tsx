@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import NavBar from "../../components/nav-component/NavBar";
+// import NavBar from "../../components/nav-component/NavBar";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import VetImg from "../../assets/images/VetImg.png";
 import PigImg from "../../assets/images/PigImg.png";
 import VetDrImg from "../../assets/images/VetDrImg.png";
-import Footer from "../../components/footer-component/Footer";
-import ServiceForm from "../../components/services-component/ServiceForm";
+// import Footer from "../../components/footer-component/Footer";
+// import ServiceForm from "../../components/services-component/ServiceForm";
 import AppLayout from "../../components/utility/AppLayout";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 import Select from "react-select";
@@ -23,7 +23,7 @@ interface VetServiceProps {
 
 const VetServices = () => {
 
-  const [accountType, setAccountType] = useState("");
+  // const [accountType, setAccountType] = useState("");
 
   const purpose = [
     { value: "preventive_care", label: "Preventive Care" },

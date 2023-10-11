@@ -1,20 +1,14 @@
-import React, { useState, useContext } from "react";
-import CustomSelect from "../components/utility/CustomSelect";
-import { sellersShopInfo, sellersformData } from "../utils/formData";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ISellerInfo, useAppState } from "../context/SellerInfoContext";
-import { SellersStepsContext } from "../context/SellersStepsContext";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import { useForm } from "react-hook-form";
 import {
   CountryDropdown,
   RegionDropdown,
-  CountryRegionData,
 } from "react-country-region-selector";
 
-import { useCreateVet } from "../services/hooks/service/vet";
+
 import { FileContext } from "../context/FileContext";
 import { RiCloseLine } from "react-icons/ri";
 import Header from "../components/vet-form/Header";
@@ -25,16 +19,16 @@ export type SelectOptionType = {
   description?: string;
 } | null;
 
-const vendorType = [
-  {
-    id: 1,
-    name: "Individual",
-  },
-  {
-    id: 2,
-    name: "Business Entity",
-  },
-];
+// const vendorType = [
+//   {
+//     id: 1,
+//     name: "Individual",
+//   },
+//   {
+//     id: 2,
+//     name: "Business Entity",
+//   },
+// ];
 
 
 interface FileData {
@@ -101,26 +95,23 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
     }
   };
 
-  const appendFilesToFormData = (
-    fieldName: string,
-    files: FileData[] | null,
-    formData: FormData
-  ) => {
+  // const appendFilesToFormData = (
+  //   fieldName: string,
+  //   files: FileData[] | null,
+  //   formData: FormData
+  // ) => {
 
-    if (files) {
-      for (const fileData of files) {
-        formData.append(fieldName, fileData.file);
-        console.log(fileData.file);
-      }
-    }
-  };
+  //   if (files) {
+  //     for (const fileData of files) {
+  //       formData.append(fieldName, fileData.file);
+  //       console.log(fileData.file);
+  //     }
+  //   }
+  // };
 
 
 
   const {
-    register,
-    handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<UserBillingInfo>({
 

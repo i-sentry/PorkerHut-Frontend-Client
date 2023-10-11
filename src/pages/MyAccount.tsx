@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { TabSelector } from "../components/utility/TabSelector";
+
 import InputComponent from "../components/admin-dashboard-components/InputComponent";
 import AppLayout from "../components/utility/AppLayout";
-import { json } from "react-router-dom";
 
 const MyAccount = () => {
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, ] = useState(true);
   const [disabledAddress, setDisabledAddress] = useState(true);
   const [disabledNumber, setDisabledNumber] = useState(true);
   const [user, setUser] = useState<any>(null);
@@ -25,10 +24,10 @@ const MyAccount = () => {
     setEditStatus(true);
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setDisabledAddress(true);
-  };
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   setDisabledAddress(true);
+  // };
   const getUser = () => {
     //@ts-ignore
     const storeData = JSON.parse(localStorage.getItem("user"));

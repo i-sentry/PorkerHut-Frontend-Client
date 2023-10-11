@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
-import { productData } from "../../utils/productData";
-import { useParams } from "react-router-dom";
-import { useImageOverlay } from "../../store/overlay";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiLockPasswordLine, RiSecurePaymentFill } from "react-icons/ri";
-import { Tooltip } from "../../components/utility/ToolTip";
 import { BsCamera } from "react-icons/bs";
 import avatar from "../../assets/account.png";
 import InputComponent from "../../components/admin-dashboard-components/InputComponent";
@@ -16,12 +12,12 @@ import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Settings = () => {
-  const [image, setImage] = useState(null);
+  const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [overlayVisibility, setOverlayVisibility] = useState(false);
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
-  const [eyeState3, setEyeState3] = useState(false);
+  const [eyeState3, ] = useState(false);
   const [selectedTab, setSelectedTab] = useTabs([
     "Information",
     "Members",
@@ -63,46 +59,46 @@ const Settings = () => {
   const handleImage = (e: any) => {
     setOverlayVisibility(false);
     setImage(e.target.files[0]);
-    var image = document.getElementById("output");
+    // var image = document.getElementById("output");
     setCurrentImage(URL.createObjectURL(e.target.files[0]));
     //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
   };
 
-  const AccInfo = [
-    {
-      id: 1,
-      label: "Full Name",
-      value: "full_name",
-      dafaultValue: "Williams",
-      type: "text",
-      required: "true",
-    },
-    {
-      id: 2,
-      label: "Email",
-      value: "email",
-      dafaultValue: "Williams",
-      type: "email",
-      required: "true",
-    },
-    {
-      id: 3,
-      label: "Street Address",
-      value: "street_address",
-      dafaultValue: "Williams",
-      type: "text",
-      required: "true",
-    },
-    // {
-    //   id: 4,
-    //   label: "Phone Number",
-    //   value: "phone_number",
-    //   dafaultValue: "Williams",
-    //   type: "tel",
-    //   required: "true"
+  // const AccInfo = [
+  //   {
+  //     id: 1,
+  //     label: "Full Name",
+  //     value: "full_name",
+  //     dafaultValue: "Williams",
+  //     type: "text",
+  //     required: "true",
+  //   },
+  //   {
+  //     id: 2,
+  //     label: "Email",
+  //     value: "email",
+  //     dafaultValue: "Williams",
+  //     type: "email",
+  //     required: "true",
+  //   },
+  //   {
+  //     id: 3,
+  //     label: "Street Address",
+  //     value: "street_address",
+  //     dafaultValue: "Williams",
+  //     type: "text",
+  //     required: "true",
+  //   },
+  //   // {
+  //   //   id: 4,
+  //   //   label: "Phone Number",
+  //   //   value: "phone_number",
+  //   //   dafaultValue: "Williams",
+  //   //   type: "tel",
+  //   //   required: "true"
 
-    // },
-  ];
+  //   // },
+  // ];
 
   const data = [
     {

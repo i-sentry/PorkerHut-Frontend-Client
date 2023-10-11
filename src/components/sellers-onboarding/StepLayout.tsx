@@ -79,34 +79,34 @@ const StepLayout = () => {
     isFormFilled();
   };
 
-  const handleGetFiles = (files: File[], fieldName: string) => {
-    if (files.length > 0) {
-      const file = files[0];
-      const formData = new FormData();
-      formData.append(fieldName, file);
-      //@ts-ignore
-      setUserData((prevUserData: ISellerInfo) => ({
-        ...prevUserData,
-        businessInformation: {
-          ...prevUserData.businessInformation,
-          [fieldName]: formData,
-        },
-      }));
+  // const handleGetFiles = (files: File[], fieldName: string) => {
+  //   if (files.length > 0) {
+  //     const file = files[0];
+  //     const formData = new FormData();
+  //     formData.append(fieldName, file);
+  //     //@ts-ignore
+  //     setUserData((prevUserData: ISellerInfo) => ({
+  //       ...prevUserData,
+  //       businessInformation: {
+  //         ...prevUserData.businessInformation,
+  //         [fieldName]: formData,
+  //       },
+  //     }));
 
-      console.log("File name:", file.name);
-      console.log("File data:", file);
-    }
-  };
+  //     console.log("File name:", file.name);
+  //     console.log("File data:", file);
+  //   }
+  // };
 
-  const updateUserData = (property: string, value: string) => {
-    setUserData((prevUserData: ISellerInfo) => ({
-      ...prevUserData,
-      businessInformation: {
-        ...prevUserData.businessInformation,
-        [property]: value || "",
-      },
-    }));
-  };
+  // const updateUserData = (property: string, value: string) => {
+  //   setUserData((prevUserData: ISellerInfo) => ({
+  //     ...prevUserData,
+  //     businessInformation: {
+  //       ...prevUserData.businessInformation,
+  //       [property]: value || "",
+  //     },
+  //   }));
+  // };
 
   if (isOpen) {
     return (

@@ -3,12 +3,10 @@ import GalleryModal from './GalleryModal';
 
 function Gallery({data}: any) {
 
-  const [isLoading, setLoading] = useState(true);
   const [clickedImg, setClickedImg] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
-  const [showModal, setShowModal] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [zoomLevel, ] = useState<number>(100);
+  const [, setEdit] = useState(false);
 
 
   const handleClick = (item: any, index: number) => {
@@ -102,7 +100,7 @@ function BlurImage({ image, handleClick, index, setEdit }: BlurImageProps) {
   console.log(image,"image");
 
   return (
-    <a className="group">
+    <a href="gallery" className="group">
       <div className="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-lg bg-gray-200">
         <img
           src={image}

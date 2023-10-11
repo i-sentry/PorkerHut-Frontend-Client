@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Select from "react-select";
-import  State  from "react-select";
-import  ValueType  from "react-select";
+
 
 export type SelectOptionType = {
   id: string | number;

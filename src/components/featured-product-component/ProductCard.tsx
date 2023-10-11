@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { AiFillStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import noImage from "../../assets/imgn.png"
 import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
@@ -16,8 +15,8 @@ interface ProductLocationState {
 
 const ProductCard = ({ item }: ProductLocationState) => {
   // console.log(item)
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  // const [rating, setRating] = useState(0);
+  // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);

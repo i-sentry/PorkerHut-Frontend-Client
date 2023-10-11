@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import BtnSlider from "./BtnSlider";
 import { useNavigate } from "react-router-dom";
 
-import { AiOutlineClose } from "react-icons/ai";
+
 import { IoClose } from "react-icons/io5";
-import { ISearch, useSearchStore } from "../../store/showSearch";
+// import { useSearchStore } from "../../store/showSearch";
 
 interface SliderProps {
   sliderImages: never[];
@@ -30,8 +30,8 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   ];
 
   const [slideIndex, setSlideIndex] = useState(1);
-  const showSearch = useSearchStore((state) => state.showSearch);
-  const setShowSearch = useSearchStore((state) => state.setShowSearch);
+  // const showSearch = useSearchStore((state) => state.showSearch);
+  // const setShowSearch = useSearchStore((state) => state.setShowSearch);
 
   const nextSlide = () => {
     if (slideIndex !== dataSlider.length) {
@@ -128,41 +128,41 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
 export default Slider;
 
-const OverLay = () => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <div className=" w-full z-50 h-screen flex justify-center items-center ">
-        <div className="max-w-2xl  bg-gradient-to-b from-[rgba(251,196,124,0.1)] to-slate-[rgba(226, 190, 113, 0.35)] text-[#1c0708] backdrop-blur-[4em] border-[1px] border-solid border-white border-opacity-10  shadow-black/50  overflow-hidden shadow-2xl  hover:shadow-black/75 hover:backdrop-blur-[2em] transition ">
-          <div className=" place-items-center grid-cols-6 gap-2 pl-4 pb-3">
-            <div className="col-span-3 p-8">
-              <h2 className="font-bold text-2xl mb-4 text-[#fff] tracking-wide">
-                Porker Hut Naija
-              </h2>
-              <p className=" text-[#fff] font-light">
-                Porker Hut is dedicated to ethical and responsible animal
-                rearing, sourcing only the freshest, high-quality pigs from
-                local farms. Our selection of premium pork products includes
-                succulent chops, savory bacon, and mouth-watering sausages to
-                satisfy every taste. Experience the difference of our
-                farm-to-table approach with convenient online ordering and
-                delivery options. Choose Porker Hut for unparalleled quality in
-                every bite.
-              </p>
-              <button
-                onClick={() => navigate("/products")}
-                className="mt-6 py-3 px-5 inline-flex bg-[#197b30] hover:bg-[#197b3098] transition-colors text-gray-200 font-bold rounded-md text-sm"
-              >
-                Shop now
-              </button>
-            </div>
-            {/* <div className="col-span-3 -mt-5 -mb-10"></div> */}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+// const OverLay = () => {
+//   const navigate = useNavigate();
+//   return (
+//     <>
+//       <div className=" w-full z-50 h-screen flex justify-center items-center ">
+//         <div className="max-w-2xl  bg-gradient-to-b from-[rgba(251,196,124,0.1)] to-slate-[rgba(226, 190, 113, 0.35)] text-[#1c0708] backdrop-blur-[4em] border-[1px] border-solid border-white border-opacity-10  shadow-black/50  overflow-hidden shadow-2xl  hover:shadow-black/75 hover:backdrop-blur-[2em] transition ">
+//           <div className=" place-items-center grid-cols-6 gap-2 pl-4 pb-3">
+//             <div className="col-span-3 p-8">
+//               <h2 className="font-bold text-2xl mb-4 text-[#fff] tracking-wide">
+//                 Porker Hut Naija
+//               </h2>
+//               <p className=" text-[#fff] font-light">
+//                 Porker Hut is dedicated to ethical and responsible animal
+//                 rearing, sourcing only the freshest, high-quality pigs from
+//                 local farms. Our selection of premium pork products includes
+//                 succulent chops, savory bacon, and mouth-watering sausages to
+//                 satisfy every taste. Experience the difference of our
+//                 farm-to-table approach with convenient online ordering and
+//                 delivery options. Choose Porker Hut for unparalleled quality in
+//                 every bite.
+//               </p>
+//               <button
+//                 onClick={() => navigate("/products")}
+//                 className="mt-6 py-3 px-5 inline-flex bg-[#197b30] hover:bg-[#197b3098] transition-colors text-gray-200 font-bold rounded-md text-sm"
+//               >
+//                 Shop now
+//               </button>
+//             </div>
+//             {/* <div className="col-span-3 -mt-5 -mb-10"></div> */}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
 export const SearchBar = ({
   setShowSearch,

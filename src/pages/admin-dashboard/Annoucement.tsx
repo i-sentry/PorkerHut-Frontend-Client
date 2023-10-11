@@ -9,21 +9,12 @@ import {
   useGlobalFilter,
   usePagination,
   useRowSelect,
-  TableToggleAllRowsSelectedProps,
   Column,
-  HeaderProps,
-  Hooks,
   useExpanded,
 } from "react-table";
 // import mockData from "../../utils/mockData.json";
 import { announcementData } from "../../utils/announcementData";
-// import { column } from "../../components/Table/column";
-import GlobalFilter from "../../components/Table/GlobalFilter";
-import { usePaginationPages } from "../../components/Table/usePaginationPages";
-import Pagination from "../../components/Table/Pagination";
 import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import { OrderDropDown } from "../../components/Table/OrderDropDown";
 import RowModal from "../../components/announcement-component/RowModal";
 import CustomPagination from "../../components/Table/CustomPagination";
 
@@ -43,18 +34,17 @@ const Announcement = () => {
 
 
 
-  const [selectedRows, setSelectedRows] = useState(null);
-  const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
+  // const [selectedRows, setSelectedRows] = useState(null);
+  const [numOfSelectedRow, ] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
-  const [rowData, setRowData] = useState<RowData[]>(announcementData);
   const [showRowModal, setShowRowModal] = useState(false);
 
-  const handleRowClick = (rowData: RowData) => {
-    setSelectedRow(rowData);
-    setShowModal(true);
-  };
+  // const handleRowClick = (rowData: RowData) => {
+  //   setSelectedRow(rowData);
+  //   setShowModal(true);
+  // };
 
   const column: Column<{
     content: string;
@@ -110,7 +100,7 @@ const Announcement = () => {
     { value: "delete", label: "Delete" },
   ];
 
-  const columns = useMemo(() => column, []);
+  const columns = useMemo(() => column, [column]);
 
   const data = useMemo(() => announcementData, []);
   const table = useTable(
@@ -158,19 +148,12 @@ const Announcement = () => {
     prepareRow,
     page,
     state,
-    setGlobalFilter,
-    selectedFlatRows,
-    nextPage,
     gotoPage,
     pageCount,
     setPageSize,
-    previousPage,
     pageOptions,
-    canNextPage,
-    canPreviousPage,
-    footerGroups,
   } = table;
-  const { globalFilter, pageIndex, pageSize, expanded } = state;
+  const { pageIndex, pageSize } = state;
 
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page

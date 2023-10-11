@@ -1,8 +1,5 @@
 import React from "react";
-import AdminOverviewRating from "./AdminOverviewRating";
-import AdminOverviewTopProduct from "./AdminOverviewTopProduct";
 import { AreaChart } from "./AreaChart";
-import TopStoresRating from "./TopStoresRating";
 
 const data = [
   {

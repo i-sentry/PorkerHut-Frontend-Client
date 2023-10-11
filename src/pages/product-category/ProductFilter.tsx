@@ -1,11 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { TbCurrencyNaira } from "react-icons/tb";
-import MultiSlider from "../../components/accordion-component/MultiSlider";
 import MultiRangeSlider from "../../components/accordion-component/MultiSlider";
 import { productData } from "../../utils/productData";
 
@@ -39,7 +37,7 @@ const Icon: React.FC<IconProps> = ({ id, open }) => {
 const ProductFilter = ({ menuItem, setData }: iProps) => {
   // State to keep track of open Accordion
   const [open, setOpen] = useState(0);
-  const [color, setColor] = useState("#197B30");
+  // const [color, setColor] = useState("#197B30");
 
   // Handle to toggle Accordion open state
   const handleOpen = (value: number) => {

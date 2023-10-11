@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
+import {  HiOutlineChevronLeft } from "react-icons/hi";
 import { MdOutlineEnhancedEncryption } from "react-icons/md";
-import { TfiLock } from "react-icons/tfi";
+// import { TfiLock } from "react-icons/tfi";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-interface PasswordProp {
-  setShowTab: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// interface PasswordProp {
+//   setShowTab: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
 const Password = ({ setShowTab }: any) => {
   const [eyeState, setEyeState] = useState(false);

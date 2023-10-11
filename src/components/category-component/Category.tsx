@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 // import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
-import Header from "../header-component/Header";
+// import Header from "../header-component/Header";
 import MobileCard from "../category-card-component/MobileCard";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 
@@ -22,7 +22,7 @@ interface Subcategory {
 }
 
 const Category = () => {
-  const { data: allCategories, error, isLoading } = useGetAllCategories();
+  const { data: allCategories, isLoading } = useGetAllCategories();
 
   console.log(allCategories?.data, "time");
 
@@ -76,49 +76,49 @@ const Category = () => {
 
 export default Category;
 
-const CardsSection = () => {
-  const cardContainerRef = useRef<HTMLDivElement>(null);
-  const { data: allCategories, error } = useGetAllCategories();
-  const handleRightButtonClick = () => {
-    if (cardContainerRef.current) {
-      cardContainerRef.current.scrollBy({
-        left: 200, // Adjust the scroll amount as needed
-        behavior: "smooth",
-      });
-    }
-  };
+// const CardsSection = () => {
+//   const cardContainerRef = useRef<HTMLDivElement>(null);
+//   const { data: allCategories, error } = useGetAllCategories();
+//   const handleRightButtonClick = () => {
+//     if (cardContainerRef.current) {
+//       cardContainerRef.current.scrollBy({
+//         left: 200, // Adjust the scroll amount as needed
+//         behavior: "smooth",
+//       });
+//     }
+//   };
 
-  const handleLeftButtonClick = () => {
-    if (cardContainerRef.current) {
-      cardContainerRef.current.scrollBy({
-        left: -200, // Adjust the scroll amount as needed
-        behavior: "smooth",
-      });
-    }
-  };
+//   const handleLeftButtonClick = () => {
+//     if (cardContainerRef.current) {
+//       cardContainerRef.current.scrollBy({
+//         left: -200, // Adjust the scroll amount as needed
+//         behavior: "smooth",
+//       });
+//     }
+//   };
 
-  return (
-    <div className="lg:flex gap-8 py-8 xxs:hidden relative">
-      <div ref={cardContainerRef} className="flex">
-        {allCategories?.data.map((item: ICategory, index: number) => (
-          <Card key={index} item={item} />
-        ))}
-      </div>
-      <button
-        className="absolute top-1/2 -translate-y-1/2 left-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:-translate-x-full"
-        onClick={handleLeftButtonClick}
-      >
-        Left Button
-      </button>
-      <button
-        className="absolute top-1/2 -translate-y-1/2 right-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:translate-x-full"
-        onClick={handleRightButtonClick}
-      >
-        Right Button
-      </button>
-    </div>
-  );
-};
+//   return (
+//     <div className="lg:flex gap-8 py-8 xxs:hidden relative">
+//       <div ref={cardContainerRef} className="flex">
+//         {allCategories?.data.map((item: ICategory, index: number) => (
+//           <Card key={index} item={item} />
+//         ))}
+//       </div>
+//       <button
+//         className="absolute top-1/2 -translate-y-1/2 left-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:-translate-x-full"
+//         onClick={handleLeftButtonClick}
+//       >
+//         Left Button
+//       </button>
+//       <button
+//         className="absolute top-1/2 -translate-y-1/2 right-0 bg-blue-500 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:translate-x-full"
+//         onClick={handleRightButtonClick}
+//       >
+//         Right Button
+//       </button>
+//     </div>
+//   );
+// };
 
 export const SkeletonLoader = () => {
   return (

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
 import _ from "lodash";
 import product1 from "../../assets/products/prod2.png";
 import product3 from "../../assets/products/porkleg.png";
-import product4 from "../../assets/products/prod4.png";
 import product5 from "../../assets/products/prod5.png";
 import product6 from "../../assets/products/prod6.png";
 import product7 from "../../assets/products/pork2.png";

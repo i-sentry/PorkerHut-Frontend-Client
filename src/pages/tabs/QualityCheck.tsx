@@ -1,6 +1,6 @@
 import React from "react";
 import { BiShieldQuarter } from "react-icons/bi";
-import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
+import { HiOutlineChevronLeft } from "react-icons/hi";
 
 interface IAccount {
   setShowTab: React.Dispatch<React.SetStateAction<boolean>>;

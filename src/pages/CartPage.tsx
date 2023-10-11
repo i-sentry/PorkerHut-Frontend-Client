@@ -11,18 +11,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 import CartCard2 from "../components/CartCard2";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AppLayout from "../components/utility/AppLayout";
 import CartMobileModal from "../components/CartMobileModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  decrementProductQty,
-  deleteProductFromCart,
-  incrementProductQty,
-  IProduct,
-} from "../redux/features/product/productSlice";
+import {deleteProductFromCart} from "../redux/features/product/productSlice";
 
 const CartPage = () => {
   const dispatch = useDispatch();

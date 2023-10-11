@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { MdKeyboardArrowRight, MdMessage } from 'react-icons/md'
+import { MdMessage } from 'react-icons/md'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
 import { chunkArray } from '../../../helper/chunck'
-import RatingWidget from '../../RatingWidget'
+// import RatingWidget from '../../RatingWidget'
 import ProductsBreadCrumbs from '../../story-components/ProductsBreadCrumbs'
 import StarRating from './ProductDetailRating'
 
@@ -135,7 +135,7 @@ const CustomerRating = () => {
     let currentPage = 1;
     const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
     //@ts-ignore
-    const menuItems = [...new Set(ratingData.map((d: any) => d.category))];
+    // const menuItems = [...new Set(ratingData.map((d: any) => d.category))];
     useEffect(() => setData(ratingData), [ratingData]);
     return (
 

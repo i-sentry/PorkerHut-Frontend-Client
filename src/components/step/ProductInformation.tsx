@@ -2,9 +2,7 @@ import { useForm } from "react-hook-form";
 import React, {
   useCallback,
   useContext,
-  useEffect,
-  useMemo,
-  useState,
+  useMemo
 } from "react";
 import logo from "../../assets/images/porkerlogo.png";
 import StepperControl from "./StepperControl";
@@ -12,8 +10,7 @@ import { productStepsContext } from "../../context/StepperContext";
 import { productInfo } from "../../utils/formData";
 import {
   useGetAllCategoriesQuestions,
-  useGetCategoryQuestion,
-  useGetOneCategory,
+  useGetCategoryQuestion
 } from "../../services/hooks/Vendor/category";
 import { useLocation } from "react-router-dom";
 
@@ -27,18 +24,16 @@ export default function ProductInformation({
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
     productData,
-    setProductData,
     handleChange,
   } = useContext(productStepsContext);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("cate");
-  const subcategory = queryParams.get("sub");
+  // const subcategory = queryParams.get("sub");
   const catQuestions = useGetAllCategoriesQuestions();
   const { data: question } = useGetCategoryQuestion(category);
-  const Acategory = useGetOneCategory(category);
+  // const Acategory = useGetOneCategory(category);
 
   const convertToCamelCase = useCallback((str: string) => {
     return str
@@ -66,12 +61,7 @@ export default function ProductInformation({
 
 
   const {
-    register,
-    handleSubmit,
-    getValues,
-    control,
-    reset,
-    formState: { isValid, errors },
+    formState: {errors },
   } = useForm<any>();
 
   React.useEffect(() => {

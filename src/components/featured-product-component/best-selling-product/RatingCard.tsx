@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdKeyboardArrowRight, MdMessage } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
-import RatingWidget from '../../RatingWidget'
+
 
 const RatingCard = (id: any) => {
 

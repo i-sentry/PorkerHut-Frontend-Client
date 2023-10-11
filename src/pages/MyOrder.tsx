@@ -5,12 +5,6 @@ import { Column } from "react-table";
 import AppLayout from "../components/utility/AppLayout";
 import _ from "lodash";
 import { TabSelector } from "../components/utility/TabSelector";
-import prod1 from "../../src/assets/products/prod1.png";
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-} from "@material-tailwind/react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
 export const StatusColumn = ({ data }: { data: string }) => {
@@ -236,9 +230,9 @@ const Tcolumns: readonly Column<object>[] = [
 
 const MyOrder = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [isOrderExpanded, setIsOrderExpanded] = useState(false);
+  // const [isOrderExpanded, setIsOrderExpanded] = useState(false);
   const [selectedTab, setSelectedTab] = useState("All");
-  const [chosenTab, setChosenTab] = useState("All");
+  const [, setChosenTab] = useState("All");
   const t = ["All", "Pending", "Completed", "Failed"];
   const queryKey = ["location", "product_name", " store_name"];
   const [open, setOpen] = useState<number | null>(null);

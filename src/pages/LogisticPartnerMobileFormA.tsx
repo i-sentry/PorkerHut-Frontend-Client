@@ -1,21 +1,9 @@
-import React, { useState, useContext } from "react";
-import CustomSelect from "../components/utility/CustomSelect";
-import { sellersShopInfo, sellersformData } from "../utils/formData";
-import { Link } from "react-router-dom";
-import StepperController from "../components/sellers-onboarding/StepperController";
-import { ISellerInfo, useAppState } from "../context/SellerInfoContext";
-import CustomDND, { IFile } from "../components/utility/CustomDND";
-import PhoneInput from "react-phone-input-2";
+import React, { useState } from "react";
+import { IFile } from "../components/utility/CustomDND";
 import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
-import { VetPartnerContexts } from "../context/VetPartnerContext";
 
 export type SelectOptionType = {
   label: string | number;
@@ -23,16 +11,7 @@ export type SelectOptionType = {
   description?: string;
 } | null;
 
-const vendorType = [
-  {
-    id: 1,
-    name: "Individual",
-  },
-  {
-    id: 2,
-    name: "Business Entity",
-  },
-];
+
 
 type UserBillingInfo = {
   name: string;
@@ -49,19 +28,16 @@ type UserBillingInfo = {
 };
 
 const LogisticPartnerMobileFormA: React.FC = () => {
-  const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [, ] = useState<IFile[]>();
 
-  //@ts-ignore
-  const { vetData, setVetData } = useContext(VetPartnerContexts);
 
-  const getBusinessDocFromInput = (files: IFile[]) => {
-    setBusinessDocUrl(files);
-  };
+  // const getBusinessDocFromInput = (files: IFile[]) => {
+  //   setBusinessDocUrl(files);
+  // };
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
+  const [phoneNumber, ] = useState("");
+  const [country, ] = useState("");
+  const [state, ] = useState("");
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     businessName: Yup.string()
@@ -107,8 +83,6 @@ const LogisticPartnerMobileFormA: React.FC = () => {
     console.log(JSON.stringify(data, null, 2));
     reset();
   };
-
-  const handleChange = (e: any) => {};
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

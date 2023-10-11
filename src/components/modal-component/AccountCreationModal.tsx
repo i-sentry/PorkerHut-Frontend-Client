@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Dispatch, SetStateAction } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import React from "react";
 import { IoHome, IoLogIn } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import tick from "../../assets/images/success_tick.png"
@@ -15,7 +14,7 @@ const backdrop = {
   hidden: { opacity: 0 },
 };
 const AccountCreationModal: React.FC<ModalProps> = ({ onClose, isOpen }) => {
-  const modalRef = React.useRef(null);
+  // const modalRef = React.useRef(null);
 
 //   const handleOverLayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
 //     if (e.target === modalRef.current) {

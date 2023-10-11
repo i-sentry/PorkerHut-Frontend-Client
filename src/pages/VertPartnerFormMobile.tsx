@@ -48,9 +48,9 @@ const VertPartnerFormMobile = () => {
     const navigate = useNavigate()
     const createVet = useCreateVet();
     const [data, setData] = useState(INITIAL_DATA)
-    const [loading, setIsLoading] = useState(false)
+    // const [loading, setIsLoading] = useState(false)
     const [error, setError] = useState<any>(null);
-    const { steps, currentStepIndex, next, back, step, isFirstStep, isLastStep } = useMultiStepForm([
+    const {  next, back, step, isLastStep } = useMultiStepForm([
         //@ts-ignore
         <VetPartnerMobileFormA {...data} updateFields={updateFields} />, <VetPartnerMobileB {...data} updateFields={updateFields}
             error={error}

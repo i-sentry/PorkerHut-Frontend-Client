@@ -6,7 +6,6 @@ import { MainSideBarLinks } from "../../utils/Navigation";
 import NavButton from "./NavButton";
 import { MdOutlinePerson } from "react-icons/md";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-import { Link } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { ImDownload } from "react-icons/im";

@@ -1,7 +1,6 @@
-import React, { useState, ChangeEvent, useContext } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { FaTimes } from "react-icons/fa";
-import { ProductImagesContext } from "../../context/ProductImagesContext";
-import { FileData } from "../../context/FileContext";
+
 
 interface CreateProductImageProps {
   img: string;
@@ -16,7 +15,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
   imageUrl,
   setImageUrl,
 }) => {
-  const [image, setImage] = useState<File | null>(null);
+  const [, setImage] = useState<File | null>(null);
   // const [imageUrl, setImageUrl] = useState<string>("");
   // const { setImg, img1, img2, img3, img4, img5, img6, img7 } =
   //   useContext(ProductImagesContext);

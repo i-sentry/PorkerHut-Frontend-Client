@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
-import NavBar from "../components/nav-component/NavBar";
 
-import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import { MdOutlineFilterAlt } from "react-icons/md";
-import { productData } from "../utils/productData";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
-import { useParams } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
-import { Card } from "@material-tailwind/react";
 import { SkeletonLoader } from "../components/category-component/Category";
 import Spinner from "../components/Spinner/Spinner";
 import { useGetAllCategories } from "../services/hooks/Vendor/category";
@@ -30,23 +24,6 @@ interface iProps {
   ) => void;
 }
 
-interface Product {
-  id: string;
-  title: string;
-  type?: any;
-  category: string;
-  price: string;
-  rating?: any;
-  product: {
-    location: string;
-    name: string;
-    weight: string;
-    productName: string;
-  };
-  img: string;
-  status: string;
-  desc: string;
-}
 
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -56,7 +33,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   const { data: getAllProducts } = useGetAllProducts();
 
-  const { data: allCategories, error, isLoading } = useGetAllCategories();
+  const { data: allCategories } = useGetAllCategories();
   console.log({allCategories,data}, "donedeal")
 
   //@ts-ignore

@@ -4,7 +4,7 @@ import { ProductImagesContext } from "../../context/ProductImagesContext";
 import { useLocation } from "react-router-dom";
 import { FileData } from "../../context/FileContext";
 import { useCreateProduct } from "../../services/hooks/Vendor/products";
-import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
+// import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import { useSuccessOverlay } from "../../store/overlay";
 import ReactLoading from "react-loading";
 interface VendorData {
@@ -26,7 +26,7 @@ export default function StepperControl() {
   const subcategory: any = queryParams.get("sub");
   const createProduct = useCreateProduct();
   const [loading, setIsLoading] = useState(false);
-  const { data: questions } = useGetCategoryQuestion(category);
+  // const { data: questions } = useGetCategoryQuestion(category);
   const setShowOverlay = useSuccessOverlay(
     (state: { setShowOverlays: any }) => state.setShowOverlays
   );
@@ -34,15 +34,13 @@ export default function StepperControl() {
     checkoutSteps,
     currentStep,
     handleClick,
-    productData,
-    setProductData,
-    handleChange,
+    productData
   } = useContext(productStepsContext);
-  const { setImg, img1, img2, img3, img4, img5, img6, img7, img8 } =
+  const { img1, img2, img3, img4, img5, img6, img7, img8 } =
     useContext(ProductImagesContext);
-  console.log(checkoutSteps?.length);
-  console.log(currentStep, "currentStep");
-  console.log(productData, "productData");
+  // console.log(checkoutSteps?.length);
+  // console.log(currentStep, "currentStep");
+  // console.log(productData, "productData");
 
   const appendFilesToFormData = (
     fieldName: string,

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import { productDetails } from "../../utils/formData";
 import StepperControl from "./StepperControl";
@@ -15,7 +15,6 @@ export default function ProductDetails({
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
     productData,
     setProductData,
     handleChange,
@@ -24,10 +23,6 @@ export default function ProductDetails({
   console.log(cate, "jjuuuu");
 
   const {
-    handleSubmit,
-    register,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm<any>({ defaultValues: "", mode: "onSubmit" });
 

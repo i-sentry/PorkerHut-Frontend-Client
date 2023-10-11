@@ -1,20 +1,16 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { HiOutlineSearch } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
-import data from "../../utils/data";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
+import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
   const navigate = useNavigate();
   const allCategories = useGetAllCategories();
   const [open, setOpen] = useState(0);
-  const [category, setCategory] = useState(true);
-  const [recent, setRecent] = useState(false);
 
   const handleNavigation = (category: any, subcategory: any) => {
     navigate(

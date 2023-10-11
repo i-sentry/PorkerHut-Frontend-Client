@@ -1,8 +1,6 @@
-import { Menu, Popover, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import {
-  HiOutlineBell,
-  HiOutlineSearch,
-  HiOutlineChatAlt,
+  HiOutlineSearch
 } from "react-icons/hi";
 import React, { Fragment } from "react";
 import classNames from "classnames";

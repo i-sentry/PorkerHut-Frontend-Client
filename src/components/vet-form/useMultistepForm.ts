@@ -17,9 +17,9 @@ export function useMultiStepForm(steps: ReactElement[]) {
     });
   }
 
-  function goTo(index: number) {
-    setCurrentStepIndex(index);
-  }
+  // function goTo(index: number) {
+  //   setCurrentStepIndex(index);
+  // }
 
   return {
     currentStepIndex,

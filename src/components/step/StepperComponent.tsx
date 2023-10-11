@@ -5,7 +5,6 @@ import ProductInformation from "./ProductInformation";
 import ProductPricing from "./ProductPricing";
 import Stepper from "./Steppers";
 import { AiOutlineLine } from "react-icons/ai";
-import { FaAngleRight } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { GoChevronRight } from "react-icons/go";

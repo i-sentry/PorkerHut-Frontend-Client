@@ -3,10 +3,9 @@ import headerImg from "../assets/images/contactBanner.png";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
 import ServiceForm from "../components/services-component/ServiceForm";
 import AppLayout from "../components/utility/AppLayout";
-import toast, { Toaster } from "react-hot-toast";
 
 const Contact_Page = () => {
-  const notify = () => toast.success("Here is your toast.");
+  // const notify = () => toast.success("Here is your toast.");
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page

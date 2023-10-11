@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios";
+// import { AxiosResponse } from "axios";
 import useQueryAction from "../../../../lib/useQueryAction";
-import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeGetRequest, makePostRequest } from "../../../api";
-import { IBankData } from "../../../serviceType";
+// import useQueryMutation from "../../../../lib/useQueryMutation";
+import { api, makeGetRequest } from "../../../api";
+// import { IBankData } from "../../../serviceType";
 
 export const useGetBankList = () => {
   return useQueryAction({

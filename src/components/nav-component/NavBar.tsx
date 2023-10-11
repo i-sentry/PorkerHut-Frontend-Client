@@ -1,18 +1,14 @@
-import { Fragment, useContext } from "react";
+import { Fragment} from "react";
 import classNames from "classnames";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
-import SearchLogo from "../../assets/images/SearchLogo.svg";
 import CartLogo from "../../assets/images/CartLogo.svg";
 import {
   AiOutlineClose,
-  AiOutlineDown,
   AiOutlineSearch,
-  AiOutlineUp,
 } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
-import { HamburgerMenuIcon } from "../../assets/icons";
+
 import {
-  IoIosHelpCircleOutline,
   IoMdClose,
   IoMdHeartEmpty,
   IoMdHelpCircleOutline,
@@ -21,23 +17,21 @@ import {
 import { useNavigate } from "react-router-dom";
 import NavLink from "./NavLink";
 import NavButton from "./NavButton";
-
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { RxCaretDown } from "react-icons/rx";
 import { Menu, Transition } from "@headlessui/react";
 import { ImDownload } from "react-icons/im";
 import { FaHandsHelping } from "react-icons/fa";
 import { TbTruckReturn } from "react-icons/tb";
 import {
   MdCancelScheduleSend,
-  MdOutlinePerson,
   MdOutlineShoppingCart,
   MdSendAndArchive,
 } from "react-icons/md";
-import AuthContext from "../../context/AuthProvider";
-import { ISearch, useSearchStore } from "../../store/showSearch";
+// import AuthContext from "../../context/AuthProvider";
+import { useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
 import MainSideNav from "./MainSideNav";
 
@@ -46,10 +40,10 @@ const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const [temp, setTemp] = useState(false);
   //@ts-ignore
-  const { auth, isLogin } = useContext(AuthContext);
+  // const { auth, isLogin } = useContext(AuthContext);
   // const user = useAppSelector(selectUser);
   const [user, setUser] = useState(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
   const showSideBar = useSidebarState((state) => state.sideBarOpen);
