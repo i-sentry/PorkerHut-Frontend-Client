@@ -56,13 +56,14 @@ const BillingPage = () => {
   } = useForm<UserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
-  console.log(phoneNumber);
-  console.log(state);
-  console.log(country);
+  // console.log(phoneNumber);
+  // console.log(state);
+  // console.log(country);
 
   console.log({ errors });
 
   const onSubmit = (data: UserBillingInfo) => {
+    console.log(data, "billing data");
     data.phonenumber = phoneNumber;
     data.country = country;
     data.state = state;
@@ -305,7 +306,7 @@ const BillingPage = () => {
             <button
               type="submit"
               className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
-              onClick={() => navigate("/pay-card")}
+              // onClick={() => navigate("/pay-card")}
             >
               Proceed to Payments
             </button>

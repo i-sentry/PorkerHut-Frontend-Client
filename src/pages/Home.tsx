@@ -7,11 +7,21 @@ import Slider from "../components/slider-component/Slider";
 import Story from "../components/story-components/Story";
 import AppLayout from "../components/utility/AppLayout";
 import "aos/dist/aos.css";
+import { useAppDispatch } from "../redux/hook";
+import { fetchProduct } from "../redux/features/product/productSlice";
+import { toast } from "react-toastify";
 
 const Home: React.FC = () => {
+    const dispatch = useAppDispatch();
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+      dispatch(fetchProduct());
   }, []);
+  const notify = () => toast("Here is your toast.");
+
+  // useEffect(() => {
+
+  // });
   return (
     <AppLayout>
 

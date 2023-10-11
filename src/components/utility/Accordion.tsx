@@ -25,8 +25,8 @@ const AccordionSection = ({
   isExpanded,
   onToggle,
 }: IAccordionPros) => {
-  // const setBankData = useBankStore((state) => state.setBankData);
-  // const bankData = useBankStore((state) => state.bankData);
+  const setBankData = useBankStore((state) => state.setBankData);
+   const bankData = useBankStore((state) => state.bankData);
   //@ts-ignore
 
     useContext(SellersStepsContext);

@@ -71,13 +71,13 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   return (
     <AppLayout>
       <div className="bg-[#EEEEEE] overflow-hidden relative">
-        {/* <FilterSidebar
+        <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
           setData={undefined}
           menuItem={undefined}
           handleClick={handleClick}
-        /> */}
+        />
         <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0">
           <div className="lg:px-0 xxs:px-4">
             <ProductsBreadCrumbs

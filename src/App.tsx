@@ -28,7 +28,7 @@ import MyOrder from "./pages/MyOrder";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
-import EmptyCartPage from "./pages/EmptyCartPage";
+// import EmptyCartPage from "./pages/EmptyCartPage";
 import StepperComponent from "./components/step/StepperComponent";
 import AffiliatePage from "./pages/AffiliatePage";
 import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
@@ -143,7 +143,7 @@ const router = createBrowserRouter(
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
       <Route path="/my__orders/:id/:orderid" element={<ReturnRequest />} />
-      <Route path="/empty_cart" element={<EmptyCartPage />} />
+      {/* <Route path="/empty_cart" element={<EmptyCartPage />} /> */}
       <Route path="/contact-us" element={<ContactPage />} />
       <Route path="/services/vet-services" element={<VetServices />} />
       <Route path="/services/weekend-kills" element={<WeekendKills />} />

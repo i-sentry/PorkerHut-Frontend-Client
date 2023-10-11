@@ -34,7 +34,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const { data: getAllProducts } = useGetAllProducts();
 
   const { data: allCategories } = useGetAllCategories();
-  console.log({allCategories,data}, "donedeal")
+
 
   //@ts-ignore
   const menuItems = [...new Set(allCategories?.data?.map((d: any) => d?.name))];
@@ -42,9 +42,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   useEffect(
     () => setData(getAllProducts?.data),
   [getAllProducts?.data]);
- 
 
-  
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
