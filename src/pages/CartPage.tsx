@@ -18,10 +18,10 @@ import CartMobileModal from "../components/CartMobileModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  decrementProductQty,
+  // decrementProductQty,
   deleteProductFromCart,
-  incrementProductQty,
-  IProduct,
+  // incrementProductQty,
+  // IProduct,
 } from "../redux/features/product/productSlice";
 import { useAppSelector } from "../redux/hook";
 

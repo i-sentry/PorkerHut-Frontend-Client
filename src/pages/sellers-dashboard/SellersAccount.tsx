@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { orderStatement } from "../../utils/orderStatement";
@@ -340,11 +340,11 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
     );
   };
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveIndex((prevIndex: number) =>
       prevIndex === cards.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  },[cards.length]);
 
   useEffect(() => {
     const interval = setInterval(() => {

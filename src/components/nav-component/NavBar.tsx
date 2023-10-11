@@ -131,7 +131,7 @@ const NavBar = () => {
             </div>
           </div>
           <ul className="lg:flex font-normal hidden items-center text-sm  ">
-            <NavLink setToggle={setToggle} />
+            <NavLink setToggle={setToggle} toggle={toggle} />
           </ul>
         </div>
 
@@ -183,7 +183,7 @@ const NavBar = () => {
                     text="Sign Up"
                     path="/sign-up"
                   />
-                </> 
+                </>
               ) : (
                 <>
                   <Menu as="div" className="relative">

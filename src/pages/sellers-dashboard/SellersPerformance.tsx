@@ -17,7 +17,7 @@ import ChartLayout from "../../components/vendors-component/ChatLayout";
 import { Carousel } from "./SellersAccount";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 
-interface cardData {
+interface IData {
   color: string;
   currency: string;
   action: () => void;
@@ -32,7 +32,7 @@ interface cardData {
   text: string;
 }
 
-const cardData: cardData[] = [
+const cardData: IData[] = [
   {
     color: "#F4F4F4",
     currency: "thr",
@@ -160,14 +160,11 @@ const SellersPerformance = () => {
     ],
   };
 
-
-    const card = cardData.map((val) => (
-      <div>
-        <div>{MobilePerformanceWidget(val)}</div>
-      </div>
-    ));
-
-
+  const card = cardData.map((val) => (
+    <div>
+      <div>{MobilePerformanceWidget(val)}</div>
+    </div>
+  ));
 
   return (
     <div className="overflow-hidden xxs:px-4 md:px-0">
@@ -251,7 +248,7 @@ const SellersPerformance = () => {
           title=""
           value={"Sales Overview"}
           options={[]}
-          onSelectOption={[]}
+          // onSelectOption={[]}
           //@ts-ignore
           onSelectOption={(option) => {}}
           style={{ width: "100%" }}
@@ -267,10 +264,10 @@ const SellersPerformance = () => {
 export default SellersPerformance;
 
 const MobilePerformanceWidget = (props: any) => {
-  const openModal = (e: any) => {
-    e.preventDefault();
-    props.action();
-  };
+  // const openModal = (e: any) => {
+  //   e.preventDefault();
+  //   props.action();
+  // };
 
   const min = 0;
   const max = 100;

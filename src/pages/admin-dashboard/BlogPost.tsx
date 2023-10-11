@@ -1,43 +1,43 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Column } from "react-table";
+// import { useNavigate } from "react-router-dom";
+// import { Column } from "react-table";
 import { useGetAllBlogs } from "../../services/hooks/users/blog";
 
-const BlogTitle = ({ data }: any) => {
-  console.log(data);
-  //  console.log(row?.original?.id,"hhr")
-  const navigate = useNavigate();
-  const handleBlog = (id: string) => {
-    navigate(`/admin/edit__blog/${id}`, {
-      replace: true,
-    });
-  };
-  return (
-    <div
-      onClick={() => handleBlog(data?.row?.original?.id)}
-      className="text-[#197b30] hover:underline font-normal cursor-pointer"
-    >
-      {data?.row?.original?.title}
-    </div>
-  );
-};
+// const BlogTitle = ({ data }: any) => {
+//   console.log(data);
+//   //  console.log(row?.original?.id,"hhr")
+//   const navigate = useNavigate();
+//   const handleBlog = (id: string) => {
+//     navigate(`/admin/edit__blog/${id}`, {
+//       replace: true,
+//     });
+//   };
+//   return (
+//     <div
+//       onClick={() => handleBlog(data?.row?.original?.id)}
+//       className="text-[#197b30] hover:underline font-normal cursor-pointer"
+//     >
+//       {data?.row?.original?.title}
+//     </div>
+//   );
+// };
 
-const Tcolumns: readonly Column<object>[] = [
-  {
-    Header: "Subject",
-    accessor: "title",
-    Cell: (props: any) => <BlogTitle data={props} />,
-  },
-  {
-    Header: "Content",
-    accessor: "content",
-    Cell: ({ value }) => <div className="truncate max-w-prose">{value}</div>,
-  },
-  {
-    Header: "Date",
-    accessor: "createdAt",
-  },
-];
+// const Tcolumns: readonly Column<object>[] = [
+//   {
+//     Header: "Subject",
+//     accessor: "title",
+//     Cell: (props: any) => <BlogTitle data={props} />,
+//   },
+//   {
+//     Header: "Content",
+//     accessor: "content",
+//     Cell: ({ value }) => <div className="truncate max-w-prose">{value}</div>,
+//   },
+//   {
+//     Header: "Date",
+//     accessor: "createdAt",
+//   },
+// ];
 
 const BlogPost = () => {
   const getAllBlogs = useGetAllBlogs();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // import NavBar from "../../components/nav-component/NavBar";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import VetImg from "../../assets/images/VetImg.png";
@@ -89,10 +89,10 @@ const VetServices = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    control,
+    // getValues,
+    // control,
     reset,
-    formState: { isValid, errors },
+    // formState: { isValid, errors },
   } = useForm<VetServiceProps>();
 
 
@@ -101,16 +101,16 @@ const VetServices = () => {
     reset();
   };
 
-  const textData = [
-    {
-      label: "message",
-      name: "message",
-      place_holder: "Type Message",
-      error_message: "Message is Required",
-      type: "text",
-      required: true,
-    },
-  ];
+  // const textData = [
+  //   {
+  //     label: "message",
+  //     name: "message",
+  //     place_holder: "Type Message",
+  //     error_message: "Message is Required",
+  //     type: "text",
+  //     required: true,
+  //   },
+  // ];
 
   const contactInfo = [
     {
@@ -303,7 +303,7 @@ const VetServices = () => {
                       id="fullName"
                       type="text"
                       // required={(required === "Yes" || required === true) ? true : false}
-                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                       placeholder="Enter your full name"
                       {...register("fullName")}
@@ -322,7 +322,7 @@ const VetServices = () => {
                     <input
                       id="email"
                       type="email"
-                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                       placeholder="Enter email address"
                       {...register("email")}
@@ -341,7 +341,7 @@ const VetServices = () => {
                     <input
                       id="phone"
                       type="number"
-                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                       placeholder="Enter your phone number"
                       {...register("phone")}
@@ -360,7 +360,7 @@ const VetServices = () => {
                     <input
                       id="location"
                       type="text"
-                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                      className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                       placeholder="Where is your farm located?"
                       {...register("location")}
@@ -415,7 +415,7 @@ const VetServices = () => {
                       Message
                     </label>
                     <textarea
-                      className={`appearance-none  relative block w-full px-[14px]  resize: none py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm 
+                      className={`appearance-none  relative block w-full px-[14px]  resize: none py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm
                         }`}
                       placeholder="Type message here"
                       {...register("message")}

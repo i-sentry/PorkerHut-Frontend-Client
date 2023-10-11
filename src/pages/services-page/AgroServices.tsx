@@ -7,7 +7,7 @@ import FarmingImg from "../../../src/assets/images/FarmingImg.png";
 import FeedImg from "../../../src/assets/images/FeedImg.png";
 import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import AppLayout from "../../components/utility/AppLayout";
 // import ServiceForm from "../../components/services-component/ServiceForm";
 // import React, { useState } from "react";
@@ -28,8 +28,8 @@ interface AgroServicesProps {
 }
 
 const AgroServices = () => {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
+  // const location = useLocation();
+  // const query = new URLSearchParams(location.search);
   // const agroService = query.get("agro-service");
 
   const {
@@ -38,7 +38,7 @@ const AgroServices = () => {
     // getValues,
     // control,
     reset,
-    formState: { errors },
+    // formState,
   } = useForm<AgroServicesProps>();
 
 
@@ -47,16 +47,16 @@ const AgroServices = () => {
     reset();
   };
 
-  const textData = [
-    {
-      label: "message",
-      name: "message",
-      place_holder: "Type Message",
-      error_message: "Message is Required",
-      type: "text",
-      required: true,
-    },
-  ];
+  // const textData = [
+  //   {
+  //     label: "message",
+  //     name: "message",
+  //     place_holder: "Type Message",
+  //     error_message: "Message is Required",
+  //     type: "text",
+  //     required: true,
+  //   },
+  // ];
 
   const contactInfo = [
     {
@@ -249,7 +249,7 @@ const AgroServices = () => {
                     id="fullName"
                     type="text"
                     // required={(required === "Yes" || required === true) ? true : false}
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter your full name"
                     {...register("fullName")}
@@ -268,7 +268,7 @@ const AgroServices = () => {
                   <input
                     id="fullName"
                     type="email"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter email address"
                     {...register("email")}
@@ -286,7 +286,7 @@ const AgroServices = () => {
                   <input
                     id="phone"
                     type="number"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter your phone number"
                     {...register("phone")}
@@ -304,7 +304,7 @@ const AgroServices = () => {
                   <input
                     id="location"
                     type="text"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Where are you located?"
                     {...register("location")}
@@ -322,7 +322,7 @@ const AgroServices = () => {
                   <input
                     id="subject"
                     type="text"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter subject here"
                     {...register("subject")}
@@ -341,7 +341,7 @@ const AgroServices = () => {
                     Message
                   </label>
                   <textarea
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm
                         }`}
                     placeholder="Type message here"
                     {...register("message")}

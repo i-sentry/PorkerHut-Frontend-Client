@@ -5,7 +5,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import MultiRangeSlider from "../../components/accordion-component/MultiSlider";
-import { productData } from "../../utils/productData";
+
 
 interface IconProps {
   id: number;
@@ -44,29 +44,29 @@ const ProductFilter = ({ menuItem, setData }: iProps) => {
     setOpen(open === value ? 0 : value);
   };
 
-  const filter = (cate: any) => {
-    const newItems = productData.filter((newVal: any) => {
-      return newVal.category === cate;
-    });
-    setData(newItems);
-  };
-  const [selected, setSelected] = React.useState(null);
+  // const filter = (cate: any) => {
+  //   const newItems = productData.filter((newVal: any) => {
+  //     return newVal.category === cate;
+  //   });
+  //   setData(newItems);
+  // };
+  // const [selected, setSelected] = React.useState(null);
 
-  console.log(selected);
+  // console.log(selected);
 
-  const handleChange = (event: any) => {
-    const value = event.target.value;
-    setSelected(value === selected ? null : value);
-  };
+  // const handleChange = (event: any) => {
+  //   const value = event.target.value;
+  //   setSelected(value === selected ? null : value);
+  // };
 
-  const handleClick = (event: any) => {
-    handleChange(event);
-    filter(event.target.nextSibling.textContent);
-    console.log(event.target.defaultValue, "event");
-    if (selected !== null) {
-      setData(productData);
-    }
-  };
+  // const handleClick = (event: any) => {
+  //   handleChange(event);
+  //   filter(event.target.nextSibling.textContent);
+  //   console.log(event.target.defaultValue, "event");
+  //   if (selected !== null) {
+  //     setData(productData);
+  //   }
+  // };
 
   return (
 

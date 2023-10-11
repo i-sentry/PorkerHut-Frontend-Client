@@ -15,23 +15,7 @@ import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import CustomInput from "../../components/utility/Input/CustomInput";
 import ProductTable from "../../components/utility/ProductTable";
 import Gallery from "../../components/utility/Input/Gallery";
-// interface IProd {
-//   id: string;
-//   title: string;
-//   type: string;
-//   category: string;
-//   price: string;
-//   product: {
-//     location: string;
-//     name: string;
-//     weight: string;
-//     productName: string;
-//   };
-//   img: string;
-//   status: string;
-//   desc: string;
-//   images: string[];
-// }
+
 
 const productInfoSchema = yup.object().shape({
   "productInformation.productName": yup
@@ -75,21 +59,18 @@ const ProductDetails = () => {
     register,
     control,
     reset, // Function to reset form value
-    formState: { errors,  },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(productInfoSchema),
     defaultValues: {
-      // Set initial values for fields outside of productInformation
       approvalStatus: currentProductData?.approvalStatus || "",
       avgRating: currentProductData?.avgRating || 0,
-      // Add other fields outside of productInformation here
-
       productInformation: {
         productName: currentProductData?.information.productName || "",
         mainColour:
-          currentProductData?.information.categoryQuestions[0]?.answer,
+          currentProductData?.information.categoryQuestions[0]?.answer || "",
         productBreed:
-          currentProductData?.information.categoryQuestions[1]?.answer,
+          currentProductData?.information.categoryQuestions[1]?.answer || "",
       },
       productDetails: {
         productWeight: currentProductData?.details.productWeight || "",
@@ -99,7 +80,6 @@ const ProductDetails = () => {
         deliveryDetails: currentProductData?.details.deliveryDetails || "",
         nutritionalValue: currentProductData?.details.nutritionalValue || "",
       },
-
       pricing: {
         saleStartDate:
           moment(currentProductData?.pricing.saleStartDate).format(
@@ -111,11 +91,8 @@ const ProductDetails = () => {
           ) || "",
         productPrice: currentProductData?.pricing.productPrice || 0,
         quantity: currentProductData?.pricing.quantity || 0,
-        // Add other fields within pricing as needed
       },
-      // Add other sub-fields here
       _id: currentProductData?._id,
-      // Add other top-level fields here
     },
   });
 
@@ -146,45 +123,82 @@ const ProductDetails = () => {
     }
   }, [question?.data, convertToCamelCase, text]);
 
-  useEffect(() => {
-    if (currentProductData) {
-      reset({
-        approvalStatus: currentProductData?.approvalStatus || "",
-        avgRating: currentProductData?.avgRating || 0,
+  // useEffect(() => {
+  //   if (currentProductData) {
+  //     reset({
+  //       approvalStatus: currentProductData?.approvalStatus || "",
+  //       avgRating: currentProductData?.avgRating || 0,
 
-        productInformation: {
-          productName: currentProductData?.information.productName || "",
-          mainColour:
-            currentProductData?.information.categoryQuestions[0]?.answer,
-          productBreed:
-            currentProductData?.information.categoryQuestions[1]?.answer,
-        },
-        productDetails: {
-          productWeight: currentProductData?.details.productWeight || "",
-          productContent: currentProductData?.details.productContent || "",
-          productDescription:
-            currentProductData?.details.productDescription || "",
-          deliveryDetails: currentProductData?.details.deliveryDetails || "",
-          nutritionalValue: currentProductData?.details.nutritionalValue || "",
-        },
+  //       productInformation: {
+  //         productName: currentProductData?.information.productName || "",
+  //         mainColour:
+  //           currentProductData?.information.categoryQuestions[0]?.answer,
+  //         productBreed:
+  //           currentProductData?.information.categoryQuestions[1]?.answer,
+  //       },
+  //       productDetails: {
+  //         productWeight: currentProductData?.details.productWeight || "",
+  //         productContent: currentProductData?.details.productContent || "",
+  //         productDescription:
+  //           currentProductData?.details.productDescription || "",
+  //         deliveryDetails: currentProductData?.details.deliveryDetails || "",
+  //         nutritionalValue: currentProductData?.details.nutritionalValue || "",
+  //       },
 
-        pricing: {
-          saleStartDate:
-            moment(currentProductData?.pricing.saleStartDate).format(
-              "YYYY-MM-DD"
-            ) || "",
-          saleEndDate:
-            moment(currentProductData?.pricing.saleEndDate).format(
-              "YYYY-MM-DD"
-            ) || "",
-          productPrice: currentProductData?.pricing.productPrice || 0,
-          quantity: currentProductData?.pricing.quantity || 0,
-          // Add other fields within pricing as needed
-        },
-        _id: currentProductData?._id,
-      });
-    }
-  }, [currentProductData, reset]);
+  //       pricing: {
+  //         saleStartDate:
+  //           moment(currentProductData?.pricing.saleStartDate).format(
+  //             "YYYY-MM-DD"
+  //           ) || "",
+  //         saleEndDate:
+  //           moment(currentProductData?.pricing.saleEndDate).format(
+  //             "YYYY-MM-DD"
+  //           ) || "",
+  //         productPrice: currentProductData?.pricing.productPrice || 0,
+  //         quantity: currentProductData?.pricing.quantity || 0,
+  //         // Add other fields within pricing as needed
+  //       },
+  //       _id: currentProductData?._id,
+  //     });
+  //   }
+  // }, [currentProductData, reset]);
+
+   useEffect(() => {
+     if (currentProductData) {
+       reset({
+         approvalStatus: currentProductData?.approvalStatus || "",
+         avgRating: currentProductData?.avgRating || 0,
+         productInformation: {
+           productName: currentProductData?.information.productName || "",
+           mainColour:
+             currentProductData?.information.categoryQuestions[0]?.answer || "",
+           productBreed:
+             currentProductData?.information.categoryQuestions[1]?.answer || "",
+         },
+         productDetails: {
+           productWeight: currentProductData?.details.productWeight || "",
+           productContent: currentProductData?.details.productContent || "",
+           productDescription:
+             currentProductData?.details.productDescription || "",
+           deliveryDetails: currentProductData?.details.deliveryDetails || "",
+           nutritionalValue: currentProductData?.details.nutritionalValue || "",
+         },
+         pricing: {
+           saleStartDate:
+             moment(currentProductData?.pricing.saleStartDate).format(
+               "YYYY-MM-DD"
+             ) || "",
+           saleEndDate:
+             moment(currentProductData?.pricing.saleEndDate).format(
+               "YYYY-MM-DD"
+             ) || "",
+           productPrice: currentProductData?.pricing.productPrice || 0,
+           quantity: currentProductData?.pricing.quantity || 0,
+         },
+         _id: currentProductData?._id,
+       });
+     }
+   }, [currentProductData, reset]);
 
   if (!currentProductData && !question) {
     return <div>Loading**</div>;

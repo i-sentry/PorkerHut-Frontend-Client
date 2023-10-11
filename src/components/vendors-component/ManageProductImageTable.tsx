@@ -10,44 +10,24 @@ import {
 } from "react-table";
 import Table_Data from "../../utils/json/Table_Data.json";
 import GlobalFilter from "../Table/GlobalFilter";
-
 import Pagination from "../Table/Pagination";
 
 const ManageProductTable = () => {
-  const column: Column<{
-    id: number;
-    name: string;
-    create: string;
-    product_id: number;
-    price: string;
-    quantity: number;
-    visible: null;
-    active: null;
-    action: null;
-  }>[] = [
-    {
-      Header: "Name",
-      accessor: "name",
-    },
-    {
-      Header: "Created",
-      accessor: "create",
-    },
-    {
-      Header: "Product ID",
-      accessor: "product_id",
-    },
+ const columns: Column<any>[] = [
+   { Header: "Name", accessor: "name" },
+   { Header: "Created", accessor: "create" },
+   { Header: "Product ID", accessor: "product_id" },
+   {
+     Header: "All Images",
+     accessor: "active",
+     Cell: ({ row }: any) => <img src="" alt="" />,
+   },
+ ];
 
-    {
-      Header: "All Images",
-      accessor: "active",
-      Cell: ({ row }: any) => <img src="" alt="" />,
-    },
-  ];
 
   const [, setSelectedRows] = useState(null);
   const [, setNumOfSelectedRow] = useState(0);
-  const columns = useMemo(() => column, [column]);
+  // const columns = useMemo(() => column, [column]);
 
   const data = useMemo(() => Table_Data, []);
   const table = useTable(

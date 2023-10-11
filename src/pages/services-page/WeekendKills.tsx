@@ -29,7 +29,7 @@ const WeekendKills = () => {
     // getValues,
     // control,
     reset,
-    formState: { isValid, errors },
+    // formState: { isValid, errors },
   } = useForm<WeekendKillProps>();
 
 
@@ -38,16 +38,16 @@ const WeekendKills = () => {
     reset();
   };
 
-  const textData = [
-    {
-      label: "message",
-      name: "message",
-      place_holder: "Type Message",
-      error_message: "Message is Required",
-      type: "text",
-      required: true,
-    },
-  ];
+  // const textData = [
+  //   {
+  //     label: "message",
+  //     name: "message",
+  //     place_holder: "Type Message",
+  //     error_message: "Message is Required",
+  //     type: "text",
+  //     required: true,
+  //   },
+  // ];
 
   const contactInfo = [
     {
@@ -161,7 +161,7 @@ const WeekendKills = () => {
                     id="fullName"
                     type="text"
                     // required={(required === "Yes" || required === true) ? true : false}
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter your full name"
                     {...register("fullName")}
@@ -180,7 +180,7 @@ const WeekendKills = () => {
                   <input
                     id="email"
                     type="email"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter email address"
                     {...register("email")}
@@ -199,7 +199,7 @@ const WeekendKills = () => {
                   <input
                     id="address"
                     type="text"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter your address"
                     {...register("address")}
@@ -218,7 +218,7 @@ const WeekendKills = () => {
                   <input
                     id="city"
                     type="text"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter  your city/town"
                     {...register("city")}
@@ -236,7 +236,7 @@ const WeekendKills = () => {
                   <input
                     id="phone"
                     type="number"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter your phone number"
                     {...register("phone")}
@@ -255,7 +255,7 @@ const WeekendKills = () => {
                   <input
                     id="subject"
                     type="text"
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12
                         }`}
                     placeholder="Enter subject here"
                     {...register("subject")}
@@ -274,7 +274,7 @@ const WeekendKills = () => {
                     Message
                   </label>
                   <textarea
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm 
+                    className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm
                         }`}
                     placeholder="Type message here"
                     {...register("message")}

@@ -24,7 +24,7 @@ const Aside = () => {
   // const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
-  const [temp, setTemp] = useState(false);
+  // const [temp, setTemp] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,7 +48,7 @@ const Aside = () => {
   }, []);
 
   const handleLogout = () => {
-    setTemp(true);
+    // setTemp(true);
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("user");
   };
@@ -167,7 +167,7 @@ const Aside = () => {
       {/* <div className="flex items-center pl-5 my-7 gap-1">
         <MdOutlinePerson size={24} color={"#197b30"} />
         <span className="pl-1 text-[#333333] text-[18px] leading-[21px] font-normal whitespace-nowrap">
-          
+
           Hi, {user?.firstName}
         </span>
       </div> */}

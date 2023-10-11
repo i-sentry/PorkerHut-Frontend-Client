@@ -9,7 +9,7 @@ const FavouriteProductPage = () => {
   let itemsPerPage = 8;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(() => setData(productData), [productData]);
+  useEffect(() => setData(productData), []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

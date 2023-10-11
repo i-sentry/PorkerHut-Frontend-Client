@@ -38,7 +38,7 @@ type UserBillingInfo = {
   businessAddress: string;
   email: string;
   phone: string;
-  companyRc: number;
+  companyRc: string;
   state: string;
   city: string;
   country: string;
@@ -122,7 +122,7 @@ const VetPartnerAccount = () => {
 
     city: Yup.string().required("City is required"),
     companyRc: Yup.string().required("Company Rc number is required"),
-    yearOfOperation: Yup.string().required("Year of Operation is required"),
+    yearOfOperation: Yup.number().required("Year of Operation is required"),
 
     phone: Yup.string()
       .required("Valid Phone Number is required")

@@ -23,7 +23,7 @@ type UserBillingInfo = {
   state: string;
   city: string;
   country: string;
-  yearOfOpe: number;
+  yearOfOperation: number; 
   typeOfVet: string;
 };
 

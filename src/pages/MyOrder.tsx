@@ -235,7 +235,7 @@ const MyOrder = () => {
   const [, setChosenTab] = useState("All");
   const t = ["All", "Pending", "Completed", "Failed"];
   const queryKey = ["location", "product_name", " store_name"];
-  const [open, setOpen] = useState<number | null>(null);
+  // const [open, setOpen] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState(-1);
 
   const handleToggle = (index: React.SetStateAction<number>) => {
@@ -245,10 +245,10 @@ const MyOrder = () => {
       setExpandedIndex(index);
     }
   };
-  console.log(searchValue, "k");
-  const handleOpen = (value: number) => {
-    setOpen(open === value ? null : value);
-  };
+  // console.log(searchValue, "k");
+  // const handleOpen = (value: number) => {
+  //   setOpen(open === value ? null : value);
+  // };
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -360,7 +360,7 @@ const MyOrder = () => {
             {OrderData.filter((b: any) =>
               queryKey.some((key: any) =>
                 b[key]?.toLowerCase().includes(searchValue)
-               
+
               )
             ).map((data, index) => (
 

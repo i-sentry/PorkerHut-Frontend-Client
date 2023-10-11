@@ -36,7 +36,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
-  useEffect(() => setData(productData), [productData]);
+  useEffect(() => setData(productData), []);
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -62,7 +62,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           handleClick={handleClick}
           setData={setData}
           menuItem={menuItems}
-     
+
         />
         <div className="bg-[#EEEEEE] pt-24 ">
           <div className="xxs:hidden md:block">

@@ -10,7 +10,7 @@ const FeaturedProduct = () => {
   let itemsPerPage = 12;
   let currentPage = 1;
   const [currentPageIndex, ] = useState(currentPage);
-  useEffect(() => setData(productData), [productData]);
+  useEffect(() => setData(productData), []);
 
   const { data: getAllProducts } = useGetAllProducts();
   console.log(getAllProducts);

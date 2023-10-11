@@ -56,11 +56,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
         <div className="h-52 w-full  lg:h-56 flex justify-center items-center md:h-56 border-gray-200 bg-white border-dashed border-2 relative">
           {imageUrl ? (
             <>
-              <img
-                src={imageUrl}
-                alt="uploaded image"
-                className="w-full h-full"
-              />
+              <img src={imageUrl} alt="product" className="w-full h-full" />
               <button
                 className="absolute top-2 right-2 bg-white rounded-full p-1 shadow"
                 onClick={handleRemoveImage}

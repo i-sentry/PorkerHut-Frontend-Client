@@ -25,7 +25,7 @@ const StoreProfile = () => {
     );
     setCurrentPage(1);
   };
-  useEffect(() => setData(storeData), [storeData]);
+  useEffect(() => setData(storeData), []);
   return (
     <div className="pl-10 pt-10 pr-5">
       <div className="flex items-center justify-between">

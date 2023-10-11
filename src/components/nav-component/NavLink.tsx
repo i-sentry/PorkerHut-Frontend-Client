@@ -4,6 +4,7 @@ import { links } from "./NavbarDropdown";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 interface Iprop {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+  toggle?: boolean
 }
 const NavLink = ({ setToggle }: Iprop) => {
   const [heading, setHeading] = useState("");

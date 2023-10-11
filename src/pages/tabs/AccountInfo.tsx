@@ -42,25 +42,42 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
   // const [country, setCountry] = useState("");
   const [email, ] = useState("");
   const [storeName, ] = useState("");
+  // const validationSchema = Yup.object().shape({
+  //   fullName: Yup.string().required("Full Name is required"),
+  //   storeName: Yup.string()
+  //     .required("Store Name is required")
+  //     .min(6, "Username must be at least 6 characters")
+  //     .max(50, "Username must not exceed 50 characters"),
+  //   email: Yup.string().required("Email is required").email("Email is invalid"),
+  //   address: Yup.string().required("Address is required"),
+  //   storeId: Yup.string().required("Store ID is required"),
+
+  //   streetAddress: Yup.string().required("Street Address is required"),
+
+  //   location: Yup.string().required("Location is required"),
+
+  //   phoneNumber: Yup.string()
+  //     .required("Valid Phone Number is required")
+  //     .min(6, "Valid Phone Number must be at least 6 characters")
+  //     .max(12, "Valid Phone Number must not exceed 12 characters"),
+  // });
+
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
     storeName: Yup.string()
       .required("Store Name is required")
-      .min(6, "Username must be at least 6 characters")
-      .max(50, "Username must not exceed 50 characters"),
+      .min(6, "Store Name must be at least 6 characters")
+      .max(50, "Store Name must not exceed 50 characters"),
     email: Yup.string().required("Email is required").email("Email is invalid"),
-    address: Yup.string().required("Address is required"),
-    storeId: Yup.string().required("Store ID is required"),
-
+    storeId: Yup.number().required("Store ID is required"), // Assuming it's a number
     streetAddress: Yup.string().required("Street Address is required"),
-
     location: Yup.string().required("Location is required"),
-
     phoneNumber: Yup.string()
       .required("Valid Phone Number is required")
       .min(6, "Valid Phone Number must be at least 6 characters")
       .max(12, "Valid Phone Number must not exceed 12 characters"),
   });
+
 
   const {
     register,
@@ -118,7 +135,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             {imageUrl ? (
               <img
                 src={imageUrl}
-                alt="uploaded image"
+                alt="uploaded"
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
                 className="w-28 h-28 rounded-full cursor-pointer"
               />

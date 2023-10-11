@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import banner1 from "../../assets/images/SellerHomeBanner.png";
 
 // import Modal from "../../components/announcement-component/Modal";
@@ -79,13 +79,13 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   const [slideIndex, setSlideIndex] = useState(1);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (slideIndex !== dataSlider.length) {
       setSlideIndex(slideIndex + 1);
     } else if (slideIndex === dataSlider.length) {
       setSlideIndex(1);
     }
-  };
+  },[dataSlider.length, slideIndex]);
 
   // const prevSlide = () => {
   //   if (slideIndex !== 1) {
@@ -101,7 +101,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }, 3000);
 
     return () => clearInterval(id);
-  }, [slideIndex, sliderImages]);
+  }, [nextSlide, slideIndex, sliderImages]);
 
   const moveDot = (index: any) => {
     setSlideIndex(index);
