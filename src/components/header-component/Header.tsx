@@ -1,7 +1,6 @@
-import React from 'react'
+
 import FeaturedProduct from '../featured-product-component/best-selling-product/FeaturedProduct';
-import { BiChevronRight } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AiOutlineRight } from 'react-icons/ai';
 
 const Header = () => {

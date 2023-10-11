@@ -1,7 +1,7 @@
 import React from "react";
-import { IoMdClose } from "react-icons/io";
+// import { IoMdClose } from "react-icons/io";
 import vetVerify from "../../assets/images/vetVerify.png";
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+// import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import { Link } from "react-router-dom";
 
 
@@ -12,7 +12,7 @@ interface ISuccess{
 }
 const SuccessScreen:React.FC<ISuccess> = ({msg, title, url}) => {
   return (
-    <div className="flex items-center lg:max-w-[83%] max-w-full justify-center h-screen">
+    <div className="flex items-center lg:mx-auto lg:max-w-[83%] max-w-full justify-center h-screen">
       <div className="bg-white  rounded-lg">
         <div className=" flex flex-col items-center justify-center text-center h-full">
           <div className="">

@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { sellersBankInfo } from "../../utils/formData";
 import CustomSelect from "../utility/CustomSelect";
 import { SelectOptionType } from "./SellersAccountInfo";
 import { useForm } from "react-hook-form";
-import { IFile } from "../utility/CustomDND";
+
 
 import StepperController from "./StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import {
-  useGetBankList,
-  useResolveBankName,
+  useGetBankList
 } from "../../services/hooks/users/banks";
 import { IBankData } from "../../services/serviceType";
 import useSWR from "swr";
@@ -21,26 +20,24 @@ import { ISellerInfo } from "../../context/SellerInfoContext";
 
 const BankAccountInfo = () => {
   const setBankData = useBankStore((state) => state.setBankData);
-  const bankData = useBankStore((state) => state.bankData);
-  const { data: bankList, error, isLoading: isBankLoading } = useGetBankList();
+  // const bankData = useBankStore((state) => state.bankData);
+  const { data: bankList, isLoading: isBankLoading } = useGetBankList();
   //@ts-ignore
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
+    
     userData,
     setUserData,
     handleChange,
   } = useContext(SellersStepsContext);
 
-  console.log(bankList);
-  console.log(userData);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  // const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const [fetch, setFetch] = useState(false)
-  const [accountName, setAccountName] = useState("");
-  const [ID, setID] = useState<FormData>();
-  const [invoice, setInvoice] = useState("Payment Invoice");
+  const [, setAccountName] = useState("");
+  
+  
   const [accName, setAccName] = useState("");
 
   const bankAccount = userData.vendorBankAccount.accountNumber;
@@ -54,16 +51,15 @@ const url =
 
   const {
     data: resolveBankNameResult,
-    error: resolveErr,
     isLoading,
   } = useSWR( fetch ? url : null, fetchResolveBankName);
 
   const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    formState: { isValid, errors },
+    // register,
+    // handleSubmit,
+    // control,
+    // setValue,
+    formState: { errors },
   } = useForm<any>();
 
   React.useEffect(() => {
@@ -74,7 +70,7 @@ const url =
         bankName: "" || dropOption?.label,
       },
     }));
-  }, [dropOption?.label]);
+  }, [dropOption?.label, setUserData]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.length
@@ -96,9 +92,9 @@ const url =
         accountName: accName || "",
       },
     }));
-  }, [resolveBankNameResult, accName]);
+  }, [resolveBankNameResult, accName, setUserData]);
 
-  const [bank, setBank] = useState<{
+  const [, ] = useState<{
     label?: string;
     value?: string;
 
@@ -119,10 +115,10 @@ const url =
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [setBankData]);
   React.useEffect(() => {
     setBankData(bankOptions);
-  }, [bankOptions]);
+  }, [bankOptions, setBankData]);
   return (
     <div>
       {" "}

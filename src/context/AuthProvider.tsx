@@ -1,4 +1,4 @@
-import { Dispatch, createContext, useState } from "react";
+import { createContext, useState } from "react";
 const AuthContext = createContext({});
 interface IProps {
   children: React.ReactNode;

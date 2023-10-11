@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Filter from "../../components/accordion-component/Accordion";
 import Sort from "../../components/accordion-component/Sort";
-import NavBar from "../../components/nav-component/NavBar";
 
-import Footer from "../../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../../components/story-components/ProductsBreadCrumbs";
 import { MdOutlineFilterAlt } from "react-icons/md";
-import { productData } from "../../utils/productData";
-import FilterSidebar from "../../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../../components/featured-product-component/ProductCard";
 import { chunkArray } from "../../helper/chunck";
@@ -30,7 +25,7 @@ interface iProps {
 }
 
 const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [, setOpenModal] = useState<boolean>(false);
   const { id } = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -65,7 +60,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     //@ts-ignore
     setData(newItems);
   };
-  useEffect(() => filter(id), []);
+  useEffect(() => filter(id), [filter, id]);
 
   console.log(data, "data");
 

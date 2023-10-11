@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AppLayout from "../../components/utility/AppLayout";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { OrderData } from "../MyOrder";
 import { IOrderData } from "../../components/vendors-component/MyOrderSection";
-import { MdFavoriteBorder } from "react-icons/md";
 
 const ReturnRequest = () => {
   const { id } = useParams();
 
-  const navigate = useNavigate();
 
   const [item, setOrder] = useState<IOrderData>({
     id: "",

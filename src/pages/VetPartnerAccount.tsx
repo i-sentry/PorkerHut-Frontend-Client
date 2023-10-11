@@ -62,14 +62,10 @@ interface ExtendedUserBillingInfo extends UserBillingInfo {
 
 const VetPartnerAccount = () => {
   const navigate = useNavigate()
-  const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const [loading, setIsLoading] = useState(false)
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
   const [error, setError] = useState<any>(null);
 
-
-  const formData = new FormData();
   const { setFiles, seFiles, selecFiles } = useContext(FileContext);
 
   const handleFileChange = (
@@ -105,9 +101,9 @@ const VetPartnerAccount = () => {
 
   const createVet = useCreateVet();
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [state, setState] = useState("");
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     businessName: Yup.string()
@@ -137,10 +133,8 @@ const VetPartnerAccount = () => {
   const {
     register,
     handleSubmit,
-    reset,
     control,
     watch,
-    getValues,
     formState: { errors },
   } = useForm<ExtendedUserBillingInfo>({
     resolver: yupResolver(validationSchema),

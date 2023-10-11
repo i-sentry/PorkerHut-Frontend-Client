@@ -1,21 +1,20 @@
-import React, { useMemo, useState } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
-import { RiArrowDownSLine } from "react-icons/ri";
-import { Column } from "react-table";
+import React from "react";
+
+// import { Column } from "react-table";
 import _ from "lodash";
-import { useNavigate } from "react-router-dom";
+
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import Table from "../../components/Table/Table";
+// import Table from "../../components/Table/Table";
 
 import mockData from "../../utils/json/mockData.json";
 import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 
-type OrderDataProps = {
-  id: string;
-  title?: string;
-  figure?: string;
-};
+// type OrderDataProps = {
+//   id: string;
+//   title?: string;
+//   figure?: string;
+// };
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -277,45 +276,45 @@ const SellersOrderPage = () => {
   };
 
 
-  const Tcolumns: readonly Column<object>[] = [
-    {
-      Header: "Product Name",
-      accessor: "product_name",
-      Cell: (props: any) => <ProductNameColumn data={props} />,
-    },
-    {
-      Header: "Store Name",
-      accessor: "store_name",
-    },
-    {
-      Header: "Order Date",
-      accessor: "order_date",
-    },
-    {
-      Header: "Order ID",
-      accessor: "order_id",
-    },
-    {
-      Header: "Prices",
-      accessor: "price",
-    },
+  // const Tcolumns: readonly Column<object>[] = [
+  //   {
+  //     Header: "Product Name",
+  //     accessor: "product_name",
+  //     Cell: (props: any) => <ProductNameColumn data={props} />,
+  //   },
+  //   {
+  //     Header: "Store Name",
+  //     accessor: "store_name",
+  //   },
+  //   {
+  //     Header: "Order Date",
+  //     accessor: "order_date",
+  //   },
+  //   {
+  //     Header: "Order ID",
+  //     accessor: "order_id",
+  //   },
+  //   {
+  //     Header: "Prices",
+  //     accessor: "price",
+  //   },
 
-    {
-      Header: "Status",
-      accessor: "order_status",
-      Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
-    },
-  ];
+  //   {
+  //     Header: "Status",
+  //     accessor: "order_status",
+  //     Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+  //   },
+  // ];
 
-  const optionalColumn = {
-    id: "view",
-    // The header can use the table's getToggleAllRowsSelectedProps method
-    // to render a checkbox
-    Header: () => <div></div>,
-    // The cell can use the individual row's getToggleRowSelectedProps method
-    // to the render a checkbox
-    Cell: () => <div></div>,
-  };
+  // const optionalColumn = {
+  //   id: "view",
+  //   // The header can use the table's getToggleAllRowsSelectedProps method
+  //   // to render a checkbox
+  //   Header: () => <div></div>,
+  //   // The cell can use the individual row's getToggleRowSelectedProps method
+  //   // to the render a checkbox
+  //   Cell: () => <div></div>,
+  // };
 
   const card = orderData.map(
     (val: { title: string; figure?: string | undefined }) => (

@@ -1,5 +1,5 @@
 import React from "react";
-import { TbRefresh, TbRefreshOff } from "react-icons/tb";
+import { TbRefresh } from "react-icons/tb";
 
 const CustomerReview: React.FC<{ rating: number }> = ({ rating }) => {
 

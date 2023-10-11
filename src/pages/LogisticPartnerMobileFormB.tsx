@@ -1,12 +1,5 @@
-import React, { useState, useContext } from "react";
-import CustomSelect from "../components/utility/CustomSelect";
-import { sellersShopInfo, sellersformData } from "../utils/formData";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import StepperController from "../components/sellers-onboarding/StepperController";
-import { ISellerInfo, useAppState } from "../context/SellerInfoContext";
-import { SellersStepsContext } from "../context/SellersStepsContext";
-import CustomDND, { IFile } from "../components/utility/CustomDND";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -14,7 +7,6 @@ import { useForm } from "react-hook-form";
 import {
   CountryDropdown,
   RegionDropdown,
-  CountryRegionData,
 } from "react-country-region-selector";
 
 export type SelectOptionType = {
@@ -22,17 +14,6 @@ export type SelectOptionType = {
   value: string | number;
   description?: string;
 } | null;
-
-const vendorType = [
-  {
-    id: 1,
-    name: "Individual",
-  },
-  {
-    id: 2,
-    name: "Business Entity",
-  },
-];
 
 type UserBillingInfo = {
   name: string;
@@ -49,14 +30,14 @@ type UserBillingInfo = {
 };
 
 const LogisticPartnerMobileFormB: React.FC = () => {
-  const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  // const [businessDocUrl, setBusinessDocUrl] = useState<IFile[]>();
+  // const [dropOption, setDropOption] = useState<SelectOptionType>(null);
 
   // const getBusinessDocFromInput = (files: File[]) => {
   //   // setBusinessDocUrl(files);
   // };
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, ] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const validationSchema = Yup.object().shape({
@@ -92,24 +73,24 @@ const LogisticPartnerMobileFormB: React.FC = () => {
   } = useForm<UserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
-  console.log(phoneNumber);
-  console.log(state);
-  console.log(country);
+  // console.log(phoneNumber);
+  // console.log(state);
+  // console.log(country);
 
   console.log({ errors });
   const onSubmit = (data: UserBillingInfo) => {
     data.phone = phoneNumber;
     data.country = country;
     data.state = state;
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(JSON.stringify(data, null, 2));
     reset();
   };
 
   const handleChange = (e: any) => {
     // console.log(e)
-    const { name, value, checked } = e.target;
-    console.log(name);
-    console.log(value);
+    // const { name, value } = e.target;
+    // console.log(name);
+    // console.log(value);
     // setUserData({
     //   ...userData,
     //   [name]: value,

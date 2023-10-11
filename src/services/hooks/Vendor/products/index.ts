@@ -1,6 +1,6 @@
 import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeGetRequest, makePatchRequest, makePostRequest, makePutRequest } from "../../../api";
+import { api, makeGetRequest, makePostRequest, makePutRequest } from "../../../api";
 
 export const useCreateProduct = () => {
   return useQueryMutation({

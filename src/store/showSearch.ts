@@ -1,4 +1,4 @@
-import { AnyStyledComponent } from "styled-components";
+// import { AnyStyledComponent } from "styled-components";
 import create from "zustand";
 
 export interface ISearch {

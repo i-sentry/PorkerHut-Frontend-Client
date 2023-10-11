@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
-import _ from "lodash";
 import { useGetAllBlogs } from "../../services/hooks/users/blog";
 
 const BlogTitle = ({ data }: any) => {

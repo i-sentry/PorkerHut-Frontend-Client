@@ -1,12 +1,12 @@
 import React from "react";
-import NavBar from "../../components/nav-component/NavBar";
+// import NavBar from "../../components/nav-component/NavBar";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import BlogBanner from "../../assets/images/BlogBanner.png";
 import SuyaImg from "../../assets/images/SuyaImg.png";
-import ServiceForm from "../../components/services-component/ServiceForm";
-import Footer from "../../components/footer-component/Footer";
+// import ServiceForm from "../../components/services-component/ServiceForm";
+// import Footer from "../../components/footer-component/Footer";
 import AppLayout from "../../components/utility/AppLayout";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 
@@ -26,8 +26,8 @@ const WeekendKills = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    control,
+    // getValues,
+    // control,
     reset,
     formState: { isValid, errors },
   } = useForm<WeekendKillProps>();

@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useContext } from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import StepperController from "../sellers-onboarding/StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import CustomSelect, { SelectOptionType } from "./CustomSelect";
 import {
-  sellersBankInfo,
   sellersBusinessformData,
   sellersShopInfo,
   sellersformData,
 } from "../../utils/formData";
 import { useForm } from "react-hook-form";
 import { useAppState } from "../../context/SellerInfoContext";
-import { useGetBankList } from "../../services/hooks/users/banks";
-import { IBankData } from "../../services/serviceType";
 import { useBankStore } from "../../store";
 import { vendorType } from "../sellers-onboarding/SellersAccountInfo";
 interface IAccordionPros {
@@ -28,14 +25,14 @@ const AccordionSection = ({
   isExpanded,
   onToggle,
 }: IAccordionPros) => {
-  const setBankData = useBankStore((state) => state.setBankData);
-  const bankData = useBankStore((state) => state.bankData);
+  // const setBankData = useBankStore((state) => state.setBankData);
+  // const bankData = useBankStore((state) => state.bankData);
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
+
     useContext(SellersStepsContext);
 
-  console.log(bankData, "pp");
-  console.log({ userData });
+  // console.log(bankData, "pp");
+  // console.log({ userData });
   return (
     <div className="border-b pb-5 mt-3">
       <div className="flex items-center gap-2">
@@ -68,16 +65,12 @@ const Accordion = () => {
     React.useState(false);
   const [isBankInfoExpanded, setIsBankInfoExpanded] = React.useState(false);
   const bankData = useBankStore((state) => state.bankData);
-  const { state, setState } = useAppState();
+  const { state,  } = useAppState();
   const {
-    handleSubmit,
-    register,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleClick, handleChange, userData, setUserData } =
+  const { checkoutSteps, currentStep, handleChange, userData } =
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   // const [formData, setFormData] = useState(userData);
@@ -119,7 +112,7 @@ const Accordion = () => {
   React.useEffect(() => {
     console.log({ userData });
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [userData]);
 
   return (
     <div className="rounded-md w-full md:max-w-2xl h-fit px-0 lg:px-5 py-3 flex flex-col mb-4">

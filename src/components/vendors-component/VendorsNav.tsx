@@ -1,28 +1,23 @@
-import { Menu, Popover, Transition } from "@headlessui/react";
-import {
-  HiOutlineBell,
-  HiOutlineSearch,
-  HiOutlineChatAlt,
-} from "react-icons/hi";
-import React, { Fragment, useState } from "react";
-import { vendorsSideBarLink } from "../../utils/Navigation";
+import { Menu, Transition } from "@headlessui/react";
+import {HiOutlineSearch} from "react-icons/hi";
+import React, { Fragment } from "react";
 import classNames from "classnames";
 
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaBars } from "react-icons/fa";
+// import { FaBars } from "react-icons/fa";
 import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
 
-interface Iprop {
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  item: any;
-}
+// interface Iprop {
+//   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+//   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+//   item: any;
+// }
 
-const linkClass =
-  "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-4 md:py-4 xxs:py-6 hover:text-[#197b30] ";
+// const linkClass =
+//   "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-4 md:py-4 xxs:py-6 hover:text-[#197b30] ";
 
 const VendorsNav = () => {
   const showSideBar = useSidebarState((state) => state.sideBarOpen);

@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
 import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
 import { MdOutlineEnhancedEncryption, MdOutlineNotifications, MdOutlinePerson } from "react-icons/md";
-import { RxBell } from "react-icons/rx";
-import { TfiLock } from "react-icons/tfi";
+// import { RxBell } from "react-icons/rx";
+// import { TfiLock } from "react-icons/tfi";
 import SellersNotificationTable from "../../components/vendors-component/SellersNotificationTable";
 import MobileTabs from "../tabs/MobileTabs";
 import PhoneInput from "react-phone-input-2";
@@ -27,9 +27,9 @@ function SettingssTab() {
   const [tab, setTab] = useState(1);
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
-  const [eyeState3, setEyeState3] = useState(false);
+  const [eyeState3, ] = useState(false);
 
-  const [image, setImage] = useState("");
+  const [, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   const handleClick = (tabIndex: SetStateAction<number>) => {
@@ -52,9 +52,9 @@ function SettingssTab() {
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [email, setEmail] = useState("");
-  const [storeName, setStoreName] = useState("");
+  // const [country, setCountry] = useState("");
+  const [email, ] = useState("");
+  const [storeName, ] = useState("");
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
     storeName: Yup.string()

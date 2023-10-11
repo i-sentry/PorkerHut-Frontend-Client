@@ -1,6 +1,4 @@
 import React from "react";
-import Footer from "../components/footer-component/Footer";
-import NavBar from "../components/nav-component/NavBar";
 import OrderImg from "../assets/images/OrderImg.png";
 import AppLayout from "../components/utility/AppLayout";
 

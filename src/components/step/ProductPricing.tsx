@@ -39,18 +39,11 @@ export default function ProductPricing({
   const {
     checkoutSteps,
     currentStep,
-    handleClick,
-    productData,
-    setProductData,
     handleChange,
   } = useContext(productStepsContext);
-  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [formData] = useState<Record<string, string>>({});
 
   const {
-    handleSubmit,
-    register,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm<any>({ defaultValues: "", mode: "onSubmit" });
   return (

@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
-import _ from "lodash";
 import VetData from "../../utils/json/vetData.json";
 
 export const StatusColumn = ({ data }: { data: string }) => {

@@ -1,6 +1,6 @@
 
-import NavBar from "../../components/nav-component/NavBar";
-import Footer from "../../components/footer-component/Footer";
+// import NavBar from "../../components/nav-component/NavBar";
+// import Footer from "../../components/footer-component/Footer";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import AgroservImg from "../../../src/assets/images/AgroservImg.png";
 import FarmingImg from "../../../src/assets/images/FarmingImg.png";
@@ -9,9 +9,9 @@ import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
 import { useLocation } from "react-router-dom";
 import AppLayout from "../../components/utility/AppLayout";
-import ServiceForm from "../../components/services-component/ServiceForm";
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+// import ServiceForm from "../../components/services-component/ServiceForm";
+// import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 
@@ -30,15 +30,15 @@ interface AgroServicesProps {
 const AgroServices = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const agroService = query.get("agro-service");
+  // const agroService = query.get("agro-service");
 
   const {
     register,
     handleSubmit,
-    getValues,
-    control,
+    // getValues,
+    // control,
     reset,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<AgroServicesProps>();
 
 

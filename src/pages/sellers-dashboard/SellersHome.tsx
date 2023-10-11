@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import banner1 from "../../assets/images/SellerHomeBanner.png";
 
-import Modal from "../../components/announcement-component/Modal";
-import Select from "react-select";
-import { AiOutlineSound } from "react-icons/ai";
-import RowModal from "../../components/announcement-component/RowModal";
-import { announcementData } from "../../utils/announcementData";
+// import Modal from "../../components/announcement-component/Modal";
+// import Select from "react-select";
+// import { AiOutlineSound } from "react-icons/ai";
+// import RowModal from "../../components/announcement-component/RowModal";
+// import { announcementData } from "../../utils/announcementData";
 
 import { RiMessage2Line } from "react-icons/ri";
 
@@ -87,13 +87,13 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }
   };
 
-  const prevSlide = () => {
-    if (slideIndex !== 1) {
-      setSlideIndex(slideIndex - 1);
-    } else if (slideIndex === 1) {
-      setSlideIndex(dataSlider.length);
-    }
-  };
+  // const prevSlide = () => {
+  //   if (slideIndex !== 1) {
+  //     setSlideIndex(slideIndex - 1);
+  //   } else if (slideIndex === 1) {
+  //     setSlideIndex(dataSlider.length);
+  //   }
+  // };
 
   useEffect(() => {
     const id = setInterval(() => {

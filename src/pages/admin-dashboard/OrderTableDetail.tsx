@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { IoBasketOutline } from "react-icons/io5";
 import {
-  MdOutlinePersonPinCircle,
   MdOutlineStorefront,
   MdPersonOutline,
 } from "react-icons/md";
-import productImg from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";

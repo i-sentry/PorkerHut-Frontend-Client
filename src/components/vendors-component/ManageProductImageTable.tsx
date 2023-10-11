@@ -5,10 +5,7 @@ import {
   useGlobalFilter,
   usePagination,
   useRowSelect,
-  TableToggleAllRowsSelectedProps,
   Column,
-  HeaderProps,
-  Hooks,
   useExpanded,
 } from "react-table";
 import Table_Data from "../../utils/json/Table_Data.json";
@@ -48,9 +45,9 @@ const ManageProductTable = () => {
     },
   ];
 
-  const [selectedRows, setSelectedRows] = useState(null);
-  const [numOfSelectedRow, setNumOfSelectedRow] = useState(0);
-  const columns = useMemo(() => column, []);
+  const [, setSelectedRows] = useState(null);
+  const [, setNumOfSelectedRow] = useState(0);
+  const columns = useMemo(() => column, [column]);
 
   const data = useMemo(() => Table_Data, []);
   const table = useTable(
@@ -73,17 +70,10 @@ const ManageProductTable = () => {
     state,
     setGlobalFilter,
     selectedFlatRows,
-    nextPage,
     gotoPage,
-    pageCount,
     setPageSize,
-    previousPage,
-    pageOptions,
-    canNextPage,
-    canPreviousPage,
-    footerGroups,
   } = table;
-  const { globalFilter, pageIndex, pageSize, expanded } = state;
+  const { globalFilter, pageSize} = state;
 
   useEffect(() => {
     var selectedRows = selectedFlatRows.map(

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 const Blog = () => {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [description, setDescription] = useState<string>("");
   const cancelDefaultBehavior = (e: any) => {
     e.preventDefault();
     e.stopPropagation();

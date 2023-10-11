@@ -5,7 +5,7 @@ import { CardProps, cap } from "./Card";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 
 const MobileCard: React.FC<CardProps> = ({ item }) => {
-  const { data: allCategories, error, isLoading } = useGetAllCategories();
+  // const { data: allCategories, error, isLoading } = useGetAllCategories();
   return (
     <NavLink
     to={`/category/${item?._id}?q=${item?.name}`}

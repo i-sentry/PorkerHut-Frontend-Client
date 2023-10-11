@@ -1,7 +1,6 @@
 import React from "react";
 import Popover from "../../components/utility/PopOver";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { TabSelector } from "../../components/utility/TabSelector";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import customerMockData from "../../utils/json/customerMockData.json";
 import { Column } from "react-table";

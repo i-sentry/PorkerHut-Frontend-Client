@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../components/nav-component/NavBar";
 import vetVerify from "../../assets/images/vetVerify.png";
 import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import { NavLink } from "react-router-dom";

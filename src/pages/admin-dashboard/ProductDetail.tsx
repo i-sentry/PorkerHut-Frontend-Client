@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
-import { productData } from "../../utils/productData";
-import { useLocation, useParams } from "react-router-dom";
-import { useImageOverlay } from "../../store/overlay";
+import { useLocation } from "react-router-dom";
 import {
   useGetSingleProduct,
   useProductStatus,
@@ -17,23 +15,23 @@ import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import CustomInput from "../../components/utility/Input/CustomInput";
 import ProductTable from "../../components/utility/ProductTable";
 import Gallery from "../../components/utility/Input/Gallery";
-interface IProd {
-  id: string;
-  title: string;
-  type: string;
-  category: string;
-  price: string;
-  product: {
-    location: string;
-    name: string;
-    weight: string;
-    productName: string;
-  };
-  img: string;
-  status: string;
-  desc: string;
-  images: string[];
-}
+// interface IProd {
+//   id: string;
+//   title: string;
+//   type: string;
+//   category: string;
+//   price: string;
+//   product: {
+//     location: string;
+//     name: string;
+//     weight: string;
+//     productName: string;
+//   };
+//   img: string;
+//   status: string;
+//   desc: string;
+//   images: string[];
+// }
 
 const productInfoSchema = yup.object().shape({
   "productInformation.productName": yup
@@ -46,8 +44,8 @@ const productInfoSchema = yup.object().shape({
 });
 
 const ProductDetails = () => {
-  const setShowOverlay = useImageOverlay((state) => state.setShowOverlays);
-  const setImage = useImageOverlay((state) => state.setImage);
+  // const setShowOverlay = useImageOverlay((state) => state.setShowOverlays);
+  // const setImage = useImageOverlay((state) => state.setImage);
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -55,7 +53,7 @@ const ProductDetails = () => {
   const catId = queryParams.get("catId");
 
   const singleProduct = useGetSingleProduct(id);
-  const [images, setImages] = useState<string[]>([]);
+  // const [images, setImages] = useState<string[]>([]);
 
   const { data: question } = useGetCategoryQuestion(catId);
 
@@ -70,16 +68,14 @@ const ProductDetails = () => {
   ]);
   console.log(singleProduct?.data?.data, "singleProduct");
 
-  const { text, textarea, amount, select, autocomplete, richText, date } =
+  const { text, amount, richText, date } =
     InputTypes;
 
   const {
     register,
-    handleSubmit,
     control,
-    reset, // Function to reset form values
-    getValues,
-    formState: { errors, isSubmitting },
+    reset, // Function to reset form value
+    formState: { errors,  },
   } = useForm({
     resolver: yupResolver(productInfoSchema),
     defaultValues: {
@@ -148,7 +144,7 @@ const ProductDetails = () => {
       });
       return updatedQuestions;
     }
-  }, [question?.data, convertToCamelCase]);
+  }, [question?.data, convertToCamelCase, text]);
 
   useEffect(() => {
     if (currentProductData) {

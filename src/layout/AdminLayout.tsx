@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import AdminDashboard from "../pages/admin-dashboard/AdminDashboard";
 import Navbar from "../pages/admin-dashboard/Navbar";
 import Sidebar from "../components/admin-dashboard-components/Sidebar";
 import ImageOverLay from "../components/admin-dashboard-components/ImageOverLay";
 import { useCategoryModal, useImageOverlay } from "../store/overlay";
 import CustomCatModal from "../components/admin-dashboard-components/CustomCatModal";
-import { SetStateAction } from "react";
+
 
 const AdminLayout = () => {
   const showOverlay = useImageOverlay((state) => state.showOverlay);

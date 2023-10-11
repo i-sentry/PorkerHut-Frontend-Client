@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 // import ReactQuill, { Quill } from "react-quill";
-// import "react-quill/dist/quill.snow.css";
-import { useParams } from "react-router-dom";
-import { useGetBlog } from "../../services/hooks/users/blog";
+// // import "react-quill/dist/quill.snow.css";
+// import { useParams } from "react-router-dom";
+// import { useGetBlog } from "../../services/hooks/users/blog";
 
 const EditBlog = () => {
-  const { id } = useParams();
-  const getSingleBlog = useGetBlog(id);
+  // const { id } = useParams();
+  // const getSingleBlog = useGetBlog(id);
 
   // useEffect(() => {
   //   const filteredOrder = blogData.find((ord: any) => ord.id === id);
@@ -14,7 +14,7 @@ const EditBlog = () => {
   //   setBlog(filteredOrder);
   // }, [id]);
 
-  const [blog, setBlog] = useState({
+  const [blog, ] = useState({
     banner: "",
     content: "",
     createdA: "",
@@ -25,7 +25,7 @@ const EditBlog = () => {
   });
 
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [description, setDescription] = useState<string>("");
+  const [, setDescription] = useState<string>("");
   useEffect(() => {
     setCurrentImage(blog?.image);
     setDescription(blog.content);

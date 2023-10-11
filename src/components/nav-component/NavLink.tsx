@@ -7,7 +7,7 @@ interface Iprop {
 }
 const NavLink = ({ setToggle }: Iprop) => {
   const [heading, setHeading] = useState("");
-  const [subHeading, setSubHeading] = useState("");
+  const [, setSubHeading] = useState("");
 
   return (
     <>
@@ -105,8 +105,8 @@ const NavLink = ({ setToggle }: Iprop) => {
 export default NavLink;
 
 export const HelpLink = () => {
-  const [heading, setHeading] = useState("");
-  const [subHeading, setSubHeading] = useState("");
+  const heading = useState("");
+  // const [subHeading, setSubHeading] = useState("");
   const helpLink = [
     {
       name: "Help",

@@ -1,7 +1,7 @@
 import React from "react";
 import { BsShopWindow, BsTag } from "react-icons/bs";
 import {
-  RiArrowDownSLine,
+  // RiArrowDownSLine,
   RiCalendar2Line,
   RiFileDownloadLine,
 } from "react-icons/ri";
@@ -20,7 +20,7 @@ import {
   MdStorefront,
 } from "react-icons/md";
 import { FaPaw, FaShuttleVan } from "react-icons/fa";
-import { CgLoadbarDoc } from "react-icons/cg";
+// import { CgLoadbarDoc } from "react-icons/cg";
 import { GoTag } from "react-icons/go";
 import { AiOutlineSound, AiOutlineQuestionCircle } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";

@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiCamera } from "react-icons/fi";
-import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
+// import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
 import { MdOutlinePerson } from "react-icons/md";
-import MobileTabs from "../tabs/MobileTabs";
+// import MobileTabs from "../tabs/MobileTabs";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
+// import {
+//   CountryDropdown,
+//   RegionDropdown,
+//   CountryRegionData,
+// } from "react-country-region-selector";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { HiOutlineChevronLeft } from "react-icons/hi";
 
 type FormData = {
   fullName: string;
@@ -28,7 +29,7 @@ interface IAccount {
   setShowTab: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const AccountInfo = ({ setShowTab }: IAccount) => {
-  const [image, setImage] = useState("");
+  const [, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleImage = (e: any) => {
@@ -38,9 +39,9 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [email, setEmail] = useState("");
-  const [storeName, setStoreName] = useState("");
+  // const [country, setCountry] = useState("");
+  const [email, ] = useState("");
+  const [storeName, ] = useState("");
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
     storeName: Yup.string()

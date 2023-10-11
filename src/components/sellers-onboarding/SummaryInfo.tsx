@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Accordion from "../utility/Accordion";
-import AccountCreationModal from "../modal-component/AccountCreationModal";
 import { useSignUpState } from "../../store/overlay";
 
 const SummaryInfo = () => {
 
     const isOpen = useSignUpState((state) => state.isOpen);
-  const setIsOpen = useSignUpState((state) => state.setIsOpen);
+  
 
   console.log(isOpen, "isOpen");
   return (

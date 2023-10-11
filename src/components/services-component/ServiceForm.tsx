@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 import { formData } from "../../utils/formData";
@@ -25,10 +25,8 @@ const ServiceForm = ({ text, title }: contactProps) => {
   const {
     register,
     handleSubmit,
-    getValues,
-    control,
     reset,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<any>({ resolver: yupResolver(validationSchema) });
   // const [userData, setUserData] = useState<{
   //   [name: string]: string | boolean;

@@ -1,8 +1,6 @@
 import React, {
   createContext,
   useState,
-  Dispatch,
-  SetStateAction,
   ReactNode,
 } from "react";
 import { FileData } from "./FileContext";

@@ -3,28 +3,28 @@ import { BiCheck } from "react-icons/bi";
 import "./Stepper.css";
 
 const Stepper = () => {
-  const step = [
-    {
-      id: 1,
-      label: "Order Placed",
-      time: "Monday 15-01-2023",
-    },
-    {
-      id: 2,
-      label: "Pending Confirmation",
-      time: "Monday 15-01-2023",
-    },
-    {
-      id: 3,
-      label: "Shipped",
-      time: "Monday 16-01-2023",
-    },
-    {
-      id: 4,
-      label: "Delivered",
-      time: "Monday 16-01-2023",
-    },
-  ];
+  // const step = [
+  //   {
+  //     id: 1,
+  //     label: "Order Placed",
+  //     time: "Monday 15-01-2023",
+  //   },
+  //   {
+  //     id: 2,
+  //     label: "Pending Confirmation",
+  //     time: "Monday 15-01-2023",
+  //   },
+  //   {
+  //     id: 3,
+  //     label: "Shipped",
+  //     time: "Monday 16-01-2023",
+  //   },
+  //   {
+  //     id: 4,
+  //     label: "Delivered",
+  //     time: "Monday 16-01-2023",
+  //   },
+  // ];
   return (
     <div className="">
       <ul

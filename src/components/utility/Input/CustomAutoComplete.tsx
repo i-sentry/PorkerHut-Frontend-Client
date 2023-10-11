@@ -1,7 +1,6 @@
 // import { getData } from "@/utils/fetcher";
-import { useCallback } from "react";
 import { Controller } from "react-hook-form";
-import { debounce, camelCase } from "lodash";
+import { camelCase } from "lodash";
 import AsyncSelect from "react-select/async";
 
 function CustomAutoComplete({ data, control, errors }: any) {

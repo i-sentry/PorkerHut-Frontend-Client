@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import NavBar from "../components/nav-component/NavBar";
-import Footer from "../components/footer-component/Footer";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +11,6 @@ import "react-phone-input-2/lib/style.css";
 import {
   CountryDropdown,
   RegionDropdown,
-  CountryRegionData,
 } from "react-country-region-selector";
 
 type UserBillingInfo = {

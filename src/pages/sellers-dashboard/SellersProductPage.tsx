@@ -1,7 +1,7 @@
 import React from "react";
-import StepperComponent from "../../components/step/StepperComponent";
-import { HiOutlineSearch } from "react-icons/hi";
-import Table from "../../components/Table/Table";
+// import StepperComponent from "../../components/step/StepperComponent";
+// import { HiOutlineSearch } from "react-icons/hi";
+// import Table from "../../components/Table/Table";
 import { Column } from "react-table";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import Table_Data from "../../utils/json/Table_Data.json";

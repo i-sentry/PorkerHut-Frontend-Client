@@ -1,6 +1,5 @@
-import React from "react";
+
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 export interface Iprops {
   color: string;
@@ -32,10 +31,10 @@ const PerformanceWidget = ({
   value,
   text,
 }: Iprops) => {
-  const openModal = (e: any) => {
-    e.preventDefault();
-    action();
-  };
+  // const openModal = (e: any) => {
+  //   e.preventDefault();
+  //   action();
+  // };
 
   const min = 0;
   const max = 100;

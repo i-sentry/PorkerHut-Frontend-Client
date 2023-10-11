@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, RefObject } from "react";
+import { useEffect, RefObject } from "react";
 
 export const useOutsideAlerter = (
   ref: RefObject<any>,

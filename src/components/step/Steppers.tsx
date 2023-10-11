@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import { HiOutlineCheck, HiOutlineChevronDoubleRight } from "react-icons/hi";
+import { HiOutlineCheck } from "react-icons/hi";
 import { MdDoubleArrow } from "react-icons/md";
 
 interface IStepProps {

@@ -1,7 +1,6 @@
-import React from "react";
+
 import { useSidebarState } from "../../store/overlay";
 import Aside from "./Aside";
-import NavButton from "./NavButton";
 
 const MainSideNav = () => {
   const sideBarOpen = useSidebarState((state) => state.sideBarOpen);

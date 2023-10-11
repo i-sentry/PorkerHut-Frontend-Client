@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import { SearchBar } from "../slider-component/Slider";
-import { ISearch, useSearchStore } from "../../store/showSearch";
+import { useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 interface IAppLayoutProps {
   children: ReactNode;
@@ -13,15 +13,19 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
   const showSearch = useSearchStore((state) => state.showSearch);
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
   const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
-  const toggleSideBarOpen = useSidebarState((state) => state.toggleSidebar);
+  // const toggleSideBarOpen = useSidebarState((state) => state.toggleSidebar);
 
-  const toggleBodyScrolling = () => {
+  // const toggleBodyScrolling = () => {
+  //   document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
+  // };
+
+  const toggleBodyScrolling = useCallback(() => {
     document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
-  };
+  }, [sideBarOpen]);
 
   React.useEffect(() => {
     toggleBodyScrolling();
-  }, [sideBarOpen]);
+  }, [sideBarOpen, toggleBodyScrolling]);
   return (
     <div>
       <NavBar />
