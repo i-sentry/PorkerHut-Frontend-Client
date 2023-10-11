@@ -15,7 +15,7 @@ interface ProductLocationState {
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-  // console.log(item)
+  console.log({ item });
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   return (
     <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
-  
+
 
 <img
           onClick={handleCardClick}
@@ -65,9 +65,9 @@ const ProductCard = ({ item }: ProductLocationState) => {
           } xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 duration-700 cursor-pointer ${
             isOutOfStock ? '' : 'active:opacity-50 active:scale-90 transition-all'
           }`}
-         
+
       >
-          
+
           <span className="text-white  xxs:text-[11px] xxs:leading-[14px] md:text-base rounded-b-md font-normal ">
             {isOutOfStock? <div className="flex items-center gap-2"><CgUnavailable size={16} color="white"/><p>Out Of Stock</p></div> : "Add to cart"}
           </span>

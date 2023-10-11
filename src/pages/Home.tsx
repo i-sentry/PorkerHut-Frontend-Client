@@ -11,12 +11,20 @@ import AppLayout from "../components/utility/AppLayout";
 import toast, { Toaster } from "react-hot-toast";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useAppDispatch } from "../redux/hook";
+import { fetchProduct } from "../redux/features/product/productSlice";
 
 const Home: React.FC = () => {
+    const dispatch = useAppDispatch();
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+      dispatch(fetchProduct());
   }, []);
   const notify = () => toast("Here is your toast.");
+
+  // useEffect(() => {
+
+  // });
   return (
     <AppLayout>
 

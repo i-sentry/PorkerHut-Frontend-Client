@@ -23,6 +23,7 @@ import {
   incrementProductQty,
   IProduct,
 } from "../redux/features/product/productSlice";
+import { useAppSelector } from "../redux/hook";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -38,12 +39,14 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
-
+ const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart).reduce((acc, current) => {
-    return acc + parseFloat(current.price) * (current.quantity as number);
+    return acc + current.pricing.productPrice * (current.pricing.quantity as number);
   }, 0);
   console.log(Object.values(cart).length, "Object.values(cart).length");
   console.log(cart, "(cart)");
+
+  console.log(products,"products")
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
@@ -188,7 +191,7 @@ const CartPage = () => {
 
                         <button
                           onClick={() =>
-                            dispatch(deleteProductFromCart({ id: item.id }))
+                            dispatch(deleteProductFromCart({ id: item._id }))
                           }
                         >
                           Remove

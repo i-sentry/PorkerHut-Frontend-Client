@@ -29,7 +29,7 @@ const AccordionSection = ({
   onToggle,
 }: IAccordionPros) => {
   const setBankData = useBankStore((state) => state.setBankData);
-  const bankData = useBankStore((state) => state.bankData);
+   const bankData = useBankStore((state) => state.bankData);
   //@ts-ignore
   const { checkoutSteps, currentStep, handleClick, userData, setUserData } =
     useContext(SellersStepsContext);

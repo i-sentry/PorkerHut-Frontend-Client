@@ -4,12 +4,14 @@ import { IProduct } from "../../redux/features/product/productSlice";
 import { RootState } from "../../redux/store";
 
 const OrderCart = () => {
-  const cart = useSelector((state: RootState) => state.product.cart)
-  const dFee = 700
+  const cart = useSelector((state: RootState) => state.product.cart);
+  const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
-    return acc + (parseFloat(current.price) * (current.quantity as number))
-  }, 0)
-  const vat = cartTotal + (cartTotal / 100 * 7.5)
+    return (
+      acc + current.pricing.productPrice * (current.pricing.quantity as number)
+    );
+  }, 0);
+  const vat = cartTotal + (cartTotal / 100) * 7.5;
 
   return (
     <div className=" w-full lg:w-auto bg-white rounded-lg self-start lg:stacic lg:top-[100px]">
@@ -72,23 +74,23 @@ const OrderCard = ({ item }: { item: IProduct }) => {
     <div className=" flex gap-4 px-4 py-6 border-b">
       <figure className="h-[86px] w-[102px] overflow-hidden rounded">
         <img
-          src={item.img}
-          alt={item?.product?.name}
+          src={item.images[0] || ""}
+          alt={item?.information.productName}
           className="w-full h-full object-cover"
         />
       </figure>
 
       <div className="flex flex-col">
         <h1 className="text-[16px] leading-[24px] text-[#333333] font-medium w-40">
-          {item.product?.name}
+          {item?.information.productName}
         </h1>
         <h1 className=" text-[#797979] text-[16px] leading-[24px]  font-medium  mt-4">
-          {item.product?.weight} x{item.quantity}
+          {item.details.productWeight} x{item.pricing.quantity}
         </h1>
       </div>
 
       <h1 className=" text-[16px] leading-[24px] text-[#333333] font-medium self-end md:self-start ml-auto">
-        ₦{item.price}
+        ₦{item.pricing.productPrice}
       </h1>
     </div>
   );

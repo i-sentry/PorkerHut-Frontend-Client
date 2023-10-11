@@ -1,26 +1,64 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { productData } from "../../../utils/productData";
 import { toast } from "react-toastify";
+import { useGetAllProducts } from "../../../services/hooks/users/products";
+import Data from "../../../components/Data";
+
+// export interface  {
+//   id: string | number;
+//   title: string;
+//   type?: string;
+//   category: string;
+//   price: string;
+//   rating?: string;
+//   product?: {
+//     name: string;
+//     location: string;
+//     weight?: string;
+//     productName: string;
+//   };
+//   img: string;
+//   desc: string;
+//   images?: string[];
+//   availability?: string;
+//   quantity?: number;
+// }
 
 export interface IProduct {
-  id: string | number;
-  title: string;
-  type?: string;
+  approvalStatus: boolean;
+  avgRating: number;
   category: string;
-  price: string;
-  rating?: string;
-  product?: {
-    name: string;
-    location: string;
-    weight?: string;
-    productName: string;
+  createdAt: string;
+  details: {
+    cookingMethod: string;
+    deliveryDetails: string;
+    productContent: string;
+    productDescription: string;
+    productWeight: number;
   };
-  img: string;
-  desc: string;
-  images?: string[];
-  availability?: string;
-  quantity?: number;
+  // _id: string;
+  featured: boolean;
+  images: string[];
+  information: {
+    categoryQuestions: any[]; // You can define a specific type here if needed
+    productBreed: string;
+    productName: string;
+    typeOfMeat: string;
+    _id: string;
+  };
+  pricing: {
+    productPrice: number;
+    quantity: number;
+    saleEndDate: string;
+    saleStartDate: string;
+    _id: string;
+  };
+  reviews: any[]; // You can define a specific type for reviews if needed
+  updatedAt: string;
+  visibilityStatus: string;
+  __v: number;
+  _id: string;
 }
 
 export interface ICart {
@@ -36,11 +74,25 @@ export interface ProductState {
 }
 
 const initialState: ProductState = {
-  productList: productData,
+  productList: [],
   cart: JSON.parse(localStorage.getItem("cart") || "{}"),
   favorites: {},
   totalQuantity: 0,
 };
+
+export const fetchProduct = createAsyncThunk(
+  "product/fetch",
+  async (thunkAPI) => {
+    const response = await fetch(
+      "https://pockerhut-api.onrender.com/api/products/",
+      {
+        method: "GET",
+      }
+    );
+    const data = response.json();
+    return data;
+  }
+);
 
 export const productSlice = createSlice({
   name: "product",
@@ -93,7 +145,7 @@ export const productSlice = createSlice({
       action: PayloadAction<{ id: string | number }>
     ) => {
       const product = state.productList.find(
-        (product) => product.id === action.payload.id
+        (product) => product._id === action.payload.id
       );
 
       if (product) {
@@ -110,7 +162,7 @@ export const productSlice = createSlice({
             theme: "colored",
           });
         } else {
-          product.quantity = 1;
+          product.pricing.quantity = 1;
           state.cart[action.payload.id] = product;
 
           // Update the totalQuantity in the state by adding 1
@@ -126,7 +178,7 @@ export const productSlice = createSlice({
       action: PayloadAction<{ id: string | number }>
     ) => {
       const product = state.productList.find(
-        (product) => product.id === action.payload.id
+        (product) => product._id === action.payload.id
       );
       if (product) {
         state.favorites[action.payload.id] = product;
@@ -147,7 +199,7 @@ export const productSlice = createSlice({
     ) => {
       const deletedProduct = state.cart[action.payload.id];
       if (deletedProduct) {
-        const deletedQuantity = deletedProduct.quantity || 0;
+        const deletedQuantity = deletedProduct.pricing.quantity || 0;
 
         // Remove the product from the cart
         delete state.cart[action.payload.id];
@@ -208,7 +260,7 @@ export const productSlice = createSlice({
     ) => {
       if (state.cart[action.payload.id]) {
         const product = state.cart[action.payload.id];
-        (product.quantity as number) += 1;
+        (product.pricing.quantity as number) += 1;
         state.totalQuantity += 1; // Increase total quantity
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
@@ -233,13 +285,18 @@ export const productSlice = createSlice({
     ) => {
       if (state.cart[action.payload.id]) {
         const product = state.cart[action.payload.id];
-        if ((product.quantity as number) > 1) {
-          (product.quantity as number) -= 1;
+        if ((product.pricing.quantity as number) > 1) {
+          (product.pricing.quantity as number) -= 1;
           state.totalQuantity -= 1; // Decrease total quantity
           localStorage.setItem("cart", JSON.stringify(state.cart));
         }
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProduct.fulfilled, (state, action) => {
+      state.productList = action.payload;
+    });
   },
 });
 
