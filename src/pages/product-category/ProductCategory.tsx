@@ -13,6 +13,7 @@ import { SkeletonLoader } from "../../components/category-component/Category";
 import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 import { cap } from "../../components/category-card-component/Card";
 import { useGetAllProducts } from "../../services/hooks/Vendor/products";
+import FilterSidebar from "../../components/accordion-component/FilterSidebarModal";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -25,7 +26,7 @@ interface iProps {
 }
 
 const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
-  const [, setOpenModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const { id } = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -42,10 +43,9 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   console.log(getAllProducts?.data, "getAllProducts");
 
   //@ts-ignore
- const menuItems = getAllProducts?.data
-   .filter((d: any) => d.vendor !== undefined)
-   .map((d: any) => d.vendor.businessInformation.city);
-
+  const menuItems = getAllProducts?.data
+    .filter((d: any) => d.vendor !== undefined)
+    .map((d: any) => d.vendor.businessInformation.city);
 
   console.log(menuItems, "h");
 
@@ -60,7 +60,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     //@ts-ignore
     setData(newItems);
   };
-  useEffect(() => filter(id), [filter, id]);
+  useEffect(() => filter(id));
 
   console.log(data, "data");
 
