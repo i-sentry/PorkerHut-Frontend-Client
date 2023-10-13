@@ -51,6 +51,9 @@ export const api = {
       `/api/categoryquestions/category/${id}`,
     getOneCategory: (id: string | null) => `/api/categories/${id}`,
   },
+  Payment: {
+    pay:"/api/pay/"
+  }
 };
 
 export const makePostRequest = async (

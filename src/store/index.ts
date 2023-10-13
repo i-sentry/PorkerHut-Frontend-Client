@@ -19,3 +19,13 @@ export const useProductStore = create<IIProd>((set) => ({
   setProductData: (data: IProduct | null) =>
     set((state: any) => ({ productData: data })),
 }));
+
+interface Ipay {
+  cartTotal: number;
+  setCartTotal: (data: number) => void;
+}
+
+export const useCartTotalAmount = create<Ipay>((set) => ({
+  cartTotal: 0,
+  setCartTotal: (data: number) => set((state: any) => ({ cartTotal: data })),
+}));

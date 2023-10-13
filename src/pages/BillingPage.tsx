@@ -10,14 +10,14 @@ import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-
+import { useMakePayment } from "../services/hooks/payment";
+import { useCartTotalAmount } from "../store";
 
 const validationSchema = Yup.object().shape({
   firstname: Yup.string().required("First Name is required"),
-  lastname: Yup.string()
-    .required("Last Name is required")
-    .min(6, "Username must be at least 6 characters")
-    .max(20, "Username must not exceed 20 characters"),
+  lastname: Yup.string().required("Last Name is required"),
+  // .min(6, "Username must be at least 6 characters")
+  // .max(20, "Username must not exceed 20 characters"),
   email: Yup.string().required("Email is required").email("Email is invalid"),
   address: Yup.string().required("Address is required"),
   state: Yup.string().required("State is required"),
@@ -27,11 +27,10 @@ const validationSchema = Yup.object().shape({
     .required("Valid Phone Number is required")
     .matches(/^[0-9]*$/, "Invalid Phone Number")
     .min(6, "Valid Phone Number must be at least 6 characters")
-    .max(12, "Valid Phone Number must not exceed 12 characters"),
+    .max(15, "Valid Phone Number must not exceed 12 characters"),
 });
 
 const BillingPage = () => {
-
   const {
     register,
     handleSubmit,
@@ -43,20 +42,33 @@ const BillingPage = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  
-
+  const navigate = useNavigate();
+  const makePayment = useMakePayment();
+  const cartTotal = useCartTotalAmount((state) => state.cartTotal);
   console.log({ errors });
+  console.log(cartTotal, "cartTotal");
 
   const onSubmit = (data: any) => {
     console.log(data, "billing data");
+    const { email } = data;
+    const amount = `${cartTotal}`;
 
-    console.log(JSON.stringify(data, null, 2));
-    reset();
+    makePayment
+      .mutateAsync({ email, amount: parseInt(amount, 10) })
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === true) {
+        window.open(res.data.data.authorization_url, "_blank");
+        }
+        reset();
+      })
+      .catch((err) => {});
+
+    // console.log(JSON.stringify(data, null, 2));
   };
-  const navigate = useNavigate();
 
   React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -103,9 +115,11 @@ const BillingPage = () => {
                       errors.firstname ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
-                    {errors.root?.message}
-                  </div>
+                  {errors.firstname && (
+                    <span className="text-[#dd1313] text-sm">
+                      {String(errors.firstname?.message)}
+                    </span>
+                  )}
                 </div>
 
                 <div className="w-full xxs:mt-3 lg:mt-0">
@@ -123,9 +137,11 @@ const BillingPage = () => {
                       errors.lastname ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
-                    {errors.root?.message}
-                  </div>
+                  {errors.lastname && (
+                    <span className="text-[#dd1313] text-sm">
+                      {String(errors.lastname?.message)}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className=" input my-3 ">
@@ -143,9 +159,11 @@ const BillingPage = () => {
                     errors.email ? "border-[#dd1313]" : ""
                   }`}
                 />
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.email?.message} */}
-                </div>
+                {errors.email && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.email?.message)}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3 input">
@@ -175,9 +193,11 @@ const BillingPage = () => {
                   )}
                 />
 
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.phonenumber?.message} */}
-                </div>
+                {errors.phonenumber && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.phonenumber.message)}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3">
@@ -195,9 +215,11 @@ const BillingPage = () => {
                     errors.address ? "border-[#dd1313]" : ""
                   }`}
                 />
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.address?.message} */}
-                </div>
+                {errors.address && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.address?.message)}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3 input">
@@ -226,9 +248,11 @@ const BillingPage = () => {
                     />
                   )}
                 />
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.country?.message} */}
-                </div>
+                {errors.country && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.country?.message)}
+                  </span>
+                )}
               </div>
               <div className="mb-3 input">
                 <label
@@ -255,9 +279,11 @@ const BillingPage = () => {
                   )}
                 />
 
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.state?.message} */}
-                </div>
+                {errors.state && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.state?.message)}
+                  </span>
+                )}
               </div>
 
               <div className=" mb-3">
@@ -272,9 +298,11 @@ const BillingPage = () => {
                     errors.city ? "border-[#dd1313]" : ""
                   }`}
                 />
-                <div className="text-[#dd1313] text-sm">
-                  {/* {errors.city?.message} */}
-                </div>
+                {errors.city && (
+                  <span className="text-[#dd1313] text-sm">
+                    {String(errors.city?.message)}
+                  </span>
+                )}
               </div>
 
               <div className="xxs:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:py-10 lg:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">

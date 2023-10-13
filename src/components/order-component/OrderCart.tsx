@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { IProduct } from "../../redux/features/product/productSlice";
 import { RootState } from "../../redux/store";
+import { useCartTotalAmount } from "../../store";
 
 const OrderCart = () => {
+  const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
+ 
   const cart = useSelector((state: RootState) => state.product.cart);
   const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
@@ -12,6 +15,12 @@ const OrderCart = () => {
     );
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
+
+  const sumTotal = cartTotal + vat + dFee;
+
+  useEffect(() => {
+    setCartTotal(sumTotal);
+  }, [cartTotal, setCartTotal, sumTotal]);
 
   return (
     <div className=" w-full lg:w-auto bg-white rounded-lg self-start lg:stacic lg:top-[100px]">
@@ -61,7 +70,7 @@ const OrderCart = () => {
             Total
           </span>
           <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
-            ₦{(cartTotal + vat + dFee)?.toLocaleString()}
+            ₦{sumTotal?.toLocaleString()}
           </span>
         </div>
       </div>
@@ -85,7 +94,7 @@ const OrderCard = ({ item }: { item: IProduct }) => {
           {item?.information.productName}
         </h1>
         <h1 className=" text-[#797979] text-[16px] leading-[24px]  font-medium  mt-4">
-          {item.details.productWeight} x{item.pricing.quantity}
+          {item.details.productWeight} x {item.pricing.quantity}
         </h1>
       </div>
 
