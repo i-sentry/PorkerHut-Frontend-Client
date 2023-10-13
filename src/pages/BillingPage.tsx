@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
@@ -6,21 +6,11 @@ import AppLayout from "../components/utility/AppLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 // import { useForm, Controller  } from "react-hook-form";
-import { useForm, Controller, useFormContext } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
-type UserBillingInfo = {
-  firstname: string;
-  lastname: string;
-  email: string;
-  phonenumber: string;
-  address: string;
-  state: string;
-  city: string;
-  country: string;
-};
 
 const validationSchema = Yup.object().shape({
   firstname: Yup.string().required("First Name is required"),
@@ -41,32 +31,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const BillingPage = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState(
-    "phonenumber is required"
-  );
-
-  // const validationSchema = Yup.object().shape({
-  //   firstname: Yup.string().required("First Name is required"),
-  //   lastname: Yup.string()
-  //     .required("Last Name is required")
-  //     .min(6, "Username must be at least 6 characters")
-  //     .max(20, "Username must not exceed 20 characters"),
-  //   email: Yup.string().required("Email is required").email("Email is invalid"),
-  //   address: Yup.string().required("Address is required"),
-
-  //   state: Yup.string().required("State is required"),
-
-  //   city: Yup.string().required("City is required"),
-  //   country: Yup.string().required("Country is required"),
-
-  //   phonenumber: Yup.string()
-  //     .required("Valid Phone Number is required")
-  //     .min(6, "Valid Phone Number must be at least 6 characters")
-  //     .max(12, "Valid Phone Number must not exceed 12 characters"),
-  // });
 
   const {
     register,
@@ -79,17 +43,7 @@ const BillingPage = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   formState: { errors },
-  // } = useForm<UserBillingInfo>({
-  //   resolver: yupResolver(validationSchema),
-  // });
-  // console.log(phoneNumber);
-  // console.log(state);
-  // console.log(country);
+  
 
   console.log({ errors });
 
