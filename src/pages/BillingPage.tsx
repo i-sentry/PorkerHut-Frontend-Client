@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useForm } from "react-hook-form";
+// import { useForm, Controller  } from "react-hook-form";
+import { useForm, Controller, useFormContext } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {
-  CountryDropdown,
-  RegionDropdown,
-} from "react-country-region-selector";
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
 type UserBillingInfo = {
   firstname: string;
@@ -24,49 +22,80 @@ type UserBillingInfo = {
   country: string;
 };
 
+const validationSchema = Yup.object().shape({
+  firstname: Yup.string().required("First Name is required"),
+  lastname: Yup.string()
+    .required("Last Name is required")
+    .min(6, "Username must be at least 6 characters")
+    .max(20, "Username must not exceed 20 characters"),
+  email: Yup.string().required("Email is required").email("Email is invalid"),
+  address: Yup.string().required("Address is required"),
+  state: Yup.string().required("State is required"),
+  city: Yup.string().required("City is required"),
+  country: Yup.string().required("Country is required"),
+  phonenumber: Yup.string()
+    .required("Valid Phone Number is required")
+    .matches(/^[0-9]*$/, "Invalid Phone Number")
+    .min(6, "Valid Phone Number must be at least 6 characters")
+    .max(12, "Valid Phone Number must not exceed 12 characters"),
+});
+
 const BillingPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
-  const validationSchema = Yup.object().shape({
-    firstname: Yup.string().required("First Name is required"),
-    lastname: Yup.string()
-      .required("Last Name is required")
-      .min(6, "Username must be at least 6 characters")
-      .max(20, "Username must not exceed 20 characters"),
-    email: Yup.string().required("Email is required").email("Email is invalid"),
-    address: Yup.string().required("Address is required"),
+  const [phoneNumberError, setPhoneNumberError] = useState(
+    "phonenumber is required"
+  );
 
-    state: Yup.string().required("State is required"),
+  // const validationSchema = Yup.object().shape({
+  //   firstname: Yup.string().required("First Name is required"),
+  //   lastname: Yup.string()
+  //     .required("Last Name is required")
+  //     .min(6, "Username must be at least 6 characters")
+  //     .max(20, "Username must not exceed 20 characters"),
+  //   email: Yup.string().required("Email is required").email("Email is invalid"),
+  //   address: Yup.string().required("Address is required"),
 
-    city: Yup.string().required("City is required"),
-    country: Yup.string().required("Country is required"),
+  //   state: Yup.string().required("State is required"),
 
-    phonenumber: Yup.string()
-      .required("Valid Phone Number is required")
-      .min(6, "Valid Phone Number must be at least 6 characters")
-      .max(12, "Valid Phone Number must not exceed 12 characters"),
-  });
+  //   city: Yup.string().required("City is required"),
+  //   country: Yup.string().required("Country is required"),
+
+  //   phonenumber: Yup.string()
+  //     .required("Valid Phone Number is required")
+  //     .min(6, "Valid Phone Number must be at least 6 characters")
+  //     .max(12, "Valid Phone Number must not exceed 12 characters"),
+  // });
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
+    getValues,
+    watch,
     formState: { errors },
-  } = useForm<UserBillingInfo>({
+  } = useForm({
     resolver: yupResolver(validationSchema),
   });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<UserBillingInfo>({
+  //   resolver: yupResolver(validationSchema),
+  // });
   // console.log(phoneNumber);
   // console.log(state);
   // console.log(country);
 
   console.log({ errors });
 
-  const onSubmit = (data: UserBillingInfo) => {
+  const onSubmit = (data: any) => {
     console.log(data, "billing data");
-    data.phonenumber = phoneNumber;
-    data.country = country;
-    data.state = state;
+
     console.log(JSON.stringify(data, null, 2));
     reset();
   };
@@ -121,7 +150,7 @@ const BillingPage = () => {
                     }`}
                   />
                   <div className="text-[#dd1313] text-sm">
-                    {errors.firstname?.message}
+                    {errors.root?.message}
                   </div>
                 </div>
 
@@ -141,7 +170,7 @@ const BillingPage = () => {
                     }`}
                   />
                   <div className="text-[#dd1313] text-sm">
-                    {errors.lastname?.message}
+                    {errors.root?.message}
                   </div>
                 </div>
               </div>
@@ -161,7 +190,7 @@ const BillingPage = () => {
                   }`}
                 />
                 <div className="text-[#dd1313] text-sm">
-                  {errors.email?.message}
+                  {/* {errors.email?.message} */}
                 </div>
               </div>
 
@@ -172,22 +201,28 @@ const BillingPage = () => {
                 >
                   Phone Number
                 </label>
-                <PhoneInput
-                  country={"ng"}
-                  value={phoneNumber}
-                  // {...register("phonenumber")}
-                  onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
-                  inputProps={{
-                    name: "phonenumber",
 
-                    id: "phonenumber",
-                    className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                      errors.phonenumber ? "border-[#dd1313]" : ""
-                    }`,
-                  }}
+                <Controller
+                  control={control}
+                  name="phonenumber"
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <PhoneInput
+                      country={"ng"}
+                      value={value}
+                      onChange={onChange}
+                      inputProps={{
+                        name: "phonenumber",
+                        id: "phonenumber",
+                        className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                          errors.phonenumber ? "border-[#dd1313]" : ""
+                        }`,
+                      }}
+                    />
+                  )}
                 />
+
                 <div className="text-[#dd1313] text-sm">
-                  {errors.phonenumber?.message}
+                  {/* {errors.phonenumber?.message} */}
                 </div>
               </div>
 
@@ -207,7 +242,7 @@ const BillingPage = () => {
                   }`}
                 />
                 <div className="text-[#dd1313] text-sm">
-                  {errors.address?.message}
+                  {/* {errors.address?.message} */}
                 </div>
               </div>
 
@@ -218,22 +253,27 @@ const BillingPage = () => {
                 >
                   Country
                 </label>
-                <CountryDropdown
-                  id="country"
-                  value={country}
-                  // style={{
-                  //   backgroundColor: "blue",
-                  //   color: "white",
-                  //   fontSize: 20,
-                  //   borderColor:
-                  // }}
-                  onChange={(val) => setCountry(val)}
-                  classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5  rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-[#197b30] focus:outline-1  ${
-                    errors.country ? "border-[#dd1313]" : ""
-                  }`}
+
+                <Controller
+                  control={control}
+                  name="country"
+                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <CountryDropdown
+                      id="country"
+                      value={value}
+                      onChange={(val) => {
+                        onChange(val);
+                        // Clear the state when the country changes
+                        reset({ ...getValues(), state: "" });
+                      }}
+                      classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5 rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-[#197b30] focus:outline-1  ${
+                        errors.country ? "border-[#dd1313]" : ""
+                      }`}
+                    />
+                  )}
                 />
                 <div className="text-[#dd1313] text-sm">
-                  {errors.country?.message}
+                  {/* {errors.country?.message} */}
                 </div>
               </div>
               <div className="mb-3 input">
@@ -243,19 +283,26 @@ const BillingPage = () => {
                 >
                   State
                 </label>
-                <RegionDropdown
-                  blankOptionLabel=""
-                  defaultOptionLabel="Select State"
-                  id="state"
-                  country={country}
-                  value={state}
-                  onChange={(val) => setState(val)}
-                  classes={`w-full h-12 text-[#333333]  border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                    errors.state ? "border-[#dd1313]" : ""
-                  }`}
+                <Controller
+                  control={control}
+                  name="state"
+                  render={({ field: { onChange, value } }) => (
+                    <RegionDropdown
+                      blankOptionLabel=""
+                      defaultOptionLabel="Select State"
+                      id="state"
+                      country={watch("country")} // Use the selected country
+                      value={value}
+                      onChange={onChange}
+                      classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                        errors.state ? "border-[#dd1313]" : ""
+                      }`}
+                    />
+                  )}
                 />
+
                 <div className="text-[#dd1313] text-sm">
-                  {errors.state?.message}
+                  {/* {errors.state?.message} */}
                 </div>
               </div>
 
@@ -272,7 +319,7 @@ const BillingPage = () => {
                   }`}
                 />
                 <div className="text-[#dd1313] text-sm">
-                  {errors.city?.message}
+                  {/* {errors.city?.message} */}
                 </div>
               </div>
 
