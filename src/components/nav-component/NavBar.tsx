@@ -1,6 +1,6 @@
 import { Fragment} from "react";
 import classNames from "classnames";
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../../assets/images/porker.png";
 import CartLogo from "../../assets/images/CartLogo.svg";
 import {
   AiOutlineClose,

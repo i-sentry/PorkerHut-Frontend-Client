@@ -5,9 +5,7 @@ import { useForm } from "react-hook-form";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import ReactLoading from "react-loading";
-import Ripples from "react-ripples";
 import { useUserSignUp } from "../../services/hooks/users";
-import { ISignUpUser } from "../../services/serviceType";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
 
 
@@ -56,7 +54,7 @@ const CreateAccount: any = () => {
     setEyeState2((prev) => !prev);
   };
 
-  const handleCreateUserAcc = () => {};
+  // const handleCreateUserAcc = () => {};
 
   const passwordref = useRef({});
   passwordref.current = watch("password", "");

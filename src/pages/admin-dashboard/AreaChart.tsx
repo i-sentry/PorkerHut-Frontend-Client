@@ -10,7 +10,6 @@ import {
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 
 ChartJS.register(
   CategoryScale,
@@ -36,27 +35,36 @@ export const options = {
   },
 };
 
-const labels = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+// const labels = [
+//   "Monday",
+//   "Tuesday",
+//   "Wednesday",
+//   "Thursday",
+//   "Friday",
+//   "Saturday",
+//   "Sunday",
+// ];
 
 export const data = {
-  labels,
+  labels: [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ],
   datasets: [
     {
       fill: true,
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      data: [100, 200, 150, 300, 250, 180, 210], // Replace this array with your data
       borderColor: "rgba(8, 75, 40, 0.2)",
       backgroundColor: "rgba(8, 75, 40, 0.2)",
     },
   ],
 };
+
 
 export function AreaChart() {
   return (

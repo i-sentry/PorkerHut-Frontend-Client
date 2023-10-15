@@ -21,7 +21,7 @@ const Blog = () => {
   const getAllBlogs = useGetAllBlogs();
   const [data, setData] = useState<IBlog[]>([]);
   const itemsPerPage = 3;
-  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  const [currentPageIndex, ] = useState(1);
 
   useEffect(() => {
     if (getAllBlogs?.data?.data?.blogs) {
@@ -29,7 +29,6 @@ const Blog = () => {
     }
   }, [getAllBlogs]);
 
-  const isLoading = getAllBlogs.isLoading || data.length === 0;
 
   return (
     <section className="w-full  my-16">

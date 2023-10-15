@@ -1,16 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Ripples from "react-ripples";
-import NavBar from "../nav-component/NavBar";
-import Footer from "../footer-component/Footer";
-import AuthContext from "../../context/AuthProvider";
 import { useUserLogin } from "../../services/hooks/users";
 import ReactLoading from "react-loading";
-import Cookies from "js-cookie";
 import AppLayout from "../utility/AppLayout";
-import { addOption, selectUser } from "../../redux/features/user";
+
 // import { useAppDispatch } from "../../redux/hook";
 
 interface ILoginProps {
@@ -19,14 +15,12 @@ interface ILoginProps {
   checkbox?: string;
 }
 const Login = () => {
-  //@ts-ignore
-  const { setAuth, isLogin, setIsLogin } = useContext(AuthContext);
   const [eyeState, setEyeState] = useState(false);
 const navigate = useNavigate()
 
   const [isError, setIsError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+
   const login = useUserLogin();
   // const dispatch = useAppDispatch();
   const {
@@ -36,7 +30,6 @@ const navigate = useNavigate()
     formState: { errors },
   } = useForm<ILoginProps>();
   const [val, setVal] = useState(false);
-  const [customersLogin, setCustomersLogin] = useState(true);
   const onSubmit = handleSubmit((data, e) => {
     setLoading(true);
     login

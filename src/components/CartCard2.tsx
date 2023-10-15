@@ -1,6 +1,4 @@
 import React from "react";
-import { MdOutlineSpeakerNotes } from "react-icons/md";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import {
   decrementProductQty,
   deleteProductFromCart,

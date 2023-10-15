@@ -31,11 +31,8 @@ interface RowData {
 }
 
 const Announcement = () => {
-
-
-
   // const [selectedRows, setSelectedRows] = useState(null);
-  const [numOfSelectedRow, ] = useState(0);
+  const [numOfSelectedRow] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
@@ -46,49 +43,96 @@ const Announcement = () => {
   //   setShowModal(true);
   // };
 
-  const column: Column<{
-    content: string;
+  // const column: Column<{
+  //   content: string;
+  //   subject: string;
+  //   date: string;
+  // }>[] = [
+  //   {
+  //     Header: "Subject",
+  //     accessor: "subject",
+  //   },
+  //   {
+  //     Header: "Content",
+  //     accessor: "content",
+
+  //     Cell: ({ value, row }: any) => {
+  //       const handleClick = (row: any) => {
+  //         setSelectedRow(row.original);
+  //         setShowRowModal(true);
+  //         console.log("do something");
+  //       };
+
+  //       return (
+  //         <div>
+  //           {value?.length > 40 ? (
+  //             <span
+  //               onClick={() => handleClick(row)}
+  //               className="hover:cursor-pointer  hover:underline text-[#197b30]"
+  //             >
+  //               {value.substring(0, 150) + "..."}
+  //             </span>
+  //           ) : (
+  //             <span className="hover:cursor-pointer text-[#197B30] hover:underline">
+  //               {value}
+  //             </span>
+  //           )}
+  //         </div>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     Header: "Date",
+  //     accessor: "date",
+  //   },
+  // ];
+
+  const columns: Column<{
+    id: number;
     subject: string;
+    content: string;
     date: string;
-  }>[] = [
-    {
-      Header: "Subject",
-      accessor: "subject",
-    },
-    {
-      Header: "Content",
-      accessor: "content",
-
-      Cell: ({ value, row }: any) => {
-        const handleClick = (row: any) => {
-          setSelectedRow(row.original);
-          setShowRowModal(true);
-          console.log("do something");
-        };
-
-        return (
-          <div>
-            {value?.length > 40 ? (
-              <span
-                onClick={() => handleClick(row)}
-                className="hover:cursor-pointer  hover:underline text-[#197b30]"
-              >
-                {value.substring(0, 150) + "..."}
-              </span>
-            ) : (
-              <span className="hover:cursor-pointer text-[#197B30] hover:underline">
-                {value}
-              </span>
-            )}
-          </div>
-        );
+  }>[] = useMemo(
+    () => [
+      {
+        Header: "Subject",
+        accessor: "subject",
       },
-    },
-    {
-      Header: "Date",
-      accessor: "date",
-    },
-  ];
+      {
+        Header: "Content",
+        accessor: "content",
+        Cell: ({ value, row }: any) => {
+          const handleClick = (row: any) => {
+            setSelectedRow(row.original);
+            setShowRowModal(true);
+            console.log("do something");
+          };
+
+          return (
+            <div>
+              {value?.length > 40 ? (
+                <span
+                  onClick={() => handleClick(row)}
+                  className="hover:cursor-pointer hover:underline text-[#197b30]"
+                >
+                  {value.substring(0, 150) + " ..."}
+                </span>
+              ) : (
+                <span className="hover:cursor-pointer text-[#197B30] hover:underline">
+                  {value}
+                </span>
+              )}
+            </div>
+          );
+        },
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+      },
+    ],
+    []
+  ); 
 
   const options: SelectOption[] = [
     {
@@ -100,7 +144,7 @@ const Announcement = () => {
     { value: "delete", label: "Delete" },
   ];
 
-  const columns = useMemo(() => column, [column]);
+  // const columns = useMemo(() => column, [column]);
 
   const data = useMemo(() => announcementData, []);
   const table = useTable(
@@ -158,7 +202,6 @@ const Announcement = () => {
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
-
 
   return (
     <div className="pl-10 pr-5 pt-10">

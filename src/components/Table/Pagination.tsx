@@ -13,7 +13,7 @@ const Pagination = ({
   pageSize: number;
   setPageSize: (pageSize: number) => void;
 }) => {
-  const [perPage, setPerPage] = useState(pageSize);
+  const [perPage] = useState(pageSize);
 
   const { canGo, currentPage, pages, goTo, goNext, goPrev } =
     usePaginationPages({
@@ -57,7 +57,7 @@ const Pagination = ({
         <ChevronRightIcon className="h-4 w-3 text-[#197B30]" />
       </button>
       <div className="flex justify-end">
-      
+
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { Column } from "react-table";
-import ImageTooltip from "../utility/ImageTooltip";
 const moment = require("moment");
 
 export const column: Column<{

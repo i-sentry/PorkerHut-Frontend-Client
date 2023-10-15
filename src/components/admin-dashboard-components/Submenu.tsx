@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IconContext } from "react-icons/lib";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSidebarState } from "../../store/overlay";
 
@@ -30,23 +30,6 @@ const SideBarLabel = styled.span`
   line-height: normal;
 `;
 
-const DropDownLink = styled(Link)`
-  color: #676767;
-  height: 60px;
-  padding-left: 3rem;
-  padding-bottom: 20px;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  &:hover {
-    color: #0eb683;
-    cursor: pointer;
-  }
-  &:active {
-    color: #0eb683;
-    font-weight: bold;
-  }
-`;
 
 const Submenu = ({ item }: { item: any }) => {
   const location = useLocation();

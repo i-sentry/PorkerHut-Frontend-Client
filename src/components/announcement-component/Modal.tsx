@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { HiMinusSm, HiX } from "react-icons/hi";
 import { MdOutlineAccessAlarm } from "react-icons/md";
 

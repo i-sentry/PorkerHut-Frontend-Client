@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 // import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 // import Header from "../header-component/Header";

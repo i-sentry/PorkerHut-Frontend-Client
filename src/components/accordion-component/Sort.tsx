@@ -28,24 +28,22 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
   const [openSort, setOpenSort] = useState(false);
   const [sortType, setSortType] = useState("High to Low");
 
-  const handleSort = (type: string) => {
-    setOpenSort(false);
-    setSortType(type);
-   
-  };
-
   const sortProducts = (type: string) => {
     let sortedProducts = [...data];
 
     switch (type) {
       case "High to Low":
         sortedProducts.sort(
-          (a, b) => parseFloat(b.pricing.productPrice) - parseFloat(a.pricing.productPrice)
+          (a, b) =>
+            parseFloat(b.pricing.productPrice) -
+            parseFloat(a.pricing.productPrice)
         );
         break;
       case "Low to High":
         sortedProducts.sort(
-          (a, b) => parseFloat(a.pricing.productPrice) - parseFloat(b.pricing.productPrice)
+          (a, b) =>
+            parseFloat(a.pricing.productPrice) -
+            parseFloat(b.pricing.productPrice)
         );
         break;
       case "Product Rating":
@@ -58,7 +56,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
     }
     setData(sortedProducts);
     setSortType(type);
-    setOpenSort(!openSort)
+    setOpenSort(!openSort);
   };
 
   return (
@@ -76,20 +74,18 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
             <div className="absolute z-50 w-full origin-top-right">
               <div className="px-2 pt-2 pb-2 bg-white rounded-md shadow-lg dark-mode:bg-gray-700">
                 <div className="flex flex-col">
-                  <a
+                  <button
                     className="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200"
-                    href="#"
                     onClick={() => sortProducts("High to Low")}
                   >
-                    <div >
+                    <div>
                       <p className="text-[14px] leading-[16px] font-normal">
                         Price: High to Low
                       </p>
                     </div>
-                  </a>
-                  <a
-                    className="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200"
-                    href="#"
+                  </button>
+                  <button
+                    className="flex flex-row items-start rounded-lg bg-transparent p-2 hover-bg-gray-200"
                     onClick={() => sortProducts("Low to High")}
                   >
                     <div>
@@ -97,10 +93,9 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
                         Price: Low to High
                       </p>
                     </div>
-                  </a>
-                  <a
-                    className="flex flex-row items-start rounded-lg bg-transparent p-2 hover:bg-gray-200"
-                    href="#"
+                  </button>
+                  <button
+                    className="flex flex-row items-start rounded-lg bg-transparent p-2 hover-bg-gray-200"
                     onClick={() => sortProducts("Product Rating")}
                   >
                     <div>
@@ -108,7 +103,7 @@ const Component: React.FC<ComponentProps> = ({ data, setData }) => {
                         Product Rating
                       </p>
                     </div>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

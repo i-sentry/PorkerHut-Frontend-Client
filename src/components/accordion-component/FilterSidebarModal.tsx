@@ -1,5 +1,4 @@
 import React from "react";
-import MultiRangeSlider from "./MultiSlider";
 import Filter from "./Accordion";
 
 interface FilterSidebarProps {

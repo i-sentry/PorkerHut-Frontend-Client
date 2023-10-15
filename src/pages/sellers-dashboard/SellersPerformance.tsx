@@ -1,18 +1,9 @@
 import React from "react";
 import PerformanceWidget from "../../components/performanceComp/PerformanceWidget";
 import {
-  // Chart as ChartJS,
-  // CategoryScale,
-  // LinearScale,
-  // PointElement,
-  // LineElement,
-  // Title,
-  // Tooltip,
-  // Legend,
   ScriptableContext,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-// import { faker } from "@faker-js/faker";
 import ChartLayout from "../../components/vendors-component/ChatLayout";
 import { Carousel } from "./SellersAccount";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";

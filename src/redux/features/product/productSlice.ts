@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { productData } from "../../../utils/productData";
 import { toast } from "react-toastify";
-import { useGetAllProducts } from "../../../services/hooks/users/products";
-import Data from "../../../components/Data";
+
 
 // export interface  {
 //   id: string | number;

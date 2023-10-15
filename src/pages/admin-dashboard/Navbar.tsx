@@ -5,7 +5,7 @@ import {
 import React, { Fragment } from "react";
 import classNames from "classnames";
 
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";

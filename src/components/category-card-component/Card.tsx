@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { ICategory, SkeletonLoader } from "../category-component/Category";
 
 export interface CardProps {

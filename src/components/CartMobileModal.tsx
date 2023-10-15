@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { HiMinusSm, HiX } from "react-icons/hi";
-import { MdOutlineAccessAlarm, MdOutlineCancel } from "react-icons/md";
+import React from "react";
+import { MdOutlineCancel } from "react-icons/md";
 
 type ModalProps = {
   isVisible: boolean;
@@ -35,7 +34,7 @@ const CartMobileModal = ({ isVisible, onClose }: ModalProps) => {
           <div className="mt-2">
             <form action="" className="">
               <textarea
-          
+
                 id="order-notes"
                 placeholder="Type here"
                 className=" h-16 outline-none border rounded px-5 py-4 mt-2 w-full"

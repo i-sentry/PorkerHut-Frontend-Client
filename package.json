@@ -29,7 +29,6 @@
     "button-ripple-react": "^1.0.8",
     "chart.js": "^3.9.1",
     "date-fns": "^2.30.0",
-    "faker": "^6.6.6",
     "framer-motion": "^10.12.2",
     "js-cookie": "^3.0.1",
     "lodash-es": "^4.17.21",
@@ -60,6 +59,7 @@
     "react-select": "^5.7.0",
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.2",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^5.3.9",
     "swiper": "^8.4.6",
     "swr": "^2.1.5",
@@ -70,6 +70,7 @@
     "zustand": "^4.3.3"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -94,7 +95,6 @@
     ]
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
     "@types/faker": "^6.6.9",
     "@types/lodash": "^4.14.191",
     "@types/lodash-es": "^4.17.6",

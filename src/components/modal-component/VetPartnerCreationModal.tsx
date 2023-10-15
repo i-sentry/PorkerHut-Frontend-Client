@@ -1,6 +1,6 @@
 import React from "react";
 import vetVerify from "../../assets/images/vetVerify.png";
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../../assets/images/porker.png";
 import { NavLink } from "react-router-dom";
 
 const VetPartnerCreationModal = () => {

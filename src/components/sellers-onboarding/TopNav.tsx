@@ -1,5 +1,5 @@
 import React from "react";
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 
 const TopNav = () => {

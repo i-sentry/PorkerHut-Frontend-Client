@@ -14,7 +14,7 @@ import { FileContext } from "../context/FileContext";
 import { RiCloseLine } from "react-icons/ri";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
-import PorkerLogo from "../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../assets/images/porker.png";
 import VertPartnerFormMobile from "./VertPartnerFormMobile";
 
 

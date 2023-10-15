@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-let backgroundMobile = require("../../assets/images/Agro-mobile.jpg");
+
 let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {

@@ -19,9 +19,9 @@ const CustomPagination = ({
   pageOptions: any;
   pageCount: any;
 }) => {
-  const [perPage, setPerPage] = useState(pageSize);
+  const [perPage] = useState(pageSize);
 
-  const { canGo, currentPage, pages, goTo, goNext, goPrev } =
+  const { canGo,  goNext, goPrev } =
     usePaginationPages({
       gotoPage,
       length,

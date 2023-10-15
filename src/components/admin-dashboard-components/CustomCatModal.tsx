@@ -1,22 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { IoHome, IoLogIn } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
-import tick from "../../assets/images/success_tick.png";
-import PorkerLogo from "../../assets/images/PorkerLogo.svg";
+import PorkerLogo from "../../assets/images/porker.png";
 import { useCategoryModal } from "../../store/overlay";
 import { categories } from "../../pages/admin-dashboard/Category";
+import { useNavigate } from "react-router-dom";
 
 interface ISubcategory {
   id: string;
   name: string;
-}
-
-interface ICategory {
-  id: string;
-  name: string;
-  subCategories: ISubcategory[];
 }
 
 const backdrop = {
@@ -24,14 +16,11 @@ const backdrop = {
   hidden: { opacity: 0 },
 };
 const CustomCatModal = () => {
-  const modalRef = React.useRef(null);
-  const navigate = useNavigate();
-  const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const selectedCategoryId = useCategoryModal(
     (state) => state.selectedCategoryId
   );
-  console.log(categories);
+  const navigate = useNavigate();
 
   const getCategory = (
     arr: ISubcategory[],
@@ -67,18 +56,6 @@ const CustomCatModal = () => {
     },
   };
 
-  const image = {
-    hidden: {
-      y: "-100vh",
-      opacity: 0,
-    },
-    visible: {
-      y: "-90px",
-      x: "180px",
-      opacity: 1,
-      transition: { delay: 0.7 },
-    },
-  };
   if (cate) {
     return (
       <AnimatePresence>

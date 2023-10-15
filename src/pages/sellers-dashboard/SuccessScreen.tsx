@@ -1,7 +1,5 @@
 import React from "react";
-// import { IoMdClose } from "react-icons/io";
 import vetVerify from "../../assets/images/vetVerify.png";
-// import PorkerLogo from "../../assets/images/PorkerLogo.svg";
 import { Link } from "react-router-dom";
 
 
