@@ -60,7 +60,7 @@ interface ExtendedUserBillingInfo extends UserBillingInfo {
   businessDocUrl: IFile[] | undefined;
 }
 
-const VetPartnerAccount = () => {
+const LogisticsPatnerAccount = () => {
   const navigate = useNavigate()
   const [loading, setIsLoading] = useState(false)
   const [, setIsOpen] = useState(false);
@@ -773,7 +773,7 @@ const VetPartnerAccount = () => {
   );
 };
 
-export default VetPartnerAccount;
+export default LogisticsPatnerAccount;
 
 
 
