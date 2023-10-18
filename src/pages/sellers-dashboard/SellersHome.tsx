@@ -13,6 +13,8 @@ interface SliderProps {
   sliderImages: never[];
 }
 
+
+
 const items = [
   {
     date: "Dec 3",
@@ -142,6 +144,10 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           ))}
         </div>
       </div>
+      <div className="my-8 overflow-y-scroll no-scrollbar">
+      <p className="marquee w-full text-center whitespace-nowrap ">
+        jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj</p>
+      </div>
 
       <div className="mt-28 grid md:grid-cols-2 xxs:grid-rows-1 md:gap-10 xxs:px-4 xxs:gap-14">
         <div className="">
@@ -186,10 +192,10 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                 key={index}
                 className="flex items-center justify-between px-4 py-10 border border-t-0 border-[#A2A2A2] "
               >
-                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
+                <span className="md:text-[16px] xxs:text-[14px] leading-[24px] font-normal text-[#333333]">
                   {item.day}
                 </span>
-                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
+                <span className="md:text-[16px] xxs:text-[14px] leading-[24px] font-normal text-[#333333]">
                   {item.total}
                 </span>
               </div>
@@ -197,7 +203,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           </div>
           <div className=" ">
             <div className=" bg-[#F4F4F4] py-8 px-4">
-              <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
+              <span className="md:text-[18px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
                 Your Rating
               </span>
             </div>
@@ -205,14 +211,14 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
               <div className="flex items-center justify-between px-4 py-4 border-t-0 border border-[#A2A2A2]">
                 <div className=" ">
-                  <p className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#333333] tracking-[0.15px]">
+                  <p className="md:text-[16px] leading-[24px] xxs:text-[16px]  font-normal text-[#333333] tracking-[0.15px]">
                     Average Customer Rating
                   </p>
                   <p className="text-[#22C55E] text-[13px] leading-[24px] mt-2">
                     Excellent
                   </p>
                 </div>
-                <span className="md:text-[24px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
+                <span className="md:text-[18px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
                   12
                 </span>
               </div>

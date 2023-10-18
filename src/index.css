@@ -122,8 +122,22 @@
   }
 }
 
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee{
+  animation: 15s slide infinite linear;
+}
+
 .hide-scroll-bar::-webkit-scrollbar {
-  width: 0em;
+  width: 0;
+  height: 0;
 }
 
 .hide-scroll-bar::-webkit-scrollbar-track {

@@ -73,20 +73,22 @@ const VendorsNav = () => {
             {/* <HiOutlineSearch size={20} className="md:hidden" /> */}
             <Menu as="div" className="relative">
               <div>
-                <Menu.Button className="  flex items-center justify-between md:gap-2 gap-1">
-                  <div
-                    className="md:h-12 md:w-12 xxs:h-9 xxs:w-9 rounded-full bg-cover bg-no-repeat bg-center flex"
-                    style={{
-                      backgroundImage:
-                        'url("https://source.unsplash.com/80x80?face")',
-                    }}
-                  ></div>
-                  <div className="lg:flex lg:flex-col lg:gap-1 md:hidden hidden">
-                    <span className="text-base font-bold leading-4">
-                      John Doe
-                    </span>
-                    <span className="text-xs font-light">Administrator</span>
-                  </div>
+                <Menu.Button className="  flex justify-between md:gap-2 gap-1">
+                  <div className="flex items-center">
+                    <div
+                      className="md:h-12 md:w-12 xxs:h-9 xxs:w-9 rounded-full bg-cover bg-no-repeat bg-center flex"
+                      style={{
+                        backgroundImage:
+                          'url("https://source.unsplash.com/80x80?face")',
+                      }}
+                    ></div>
+                    <div className="lg:flex lg:flex-col lg:gap-1 md:hidden hidden">
+                      <span className="text-base font-bold leading-4">
+                        John Doe
+                      </span>
+                      <span className="text-xs font-light">Administrator</span>
+                    </div>
+                  </div>  
 
                   <div>
                     <IoIosArrowDown />
