@@ -69,6 +69,9 @@ const LogisticPartnerMobileFormB: React.FC = () => {
     register,
     handleSubmit,
     reset,
+    control,
+    getValues,
+    watch,
     formState: { errors },
   } = useForm<UserBillingInfo>({
     resolver: yupResolver(validationSchema),
@@ -197,7 +200,7 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                   >
                     State
                   </label>
-                  <RegionDropdown
+                  {/* <RegionDropdown
                     blankOptionLabel=""
                     defaultOptionLabel="Select State"
                     id="state"
@@ -207,7 +210,7 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                       errors.state ? "border-[#dd1313]" : ""
                     }`}
-                  />
+                  /> */}
                   <div className="text-[#dd1313] text-sm">
                     {errors.state?.message}
                   </div>
@@ -346,7 +349,7 @@ const LogisticPartnerMobileFormB: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 

@@ -34,7 +34,7 @@ const BlogContent = () => {
         {/* <nav className="mb-20">
         <NavBar />
       </nav> */}
-        <div className="  max-w-screen-xl ">
+        <div className="text-center lg:text-left max-w-screen-xl ">
           <div
             className=" flex   items-center lg:justify-start xxs:justify-center w-full lg:h-[300px] xxs:h-[300px] bg-cover bg-center  lg:px-14"
             style={{
@@ -50,8 +50,6 @@ const BlogContent = () => {
               </h1>
               <div className="xxs:flex xxs:justify-center lg:text-left w-full">
                 <div className="text-center">
-                  {" "}
-                  {/* Add text-center class here */}
                   <Breadcrumbs
                     items={[
                       {

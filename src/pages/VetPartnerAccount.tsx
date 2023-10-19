@@ -158,6 +158,7 @@ const VetPartnerAccount = () => {
 
   console.log({ errors });
   const onSubmit = (data: ExtendedUserBillingInfo) => {
+    console.log(data)
     setIsLoading(true)
     const formData = new FormData();
     console.log("submit");
@@ -638,7 +639,6 @@ const VetPartnerAccount = () => {
                       </>
                     </div>
                     <div className="my-2 w-full ">
-
                       <>
                         <span className="text-[#333333] text-[16px] leading-[16px]">
                           Additional Document.
