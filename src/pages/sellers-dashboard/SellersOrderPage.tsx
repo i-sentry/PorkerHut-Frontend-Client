@@ -9,6 +9,8 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import mockData from "../../utils/json/mockData.json";
 import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
+import { useShowModal } from "../../store/overlay";
+import OrderSideModal from "./OrderSideModal";
 
 // type OrderDataProps = {
 //   id: string;
@@ -215,6 +217,7 @@ const orderData = [
 ];
 
 const SellersOrderPage = () => {
+  const openModal = useShowModal((state) => state.openModal);
   const color = (val: { title: string; figure?: string | undefined }) => {
     switch (val?.title) {
       case "Pending Order":
@@ -276,45 +279,6 @@ const SellersOrderPage = () => {
   };
 
 
-  // const Tcolumns: readonly Column<object>[] = [
-  //   {
-  //     Header: "Product Name",
-  //     accessor: "product_name",
-  //     Cell: (props: any) => <ProductNameColumn data={props} />,
-  //   },
-  //   {
-  //     Header: "Store Name",
-  //     accessor: "store_name",
-  //   },
-  //   {
-  //     Header: "Order Date",
-  //     accessor: "order_date",
-  //   },
-  //   {
-  //     Header: "Order ID",
-  //     accessor: "order_id",
-  //   },
-  //   {
-  //     Header: "Prices",
-  //     accessor: "price",
-  //   },
-
-  //   {
-  //     Header: "Status",
-  //     accessor: "order_status",
-  //     Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
-  //   },
-  // ];
-
-  // const optionalColumn = {
-  //   id: "view",
-  //   // The header can use the table's getToggleAllRowsSelectedProps method
-  //   // to render a checkbox
-  //   Header: () => <div></div>,
-  //   // The cell can use the individual row's getToggleRowSelectedProps method
-  //   // to the render a checkbox
-  //   Cell: () => <div></div>,
-  // };
 
   const card = orderData.map(
     (val: { title: string; figure?: string | undefined }) => (
@@ -325,8 +289,12 @@ const SellersOrderPage = () => {
   );
 
   return (
+    <>
+   {openModal && <OrderSideModal/>}
     <div className="pb-10 xxs:px-4 md:px-0">
-      <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">Orders</h1>
+      <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
+        Orders
+      </h1>
       <div className="md:flex h-20 items-center justify-center xxs: hidden">
         {orderData.map(
           (val: { title: string; figure?: string | undefined }) => (
@@ -360,6 +328,7 @@ const SellersOrderPage = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 

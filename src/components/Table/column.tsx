@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { Column } from "react-table";
+import { useShowModal } from "../../store/overlay";
 const moment = require("moment");
 
 export const column: Column<{
@@ -45,6 +46,20 @@ export const column: Column<{
   {
     Header: "Status",
     accessor: "status" as const,
+  },
+  {
+    Header: "View more",
+    Cell: ({ row }: any) => {
+      const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
+      return (
+        <span
+          onClick={() => toggleOpenModal(true)}
+          className="hover:underline hover:text-[#0eb6683] cursor-pointer"
+        >
+          View 
+        </span>
+      );
+    },
   },
 ];
 

@@ -77,3 +77,13 @@ export const useSignUpState = create<ISignUpSuccess>((set) => ({
 
   setIsOpen: (open: any) => set((state: any) => ({ isOpen: open })),
 }));
+
+interface IOrderModal {
+  openModal: boolean;
+  toggleOpenModal: (value?: boolean) => void;
+}
+
+export const useShowModal = create<IOrderModal>((set) => ({
+  openModal: false,
+  toggleOpenModal: (open: any) => set((state: any) => ({ openModal: open })),
+}));
