@@ -209,12 +209,12 @@ export const productInfo = [
 
 export const productDetails = [
   {
-    label: "Product Weight",
+    label: "Product Weight (kg)",
     name: "productDetails.productWeight",
-    place_holder: "Enter product weight",
+    place_holder: "Enter product weight (kg)",
     error_message: "",
     type: "number",
-    info: "Please fill in the product weight.",
+    info: "Please fill in the product weight, Any value entered is assumed to be measured in kg.",
     required: "true",
   },
   {

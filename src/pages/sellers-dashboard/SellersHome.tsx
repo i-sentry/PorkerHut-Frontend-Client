@@ -145,9 +145,10 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
         </div>
       </div>
       <div className="my-8 overflow-y-scroll no-scrollbar">
-      <p className="marquee w-full text-center whitespace-nowrap ">
+      <p className="marquee w-full text-center whitespace-nowrap hide-scroll-bar ">
         jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj</p>
       </div>
+      
 
       <div className="mt-28 grid md:grid-cols-2 xxs:grid-rows-1 md:gap-10 xxs:px-4 xxs:gap-14">
         <div className="">
