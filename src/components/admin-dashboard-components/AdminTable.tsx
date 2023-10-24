@@ -42,8 +42,10 @@ const AdminTable = ({
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
   const data = useMemo(() => Tdata, [Tdata]);
-  const [selectedTab, setSelectedTab] = useState<string>(tabs);
-  const [chosenTab, setChosenTab] = useState("All");
+  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+  const [chosenTab, setChosenTab] = useState(tabs[0]);
+
+  console.log(tabs[0], selectedTab);
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -103,7 +105,7 @@ const AdminTable = ({
   const { globalFilter, pageSize } = state;
 
   useEffect(() => {
-    if (chosenTab === "All") {
+    if (chosenTab === tabs[0]) {
       setTdata(TData);
     } else {
       setTdata(
@@ -113,15 +115,16 @@ const AdminTable = ({
         )
       );
     }
-  }, [TData, chosenTab]);
+  }, [chosenTab]);
+
 
   return (
     <>
-      <div className="flex gap-4 w-full overflow-x-scroll xxs:py-4 md:py-0">
+      <div className="flex gap-2 w-full overflow-x-scroll xxs:py-4 md:py-0">
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}
-            className={`cursor-pointer relative underline bg-transparent text-center p-2 px-4 text-[#5c6f7f] ${
+            className={`cursor-pointer relative underline bg-transparent text-center px-4 text-[#5c6f7f] ${
               selectedTab === tab
                 ? "text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
                 : ""
@@ -291,7 +294,7 @@ const AdminTable = ({
                             }) => (
                               <td
                                 {...cell.getCellProps()}
-                                className="font-light text-sm leading-[19px] text-[#202223] py-4 text-center px-4 whitespace-nowrap"
+                                className="font-light text-sm leading-[19px] text-[#202223] py-4 text-left px-4 whitespace-nowrap"
                               >
                                 {cell.render("Cell")}
                               </td>

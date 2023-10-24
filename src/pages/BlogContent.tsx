@@ -12,7 +12,7 @@ const BlogContent = () => {
   console.log(getSingleBlog, "getSinleblog");
 
   const img = imageUrl;
-  const [, ] = useState<any>({
+  const [,] = useState<any>({
     _id: "",
     title: "",
     createdAt: "",
@@ -44,29 +44,29 @@ const BlogContent = () => {
               width: "100vw",
             }}
           >
-            <div>
+            <div className="text-center lg:text-left">
               <h1 className="mb-2 font-normal tracking-tight lg:text-[32px] lg:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 {getSingleBlog?.data?.data?.title}
               </h1>
               <div className="xxs:flex xxs:justify-center lg:text-left w-full">
-              <div className="text-center">
-    <Breadcrumbs
-      items={[
-        {
-          name: "Home",
-          link: "/",
-        },
-        {
-          name: "blog",
-          link: "/blog",
-        },
-        {
-          name: `content`,
-          link: "/contact-us",
-        },
-      ]}
-    />
-  </div>
+                <div className="text-center">
+                  <Breadcrumbs
+                    items={[
+                      {
+                        name: "Home",
+                        link: "/",
+                      },
+                      {
+                        name: "blog",
+                        link: "/blog",
+                      },
+                      {
+                        name: `content`,
+                        link: "/contact-us",
+                      },
+                    ]}
+                  />
+                </div>
               </div>
             </div>
           </div>

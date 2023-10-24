@@ -29,3 +29,4 @@ export const useCartTotalAmount = create<Ipay>((set) => ({
   cartTotal: 0,
   setCartTotal: (data: number) => set((state: any) => ({ cartTotal: data })),
 }));
+
