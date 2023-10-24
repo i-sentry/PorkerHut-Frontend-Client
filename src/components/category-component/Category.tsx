@@ -31,7 +31,7 @@ const Category = () => {
       <div>
         <div className="flex justify-center items-center ">
           <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal text-[#333333]">
-            Shop by Categories
+            Shop by Categories 
           </h1>
         </div>
         <div className="flex items-center justify-center  mt-2">
