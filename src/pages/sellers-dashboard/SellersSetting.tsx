@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
 import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
@@ -11,6 +11,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useSearchParams } from "react-router-dom";
 
 
 type FormData = {
@@ -26,7 +27,8 @@ type FormData = {
 
 
 function SettingssTab() {
-  const [tab, setTab] = useState(1);
+  // const [tab, setTab] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3, ] = useState(false);
@@ -34,8 +36,11 @@ function SettingssTab() {
   const [, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  const handleClick = (tabIndex: SetStateAction<number>) => {
-    setTab(tabIndex);
+  const tab = searchParams.get('tab') || "account";
+
+  const handleClick = (tabName:string) => {
+    setSearchParams({tab:tabName})
+    //setTab(tabIndex);
   };
 
   const handleImage = (e: any) => {
@@ -130,9 +135,9 @@ function SettingssTab() {
           <div className=" flex flex-row items-stretch justify-between w-full">
             <div className="flex flex-col justify-start w-1/4 space-y-2 md:border-r md:border-gray-400 p-4">
               <button
-                onClick={() => handleClick(1)}
+                onClick={() => handleClick("account")}
                 className={` py-2 cursor-pointer  ${
-                  tab === 1 ? " text-[#197B30] " : "text-[#797979]"
+                  tab === "account"  ? " text-[#197B30] " : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -143,9 +148,9 @@ function SettingssTab() {
                 </div>
               </button>
               <span
-                onClick={() => handleClick(2)}
+                onClick={() => handleClick("quality-control")}
                 className={` py-2 cursor-pointer  ${
-                  tab === 2 ? " text-[#197B30]" : "text-[#797979]"
+                  tab === "quality-control" ? " text-[#197B30]" : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -157,9 +162,9 @@ function SettingssTab() {
                 </div>
               </span>
               <span
-                onClick={() => handleClick(3)}
+                onClick={() => handleClick("notification")}
                 className={` py-2 cursor-pointer  ${
-                  tab === 3 ? "z-20 text-[#197B30]" : "text-[#797979]"
+                  tab === "notification" ? "z-20 text-[#197B30]" : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -170,9 +175,9 @@ function SettingssTab() {
                 </div>
               </span>
               <span
-                onClick={() => handleClick(4)}
+                onClick={() => handleClick("change-password")}
                 className={` py-2 cursor-pointer ${
-                  tab === 4 ? "z-20 text-[#197B30]" : "text-[#797979]"
+                  tab === "change-password" ? "z-20 text-[#197B30]" : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -188,7 +193,7 @@ function SettingssTab() {
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="space-2-2 "
-                style={{ display: tab === 1 ? "block" : "none" }}
+                style={{ display: tab === "account" ? "block" : "none" }}
               >
                 <div className="m-auto">
                   <div className="w-16 h-16 flex items-center justify-center border border-black rounded-full">
@@ -410,7 +415,7 @@ function SettingssTab() {
               </form>
               <div
                 className=""
-                style={{ display: tab === 2 ? "block" : "none" }}
+                style={{ display: tab === "quality-control" ? "block" : "none" }}
               >
                 <h3
                   className="text-[24px] leading-[28px] font-medium flex items-center justify-center"
@@ -451,7 +456,7 @@ function SettingssTab() {
               </div>
               <div
                 className="space-y-6"
-                style={{ display: tab === 3 ? "block" : "none" }}
+                style={{ display: tab === "notification" ? "block" : "none" }}
               >
                 <div
                   className="text-xl font-bold leading-tight py-4"
@@ -462,7 +467,7 @@ function SettingssTab() {
               </div>
               <div
                 className="space-y-3 mb-6"
-                style={{ display: tab === 4 ? "block" : "none" }}
+                style={{ display: tab === "change-password" ? "block" : "none" }}
               >
                 <div className="mb-3">
                   <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">

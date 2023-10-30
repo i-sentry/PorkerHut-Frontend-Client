@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import {HiOutlineSearch} from "react-icons/hi";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import classNames from "classnames";
 
 import PorkerLogo from "../../assets/images/porker.png";
@@ -9,6 +9,7 @@ import { IoIosArrowDown } from "react-icons/io";
 // import { FaBars } from "react-icons/fa";
 import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
+import { useSearchParams } from "react-router-dom";
 
 // interface Iprop {
 //   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +24,23 @@ const VendorsNav = () => {
   const showSideBar = useSidebarState((state) => state.sideBarOpen);
   const toggleSidebar = useSidebarState((state) => state.toggleSidebar);
   const navigate = useNavigate();
+  const [, setTemp] = useState(false);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab')
+
+  const handleClick = (tabName:string) => {
+    setSearchParams({tab:tabName})
+  };
+
+
+   const handleLogout = () => {
+    setTemp(true);
+    window.localStorage.removeItem("accessToken");
+    window.localStorage.removeItem("user");
+  };
+  
+  
   return (
     <div className="  border-b border-[#D9D9D9] h-[80px] w-full px-4 flex items-center justify-between shadow z-50 bg-[#fff]">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
@@ -108,7 +125,7 @@ const VendorsNav = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/profile")}
+                        onClick={() => handleClick("notification")}
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
@@ -121,7 +138,7 @@ const VendorsNav = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/settings")}
+                        onClick={() => handleClick("change-password")}
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
@@ -134,6 +151,7 @@ const VendorsNav = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
+                        onClick={handleLogout}
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"

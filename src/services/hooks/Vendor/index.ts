@@ -1,5 +1,6 @@
+import useQueryAction from "../../../lib/useQueryAction";
 import useQueryMutation from "../../../lib/useQueryMutation";
-import { makePostRequest, api } from "../../api";
+import { makePostRequest, api, makeGetRequest } from "../../api";
 import { ILoginUser,  IVendorSignUp } from "../../serviceType";
 
 export const useVendorSignUp = () => {
@@ -15,3 +16,11 @@ export const useVendorLogin = () => {
       makePostRequest(data, api.Vendors.vendorLogin),
   });
 };
+
+
+export const useGetVendorById = (id: string | undefined) => {
+  return useQueryAction({ 
+    queryFn: ()=> makeGetRequest(api.Vendors.vendorById(id)),
+    queryKey: ['vendor']
+  })
+}

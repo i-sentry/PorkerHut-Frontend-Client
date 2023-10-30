@@ -51,6 +51,7 @@ const VendorLogin = () => {
         // setIsLogin(true);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("vendor");
+        localStorage.removeItem("user");
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("vendor", JSON.stringify(res?.data));
         // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });

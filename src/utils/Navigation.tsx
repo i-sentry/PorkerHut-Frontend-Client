@@ -89,7 +89,7 @@ export const vendorsSideBarLink = [
   {
     id: 6,
     name: "Settings",
-    url: "/vendor/settings",
+    url: "/vendor/settings?tab=account",
     icon: <IoSettingsOutline size={20} />,
   },
 ];
