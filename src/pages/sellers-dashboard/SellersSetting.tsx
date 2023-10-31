@@ -471,7 +471,7 @@ function SettingssTab() {
               >
                 <div className="mb-3">
                   <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">
-                    Change Password
+                    Change Password 
                   </h1>
                   {/* <span className="text-[#A2A2A2] text-sm font-light">
                 All information available.

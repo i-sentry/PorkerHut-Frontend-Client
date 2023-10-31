@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import {HiOutlineSearch} from "react-icons/hi";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import classNames from "classnames";
 
 import PorkerLogo from "../../assets/images/porker.png";
@@ -24,10 +24,10 @@ const VendorsNav = () => {
   const showSideBar = useSidebarState((state) => state.sideBarOpen);
   const toggleSidebar = useSidebarState((state) => state.toggleSidebar);
   const navigate = useNavigate();
-  const [, setTemp] = useState(false);
+  
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const tab = searchParams.get('tab')
+  const [, setSearchParams] = useSearchParams();
+  
 
   const handleClick = (tabName:string) => {
     setSearchParams({tab:tabName})
@@ -35,9 +35,10 @@ const VendorsNav = () => {
 
 
    const handleLogout = () => {
-    setTemp(true);
     window.localStorage.removeItem("accessToken");
-    window.localStorage.removeItem("user");
+    window.localStorage.removeItem("vendor");
+
+    navigate('/login?q=customer');
   };
   
   
