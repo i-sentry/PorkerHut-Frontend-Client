@@ -9,35 +9,42 @@ import AccountInfo from './AccountInfo'
 import Notification from './Notification'
 import Password from './Password'
 import QualityCheck from './QualityCheck'
+import { useSearchParams } from 'react-router-dom'
 
 interface ITab {
   id: string;
   name: string;
+  link: string;
   icon: any
 }
 
 const MobileTabs = () => {
   const [showTab, setShowTab] = useState(false)
   const [currentTab, setCurrentTab] = useState("Account Information")
+  const [, setSearchParams] = useSearchParams();
   const tabs: ITab[] = [
     {
       id: "1",
       name: "Account Information",
+      link: "account",
       icon: <MdOutlinePerson size={24} />
     },
     {
       id: "2",
       name: "Quality Control",
+      link: "quality-control",
       icon: <BiShieldQuarter size={24} />
     },
     {
       id: "3",
       name: "Notification",
+      link: "notification",
       icon: <RxBell size={24} />
     },
     {
       id: "4",
       name: "Change Password",
+      link: "change-password",
       icon: <TfiLock size={24} />
     },
   ]
@@ -56,9 +63,11 @@ const MobileTabs = () => {
     }
   }
 
-  const handleTab = (tab: string) => {
+
+  const handleTab = (tab: string, link: string) => {
     setShowTab((prev) => !prev)
     setCurrentTab(tab)
+    setSearchParams({tab:link})
     //do somthing
   }
   return (
@@ -76,7 +85,7 @@ const MobileTabs = () => {
 
               {tabs.map((tab) => (
                 <div
-                  onClick={() => handleTab(tab?.name)}
+                  onClick={() => handleTab(tab?.name, tab?.link)}
                   className="flex gap-4  items-center mt-10    rounded-sm select-none text-[#797979]"
                 >
                   <span className="">{tab.icon}</span>
