@@ -38,7 +38,7 @@ const VendorsNav = () => {
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("vendor");
 
-    navigate('/login?q=customer');
+    navigate('/sign-in?q=vendor');
   };
   
   
