@@ -78,10 +78,12 @@ import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
 import VendorLogin from "./components/auth-component/VendorLogin";
 import { ProductProvider } from "./context/ProductInfoContext";
 import VetPartnerCreationModal from "./components/modal-component/VetPartnerCreationModal";
+import ForgetPassword from "./pages/Authentication/ForgetPassword";
+import ResetPassword from "./pages/Authentication/ResetPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    // <AppProvider>
+
     <Route>
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
@@ -93,6 +95,8 @@ const router = createBrowserRouter(
       <Route path="/my-cart" element={<CartPage />} />
       <Route path="/login" element={<AuthPage />} />
       <Route path="/sign-in" element={<VendorLogin />} />
+      <Route path="/forgot_password" element={<ForgetPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         path="/products"
         element={
@@ -190,7 +194,7 @@ const router = createBrowserRouter(
         <Route path="/admin/settings" element={<Settings />} />
       </Route>
     </Route>
-    // </AppProvider>
+
   )
 );
 

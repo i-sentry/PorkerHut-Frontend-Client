@@ -18,7 +18,7 @@ export type ITable = {
   tabs: any;
   placeholder: string;
   Tcolumns: readonly Column<object>[];
-  optionalColumn?: Column<object>; // Make optionalColumn prop optional
+  optionalColumn?: Column<object>; 
   TData: any;
   sortButton?: React.ReactNode;
   showIcon?: boolean;

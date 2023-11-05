@@ -182,12 +182,12 @@ const navigate = useNavigate()
                   </div>
                   <div className="">
                     <Link
-                      to={""}
+                      to={"/forgot_password"}
                       className=" text-password font-medium text-sm text-[#197B30] "
                     >
                       Forgot Password?
                     </Link>
-                    {/* <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span> */}
+                  
                   </div>
                 </div>
                 <div className="mt-10">

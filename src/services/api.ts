@@ -18,6 +18,9 @@ export const api = {
   Users: {
     userSignup: "/api/user/signup",
     userLogin: "/api/user/login",
+    recoverPassword: "/api/user/request-reset-password ",
+    resetPassword: (token: string | undefined) =>
+      `/api/user/reset-password/${token}`,
   },
   Vendors: {
     vendorSignup: "/api/vendors/",
@@ -31,7 +34,7 @@ export const api = {
     allProducts: "/api/products/",
     createProducts: "/api/products",
     getSingleProduct: (id: string | null) => `/api/products/${id}`,
-    productStatus: (id: string | null)=> `/api/products/${id}/approvalStatus`
+    productStatus: (id: string | null) => `/api/products/${id}/approvalStatus`,
   },
   Vets: {
     createVet: "/api/vets",
@@ -52,8 +55,8 @@ export const api = {
     getOneCategory: (id: string | null) => `/api/categories/${id}`,
   },
   Payment: {
-    pay:"/api/pay/"
-  }
+    pay: "/api/pay/",
+  },
 };
 
 export const makePostRequest = async (
