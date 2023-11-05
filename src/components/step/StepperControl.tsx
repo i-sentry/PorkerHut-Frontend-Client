@@ -195,7 +195,7 @@ export default function StepperControl() {
         onClick={() => {
           handleClick("");
         }}
-        className={`bg-[#fff] border border-[#197B30] text-[#197B30] px-8 py-2.5 rounded  shadow-lg hover:opacity-50 duration-100 ease-in-out disabled:bg-[#ddddddfd] ${
+        className={`bg-[#ddddddfd] border border-[#197B30] text-[#197B30] px-10 py-2.5 w-[132px] rounded text-button  shadow-lg  duration-100 ease-in-out disabled:bg-[#ddddddfd] ${
           currentStep === 1 ? "cursor-not-allowed" : ""
         }`}
       >
@@ -206,7 +206,7 @@ export default function StepperControl() {
         onClick={(e) => {
           initiateCreateProduct(e);
         }}
-        className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5  rounded text-button   shadow-lg  duration-100 ease-in-out"
+        className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5 w-[132px] rounded text-button   shadow-lg  duration-100 ease-in-out flex items-center justify-center"
       >
         {loading ? (
           <div className="flex items-center justify-end">

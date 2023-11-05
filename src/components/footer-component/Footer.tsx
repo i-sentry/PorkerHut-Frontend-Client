@@ -87,19 +87,25 @@ const Footer = () => {
                 Products
               </h1>
               <span
-                onClick={() => navigate("/category?q=porks")}
+                onClick={() => navigate("/category/646387cdc7fe89756fe83fec?q=pork")} 
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
               >
                 Porks
               </span>
+
               <span
-                onClick={() => navigate("/category?q=animal+feeds")}
+                onClick={() =>
+                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds")
+                }
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                // to={`/category/${item._id}?q=${item?.name}`}
               >
                 Animal Feeds
               </span>
               <span
-                onClick={() => navigate("/category?q=livestock")}
+                onClick={() =>
+                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks")
+                }
                 className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
               >
                 Livestock
@@ -114,24 +120,26 @@ const Footer = () => {
               </span>
             </div>
           </div>
+
+          
           <div className="md:flex xxs:hidden flex-col gap-3 text-justify">
             <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
               Products
             </h1>
             <Link
-              to={"/category?q=porks"}
+              to={'/category/646387cdc7fe89756fe83fec?q=pork'}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Porks
             </Link>
             <Link
-              to={"/category?q=animal+feeds"}
+              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds`}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Animal Feeds
             </Link>
             <Link
-              to={"/category?q=livestock"}
+              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks`}
               className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
             >
               Livestock

@@ -110,9 +110,9 @@ const ProductDetails = () => {
                 onChange={(value) => console.log(value)}
                 defaultValue={3}
               />
-              <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
+              {/* <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
                 ₦{item?.pricing?.productPrice || "3000"}
-              </span>
+              </span> */}
             </div>
 
             <span></span>
