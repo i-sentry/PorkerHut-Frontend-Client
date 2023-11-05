@@ -24,6 +24,7 @@ export const api = {
   },
   Vendors: {
     vendorSignup: "/api/vendors/",
+    vendorById: (id:string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
   },
   Blogs: {
