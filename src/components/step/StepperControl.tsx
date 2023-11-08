@@ -10,12 +10,38 @@ import ReactLoading from "react-loading";
 interface VendorData {
   token: string;
   vendor: {
-    email: string;
-    entityType: string;
-    id: string;
-    phoneNumber: string;
-    shopName: string;
+    businessInformation: {
+      CACCertificateFile: string;
+      CACRegistrationNumber: string;
+      IDFile: string;
+      IDType: string;
+      TINCertificateFile: string;
+      VATRegistered: string;
+      address1: string;
+      address2: string;
+      businessOwnerName: string;
+      city: string;
+      companyRegisteredName: string;
+      dateOfBirth: string;
+      profilePhoto: string;
+    };
+    sellerAccountInformation: {
+      accountOwnersName: string;
+      additionalPhoneNumber: string;
+      email: string;
+      entityType: string;
+      password: string;
+      phoneNumber: string;
+      shopName: string;
+    };
     storeStatus: string;
+    vendorBankAccount: {
+      accountName: string;
+      accountNumber: string;
+      bankName: string;
+    };
+    __v: number;
+    _id: string;
   };
 }
 
@@ -30,17 +56,10 @@ export default function StepperControl() {
   const setShowOverlay = useSuccessOverlay(
     (state: { setShowOverlays: any }) => state.setShowOverlays
   );
-  const {
-    checkoutSteps,
-    currentStep,
-    handleClick,
-    productData
-  } = useContext(productStepsContext);
+  const { checkoutSteps, currentStep, handleClick, productData } =
+    useContext(productStepsContext);
   const { img1, img2, img3, img4, img5, img6, img7, img8 } =
     useContext(ProductImagesContext);
-  // console.log(checkoutSteps?.length);
-  // console.log(currentStep, "currentStep");
-  // console.log(productData, "productData");
 
   const appendFilesToFormData = (
     fieldName: string,
@@ -54,48 +73,42 @@ export default function StepperControl() {
       }
     }
   };
-  const [vendorData, setVendorData] = useState<VendorData | null>(null);
+  const [vendorData, setVendorData] = useState<VendorData>();
 
   useEffect(() => {
-    // Retrieve the data from localStorage
-    const storedData = localStorage.getItem("vendor");
+    //@ts-ignore
+    const storedVendor = JSON.parse(localStorage.getItem("vendor"));
 
-    // If there's data in localStorage, parse it and set the state
-    if (storedData) {
-      const parsedData: VendorData = JSON.parse(storedData);
-      setVendorData(parsedData);
+    if (storedVendor !== null) {
+      setVendorData(storedVendor);
     }
   }, []);
-  console.log(vendorData, "hj");
-  const initiateCreateProduct = (e: { preventDefault: () => void }) => {
+
+  const vendorId = vendorData?.vendor?._id;
+
+  const initiateCreateProduct = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     handleClick("next");
+    console.log("currentStep:", currentStep);
+    console.log("checkoutStep.length:", checkoutSteps?.length);
     if (currentStep === checkoutSteps?.length) {
+      console.log("Inside if block");
       setIsLoading(true);
-      // console.log("ooooooo", "jjttttt");
-      const data = new FormData();
+
       const productInformation = productData.productInformation ?? {};
       const productDetails = productData.productDetails ?? {};
       const pricing = productData.pricing ?? {};
+      const data = new FormData();
 
-      let answer1 =
+      const answer1 =
         productInformation.mainColour ||
         productInformation.typeOfMeat ||
         productInformation.typeOfProducts;
 
-      // console.log(productInformation.mainColor, "productInformation.mainColor");
-      // console.log(
-      //   productInformation.typeOfMeat,
-      //   "   productInformation.typeOfMeat"
-      // );
-      // console.log(
-      //   productInformation.typeOfProducts,
-      //   "productInformation.typeOfProducts"
-      // );
       const answer =
-        productInformation.productBrand !== ""
-          ? productInformation.productBrand
-          : productInformation.productBreed;
+        productInformation.productBrand ||
+        productInformation.productBreed ||
+        "";
 
       data.append(
         "information[productName]",
@@ -104,7 +117,6 @@ export default function StepperControl() {
       data.append("information[category]", category ?? "");
       data.append("information[subcategory]", subcategory ?? "");
 
-      // Appending category questions
       data.append(
         `information[categoryQuestions][0][question]`,
         category ?? ""
@@ -120,11 +132,11 @@ export default function StepperControl() {
         "details[productWeight]",
         productDetails.productWeight?.toString() ?? ""
       );
-
       data.append(
         "details[productContent]",
         productDetails.productContent ?? ""
       );
+
       if (productDetails.cookingMethod && productDetails.cookingMethod !== "") {
         data.append(
           "details[cookingMethod]",
@@ -135,7 +147,7 @@ export default function StepperControl() {
       if (productDetails.nutritionalValue !== "") {
         data.append(
           "details[nutritionalValue]",
-          productDetails.nutritionalValue.toString()
+          productDetails.nutritionalValue?.toString()
         );
       }
 
@@ -164,27 +176,35 @@ export default function StepperControl() {
         "pricing[quantity]",
         pricing.productQuantity?.toString() ?? ""
       );
-      data.append("vendorId", vendorData?.vendor.id.toString() ?? "");
+      if (vendorId) {
+        data.append("vendorId", vendorId ?? "");
+      }
 
-      appendFilesToFormData("productImages", data, img1);
-      appendFilesToFormData("productImages", data, img2);
-      appendFilesToFormData("productImages", data, img3);
-      appendFilesToFormData("productImages", data, img4);
-      appendFilesToFormData("productImages", data, img5);
-      appendFilesToFormData("productImages", data, img6);
-      appendFilesToFormData("productImages", data, img7);
-      appendFilesToFormData("productImages", data, img8);
+      const images = [img1, img2, img3, img4, img5, img6, img7, img8];
 
-      createProduct
-        .mutateAsync(data)
-        .then((res) => {
-          setIsLoading(false);
-          setShowOverlay(true);
-          console.log({ res });
-        })
-        .catch((err) => {
-          setIsLoading(false);
-        });
+      try {
+        for (let i = 0; i < images.length; i++) {
+          appendFilesToFormData("productImages", data, images[i]);
+        }
+
+        const response = await createProduct.mutateAsync(data);
+        setIsLoading(false);
+        setShowOverlay(true);
+        console.log({ response });
+      } catch (error: any) {
+        setIsLoading(false);
+        // Handle the error, e.g., show an error message to the user.
+        if (error.response) {
+          // Handle API response errors, e.g., show an error message based on the response
+          console.error("API Error:", error.response.data);
+        } else if (error.message) {
+          // Handle other errors, e.g., network errors
+          console.error("Network Error:", error.message);
+        } else {
+          // Handle any other unexpected errors
+          console.error("Unexpected Error:", error);
+        }
+      }
     }
   };
 

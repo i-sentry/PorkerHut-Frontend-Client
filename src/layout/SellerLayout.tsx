@@ -8,27 +8,8 @@ import { useGetVendorById } from "../services/hooks/Vendor";
 const Layout = () => {
   console.log(localStorage.getItem("vendor"), "done");
 
-  const [user, setUser] = useState<any>({});
-  const id: string | undefined = "64fed7f696d7bdabcd0b5993"
-  const getVendorById = useGetVendorById(id)
+  
 
-  useEffect(() => {
-    //@ts-ignore
-    const storedUser = JSON.parse(localStorage.getItem("vendor"));
-    
-    if (storedUser !== null) {
-      setUser(storedUser);
-    }
-  }, []);
-  console.log(localStorage.getItem('vendor'), 'active')
-
-  console.log(getVendorById, "isLogin");
-  // console.log(useGetVendorById, 'unique')
-  // console.log(user?.vendor.id)
-
-useEffect(() => {
-  console.log(getVendorById, "fair")
-}, [user])
 
   return (
     <div className="h-screen w-screen overflow-hidden hide-scroll-bar">

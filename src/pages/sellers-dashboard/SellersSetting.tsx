@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
 import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
-import { MdOutlineEnhancedEncryption, MdOutlineNotifications, MdOutlinePerson } from "react-icons/md";
+import {
+  MdOutlineEnhancedEncryption,
+  MdOutlineNotifications,
+  MdOutlinePerson,
+} from "react-icons/md";
 // import { RxBell } from "react-icons/rx";
 // import { TfiLock } from "react-icons/tfi";
 import SellersNotificationTable from "../../components/vendors-component/SellersNotificationTable";
@@ -12,7 +16,6 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
-
 
 type FormData = {
   fullName: string;
@@ -25,21 +28,20 @@ type FormData = {
   address: string;
 };
 
-
 function SettingssTab() {
-  // const [tab, setTab] = useState("");
+  const [vendor, setVendor] = useState<any>({});
   const [searchParams, setSearchParams] = useSearchParams();
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
-  const [eyeState3, ] = useState(false);
+  const [eyeState3] = useState(false);
 
   const [, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  const tab = searchParams.get('tab') || "account";
+  const tab = searchParams.get("tab") || "account";
 
-  const handleClick = (tabName:string) => {
-    setSearchParams({tab:tabName})
+  const handleClick = (tabName: string) => {
+    setSearchParams({ tab: tabName });
     //setTab(tabIndex);
   };
 
@@ -59,29 +61,27 @@ function SettingssTab() {
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  // const [country, setCountry] = useState("");
-  const [email, ] = useState("");
-  const [storeName, ] = useState("");
-  // const validationSchema = Yup.object().shape({
-  //   fullName: Yup.string().required("Full Name is required"),
-  //   storeName: Yup.string()
-  //     .required("Store Name is required")
-  //     .min(6, "Username must be at least 6 characters")
-  //     .max(50, "Username must not exceed 50 characters"),
-  //   email: Yup.string().required("Email is required").email("Email is invalid"),
-  //   address: Yup.string().required("Address is required"),
-  //   storeId: Yup.string().required("Store ID is required"),
 
-  //   streetAddress: Yup.string().required("Street Address is required"),
+  const [email] = useState("");
+  const [storeName] = useState("");
+  useEffect(() => {
+    //@ts-ignore
+    const storedVendor = JSON.parse(localStorage.getItem("vendor"));
 
-  //   location: Yup.string().required("Location is required"),
+    if (storedVendor !== null) {
+      setVendor(storedVendor);
+    }
+  }, []);
 
-  //   phoneNumber: Yup.string()
-  //     .required("Valid Phone Number is required")
-  //     .min(6, "Valid Phone Number must be at least 6 characters")
-  //     .max(12, "Valid Phone Number must not exceed 12 characters"),
-  // });
-
+  console.log(vendor);
+  const accountOwnersName =
+    vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
+  const shopName = vendor?.vendor?.sellerAccountInformation.shopName;
+  const phone = vendor?.vendor?.sellerAccountInformation.phoneNumber;
+  const storeEmail = vendor?.vendor?.sellerAccountInformation.email;
+  const address = vendor?.vendor?.businessInformation.address1;
+  const city = vendor?.vendor?.businessInformation.city;
+  const id = vendor?.vendor?._id;
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
     storeName: Yup.string()
@@ -97,7 +97,6 @@ function SettingssTab() {
       .min(6, "Valid Phone Number must be at least 6 characters")
       .max(12, "Valid Phone Number must not exceed 12 characters"),
   });
-
 
   const {
     register,
@@ -137,7 +136,7 @@ function SettingssTab() {
               <button
                 onClick={() => handleClick("account")}
                 className={` py-2 cursor-pointer  ${
-                  tab === "account"  ? " text-[#197B30] " : "text-[#797979]"
+                  tab === "account" ? " text-[#197B30] " : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -150,7 +149,9 @@ function SettingssTab() {
               <span
                 onClick={() => handleClick("quality-control")}
                 className={` py-2 cursor-pointer  ${
-                  tab === "quality-control" ? " text-[#197B30]" : "text-[#797979]"
+                  tab === "quality-control"
+                    ? " text-[#197B30]"
+                    : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -164,7 +165,9 @@ function SettingssTab() {
               <span
                 onClick={() => handleClick("notification")}
                 className={` py-2 cursor-pointer  ${
-                  tab === "notification" ? "z-20 text-[#197B30]" : "text-[#797979]"
+                  tab === "notification"
+                    ? "z-20 text-[#197B30]"
+                    : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -177,7 +180,9 @@ function SettingssTab() {
               <span
                 onClick={() => handleClick("change-password")}
                 className={` py-2 cursor-pointer ${
-                  tab === "change-password" ? "z-20 text-[#197B30]" : "text-[#797979]"
+                  tab === "change-password"
+                    ? "z-20 text-[#197B30]"
+                    : "text-[#797979]"
                 }`}
               >
                 <div className="flex gap-3 ">
@@ -227,7 +232,7 @@ function SettingssTab() {
                   className=" text-[24px] leading-[28px]  text-[#333333] pt-2 font-semibold"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  John Doe
+                  {accountOwnersName}
                 </h3>
                 <label
                   htmlFor="file"
@@ -255,6 +260,7 @@ function SettingssTab() {
                         FullName
                       </label>
                       <input
+                        value={accountOwnersName}
                         type="text"
                         {...register("fullName")}
                         placeholder="Enter Your Full Name"
@@ -275,9 +281,10 @@ function SettingssTab() {
                         Store Name
                       </label>
                       <input
+                        value={shopName}
                         type="text"
                         {...register("storeName")}
-                        placeholder="Enter Your Last Name"
+                        placeholder="Enter Your Store Name"
                         className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
                           errors.storeName ? "border-[#dd1313]" : ""
                         }`}
@@ -296,7 +303,8 @@ function SettingssTab() {
                         Email Address
                       </label>
                       <input
-                        type="text"
+                        type="email"
+                        value={storeEmail}
                         {...register("email")}
                         placeholder="Enter Your Email Address"
                         className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
@@ -316,7 +324,9 @@ function SettingssTab() {
                         Store ID
                       </label>
                       <input
-                        type="number"
+                        value={id}
+                        type="text"
+                        disabled
                         {...register("storeId")}
                         placeholder="Enter Store ID"
                         className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
@@ -337,6 +347,7 @@ function SettingssTab() {
                         Street Address
                       </label>
                       <input
+                        value={address}
                         type="text"
                         {...register("streetAddress")}
                         placeholder="Enter Street Address"
@@ -357,6 +368,7 @@ function SettingssTab() {
                         Location
                       </label>
                       <input
+                        value={city}
                         type="text"
                         {...register("location")}
                         placeholder="Enter Location"
@@ -379,7 +391,7 @@ function SettingssTab() {
                       </label>
                       <PhoneInput
                         country={"ng"}
-                        value={phoneNumber}
+                        value={phoneNumber || phone}
                         // {...register("phonenumber")}
                         onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
                         inputProps={{
@@ -415,7 +427,9 @@ function SettingssTab() {
               </form>
               <div
                 className=""
-                style={{ display: tab === "quality-control" ? "block" : "none" }}
+                style={{
+                  display: tab === "quality-control" ? "block" : "none",
+                }}
               >
                 <h3
                   className="text-[24px] leading-[28px] font-medium flex items-center justify-center"
@@ -467,11 +481,13 @@ function SettingssTab() {
               </div>
               <div
                 className="space-y-3 mb-6"
-                style={{ display: tab === "change-password" ? "block" : "none" }}
+                style={{
+                  display: tab === "change-password" ? "block" : "none",
+                }}
               >
                 <div className="mb-3">
                   <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">
-                    Change Password 
+                    Change Password
                   </h1>
                   {/* <span className="text-[#A2A2A2] text-sm font-light">
                 All information available.

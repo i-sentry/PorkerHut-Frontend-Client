@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AppLayout from "../utility/AppLayout";
 import { useVendorLogin } from "../../services/hooks/Vendor";
-// import { useAppDispatch } from "../../redux/hook";
+import ReactLoading from "react-loading";
 
 interface ILoginProps {
   email: string;
@@ -17,7 +17,7 @@ const VendorLogin = () => {
 
   const navigate = useNavigate();
   const [isError, setIsError] = useState("");
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const login = useVendorLogin();
   // const dispatch = useAppDispatch();
   const {
@@ -63,8 +63,8 @@ const VendorLogin = () => {
         setIsError(e?.response?.data);
       });
   });
-  console.log(localStorage.getItem("vendor"), "oookk");
-  console.log("gggoookk");
+  // console.log(localStorage.getItem("vendor"), "oookk");
+  // console.log("gggoookk");
 
   const toggleEye = (e: any) => {
     e.preventDefault();
@@ -187,7 +187,18 @@ const VendorLogin = () => {
                   // disabled={true}
                   className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
                 >
-                  Login
+            {loading ? (
+                        <div className="mx-auto flex items-center justify-center">
+                          <ReactLoading
+                            type={"spin"}
+                            color={"#fff"}
+                            height={"5%"}
+                            width={"5%"}
+                          />
+                        </div>
+                      ) : (
+                        "Login"
+                      )}
                 </button>
               </div>
               <div className="text-center mt-3">

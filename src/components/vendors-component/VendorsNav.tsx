@@ -1,47 +1,47 @@
+import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {HiOutlineSearch} from "react-icons/hi";
-import React, { Fragment } from "react";
+import { HiOutlineSearch } from "react-icons/hi";
 import classNames from "classnames";
-
 import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
-// import { FaBars } from "react-icons/fa";
 import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
 import { useSearchParams } from "react-router-dom";
 
-// interface Iprop {
-//   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-//   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
-//   item: any;
-// }
-
-// const linkClass =
-//   "flex items-center gap-4 text-[#A2A2A2] text-base font-light px-4 md:py-4 xxs:py-6 hover:text-[#197b30] ";
-
 const VendorsNav = () => {
+  const [vendor, setVendor] = useState<any>({});
   const showSideBar = useSidebarState((state) => state.sideBarOpen);
   const toggleSidebar = useSidebarState((state) => state.toggleSidebar);
   const navigate = useNavigate();
-  
 
   const [, setSearchParams] = useSearchParams();
-  
 
-  const handleClick = (tabName:string) => {
-    setSearchParams({tab:tabName})
+  useEffect(() => {
+    //@ts-ignore
+    const storedVendor = JSON.parse(localStorage.getItem("vendor"));
+
+    if (storedVendor !== null) {
+      setVendor(storedVendor);
+    }
+  }, []);
+
+  console.log(vendor);
+  const accountOwnersName =
+    vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
+  const storeStatus = vendor?.vendor?.storeStatus;
+
+  const handleClick = (tabName: string) => {
+    setSearchParams({ tab: tabName });
   };
 
-
-   const handleLogout = () => {
+  const handleLogout = () => {
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("vendor");
 
-    navigate('/sign-in?q=vendor');
+    navigate("/sign-in?q=vendor");
   };
-  
-  
+
   return (
     <div className="  border-b border-[#D9D9D9] h-[80px] w-full px-4 flex items-center justify-between shadow z-50 bg-[#fff]">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3">
@@ -91,8 +91,8 @@ const VendorsNav = () => {
             {/* <HiOutlineSearch size={20} className="md:hidden" /> */}
             <Menu as="div" className="relative">
               <div>
-                <Menu.Button className="  flex justify-between md:gap-2 gap-1">
-                  <div className="flex items-center">
+                <Menu.Button className="  flex   justify-between md:gap-2 gap-1">
+                  <div className="flex items-center gap-1">
                     <div
                       className="md:h-12 md:w-12 xxs:h-9 xxs:w-9 rounded-full bg-cover bg-no-repeat bg-center flex"
                       style={{
@@ -100,15 +100,26 @@ const VendorsNav = () => {
                           'url("https://source.unsplash.com/80x80?face")',
                       }}
                     ></div>
-                    <div className="lg:flex lg:flex-col lg:gap-1 md:hidden hidden">
+                    <div className="lg:flex lg:flex-col items-center lg:gap-1 md:hidden hidden">
                       <span className="text-base font-bold leading-4">
-                        John Doe
+                        {accountOwnersName}
                       </span>
-                      <span className="text-xs font-light">Administrator</span>
+                      <div className="flex gap-1 text-center">
+                        <span className="text-xs font-light ml-2">
+                          Administrator
+                        </span>
+                        <span
+                          className={`h-[8px] w-[8px] ${
+                            storeStatus === "pending"
+                              ? "bg-red-600"
+                              : "bg-green-600"
+                          } rounded-full animate-pulse`}
+                        ></span>
+                      </div>
                     </div>
-                  </div>  
+                  </div>
 
-                  <div>
+                  <div className="mt-1">
                     <IoIosArrowDown />
                   </div>
                 </Menu.Button>
