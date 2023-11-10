@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
-import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav"
-import { useGetVendorById } from "../services/hooks/Vendor";
+import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
 
 
 const Layout = () => {
