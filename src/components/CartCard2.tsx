@@ -17,9 +17,10 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
     setSelectedOption(value);
     console.log("Selected Option:", value);
   };
+  console.log(selectedOption, "options");
   return (
     <>
-      <div className="flex items-center px-5 gap-6">
+      <div className="flex items-center px-0 md:px-5 gap-6">
         <div>
           <div className="flex items-center gap-4">
             <div className="img flex flex-col">
@@ -92,58 +93,84 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className=" flex  mt-4 px-5">
-        <div className="">
-          <label className="flex items-center space-x-2 cursor-pointer">
-            <input
-              type="radio"
-              value="delivery"
-              checked={selectedOption === "delivery"}
-              onChange={() => handleRadioChange("delivery")}
-              className="h-5 w-5 "
-            />
-            <p className="text-sm text-[#333] font-semibold">
-              Door Delivery{" "}
-              <span className="text-xs font-normal">
-                (Starting from ₦1,500)
-              </span>
-            </p>
-          </label>
-        </div>
-        <div className="md:flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
-          <label className="flex items-center space-x-2 cursor-pointer">
-            <input
-              type="radio"
-              value="pickup"
-              checked={selectedOption === "pickup"}
-              onChange={() => handleRadioChange("pickup")}
-              className="h-5 w-5 "
-            />
-            <span className="text-sm text-[#333] font-semibold">Pickup</span>
-          </label>
+      {item?.vendor?.sellerAccountInformation?.shopName === "Porker Hut" && (
+        <div className="flex mt-4 p-0 md:px-5 md:flex-row flex-col gap-4">
+          <div className="">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                value="delivery"
+                checked={selectedOption === "delivery"}
+                onChange={() => handleRadioChange("delivery")}
+                className="h-4 w-4 text-[#FE6600] accent-[#FE6600] focus:ring-[#FE6600] border-gray-300 rounded checked:bg-[#FE6600]"
+              />
+              <p className="text-sm text-[#333] font-semibold">
+                Door Delivery{" "}
+                <span className="text-xs font-normal">
+                  (Starting from ₦1,500)
+                </span>
+              </p>
+            </label>
+          </div>
 
-          <div className="mt-4 hidden md:flex flex-col">
-            <div className="flex items-center justify-between">
-              <label htmlFor=" text-[#333333] font- text-sm">
-                Pickup Address
-              </label>
-              <span
-                onClick={() => toggleModal(true)}
-                className="order-notes text-[#A2A2A2] text-sm  underline cursor-pointer"
-              >
-                Change pickup station
-              </span>
+          <div className="md:flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                value="pickup"
+                checked={selectedOption === "pickup"}
+                onChange={() => handleRadioChange("pickup")}
+                className="h-4 w-4 text-[#FE6600] accent-[#FE6600] focus:ring-[#FE6600] border-gray-300 rounded checked:bg-[#FE6600]"
+              />
+              <span className="text-sm text-[#333] font-semibold">Pickup</span>
+            </label>
+
+            {selectedOption === "pickup" && (
+              <div className="mt-4 md:hidden flex flex-col">
+                <div className="flex items-center justify-between">
+                  <label htmlFor=" text-[#333333] font- text-sm">
+                    Pickup Address
+                  </label>
+                  <span
+                    onClick={() => toggleModal(true)}
+                    className="order-notes text-[#522828] text-sm  underline cursor-pointer"
+                  >
+                    Change pickup station
+                  </span>
+                </div>
+                <textarea
+                  rows={4}
+                  cols={50}
+                  id="pick_up"
+                  placeholder="No 14, Cresent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                  className=" h-16 outline-none border rounded px-5 py-4 mt-1"
+                ></textarea>
+              </div>
+            )}
+
+            <div className="mt-4 hidden md:flex flex-col">
+              <div className="flex items-center justify-between">
+                <label htmlFor=" text-[#333333] font- text-sm">
+                  Pickup Address
+                </label>
+                <span
+                  onClick={() => toggleModal(true)}
+                  className="order-notes text-[#522828] text-sm  underline cursor-pointer"
+                >
+                  Change pickup station
+                </span>
+              </div>
+              <textarea
+                rows={4}
+                cols={50}
+                id="pick_up"
+                placeholder="No 14, Cresent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                className=" h-16 outline-none border rounded px-5 py-4 mt-1"
+              ></textarea>
             </div>
-            <textarea
-              rows={4}
-              cols={50}
-              id="pick_up"
-              placeholder="Type here"
-              className=" h-16 outline-none border rounded px-5 py-4 mt-1"
-            ></textarea>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

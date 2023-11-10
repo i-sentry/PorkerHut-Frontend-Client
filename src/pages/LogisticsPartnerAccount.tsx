@@ -559,13 +559,13 @@ const LogisticsPatnerAccount = () => {
                           htmlFor=""
                           className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
                         >
-                          Type of Vet
+                          Number of Vehicles
                         </label>
                         <input
                           type="text"
                           id="typeOfVet"
                           {...register("typeOfVet")}
-                          placeholder="Enter the type of vet you are"
+                          placeholder="Enter your plate number"
                           className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.typeOfVet ? "border-[#dd1313]" : ""
                             }`}
                         />
@@ -583,7 +583,7 @@ const LogisticsPatnerAccount = () => {
 
                       <>
                         <span className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}>
-                          Upload a copy of Vet License
+                        Upload a copy of Operational License
                         </span>
                         <div className="mt-2">
                           <div className="flex flex-col">

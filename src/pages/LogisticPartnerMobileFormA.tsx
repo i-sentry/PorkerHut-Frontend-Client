@@ -93,7 +93,7 @@ const LogisticPartnerMobileFormA: React.FC = () => {
       <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
         <div className="p-10">
           <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-            Join our Logistic Team
+          Becoming a Logistics Partner hype
           </h1>
           <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
             Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a

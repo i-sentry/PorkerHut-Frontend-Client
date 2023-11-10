@@ -42,6 +42,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   useEffect(
     () => setData(getAllProducts?.data),
   [getAllProducts?.data]);
+  console.log(getAllProducts, "createdProd")
 
 
 

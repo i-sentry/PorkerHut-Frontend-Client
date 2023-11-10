@@ -23,7 +23,7 @@ import {
   // incrementProductQty,
   // IProduct,
 } from "../redux/features/product/productSlice";
-import { useAppSelector } from "../redux/hook";
+// import { useAppSelector } from "../redux/hook";
 import { usePopModal } from "../store/overlay";
 
 const CartPage = () => {
@@ -45,7 +45,7 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
-  const products = useAppSelector((state) => state.product);
+  // const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
       acc + current.pricing.productPrice * (current.pricing.quantity as number)
@@ -54,13 +54,13 @@ const CartPage = () => {
   console.log(Object.values(cart).length, "Object.values(cart).length");
   console.log(cart, "(cart)");
 
- const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-   setSelectedState(e.target.value);
- };
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedState(e.target.value);
+  };
 
- const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-   setSelectedCity(e.target.value);
- };
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCity(e.target.value);
+  };
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
@@ -279,23 +279,25 @@ const CartPage = () => {
       </div>
       {openModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-50 bg-gray-500">
-          <div className="bg-white w-[680px] p-4 rounded-lg shadow-lg relative">
-            <button
-              onClick={() => toggleModal(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer"
-            >
-              <span className="text-2xl">×</span>
-            </button>
-            <h2 className="text-xl font-semibold mb-4">
-              Select a Pick-up station close to you
-            </h2>
+          <div className="bg-zinc-100 w-[680px] p-6 md:p-10 rounded-lg shadow-lg relative">
+            <div className="flex items-center ">
+              <button
+                onClick={() => toggleModal(false)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer"
+              >
+                <span className="text-3xl p-10 mt-6 block">×</span>
+              </button>
+              <h2 className="text-xl font-semibold mb-4 mt-6">
+                Select a Pick-up station close to you
+              </h2>
+            </div>
             <div className="mb-4">
               <label htmlFor="state" className="block text-gray-600">
                 State:
               </label>
               <select
                 id="state"
-                className="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full border rounded-md p-4 focus:outline-none focus:ring focus:border-blue-300"
                 value={selectedState}
                 onChange={handleStateChange}
               >
@@ -309,23 +311,46 @@ const CartPage = () => {
               </label>
               <select
                 id="city"
-                className="w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full border rounded-md p-4 focus:outline-none focus:ring focus:border-blue-300"
                 value={selectedCity}
                 onChange={handleCityChange}
               >
                 <option value="">Select City</option>
                 {/* Add city options based on the selected state */}
               </select>
+              <span className="info-tooltip opacity-70 text-neutral-400 text-sm font-normal">
+                No 14, Cresent by philip’s junction beside zenith bank off
+                kudirat Lugbe way Abuja - Abuja
+              </span>
             </div>
-            <div className="flex justify-end">
+
+            <div className="flex flex-col md:flex-row gap-4 justify-between text-zinc-800 mt-6 mb-8">
+              <div>
+                <h2 className="text-zinc-800 text-sm font-medium ">
+                  Contact Information
+                </h2>
+                <p className="text-zinc-800 text-xs font-normal">
+                  Jane Jackson | +2349012345678
+                </p>
+              </div>
+
+              <div className="text-zinc-800">
+                <h2 className=" text-sm font-medium">Opening hours</h2>
+                <p className=" text-xs font-normal">
+                  Mon-Fri 8am-5pm; Saturday 8am-2pm
+                </p>
+              </div>
+            </div>
+
+            <div className="flex md:justify-end mb-4 gap-6">
               <button
-                className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 mr-2"
+                className="px-10 py-2 text-green-700 text-sm font-semibold rounded border mr-2 border-green-700"
                 onClick={() => toggleModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="px-4 py-2 text-white bg-[#197B30] rounded hover:bg-[#197B30]"
+                className="px-10 py-2 bg-green-700 rounded text-white text-sm font-semibold"
                 onClick={() => {
                   // Handle Select button click
                 }}
@@ -341,9 +366,3 @@ const CartPage = () => {
 };
 
 export default CartPage;
-
-
-
-
-
-
