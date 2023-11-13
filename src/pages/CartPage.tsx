@@ -48,7 +48,7 @@ const CartPage = () => {
   // const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
-      acc + current.pricing?.productPrice * (current.pricing?.quantity as number)
+      acc + current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
   console.log(Object.values(cart).length, "Object.values(cart).length");
@@ -204,7 +204,7 @@ const CartPage = () => {
 
                       <button
                         onClick={() =>
-                          dispatch(deleteProductFromCart({ id: item._id }))
+                          dispatch(deleteProductFromCart({ id: item?._id }))
                         }
                       >
                         Remove
@@ -226,8 +226,8 @@ const CartPage = () => {
               </h1>
 
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full">
-                {chunkArray(productData, 8)[1 - 1].map((item) => (
-                  <ProductCard item={item} key={item.id} />
+                {chunkArray(productData, 8)?.[1 - 1]?.map((item) => (
+                  <ProductCard item={item} key={item?.id} />
                 ))}
               </div>
             </div>
