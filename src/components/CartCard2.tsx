@@ -27,7 +27,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
               <figure className="bg-white w-[150px] flex-1">
                 <img
                   style={{ width: 150, height: 140 }}
-                  src={item?.images[0] || ""}
+                  src={item?.images?.[0] || ""}
                   alt=""
                   className="rounded"
                 />
