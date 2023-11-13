@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 // }
 
 export interface IProduct {
+  vendor: any;
   approvalStatus: boolean;
   avgRating: number;
   category: string;
