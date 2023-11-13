@@ -49,7 +49,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
           <div className="details flex flex-col gap-2 md:flex-row-reverse md:justify-between">
             <p className="md:hidden">{item.information.productName}</p>
             <h3 className="font-bold">
-              ₦{item.pricing.productPrice?.toLocaleString()}
+              ₦{item.pricing?.productPrice?.toLocaleString()}
             </h3>
             <div className="flex mt-1">
               <div

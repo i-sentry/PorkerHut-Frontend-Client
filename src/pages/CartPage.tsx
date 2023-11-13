@@ -48,7 +48,7 @@ const CartPage = () => {
   const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
-      acc + current.pricing.productPrice * (current.pricing.quantity as number)
+      acc + current.pricing?.productPrice * (current.pricing.quantity as number)
     );
   }, 0);
   console.log(Object.values(cart).length, "Object.values(cart).length");
