@@ -35,7 +35,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
             </div>
 
             <div className="product-info hidden md:flex flex-col gap-2">
-              <h3 className="font-bold">{item?.information.productName}</h3>
+              <h3 className="font-bold">{item?.information?.productName}</h3>
               <p>Product ID: {item?._id}</p>
               <RatingWidget
                 onChange={(value) => console.log(value)}
