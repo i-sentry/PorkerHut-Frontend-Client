@@ -120,7 +120,7 @@ const AdminTable = ({
 
   return (
     <>
-      <div className="flex gap-2 w-full overflow-x-scroll xxs:py-4 md:py-0">
+      <div className="flex gap-2 w-full overflow-x-scroll xxs:py-4 md:py-0 hide-scrollbar">
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}

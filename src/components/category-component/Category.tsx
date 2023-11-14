@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { productData } from "../../utils/productData";
 import Card from "../category-card-component/Card";
 // import Header from "../header-component/Header";
@@ -23,6 +23,10 @@ interface Subcategory {
 
 const Category = () => {
   const { data: allCategories, isLoading } = useGetAllCategories();
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
 
   console.log(allCategories?.data, "time");
 

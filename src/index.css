@@ -131,43 +131,52 @@
   }
 }
 
-.marquee{
+.marquee {
   animation: 15s slide infinite linear;
 }
 
-.hide-scroll-bar::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
+/* Media query targeting all screen sizes */
+@media (min-width: 0px) {
+  .hide-scroll-bar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
-.hide-scroll-bar::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
-}
+  .hide-scroll-bar::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+  }
 
-.hide-scroll-bar::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 0.25em;
-}
+  .hide-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 0.25em;
+  }
 
-.change-scroll-bar:-webkit-scrollbar {
-  width: 0.25em;
-}
+  .change-scroll-bar:-webkit-scrollbar {
+    width: 0.25em;
+    border-radius: 0.25em;
+  }
 
-.hide-scroll-bar::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
-}
+  .hide-scroll-bar {
+    scrollbar-width: none;
+  }
 
-.hide-scroll-bar::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 0.25em;
+  .hide-scroll-bar::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+  }
+
+  .hide-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 0.25em;
+  }
+
+  /* order scroll bar mobile */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .ql-editor {
   min-height: 250px;
-}
-/* order scroll bar mobile */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 .group:hover .scale-image {
@@ -178,7 +187,7 @@
 .skeleton-loader {
   width: 100%;
   height: 350px; /* Adjust the height as needed */
-border-radius: 4px;
+  border-radius: 4px;
   background: linear-gradient(
     to right,
     rgba(253, 252, 252, 0.1) 0%,
@@ -191,8 +200,8 @@ border-radius: 4px;
 .text-loader {
   width: 100%;
   height: 10px; /* Adjust the height as needed */
-border-radius: 4px;
-margin-top: 4px;
+  border-radius: 4px;
+  margin-top: 4px;
   background: linear-gradient(
     to right,
     rgba(253, 252, 252, 0.1) 0%,
@@ -205,8 +214,8 @@ margin-top: 4px;
 .header-loader {
   width: 100%;
   height: 20px; /* Adjust the height as needed */
-border-radius: 4px;
-margin-top: 4px;
+  border-radius: 4px;
+  margin-top: 4px;
   background: linear-gradient(
     to right,
     rgba(253, 252, 252, 0.1) 0%,
@@ -219,8 +228,8 @@ margin-top: 4px;
 .btn-loader {
   width: 30%;
   height: 50px; /* Adjust the height as needed */
-border-radius: 4px;
-margin-top: 4px;
+  border-radius: 4px;
+  margin-top: 4px;
   background: linear-gradient(
     to right,
     rgba(253, 252, 252, 0.1) 0%,
@@ -230,9 +239,6 @@ margin-top: 4px;
   background-size: 200% 100%;
   animation: shimmer 1s infinite linear;
 }
-
-
-
 
 .scale-in {
   animation: scaleInAnimation 1s ease-in-out;
@@ -254,5 +260,3 @@ margin-top: 4px;
     background-position: -100% 0%;
   }
 }
-
-

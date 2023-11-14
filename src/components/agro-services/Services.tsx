@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 let backgroundweb = require("../../assets/images/Agro-web.jpg");
 
 const Services = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+  
   return (
     <section className=" bg-[#F4F4F4]   lg:w-full lg:flex-wrap lg:overflow-hidden   lg:mb-20 xxs:mb-0 xxs:p-4 lg:p-0">
       <div className=" flex xxs:flex-col lg:flex-row items-center justify-center xxs:py-0 lg:py-16">
