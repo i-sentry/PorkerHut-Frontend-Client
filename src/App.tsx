@@ -115,7 +115,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="/store-page/:storeTitle"
+        path="/store-page/:id/:store"
         element={
           //@ts-ignore
           <StorePage />

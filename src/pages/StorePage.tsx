@@ -12,6 +12,9 @@ import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
+import { useGetApprovedProductByVendor } from "../services/hooks/Vendor/products";
+
+
 // import { GoSettings } from "react-icons/go";
 
 interface iProps {
@@ -25,28 +28,39 @@ interface iProps {
 }
 
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
-  const { storeTitle } = useParams();
+  const { id } = useParams()
+  const { store } = useParams()
+  console.log(store, "letsGo")
+
+  // const getAllProducts = useGetProductByVendor(id)
+  const {data: getApprovedProducts} = useGetApprovedProductByVendor(id)
+
+  // console.log(getAllProducts, "Store")
+  // console.log(getApprovedProducts, "Page")
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const [data, setData] = useState(productData);
+  const [data, setData] = useState([]);
+  console.log(data, "data")
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
-  useEffect(() => setData(productData), []);
+ 
 
+  useEffect(() => setData(getApprovedProducts?.data), [getApprovedProducts?.data]);
+  
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
-  useEffect(() => {
-    const filteredData = productData.filter(
-      (item) => item.title === storeTitle
-    );
-    setData(filteredData);
-  }, [storeTitle]);
+  // useEffect(() => {
+  //   const filteredData = productData.filter(
+  //     (item) => item.title === id
+  //   );
+  //   setData(filteredData);
+  // }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -73,7 +87,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   link: "/",
                 },
                 {
-                  name: "Dangote Farm Store",
+                  name: `${store}`,
                   link: "/store-page",
                 },
               ]}
@@ -86,7 +100,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                 <div className="bg-white px-6 xxs:py-6 md:py-4 rounded-sm mx-4 mb-10 md:mb-0 md:mx-0">
                   <div className=" border-b">
                     <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0">
-                      {storeTitle}
+                      {store}
                     </h1>
 
                     <div className="mb-2">
@@ -141,7 +155,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
             <div className="md:w-3/4 bg-white xxs:w-full px-4">
               <div className="flex items-center justify-between ">
                 <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
-                  <h1 className="text-xl font-medium md:pl-4">{storeTitle}</h1>
+                  <h1 className="text-xl font-medium md:pl-4">{store}</h1>
                   <div>
                     <p className="text-l text-gray-700">
                       Showing{" "}
@@ -176,7 +190,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
                     (Tdata, index) => {
                       console.log(Tdata, "Tdata");
-                      return <ProductCard item={Tdata} key={Tdata.id} />;
+                      return <ProductCard item={Tdata} key={index} />;
                     }
                   )}
                 </div>
