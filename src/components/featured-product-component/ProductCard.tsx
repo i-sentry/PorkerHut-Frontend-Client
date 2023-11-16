@@ -23,6 +23,8 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
+  console.log(item?.vendor?.sellerAccountInformation?.shopName, "items")
+
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?._id}));
     toast.success(`${item?.information?.productName} has been added to cart`);
@@ -32,7 +34,6 @@ const ProductCard = ({ item }: ProductLocationState) => {
     navigate(`/product/${item?._id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
 
   const handleLoading = () => {
     setIsLoading(false);
@@ -75,13 +76,13 @@ const ProductCard = ({ item }: ProductLocationState) => {
       <div className="z-10 bg-white xxs:px-2 lg:px-0">
         <div className="lg:flex items-center justify-between py-1 xxs:hidden">
           <NavLink
-            to={`/store-page/${item?._id}`}
+            to={`/store-page/${item?.vendor?._id}/${(item?.vendor?.sellerAccountInformation?.shopName)?.toString().replace(/ /g, "-")}`}
             className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
           >
-            {item?.vendor?.sellerAccountInformation?.shopName || "Test Shop"}
+            {item?.vendor?.sellerAccountInformation?.shopName || ""}
           </NavLink>
           <span className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
-            {item?.vendor?.businessInformation?.city || "Abuja"}
+            {item?.vendor?.businessInformation?.city || ""}
           </span>
         </div>
         <div className="flex items-center justify-between py-1">
@@ -89,21 +90,21 @@ const ProductCard = ({ item }: ProductLocationState) => {
             onClick={handleCardClick}
             className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer lg:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
           >
-            {item?.information?.productName ||  "100% Healthy Pork Lap"}
+            {item?.information?.productName ||  ""}
           </h1>
           <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
-            {item?.details?.productWeight || "80"}g
+            {item?.details?.productWeight || ""}g
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.pricing?.productPrice || "3000"}
+          ₦{item?.pricing?.productPrice || ""}
         </span>
 
         <NavLink
           to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
         >
-          {item?.vendor?.sellerAccountInformation?.shopName || "Test Shop" }
+          {item?.vendor?.sellerAccountInformation?.shopName || "" }
         </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget

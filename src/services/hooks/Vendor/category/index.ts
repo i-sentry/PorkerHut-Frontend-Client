@@ -27,3 +27,4 @@ export const useGetOneCategory = (id: string | null) => {
     queryKey: ["cate"],
   });
 };
+ 

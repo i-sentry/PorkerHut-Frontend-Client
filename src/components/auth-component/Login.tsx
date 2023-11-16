@@ -65,8 +65,8 @@ const navigate = useNavigate()
         setIsError(e?.response?.data);
       });
   });
-  console.log(localStorage.getItem("user"), "oookk");
-  console.log("gggoookk");
+  // console.log(localStorage.getItem("user"), "oookk");
+  // console.log("gggoookk");
 
   const toggleEye = (e: any) => {
     e.preventDefault();

@@ -36,6 +36,8 @@ export const api = {
     createProducts: "/api/products",
     getSingleProduct: (id: string | null) => `/api/products/${id}`,
     productStatus: (id: string | null) => `/api/products/${id}/approvalStatus`,
+    productByVendor: (id: string | undefined) => `/api/products/${id}`,
+    productByVendorApproved: (id: string | undefined) => `/api/products/approved/${id}`
   },
   Vets: {
     createVet: "/api/vets",

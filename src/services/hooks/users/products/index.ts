@@ -22,3 +22,4 @@ export const useGetSingleProduct = (id: string | null) => {
     queryKey: ["product +"],
   });
 };
+

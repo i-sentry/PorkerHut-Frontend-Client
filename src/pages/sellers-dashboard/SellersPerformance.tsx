@@ -234,7 +234,7 @@ const SellersPerformance = () => {
       <div className="md:hidden xxs:block mt-8">
         <Carousel cards={card} />
       </div>
-      <div className="md:mb-20 overflow-y-scroll h-full mt-10">
+      <div className="md:mb-20 overflow-y-scroll h-full mt-10 hide-scroll-bar">
         <ChartLayout
           title=""
           value={"Sales Overview"}

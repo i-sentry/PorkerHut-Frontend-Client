@@ -315,7 +315,7 @@ const SellersOrderPage = () => {
         </h1>
       </div>
 
-      <div className="">
+      <div className="hide-scroll-bar">
         <AdminTable
           // @ts-ignore
           Tcolumns={column}

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -12,7 +12,6 @@ interface ILoginProps {
   checkbox?: string;
 }
 const VendorLogin = () => {
-
   const [eyeState, setEyeState] = useState(false);
 
   const navigate = useNavigate();
@@ -43,7 +42,9 @@ const VendorLogin = () => {
       })
       .catch((e) => {
         setLoading(false);
-        setIsError(e?.response?.data);
+
+        setIsError(e?.response?.data?.message);
+
       });
   });
 
@@ -70,13 +71,15 @@ const VendorLogin = () => {
         </div>
         <div className="flex items-center justify-center xxs:p-3 md:py-8 ">
           <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md rounded">
-            <div className="">
-              <h1 className="text-left text-[#333333] font-bold text-lg">
-                Seller's Login
-              </h1>
-              <p className="text-left text-base  text-[#797979]  mt-1 font-light">
-                Enter your store login details
-              </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-left text-[#333333] font-bold text-lg">
+                  Seller's Login
+                </h1>
+                <p className="text-left text-base  text-[#797979]  mt-1 font-light">
+                  Enter your store login details
+                </p>
+              </div>
               <div>
                 {isError && (
                   <span className="text-[#f91919] bg-red-200 p-2 rounded-md text-sm">
@@ -169,18 +172,18 @@ const VendorLogin = () => {
                   // disabled={true}
                   className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
                 >
-            {loading ? (
-                        <div className="mx-auto flex items-center justify-center">
-                          <ReactLoading
-                            type={"spin"}
-                            color={"#fff"}
-                            height={"5%"}
-                            width={"5%"}
-                          />
-                        </div>
-                      ) : (
-                        "Login"
-                      )}
+                  {loading ? (
+                    <div className="mx-auto flex items-center justify-center">
+                      <ReactLoading
+                        type={"spin"}
+                        color={"#fff"}
+                        height={"5%"}
+                        width={"5%"}
+                      />
+                    </div>
+                  ) : (
+                    "Login"
+                  )}
                 </button>
               </div>
               <div className="text-center mt-3">
