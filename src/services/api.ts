@@ -24,7 +24,7 @@ export const api = {
   },
   Vendors: {
     vendorSignup: "/api/vendors/",
-    vendorById: (id:string | undefined) => `/api/vendors/${id}`,
+    vendorById: (id: string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
   },
   Blogs: {
@@ -57,6 +57,9 @@ export const api = {
   },
   Payment: {
     pay: "/api/pay/",
+  },
+  Billing: {
+    billing: "/api/users/billing",
   },
 };
 

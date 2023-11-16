@@ -30,3 +30,13 @@ export const useCartTotalAmount = create<Ipay>((set) => ({
   setCartTotal: (data: number) => set((state: any) => ({ cartTotal: data })),
 }));
 
+interface IAuthLogin {
+  isAuthenticated: boolean;
+  setIsAuthenticated: (data: boolean) => void;
+}
+
+export const useProtectedInfo = create<IAuthLogin>((set) => ({
+  isAuthenticated: false,
+  setIsAuthenticated: (open: any) =>
+    set((state: any) => ({ isAuthenticated: open })),
+}));
