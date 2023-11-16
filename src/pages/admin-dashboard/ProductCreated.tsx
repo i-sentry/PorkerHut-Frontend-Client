@@ -5,6 +5,7 @@ import { Column } from "react-table";
 import { useGetAllProducts } from "../../services/hooks/Vendor/products";
 import moment from "moment";
 import { capitalizeFirstLetter } from "./ProductDetail";
+import { ImSpinner6 } from "react-icons/im";
 
 const ProductNameColumn = ({ d }: any) => {
   const { information } = d;
@@ -134,7 +135,14 @@ const ProductCreated = () => {
   }, [products?.data]);
 
   if (isLoading || !products?.data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+        <span className="animate-spin">
+          <ImSpinner6 size={30} />
+        </span>
+        Please wait..
+      </div>
+    );
   }
 
   console.log({ productData });

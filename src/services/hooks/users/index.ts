@@ -30,3 +30,18 @@ export const useRestPassword = (token: string | undefined) => {
       makePostRequest(data, api.Users.resetPassword(token)),
   });
 };
+
+export const useBillingInfo = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      address: string;
+      city: string;
+      country: string;
+      email: string;
+      firstname: string;
+      lastname: string;
+      phonenumber: string;
+      state: string;
+    }) => makePostRequest(data, api.Billing.billing),
+  });
+};

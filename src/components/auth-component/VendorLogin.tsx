@@ -32,38 +32,22 @@ const VendorLogin = () => {
       .mutateAsync(data)
       .then((res) => {
         setLoading(false);
-        // dispatch(
-        //   addOption(
-        //     // res?.data?.accessToken
-        //     res?.data?.email,
-        //     res?.data?.firstName,
-        //     res?.data?.isAdmin,
-        //     res?.data?.lastName,
-        //     res?.data?._id
-        //   )
-        // );
-        e?.target.reset();
-        // setIsOpen(true);
-
-        // setAuth(res);
         navigate("/vendor");
-        // setIsLogin(true);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("vendor");
         localStorage.removeItem("user");
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("vendor", JSON.stringify(res?.data));
-        // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
         console.log(res);
       })
       .catch((e) => {
         setLoading(false);
 
         setIsError(e?.response?.data?.message);
+
       });
   });
-  // console.log(localStorage.getItem("vendor"), "oookk");
-  // console.log("gggoookk");
+
 
   const toggleEye = (e: any) => {
     e.preventDefault();
@@ -71,7 +55,7 @@ const VendorLogin = () => {
   };
 
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <AppLayout>
@@ -156,22 +140,22 @@ const VendorLogin = () => {
                 </button>
               </div>
               <div className="flex items-center justify-between mt-3">
-                <div className="flex items-center ">
-                  <input
-                    {...register("checkbox")}
-                    type="checkbox"
-                    name="checkbox"
-                    onChange={(e: any) => {
-                      setValue("checkbox", e.target.checked ? "yes" : "no");
-                      setVal(!val);
-                    }}
-                    checked={val}
-                    className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
-                  />
-                  <label htmlFor="" className="ml-2 text-sm text-slate-500">
-                    Remember me
-                  </label>
-                </div>
+                  <div className="flex items-center ">
+                    <input
+                      {...register("checkbox")}
+                      type="checkbox"
+                      name="checkbox"
+                      onChange={(e: any) => {
+                        setValue("checkbox", e.target.checked ? "yes" : "no");
+                        setVal(!val);
+                      }}
+                      checked={val}
+                      className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                    />
+                    <label htmlFor="" className="ml-2 text-sm text-slate-500">
+                      Remember me
+                    </label>
+                  </div>
                 <div className="">
                   <Link
                     to={""}

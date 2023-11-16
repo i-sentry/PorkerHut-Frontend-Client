@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,12 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { useMakePayment } from "../services/hooks/payment";
-import { useCartTotalAmount } from "../store";
+import { useCartTotalAmount, useProtectedInfo } from "../store";
+import { useBillingInfo } from "../services/hooks/users";
+import LoginProtectedModal from "../components/auth-component/LoginProtectedModal";
+import ReactLoading from "react-loading";
+import { ImSpinner6 } from "react-icons/im";
+import Ripples from "react-ripples";
 
 const validationSchema = Yup.object().shape({
   firstname: Yup.string().required("First Name is required"),
@@ -44,35 +49,72 @@ const BillingPage = () => {
   });
   const navigate = useNavigate();
   const makePayment = useMakePayment();
+  const [val, setVal] = useState(false);
   const cartTotal = useCartTotalAmount((state) => state.cartTotal);
+  const createBilling = useBillingInfo();
+  const [loading, setLoading] = useState(false);
+  const [temp, setTemp] = useState(false);
+  const [user, setUser] = useState(null);
+  const [billingId, setBillingId] = useState("");
   console.log({ errors });
   console.log(cartTotal, "cartTotal");
+  const showModay = useProtectedInfo((state) => state.isAuthenticated);
+  const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
 
   const onSubmit = (data: any) => {
-    console.log(data, "billing data");
-    const { email } = data;
-    const amount = `${cartTotal}`;
+    if (user) {
+      setLoading(true);
+      createBilling
+        .mutateAsync(data)
+        .then((res) => {
+          console.log(res, "from billing");
 
-    makePayment
-      .mutateAsync({ email, amount: parseInt(amount, 10) })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === true) {
-        window.open(res.data.data.authorization_url, "_blank");
-        }
-        reset();
-      })
-      .catch((err) => {});
-
-    // console.log(JSON.stringify(data, null, 2));
+          reset();
+          setLoading(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+        });
+    } else {
+      setShowModal(true);
+      setLoading(false);
+    }
   };
+  useEffect(() => {
+    setTemp(false);
+    //@ts-ignore
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
+    if (storedUser !== null) {
+      setUser(storedUser);
+    } else {
+      setUser(null);
+    }
+  }, [temp]);
+
+  console.log(user, "user");
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (loading) {
+    return (
+      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+        <span className="animate-spin">
+          <ImSpinner6 size={30} />
+        </span>
+        Please wait..
+      </div>
+    );
+  }
+
   return (
     <AppLayout>
+      <LoginProtectedModal
+        isOpen={showModay}
+        onClose={() => setShowModal(false)}
+      />
       <div className="  bg-[#F5F5F5] min-h-screen my-20 lg:px-12 xxs:px-4">
         <div className=" lg:py-6 xxs:pt-4 xxs:pb-6">
           <ProductsBreadCrumbs
@@ -269,7 +311,7 @@ const BillingPage = () => {
                       blankOptionLabel=""
                       defaultOptionLabel="Select State"
                       id="state"
-                      country={watch("country")} // Use the selected country
+                      country={watch("country")}
                       value={value}
                       onChange={onChange}
                       classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
@@ -304,6 +346,21 @@ const BillingPage = () => {
                   </span>
                 )}
               </div>
+              <div className="flex items-center ">
+                <input
+                  {...register("isDefault")}
+                  type="checkbox"
+                  name="isDefault"
+                  onChange={(e: any) => {
+                    setVal(!val);
+                  }}
+                  checked={val}
+                  className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                />
+                <label htmlFor="" className="ml-2 text-sm text-slate-500">
+                  Should we save this as your default billing information?
+                </label>
+              </div>
 
               <div className="xxs:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:py-10 lg:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
                 <div className="">
@@ -315,13 +372,14 @@ const BillingPage = () => {
                   </button>
                 </div>
                 <div>
-                  <button
-                    type="submit"
-                    className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
-                    // onClick={() => navigate("/pay-card")}
-                  >
-                    Proceed to Payments
-                  </button>
+                  <Ripples className="w-full" color="#f5f5f550" during={2000}>
+                    <button
+                      type="submit"
+                      className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                    >
+                      Proceed to Payments
+                    </button>
+                  </Ripples>
                 </div>
               </div>
             </form>
@@ -335,18 +393,30 @@ const BillingPage = () => {
             <button
               type="submit"
               className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
-              // onClick={() => navigate("/pay-card")}
             >
-              Proceed to Payments
+              {loading ? (
+                <div className="mx-auto flex items-center justify-center">
+                  <ReactLoading
+                    type={"spin"}
+                    color={"#fff"}
+                    height={"5%"}
+                    width={"5%"}
+                  />
+                </div>
+              ) : (
+                " Proceed to Payments"
+              )}
             </button>
           </div>
           <div className="">
-            <button
-              onClick={() => navigate("/products")}
-              className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
-            >
-              Continue to Shopping
-            </button>
+            <Ripples className="w-full" color="#197b307a" during={2000}>
+              <button
+                onClick={() => navigate("/products")}
+                className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              >
+                Continue to Shopping
+              </button>
+            </Ripples>
           </div>
         </div>
       </div>

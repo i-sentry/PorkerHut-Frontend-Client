@@ -187,7 +187,7 @@ const navigate = useNavigate()
                     >
                       Forgot Password?
                     </Link>
-                  
+
                   </div>
                 </div>
                 <div className="mt-10">

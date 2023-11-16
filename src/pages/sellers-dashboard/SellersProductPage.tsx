@@ -1,83 +1,184 @@
-import React from "react";
-// import StepperComponent from "../../components/step/StepperComponent";
-// import { HiOutlineSearch } from "react-icons/hi";
-// import Table from "../../components/Table/Table";
+import React, { useMemo } from "react";
 import { Column } from "react-table";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
-import Table_Data from "../../utils/json/Table_Data.json";
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { useGetAllProducts } from "../../services/hooks/Vendor/products";
+import moment from "moment";
+import { ImSpinner6 } from "react-icons/im";
 
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
-    case "completed":
-      return <span className="text-[#22C55E]">Completed</span>;
+const StatusColumn = ({ d }: any) => {
+  const { approvalStatus } = d;
 
-    case "failed":
-      return <span className=" text-[#F91919]">Failed</span>;
+  let statusClassName = "";
+  let formattedStatus = "";
+
+  switch (approvalStatus) {
+    case "rejected":
+      statusClassName = "text-[#F91919]";
+      formattedStatus = "Rejected";
+      break;
+    case "approved":
+      statusClassName = "text-[#22C55E]";
+      formattedStatus = "Approved";
+      break;
+    case "false":
     case "pending":
-      return <span className=" text-[#F29339]">Pending</span>;
-    case "returned":
-      return <span className=" text-[#198df9]">Returned</span>;
-    case "returned Failed":
-      return <span className=" text-[#F91919]">Returned Failed</span>;
+      statusClassName = "text-[#F29339]";
+      formattedStatus = "Pending";
+      break;
     default:
-      return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
-      );
+      statusClassName = "text-gray-500";
+      formattedStatus = "Unknown";
   }
+
+  return (
+    <div>
+      <span
+        className={`text-[14px] font-normal leading-[normal] whitespace-nowrap ${statusClassName}`}
+      >
+        {formattedStatus}
+      </span>
+    </div>
+  );
 };
 
-export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.row?.original?.img, "data");
-  const adata = data?.cell?.value;
-  const lowerData = adata?.toLowerCase();
-  const productName = _.startCase(lowerData);
+const QuantityColumn = ({ d }: any) => {
+  const { pricing } = d;
+
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {pricing?.quantity}
+      </span>
+    </div>
+  );
+};
+const PriceColumn = ({ d }: any) => {
+  const { pricing } = d;
+
+  const formattedPrice = pricing?.productPrice?.toLocaleString("en-US"); // Adjust the locale as needed
+
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        ₦ {formattedPrice}
+      </span>
+    </div>
+  );
+};
+const ProductNameColumn = ({ d }: any) => {
+  const { information } = d;
+
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[16px] leading-[19px] font-normal whitespace-nowrap  text-[#333333]">
-        {productName}
+      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {information?.productName}
+      </span>
+    </div>
+  );
+};
+
+const DateColumn = ({ d }: any) => {
+  const { createdAt } = d;
+
+  const formattedDate = moment(createdAt).format("Do MMMM YYYY");
+  return (
+    <div>
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {formattedDate}
       </span>
     </div>
   );
 };
 
 const SellersProductPage = () => {
-  const Tcolumns: Column<{}>[] = [
+  const { data: products, isLoading } = useGetAllProducts();
+
+
+  const productData = useMemo(() => {
+    if (!products?.data) {
+      return [];
+    }
+
+    const dataCopy = [...products.data];
+
+    dataCopy.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    return dataCopy;
+  }, [products?.data]);
+
+   if (isLoading || !products?.data) {
+     return (
+       <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+         <span className="animate-spin">
+           <ImSpinner6 size={30} />
+         </span>
+         Please wait..
+       </div>
+     );
+   }
+
+  const Tcolumns: readonly Column<object>[] = [
     {
       Header: "Name",
-      accessor: "name",
+      Cell: (data) => {
+        const d = data.row.original;
+        return <ProductNameColumn d={d} />;
+      },
     },
     {
       Header: "Created",
-      accessor: "create",
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <DateColumn d={d} />;
+      },
     },
     {
       Header: "Product ID",
-      accessor: "product_id",
+      accessor: "_id",
     },
     {
       Header: "Price",
-      accessor: "price",
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <PriceColumn d={d} />;
+      },
     },
     {
       Header: "Quantity",
-      accessor: "quantity",
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <QuantityColumn d={d} />;
+      },
     },
 
     {
-      Header: "Visible",
-      accessor: "visible",
+      Header: "Status",
+
+      Cell: (data) => {
+        const d = data?.row.original;
+
+        return <StatusColumn d={d} />;
+      },
     },
     {
       Header: "Active",
       accessor: "active",
-      Cell: ({ row }: any) => (
-        <div>
-          <ToggleSwitch />
-        </div>
-      ),
+      Cell: ({ row }: any) => {
+        return (
+          <div>
+            <ToggleSwitch />
+          </div>
+        );
+      },
     },
     {
       Header: "Action",
@@ -107,9 +208,11 @@ const SellersProductPage = () => {
 
       <div className="mt-5">
         <AdminTable
+          showDropDown={true}
+          showCheckbox={true}
           Tcolumns={Tcolumns}
-          tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-          TData={Table_Data}
+          tabs={["All", "Approved", "Pending", "Rejected Products", "Sold out"]}
+          TData={productData}
           placeholder={"Search product name, store names, category.... "}
         />
       </div>
