@@ -126,7 +126,7 @@ const PayOption = () => {
             </div>
           </div>
           <div className="hidden md:flex md:flex-col">
-            <OrderCart />
+            {/* <OrderCart /> */}
           </div>
         </div>
       </div>

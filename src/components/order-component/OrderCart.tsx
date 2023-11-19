@@ -3,10 +3,34 @@ import { useSelector } from "react-redux";
 import { IProduct } from "../../redux/features/product/productSlice";
 import { RootState } from "../../redux/store";
 import { useCartTotalAmount } from "../../store";
+import { useCreateOrder } from "../../services/hooks/orders";
 
-const OrderCart = () => {
+export type IUser = {
+  accessToken: string;
+  billingInfo: string[];
+  createdAt: string;
+  email: string;
+  firstName: string;
+  isAdmin: boolean;
+  lastName: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+};
+
+const OrderCart = ({
+  temp,
+  billingId,
+  user,
+  setTemp,
+}: {
+  temp: boolean;
+  billingId: string;
+  user: IUser;
+  setTemp: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
- 
+  const createOrder = useCreateOrder();
   const cart = useSelector((state: RootState) => state.product.cart);
   const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
@@ -15,15 +39,46 @@ const OrderCart = () => {
     );
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
-
   const sumTotal = cartTotal + vat + dFee;
+
+  const newArray = Object.values(cart).map((item: any) => ({
+    productID: item?._id,
+    quantity: item?.pricing?.quantity,
+    price: item?.pricing?.productPrice,
+    totalPrice: item?.pricing?.productPrice,
+    vendor: item?.vendor?._id,
+    deliveryOption: item?.deliveryOption,
+    pickupAddress: item?.pickupAddress,
+  }));
 
   useEffect(() => {
     setCartTotal(sumTotal);
   }, [cartTotal, setCartTotal, sumTotal]);
 
+  const initiateCreateProduct = () => {
+    createOrder
+      .mutateAsync({
+        customer: user?._id,
+        productDetails: newArray,
+        subtotal: cartTotal,
+        deliveryFee: dFee,
+        tax: vat,
+        totalAmount: sumTotal,
+        billingInformation: billingId,
+      })
+      .then((res) => {
+        console.log(res, "order res");
+      })
+      .catch();
+  };
+
+  if (temp === true) {
+    initiateCreateProduct();
+    setTemp(false);
+  }
+
   return (
-    <div className=" w-full lg:w-auto bg-white rounded-lg self-start lg:stacic lg:top-[100px]">
+    <div className=" w-full lg:w-auto bg-white rounded-lg self-start  lg:top-[100px]">
       <div className="px-4 py-6">
         <h1 className="text-[24px] leading-[28px] text-[#333333] font-semibold">
           Orders

@@ -13,16 +13,18 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState<string>("delivery");
   const toggleModal = usePopModal((state) => state.toggleModal);
+  const setLocation = usePopModal((state) => state.setLocation);
   const handleRadioChange = (value: string) => {
     setSelectedOption(value);
     console.log("Selected Option:", value);
   };
   console.log(selectedOption, "options");
+  console.log(item?.vendor?.businessInformation?.city, "itemitemitem");
   return (
     <>
       <div className="flex items-center px-0 md:px-5 gap-6">
         <div>
-          <div className="flex items-center gap-4">
+          <div className="flex  gap-4">
             <div className="img flex flex-col">
               <figure className="bg-white w-[150px] flex-1">
                 <img
@@ -36,7 +38,7 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
 
             <div className="product-info hidden md:flex flex-col gap-2">
               <h3 className="font-bold">{item?.information?.productName}</h3>
-              <p>Product ID: {item?._id}</p>
+              {/* <p>Product ID: {item?._id}</p> */}
               <RatingWidget
                 onChange={(value) => console.log(value)}
                 defaultValue={2}
@@ -129,10 +131,13 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
               <div className="mt-4 md:hidden flex flex-col">
                 <div className="flex items-center justify-between">
                   <label htmlFor=" text-[#333333] font- text-sm">
-                    Pickup Address
+                   Available Pickup Address
                   </label>
                   <span
-                    onClick={() => toggleModal(true)}
+                    onClick={() => {
+                      toggleModal(true);
+                      setLocation(item?.vendor?.businessInformation?.city);
+                    }}
                     className="order-notes text-[#522828] text-sm  underline cursor-pointer"
                   >
                     Change pickup station
@@ -141,9 +146,11 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
                 <textarea
                   rows={4}
                   cols={50}
+                  disabled={true}
+                  value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
                   id="pick_up"
-                  placeholder="No 14, Cresent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
-                  className=" h-16 outline-none border rounded px-5 py-4 mt-1"
+                  placeholder=""
+                  className="text-[12px] leading-[16px]  outline-none border rounded px-5 py-4 mt-1"
                 ></textarea>
               </div>
             )}
@@ -151,10 +158,13 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
             <div className="mt-4 hidden md:flex flex-col">
               <div className="flex items-center justify-between">
                 <label htmlFor=" text-[#333333] font- text-sm">
-                  Pickup Address
+                Available  Pickup Address
                 </label>
                 <span
-                  onClick={() => toggleModal(true)}
+                  onClick={() => {
+                    toggleModal(true);
+                    setLocation(item?.vendor?.businessInformation?.city);
+                  }}
                   className="order-notes text-[#522828] text-sm  underline cursor-pointer"
                 >
                   Change pickup station
@@ -162,10 +172,11 @@ const CartCard2: React.FC<{ item: IProduct }> = ({ item }) => {
               </div>
               <textarea
                 rows={4}
+                disabled={true}
                 cols={50}
                 id="pick_up"
-                placeholder="No 14, Cresent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
-                className=" h-16 outline-none border rounded px-5 py-4 mt-1"
+                value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                className=" h-16 outline-none border rounded px-5 py-4 mt-1 text-[12px] leading-[16px]"
               ></textarea>
             </div>
           </div>

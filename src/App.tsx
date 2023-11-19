@@ -80,10 +80,11 @@ import { ProductProvider } from "./context/ProductInfoContext";
 import VetPartnerCreationModal from "./components/modal-component/VetPartnerCreationModal";
 import ForgetPassword from "./pages/Authentication/ForgetPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
+import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
+import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-
     <Route>
       <Route path="/" element={<Home />} />
       <Route index path="/about-us" element={<About />} />
@@ -97,6 +98,14 @@ const router = createBrowserRouter(
       <Route path="/sign-in" element={<VendorLogin />} />
       <Route path="/forgot_password" element={<ForgetPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route
+        path="/vendors/forgot_password"
+        element={<VendorForgetPassword />}
+      />
+      <Route
+        path="/vendors/reset-password/:token"
+        element={<VendorResetPassword />}
+      />
       <Route
         path="/products"
         element={
@@ -194,7 +203,6 @@ const router = createBrowserRouter(
         <Route path="/admin/settings" element={<Settings />} />
       </Route>
     </Route>
-
   )
 );
 

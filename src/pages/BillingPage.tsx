@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
-import OrderCart from "../components/order-component/OrderCart";
+import OrderCart, { IUser } from "../components/order-component/OrderCart";
 import { useNavigate } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,30 +10,55 @@ import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
-import { useMakePayment } from "../services/hooks/payment";
+import {
+  useBillingInfo,
+  useMakePayment,
+  useMyBillingInfo,
+} from "../services/hooks/payment";
 import { useCartTotalAmount, useProtectedInfo } from "../store";
-import { useBillingInfo } from "../services/hooks/users";
+
 import LoginProtectedModal from "../components/auth-component/LoginProtectedModal";
 import ReactLoading from "react-loading";
 import { ImSpinner6 } from "react-icons/im";
 import Ripples from "react-ripples";
+import { useCreateOrder } from "../services/hooks/orders";
 
 const validationSchema = Yup.object().shape({
-  firstname: Yup.string().required("First Name is required"),
-  lastname: Yup.string().required("Last Name is required"),
-  // .min(6, "Username must be at least 6 characters")
-  // .max(20, "Username must not exceed 20 characters"),
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required").email("Email is invalid"),
   address: Yup.string().required("Address is required"),
   state: Yup.string().required("State is required"),
   city: Yup.string().required("City is required"),
   country: Yup.string().required("Country is required"),
-  phonenumber: Yup.string()
+  phoneNumber: Yup.string()
     .required("Valid Phone Number is required")
     .matches(/^[0-9]*$/, "Invalid Phone Number")
     .min(6, "Valid Phone Number must be at least 6 characters")
     .max(15, "Valid Phone Number must not exceed 12 characters"),
 });
+
+type ProductDetail = {
+  productID: string;
+  quantity: number;
+  price: number;
+  totalPrice: number;
+  vendor: string;
+  deliveryOption: string;
+  pickupAddress: string;
+};
+
+type BillingInformation = string; // Adjust this type based on the actual structure
+
+export type Order = {
+  customer: string;
+  productDetails: ProductDetail[];
+  subtotal: number;
+  deliveryFee: number;
+  tax: number;
+  totalAmount: number;
+  billingInformation: BillingInformation;
+};
 
 const BillingPage = () => {
   const {
@@ -43,6 +68,7 @@ const BillingPage = () => {
     control,
     getValues,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -54,43 +80,71 @@ const BillingPage = () => {
   const createBilling = useBillingInfo();
   const [loading, setLoading] = useState(false);
   const [temp, setTemp] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser>();
   const [billingId, setBillingId] = useState("");
   console.log({ errors });
-  console.log(cartTotal, "cartTotal");
+  const myBillingInfo = useMyBillingInfo();
   const showModay = useProtectedInfo((state) => state.isAuthenticated);
   const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
+
+  console.log(myBillingInfo?.data?.billing, "myBillingInfo");
+
+  const defaultBillingInfo = myBillingInfo?.data?.billing.find(
+    (info: { isDefault: any }) => info.isDefault
+  );
+
+  // Use defaultBillingInfo to set default values for the form
+  useEffect(() => {
+    if (defaultBillingInfo) {
+      setValue("firstName", defaultBillingInfo.firstName);
+      setValue("lastName", defaultBillingInfo.lastName);
+      setValue("email", defaultBillingInfo.email);
+      setValue("phoneNumber", defaultBillingInfo.phoneNumber);
+      setValue("address", defaultBillingInfo.address || ""); // Note: address is optional in the interface
+      setValue("country", defaultBillingInfo.country);
+      setValue("state", defaultBillingInfo.state);
+      setValue("city", defaultBillingInfo.city);
+      setValue("isDefault", defaultBillingInfo.isDefault);
+    }
+  }, [defaultBillingInfo, setValue]);
 
   const onSubmit = (data: any) => {
     if (user) {
       setLoading(true);
-      createBilling
-        .mutateAsync(data)
-        .then((res) => {
-          console.log(res, "from billing");
+      if (defaultBillingInfo) {
+        setTemp(true);
+        setBillingId(defaultBillingInfo._id);
+      } else {
+        createBilling
+          .mutateAsync(data)
+          .then((res) => {
+            setBillingId(res._id);
 
-          reset();
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-        });
+            reset();
+            // setLoading(false);
+            setTemp(true);
+          })
+          .catch((err) => {
+            setLoading(false);
+          });
+      }
     } else {
       setShowModal(true);
       setLoading(false);
     }
   };
   useEffect(() => {
-    setTemp(false);
+    // setTemp(false);
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
     console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
     } else {
+      //@ts-ignore
       setUser(null);
     }
-  }, [temp]);
+  }, []);
 
   console.log(user, "user");
 
@@ -98,16 +152,16 @@ const BillingPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
-        <span className="animate-spin">
-          <ImSpinner6 size={30} />
-        </span>
-        Please wait..
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+  //       <span className="animate-spin">
+  //         <ImSpinner6 size={30} />
+  //       </span>
+  //       Please wait..
+  //     </div>
+  //   );
+  // }
 
   return (
     <AppLayout>
@@ -151,15 +205,16 @@ const BillingPage = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("firstname")}
+                    {...register("firstName")}
                     placeholder="Enter Your First Name"
                     className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
-                      errors.firstname ? "border-[#dd1313]" : ""
+                      errors.firstName ? "border-[#dd1313]" : ""
                     }`}
+                    required
                   />
-                  {errors.firstname && (
+                  {errors.firstName && (
                     <span className="text-[#dd1313] text-sm">
-                      {String(errors.firstname?.message)}
+                      {String(errors.firstName?.message)}
                     </span>
                   )}
                 </div>
@@ -173,15 +228,16 @@ const BillingPage = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("lastname")}
+                    {...register("lastName")}
                     placeholder="Enter Your Last Name"
                     className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
-                      errors.lastname ? "border-[#dd1313]" : ""
+                      errors.lastName ? "border-[#dd1313]" : ""
                     }`}
+                    required
                   />
-                  {errors.lastname && (
+                  {errors.lastName && (
                     <span className="text-[#dd1313] text-sm">
-                      {String(errors.lastname?.message)}
+                      {String(errors.lastName?.message)}
                     </span>
                   )}
                 </div>
@@ -200,6 +256,7 @@ const BillingPage = () => {
                   className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                     errors.email ? "border-[#dd1313]" : ""
                   }`}
+                  required
                 />
                 {errors.email && (
                   <span className="text-[#dd1313] text-sm">
@@ -211,33 +268,33 @@ const BillingPage = () => {
               <div className="mb-3 input">
                 <label
                   className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
-                  htmlFor="phonenumber"
+                  htmlFor="phoneNumber"
                 >
                   Phone Number
                 </label>
 
                 <Controller
                   control={control}
-                  name="phonenumber"
+                  name="phoneNumber"
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <PhoneInput
                       country={"ng"}
                       value={value}
                       onChange={onChange}
                       inputProps={{
-                        name: "phonenumber",
-                        id: "phonenumber",
+                        name: "phoneNumber",
+                        id: "phoneNumber",
                         className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                          errors.phonenumber ? "border-[#dd1313]" : ""
+                          errors.phoneNumber ? "border-[#dd1313]" : ""
                         }`,
                       }}
                     />
                   )}
                 />
 
-                {errors.phonenumber && (
+                {errors.phoneNumber && (
                   <span className="text-[#dd1313] text-sm">
-                    {String(errors.phonenumber.message)}
+                    {String(errors.phoneNumber.message)}
                   </span>
                 )}
               </div>
@@ -251,6 +308,7 @@ const BillingPage = () => {
                 </label>
                 <input
                   type="text"
+                  required
                   {...register("address")}
                   placeholder="Enter Delivery Address"
                   className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
@@ -334,6 +392,7 @@ const BillingPage = () => {
                 </h1>
                 <input
                   type="text"
+                  required
                   {...register("city")}
                   placeholder="Enter City/Town/Street"
                   className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
@@ -377,7 +436,18 @@ const BillingPage = () => {
                       type="submit"
                       className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
                     >
-                      Proceed to Payments
+                      {loading ? (
+                        <div className="mx-auto flex items-center justify-center">
+                          <ReactLoading
+                            type={"spin"}
+                            color={"#fff"}
+                            height={"5%"}
+                            width={"5%"}
+                          />
+                        </div>
+                      ) : (
+                        " Proceed to Payments"
+                      )}
                     </button>
                   </Ripples>
                 </div>
@@ -385,7 +455,13 @@ const BillingPage = () => {
             </form>
           </div>
           <div className="lg:block xxs:hidden w-1/3">
-            <OrderCart />
+            <OrderCart
+              temp={temp}
+              billingId={billingId}
+              //@ts-ignore
+              user={user}
+              setTemp={setTemp}
+            />
           </div>
         </div>
         <div className="lg:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:pb-10 xxs:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 ">

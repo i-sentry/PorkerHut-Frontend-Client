@@ -31,17 +31,4 @@ export const useRestPassword = (token: string | undefined) => {
   });
 };
 
-export const useBillingInfo = () => {
-  return useQueryMutation({
-    mutationFn: (data: {
-      address: string;
-      city: string;
-      country: string;
-      email: string;
-      firstname: string;
-      lastname: string;
-      phonenumber: string;
-      state: string;
-    }) => makePostRequest(data, api.Billing.billing),
-  });
-};
+

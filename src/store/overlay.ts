@@ -89,11 +89,17 @@ export const useShowModal = create<IOrderModal>((set) => ({
 }));
 
 interface IPickupOption {
-  openModal: boolean
+  openModal: boolean;
+  location: string;
+  setLocation: (location: string) => void;
   toggleModal: (value: boolean) => void;
 }
 
 export const usePopModal = create<IPickupOption>((set) => ({
   openModal: false,
-   toggleModal: (open: any) => set((state: any) => ({ openModal: open })),
-}))
+  location: "",
+  setLocation: (location: string) =>
+    set((state: IPickupOption) => ({ location: location })),
+  toggleModal: (open: boolean) =>
+    set((state: IPickupOption) => ({ openModal: open })),
+}));

@@ -26,6 +26,9 @@ export const api = {
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
+    recoverPassword: "api/vendors/request-reset-password",
+    resetPassword: (token: string | undefined) =>
+      `/api/vendors/reset-password/${token}`,
   },
   Blogs: {
     allBlogs: "/api/blogs/",
@@ -37,7 +40,8 @@ export const api = {
     getSingleProduct: (id: string | null) => `/api/products/${id}`,
     productStatus: (id: string | null) => `/api/products/${id}/approvalStatus`,
     productByVendor: (id: string | undefined) => `/api/products/${id}`,
-    productByVendorApproved: (id: string | undefined) => `/api/products/approved/${id}`
+    productByVendorApproved: (id: string | undefined) =>
+      `/api/products/approved/${id}`,
   },
   Vets: {
     createVet: "/api/vets",
@@ -61,7 +65,11 @@ export const api = {
     pay: "/api/pay/",
   },
   Billing: {
-    billing: "/api/users/billing",
+    billing: "/api/user/billing",
+    getBillingInfo: "/api/user/billing/me",
+  },
+  Order: {
+    order: "/api/orders",
   },
 };
 
@@ -73,6 +81,7 @@ export const makePostRequest = async (
   return await axios.post(`${BASEURL}${url}`, data, {
     headers: {
       "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
     },
   });
 };
@@ -143,4 +152,63 @@ export const makeGetRequest = async <T = any>(
     },
   });
   return temp;
+};
+
+export const makeGetRequestWithCustomHeader = async <T = any>(
+  url: string,
+  includeAuthHeaders: boolean = true
+) => {
+  try {
+    const headers: { [key: string]: string } = {};
+
+    // Include bearer token in headers if required
+    if (includeAuthHeaders) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        headers.Token = `Bearer ${accessToken}`;
+      } else {
+        throw new Error("Access token is missing");
+      }
+    }
+
+    const response = await axios.get<T>(`${BASEURL}${url}`, {
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    // Handle error appropriately
+    console.error("Error making GET request:", error);
+    throw error;
+  }
+};
+
+export const makePostRequestCustom = async (
+  data: any,
+  url: string,
+  includeAuthHeader: boolean = true
+) => {
+  try {
+    const headers: { [key: string]: string } = {};
+    if (includeAuthHeader) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        headers.Token = `Bearer ${accessToken}`;
+      } else {
+        throw new Error("Access token is missing");
+      }
+    }
+
+    const response = await axios.post(`${BASEURL}${url}`, data, {
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    // Handle error appropriately
+    console.error("Error making POST request:", error);
+    throw error;
+  }
 };
