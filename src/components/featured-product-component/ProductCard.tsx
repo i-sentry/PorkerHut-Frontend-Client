@@ -76,7 +76,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
       <div className="z-10 bg-white xxs:px-2 lg:px-0">
         <div className="lg:flex items-center justify-between py-1 xxs:hidden">
           <NavLink
-            to={`/store-page/${item?.vendor?._id}/${(item?.vendor?.sellerAccountInformation?.shopName)?.toString().replace(/ /g, "-")}`}
+            to={`/store-page/${item?.vendor?._id}`}
             className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
           >
             {item?.vendor?.sellerAccountInformation?.shopName || ""}
@@ -112,7 +112,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
             defaultValue={3}
           />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
-            ₦{item?.pricing?.productPrice || "3000"}
+            ₦{item?.pricing?.productPrice || ""}
           </span>
         </div>
       </div>
