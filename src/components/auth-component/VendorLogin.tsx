@@ -140,30 +140,30 @@ const VendorLogin = () => {
                 </button>
               </div>
               <div className="flex items-center justify-between mt-3">
-                  <div className="flex items-center ">
-                    <input
-                      {...register("checkbox")}
-                      type="checkbox"
-                      name="checkbox"
-                      onChange={(e: any) => {
-                        setValue("checkbox", e.target.checked ? "yes" : "no");
-                        setVal(!val);
-                      }}
-                      checked={val}
-                      className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
-                    />
-                    <label htmlFor="" className="ml-2 text-sm text-slate-500">
-                      Remember me
-                    </label>
-                  </div>
+                <div className="flex items-center ">
+                  <input
+                    {...register("checkbox")}
+                    type="checkbox"
+                    name="checkbox"
+                    onChange={(e: any) => {
+                      setValue("checkbox", e.target.checked ? "yes" : "no");
+                      setVal(!val);
+                    }}
+                    checked={val}
+                    className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                  />
+                  <label htmlFor="" className="ml-2 text-sm text-slate-500">
+                    Remember me
+                  </label>
+                </div>
                 <div className="">
                   <Link
-                    to={""}
+                    to={"/vendors/forgot_password"}
                     className=" text-password font-medium text-sm text-[#197B30] "
                   >
                     Forgot Password?
                   </Link>
-                  {/* <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 transition-all duration-300 ease-in-out"></span> */}
+
                 </div>
               </div>
               <div className="mt-3">

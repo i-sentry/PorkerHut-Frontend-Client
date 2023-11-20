@@ -40,7 +40,9 @@ const CartPage = () => {
   );
   const isMobileScreen = useMediaQuery("(max-width: 639px)");
   const toggleModal = usePopModal((state) => state.toggleModal);
+
   const openModal = usePopModal((state) => state.openModal);
+  const location = usePopModal((state) => state.location);
 
   const handleNavigate = () => {
     navigate("/products");
@@ -48,7 +50,8 @@ const CartPage = () => {
   // const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
-      acc + current?.pricing?.productPrice * (current?.pricing?.quantity as number)
+      acc +
+      current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
   console.log(Object.values(cart).length, "Object.values(cart).length");
@@ -295,19 +298,17 @@ const CartPage = () => {
               <label htmlFor="state" className="block text-gray-600">
                 State:
               </label>
-              <select
+              <input
                 id="state"
                 className="w-full border rounded-md p-4 focus:outline-none focus:ring focus:border-blue-300"
-                value={selectedState}
-                onChange={handleStateChange}
-              >
-                <option value="">Select State</option>
-                {/* Add state options here */}
-              </select>
+                value={location}
+                disabled={true}
+                // onChange={handleStateChange}
+              />
             </div>
             <div className="mb-4">
               <label htmlFor="city" className="block text-gray-600">
-                City:
+                Address:
               </label>
               <select
                 id="city"
@@ -315,7 +316,10 @@ const CartPage = () => {
                 value={selectedCity}
                 onChange={handleCityChange}
               >
-                <option value="">Select City</option>
+                <option value="">
+                  No 14, Cresent by philip’s junction beside zenith bank off
+                  kudirat Lugbe way Abuja - Abuja
+                </option>
                 {/* Add city options based on the selected state */}
               </select>
               <span className="info-tooltip opacity-70 text-neutral-400 text-sm font-normal">
@@ -351,9 +355,7 @@ const CartPage = () => {
               </button>
               <button
                 className="px-10 py-2 bg-green-700 rounded text-white text-sm font-semibold"
-                onClick={() => {
-                  // Handle Select button click
-                }}
+                onClick={() => toggleModal(false)}
               >
                 Select
               </button>
