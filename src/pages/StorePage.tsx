@@ -11,8 +11,8 @@ import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { FiSettings } from "react-icons/fi";
 import { useGetApprovedProductByVendor } from "../services/hooks/Vendor/products";
+import { LuSettings2 } from "react-icons/lu";
 
 
 // import { GoSettings } from "react-icons/go";
@@ -106,7 +106,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
                     <div className="mb-2">
                       <span className="text-[14px] leading-[16px] font-normal text-[#333333] ">
-                        Location covered: Abuja
+                      {getApprovedProducts?.data?.[0].vendor?.businessInformation?.city}
                       </span>
                     </div>
                   </div>
@@ -176,8 +176,8 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     <Sort data={data} setData={setData} />
                   </span>
                   <div className="md:hidden flex justify-center items-end gap-2 px-2">
-                    <FiSettings
-                      className="rotate-90 "
+                    <LuSettings2 
+                      className=" "
                       size={22}
                       onClick={() => setOpenModal(true)}
                     />

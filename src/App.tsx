@@ -217,3 +217,10 @@ function App() {
 }
 
 export default App;
+
+
+
+// Add spinner
+ //add a toast when request is completed e.g add prodt to cart  product added successfully
+//  disable the approved button and make the color deep green when product is approved
+//  make the rejected button deep red
