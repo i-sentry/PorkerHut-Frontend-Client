@@ -2,6 +2,7 @@ import useQueryAction from "../../../lib/useQueryAction";
 import useQueryMutation from "../../../lib/useQueryMutation";
 import {
   api,
+  makeCustomPutRequest,
   makeGetRequestWithCustomHeader,
   makePostRequest,
   makePostRequestCustom,
@@ -34,5 +35,12 @@ export const useMyBillingInfo = () => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.Billing.getBillingInfo),
     queryKey: ["billing"],
+  });
+};
+
+export const useUpdateBillingInfo = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.Billing.updateBillingInfo(id)),
   });
 };

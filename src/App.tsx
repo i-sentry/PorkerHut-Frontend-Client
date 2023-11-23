@@ -130,7 +130,8 @@ const router = createBrowserRouter(
           <StorePage />
         }
       />
-      <Route path="/billing" element={<BillingPage />} />
+      <Route path="/billing" element={<BillingPage isMyBilling={false} />} />
+      <Route path="/billing/me" element={<BillingPage isMyBilling={true} />} />
       <Route path="/pay-card" element={<PayOption />} />
       <Route path="/order+cancel" element={<OrderCancel />} />
 

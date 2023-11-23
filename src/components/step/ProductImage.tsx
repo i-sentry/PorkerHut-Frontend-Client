@@ -28,22 +28,7 @@ const ProductImage = ({
     currentStep
   } = useContext(productStepsContext);
 
-  // const handleImageUpload = (imageData: any) => {
-  //   console.log(imageData, "jkl");
-  //   fetch("your-endpoint-url", {
-  //     method: "POST",
-  //     body: imageData,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // Handle the response from the endpoint
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle any errors that occurred during the request
-  //       console.error(error);
-  //     });
-  // };
+ 
 
   const handleImage = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -51,7 +36,7 @@ const ProductImage = ({
   ) => {
     const selectedFiles = Array.from(e.target.files || []);
     console.log(selectedFiles, "kk");
-  
+
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,

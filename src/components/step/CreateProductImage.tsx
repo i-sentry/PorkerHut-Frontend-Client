@@ -16,24 +16,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
   setImageUrl,
 }) => {
   const [, setImage] = useState<File | null>(null);
-  // const [imageUrl, setImageUrl] = useState<string>("");
-  // const { setImg, img1, img2, img3, img4, img5, img6, img7 } =
-  //   useContext(ProductImagesContext);
 
-  // const removeFile = (
-  //   event: React.MouseEvent<HTMLButtonElement>,
-  //   index: number,
-  //   files: FileData[] | null,
-  //   field: string
-  // ) => {
-  //   event.preventDefault();
-  //   if (files) {
-  //     const updatedFiles = [...files];
-  //     updatedFiles.splice(index, 1);
-  //     console.log(updatedFiles, "updatedFiles");
-  //     setImg(field, updatedFiles);
-  //   }
-  // };
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -81,14 +64,6 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
             </>
           )}
         </div>
-        {/* {image && (
-          <button
-            onClick={handleUpload}
-            className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
-          >
-            Upload
-          </button>
-        )} */}
       </div>
     </div>
   );

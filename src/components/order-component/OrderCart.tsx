@@ -23,11 +23,13 @@ const OrderCart = ({
   billingId,
   user,
   setTemp,
+  setLoading,
 }: {
   temp: boolean;
   billingId: string;
   user: IUser;
   setTemp: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
   const createOrder = useCreateOrder();
@@ -65,9 +67,11 @@ const OrderCart = ({
         tax: vat,
         totalAmount: sumTotal,
         billingInformation: billingId,
+
       })
       .then((res) => {
         console.log(res, "order res");
+            setLoading(false)
       })
       .catch();
   };

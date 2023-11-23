@@ -1,6 +1,7 @@
 import React from "react";
 import vetVerify from "../../assets/images/vetVerify.png";
 import { Link } from "react-router-dom";
+import { useSuccessOverlay } from "../../store/overlay";
 
 
 interface ISuccess{
@@ -9,6 +10,9 @@ interface ISuccess{
   url:string
 }
 const SuccessScreen:React.FC<ISuccess> = ({msg, title, url}) => {
+    const setShowOverlay = useSuccessOverlay(
+    (state: { setShowOverlays: any }) => state.setShowOverlays
+  )
   return (
     <div className="flex items-center lg:mx-auto lg:max-w-[83%] max-w-full justify-center h-screen">
       <div className="bg-white  rounded-lg">
@@ -22,11 +26,11 @@ const SuccessScreen:React.FC<ISuccess> = ({msg, title, url}) => {
               {title}
             </h1>
             <p className="lg:text-[16px] lg:leading-normal md:text-sm text-[#333333] mb-4">
-            {msg}
+              {msg}
               {/* We’re on it! Please be patient for Poker Hut Approval. */}
             </p>
             <Link
-              // to="/vendor/create"
+              onClick={() => setShowOverlay(false)}
               to={url}
               className="lg:text-[16px] lg:leading-normal md:text-sm   bg-[#197B30] py-3 px-10 rounded-md text-[#fff]"
             >
