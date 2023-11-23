@@ -36,7 +36,8 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const {data: getApprovedProducts} = useGetApprovedProductByVendor(id)
 
   // console.log(getAllProducts, "Store")
-  // console.log(getApprovedProducts, "Page")
+  console.log(getApprovedProducts, "Page")
+ 
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -48,7 +49,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   //@ts-ignore
   const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
- 
+  // console.log(${getApprovedProducts?.data?.information?.productName}, "page")
 
   useEffect(() => setData(getApprovedProducts?.data), [getApprovedProducts?.data]);
   
@@ -87,7 +88,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   link: "/",
                 },
                 {
-                  name: `${store}`,
+                  name: `${getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}`,
                   link: "/store-page",
                 },
               ]}
@@ -100,7 +101,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                 <div className="bg-white px-6 xxs:py-6 md:py-4 rounded-sm mx-4 mb-10 md:mb-0 md:mx-0">
                   <div className=" border-b">
                     <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0">
-                      {store}
+                    {getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}
                     </h1>
 
                     <div className="mb-2">
@@ -155,7 +156,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
             <div className="md:w-3/4 bg-white xxs:w-full px-4">
               <div className="flex items-center justify-between ">
                 <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
-                  <h1 className="text-xl font-medium md:pl-4">{store}</h1>
+                  <h1 className="text-xl font-medium md:pl-4">{getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}</h1>
                   <div>
                     <p className="text-l text-gray-700">
                       Showing{" "}
