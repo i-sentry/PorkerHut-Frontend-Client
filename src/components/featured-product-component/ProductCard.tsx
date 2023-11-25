@@ -23,7 +23,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
-  console.log(item?.vendor?.sellerAccountInformation?.shopName, "items")
+  console.log(item, "itemszz")
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?._id}));

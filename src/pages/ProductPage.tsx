@@ -149,7 +149,8 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                   <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
                     {chunkArray(data, itemsPerPage)[
                       currentPageIndex - 1
-                    ]?.map((Tdata, index) => {
+                    ]?.filter((data) => getAllProducts?.data?.[0].approvalStatus === "approved")
+                    .map((Tdata, index) => {
                       return <ProductCard item={Tdata} key={index} />;
                     })}
                   </div>
