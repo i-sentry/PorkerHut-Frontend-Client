@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IProduct } from "../../redux/features/product/productSlice";
 import { RootState } from "../../redux/store";
 import { useCartTotalAmount } from "../../store";
 import { useCreateOrder } from "../../services/hooks/orders";
+import { useMakePayment } from "../../services/hooks/payment";
 
 export type IUser = {
   accessToken: string;
@@ -33,6 +34,8 @@ const OrderCart = ({
 }) => {
   const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
   const createOrder = useCreateOrder();
+  const makePayment = useMakePayment();
+
   const cart = useSelector((state: RootState) => state.product.cart);
   const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
@@ -42,7 +45,7 @@ const OrderCart = ({
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
   const sumTotal = cartTotal + vat + dFee;
-console.log(cart, "cart");
+  console.log(cart, "cart");
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,
     quantity: item?.pricing?.quantity,
@@ -67,23 +70,44 @@ console.log(cart, "cart");
         tax: vat,
         totalAmount: sumTotal,
         billingInformation: billingId,
-
       })
       .then((res) => {
+        if (res.order) {
+          initiatePayment();
+        }
+        localStorage.setItem("order_id", JSON.stringify(res.order._id));
         console.log(res, "order res");
         console.log(res.order._id, "order id");
-            setLoading(false)
+        setLoading(false);
       })
-      .catch((err)=>{
-    setLoading(false);
+      .catch((err) => {
+        setLoading(false);
       });
   };
+
+const initiatePayment = () => {
+  makePayment
+    .mutateAsync({ email: user?.email, amount: sumTotal })
+    .then((res) => {
+      const authorizationUrl = res.data?.data.data.authorization_url;
+      if (authorizationUrl) {
+        window.open(authorizationUrl, "_blank");
+      } else {
+        console.error("Authorization URL not found in the response");
+      }
+    })
+    .catch((err) => {
+      console.error("Error during payment:", err);
+    });
+};
+
 
   if (temp === true) {
     initiateCreateProduct();
     setTemp(false);
   }
 
+  console.log(user, "user");
   return (
     <div className=" w-full lg:w-auto bg-white rounded-lg self-start  lg:top-[100px]">
       <div className="px-4 py-6">
