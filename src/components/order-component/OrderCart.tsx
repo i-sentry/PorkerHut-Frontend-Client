@@ -23,11 +23,13 @@ const OrderCart = ({
   billingId,
   user,
   setTemp,
+  setLoading,
 }: {
   temp: boolean;
   billingId: string;
   user: IUser;
   setTemp: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
   const createOrder = useCreateOrder();
@@ -40,14 +42,14 @@ const OrderCart = ({
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
   const sumTotal = cartTotal + vat + dFee;
-
+console.log(cart, "cart");
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,
     quantity: item?.pricing?.quantity,
     price: item?.pricing?.productPrice,
     totalPrice: item?.pricing?.productPrice,
     vendor: item?.vendor?._id,
-    deliveryOption: item?.deliveryOption,
+    deliveryOption: item?.option ?? "delivery",
     pickupAddress: item?.pickupAddress,
   }));
 
@@ -65,11 +67,16 @@ const OrderCart = ({
         tax: vat,
         totalAmount: sumTotal,
         billingInformation: billingId,
+
       })
       .then((res) => {
         console.log(res, "order res");
+        console.log(res.order._id, "order id");
+            setLoading(false)
       })
-      .catch();
+      .catch((err)=>{
+    setLoading(false);
+      });
   };
 
   if (temp === true) {

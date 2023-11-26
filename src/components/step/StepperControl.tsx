@@ -61,6 +61,8 @@ export default function StepperControl() {
   const { img1, img2, img3, img4, img5, img6, img7, img8 } =
     useContext(ProductImagesContext);
 
+  console.log(img1, img2, img3, img4, img5, img6, img7, img8);
+
   const appendFilesToFormData = (
     fieldName: string,
     formData: FormData,
@@ -180,28 +182,27 @@ export default function StepperControl() {
         data.append("vendorId", vendorId ?? "");
       }
 
-      const images = [img1, img2, img3, img4, img5, img6, img7, img8];
-
+      appendFilesToFormData("productImages", data, img1);
+      appendFilesToFormData("productImages", data, img2);
+      appendFilesToFormData("productImages", data, img3);
+      appendFilesToFormData("productImages", data, img4);
+      appendFilesToFormData("productImages", data, img5);
+      appendFilesToFormData("productImages", data, img6);
+      appendFilesToFormData("productImages", data, img7);
+      appendFilesToFormData("productImages", data, img8);
       try {
-        for (let i = 0; i < images.length; i++) {
-          appendFilesToFormData("productImages", data, images[i]);
-        }
-
         const response = await createProduct.mutateAsync(data);
         setIsLoading(false);
         setShowOverlay(true);
         console.log({ response });
       } catch (error: any) {
         setIsLoading(false);
-        // Handle the error, e.g., show an error message to the user.
+
         if (error.response) {
-          // Handle API response errors, e.g., show an error message based on the response
           console.error("API Error:", error.response.data);
         } else if (error.message) {
-          // Handle other errors, e.g., network errors
           console.error("Network Error:", error.message);
         } else {
-          // Handle any other unexpected errors
           console.error("Unexpected Error:", error);
         }
       }
