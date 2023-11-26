@@ -45,8 +45,8 @@ type ProductDetail = {
   price: number;
   totalPrice: number;
   vendor: string;
-  deliveryOption: string;
-  pickupAddress: string;
+  deliveryOption?: string;
+  pickupAddress?: string;
 };
 
 type BillingInformation = string; // Adjust this type based on the actual structure

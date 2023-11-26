@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-
+import { BASEURL } from "../../../services/api";
 
 // export interface  {
 //   id: string | number;
@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 // }
 
 export interface IProduct {
+
   vendor: any;
   approvalStatus: boolean;
   avgRating: number;
@@ -58,6 +59,8 @@ export interface IProduct {
   visibilityStatus: string;
   __v: number;
   _id: string;
+  option?: string;
+  pickupAddress?: string | undefined;
 }
 
 export interface ICart {
@@ -82,12 +85,9 @@ const initialState: ProductState = {
 export const fetchProduct = createAsyncThunk(
   "product/fetch",
   async (thunkAPI) => {
-    const response = await fetch(
-      "https://pockerhut-api.onrender.com/api/products/",
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`${BASEURL}/api/products/`, {
+      method: "GET",
+    });
     const data = response.json();
     return data;
   }
@@ -104,40 +104,65 @@ export const productSlice = createSlice({
         state.productList.push(action.payload);
       }
     },
-    // addProductToCart: (
+
+    // updateProduct: (
     //   state,
-    //   action: PayloadAction<{ id: string | number }>
+    //   action: PayloadAction<{
+    //     id: string;
+    //     updatedProduct: { option: string; pickupAddress?: string } & IProduct;
+    //   }>
     // ) => {
-    //   const product = state.productList.find(
-    //     (product) => product.id === action.payload.id
-    //   );
-    //   if (product && !state.cart[action.payload.id]) {
-    //     product.quantity = 1;
-    //     state.cart[action.payload.id] = product;
-    //     localStorage.setItem("cart", JSON.stringify(state.cart));
+    //   const { id, updatedProduct } = action.payload;
+    //   const index = state.productList.findIndex((product) => product._id === id);
+
+    //   if (index !== -1) {
+    //     // Merge the existing product with the updated properties
+    //     state.productList[index] = { ...state.productList[index], ...updatedProduct };
+
     //   }
+
     // },
 
-    //Secoded
+    //     updateProduct: (
+    //       state,
+    //       action: PayloadAction<{ id: string; updatedProduct: Partial<IProduct> }>
+    //     ) => {
+    //       const { id, updatedProduct } = action.payload;
+    // console.log(state.productList, "vstate");
+    //       // Find the product by id and update it
+    //       const productToUpdate = state.productList.find((product) => product._id === id);
+    // console.log(productToUpdate, "vstate");
+    //       if (productToUpdate) {
+    //         // Merge existing product with updated values
+    //         Object.assign(productToUpdate, updatedProduct);
+    //       }
+    //     },
 
-    // addProductToCart: (
-    //   state,
-    //   action: PayloadAction<{ id: string | number }>
-    // ) => {
-    //   const product = state.productList.find(
-    //     (product) => product.id === action.payload.id
-    //   );
+    updateProduct: (
+      state,
+      action: PayloadAction<{ id: string; updatedProduct: Partial<IProduct> }>
+    ) => {
+      const { id, updatedProduct } = action.payload;
 
-    //   if (product) {
-    //     if (state.cart[action.payload.id]) {
-    //       console.log(`Product is already in the cart. ${action.payload.id}`);
-    //     } else {
-    //       product.quantity = 1;
-    //       state.cart[action.payload.id] = product;
-    //       localStorage.setItem("cart", JSON.stringify(state.cart));
-    //     }
-    //   }
-    // },
+      console.log("Reducer is being executed!", action.payload);
+      console.log("Product ID:", id);
+      console.log("Updated Product:", updatedProduct);
+
+      // Find the product by id and update it
+      const updatedProductList = state.productList.map((product) => {
+        if (product._id === id) {
+          // Merge existing product with updated values
+          return { ...product, ...updatedProduct };
+        }
+        return product;
+      });
+
+      console.log("State Before Update:", state.productList);
+      console.log("State After Update:", updatedProductList);
+
+      // Update the state with the new array
+      state.productList = updatedProductList;
+    },
 
     addProductToCart: (
       state,
@@ -183,14 +208,6 @@ export const productSlice = createSlice({
         state.favorites[action.payload.id] = product;
       }
     },
-    // deleteProductFromCart: (
-    //   state,
-    //   action: PayloadAction<{ id: string | number }>
-    // ) => {
-    //   delete state.cart[action.payload.id];
-    //   localStorage.setItem("cart", JSON.stringify(state.cart));
-    //   console.log(`Product is removed from the cart. ${action.payload.id}`);
-    // },
 
     deleteProductFromCart: (
       state,
@@ -211,48 +228,6 @@ export const productSlice = createSlice({
       }
     },
 
-    // incrementProductQty: (
-    //   state,
-    //   action: PayloadAction<{ id: string | number }>
-    // ) => {
-    //   if (state.cart[action.payload.id]) {
-    //     const product = state.cart[action.payload.id];
-    //     (product.quantity as number) += 1;
-    //     localStorage.setItem("cart", JSON.stringify(state.cart));
-    //   }
-    // },
-
-    //  incrementProductQty: (
-    //   state,
-    //   action: PayloadAction<{ id: string | number }>
-    // ) => {
-    //   if (state.cart[action.payload.id]) {
-    //     const product = state.cart[action.payload.id];
-    //     const productId = action.payload.id;
-
-    //     // Increase the product quantity and add another of the same product to the cart
-    //     (product.quantity as number) += 1;
-
-    //     // Clone the existing product with an increased quantity
-    //     const newProduct = { ...product };
-
-    //     // Add the new product to the cart with the same ID
-    //     state.cart[productId] = newProduct;
-
-    //     console.log(`Increased quantity for product with ID ${productId}. New cart quantity for this product: ${product.quantity}`);
-
-    //     // Calculate total quantity
-    //     const totalQuantity = Object.values(state.cart).reduce(
-    //       (total, product) => total + (product.quantity as number),
-    //       0
-    //     );
-
-    //     console.log(`Total items in the cart: ${totalQuantity}`);
-
-    //     localStorage.setItem("cart", JSON.stringify(state.cart));
-    //   }
-    // },
-
     incrementProductQty: (
       state,
       action: PayloadAction<{ id: string | number }>
@@ -264,19 +239,6 @@ export const productSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
     },
-
-    // decrementProductQty: (
-    //   state,
-    //   action: PayloadAction<{ id: string | number }>
-    // ) => {
-    //   if (state.cart[action.payload.id]) {
-    //     const product = state.cart[action.payload.id];
-    //     if ((product.quantity as number) > 1) {
-    //       (product.quantity as number) -= 1;
-    //       localStorage.setItem("cart", JSON.stringify(state.cart));
-    //     }
-    //   }
-    // },
 
     decrementProductQty: (
       state,
@@ -306,6 +268,7 @@ export const {
   deleteProductFromCart,
   incrementProductQty,
   decrementProductQty,
+  updateProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;

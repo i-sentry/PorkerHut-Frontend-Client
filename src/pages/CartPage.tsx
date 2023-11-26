@@ -145,13 +145,14 @@ const CartPage = () => {
               </div>
 
               <div>
-                {Object.values(cart).map((item, idx) => (
-                  <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
-                    <CartCard2 item={item} key={idx} />
+                {/* {Object.values(cart).map((item, idx) => ( */}
+                <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
+                  {/* @ts-ignore */}
+                  <CartCard2 item={cart} />
 
-                    <hr className="mt-4" />
-                  </div>
-                ))}
+                  <hr className="mt-4" />
+                </div>
+                {/* ))} */}
               </div>
 
               <div className="order-1 md:order-none flex">
@@ -194,10 +195,11 @@ const CartPage = () => {
 
             <div>
               <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
-                {Object.values(cart).map((item, idx) => (
-                  <div>
-                    <CartCard2 item={item} key={idx} />
-                    <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
+                {/* {Object.values(cart).map((item, idx) => ( */}
+                <div>
+                  {/* @ts-ignore */}
+                  <CartCard2 item={cart} />
+                  {/* <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
                       <div className="flex items-center gap-2">
                         <MdOutlineSpeakerNotes size={24} />
                         <button onClick={() => setShowModal(true)}>
@@ -212,11 +214,11 @@ const CartPage = () => {
                       >
                         Remove
                       </button>
-                    </div>
+                    </div> */}
 
-                    <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
-                  </div>
-                ))}
+                  <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
+                </div>
+                {/* ))} */}
               </div>
             </div>
 

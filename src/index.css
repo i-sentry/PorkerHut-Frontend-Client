@@ -186,7 +186,7 @@
 
 .skeleton-loader {
   width: 100%;
-  height: 350px; /* Adjust the height as needed */
+  height: 250px; /* Adjust the height as needed */
   border-radius: 4px;
   background: linear-gradient(
     to right,
