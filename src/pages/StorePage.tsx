@@ -34,9 +34,6 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
   // const getAllProducts = useGetProductByVendor(id)
   const {data: getApprovedProducts} = useGetApprovedProductByVendor(id)
-
-  // console.log(getAllProducts, "Store")
-  console.log(getApprovedProducts, "Page")
  
 
   const [openModal, setOpenModal] = useState<boolean>(false);

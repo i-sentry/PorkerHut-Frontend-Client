@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { useLocation } from "react-router-dom";
@@ -15,7 +15,8 @@ import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import CustomInput from "../../components/utility/Input/CustomInput";
 import ProductTable from "../../components/utility/ProductTable";
 import Gallery from "../../components/utility/Input/Gallery";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const productInfoSchema = yup.object().shape({
   "productInformation.productName": yup
@@ -30,6 +31,11 @@ const productInfoSchema = yup.object().shape({
 const ProductDetails = () => {
   // const setShowOverlay = useImageOverlay((state) => state.setShowOverlays);
   // const setImage = useImageOverlay((state) => state.setImage);
+
+  const [loading, setLoading] = useState(false);
+  const [status] = useState("pending");
+
+  console.log(loading, 'loading')
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -52,8 +58,7 @@ const ProductDetails = () => {
   ]);
   console.log(singleProduct?.data?.data, "singleProduct");
 
-  const { text, amount, richText, date } =
-    InputTypes;
+  const { text, amount, richText, date } = InputTypes;
 
   const {
     register,
@@ -163,42 +168,42 @@ const ProductDetails = () => {
   //   }
   // }, [currentProductData, reset]);
 
-   useEffect(() => {
-     if (currentProductData) {
-       reset({
-         approvalStatus: currentProductData?.approvalStatus || "",
-         avgRating: currentProductData?.avgRating || 0,
-         productInformation: {
-           productName: currentProductData?.information.productName || "",
-           mainColour:
-             currentProductData?.information.categoryQuestions[0]?.answer || "",
-           productBreed:
-             currentProductData?.information.categoryQuestions[1]?.answer || "",
-         },
-         productDetails: {
-           productWeight: currentProductData?.details.productWeight || "",
-           productContent: currentProductData?.details.productContent || "",
-           productDescription:
-             currentProductData?.details.productDescription || "",
-           deliveryDetails: currentProductData?.details.deliveryDetails || "",
-           nutritionalValue: currentProductData?.details.nutritionalValue || "",
-         },
-         pricing: {
-           saleStartDate:
-             moment(currentProductData?.pricing.saleStartDate).format(
-               "YYYY-MM-DD"
-             ) || "",
-           saleEndDate:
-             moment(currentProductData?.pricing.saleEndDate).format(
-               "YYYY-MM-DD"
-             ) || "",
-           productPrice: currentProductData?.pricing.productPrice || 0,
-           quantity: currentProductData?.pricing.quantity || 0,
-         },
-         _id: currentProductData?._id,
-       });
-     }
-   }, [currentProductData, reset]);
+  useEffect(() => {
+    if (currentProductData) {
+      reset({
+        approvalStatus: currentProductData?.approvalStatus || "",
+        avgRating: currentProductData?.avgRating || 0,
+        productInformation: {
+          productName: currentProductData?.information.productName || "",
+          mainColour:
+            currentProductData?.information.categoryQuestions[0]?.answer || "",
+          productBreed:
+            currentProductData?.information.categoryQuestions[1]?.answer || "",
+        },
+        productDetails: {
+          productWeight: currentProductData?.details.productWeight || "",
+          productContent: currentProductData?.details.productContent || "",
+          productDescription:
+            currentProductData?.details.productDescription || "",
+          deliveryDetails: currentProductData?.details.deliveryDetails || "",
+          nutritionalValue: currentProductData?.details.nutritionalValue || "",
+        },
+        pricing: {
+          saleStartDate:
+            moment(currentProductData?.pricing.saleStartDate).format(
+              "YYYY-MM-DD"
+            ) || "",
+          saleEndDate:
+            moment(currentProductData?.pricing.saleEndDate).format(
+              "YYYY-MM-DD"
+            ) || "",
+          productPrice: currentProductData?.pricing.productPrice || 0,
+          quantity: currentProductData?.pricing.quantity || 0,
+        },
+        _id: currentProductData?._id,
+      });
+    }
+  }, [currentProductData, reset]);
 
   if (!currentProductData && !question) {
     return <div>Loading**</div>;
@@ -207,15 +212,31 @@ const ProductDetails = () => {
 
   console.log({ questions });
 
-  const handleProductUpdate = ( status: string ) => {
-    updateProductStatus.mutateAsync({
-      approvalStatus: status,
-    }).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err);
-    })
+  const handleProductUpdate = (status: string) => {
+    setLoading(true);
+  
+    updateProductStatus
+      .mutateAsync({
+        approvalStatus: status,
+      })
+      .then((res) => {
+        console.log(res);
+  
+        // Display success toast message
+        toast.success('Product approved successfully!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000, 
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
+
+ 
 
   const productInfo = [
     {
@@ -591,13 +612,43 @@ const ProductDetails = () => {
         >
           Reject
         </button>
+
         <button
-          onClick={() => handleProductUpdate("approved")}
-          className="px-6 py-2 text-sm font-light bg-[#197B30] text-white rounded"
+          onClick={() => {
+            handleProductUpdate("approved");
+          }}
+          className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded disabled:bg-[#568a62] disabled:cursor-not-allowed`}
+          disabled={status === "approved"}
         >
-          Approve
+          {loading ? (
+            
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  opacity="0.2"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  fill="white"
+                />
+                <path
+                  d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z"
+                  fill="white"
+                />
+              </svg>
+            
+          ) : (
+            "Approve"
+          )}
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
