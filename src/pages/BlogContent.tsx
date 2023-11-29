@@ -48,8 +48,8 @@ const BlogContent = () => {
               <h1 className="mb-2 font-normal tracking-tight lg:text-[32px] lg:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
                 {getSingleBlog?.data?.data?.title}
               </h1>
-              <div className="xxs:flex xxs:justify-center lg:text-left w-full">
-                <div className="text-center">
+              <div className="flex justify-center lg:justify-start w-full">
+                <div className="text-center lg:text-left">
                   <Breadcrumbs
                     items={[
                       {

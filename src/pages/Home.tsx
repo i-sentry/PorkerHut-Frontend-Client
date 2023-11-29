@@ -11,10 +11,10 @@ import { useAppDispatch } from "../redux/hook";
 import { fetchProduct } from "../redux/features/product/productSlice";
 
 const Home: React.FC = () => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
-      dispatch(fetchProduct());
+    dispatch(fetchProduct());
   }, [dispatch]);
 
   // useEffect(() => {
@@ -22,7 +22,6 @@ const Home: React.FC = () => {
   // });
   return (
     <AppLayout>
-
       <div className="bg-slate-400 h-[100%]">
         <Slider sliderImages={[]} />
       </div>
@@ -38,4 +37,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
