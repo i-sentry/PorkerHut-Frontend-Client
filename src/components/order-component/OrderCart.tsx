@@ -171,7 +171,7 @@ const OrderCard = ({ item }: { item: IProduct }) => {
     <div className=" flex gap-4 px-4 py-6 border-b">
       <figure className="h-[86px] w-[102px] overflow-hidden rounded">
         <img
-          src={item?.images[0] || ""}
+          src={item?.images?.[0] || ""}
           alt={item?.information?.productName}
           className="w-full h-full object-cover"
         />
