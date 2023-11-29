@@ -78,7 +78,7 @@ const OrderCart = ({
         localStorage.setItem("order_id", JSON.stringify(res.order._id));
         console.log(res, "order res");
         console.log(res.order._id, "order id");
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
@@ -89,12 +89,14 @@ const initiatePayment = () => {
   makePayment
     .mutateAsync({ email: user?.email, amount: sumTotal })
     .then((res) => {
+      console.log(res,"payment")
       const authorizationUrl = res.data?.data.data.authorization_url;
       if (authorizationUrl) {
         window.open(authorizationUrl, "_blank");
       } else {
         console.error("Authorization URL not found in the response");
       }
+       setLoading(false);
     })
     .catch((err) => {
       console.error("Error during payment:", err);
