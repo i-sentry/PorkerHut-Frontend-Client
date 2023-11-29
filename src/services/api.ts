@@ -39,7 +39,7 @@ export const api = {
     createProducts: "/api/products",
     getSingleProduct: (id: string | null) => `/api/products/${id}`,
     productStatus: (id: string | null) => `/api/products/${id}/approvalStatus`,
-    productByVendor: (id: string | undefined) => `/api/products/${id}`,
+    productByVendor: (id: string | undefined) => `/api/products/vendor/${id}`,
     productByVendorApproved: (id: string | undefined) =>
       `/api/products/approved/${id}`,
   },
@@ -67,6 +67,7 @@ export const api = {
   Billing: {
     billing: "/api/user/billing",
     getBillingInfo: "/api/user/billing/me",
+    updateBillingInfo: (id: string) => `/api/users/billing/${id}`
   },
   Order: {
     order: "/api/orders",
@@ -182,6 +183,19 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
     console.error("Error making GET request:", error);
     throw error;
   }
+};
+
+export const makeCustomPutRequest = async (
+  data: any,
+  url: string,
+  includeAuthHeader: boolean = true
+) => {
+  return await axios.put(`${BASEURL}${url}`, data, {
+    headers: {
+      "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
+    },
+  });
 };
 
 export const makePostRequestCustom = async (

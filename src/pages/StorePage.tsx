@@ -102,7 +102,8 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     </h1>
 
                     <div className="mb-2">
-                      <span className="text-[14px] leading-[16px] font-normal text-[#333333] ">
+                      <span className="text-zinc-800 text-sm font-normal"> Location Covered: </span>
+                      <span className="text-[16px] leading-[16px] font-normal text-[#333333] "> 
                       {getApprovedProducts?.data?.[0].vendor?.businessInformation?.city}
                       </span>
                     </div>
@@ -155,7 +156,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                 <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
                   <h1 className="text-xl font-medium md:pl-4">{getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}</h1>
                   <div>
-                    <p className="text-l text-gray-700">
+                    <p className="text-neutral-400 text-base">
                       Showing{" "}
                       <span className="font-medium">{currentPageIndex}</span> -{" "}
                       <span className="font-medium">{itemsPerPage}</span> of{" "}

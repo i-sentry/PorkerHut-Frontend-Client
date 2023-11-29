@@ -35,7 +35,7 @@ const Category = () => {
       <div>
         <div className="flex justify-center items-center ">
           <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal text-[#333333]">
-            Shop by Categories 
+            Shop by Categories
           </h1>
         </div>
         <div className="flex items-center justify-center  mt-2">
@@ -129,6 +129,16 @@ export const SkeletonLoader = () => {
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
     <div className="overflow-hidden relative w-full">
       <div className="skeleton-loader"></div>
+      <div className="flex items-center justify-between w-full">
+        <div className="w-full">
+          <div className="text-loader"></div>
+          <div className="text-loader"></div>
+        </div>
+        <div className="w-full">
+          <div className="text-loader"></div>
+          <div className="text-loader"></div>
+        </div>
+      </div>
     </div>
   );
 };

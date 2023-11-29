@@ -14,19 +14,18 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange }) => {
     onChange(parseInt(numericValue, 10) || 0);
   };
 
- const formatCurrency = (value: string) => {
-   const currencySymbol = "₦";
-   const numericValue = parseInt(value, 10) || 0;
+  const formatCurrency = (value: string) => {
+    const currencySymbol = "₦";
+    const numericValue = parseInt(value, 10) || 0;
 
-   const nairaValue = Math.floor(numericValue / 100);
-   const koboValue = numericValue % 100;
+    const nairaValue = Math.floor(numericValue / 100);
+    const koboValue = numericValue % 100;
 
-   const formattedNairaValue = nairaValue.toLocaleString();
-   const formattedKoboValue = koboValue.toString().padStart(2, "0");
+    const formattedNairaValue = nairaValue.toLocaleString();
+    const formattedKoboValue = koboValue.toString().padStart(2, "0");
 
-   return `${currencySymbol} ${formattedNairaValue}.${formattedKoboValue}`;
- };
-
+    return `${currencySymbol} ${formattedNairaValue}.${formattedKoboValue}`;
+  };
 
   return (
     <input

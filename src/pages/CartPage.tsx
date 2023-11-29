@@ -145,13 +145,14 @@ const CartPage = () => {
               </div>
 
               <div>
-                {Object.values(cart).map((item, idx) => (
-                  <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
-                    <CartCard2 item={item} key={idx} />
+                {/* {Object.values(cart).map((item, idx) => ( */}
+                <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
+                  {/* @ts-ignore */}
+                  <CartCard2 item={cart} />
 
-                    <hr className="mt-4" />
-                  </div>
-                ))}
+                  <hr className="mt-4" />
+                </div>
+                {/* ))} */}
               </div>
 
               <div className="order-1 md:order-none flex">
@@ -194,29 +195,15 @@ const CartPage = () => {
 
             <div>
               <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
-                {Object.values(cart).map((item, idx) => (
-                  <div>
-                    <CartCard2 item={item} key={idx} />
-                    <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
-                      <div className="flex items-center gap-2">
-                        <MdOutlineSpeakerNotes size={24} />
-                        <button onClick={() => setShowModal(true)}>
-                          Add a note
-                        </button>
-                      </div>
+                {/* {Object.values(cart).map((item, idx) => ( */}
+                <div>
+                  {/* @ts-ignore */}
+                  <CartCard2 item={cart} />
+                
 
-                      <button
-                        onClick={() =>
-                          dispatch(deleteProductFromCart({ id: item?._id }))
-                        }
-                      >
-                        Remove
-                      </button>
-                    </div>
-
-                    <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
-                  </div>
-                ))}
+                  <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
+                </div>
+                {/* ))} */}
               </div>
             </div>
 
@@ -282,7 +269,7 @@ const CartPage = () => {
       </div>
       {openModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-50 bg-gray-500">
-          <div className="bg-zinc-100 w-[680px] p-6 md:p-10 rounded-lg shadow-lg relative">
+          <div className="bg-zinc-100 w-[680px] mb-4 p-6 md:p-10 rounded-lg shadow-lg relative">
             <div className="flex items-center ">
               <button
                 onClick={() => toggleModal(false)}
@@ -306,7 +293,7 @@ const CartPage = () => {
                 // onChange={handleStateChange}
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-">
               <label htmlFor="city" className="block text-gray-600">
                 Address:
               </label>
