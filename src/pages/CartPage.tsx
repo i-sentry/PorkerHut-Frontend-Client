@@ -54,8 +54,8 @@ const CartPage = () => {
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
-  console.log(Object.values(cart).length, "Object.values(cart).length");
-  console.log(cart, "(cart)");
+  // console.log(Object.values(cart).length, "Object.values(cart).length");
+  // console.log(cart, "(cart)");
 
   const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedState(e.target.value);
