@@ -33,7 +33,9 @@ const ProductDetails = () => {
   // const setImage = useImageOverlay((state) => state.setImage);
 
   const [loading, setLoading] = useState(false);
-  const [status] = useState("pending");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [productStatus, setProductStatus] = useState("pending");
+  //const [status] = useState("pending");
 
   console.log(loading, 'loading')
 
@@ -212,29 +214,66 @@ const ProductDetails = () => {
 
   console.log({ questions });
 
-  const handleProductUpdate = (status: string) => {
-    setLoading(true);
-  
-    updateProductStatus
-      .mutateAsync({
+  const handleProductUpdate = async (status: string) => {
+    try {
+      setButtonDisabled(true);
+      setLoading(true);
+
+      const res = await updateProductStatus.mutateAsync({
         approvalStatus: status,
-      })
-      .then((res) => {
-        console.log(res);
-  
-        // Display success toast message
-        toast.success('Product approved successfully!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, 
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
       });
+
+      // Extract success message based on the status
+      const successMessage =
+        status === "approved"
+          ? "Product approved successfully!"
+          : "Product rejected successfully!";
+
+      // Display success toast message
+      toast.success(successMessage, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+      singleProduct.refetch()
+      setProductStatus(status);
+    } catch (error) {
+
+      console.error("Product update failed:", error);
+
+      toast.warning("Failed to update product. Please try again.", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+    } finally {
+      setLoading(false);
+      setButtonDisabled(false);
+    }
   };
+
+  // const handleProductUpdate = (status: string) => {
+  //   setLoading(true);
+    
+  
+  //   updateProductStatus
+  //     .mutateAsync({
+  //       approvalStatus: status,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  
+  //       // Display success toast message
+  //       toast.success('Product approved successfully!', {
+  //         position: toast.POSITION.TOP_RIGHT,
+  //         autoClose: 3000, 
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
  
 
@@ -606,20 +645,27 @@ const ProductDetails = () => {
         </TabPanel>
       </div>
       <div className="flex justify-end p-5">
-        <button
-          onClick={() => handleProductUpdate("rejected")}
-          className="mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff]"
-        >
-          Reject
-        </button>
+      <button
+        onClick={() => handleProductUpdate("rejected")}
+        className={`mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff] ${
+          buttonDisabled || productStatus === "rejected"
+            ? "disabled:bg-[#990000] disabled:cursor-not-allowed"
+            : ""
+        }`}
+        disabled={buttonDisabled || productStatus === "rejected"}
+      >
+        Reject
+      </button>
 
-        <button
-          onClick={() => {
-            handleProductUpdate("approved");
-          }}
-          className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded disabled:bg-[#568a62] disabled:cursor-not-allowed`}
-          disabled={status === "approved"}
-        >
+      <button
+        onClick={() => handleProductUpdate("approved")}
+        className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded ${
+          buttonDisabled || productStatus === "approved"
+            ? "disabled:bg-[#568a62] disabled:cursor-not-allowed"
+            : ""
+        }`}
+        disabled={buttonDisabled || productStatus === "approved"}
+      >
           {loading ? (
             
               <svg

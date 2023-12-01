@@ -166,9 +166,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </div>
                     </div>
                   </div>
-
-
-
                   {data?.length ? (
                     <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
                       {chunkArray(data, itemsPerPage)[
@@ -212,7 +209,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         );
                       })}
                     </div>
-
 
                     <button
                       onClick={prev}

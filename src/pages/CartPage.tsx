@@ -199,22 +199,7 @@ const CartPage = () => {
                 <div>
                   {/* @ts-ignore */}
                   <CartCard2 item={cart} />
-                  {/* <div className="flex items-center justify-between mt-3 md:hidden text-[#797979]">
-                      <div className="flex items-center gap-2">
-                        <MdOutlineSpeakerNotes size={24} />
-                        <button onClick={() => setShowModal(true)}>
-                          Add a note
-                        </button>
-                      </div>
 
-                      <button
-                        onClick={() =>
-                          dispatch(deleteProductFromCart({ id: item?._id }))
-                        }
-                      >
-                        Remove
-                      </button>
-                    </div> */}
 
                   <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
                 </div>
@@ -284,7 +269,7 @@ const CartPage = () => {
       </div>
       {openModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-50 bg-gray-500">
-          <div className="bg-zinc-100 w-[680px] p-6 md:p-10 rounded-lg shadow-lg relative">
+          <div className="bg-zinc-100 w-[680px] mb-4 p-6 md:p-10 rounded-lg shadow-lg relative">
             <div className="flex items-center ">
               <button
                 onClick={() => toggleModal(false)}
@@ -308,7 +293,7 @@ const CartPage = () => {
                 // onChange={handleStateChange}
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-">
               <label htmlFor="city" className="block text-gray-600">
                 Address:
               </label>

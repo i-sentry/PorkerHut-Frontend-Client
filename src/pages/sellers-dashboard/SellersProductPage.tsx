@@ -2,9 +2,11 @@ import React, { useMemo } from "react";
 import { Column } from "react-table";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { NavLink } from "react-router-dom";
-import _ from "lodash";
+// import _ from "lodash";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { useGetAllProducts } from "../../services/hooks/Vendor/products";
+import {
+  useGetProductByVendor,
+} from "../../services/hooks/Vendor/products";
 import moment from "moment";
 import { ImSpinner6 } from "react-icons/im";
 
@@ -94,15 +96,21 @@ const DateColumn = ({ d }: any) => {
 };
 
 const SellersProductPage = () => {
-  const { data: products, isLoading } = useGetAllProducts();
+  //@ts-ignore
+  const store = JSON.parse(localStorage.getItem("vendor"));
+
+  console.log(store.vendor._id, "store");
+  const id = store.vendor._id
+  const {data: vendorProducts, isLoading} = useGetProductByVendor(id);
+ 
 
 
   const productData = useMemo(() => {
-    if (!products?.data) {
+    if (!vendorProducts?.data) {
       return [];
     }
 
-    const dataCopy = [...products.data];
+    const dataCopy = [...vendorProducts.data];
 
     dataCopy.sort(
       (a, b) =>
@@ -110,18 +118,18 @@ const SellersProductPage = () => {
     );
 
     return dataCopy;
-  }, [products?.data]);
+  }, [vendorProducts?.data]);
 
-   if (isLoading || !products?.data) {
-     return (
-       <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
-         <span className="animate-spin">
-           <ImSpinner6 size={30} />
-         </span>
-         Please wait..
-       </div>
-     );
-   }
+  if (isLoading || !vendorProducts?.data) {
+    return (
+      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+        <span className="animate-spin">
+          <ImSpinner6 size={30} />
+        </span>
+        Please wait..
+      </div>
+    );
+  }
 
   const Tcolumns: readonly Column<object>[] = [
     {
@@ -206,7 +214,7 @@ const SellersProductPage = () => {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-5"> 
         <AdminTable
           showDropDown={true}
           showCheckbox={true}

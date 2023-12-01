@@ -148,7 +148,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
           </div>
           {item?.vendor?.sellerAccountInformation?.shopName ===
             "Test Shop Ltd" && (
-            <div className="flex mt-4 p-0 md:px-5 md:flex-row flex-col gap-4">
+            <div className="flex mt-4 mb-5 p-0 md:px-5 md:flex-row flex-col gap-4">
               <div className="">
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
@@ -182,7 +182,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 </label>
 
                 {selectedOption === "pickup" && (
-                  <div className="mt-4 md:hidden flex flex-col">
+                  <div className="mt-4 mb-4 md:hidden flex flex-col">
                     <div className="flex items-center justify-between">
                       <label htmlFor=" text-[#333333] font- text-sm">
                         Available Pickup Address
@@ -209,7 +209,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   </div>
                 )}
 
-                <div className="mt-4 hidden md:flex flex-col">
+                <div className="mt-4 mb-4 hidden md:flex flex-col">
                   <div className="flex items-center justify-between">
                     <label htmlFor=" text-[#333333] font- text-sm">
                       Available Pickup Address
