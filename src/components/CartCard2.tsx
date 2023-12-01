@@ -4,7 +4,7 @@ import {
   deleteProductFromCart,
   incrementProductQty,
   IProduct,
-  updateProduct,
+
 } from "../redux/features/product/productSlice";
 import { useDispatch } from "react-redux";
 import RatingWidget from "./RatingWidget";

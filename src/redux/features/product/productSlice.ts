@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { BASEURL } from "../../../services/api";
 
 // export interface  {
 //   id: string | number;
@@ -24,8 +23,6 @@ import { BASEURL } from "../../../services/api";
 // }
 
 export interface IProduct {
-
-  vendor: any;
   approvalStatus: boolean;
   avgRating: number;
   category: string;
@@ -59,8 +56,6 @@ export interface IProduct {
   visibilityStatus: string;
   __v: number;
   _id: string;
-  option?: string;
-  pickupAddress?: string | undefined;
 }
 
 export interface ICart {
@@ -85,9 +80,12 @@ const initialState: ProductState = {
 export const fetchProduct = createAsyncThunk(
   "product/fetch",
   async (thunkAPI) => {
-    const response = await fetch(`${BASEURL}/api/products/`, {
-      method: "GET",
-    });
+    const response = await fetch(
+      "https://pockerhut-api.onrender.com/api/products/",
+      {
+        method: "GET",
+      }
+    );
     const data = response.json();
     return data;
   }
@@ -104,65 +102,7 @@ export const productSlice = createSlice({
         state.productList.push(action.payload);
       }
     },
-
-    // updateProduct: (
-    //   state,
-    //   action: PayloadAction<{
-    //     id: string;
-    //     updatedProduct: { option: string; pickupAddress?: string } & IProduct;
-    //   }>
-    // ) => {
-    //   const { id, updatedProduct } = action.payload;
-    //   const index = state.productList.findIndex((product) => product._id === id);
-
-    //   if (index !== -1) {
-    //     // Merge the existing product with the updated properties
-    //     state.productList[index] = { ...state.productList[index], ...updatedProduct };
-
-    //   }
-
-    // },
-
-    //     updateProduct: (
-    //       state,
-    //       action: PayloadAction<{ id: string; updatedProduct: Partial<IProduct> }>
-    //     ) => {
-    //       const { id, updatedProduct } = action.payload;
-    // console.log(state.productList, "vstate");
-    //       // Find the product by id and update it
-    //       const productToUpdate = state.productList.find((product) => product._id === id);
-    // console.log(productToUpdate, "vstate");
-    //       if (productToUpdate) {
-    //         // Merge existing product with updated values
-    //         Object.assign(productToUpdate, updatedProduct);
-    //       }
-    //     },
-
-    updateProduct: (
-      state,
-      action: PayloadAction<{ id: string; updatedProduct: Partial<IProduct> }>
-    ) => {
-      const { id, updatedProduct } = action.payload;
-
-      console.log("Reducer is being executed!", action.payload);
-      console.log("Product ID:", id);
-      console.log("Updated Product:", updatedProduct);
-
-      // Find the product by id and update it
-      const updatedProductList = state.productList.map((product) => {
-        if (product._id === id) {
-          // Merge existing product with updated values
-          return { ...product, ...updatedProduct };
-        }
-        return product;
-      });
-
-      console.log("State Before Update:", state.productList);
-      console.log("State After Update:", updatedProductList);
-
-      // Update the state with the new array
-      state.productList = updatedProductList;
-    },
+    
 
     addProductToCart: (
       state,
@@ -209,6 +149,7 @@ export const productSlice = createSlice({
       }
     },
 
+
     deleteProductFromCart: (
       state,
       action: PayloadAction<{ id: string | number }>
@@ -228,6 +169,8 @@ export const productSlice = createSlice({
       }
     },
 
+
+
     incrementProductQty: (
       state,
       action: PayloadAction<{ id: string | number }>
@@ -239,6 +182,8 @@ export const productSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
     },
+
+
 
     decrementProductQty: (
       state,
@@ -268,7 +213,6 @@ export const {
   deleteProductFromCart,
   incrementProductQty,
   decrementProductQty,
-  updateProduct,
 } = productSlice.actions;
 
 export default productSlice.reducer;
