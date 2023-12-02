@@ -12,7 +12,7 @@ interface FilterSidebarProps {
 const FilterSidebar = ({
   open,
   onClose,
-  menuItem,
+  // menuItem,
   setData,
   handleClick,
 }: FilterSidebarProps) => {
@@ -32,7 +32,7 @@ const FilterSidebar = ({
         <div className="h-full">
           <Filter
             setData={setData}
-            menuItem={menuItem}
+            // menuItem={menuItem}
             handleClick={handleClick}
           />
         </div>

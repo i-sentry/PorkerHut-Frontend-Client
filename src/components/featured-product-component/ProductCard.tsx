@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import RatingWidget from "../RatingWidget";
 // import { useParams } from "react-router-dom";
-import noImage from "../../assets/imgn.png"
+import noImage from "../../assets/imgn.png";
 import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
 
@@ -14,7 +14,7 @@ interface ProductLocationState {
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-  console.log({ item },"item");
+  console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -23,11 +23,11 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
-  console.log(item, "itemszz")
+  console.log(item, "itemszz");
 
   const handleClick = () => {
-    dispatch(addProductToCart({ id: item?._id}));
-    toast.success(`${item?.information?.productName} has been added to cart`);
+    dispatch(addProductToCart({ id: item?._id }));
+    // toast.success(`${item?.information?.productName} has been added to cart`);
   };
 
   const handleCardClick = () => {
@@ -42,9 +42,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   return (
     <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
       <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
-
-
-<img
+        <img
           onClick={handleCardClick}
           src={item?.images?.[0] || noImage}
           alt=""
@@ -61,15 +59,22 @@ const ProductCard = ({ item }: ProductLocationState) => {
         <div
           onClick={isOutOfStock ? () => {} : handleClick}
           className={`flex items-center justify-center absolute w-full xxs:h-12 lg:h-14 ${
-            isOutOfStock ? 'bg-[#BB0101]' : 'bg-[#197B30]'
+            isOutOfStock ? "bg-[#BB0101]" : "bg-[#197B30]"
           } xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 duration-700 cursor-pointer ${
-            isOutOfStock ? '' : 'active:opacity-50 active:scale-90 transition-all'
+            isOutOfStock
+              ? ""
+              : "active:opacity-50 active:scale-90 transition-all"
           }`}
-
-      >
-
+        >
           <span className="text-white  xxs:text-[11px] xxs:leading-[14px] md:text-base rounded-b-md font-normal ">
-            {isOutOfStock? <div className="flex items-center gap-2"><CgUnavailable size={16} color="white"/><p>Out Of Stock</p></div> : "Add to cart"}
+            {isOutOfStock ? (
+              <div className="flex items-center gap-2">
+                <CgUnavailable size={16} color="white" />
+                <p>Out Of Stock</p>
+              </div>
+            ) : (
+              "Add to cart"
+            )}
           </span>
         </div>
       </div>
@@ -90,7 +95,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
             onClick={handleCardClick}
             className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer lg:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
           >
-            {item?.information?.productName ||  ""}
+            {item?.information?.productName || ""}
           </h1>
           <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
             {item?.details?.productWeight || ""}g
@@ -104,7 +109,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           to={`/store-page/${item._id}`}
           className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
         >
-          {item?.vendor?.sellerAccountInformation?.shopName || "" }
+          {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
           <RatingWidget

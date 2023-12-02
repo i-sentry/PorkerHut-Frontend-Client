@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { BASEURL } from "../../../services/api";
 
 // export interface  {
 //   id: string | number;
@@ -80,12 +81,9 @@ const initialState: ProductState = {
 export const fetchProduct = createAsyncThunk(
   "product/fetch",
   async (thunkAPI) => {
-    const response = await fetch(
-      "https://pockerhut-api.onrender.com/api/products/",
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`${BASEURL}/api/products/`, {
+      method: "GET",
+    });
     const data = response.json();
     return data;
   }
@@ -102,7 +100,6 @@ export const productSlice = createSlice({
         state.productList.push(action.payload);
       }
     },
-    
 
     addProductToCart: (
       state,
@@ -112,10 +109,19 @@ export const productSlice = createSlice({
         (product) => product._id === action.payload.id
       );
 
-      if (product) {
-        if (state.cart[action.payload.id]) {
-          console.log(`Product is already in the cart. ${action.payload.id}`);
-          toast.info("This item is already in your cart", {
+      if (!product) {
+        console.error(`Product not found with ID: ${action.payload.id}`);
+        return; // or throw an error if necessary
+      }
+
+      const isProductInCart = !!state.cart[action.payload.id];
+
+      if (isProductInCart) {
+        // Product is already in the cart
+        console.log(`Product is already in the cart. ${action.payload.id}`);
+        toast.info(
+          `${product?.information?.productName} is already in your cart`,
+          {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -124,16 +130,32 @@ export const productSlice = createSlice({
             draggable: true,
             progress: undefined,
             theme: "colored",
-          });
-        } else {
-          product.pricing.quantity = 1;
-          state.cart[action.payload.id] = product;
+          }
+        );
+      } else {
+        // Product is not in the cart, add it
+        product.pricing.quantity = 1;
+        state.cart[action.payload.id] = product;
 
-          // Update the totalQuantity in the state by adding 1
-          state.totalQuantity = (state.totalQuantity || 0) + 1;
+        // Update the totalQuantity in the state by adding 1
+        state.totalQuantity = (state.totalQuantity || 0) + 1;
 
-          localStorage.setItem("cart", JSON.stringify(state.cart));
-        }
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+
+        // Product added to the cart successfully
+        toast.success(
+          `${product?.information?.productName} has been added to your cart`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }
+        );
       }
     },
 
@@ -149,12 +171,14 @@ export const productSlice = createSlice({
       }
     },
 
-
     deleteProductFromCart: (
       state,
       action: PayloadAction<{ id: string | number }>
     ) => {
       const deletedProduct = state.cart[action.payload.id];
+      const product = state.productList.find(
+        (product) => product._id === action.payload.id
+      );
       if (deletedProduct) {
         const deletedQuantity = deletedProduct.pricing.quantity || 0;
 
@@ -165,11 +189,22 @@ export const productSlice = createSlice({
         state.totalQuantity = (state.totalQuantity || 0) - deletedQuantity;
 
         localStorage.setItem("cart", JSON.stringify(state.cart));
+        toast.warn(
+          `${product?.information?.productName} has been removed from your cart`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }
+        );
         console.log(`Product is removed from the cart. ${action.payload.id}`);
       }
     },
-
-
 
     incrementProductQty: (
       state,
@@ -182,8 +217,6 @@ export const productSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
     },
-
-
 
     decrementProductQty: (
       state,
