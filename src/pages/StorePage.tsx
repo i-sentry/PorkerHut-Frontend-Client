@@ -34,7 +34,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
   // const getAllProducts = useGetProductByVendor(id)
   const {data: getApprovedProducts} = useGetApprovedProductByVendor(id)
- 
+
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -49,7 +49,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   // console.log(${getApprovedProducts?.data?.information?.productName}, "page")
 
   useEffect(() => setData(getApprovedProducts?.data), [getApprovedProducts?.data]);
-  
+
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -103,7 +103,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
                     <div className="mb-2">
                       <span className="text-zinc-800 text-sm font-normal"> Location Covered: </span>
-                      <span className="text-[16px] leading-[16px] font-normal text-[#333333] "> 
+                      <span className="text-[16px] leading-[16px] font-normal text-[#333333] ">
                       {getApprovedProducts?.data?.[0].vendor?.businessInformation?.city}
                       </span>
                     </div>
@@ -145,7 +145,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                 <div className="bg-white p-6 xxs:hidden md:block">
                   <Filter
                     setData={setData}
-                    menuItem={menuItems}
+                    // menuItem={menuItems}
                     handleClick={handleClick}
                   />
                 </div>
@@ -174,7 +174,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     <Sort data={data} setData={setData} />
                   </span>
                   <div className="md:hidden flex justify-center items-end gap-2 px-2">
-                    <LuSettings2 
+                    <LuSettings2
                       className=" "
                       size={22}
                       onClick={() => setOpenModal(true)}
