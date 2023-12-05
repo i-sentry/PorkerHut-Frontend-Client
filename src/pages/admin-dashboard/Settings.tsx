@@ -10,6 +10,7 @@ import InputComponent from "../../components/admin-dashboard-components/InputCom
 import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 
 const Settings = () => {
   const [, setImage] = useState(null);
@@ -17,7 +18,9 @@ const Settings = () => {
   const [overlayVisibility, setOverlayVisibility] = useState(false);
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
-  const [eyeState3, ] = useState(false);
+  const [eyeState3] = useState(false);
+  const [email, setEmail] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useTabs([
     "Information",
     "Members",
@@ -128,8 +131,23 @@ const Settings = () => {
     setEyeState2((prev) => !prev);
   };
 
+  // GRANT MEMBER ACCESS (ADMIN SIGN UP)
+
+  const openModal = () => {
+    if (email) {
+      setModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="pl-10 pt-10 pr-5">
+      {/* ADMIN SIGN UP MODAL */}
+      <CreateAdminAcct openModal={modalOpen} closeModal={closeModal} />
+
       <div className="mb-5">
         <div className="">
           <h1 className="text-2xl font-medium ">Settings</h1>
@@ -401,10 +419,10 @@ const Settings = () => {
                     <div className="flex flex-col    text-sm">
                       <div className="flex-[2]">
                         <InputComponent
-                          placeholder="080 000 0000"
-                          type="tel"
-                          // value={number}
-                          // onChange={(e) => setNumber(e.target.value)}
+                          placeholder="Email Address"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
@@ -414,6 +432,7 @@ const Settings = () => {
                     <button
                       className="bg-[#197b30] hover:bg-[#21aa41] text-white select-none py-3 px-4 rounded font-normal"
                       style={{ whiteSpace: "nowrap" }}
+                      onClick={openModal}
                     >
                       Grant Access
                     </button>

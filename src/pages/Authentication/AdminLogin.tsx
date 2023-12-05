@@ -1,55 +1,54 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PorkerLogo from "../../assets/porker hut 1 1.png";
+import Ripples from "react-ripples";
 import { Link, useNavigate } from "react-router-dom";
 import Admin from "../../assets/Admin.png";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ReactLoading from "react-loading";
 import Footer from "../../components/footer-component/Footer";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+});
 
-const AdminLogin = () => {
+interface AdminLoginProps {
+  email: string;
+  password: string;
+}
+
+const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
-  // const [eyeState, setEyeState] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [eyeState2, setEyeState2] = useState(false);
+  const [eyeState, setEyeState] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-  } = useForm();
+  } = useForm<AdminLoginProps>({ resolver: yupResolver(schema) });
 
-  // const onSubmit = handleSubmit((data, e) => {
-  //   setLoading(true);
-  //   login
-  //     .mutateAsync(data)
-  //     .then((res) => {
-  //       setLoading(false);
-  //       navigate("/vendor");
-  //       localStorage.removeItem("accessToken");
-  //       localStorage.removeItem("vendor");
-  //       localStorage.removeItem("user");
-  //       localStorage.setItem("accessToken", res?.data?.accessToken);
-  //       localStorage.setItem("vendor", JSON.stringify(res?.data));
-  //       console.log(res);
-  //     })
-  //     .catch((e) => {
-  //       setLoading(false);
+  const onSubmit: SubmitHandler<AdminLoginProps> = (data) => {
+    console.log(data);
+  };
 
-  //       setIsError(e?.response?.data?.message);
-
-  //     });
-  // });
-
-  const toggleConfirmEye = (e: any) => {
+  const toggleEye = (e: any) => {
     e.preventDefault();
-    setEyeState2((prev) => !prev);
+    setEyeState((prev) => !prev);
   };
   return (
     <>
-      <div className="flex justify-between items-start gap-9 mb-40 px-[80px] pt-[122px] w-full hide-scroll-bar">
-        <div className="w-1/2">
+      <div className="flex justify-between items-start gap-9 mb-40 px-[56px] py-12 w-full hide-scroll-bar">
+        <div className="w-[calc(55%_-_20px)]">
           <div className="border-b border-[#D9D9D9] pb-[9px] flex justify-between items-center">
             <div
               onClick={() => navigate("/")}
@@ -58,94 +57,124 @@ const AdminLogin = () => {
               <img
                 src={PorkerLogo}
                 alt="Poker Logo"
-                className="lg:cursor-pointer h-9"
+                className="cursor-pointer h-7"
               />
-              <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+              <h1 className="porker sm:text-lg font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
                 Porker Hut
               </h1>
             </div>
-            <h1 className="text-[36px] font-bold text-black">
+            <h1 className="text-xl font-bold text-black">
               ADMIN<span className="font-normal">CENTER</span>
             </h1>
           </div>
-          <div className="w-[720px] h-[439px] mx-auto mt-6 ">
-            <img src={Admin} alt="Admin img" />
+          <div className="w-full h-[420px] mt-6 ">
+            <img
+              src={Admin}
+              className="w-11/12 h-full object-cover object-center mx-auto"
+              alt="Admin img"
+            />
           </div>
         </div>
-        <div className="w-1/2 p-[50px] border-[#D9D9D9] border h-[520px]">
-          <h2 className="text-black text-2xl font-medium mb-4">Login</h2>
-          <p className="text-neutral-500 text-base font-normal mb-[30px]">
+        <div className="w-[calc(45%_-_20px)] p-8 border-[#D9D9D9] border h-[auto]">
+          <h2 className="text-black text-2xl font-medium mb-3">Login</h2>
+          <p className="text-neutral-500 text-base font-normal mb-6">
             Enter your login details
           </p>
-          <form action="">
+          <div></div>
+          <form action="" id="admin-login" onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-2">
-              <label htmlFor="" className="text-zinc-800 text-sm font-normal">
+              <label
+                htmlFor="email"
+                className="text-zinc-800 text-sm font-normal"
+              >
                 Email Address
               </label>
               <input
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    message: "Enter a valid email",
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  },
+                })}
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
+                autoComplete="off"
                 id="email"
-                className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                className={`rounded w-full p-3  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                   errors.email
                     ? "border-[#e10] focus-within:border-[#e10]"
                     : "border-[##EEEEEE] "
                 }`}
               />
+              {errors.email && (
+                <p className="mt-1 text-sm text-[#e10]">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
-            <div className="mt-[28px] relative">
-              <label htmlFor="" className="text-base font-normal">
+            <div className="mt-5 relative">
+              <label
+                htmlFor="password"
+                className="text-zinc-800 text-sm font-normal"
+              >
                 Password
               </label>
               <input
                 {...register("password", { required: true })}
                 autoComplete="on"
-                type={eyeState2 ? "text" : "password"}
+                type={eyeState ? "text" : "password"}
                 name="password"
                 placeholder="**********"
                 id="password"
                 className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                   errors.password
                     ? "border-[#e10] focus-within:border-[#e10]"
-                    : "border-[##EEEEEE] "
+                    : "border-[#EEEEEE] "
                 }`}
               />
               <button
                 className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
-                onClick={toggleConfirmEye}
+                onClick={toggleEye}
               >
-                {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
               </button>
+              {errors.password && (
+                <p className="mt-1 text-sm text-[#e10]">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             <div className="">
-              <p className="text-zinc-800 text-base font-medium mt-2 leading-normal text-right ">
+              <p className="text-zinc-800 text-base font-medium text-right mt-2">
                 Forgot password?
               </p>
 
               <div className="mt-6">
-                <button
-                  type="submit"
-                  // disabled={true}
-                  className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
-                >
-                  {loading ? (
-                    <div className="mx-auto flex items-center justify-center">
-                      <ReactLoading
-                        type={"spin"}
-                        color={"#fff"}
-                        height={"5%"}
-                        width={"5%"}
-                      />
-                    </div>
-                  ) : (
-                    "Login"
-                  )}
-                </button>
+                <Ripples color="#f5f5f550" during={2000} className="w-full">
+                  <button
+                    type="submit"
+                    // disabled={true}
+                    className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                  >
+                    {loading ? (
+                      <div className="mx-auto flex items-center justify-center">
+                        <ReactLoading
+                          type={"spin"}
+                          color={"#fff"}
+                          height={"5%"}
+                          width={"5%"}
+                        />
+                      </div>
+                    ) : (
+                      "Login"
+                    )}
+                  </button>
+                </Ripples>
               </div>
-              <div className="mt-8">
+              <div className="mt-6">
                 <p className="text-[#A2A2A2] font-normal text-center">
                   No account account?{" "}
                   <Link
