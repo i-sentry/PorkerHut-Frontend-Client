@@ -35,6 +35,10 @@ const CartPage = () => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
+  const [openModalNote, setOpenModalNote] = useState(false)
+
+  const noteModal = () => {}
+
   const totalQuantity = useSelector(
     (state: RootState) => state.product.totalQuantity
   );
@@ -350,6 +354,8 @@ const CartPage = () => {
           </div>
         </div>
       )}
+
+
     </AppLayout>
   );
 };

@@ -9,6 +9,8 @@ import {
 import { useDispatch } from "react-redux";
 import RatingWidget from "./RatingWidget";
 import { usePopModal } from "../store/overlay";
+import {MdOutlineSpeakerNotes} from "react-icons/md";
+import NoteModal from "./modal-component/NoteModal";
 
 const porkerPickupAddress =
   "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
@@ -20,6 +22,9 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   const [selectedOption, setSelectedOption] = useState<string>("delivery");
   const toggleModal = usePopModal((state) => state.toggleModal);
   const setLocation = usePopModal((state) => state.setLocation);
+  
+  const [orderNote, SetOrderNote] = useState ()
+  const [modalOpen, SetModalOpen] = useState (false)
 
   const updatedValues = {
     option: selectedOption,
@@ -61,8 +66,16 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     }
   }, [product]); // Include product in the dependency array
 
+  const isOpen = () => {
+    SetModalOpen(true)
+  }
+   const closeNoteModal = ()=> {
+    SetModalOpen(false)
+   }
+
   return (
     <div>
+      <NoteModal isOpen={modalOpen} closeNoteModal={closeNoteModal}/> 
       {Object.values(items).map((item, idx) => (
         <div key={idx + "index"}>
           <div className="flex items-center px-0 md:px-5 gap-6">
@@ -150,6 +163,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
             "Test Shop Ltd" && (
             <div className="flex mt-4 mb-5 p-0 md:px-5 md:flex-row flex-col gap-4">
               <div className="">
+                <p onClick={isOpen} className="flex gap-2 items-center py-4"><MdOutlineSpeakerNotes/> Add note</p>
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="radio"
@@ -209,7 +223,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   </div>
                 )}
 
-                <div className="mt-4 mb-4 hidden md:flex flex-col">
+                <div className="mt-4 mb-4 md:flex flex-col">
                   <div className="flex items-center justify-between">
                     <label htmlFor=" text-[#333333] font- text-sm">
                       Available Pickup Address
