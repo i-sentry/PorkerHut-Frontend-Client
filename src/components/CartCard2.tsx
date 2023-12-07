@@ -11,6 +11,8 @@ import RatingWidget from "./RatingWidget";
 import { usePopModal } from "../store/overlay";
 import {MdOutlineSpeakerNotes} from "react-icons/md";
 import NoteModal from "./modal-component/NoteModal";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const porkerPickupAddress =
   "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
@@ -25,6 +27,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   
   const [orderNote, SetOrderNote] = useState ()
   const [modalOpen, SetModalOpen] = useState (false)
+  const [noteText, setNoteText] = useState('Add note')
 
   const updatedValues = {
     option: selectedOption,
@@ -73,12 +76,18 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     SetModalOpen(false)
    }
 
+   const handleNote = (newNote:string) => {
+    setNoteText(newNote)
+   }
+
   return (
     <div>
-      <NoteModal isOpen={modalOpen} closeNoteModal={closeNoteModal}/> 
+      { modalOpen && <NoteModal onClose={closeNoteModal} onAddNote={handleNote}/>
+      }
+       
       {Object.values(items).map((item, idx) => (
         <div key={idx + "index"}>
-          <div className="flex items-center px-0 md:px-5 gap-6">
+          <div className="flex items-start px-0 md:px-5 gap-6">
             <div>
               <div className="flex  gap-4">
                 <div className="img flex flex-col">
@@ -158,12 +167,15 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 ></textarea>
               </div>
             </div>
+            
+            <p className="md:hidden text-neutral-400 text-sm font-normal pr-2">Remove</p>
+              
           </div>
           {item?.vendor?.sellerAccountInformation?.shopName ===
             "Test Shop Ltd" && (
             <div className="flex mt-4 mb-5 p-0 md:px-5 md:flex-row flex-col gap-4">
               <div className="">
-                <p onClick={isOpen} className="flex gap-2 items-center py-4"><MdOutlineSpeakerNotes/> Add note</p>
+                <p onClick={isOpen} className="flex gap-2 items-center py-4"><MdOutlineSpeakerNotes/>{noteText}</p>
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="radio"
