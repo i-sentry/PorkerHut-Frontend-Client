@@ -18,7 +18,7 @@ export type ITable = {
   tabs: any;
   placeholder: string;
   Tcolumns: readonly Column<object>[];
-  optionalColumn?: Column<object>; 
+  optionalColumn?: Column<object>;
   TData: any;
   sortButton?: React.ReactNode;
   showIcon?: boolean;
@@ -37,7 +37,6 @@ const AdminTable = ({
   showIcon,
   showCheckbox,
   showDropDown,
-
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
@@ -91,6 +90,12 @@ const AdminTable = ({
     usePagination,
     useRowSelect
   ) as any;
+
+  console.log("TData:", TData);
+  console.log("Tcolumns:", Tcolumns);
+  console.log("Data:", data);
+  console.log("Columns:", tableColumns);
+
   const {
     getTableBodyProps,
     getTableProps,
@@ -115,8 +120,7 @@ const AdminTable = ({
         )
       );
     }
-  }, [chosenTab]);
-
+  }, [chosenTab, TData, tabs]);
 
   return (
     <>

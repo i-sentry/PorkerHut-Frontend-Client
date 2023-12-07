@@ -1,7 +1,12 @@
 import useQueryAction from "../../../lib/useQueryAction";
 import useQueryMutation from "../../../lib/useQueryMutation";
 import { Order } from "../../../pages/BillingPage";
-import { api, makeGetRequest, makePostRequestCustom } from "../../api";
+import {
+  api,
+  makeGetRequest,
+  makeGetRequestWithCustomHeader,
+  makePostRequestCustom,
+} from "../../api";
 
 export const useCreateOrder = () => {
   return useQueryMutation({
@@ -13,5 +18,12 @@ export const useGetOrders = () => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Order.order),
     queryKey: ["order +"],
+  });
+};
+
+export const useGetCustomersOrder = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequestWithCustomHeader(api.Order.customerOrder(id)),
+    queryKey: ["customerOrder +"],
   });
 };
