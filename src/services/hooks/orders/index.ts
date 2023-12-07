@@ -15,3 +15,9 @@ export const useGetOrders = () => {
     queryKey: ["order +"],
   });
 };
+
+// export const useGetAllOrders = () => {
+//   return useQueryAction({
+//     queryFn: () => makeGetRequest(api.Order.orders)
+//   })
+// }

@@ -6,11 +6,13 @@ import AppLayout from "../components/utility/AppLayout";
 import _ from "lodash";
 import { TabSelector } from "../components/utility/TabSelector";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { useGetOrders } from "../services/hooks/orders";
+
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
     case "completed":
-      return <span className="text-[#22C55E]">Completed</span>;
+      return <span className="text-[#2b573b]">Completed</span>;
 
     case "failed":
       return <span className=" text-[#F91919]">Failed</span>;
@@ -203,7 +205,7 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Order Date",
-    accessor: "order_date",
+    accessor: "orderDate",
   },
   {
     Header: "Order ID",
@@ -223,12 +225,17 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Status",
-    accessor: "order_status",
+    accessor: "status",
     Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
   },
 ];
 
 const MyOrder = () => {
+  const  getOrders  = useGetOrders();
+  console.log(getOrders?.data?.data?.data, 'orderss')
+  const orders = getOrders?.data?.data?.data
+  console.log(orders, 'getOrdersss')
+
   const [searchValue, setSearchValue] = useState("");
   // const [isOrderExpanded, setIsOrderExpanded] = useState(false);
   const [selectedTab, setSelectedTab] = useState("All");

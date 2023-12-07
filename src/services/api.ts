@@ -70,7 +70,7 @@ export const api = {
     updateBillingInfo: (id: string) => `/api/users/billing/${id}`
   },
   Order: {
-    order: "/api/orders",
+    order: "/api/orders", 
   },
 };
 

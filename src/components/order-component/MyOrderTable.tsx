@@ -120,7 +120,7 @@ const MyOrderTable = ({
       setTdata(TData);
     } else {
       setTdata(
-        TData.filter(
+        TData?.filter(
           (d: { order_status: string }) =>
             d?.order_status?.toLowerCase() === chosenTab.toLowerCase()
         )
@@ -135,7 +135,7 @@ const MyOrderTable = ({
     <>
       <div className="flex items-center justify-between my-4">
         <div className="tabs flex gap-4 pt-5 pb-1  ">
-          {tabs.map((tab: string, index: React.Key | null | undefined) => (
+          {tabs?.map((tab: string, index: React.Key | null | undefined) => (
             <TabSelector
               key={index}
               className={`cursor-pointer relative underline bg-transparent text-[16px] leading-[19px] font-normal text-center p-2 px-5 text-[#5c6f7f]${
@@ -204,7 +204,7 @@ const MyOrderTable = ({
                   {...getTableBodyProps()}
                   className="mt-3 pt-3 w-full space-y-8 border-r"
                 >
-                  {page.map(
+                  {page?.map(
                     (row: {
                       subRows: any;
                       getRowProps: () => JSX.IntrinsicAttributes &
