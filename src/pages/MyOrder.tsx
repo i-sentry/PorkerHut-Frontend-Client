@@ -1,11 +1,16 @@
 import React, { Fragment, useState } from "react";
-import MyOrderTable from "../components/order-component/MyOrderTable";
+// import MyOrderTable from "../components/order-component/MyOrderTable";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import { Column } from "react-table";
 import AppLayout from "../components/utility/AppLayout";
 import _ from "lodash";
 import { TabSelector } from "../components/utility/TabSelector";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { useGetCustomersOrder } from "../services/hooks/orders";
+import AdminTable from "../components/admin-dashboard-components/AdminTable";
+import { CgSpinnerAlt } from "react-icons/cg";
+// import { ImSpinner6 } from "react-icons/im";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -28,8 +33,10 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.row?.original?.img, "data");
+  console.log(data?.data, "data product");
   const adata = data?.cell?.value;
+  // console.log(adata, "Adata");
+
   const lowerData = adata?.toLowerCase();
 
   const productName = _.startCase(lowerData);
@@ -37,7 +44,7 @@ export const ProductNameColumn = ({ data }: any) => {
     <div className="flex items-center gap-2">
       <figure className="h-9 w-9 rounded-full border">
         <img
-          src={data?.row?.original?.img}
+          src={data?.data[0]?.productDetails[0]?.productID.images[0]}
           alt="product"
           className="rounded-full object-cover w-full h-full"
         />
@@ -191,42 +198,141 @@ export const OrderData = [
   },
 ];
 
-const Tcolumns: readonly Column<object>[] = [
+interface IProductDetails {
+  productID: {
+    _id: string;
+    information: {
+      productName: string;
+    };
+    images: string[];
+  };
+  quantity: number;
+  price: number;
+  totalPrice: number;
+  vendor: {
+    sellerAccountInformation: {
+      shopName: string;
+    };
+    businessInformation: {
+      address1: string;
+      city: string;
+    };
+    _id: string;
+  };
+  deliveryOption: string;
+  _id: string;
+}
+
+interface IOrder {
+  _id: string;
+  customer: string;
+  productDetails: IProductDetails[];
+  subtotal: number;
+  tax: number;
+  totalAmount: number;
+  billingInformation: string;
+  status: string;
+  isPaid: boolean;
+  orderDate: string;
+  __v: number;
+}
+
+const Tcolumns: readonly Column<IOrder>[] = [
   {
     Header: "Product Name",
-    accessor: "product_name",
+
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.productID.information.productName || "N/A",
     Cell: (props: any) => <ProductNameColumn data={props} />,
   },
   {
     Header: "Store Name",
-    accessor: "store_name",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0].vendor.sellerAccountInformation.shopName || "N/A",
+    Cell: (data: any) => {
+      const d = data.row.original;
+      return <StoreNameColumn d={d} />;
+    },
   },
+
   {
     Header: "Order Date",
-    accessor: "order_date",
+    accessor: "orderDate",
+    Cell: (data) => {
+      const d = data?.row.original;
+
+      return <DateColumn d={d} />;
+    },
   },
   {
     Header: "Order ID",
-    accessor: "order_id",
+    accessor: "_id",
   },
   {
     Header: "Prices",
-    accessor: "price",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.price || "N/A",
   },
   {
     Header: "Quantity",
-    accessor: "quantity",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.quantity || "N/A",
   },
   {
     Header: "Order Total",
-    accessor: "order_total",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.totalPrice || "N/A",
   },
   {
     Header: "Status",
-    accessor: "order_status",
+    accessor: "status",
     Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
   },
 ];
+
+const DateColumn = ({ d }: any) => {
+  console.log(d.orderDate, "datafhshs");
+  const createdAt = d.orderDate;
+
+  console.log(createdAt, "createdat");
+
+  const formattedDate = moment(createdAt).format("DD MMMM YYYY");
+  const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
+  return (
+    <div className="flex flex-col items-start">
+      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {formattedDate}
+      </span>
+      <span className="text-neutral-400 text-sm font-light capitalize mt-1">
+        {formattedTime}
+      </span>
+    </div>
+  );
+};
+
+const StoreNameColumn = ({ d }: any) => {
+  // const { vendor } = d;
+  console.log(d, "store-colum");
+
+  const storeName =
+    d?.productDetails[0].vendor.sellerAccountInformation.shopName;
+  const storeCity = d?.productDetails[0].vendor.businessInformation.city;
+  return (
+    <div className="flex flex-col items-start">
+      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+        {storeName}
+      </span>
+      <span className="text-neutral-400 text-sm font-light capitalize mt-1">
+        {storeCity}
+      </span>
+    </div>
+  );
+};
 
 const MyOrder = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -237,6 +343,14 @@ const MyOrder = () => {
   const queryKey = ["location", "product_name", " store_name"];
   // const [open, setOpen] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState(-1);
+  const user = JSON.parse(localStorage.getItem("user") as string);
+  const getAllOrders = useGetCustomersOrder(user._id as string);
+  console.log(getAllOrders, "Get All orders");
+
+  const allOrders = getAllOrders?.data?.orders;
+
+  console.log(user, user._id, typeof user._id, "User");
+  console.log(allOrders, "All orders");
 
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
@@ -280,29 +394,57 @@ const MyOrder = () => {
     },
   };
 
-  const filteredData = OrderData.filter((b: any) =>
-    queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
-  );
-
-  console.log({ filteredData });
+  const filteredData =
+    allOrders?.filter((b: any) =>
+      queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
+    ) || [];
+  console.log(filteredData);
 
   return (
+    // <h1>Hello</h1>
     <AppLayout>
-      <div className="lg:px-12 xxs:px-4 mt-20">
+      <div className=" lg:px-12 xxs:px-4 mt-20">
         <div className="xxs:hidden lg:flex items-center flex-col justify-center py-10">
           <h2 className="text-[40px] leading-[47px] font-medium">My Orders</h2>
 
           <div className="h-1.5 w-24 bg-[#197B30] mt-1"></div>
         </div>
         <div className="xxs:hidden lg:block">
-          <MyOrderTable
+          {/* <MyOrderTable
             Tcolumns={Tcolumns}
             // @ts-ignore
             optionalColumn={optionalColumn}
             tabs={["All", "Pending", "Completed", "Failed"]}
-            TData={OrderData}
+            TData={allOrders}
             placeholder={"Search product name, store names, order date.... "}
-          />
+          /> */}
+          {/* <AdminTable
+            //@ts-ignore
+            Tcolumns={Tcolumns}
+            optionalColumn={optionalColumn}
+            tabs={["All", "Pending", "Approved", "Rejected"]}
+            TData={allOrders}
+            placeholder={"Search product name, store names, category.... "}
+            showIcon={true}
+            showCheckbox={true}
+            showDropDown={true}
+          /> */}
+          {allOrders ? (
+            <AdminTable
+              //@ts-ignore
+              Tcolumns={Tcolumns}
+              optionalColumn={optionalColumn}
+              tabs={["All", "Pending", "Approved", "Rejected"]}
+              TData={allOrders}
+              placeholder={"Search product name, store names, category.... "}
+              // showFilter={true}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center mt-40">
+              <CgSpinnerAlt size={80} className="animate-spin" />
+              <p className="mt-4">Fetching data...</p> 
+            </div>
+          )}
         </div>
         {/* mobile */}
         <div className="lg:hidden flex flex-col py-10">
@@ -357,90 +499,90 @@ const MyOrder = () => {
           </div>
 
           <div className="bg-[#F5F5F5] p-2   ">
-            {OrderData.filter((b: any) =>
-              queryKey.some((key: any) =>
-                b[key]?.toLowerCase().includes(searchValue)
-
+            {allOrders
+              ?.filter((b: any) =>
+                queryKey.some((key: any) =>
+                  b[key]?.toLowerCase().includes(searchValue)
+                )
               )
-            ).map((data, index) => (
-
-              <AccordionSection
-                key={index}
-                title={
-                  <div className="flex  justify-between w-full h-full">
+              .map((data: any, index: number) => (
+                <AccordionSection
+                  key={index}
+                  title={
+                    <div className="flex  justify-between w-full h-full">
+                      <div className="flex gap-2">
+                        <figure className="h-9 w-9 rounded-full border">
+                          <img
+                            src={data?.img}
+                            alt="product"
+                            className="rounded-full object-cover w-full h-full"
+                          />
+                        </figure>
+                        <div>
+                          <ul className="space-y-3">
+                            <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
+                              {data?.product_name}(1kg){" "}
+                            </li>
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                              ₦{data?.price}
+                            </li>
+                            <li className="text-[14px] leading-[16px] font-normal text-[#22C55E]">
+                              {data?.order_status}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <>
+                        <div>
+                          <ul className="text-right flex flex-col justify-between h-full">
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                              {data?.order_date}
+                            </li>
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                              X {data?.quantity}
+                            </li>
+                          </ul>
+                        </div>
+                      </>
+                    </div>
+                  }
+                  isExpanded={expandedIndex === index}
+                  onToggle={() => handleToggle(index)}
+                >
+                  <div className="flex  justify-between w-full h-full mt-5">
                     <div className="flex gap-2">
-                      <figure className="h-9 w-9 rounded-full border">
-                        <img
-                          src={data?.img}
-                          alt="product"
-                          className="rounded-full object-cover w-full h-full"
-                        />
-                      </figure>
-                      <div>
-                        <ul className="space-y-3">
-                          <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
-                            {data?.product_name}(1kg){" "}
+                      <div className="">
+                        <ul className="flex flex-col justify-between gap-4 text-left">
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            Date
                           </li>
                           <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                            ₦{data?.price}
+                            Location
                           </li>
-                          <li className="text-[14px] leading-[16px] font-normal text-[#22C55E]">
-                            {data?.order_status}
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333] ">
+                            Total
                           </li>
                         </ul>
                       </div>
                     </div>
-                    <>
-                      <div>
-                        <ul className="text-right flex flex-col justify-between h-full">
+                    <div>
+                      <div className="">
+                        <ul className="text-right flex flex-col justify-between h-full gap-4">
                           <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
                             {data?.order_date}
                           </li>
                           <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                            X {data?.quantity}
+                            {data?.location}
+                          </li>
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            {data?.order_total}
                           </li>
                         </ul>
                       </div>
-                    </>
-                  </div>
-                }
-                isExpanded={expandedIndex === index}
-                onToggle={() => handleToggle(index)}
-              >
-                <div className="flex  justify-between w-full h-full mt-5">
-                  <div className="flex gap-2">
-                    <div className="">
-                      <ul className="flex flex-col justify-between gap-4 text-left">
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          Date
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          Location
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333] ">
-                          Total
-                        </li>
-                      </ul>
                     </div>
                   </div>
-                  <div>
-                    <div className="">
-                      <ul className="text-right flex flex-col justify-between h-full gap-4">
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          {data?.order_date}
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          {data?.location}
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          {data?.order_total}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </AccordionSection>
-            ))}
+                </AccordionSection>
+              ))}
           </div>
         </div>
       </div>

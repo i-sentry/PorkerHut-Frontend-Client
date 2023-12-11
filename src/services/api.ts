@@ -67,10 +67,11 @@ export const api = {
   Billing: {
     billing: "/api/user/billing",
     getBillingInfo: "/api/user/billing/me",
-    updateBillingInfo: (id: string) => `/api/users/billing/${id}`
+    updateBillingInfo: (id: string) => `/api/users/billing/${id}`,
   },
   Order: {
     order: "/api/orders",
+    customerOrder: (id: string) => `/api/orders/customer/${id}`,
   },
 };
 
