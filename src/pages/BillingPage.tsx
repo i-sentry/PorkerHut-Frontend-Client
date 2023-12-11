@@ -221,7 +221,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               <Link
                 to={"/billing/me"}
                 className={`flex items-center justify-center text-sm md:text-lg font-semibold flex-1 p-4 ${
-                  !isMyBilling ? "text-[#aabecf]" : "text-[#197B30]"
+                  !isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
                 Use Existing Information
@@ -229,7 +229,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               <Link
                 to={"/billing"}
                 className={`flex items-center justify-center text-sm  md:text-lg font-semibold flex-1 p-1 md:p-4 ${
-                  isMyBilling ? "text-[#aabecf]" : "text-[#197B30]"
+                  isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
                 Enter New Information
