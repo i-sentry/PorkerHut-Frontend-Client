@@ -18,7 +18,7 @@ export const api = {
   Users: {
     userSignup: "/api/user/signup",
     userLogin: "/api/user/login",
-    recoverPassword: "/api/user/request-reset-password ",
+    recoverPassword: "/api/user/request-reset-password",
     resetPassword: (token: string | undefined) =>
       `/api/user/reset-password/${token}`,
   },
@@ -31,7 +31,7 @@ export const api = {
       `/api/vendors/reset-password/${token}`,
   },
   Blogs: {
-    allBlogs: "/api/blogs/",
+    allBlogs: "/api/blogs",
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`,
   },
   Products: {

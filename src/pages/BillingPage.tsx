@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import OrderCart, { IUser } from "../components/order-component/OrderCart";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -23,6 +23,8 @@ import ReactLoading from "react-loading";
 import { ImSpinner6 } from "react-icons/im";
 import Ripples from "react-ripples";
 import { useCreateOrder } from "../services/hooks/orders";
+import PaymentStatus from "./product-category/PaymentStatus";
+import PaymentSuccessPage from "./PaymentSuccessPage";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -75,7 +77,9 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     resolver: yupResolver(validationSchema),
   });
   const navigate = useNavigate();
-  const makePayment = useMakePayment();
+  const location = useLocation();
+  const [status, setStatus] = useState("default");
+  // const makePayment = useMakePayment();
   const [val, setVal] = useState(false);
   const cartTotal = useCartTotalAmount((state) => state.cartTotal);
   const createBilling = useBillingInfo();
@@ -103,7 +107,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setValue("lastName", defaultBillingInfo?.lastName);
       setValue("email", defaultBillingInfo?.email);
       setValue("phoneNumber", defaultBillingInfo?.phoneNumber);
-      setValue("address", defaultBillingInfo?.address || ""); // Note: address is optional in the interface
+      setValue("address", defaultBillingInfo?.address || "");
       setValue("country", defaultBillingInfo?.country);
       setValue("state", defaultBillingInfo?.state);
       setValue("city", defaultBillingInfo?.city);
@@ -175,16 +179,20 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
-  //       <span className="animate-spin">
-  //         <ImSpinner6 size={30} />
-  //       </span>
-  //       Please wait..
-  //     </div>
-  //   );
-  // }
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const statusParam = searchParams.get("status");
+    setStatus(statusParam || "default");
+  }, [location.search]);
+  
+  console.log(status, "status");
+
+  if (status === "success") {
+    return <PaymentSuccessPage />;
+  }
+  if (status === "error") {
+    return <PaymentSuccessPage />;
+  }
 
   return (
     <AppLayout>

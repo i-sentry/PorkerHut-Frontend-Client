@@ -2,15 +2,22 @@ import React from "react";
 import NavBar from "../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import CancelImg from "../assets/images/CancelImg.png"
-// import { GoVerified } from "react-icons/go";
 import VerifyImg from "../assets/images/VerifyImg.png"
+import vector from "../assets/images/Vector.png"
 import Footer from "../components/footer-component/Footer";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccessPage = () => {
-
+const navigate = useNavigate()
   React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    window.scrollTo(0, 0);
   }, []);
+
+  const handleClick = (
+    ) => {
+    navigate("/")
+
+  }
 
   return (
     <>
@@ -20,48 +27,47 @@ const PaymentSuccessPage = () => {
         </nav>
 
         <div className=" bg-[#F5F5F5]">
-          <div className="">
-            <div className="px-8">
-              <ProductsBreadCrumbs
-                items={[
-                  {
-                    name: "Home",
-                    link: "/",
-                  },
-                  {
-                    name: "Cart",
-                    link: "/blog",
-                  },
-                ]}
-              />
-            </div>
+          <div className="py-4 px-8">
+            <ProductsBreadCrumbs
+              items={[
+                {
+                  name: "Home",
+                  link: "/",
+                },
+                {
+                  name: "Cart",
+                  link: "/my-cart",
+                },
+              ]}
+            />
           </div>
 
           <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[561px] mx-8 mb-20 rounded-lg">
-            <div className=" flex flex-col items-center text-center mt-24 md:mt-32">
-              <div className=" ">
-              <img src={CancelImg} alt="" className="w-24 h-24"  />
-              <div className="">
-                <img src={VerifyImg} alt="" className="w-24 h-24"  />
-
+            <div className="flex flex-col items-center text-center h-full justify-center relative">
+              <div
+                className="bg-contain bg-no-repeat bg-center flex items-center justify-center w-28 h-28"
+                style={{ backgroundImage: `url(${vector})` }}
+              >
+                <img src={VerifyImg} alt="" className="w-24 h-24" />
               </div>
-              <h1 className=" pt-4 text-[18px] md:text-base leading-7 text-[#333333] font-medium mb-8">
+              <h1 className="pt-4 text-[18px] md:text-base leading-7 text-[#333333] font-medium ">
                 Payment Successful
               </h1>
-              <p className=" text-xs md:text-sm text-[#333333]">
+              <p className="text-xs md:text-sm text-[#333333]">
                 Your Order ID #101101 has been placed
               </p>
-              <p className=" text-xs md:text-xs px-4 mb-4 text-[#333333]">
+              <p className="text-xs md:text-xs px-4 mb-4 text-[#333333]">
                 We sent an email to williamsnado@gmail.com with your order
                 confirmation and bill.
               </p>
-
-              <button className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-10 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap">
+              <button
+                onClick={handleClick}
+                className="border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-10 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              >
                 Continue Shopping
               </button>
             </div>
           </div>
-        </div>
         </div>
 
         <Footer />
