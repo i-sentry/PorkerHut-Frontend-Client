@@ -1,8 +1,8 @@
 import React from "react";
 import NavBar from "../../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../../components/story-components/ProductsBreadCrumbs";
-import CancelImg from "../assets/images/CancelImg.png";
-import vector from "../assets/images/Ellipse.png";
+import CancelImg from "../../assets/images/CancelImg.png";
+import vector from "../../assets/images/Ellipse.png";
 import Footer from "../../components/footer-component/Footer";
 import { useNavigate } from "react-router-dom";
 
