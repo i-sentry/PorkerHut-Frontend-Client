@@ -23,7 +23,7 @@ import ReactLoading from "react-loading";
 import { ImSpinner6 } from "react-icons/im";
 import Ripples from "react-ripples";
 import { useCreateOrder } from "../services/hooks/orders";
-import PaymentStatus from "./product-category/PaymentStatus";
+import PaymentFailedStatus from "./product-category/PaymentFailedStatus";
 import PaymentSuccessPage from "./PaymentSuccessPage";
 
 const validationSchema = Yup.object().shape({
@@ -184,14 +184,14 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     const statusParam = searchParams.get("status");
     setStatus(statusParam || "default");
   }, [location.search]);
-  
+
   console.log(status, "status");
 
   if (status === "success") {
     return <PaymentSuccessPage />;
   }
   if (status === "error") {
-    return <PaymentSuccessPage />;
+    return <PaymentFailedStatus />;
   }
 
   return (

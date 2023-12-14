@@ -6,8 +6,8 @@ import vector from "../assets/images/Ellipse.png";
 import Footer from "../../components/footer-component/Footer";
 import { useNavigate } from "react-router-dom";
 
-const PaymentStatus = () => {
-  const navigate = useNavigate()
+const PaymentFailedStatus = () => {
+  const navigate = useNavigate();
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -69,4 +69,4 @@ const PaymentStatus = () => {
   );
 };
 
-export default PaymentStatus;
+export default PaymentFailedStatus;
