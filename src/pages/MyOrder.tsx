@@ -375,8 +375,10 @@ const MyOrder = () => {
 
     Cell: ({ row }: any) => {
       const navigate = useNavigate();
+      console.log(row?.original, "row");
 
       const handleView = (id: any) => {
+
         navigate(`/my__orders/${id}`, {
           replace: true,
         });
@@ -384,7 +386,7 @@ const MyOrder = () => {
       return (
         <div>
           <span
-            onClick={() => handleView(row?.original?.id)}
+            onClick={() => handleView(row?.original?._id)}
             className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
           >
             View
@@ -410,25 +412,7 @@ const MyOrder = () => {
           <div className="h-1.5 w-24 bg-[#197B30] mt-1"></div>
         </div>
         <div className="xxs:hidden lg:block">
-          {/* <MyOrderTable
-            Tcolumns={Tcolumns}
-            // @ts-ignore
-            optionalColumn={optionalColumn}
-            tabs={["All", "Pending", "Completed", "Failed"]}
-            TData={allOrders}
-            placeholder={"Search product name, store names, order date.... "}
-          /> */}
-          {/* <AdminTable
-            //@ts-ignore
-            Tcolumns={Tcolumns}
-            optionalColumn={optionalColumn}
-            tabs={["All", "Pending", "Approved", "Rejected"]}
-            TData={allOrders}
-            placeholder={"Search product name, store names, category.... "}
-            showIcon={true}
-            showCheckbox={true}
-            showDropDown={true}
-          /> */}
+
           {allOrders ? (
             <AdminTable
               //@ts-ignore
@@ -436,7 +420,7 @@ const MyOrder = () => {
               optionalColumn={optionalColumn}
               tabs={["All", "Pending", "Approved", "Rejected"]}
               TData={allOrders}
-              placeholder={"Search product name, store names, category.... "}
+              placeholder={"Search product name, store names.... "}
               // showFilter={true}
             />
           ) : (

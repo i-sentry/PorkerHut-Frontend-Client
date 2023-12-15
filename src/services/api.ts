@@ -71,6 +71,7 @@ export const api = {
   },
   Order: {
     order: "/api/orders",
+    orderbyId: (id: string) => `/api/orders/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
   },
 };

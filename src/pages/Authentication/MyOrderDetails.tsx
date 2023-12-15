@@ -14,12 +14,15 @@ import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
 import { OrderData } from "../admin-dashboard/Order";
 import AppLayout from "../../components/utility/AppLayout";
+import { useGetOrdersById } from "../../services/hooks/orders";
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const handleOnclose = () => setShowModal(false);
-
   const { id } = useParams();
+  const { data, error, isLoading } = useGetOrdersById(id as string);
+  console.log(data, "hyunmdhdhf");
+  
 
   const navigate = useNavigate();
 

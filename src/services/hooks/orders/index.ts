@@ -20,6 +20,12 @@ export const useGetOrders = () => {
     queryKey: ["order +"],
   });
 };
+export const useGetOrdersById = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.orderbyId(id)),
+    queryKey: ["order +we"],
+  });
+};
 
 export const useGetCustomersOrder = (id: string) => {
   return useQueryAction({
