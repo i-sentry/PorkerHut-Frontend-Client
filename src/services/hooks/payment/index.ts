@@ -10,8 +10,13 @@ import {
 
 export const useMakePayment = () => {
   return useQueryMutation({
-    mutationFn: (data: { email: string; amount: any }) =>
-      makePostRequest(data, api.Payment.pay),
+    mutationFn: (data: {
+      email: string;
+      amount: any;
+      full_name: string;
+      order_id: string;
+      currency: string;
+    }) => makePostRequest(data, api.Payment.pay),
   });
 };
 

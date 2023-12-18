@@ -72,10 +72,10 @@ const OrderCart = ({
         billingInformation: billingId,
       })
       .then((res) => {
-        if (res.order) {
-          initiatePayment();
-        }
         localStorage.setItem("order_id", JSON.stringify(res.order._id));
+        if (res.order) {
+          initiatePayment(res.order._id);
+        }
         console.log(res, "order res");
         console.log(res.order._id, "order id");
         // setLoading(false);
@@ -85,9 +85,17 @@ const OrderCart = ({
       });
   };
 
-const initiatePayment = () => {
+const initiatePayment = (id:string) => {
   makePayment
-    .mutateAsync({ email: user?.email, amount: sumTotal })
+    .mutateAsync({
+      email: user?.email,
+      amount: sumTotal,
+      full_name: `${user?.firstName} ${user?.lastName}`,
+      order_id: id,
+      //subject to change to ngn
+      currency: "GHS",
+    })
+    // .mutateAsync({ email: user?.email, amount: sumTotal })
     .then((res) => {
       console.log(res,"payment")
       const authorizationUrl = res.data?.data.data.authorization_url;
