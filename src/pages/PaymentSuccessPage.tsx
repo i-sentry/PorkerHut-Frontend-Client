@@ -27,7 +27,7 @@ const navigate = useNavigate()
         </nav>
 
         <div className=" bg-[#F5F5F5]">
-          <div className="py-4 px-8">
+          <div className="py-4 px-[4%]">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -41,8 +41,10 @@ const navigate = useNavigate()
               ]}
             />
           </div>
+          
+          <div className="px-[4%]">
 
-          <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[561px] mx-8 mb-20 rounded-lg">
+          <div className=" bg-white border h-[500px] md:h-[561px] px-[4%] mb-20 rounded-lg">
             <div className="flex flex-col items-center text-center h-full justify-center relative">
               <div
                 className="bg-contain bg-no-repeat bg-center flex items-center justify-center w-28 h-28"
@@ -67,6 +69,7 @@ const navigate = useNavigate()
                 Continue Shopping
               </button>
             </div>
+          </div>
           </div>
         </div>
 

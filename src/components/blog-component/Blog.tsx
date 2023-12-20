@@ -44,7 +44,7 @@ const Blog = () => {
         </div>
       </div>
       <>
-        <div className="xxs:px-4 lg:px-16 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
+        <div className="px-[4%] grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
           {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
             (blog, index: number) => {
               return <BlogCard blog={blog} key={index} />;

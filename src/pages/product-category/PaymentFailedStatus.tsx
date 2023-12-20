@@ -1,7 +1,8 @@
 import React from "react";
 import NavBar from "../../components/nav-component/NavBar";
 import ProductsBreadCrumbs from "../../components/story-components/ProductsBreadCrumbs";
-import CancelImg from "../../assets/images/CancelImg.png";
+// import CancelImg from "../../assets/images/CancelImg.png";
+import CancelImg from "../../assets/images/CancelImage1.png";
 import vector from "../../assets/images/Ellipse.png";
 import Footer from "../../components/footer-component/Footer";
 import { useNavigate } from "react-router-dom";
@@ -17,13 +18,13 @@ const PaymentFailedStatus = () => {
   };
   return (
     <>
-      <div className="  bg-[#F5F5F5]">
+      <div className="bg-[#F5F5F5]">
         <nav className="mb-20">
           <NavBar />
         </nav>
 
-        <div className=" bg-[#F5F5F5]">
-          <div className="py-4 px-8">
+        <div className="bg-[#F5F5F5]">
+          <div className="py-4 px-[4%]">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -37,8 +38,8 @@ const PaymentFailedStatus = () => {
               ]}
             />
           </div>
-
-          <div className=" max-w-[1568px] md:max-w-[1568px] bg-white border h-[500px] md:h-[561px] mx-8 mb-20 rounded-lg">
+          <div className="px-[4%]">
+              <div className="bg-white border h-[500px] md:h-[561px] px-[4%] mb-20 rounded-lg">
             <div className="flex flex-col items-center text-center h-full justify-center relative">
               <div
                 className="bg-contain bg-no-repeat bg-center flex items-center justify-center w-28 h-28"
@@ -61,6 +62,8 @@ const PaymentFailedStatus = () => {
               </button>
             </div>
           </div>
+          </div>
+        
         </div>
 
         <Footer />
