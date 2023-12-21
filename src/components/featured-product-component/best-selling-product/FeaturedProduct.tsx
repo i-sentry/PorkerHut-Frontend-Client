@@ -15,7 +15,7 @@ const FeaturedProduct = () => {
   const { data: getAllProducts, isLoading } = useGetAllProducts();
   if (isLoading) {
     return (
-      <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 lg:px-6 xxs:px-0 ">
+      <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 px-[4%] ">
         {Array.from({ length: 12 }).map((_, index) => (
           <SkeletonLoader />
         ))}
@@ -46,7 +46,7 @@ const FeaturedProduct = () => {
           <p className="mt-2 text-sm text-gray-500">No products available.</p>
         </div>
       ) : (
-        <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 lg:px-6 xxs:px-0 ">
+        <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 px-[4%] ">
           {chunkArray(
             getAllProducts?.data.filter(
               (product: any) => product.images.length > 0

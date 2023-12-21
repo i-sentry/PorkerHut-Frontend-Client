@@ -27,7 +27,7 @@ const Story = () => {
       <div className="flex items-center justify-center mb-16">
         <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
-      <div className="grid lg:grid-cols-3 lg:gap-12 xxs:gap-5 lg:px-14 xxs:px-3">
+      <div className="grid lg:grid-cols-3 lg:gap-12 xxs:gap-5 px-[4%]">
         <div
           className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
           style={{

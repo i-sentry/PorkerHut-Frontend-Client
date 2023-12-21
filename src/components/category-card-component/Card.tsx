@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ item }) => {
   return (
     <NavLink
       to={`/category/${item._id}?q=${item?.name}`}
-      className="overflow-hidden relative"
+      className="overflow-hidden relative flex-1 max-h-[420px]"
     >
       <img
         src={item?.featuredImage}

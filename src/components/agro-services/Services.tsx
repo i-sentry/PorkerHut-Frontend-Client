@@ -9,7 +9,7 @@ const Services = () => {
   }, []);
   
   return (
-    <section className=" bg-[#F4F4F4]   lg:w-full lg:flex-wrap lg:overflow-hidden   lg:mb-20 xxs:mb-0 xxs:p-4 lg:p-0">
+    <section className=" bg-[#F4F4F4]   lg:w-full lg:flex-wrap lg:overflow-hidden   lg:mb-20 xxs:mb-0 xxs:p-[4%] lg:p-0">
       <div className=" flex xxs:flex-col lg:flex-row items-center justify-center xxs:py-0 lg:py-16">
         <div className="hidden lg:block lg:w-[45%] xxs:w-full bg-[#FFFFFF] py-10 px-10 z-10 lg:mr-[-100px] xxs:mr-0 max-h-[400px]">
           <h1 className="font-medium text-[40px] leading-[47px]  pb-2">

@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-[#333333] xxs:p-5 md:p-0">
-      <div className="flex flex-col md:px-10 max-md:mx-0 mx-4 ">
+    <div className="bg-[#333333]">
+      <div className="flex flex-col px-[4%]">
         <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
           <div className=" flex md:justify-between md:flex-col lg:flex-row  items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
             <span className="font-semibold  md:text-[32px] md:mb-4 lg:mb-0 md:text-2xl sm:text-base  md::mb-2 ">

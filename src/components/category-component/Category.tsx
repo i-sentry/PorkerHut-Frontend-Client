@@ -31,7 +31,7 @@ const Category = () => {
   console.log(allCategories?.data, "time");
 
   return (
-    <div className=" xxs:p-3 lg:p-0 ">
+    <div>
       <div>
         <div className="flex justify-center items-center ">
           <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal text-[#333333]">
@@ -42,8 +42,8 @@ const Category = () => {
           <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="  mx-auto  overflow-x-scroll">
-        <div className="lg:flex gap-10 p-14 xxs:hidden md:flex">
+      <div className="  mx-auto lg:overflow-x-scroll px-[4%]">
+        <div className="lg:flex gap-10 p-14 px-0 xxs:hidden md:flex justify-between">
           {isLoading
             ? // Render skeleton loaders when loading
             Array.from({ length: 3 }).map((_, index) => (
@@ -68,7 +68,7 @@ const Category = () => {
             ))}
           </div>
         </div> */}
-        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll py-10 lg:mt-4 -z-50 sm:hidden ">
+        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll py-10 lg:mt-4 -z-50 md:hidden ">
           {allCategories?.data.map((item: ICategory, index: number) => (
             <MobileCard key={index} item={item} />
           ))}
