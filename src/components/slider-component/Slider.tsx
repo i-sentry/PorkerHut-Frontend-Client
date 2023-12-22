@@ -28,15 +28,13 @@ const dataSlider = [
 const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const [slideIndex, setSlideIndex] = useState(1);
 
-const nextSlide = useCallback(() => {
-  if (slideIndex !== dataSlider.length) {
-    setSlideIndex(slideIndex + 1);
-  } else if (slideIndex === dataSlider.length) {
-    setSlideIndex(1);
-  }
-}, [slideIndex]);
-
-
+  const nextSlide = useCallback(() => {
+    if (slideIndex !== dataSlider.length) {
+      setSlideIndex(slideIndex + 1);
+    } else if (slideIndex === dataSlider.length) {
+      setSlideIndex(1);
+    }
+  }, [slideIndex]);
 
   const prevSlide = () => {
     setSlideIndex(
@@ -44,11 +42,10 @@ const nextSlide = useCallback(() => {
     );
   };
 
- useEffect(() => {
-   const id = setInterval(nextSlide, 3000);
-   return () => clearInterval(id);
- }, [nextSlide, slideIndex, sliderImages]);
-
+  useEffect(() => {
+    const id = setInterval(nextSlide, 3000);
+    return () => clearInterval(id);
+  }, [nextSlide, slideIndex, sliderImages]);
 
   const moveDot = (index: number) => {
     setSlideIndex(index);
@@ -92,7 +89,7 @@ const nextSlide = useCallback(() => {
         />
       </div>
 
-      <div className="absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
+      <div className="absolute mx-auto left-[50%] -bottom-5 transform -translate-x-1/2 flex mt-4">
         {dataSlider.map((obj, index) => (
           <div
             key={obj.id}
