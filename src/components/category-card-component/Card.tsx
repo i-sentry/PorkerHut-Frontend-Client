@@ -25,14 +25,14 @@ const Card: React.FC<CardProps> = ({ item }) => {
   return (
     <NavLink
       to={`/category/${item._id}?q=${item?.name}`}
-      className="overflow-hidden relative flex-1 max-h-[420px]"
+      className="overflow-hidden relative flex-1 max-h-[420px] flex items-center justify-center"
     >
       <img
         src={item?.featuredImage}
         alt=""
         className="object-cover rounded-sm transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full opacity-95"
       />
-      <div className="absolute md:top-[44%] md:right-[40%] xxs:top-[44%] xxs:right-[32%]">
+      <div className="absolute">
         <span className="text-white font-medium text-[24px] leading-normal">
           {cap(item?.name)}
         </span>

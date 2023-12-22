@@ -6,7 +6,7 @@ import { AiOutlineRight } from 'react-icons/ai';
 const Header = () => {
 
   return (
-    <div className="p-3 my-10">
+    <div className="p-3 px-0 my-10">
       <div className="flex justify-center items-center mb-2">
         <h1 className="font-medium lg:leading-[47px] lg:text-[40px] md:text-[40px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
           Featured Products
