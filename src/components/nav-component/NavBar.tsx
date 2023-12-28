@@ -1,11 +1,8 @@
-import { Fragment} from "react";
+import { Fragment } from "react";
 import classNames from "classnames";
 import PorkerLogo from "../../assets/images/porker.png";
 import CartLogo from "../../assets/images/CartLogo.svg";
-import {
-  AiOutlineClose,
-  AiOutlineSearch,
-} from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -88,297 +85,304 @@ const NavBar = () => {
   //@ts-ignore
   console.log(user?.firstName, "isLogin");
   return (
-    <div className="bg-white fixed xxs:h-20 top-0 w-full z-50 shadow-md lg:py-0 px-[4%]">
-      <nav className="lg:flex h-full w-full  items-center font-medium justify-between">
-        {/* Menu Btn */}
+    <>
+      <header className="bg-white fixed top-0 py-2 w-full z-[70]">
+        <nav className="lg:flex h-full bg-white w-full px-4 items-center justify-between">
+          {/* Menu Btn */}
 
-        <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-4">
-          <div className="flex gap-2">
-            <button
-              onClick={() => toggleSidebar(!showSideBar)}
-              className="text-3xl lg:hidden flex"
-            >
-              {showSideBar ? <IoMdClose size={38} /> : <IoMdMenu size={38} />}
-            </button>
-            <div
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 cursor-pointer select-none"
-            >
-              <img src={PorkerLogo} alt="" className="lg:cursor-pointer h-9" />
-              <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
-                Porker Hut
-              </h1>
+          <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-7 xl:gap-12">
+            <div className="flex gap-2">
+              <button
+                onClick={() => toggleSidebar(!showSideBar)}
+                className="text-3xl lg:hidden flex justify-center items-center"
+              >
+                {showSideBar ? <IoMdClose size={24} /> : <IoMdMenu size={24} />}
+              </button>
+              <div
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2 cursor-pointer select-none"
+              >
+                <img
+                  src={PorkerLogo}
+                  alt=""
+                  className="lg:cursor-pointer h-9"
+                />
+                <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                  Porker Hut
+                </h1>
+              </div>
             </div>
-          </div>
 
-          <div className="action-btns flex items-center  ml-auto  lg:hidden">
-            <div
-              onClick={() => setShowSearch((prev: any) => !prev)}
-              className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
-            >
-              <AiOutlineSearch size={28} />
-            </div>
-            <div
-              className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
-              onClick={() => navigate("/my-cart")}
-            >
-              <MdOutlineShoppingCart size={28} />
-              {Object.values(cart).length >= 1 && (
-                <span className="flex justify-center items-center xxs:w-[18px] xxs:h-[18px] md:w-[20px] md:h-[20px] bg-emerald-500 text-white absolute top-5 xxs:right-2 md:right-6 rounded-full text-xs">
-                  {Object.values(cart).length}
-                </span>
-              )}
+            <div className="action-btns flex items-center  ml-auto  lg:hidden">
+              <div
+                onClick={() => setShowSearch((prev: any) => !prev)}
+                className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+              >
+                <AiOutlineSearch size={28} />
+              </div>
+              <div
+                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+                onClick={() => navigate("/my-cart")}
+              >
+                <MdOutlineShoppingCart size={28} />
+                {Object.values(cart).length >= 1 && (
+                  <span className="flex justify-center items-center xxs:w-[18px] xxs:h-[18px] md:w-[20px] md:h-[20px] bg-emerald-500 text-white absolute top-5 xxs:right-2 md:right-6 rounded-full text-xs">
+                    {Object.values(cart).length}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
           <ul className="lg:flex font-normal hidden items-center text-sm  ">
             <NavLink setToggle={setToggle} toggle={toggle} />
           </ul>
-        </div>
+          <div>
+            <div className="lg:flex  hidden gap-2 ">
+              <div className="action-btns flex gap-3  mr-4 ">
+                <div>
+                  {showSearch ? (
+                    <div
+                      className={`duration-500 ease-in-out  ${
+                        showSearch ? "right-0" : "right-[-100%]"
+                      }`}
+                    >
+                      <SearchBar setShowSearch={setShowSearch} />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setShowSearch(true)}
+                      className=" p-[6px] rounded w-8"
+                    >
+                      <AiOutlineSearch size={22} />
+                    </button>
+                  )}
+                </div>
 
-        <div>
-          {" "}
-          <div className="lg:flex  hidden gap-2 ">
-            <div className="action-btns flex gap-3  mr-4 ">
-              <div>
-                {showSearch ? (
-                  <div
-                    className={`duration-500 ease-in-out  ${
-                      showSearch ? "right-0" : "right-[-100%]"
-                    }`}
-                  >
-                    <SearchBar setShowSearch={setShowSearch} />
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setShowSearch(true)}
-                    className=" p-[6px] rounded w-8"
-                  >
-                    <AiOutlineSearch size={22} />
-                  </button>
-                )}
+                <button
+                  className=" p-[6px] rounded w-8 relative"
+                  onClick={() => navigate("/my-cart")}
+                >
+                  <img className="w-6" src={CartLogo} alt="" />
+                  {Object.values(cart).length >= 1 && (
+                    <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
+                      {Object.values(cart).length}
+                    </span>
+                  )}
+                </button>
               </div>
-
-              <button
-                className=" p-[6px] rounded w-8 relative"
-                onClick={() => navigate("/my-cart")}
-              >
-                <img className="w-6" src={CartLogo} alt="" />
-                {Object.values(cart).length >= 1 && (
-                  <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
-                    {Object.values(cart).length}
-                  </span>
-                )}
-              </button>
-            </div>
-            <>
-              {user === null ? (
-                <>
-                  <NavButton
-                    className={loginBtn}
-                    text="Login"
-                    path="/login?q=customer"
-                  />
-                  <NavButton
-                    className={signUpBtn}
-                    text="Sign Up"
-                    path="/sign-up"
-                  />
-                </>
-              ) : (
-                <>
-                  <Menu as="div" className="relative">
-                    <Menu.Button className="flex items-center mt-2">
-                      <HiOutlineUserCircle size={22} />
-                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
-                        {/* @ts-ignore */}
-                        Hi, {user?.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : ''}
-                      </p>
-                      <span className="rotate-180">
-                        <RxCaretDown />
-                      </span>
-                      {/* <RxCaretUp /> */}
-                    </Menu.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/profile")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal  text-[#333333] flex items-center gap-3">
-                                <HiOutlineUserCircle size={24} />
-                                My Account
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/my__orders")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                <ImDownload size={24} />
-                                My Order
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/favorite+products")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                <IoMdHeartEmpty size={24} />
-                                My Favorites
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-[#197B30] focus:text-[#fff] border-[#197B30] border-t flex w-full"
-                              )}
-                            >
-                              <h1
-                                onClick={handleLogout}
-                                className="text-[14px] leading-[16px] font-normal text-[#197B30] flex justify-center w-full"
+              <>
+                {user === null ? (
+                  <>
+                    <NavButton
+                      className={loginBtn}
+                      text="Login"
+                      path="/login?q=customer"
+                    />
+                    <NavButton
+                      className={signUpBtn}
+                      text="Sign Up"
+                      path="/sign-up"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Menu as="div" className="relative">
+                      <Menu.Button className="flex items-center mt-2">
+                        <HiOutlineUserCircle size={22} />
+                        <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
+                          {/* @ts-ignore */}
+                          Hi,{" "}
+                          {user?.firstName
+                            ? user.firstName.charAt(0).toUpperCase() +
+                              user.firstName.slice(1)
+                            : ""}
+                        </p>
+                        <span className="rotate-180">
+                          <RxCaretDown />
+                        </span>
+                        {/* <RxCaretUp /> */}
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/profile")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                                )}
                               >
-                                Logout
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                  <Menu as="div" className="relative">
-                    <Menu.Button className="flex items-center mt-2">
-                      <IoMdHelpCircleOutline size={22} />
-                      <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
-                        {" "}
-                        Help
-                      </p>
-                      <span className="rotate-180">
-                        <RxCaretDown />
-                      </span>
-                    </Menu.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/contact-us")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
-                                <FaHandsHelping size={23} />
-                                Help Center
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/tracking+order")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                <MdSendAndArchive size={23} />
-                                Tracking Orders
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/return+order")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                <TbTruckReturn size={23} />
-                                Return Order
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <div
-                              onClick={() => navigate("/order+cancel")}
-                              className={classNames(
-                                active && "bg-gray-100",
-                                "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
-                              )}
-                            >
-                              <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
-                                <MdCancelScheduleSend size={23} />
-                                <span className="m-auto">
-                                  Order Cancellation
-                                </span>
-                              </h1>
-                            </div>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </>
-              )}
-            </>
+                                <h1 className="text-[14px] leading-[16px] font-normal  text-[#333333] flex items-center gap-3">
+                                  <HiOutlineUserCircle size={24} />
+                                  My Account
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/my__orders")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <ImDownload size={24} />
+                                  My Order
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/favorite+products")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <IoMdHeartEmpty size={24} />
+                                  My Favorites
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-[#197B30] focus:text-[#fff] border-[#197B30] border-t flex w-full"
+                                )}
+                              >
+                                <h1
+                                  onClick={handleLogout}
+                                  className="text-[14px] leading-[16px] font-normal text-[#197B30] flex justify-center w-full"
+                                >
+                                  Logout
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                    <Menu as="div" className="relative">
+                      <Menu.Button className="flex items-center mt-2">
+                        <IoMdHelpCircleOutline size={22} />
+                        <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
+                          {" "}
+                          Help
+                        </p>
+                        <span className="rotate-180">
+                          <RxCaretDown />
+                        </span>
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/contact-us")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
+                                  <FaHandsHelping size={23} />
+                                  Help Center
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/tracking+order")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <MdSendAndArchive size={23} />
+                                  Tracking Orders
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/return+order")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <TbTruckReturn size={23} />
+                                  Return Order
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <div
+                                onClick={() => navigate("/order+cancel")}
+                                className={classNames(
+                                  active && "bg-gray-100",
+                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
+                                )}
+                              >
+                                <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
+                                  <MdCancelScheduleSend size={23} />
+                                  <span className="m-auto">
+                                    Order Cancellation
+                                  </span>
+                                </h1>
+                              </div>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </>
+                )}
+              </>
+            </div>
           </div>
-        </div>
 
-        {/* Mobile */}
-        <div className="lg:hidden relative">
-          <MainSideNav/>
-
-        </div>
-      </nav>
-    </div>
+          {/* Mobile */}
+          <div className="lg:hidden relative">
+            <MainSideNav />
+          </div>
+        </nav>
+      </header>
+    </>
   );
 };
 
