@@ -39,7 +39,8 @@ const NavBar = () => {
   //@ts-ignore
   // const { auth, isLogin } = useContext(AuthContext);
   // const user = useAppSelector(selectUser);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState<{ firstName?: string } | null>(null);
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const cart = useSelector((state: RootState) => state.product.cart);
