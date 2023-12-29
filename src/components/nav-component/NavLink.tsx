@@ -4,7 +4,7 @@ import { links } from "./NavbarDropdown";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 interface Iprop {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle?: boolean
+  toggle?: boolean;
 }
 const NavLink = ({ setToggle }: Iprop) => {
   const [heading, setHeading] = useState("");
@@ -25,10 +25,12 @@ const NavLink = ({ setToggle }: Iprop) => {
                   setSubHeading("");
                   setToggle(link?.name === "Services" ? true : false);
                 }}
-                className="py-7 flex justify-between lg:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] lg:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full xxs:text-[#797979]"
+                className="py-4 flex justify-between lg:pr-0 pr-5 hover:text-[#197B30] group  xxs:hover:bg-[#AED1B740] lg:hover:bg-transparent  hover:bg-[#4a85584b] p-2 px-2 rounded-full xxs:text-[#797979]"
               >
                 <span className="flex items-center gap-4 whitespace-nowrap">
-                  <span className="lg:hidden xxs:text-[#797979] lg:text-[#333333]">{link?.icon}</span>
+                  <span className="lg:hidden xxs:text-[#797979] lg:text-[#333333]">
+                    {link?.icon}
+                  </span>
                   <span className="lg:link lg:link--metis whitespace-nowrap">
                     {link?.name}
                   </span>
@@ -50,7 +52,6 @@ const NavLink = ({ setToggle }: Iprop) => {
             {link.subMenu && (
               <div>
                 <div className="absolute top-[50px] hidden group-hover:lg:block hover:lg:block shadow-sm">
-
                   <div className="bg-[#FFFFFF]  relative  border rounded-sm border-slate-300 p-1 w-40">
                     {link.subLinks.map((mySubLink: any, index: number) => (
                       <div key={index}>

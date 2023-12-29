@@ -40,7 +40,8 @@ const OrderCart = ({
   const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
-      acc + current?.pricing?.productPrice * (current?.pricing?.quantity as number)
+      acc +
+      current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
@@ -113,6 +114,7 @@ const initiatePayment = (id:string) => {
 };
 
 
+
   if (temp === true) {
     initiateCreateProduct();
     setTemp(false);
@@ -177,7 +179,7 @@ const initiatePayment = (id:string) => {
 
 const OrderCard = ({ item }: { item: IProduct }) => {
   return (
-    <div className=" flex gap-4 px-4 py-6 border-b">
+    <div className="flex justify-start gap-4 px-4 py-6 border-b">
       <figure className="h-[86px] w-[102px] overflow-hidden rounded">
         <img
           src={item?.images?.[0] || ""}
@@ -190,14 +192,13 @@ const OrderCard = ({ item }: { item: IProduct }) => {
         <h1 className="text-[16px] leading-[24px] text-[#333333] font-medium w-40">
           {item?.information?.productName}
         </h1>
-        <h1 className=" text-[#797979] text-[16px] leading-[24px]  font-medium  mt-4">
+        <p className=" text-[#797979] text-[16px] leading-[24px]  font-medium  mt-1">
           {item?.details?.productWeight} x {item?.pricing?.quantity}
-        </h1>
+        </p>
+        <span className=" text-[16px] leading-[24px] text-[#333333] font-medium mt-2">
+          ₦{item?.pricing?.productPrice}
+        </span>
       </div>
-
-      <h1 className=" text-[16px] leading-[24px] text-[#333333] font-medium self-end md:self-start ml-auto">
-        ₦{item?.pricing?.productPrice}
-      </h1>
     </div>
   );
 };

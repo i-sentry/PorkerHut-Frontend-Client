@@ -25,6 +25,7 @@ import Ripples from "react-ripples";
 import { useCreateOrder } from "../services/hooks/orders";
 import PaymentFailedStatus from "./product-category/PaymentFailedStatus";
 import PaymentSuccessPage from "./PaymentSuccessPage";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -676,7 +677,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     )}
                   </div>
 
-                  <div className="mb-3 input">
+                  <div className="mb-3 input relative">
                     <label
                       className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
                       htmlFor="country"
@@ -696,19 +697,22 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                             // Clear the state when the country changes
                             reset({ ...getValues(), state: "" });
                           }}
-                          classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] pl-5 rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-[#197b30] focus:outline-1  ${
+                          classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] pl-5 rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-[#197b30] focus:outline-1  ${
                             errors.country ? "border-[#dd1313]" : ""
                           }`}
                         />
                       )}
                     />
+                    <span className="absolute top-[34px] right-3 pointer-events-none">
+                      <MdKeyboardArrowDown size={24} color="#a2a2a2" />
+                    </span>
                     {errors.country && (
                       <span className="text-[#dd1313] text-sm">
                         {String(errors.country?.message)}
                       </span>
                     )}
                   </div>
-                  <div className="mb-3 input">
+                  <div className="relative mb-3 input after:content-[`hello`]">
                     <label
                       className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
                       htmlFor="state"
@@ -726,13 +730,15 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                           country={watch("country")}
                           value={value}
                           onChange={onChange}
-                          classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                          classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
                             errors.state ? "border-[#dd1313]" : ""
                           }`}
                         />
                       )}
                     />
-
+                    <span className="absolute top-[34px] right-3 pointer-events-none">
+                      <MdKeyboardArrowDown size={24} color="#a2a2a2" />
+                    </span>
                     {errors.state && (
                       <span className="text-[#dd1313] text-sm">
                         {String(errors.state?.message)}
