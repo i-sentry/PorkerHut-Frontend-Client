@@ -107,6 +107,7 @@ const initiatePayment = (id:string) => {
        setLoading(false);
     })
     .catch((err) => {
+          setLoading(false);
       console.error("Error during payment:", err);
     });
 };
