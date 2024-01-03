@@ -238,25 +238,28 @@ interface IOrder {
 }
 
 const Tcolumns: readonly Column<IOrder>[] = [
-  {
-    Header: "Product Name",
+  // {
+  //   Header: "Product Name",
 
-    accessor: (row) =>
-      // @ts-ignore
-      row.productDetails[0]?.productID.information.productName || "N/A",
-    Cell: (props: any) => <ProductNameColumn data={props} />,
-  },
+  //   accessor: (row) =>
+  //     // @ts-ignore
+  //     row.productDetails[0]?.productID.information.productName,
+  //   Cell: (props: any) => <ProductNameColumn data={props} />,
+  // },
+  // {
+  //   Header: "Store Name",
+  //   accessor: (row) =>
+  //     // @ts-ignore
+  //     row.productDetails[0].vendor.sellerAccountInformation.shopName,
+  //   Cell: (data: any) => {
+  //     const d = data.row.original;
+  //     return <StoreNameColumn d={d} />;
+  //   },
+  // },
   {
-    Header: "Store Name",
-    accessor: (row) =>
-      // @ts-ignore
-      row.productDetails[0].vendor.sellerAccountInformation.shopName || "N/A",
-    Cell: (data: any) => {
-      const d = data.row.original;
-      return <StoreNameColumn d={d} />;
-    },
+    Header: "Order ID",
+    accessor: "_id",
   },
-
   {
     Header: "Order Date",
     accessor: "orderDate",
@@ -266,27 +269,20 @@ const Tcolumns: readonly Column<IOrder>[] = [
       return <DateColumn d={d} />;
     },
   },
+
+  // {
+  //   Header: "Prices",
+  //   accessor: (row) =>
+  //     // @ts-ignore
+  //     row.productDetails[0]?.price,
+  // },
   {
-    Header: "Order ID",
-    accessor: "_id",
-  },
-  {
-    Header: "Prices",
-    accessor: (row) =>
-      // @ts-ignore
-      row.productDetails[0]?.price || "N/A",
-  },
-  {
-    Header: "Quantity",
-    accessor: (row) =>
-      // @ts-ignore
-      row.productDetails[0]?.quantity || "N/A",
+    Header: "No of Items",
+    accessor: (row) => row.productDetails.length,
   },
   {
     Header: "Order Total",
-    accessor: (row) =>
-      // @ts-ignore
-      row.productDetails[0]?.totalPrice || "N/A",
+    accessor: (row) => `₦ ${row.totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
   },
   {
     Header: "Status",
@@ -378,7 +374,6 @@ const MyOrder = () => {
       console.log(row?.original, "row");
 
       const handleView = (id: any) => {
-
         navigate(`/my__orders/${id}`, {
           replace: true,
         });
@@ -412,7 +407,6 @@ const MyOrder = () => {
           <div className="h-1.5 w-24 bg-[#197B30] mt-1"></div>
         </div>
         <div className="xxs:hidden lg:block">
-
           {allOrders ? (
             <AdminTable
               //@ts-ignore
