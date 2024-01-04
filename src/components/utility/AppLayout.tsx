@@ -32,11 +32,17 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
       <div className="mt-10"></div>
       <div className="relative">
         {showSearch && (
-          <div className="absolute flex items-center justify-center w-full top-28 md:hidden z-30">
+          <div className="absolute flex items-center justify-center w-auto left-1/2 -translate-x-1/2 top-10 xl:hidden z-[999]">
             <SearchBar setShowSearch={setShowSearch} />
           </div>
         )}
-        <ToastContainer style={{ width: "500px" }}  />
+        <div
+          onClick={() => setShowSearch(false)}
+          className={`w-full h-full absolute top-0 left-0 duration-300 bg-black z-[20] xl:hidden ${
+            showSearch ? "bg-opacity-80" : "bg-opacity-0 invisible"
+          }`}
+        ></div>
+        <ToastContainer style={{ width: "500px" }} />
         <div className="children">{children}</div>
       </div>
       <Footer />

@@ -87,31 +87,40 @@ const NavBar = () => {
   console.log(user?.firstName, "isLogin");
   return (
     <>
-      <header className="bg-white fixed top-0 py-2 w-full z-[70]">
+      <header className="bg-white fixed top-0 py-2 w-full z-[999]">
         <nav className="lg:flex h-full bg-white w-full px-4 items-center justify-between">
           {/* Menu Btn */}
 
           <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-7 xl:gap-12">
-            <div className="flex gap-2">
-              <button
-                onClick={() => toggleSidebar(!showSideBar)}
-                className="text-3xl lg:hidden flex justify-center items-center"
-              >
-                {showSideBar ? <IoMdClose size={24} /> : <IoMdMenu size={24} />}
-              </button>
-              <div
-                onClick={() => navigate("/")}
-                className="flex items-center gap-2 cursor-pointer select-none"
-              >
-                <img
-                  src={PorkerLogo}
-                  alt=""
-                  className="lg:cursor-pointer h-9"
-                />
-                <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
-                  Porker Hut
-                </h1>
+            <div className="flex items-center justify-start gap-5">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toggleSidebar(!showSideBar)}
+                  className="text-3xl lg:hidden flex justify-center items-center"
+                >
+                  {showSideBar ? (
+                    <IoMdClose size={24} />
+                  ) : (
+                    <IoMdMenu size={24} />
+                  )}
+                </button>
+                <div
+                  onClick={() => navigate("/")}
+                  className="flex items-center gap-2 cursor-pointer select-none"
+                >
+                  <img
+                    src={PorkerLogo}
+                    alt=""
+                    className="lg:cursor-pointer h-9"
+                  />
+                  <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                    Porker Hut
+                  </h1>
+                </div>
               </div>
+              <ul className="lg:flex font-normal hidden items-center text-sm  ">
+                <NavLink setToggle={setToggle} toggle={toggle} />
+              </ul>
             </div>
 
             <div className="action-btns flex items-center  ml-auto  lg:hidden">
@@ -122,7 +131,7 @@ const NavBar = () => {
                 <AiOutlineSearch size={28} />
               </div>
               <div
-                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800 lg:hidden"
                 onClick={() => navigate("/my-cart")}
               >
                 <MdOutlineShoppingCart size={28} />
@@ -134,12 +143,11 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-          <ul className="lg:flex font-normal hidden items-center text-sm  ">
-            <NavLink setToggle={setToggle} toggle={toggle} />
-          </ul>
+
           <div>
             <div className="lg:flex lg:items-center  hidden gap-2 relative z-[2] bg-white">
-              {/* <div className="action-btns bg-white flex gap-3  mr-4 relative">
+              {/* <div className="
+              -btns bg-white flex gap-3  mr-4 relative">
                 <div
                   className={`duration-500 delay-500 ease-in-out right-0 absolute ${
                     showSearch ? "w-[300px]" : "w-0"
@@ -188,8 +196,14 @@ const NavBar = () => {
                   )}
                 </button>
               </div> */}
+              <div
+                onClick={() => setShowSearch((prev: any) => !prev)}
+                className=" py-[6px] rounded w-10 items-end justify-end text-slate-800 hidden lg:flex xl:hidden"
+              >
+                <AiOutlineSearch size={28} />
+              </div>
 
-              <div className="relative w-fit h-fit overflow-hidden">
+              <div className="relative w-fit h-fit hidden xl:inline-block overflow-hidden">
                 <button
                   className={`w-[35px] h-[35px] flex justify-center items-center absolute right-0 z-[1] border-l-2 border-white box-border ${
                     showSearch
@@ -474,8 +488,8 @@ const SearchBar = ({
 
   return (
     <div
-      className={`duration-500 h-8 flex justify-between overflow-hidden items-center pl-3 ${
-        showSearch ? "w-[300px]" : "w-[35px]"
+      className={`duration-500 h-8 justify-between overflow-hidden items-center pl-3 flex ${
+        showSearch ? "w-[320px]" : "w-[35px]"
       }`}
     >
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
