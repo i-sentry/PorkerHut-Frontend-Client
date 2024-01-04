@@ -497,8 +497,8 @@ const SearchBar = ({
           <label className="relative block my-8 w-[100%] lg:mx-1 ">
             <input
               autoFocus
-              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl-lg outline-none rounded-bl-lg`}
-              placeholder="search here"
+              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-5 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl-lg outline-none rounded-bl-lg`}
+              placeholder="Search here"
               type="text"
               name="search"
               value={searchValue}

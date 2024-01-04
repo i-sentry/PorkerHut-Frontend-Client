@@ -141,8 +141,8 @@ export const SearchBar = ({
           <label className="flex relative">
             <input
               autoFocus
-              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-[366px] border-0  py-4  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-[12px] placeholder:leading-[14px] placeholder:font-normal rounded outline-none `}
-              placeholder="search"
+              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-[366px] md:w-[700px] border-0  py-4  pl-5 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-[12px] placeholder:leading-[14px] placeholder:font-normal rounded outline-none `}
+              placeholder="Search here"
               type="text"
               name="search"
               value={searchValue}
