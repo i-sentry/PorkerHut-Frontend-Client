@@ -87,31 +87,40 @@ const NavBar = () => {
   console.log(user?.firstName, "isLogin");
   return (
     <>
-      <header className="bg-white fixed top-0 py-2 w-full z-[70]">
+      <header className="bg-white fixed top-0 py-2 w-full z-[999]">
         <nav className="lg:flex h-full bg-white w-full px-4 items-center justify-between">
           {/* Menu Btn */}
 
           <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-7 xl:gap-12">
-            <div className="flex gap-2">
-              <button
-                onClick={() => toggleSidebar(!showSideBar)}
-                className="text-3xl lg:hidden flex justify-center items-center"
-              >
-                {showSideBar ? <IoMdClose size={24} /> : <IoMdMenu size={24} />}
-              </button>
-              <div
-                onClick={() => navigate("/")}
-                className="flex items-center gap-2 cursor-pointer select-none"
-              >
-                <img
-                  src={PorkerLogo}
-                  alt=""
-                  className="lg:cursor-pointer h-9"
-                />
-                <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
-                  Porker Hut
-                </h1>
+            <div className="flex items-center justify-start gap-5">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toggleSidebar(!showSideBar)}
+                  className="text-3xl lg:hidden flex justify-center items-center"
+                >
+                  {showSideBar ? (
+                    <IoMdClose size={24} />
+                  ) : (
+                    <IoMdMenu size={24} />
+                  )}
+                </button>
+                <div
+                  onClick={() => navigate("/")}
+                  className="flex items-center gap-2 cursor-pointer select-none"
+                >
+                  <img
+                    src={PorkerLogo}
+                    alt=""
+                    className="lg:cursor-pointer h-9"
+                  />
+                  <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                    Porker Hut
+                  </h1>
+                </div>
               </div>
+              <ul className="lg:flex font-normal hidden items-center text-sm  ">
+                <NavLink setToggle={setToggle} toggle={toggle} />
+              </ul>
             </div>
 
             <div className="action-btns flex items-center  ml-auto  lg:hidden">
@@ -122,7 +131,7 @@ const NavBar = () => {
                 <AiOutlineSearch size={28} />
               </div>
               <div
-                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800 lg:hidden"
                 onClick={() => navigate("/my-cart")}
               >
                 <MdOutlineShoppingCart size={28} />
@@ -134,33 +143,49 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-          <ul className="lg:flex font-normal hidden items-center text-sm  ">
-            <NavLink setToggle={setToggle} toggle={toggle} />
-          </ul>
+
           <div>
-            <div className="lg:flex  hidden gap-2 ">
-              <div className="action-btns flex gap-3  mr-4 ">
-                <div>
-                  {showSearch ? (
-                    <div
-                      className={`duration-500 ease-in-out  ${
-                        showSearch ? "right-0" : "right-[-100%]"
-                      }`}
-                    >
-                      <SearchBar setShowSearch={setShowSearch} />
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setShowSearch(true)}
-                      className=" p-[6px] rounded w-8"
-                    >
-                      <AiOutlineSearch size={22} />
-                    </button>
-                  )}
+            <div className="lg:flex lg:items-center  hidden gap-2 relative z-[2] bg-white">
+              {/* <div className="
+              -btns bg-white flex gap-3  mr-4 relative">
+                <div
+                  className={`duration-500 delay-500 ease-in-out right-0 absolute ${
+                    showSearch ? "w-[300px]" : "w-0"
+                  }`}
+                >
+                  <SearchBar setShowSearch={setShowSearch} />
                 </div>
 
                 <button
-                  className=" p-[6px] rounded w-8 relative"
+                  onClick={() => setShowSearch(true)}
+                  className=" p-[6px] rounded w-8"
+                >
+                  <AiOutlineSearch size={22} />
+                </button>
+
+                <div className="w-[35px] h-[35px] relative flex items-center bg-white">
+                  <button
+                    className={`duration-300 rounded-r flex items-center absolute right-0 h-8 bg-[#F4F4F4] py-3 px-2 ${
+                      showSearch ? "opacity-100 z-20" : "opacity-0"
+                    }`}
+                  >
+                    <AiOutlineClose
+                      onClick={() => setShowSearch(false)}
+                      size="19px"
+                    />
+                  </button>
+                  <button
+                    onClick={() => setShowSearch(true)}
+                    className={`absolute right-0 duration-300 p-[6px] rounded w-8 ${
+                      showSearch ? "opacity-0" : "opacity-100 z-20"
+                    }`}
+                  >
+                    <AiOutlineSearch size={22} />
+                  </button>
+                </div>
+
+                <button
+                  className={`p-[6px] rounded w-8 relative bg-white`}
                   onClick={() => navigate("/my-cart")}
                 >
                   <img className="w-6" src={CartLogo} alt="" />
@@ -170,7 +195,53 @@ const NavBar = () => {
                     </span>
                   )}
                 </button>
+              </div> */}
+              <div
+                onClick={() => setShowSearch((prev: any) => !prev)}
+                className=" py-[6px] rounded w-10 items-end justify-end text-slate-800 hidden lg:flex xl:hidden"
+              >
+                <AiOutlineSearch size={28} />
               </div>
+
+              <div className="relative w-fit h-fit hidden xl:inline-block overflow-hidden">
+                <button
+                  className={`w-[35px] h-[35px] flex justify-center items-center absolute right-0 z-[1] border-l-2 border-white box-border ${
+                    showSearch
+                      ? "bg-[#e8e8e8] rounded-tr-lg rounded-br-lg"
+                      : "bg-white"
+                  }`}
+                >
+                  <AiOutlineSearch
+                    onClick={() => setShowSearch(true)}
+                    className={`absolute left-1/2 -translate-x-1/2 duration-300 ${
+                      showSearch ? "opacity-0" : "opacity-100 z-[1]"
+                    }`}
+                    size={22}
+                  />
+                  <AiOutlineClose
+                    onClick={() => setShowSearch(false)}
+                    className={`absolute left-1/2 -translate-x-1/2 duration-300 ${
+                      showSearch ? "opacity-100 z-[1]" : "opacity-0"
+                    }`}
+                    size={22}
+                  />
+                </button>
+                <SearchBar
+                  setShowSearch={setShowSearch}
+                  showSearch={showSearch}
+                />
+              </div>
+              <button
+                className={`p-[6px] rounded w-8 relative bg-white`}
+                onClick={() => navigate("/my-cart")}
+              >
+                <img className="w-6" src={CartLogo} alt="" />
+                {Object.values(cart).length >= 1 && (
+                  <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
+                    {Object.values(cart).length}
+                  </span>
+                )}
+              </button>
               <>
                 {user === null ? (
                   <>
@@ -188,7 +259,7 @@ const NavBar = () => {
                 ) : (
                   <>
                     <Menu as="div" className="relative">
-                      <Menu.Button className="flex items-center mt-2">
+                      <Menu.Button className="flex items-center">
                         <HiOutlineUserCircle size={22} />
                         <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
                           {/* @ts-ignore */}
@@ -281,96 +352,98 @@ const NavBar = () => {
                         </Menu.Items>
                       </Transition>
                     </Menu>
-                    <Menu as="div" className="relative">
-                      <Menu.Button className="flex items-center mt-2">
-                        <IoMdHelpCircleOutline size={22} />
-                        <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
-                          {" "}
-                          Help
-                        </p>
-                        <span className="rotate-180">
-                          <RxCaretDown />
-                        </span>
-                      </Menu.Button>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <div
-                                onClick={() => navigate("/contact-us")}
-                                className={classNames(
-                                  active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
-                                )}
-                              >
-                                <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
-                                  <FaHandsHelping size={23} />
-                                  Help Center
-                                </h1>
-                              </div>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <div
-                                onClick={() => navigate("/tracking+order")}
-                                className={classNames(
-                                  active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                                )}
-                              >
-                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                  <MdSendAndArchive size={23} />
-                                  Tracking Orders
-                                </h1>
-                              </div>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <div
-                                onClick={() => navigate("/return+order")}
-                                className={classNames(
-                                  active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
-                                )}
-                              >
-                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
-                                  <TbTruckReturn size={23} />
-                                  Return Order
-                                </h1>
-                              </div>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <div
-                                onClick={() => navigate("/order+cancel")}
-                                className={classNames(
-                                  active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
-                                )}
-                              >
-                                <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
-                                  <MdCancelScheduleSend size={23} />
-                                  <span className="m-auto">
-                                    Order Cancellation
-                                  </span>
-                                </h1>
-                              </div>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
+
+                    {true && (
+                      <Menu as="div" className="relative">
+                        <Menu.Button className="flex items-center">
+                          <IoMdHelpCircleOutline size={22} />
+                          <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
+                            Help
+                          </p>
+                          <span className="rotate-180">
+                            <RxCaretDown />
+                          </span>
+                        </Menu.Button>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Item>
+                              {({ active }) => (
+                                <div
+                                  onClick={() => navigate("/contact-us")}
+                                  className={classNames(
+                                    active && "bg-gray-100",
+                                    "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                                  )}
+                                >
+                                  <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
+                                    <FaHandsHelping size={23} />
+                                    Help Center
+                                  </h1>
+                                </div>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <div
+                                  onClick={() => navigate("/tracking+order")}
+                                  className={classNames(
+                                    active && "bg-gray-100",
+                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                  )}
+                                >
+                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                    <MdSendAndArchive size={23} />
+                                    Tracking Orders
+                                  </h1>
+                                </div>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <div
+                                  onClick={() => navigate("/return+order")}
+                                  className={classNames(
+                                    active && "bg-gray-100",
+                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                  )}
+                                >
+                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                    <TbTruckReturn size={23} />
+                                    Return Order
+                                  </h1>
+                                </div>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <div
+                                  onClick={() => navigate("/order+cancel")}
+                                  className={classNames(
+                                    active && "bg-gray-100",
+                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
+                                  )}
+                                >
+                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
+                                    <MdCancelScheduleSend size={23} />
+                                    <span className="m-auto">
+                                      Order Cancellation
+                                    </span>
+                                  </h1>
+                                </div>
+                              )}
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    )}
                   </>
                 )}
               </>
@@ -397,8 +470,10 @@ const loginBtn =
 
 const SearchBar = ({
   setShowSearch,
+  showSearch,
 }: {
   setShowSearch: (shouldShowSearch: any) => void;
+  showSearch: boolean;
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
@@ -412,14 +487,18 @@ const SearchBar = ({
   };
 
   return (
-    <div className="h-8 flex justify-between items-center px-3">
+    <div
+      className={`duration-500 h-8 justify-between overflow-hidden items-center pl-3 flex ${
+        showSearch ? "w-[320px]" : "w-[35px]"
+      }`}
+    >
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
         <div className="flex items-center min-w-full">
           <label className="relative block my-8 w-[100%] lg:mx-1 ">
             <input
               autoFocus
-              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-2 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl outline-none rounded-bl`}
-              placeholder="search here"
+              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-5 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-xs placeholder:font-light rounded-tl-lg outline-none rounded-bl-lg`}
+              placeholder="Search here"
               type="text"
               name="search"
               value={searchValue}
@@ -428,14 +507,14 @@ const SearchBar = ({
               }}
             />
           </label>
-          <div className="flex h-8 rounded-r items-center  bg-[#F4F4F4] py-3 px-2">
+          {/* <div className="flex h-8 rounded-r items-center  bg-[#F4F4F4] py-3 px-2">
             <button>
               <AiOutlineClose
                 onClick={() => setShowSearch(false)}
                 size="19px"
               />
             </button>
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

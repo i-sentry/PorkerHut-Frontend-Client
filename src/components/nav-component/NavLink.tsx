@@ -14,7 +14,7 @@ const NavLink = ({ setToggle }: Iprop) => {
     <>
       {links.map((link: any, index: number) => (
         <div key={index}>
-          <div className="px-3 text-left lg:cursor-pointer group ">
+          <div className="pr-3 text-left lg:cursor-pointer group ">
             <div className="relative">
               <Link
                 to={link?.path}

@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
-      "Roboto-slab": ['Roboto Slab', 'serif'],
+      "Roboto-slab": ["Roboto Slab", "serif"],
     },
     screens: {
       xxs: "300px",
@@ -27,13 +27,13 @@ module.exports = {
     },
     extend: {
       animation: {
-    shine: "shine 1s",
-  },
-  keyframes: {
-    shine: {
-      "100%": { left: "125%" },
-    },
-  },
+        shine: "shine 1s",
+      },
+      keyframes: {
+        shine: {
+          "100%": { left: "125%" },
+        },
+      },
     },
   },
   plugins: [],
