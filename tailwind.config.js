@@ -1,3 +1,5 @@
+const Forms = require("@tailwindcss/forms");
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
@@ -36,5 +38,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [Forms],
 };
