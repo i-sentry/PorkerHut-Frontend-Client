@@ -74,15 +74,15 @@ const ProductDetails = () => {
           />
         </div>
 
-        <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-10 bg-white md:rounded-sm">
-          <div className="flex md:flex-1 xxs:flex-col-reverse md:flex-row">
-            <div className="flex-[1] md:block xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
+        <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-5 bg-white md:rounded-sm">
+          <div className="md:w-[65%] flex md:flex-1 md:gap-2 xxs:flex-col-reverse md:flex-row">
+            <div className="md:flex-col md:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
               {singleProduct?.data?.images.map((image: any, index: number) => (
                 <img
                   src={image}
                   alt="ProductImg"
                   onClick={(e) => setSelectedImg(index)}
-                  className="object-cover cursor-pointer w-[75px] h-20 md:mb-3 rounded-sm"
+                  className="object-cover cursor-pointer w-[75px] h-20 rounded-sm"
                 />
               ))}
             </div>
@@ -95,7 +95,7 @@ const ProductDetails = () => {
               />
             </div>
           </div>
-          <div className="md:flex-1 flex flex-col gap-3 xxs:mt-4 md:pr-8 md:mt-0">
+          <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
             <div className="flex justify-between items-center">
               <h1 className="font-semibold text-xl">
                 {singleProduct?.data?.information?.productName}
@@ -120,9 +120,6 @@ const ProductDetails = () => {
               N{singleProduct?.data?.pricing?.productPrice}
             </span>
 
-           
-
-      
             <span className="font-normal text-sm text-[#797979]">
               Weight:{" "}
               <span className="font-medium text-black text-sm">
