@@ -83,6 +83,8 @@ import ResetPassword from "./pages/Authentication/ResetPassword";
 import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
 import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 import AdminLogin from "./pages/Authentication/AdminLogin";
+import RateReview from "./pages/RateReview";
+import RatingSuccess from "./pages/RatingSuccess";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -99,6 +101,8 @@ const router = createBrowserRouter(
       <Route path="/sign-in" element={<VendorLogin />} />
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/forgot_password" element={<ForgetPassword />} />
+      <Route path="/rate_reviews" element={<RateReview />} />
+      <Route path="/rate_sucess" element={<RatingSuccess />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         path="/vendors/forgot_password"

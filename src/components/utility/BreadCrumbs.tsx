@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { RxSlash  } from "react-icons/rx";
+import { Link } from "react-router-dom";
+import { RxSlash } from "react-icons/rx";
 type itemsType = {
   name: string | undefined;
   link: string;
