@@ -18,6 +18,16 @@ import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { CgSpinnerAlt } from "react-icons/cg";
+import OtherOrdersTable from "../../components/OtherOrdersTable";
+
+// const columns = [
+//   { Header: "S/N", accessor: "id" },
+//   { Header: "First Name", accessor: "first_name" },
+//   { Header: "Last Name", accessor: "last_name" },
+//   { Header: "Email Address", accessor: "email" },
+//   { Header: "Gender", accessor: "gender" },
+//   { Header: "University", accessor: "university" },
+// ];
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -380,14 +390,16 @@ const MyOrderDetails = () => {
             </div>
           </div>
         </div>
+
+        <div className="mt-8">
+          <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide">
+            Other Items In Your Order
+          </h3>
+
+          <div>{/* <OtherOrdersTable columns={columns} data={order} /> */}</div>
+        </div>
       </div>
       <OrderModal onClose={handleOnclose} visible={showModal} />
-
-      <div className="mt-8">
-        <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide">
-          Other Items In Your Order
-        </h3>
-      </div>
     </AppLayout>
   );
 };
