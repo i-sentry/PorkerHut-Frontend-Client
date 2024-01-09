@@ -209,7 +209,7 @@ const MyOrderDetails = () => {
               <div>
                 <div className="text-neutral-400 text-sm">Quantity</div>
                 <span className="text-zinc-800 text-base">
-                  {order?.productDetails[0]?.productID?.pricing?.quantity}
+                  {order?.productDetails[0]?.quantity}
                 </span>
               </div>
               <div>

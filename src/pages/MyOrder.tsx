@@ -278,7 +278,7 @@ const Tcolumns: readonly Column<IOrder>[] = [
   },
   {
     Header: "No of Items",
-    accessor: (row) => row.productDetails.length,
+    accessor: (row) => row?.productDetails[0]?.quantity,
   },
   {
     Header: "Order Total",
