@@ -33,7 +33,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.data, "data product");
+  // console.log(data?.data, "data product");
   const adata = data?.cell?.value;
   // console.log(adata, "Adata");
 
@@ -238,27 +238,23 @@ interface IOrder {
 }
 
 const Tcolumns: readonly Column<IOrder>[] = [
-  // {
-  //   Header: "Product Name",
-
-  //   accessor: (row) =>
-  //     // @ts-ignore
-  //     row.productDetails[0]?.productID.information.productName,
-  //   Cell: (props: any) => <ProductNameColumn data={props} />,
-  // },
-  // {
-  //   Header: "Store Name",
-  //   accessor: (row) =>
-  //     // @ts-ignore
-  //     row.productDetails[0].vendor.sellerAccountInformation.shopName,
-  //   Cell: (data: any) => {
-  //     const d = data.row.original;
-  //     return <StoreNameColumn d={d} />;
-  //   },
-  // },
   {
-    Header: "Order ID",
-    accessor: "_id",
+    Header: "Product Name",
+
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.productID.information.productName,
+    Cell: (props: any) => <ProductNameColumn data={props} />,
+  },
+  {
+    Header: "Store Name",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0].vendor.sellerAccountInformation.shopName,
+    Cell: (data: any) => {
+      const d = data.row.original;
+      return <StoreNameColumn d={d} />;
+    },
   },
   {
     Header: "Order Date",
@@ -269,20 +265,28 @@ const Tcolumns: readonly Column<IOrder>[] = [
       return <DateColumn d={d} />;
     },
   },
+  {
+    Header: "Order ID",
+    accessor: "_id",
+  },
 
-  // {
-  //   Header: "Prices",
-  //   accessor: (row) =>
-  //     // @ts-ignore
-  //     row.productDetails[0]?.price,
-  // },
+  {
+    Header: "Prices",
+    accessor: (row) =>
+      // @ts-ignore
+      row.productDetails[0]?.price,
+  },
   {
     Header: "No of Items",
     accessor: (row) => row.productDetails.length,
   },
   {
     Header: "Order Total",
-    accessor: (row) => `₦ ${row.totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+    accessor: (row) =>
+      `₦ ${row.totalAmount.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
   },
   {
     Header: "Status",
@@ -292,10 +296,10 @@ const Tcolumns: readonly Column<IOrder>[] = [
 ];
 
 const DateColumn = ({ d }: any) => {
-  console.log(d.orderDate, "datafhshs");
+  // console.log(d.orderDate, "datafhshs");
   const createdAt = d.orderDate;
 
-  console.log(createdAt, "createdat");
+  // console.log(createdAt, "createdat");
 
   const formattedDate = moment(createdAt).format("DD MMMM YYYY");
   const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
@@ -313,7 +317,7 @@ const DateColumn = ({ d }: any) => {
 
 const StoreNameColumn = ({ d }: any) => {
   // const { vendor } = d;
-  console.log(d, "store-colum");
+  // console.log(d, "store-colum");
 
   const storeName =
     d?.productDetails[0].vendor.sellerAccountInformation.shopName;
@@ -328,6 +332,19 @@ const StoreNameColumn = ({ d }: any) => {
       </span>
     </div>
   );
+};
+
+const getOrderStatus = (status: any) => {
+  switch (status) {
+    case "pending":
+      return "text-orange-400";
+    case "completed":
+      return "text-green-500";
+    case "failed":
+      return "text-red-600";
+    default:
+      return "gray";
+  }
 };
 
 const MyOrder = () => {
@@ -345,8 +362,8 @@ const MyOrder = () => {
 
   const allOrders = getAllOrders?.data?.orders;
 
-  console.log(user, user._id, typeof user._id, "User");
-  console.log(allOrders, "All orders");
+  // console.log(user, user._id, typeof user._id, "User");
+  console.log(allOrders, "All orders now");
 
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
@@ -371,7 +388,7 @@ const MyOrder = () => {
 
     Cell: ({ row }: any) => {
       const navigate = useNavigate();
-      console.log(row?.original, "row");
+      // console.log(row?.original, row?.original?._id, "row");
 
       const handleView = (id: any) => {
         navigate(`/my__orders/${id}`, {
@@ -395,7 +412,7 @@ const MyOrder = () => {
     allOrders?.filter((b: any) =>
       queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
     ) || [];
-  console.log(filteredData);
+  // console.log(filteredData);
 
   return (
     // <h1>Hello</h1>
@@ -440,9 +457,9 @@ const MyOrder = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </div>
@@ -476,8 +493,8 @@ const MyOrder = () => {
             ))}
           </div>
 
-          <div className="bg-[#F5F5F5] p-2   ">
-            {allOrders
+          <div className="p-2">
+            {/* {allOrders
               ?.filter((b: any) =>
                 queryKey.some((key: any) =>
                   b[key]?.toLowerCase().includes(searchValue)
@@ -560,7 +577,98 @@ const MyOrder = () => {
                     </div>
                   </div>
                 </AccordionSection>
-              ))}
+              ))} */}
+            {allOrders?.map((data: any, index: number) => (
+              <AccordionSection
+                key={index}
+                title={
+                  <div className="flex justify-between w-full h-full">
+                    <div className="flex gap-2">
+                      <figure className="h-9 w-9 rounded-full border">
+                        <img
+                          src={data?.productDetails[0].productID.images[0]}
+                          alt="product"
+                          className="rounded-full object-cover w-full h-full"
+                        />
+                      </figure>
+                      <div>
+                        <ul className="">
+                          <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
+                            {
+                              data?.productDetails[0].productID.information
+                                .productName
+                            }
+                            (1kg)
+                          </li>
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333] mt-1 mb-2">
+                            ₦{data?.productDetails[0].price}
+                          </li>
+                          <li
+                            className={`text-[14px] leading-[16px] font-normal ${getOrderStatus(
+                              data?.status
+                            )}`}
+                          >
+                            {data?.status}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <>
+                      <div>
+                        <ul className="text-right flex flex-col justify-between h-full">
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            {/* {data?.order_date}
+                            {[0].orderDate} */}
+                            {moment(data?.orderDate).format("DD MMM YYYY")}
+                          </li>
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            X {data?.productDetails[0].quantity}
+                          </li>
+                        </ul>
+                      </div>
+                    </>
+                  </div>
+                }
+                isExpanded={expandedIndex === index}
+                onToggle={() => handleToggle(index)}
+              >
+                <div className="flex  justify-between w-full h-full mt-5">
+                  <div className="flex gap-2">
+                    <div className="">
+                      <ul className="flex flex-col justify-between gap-4 text-left">
+                        <li className="text-zinc-800 text-sm font-medium">
+                          Order ID
+                        </li>
+                        <li className="text-zinc-800 text-sm font-medium">
+                          Location
+                        </li>
+                        <li className="text-zinc-800 text-sm font-medium ">
+                          Total
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="">
+                      <ul className="text-right flex flex-col justify-between h-full gap-4">
+                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          {data?._id}
+                        </li>
+                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          {
+                            data?.productDetails[0].vendor.businessInformation
+                              .city
+                          }
+                        </li>
+                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          ₦{data?.totalAmount}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </AccordionSection>
+            ))}
           </div>
         </div>
       </div>
@@ -591,7 +699,7 @@ const AccordionSection = ({
         onClick={onToggle}
         className="py-0.5 transition duration-500 active:scale-90 w-full m-auto text-center flex items-center justify-center"
       >
-        {!isExpanded && <IoChevronUp size={20} color="#197B30" />}
+        {!isExpanded && <IoChevronDown size={20} color="#197B30" />}
       </button>
       <div
         className={
@@ -604,7 +712,7 @@ const AccordionSection = ({
           onClick={onToggle}
           className="py-0.5 transition duration-500 active:scale-90 w-full m-auto text-center flex items-center justify-center"
         >
-          {isExpanded && <IoChevronDown size={20} color="#197B30" />}
+          {isExpanded && <IoChevronUp size={20} color="#197B30" />}
         </button>
       </div>
     </div>
