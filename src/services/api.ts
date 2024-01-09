@@ -42,6 +42,13 @@ export const api = {
     productByVendor: (id: string | undefined) => `/api/products/vendor/${id}`,
     productByVendorApproved: (id: string | undefined) =>
       `/api/products/approved/${id}`,
+    favouriteProduct: "/api/favorite-product/",
+    removeFavProduct: (
+      userId: string | undefined,
+      productId: string | undefined
+    ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
+    isFavProduct: (userId: string | undefined, productId: string | undefined) =>
+      `/api/favorite-product/check-favorite?userId=${userId}&productId=${productId}`,
   },
   Ratings: {
     createRating: "/api/ratings/create",

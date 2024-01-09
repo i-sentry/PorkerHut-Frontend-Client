@@ -27,14 +27,9 @@ export const vendorType = [
 ];
 
 const SellersAccountInfo = () => {
-  const {
-    checkoutSteps,
-    currentStep,
-    userData,
-    setUserData,
-    handleChange,
-  } = useContext(SellersStepsContext);
-  const [val, ] = useState(false);
+  const { checkoutSteps, currentStep, userData, setUserData, handleChange } =
+    useContext(SellersStepsContext);
+  // const [val] = useState(false);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   // const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
   // const [dropOption, setDropOption] = useState<SelectOptionType>(null);
@@ -50,13 +45,14 @@ const SellersAccountInfo = () => {
     }));
   }, [dropOption?.value, setUserData]);
 
-  const { state,  } = useAppState();
+  const { state } = useAppState();
 
-  const {formState: { errors },
+  const {
+    formState: { errors },
+    setValue,
+    register,
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
-  
-
-
+  const [val, setVal] = useState(false);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -171,10 +167,13 @@ const SellersAccountInfo = () => {
               <>
                 <div className="flex items-center ">
                   <input
-                    // {...register("checkbox")}
+                    {...register("checkbox")}
                     type="checkbox"
                     name="checkbox"
-                    onChange={handleChange}
+                    onChange={(e: any) => {
+                      setValue("checkbox", e.target.checked ? "yes" : "no");
+                      setVal(!val);
+                    }}
                     checked={val}
                     className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
                   />
@@ -187,7 +186,7 @@ const SellersAccountInfo = () => {
                 </div>
               </>
               <div className="">
-                {currentStep !== checkoutSteps?.length && <StepperController />}
+                {currentStep !== checkoutSteps?.length && <StepperController  />}
               </div>
             </form>
           </div>

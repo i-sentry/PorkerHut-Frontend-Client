@@ -15,6 +15,7 @@ export interface IFormFiles {
 
 interface fileProps {
   formFiles?: IFormFiles;
+  
 }
 
 const StepperController: React.FC<fileProps> = ({

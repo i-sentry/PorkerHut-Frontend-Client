@@ -1,5 +1,11 @@
 import useQueryAction from "../../../../lib/useQueryAction";
-import { api, makeGetRequest } from "../../../api";
+import useQueryMutation from "../../../../lib/useQueryMutation";
+import {
+  api,
+  makeDeleteRequest,
+  makeGetRequest,
+  makePostRequest,
+} from "../../../api";
 
 export const useGetAllProducts = () => {
   return useQueryAction({
@@ -7,14 +13,15 @@ export const useGetAllProducts = () => {
     queryKey: ["products+"],
   });
 };
-// export const useGetBlog = (id: string | undefined) => {
-//     return useQueryAction({
-//         queryFn: () => makeGetRequest(api.Blogs.singleBlog(id)),
-//         queryKey: ['blogs', id]
-//     })
-// }
 
-
+export const useFavoriteProduct = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      userId: string | undefined;
+      productId: string | undefined;
+    }) => makePostRequest(data, api.Products.favouriteProduct),
+  });
+};
 
 export const useGetSingleProduct = (id: string | null) => {
   return useQueryAction({
@@ -22,4 +29,22 @@ export const useGetSingleProduct = (id: string | null) => {
     queryKey: ["product +"],
   });
 };
+export const useGetFavProduct = (
+  userId: string | undefined,
+  productId: string | undefined
+) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.isFavProduct(userId, productId)),
+    queryKey: ["productFav +"],
+  });
+};
 
+export const useDeleteFavorite = (
+  userId: string | undefined,
+  productId: string | undefined
+) => {
+  return useQueryMutation({
+    mutationFn: () =>
+      makeDeleteRequest(api.Products.removeFavProduct(userId, productId)),
+  });
+};
