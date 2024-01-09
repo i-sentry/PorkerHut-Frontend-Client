@@ -5,7 +5,7 @@ import {
   MdOutlineStorefront,
   MdPersonOutline,
 } from "react-icons/md";
-import productImg from "../../assets/images/productimg1.png";
+// import productImg from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -15,6 +15,19 @@ import { Tooltip } from "../../components/utility/ToolTip";
 import { OrderData } from "../admin-dashboard/Order";
 import AppLayout from "../../components/utility/AppLayout";
 import { useGetOrdersById } from "../../services/hooks/orders";
+import moment from "moment";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { CgSpinnerAlt } from "react-icons/cg";
+import OtherOrdersTable from "../../components/OtherOrdersTable";
+
+// const columns = [
+//   { Header: "S/N", accessor: "id" },
+//   { Header: "First Name", accessor: "first_name" },
+//   { Header: "Last Name", accessor: "last_name" },
+//   { Header: "Email Address", accessor: "email" },
+//   { Header: "Gender", accessor: "gender" },
+//   { Header: "University", accessor: "university" },
+// ];
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -23,15 +36,42 @@ const MyOrderDetails = () => {
   const { data, error, isLoading } = useGetOrdersById(id as string);
   console.log(data?.data?.order, "hyunmdhdhf");
 
+  console.log(error, isLoading, "Get orders by id hmmmm");
+
   const navigate = useNavigate();
 
-  const order= data?.data?.order;
+  const order = data?.data?.order;
+  console.log(order, "new order table");
 
+  const productImg = order?.productDetails[0]?.productID?.images[0];
+
+  // const handleRate = (id: any) => {
+  //   navigate(`/rate_review/${id}`, {
+  //     replace: true,
+  //   });
+  // };
+
+  // ORDER STATUS COLOR
+  const getOrderStatus = (status: any) => {
+    switch (status) {
+      case "pending":
+        return "text-orange-400";
+      case "completed":
+        return "text-green-500";
+      case "failed":
+        return "text-red-600";
+      default:
+        return "gray";
+    }
+  };
+
+  const orderStatus = order?.status;
+  const status = getOrderStatus(orderStatus);
 
   return (
     <AppLayout>
-      <OrderDetails order={order} />
-      {/* <div className="m-auto my-24 ">
+      {false && <OrderDetails order={order} />}
+      <div className="mx-auto my-24 px-4">
         <div className="flex items-center flex-col justify-center py-10 relative">
           <h2 className="md:text-[40px] md:leading-[47px] xxs:text-lg font-medium text-[#333333]">
             My Order Details
@@ -42,14 +82,151 @@ const MyOrderDetails = () => {
             onClick={() => {
               navigate("/my__orders");
             }}
-            className="hover:rotate-[-60%] hover:transform absolute right-20 cursor:pointer transition duration-150 ease-in-out"
+            className="hover:rotate-[-60%] hover:transform absolute right-0 bottom-4 cursor:pointer transition duration-150 ease-in-out"
           >
             <Tooltip message="close">
               <IoMdClose size={20} />
             </Tooltip>
           </div>
         </div>
-        <div className="flex gap-6 px-14">
+
+        {/* NEW CARDS FOR MOBILE */}
+        {/* NEW CARD STACKS FOR DESKTOP */}
+        <div className="hidden lg:flex justify-between flex-wrap gap-5">
+          <div
+            className="w-1/4 h-[200px] rounded-lg"
+            style={{
+              backgroundImage: `url('${productImg}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <div className="flex items-start gap-1">
+                <MdPersonOutline size={20} className="mt-1" />
+                <div className="">
+                  <span className="block text-zinc-800 text-base font-normal">
+                    {order?.customer?.firstName}
+                  </span>
+                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
+                    Order Date: &nbsp;
+                    <span className="text-[#333333]">
+                      {moment(order?.orderDate).format("DD MMMM YYYY")}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <button
+                // onClick={() => handleRate(order?._id)}
+                className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
+              >
+                Rate This Product
+              </button>
+            </div>
+            <div className="flex justify-between mt-3">
+              <div>
+                <span className="text-neutral-400 text-sm font-normal">
+                  Phone
+                </span>
+                <span className="text-zinc-800 text-base block">
+                  {order?.billingInformation?.phoneNumber}
+                </span>
+              </div>
+              <div>
+                <span className="text-neutral-400 text-sm font-normal">
+                  Email
+                </span>
+                <span className="text-zinc-800 text-base block">
+                  {order?.customer.email}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <MdOutlinePersonPinCircle size={20} />
+              <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
+                Track Order
+              </button>
+            </div>
+            <div className="flex justify-between mt-4 gap-6">
+              <div>
+                <div className="text-neutral-400 text-sm">Billing Address</div>
+                <span className="text-zinc-800 text-base">
+                  {order?.billingInformation.address}
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Home Address</div>
+                <span className="text-zinc-800 text-base">
+                  No. 1 Victoria island, off Lekki, Lagos State.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <MdOutlineStorefront size={20} />
+              <span className="text-neutral-400 text-sm">Abuja</span>
+            </div>
+            <div className="flex justify-between mt-16">
+              <div>
+                <div className="text-neutral-400 text-sm">Store Name</div>
+                <span className="text-zinc-800 text-base">
+                  {
+                    order?.productDetails[0].vendor.businessInformation
+                      .businessOwnerName
+                  }
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Order ID</div>
+                <span className="text-zinc-800 text-base">{order?._id}</span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Product Name</div>
+                <span className="text-zinc-800 text-base">
+                  {order?.productDetails[0].productID.information.productName}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <IoBasketOutline size={20} />
+              <span className={`text-neutral-400 text-sm ${status}`}>
+                {order?.status}
+              </span>
+            </div>
+            <div className="flex justify-between items-end mt-16">
+              <div>
+                <div className="text-neutral-400 text-sm">Price</div>
+                <span className="text-zinc-800 text-base">
+                  ₦{order?.productDetails[0]?.price}
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Quantity</div>
+                <span className="text-zinc-800 text-base">
+                  {order?.productDetails[0]?.quantity}
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Order Total</div>
+                <span className="text-zinc-800 text-base">
+                  ₦{order?.totalAmount}
+                </span>
+              </div>
+              <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
+                Return Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* OLD CARD STACKS */}
+        <div className=" gap-6 px-14 hidden">
           <div
             className="w-1/4 h-40 rounded-lg"
             style={{
@@ -63,8 +240,8 @@ const MyOrderDetails = () => {
               <div className="">
                 <div className="flex gap-2">
                   <MdPersonOutline size={20} />
-                  <span className=" text-[16px] leading-[19px] text-[#333333] font-normal">
-                    William Nado
+                  <span className="text-zinc-800 text-base font-normal">
+                    {order?.customer?.firstName}
                   </span>
                 </div>
                 <div className="">
@@ -72,9 +249,8 @@ const MyOrderDetails = () => {
                     Order Date:
                   </span>
                   <span className="text-[#333333] text-[14px] leading-[16px] pr-2">
-                    {" "}
-                    {order?.order_date}
-                  </span>{" "}
+                    {moment(order?.orderDate).format("DD MMMM YYYY")}
+                  </span>
                 </div>
               </div>
 
@@ -93,7 +269,7 @@ const MyOrderDetails = () => {
                       Email
                     </span>
                     <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                      {order?.store_name}
+                      {order?.customer.email}
                     </span>
                   </div>
                 </div>
@@ -134,7 +310,7 @@ const MyOrderDetails = () => {
             </div>
           </div>
         </div>
-        <div className="flex  mt-8 px-14 gap-6">
+        <div className="hidden  mt-8 px-14 gap-6">
           <div className="w-1/2 border border-[#D9D9D9] bg-[#F4F4F4] h-40 rounded-lg flex flex-col gap-[72px]">
             <div className="flex justify-between items-center pt-4 px-4">
               <MdOutlineStorefront size={20} />
@@ -214,7 +390,15 @@ const MyOrderDetails = () => {
             </div>
           </div>
         </div>
-      </div> */}
+
+        <div className="mt-8">
+          <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide">
+            Other Items In Your Order
+          </h3>
+
+          <div>{/* <OtherOrdersTable columns={columns} data={order} /> */}</div>
+        </div>
+      </div>
       <OrderModal onClose={handleOnclose} visible={showModal} />
     </AppLayout>
   );
@@ -241,36 +425,36 @@ interface Order {
 }
 
 const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
-   const [returnEligibilities, setReturnEligibilities] = useState<{
-     [productId: number]: boolean;
-   }>({});
+  const [returnEligibilities, setReturnEligibilities] = useState<{
+    [productId: number]: boolean;
+  }>({});
 
-   // Calculate the elapsed time since each product was ordered
-   useEffect(() => {
-     const productReturnEligibilities: { [productId: number]: boolean } = {};
+  // Calculate the elapsed time since each product was ordered
+  useEffect(() => {
+    const productReturnEligibilities: { [productId: number]: boolean } = {};
 
     //  order.products.forEach((product) => {
-       const productOrderDate = new Date(order?.orderDate);
-       const currentTime = new Date();
-       const elapsedTime = currentTime.getTime() - productOrderDate.getTime();
+    const productOrderDate = new Date(order?.orderDate);
+    const currentTime = new Date();
+    const elapsedTime = currentTime.getTime() - productOrderDate.getTime();
 
-       // Assume return eligibility duration is 7 days (adjust as needed)
-       const returnEligibilityDuration = 7 * 24 * 60 * 60 * 1000;
-order?.productDetails.forEach((product: any) => {
-  productReturnEligibilities[product._id] =
-    elapsedTime <= returnEligibilityDuration;
-});
+    // Assume return eligibility duration is 7 days (adjust as needed)
+    const returnEligibilityDuration = 7 * 24 * 60 * 60 * 1000;
+    order?.productDetails.forEach((product: any) => {
+      productReturnEligibilities[product._id] =
+        elapsedTime <= returnEligibilityDuration;
+    });
 
-     setReturnEligibilities(productReturnEligibilities);
-   }, []);
+    setReturnEligibilities(productReturnEligibilities);
+  }, [order?.orderDate, order?.productDetails]);
 
-   const initiateReturn = (productId: number) => {
-     // Logic for initiating return for a specific product
-     // This could involve API calls, state updates, etc.
-     console.log(
-       `Return initiated for product ${productId} in order ${order.orderId}`
-     );
-   };
+  const initiateReturn = (productId: number) => {
+    // Logic for initiating return for a specific product
+    // This could involve API calls, state updates, etc.
+    console.log(
+      `Return initiated for product ${productId} in order ${order.orderId}`
+    );
+  };
   const buyAgain = (productId: number) => {
     // Logic for buying the product again
     // This could involve adding the product to the cart or triggering a new order

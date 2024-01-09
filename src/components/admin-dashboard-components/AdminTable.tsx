@@ -181,9 +181,9 @@ const AdminTable = ({
         </div>
       </div>
       <div className="flex flex-col bg-white mb-8 ">
-        <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-x-hidden">
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full">
+            <div className="">
               <table
                 {...getTableProps()}
                 className="appearance-none bg-white min-w-full mb-6 border border-gray-300 rounded-lg"
