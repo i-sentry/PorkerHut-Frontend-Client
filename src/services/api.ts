@@ -43,6 +43,19 @@ export const api = {
     productByVendorApproved: (id: string | undefined) =>
       `/api/products/approved/${id}`,
   },
+  Ratings: {
+    createRating: "/api/ratings/create",
+    updateRating: (ratingId: string | undefined) =>
+      `api/ratings/update/${ratingId}`,
+    allRating: (productId: string | undefined) =>
+      `/api/ratings/product/${productId}`,
+    allRatingsByUser: (userId: string | undefined) =>
+      `/api/ratings/user/${userId} `,
+    deleteRating: (ratingId: string | undefined) => `api/ratings/${ratingId}`,
+    AddNew: "/api/ratings/add",
+    RatingStat: (productId: string | undefined) =>
+      `/products/${productId}/rating-stats`,
+  },
   Vets: {
     createVet: "/api/vets",
   },
