@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { IoBasketOutline } from "react-icons/io5";
+import { IoBasketOutline, IoChevronBack } from "react-icons/io5";
 import {
   MdOutlinePersonPinCircle,
   MdOutlineStorefront,
   MdPersonOutline,
 } from "react-icons/md";
-// import productImg from "../../assets/images/productimg1.png";
+// import productImgs from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { IOrderData } from "../../components/vendors-component/MyOrderSection";
+// import { IOrderData } from "../../components/vendors-component/MyOrderSection";
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
-import { OrderData } from "../admin-dashboard/Order";
+// import { OrderData } from "../admin-dashboard/Order";
 import AppLayout from "../../components/utility/AppLayout";
 import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
-import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { CgSpinnerAlt } from "react-icons/cg";
-import OtherOrdersTable from "../../components/OtherOrdersTable";
+// import OtherOrdersTable from "../../components/OtherOrdersTable";
 
 // const columns = [
 //   { Header: "S/N", accessor: "id" },
@@ -68,11 +66,25 @@ const MyOrderDetails = () => {
   const orderStatus = order?.status;
   const status = getOrderStatus(orderStatus);
 
+  // OTHER ITEMS IN AN OTHER
+  const _status = order?.status;
+  const _id = order?._id;
+  const orderDate = order?.orderDate;
+  const otherItems = order?.productDetails?.map((item: any) => ({
+    ...item,
+    _status,
+    orderDate,
+    _id,
+  }));
+
+  console.log(otherItems, typeof otherItems, "Other new items obj");
+
   return (
     <AppLayout>
       {false && <OrderDetails order={order} />}
-      <div className="mx-auto my-24 px-4">
-        <div className="flex items-center flex-col justify-center py-10 relative">
+      <div className="mx-auto py-16 pt-8 px-4 bg-neutral-100 lg:bg-white">
+        {/* HEADING FOR DESKTOP */}
+        <div className="items-center flex-col justify-center py-10 relative hidden lg:flex">
           <h2 className="md:text-[40px] md:leading-[47px] xxs:text-lg font-medium text-[#333333]">
             My Order Details
           </h2>
@@ -82,7 +94,7 @@ const MyOrderDetails = () => {
             onClick={() => {
               navigate("/my__orders");
             }}
-            className="hover:rotate-[-60%] hover:transform absolute right-0 bottom-4 cursor:pointer transition duration-150 ease-in-out"
+            className="hover:rotate-[-60%] hover:transform absolute right-0 bottom-4 cursor:pointer transition duration-150 ease-in-out "
           >
             <Tooltip message="close">
               <IoMdClose size={20} />
@@ -90,7 +102,174 @@ const MyOrderDetails = () => {
           </div>
         </div>
 
+        {/* HEADING FOR MOBILE */}
+        <div
+          className="flex gap-2 items-center mb-4 lg:hidden cursor-pointer"
+          onClick={() => {
+            navigate("/my__orders");
+          }}
+        >
+          <IoChevronBack size={24} />
+          <span className="text-zinc-800 text-base font-normal">
+            Order Details
+          </span>
+        </div>
+
         {/* NEW CARDS FOR MOBILE */}
+
+        <div className="flex flex-col gap-6 lg:hidden">
+          <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+            <div className="flex gap-2 w-[70%]">
+              <img
+                src={productImg}
+                className="w-10 h-10 rounded-full object-cover"
+                alt=""
+              />
+              <div className="flex-1">
+                <h3 className="text-zinc-800 text-sm font-semibold mb-1">
+                  {order?.productDetails[0].productID.information.productName}
+                  &nbsp;(
+                  {order?.productDetails[0].productID.details.productWeight}kg)
+                </h3>
+                <span className="text-neutral-500 text-sm block mb-2">
+                  {
+                    order?.productDetails[0].vendor.sellerAccountInformation
+                      .shopName
+                  }
+                </span>
+                <span className="text-zinc-800 text-sm font-normal block">
+                  ₦{order?.productDetails[0].price.toLocaleString()}
+                </span>
+              </div>
+            </div>
+            <ul className="w-[80px]">
+              <li className="text-zinc-800 text-[13px] font-normal text-right">
+                {moment(order?.orderDate).format("DD MMM YYYY")}
+              </li>
+              <li className="opacity-0">blank</li>
+              <li className="text-zinc-800 text-sm font-normal text-right">
+                X{order?.productDetails[0].quantity}
+              </li>
+            </ul>
+
+            <div className="border-t flex justify-between w-full mt-9 pt-8">
+              <ul className="flex flex-col gap-2">
+                <li className="text-zinc-400 text-sm font-normal">Subtotal</li>
+                <li className="text-zinc-400 text-sm font-normal">VAT</li>
+                <li className="text-zinc-400 text-sm font-normal">
+                  Delivery Fee
+                </li>
+                <li className="text-zinc-800 text-sm font-medium">Total</li>
+              </ul>
+              <ul className="flex flex-col gap-2 text-right">
+                <li className="text-zinc-400 text-sm font-normal">
+                  ₦{order?.subtotal.toLocaleString()}
+                </li>
+                <li className="text-zinc-400 text-sm font-normal">-</li>
+                <li className="text-zinc-400 text-sm font-normal">-</li>
+                <li className="text-zinc-800 text-sm font-normal">
+                  ₦{order?.totalAmount.toLocaleString()}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+            <div className="flex justify-between w-full">
+              <ul className="flex flex-col gap-2">
+                <li className="text-zinc-800 text-sm font-normal">Order ID</li>
+                <li className="text-zinc-800 text-sm font-normal">
+                  Store Location
+                </li>
+                <li className="text-zinc-800 text-sm font-normal">
+                  Delivery date
+                </li>
+                <li className="text-zinc-800 text-sm font-normal">Payment</li>
+                <li className="text-zinc-800 text-sm font-normal">Status</li>
+              </ul>
+              <ul className="flex flex-col gap-2 text-right">
+                <li className="text-zinc-800 text-sm font-normal">
+                  {order?._id}
+                </li>
+                <li className="text-zinc-800 text-sm font-normal">
+                  {order?.productDetails[0].vendor.businessInformation.city}
+                </li>
+                <li className="text-zinc-800 text-sm font-normal">-</li>
+                <li className="text-zinc-800 text-sm font-normal">
+                  ₦{order?.totalAmount.toLocaleString()}
+                </li>
+                <li>
+                  <span className={`text-neutral-400 text-sm ${status}`}>
+                    {order?.status}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex justify-between flex-wrap bg-white rounded-lg py-6 px-4">
+            <div className="w-11/12">
+              <p className="text-zinc-800 text-[13px] font-medium mb-2">
+                {order?.customer?.firstName} {order?.customer.lastName}
+              </p>
+              <p className="text-neutral-500 text-[13px] font-normal mb-1 ">
+                {order?.billingInformation.address}
+              </p>
+              <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                {order?.billingInformation?.phoneNumber}
+              </p>
+              <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                {order?.customer.email}
+              </p>
+            </div>
+            <MdOutlinePersonPinCircle size={20} />
+
+            <button className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold">
+              Rate Product
+            </button>
+            <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
+              Return Order
+            </button>
+          </div>
+          <div>
+            <h3 className="text-zinc-800 text-lg font-semibold font-['Roboto'] mt-[40] mb-4">
+              Other Items in Your Order
+            </h3>
+
+            {otherItems?.map((item: any) => (
+              <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+                <div className="flex gap-2 w-[70%]">
+                  <img
+                    src={item?.productID.images[0]}
+                    className="w-10 h-10 rounded-full object-cover"
+                    alt=""
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-zinc-800 text-sm font-semibold mb-1">
+                      {item?.productID.information.productName}
+                      &nbsp;(
+                      {item?.productID.details.productWeight}
+                      kg)
+                    </h3>
+                    <span className="text-neutral-500 text-sm block mb-2">
+                      {item?.vendor.sellerAccountInformation.shopName}
+                    </span>
+                    <span className={`text-neutral-400 text-sm ${status}`}>
+                      {item?._status}
+                    </span>
+                  </div>
+                </div>
+                <ul className="w-[80px] flex flex-col justify-between">
+                  <li className="text-zinc-800 text-[13px] font-normal text-right">
+                    {moment(item?.orderDate).format("DD MMM YYYY")}
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal text-right">
+                    X{item?.quantity}
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* NEW CARD STACKS FOR DESKTOP */}
         <div className="hidden lg:flex justify-between flex-wrap gap-5">
           <div
@@ -225,178 +404,81 @@ const MyOrderDetails = () => {
           </div>
         </div>
 
-        {/* OLD CARD STACKS */}
-        <div className=" gap-6 px-14 hidden">
-          <div
-            className="w-1/4 h-40 rounded-lg"
-            style={{
-              backgroundImage: `url('${productImg}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></div>
-          <div className="w-1/2 bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg pl-4 pr-8 pt-4 shadow-sm">
-            <div className="flex flex-col gap-[48px]">
-              <div className="">
-                <div className="flex gap-2">
-                  <MdPersonOutline size={20} />
-                  <span className="text-zinc-800 text-base font-normal">
-                    {order?.customer?.firstName}
-                  </span>
-                </div>
-                <div className="">
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
-                    Order Date:
-                  </span>
-                  <span className="text-[#333333] text-[14px] leading-[16px] pr-2">
-                    {moment(order?.orderDate).format("DD MMMM YYYY")}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex justify-between">
-                <div className="">
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal pr-2 block">
-                    Phone
-                  </span>
-                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                    {order?.id}
-                  </span>
-                </div>
-                <div className="">
-                  <div className="text-xs">
-                    <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal pr-2 block">
-                      Email
-                    </span>
-                    <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                      {order?.customer.email}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-1/2 h-40 border border-[#D9D9D9] rounded-lg flex flex-col gap-[54px] bg-[#F4F4F4] shadow-sm">
-            <div className="flex items-center justify-between pt-4 px-4">
-              <div className="flex gap-2">
-                <MdOutlinePersonPinCircle size={20} />
-              </div>
-              <button
-                className="underline text-[16px] leading-[19px] font-normal text-[#333333] cursor-pointer hover:text-[#197b30]"
-                onClick={() => setShowModal(true)}
-              >
-                Track Order
-              </button>
-            </div>
-            <div className="flex justify-between px-4">
-              <div className="">
-                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
-                  Billing Address
-                </span>
-                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                  {order?.location}
-                </span>
-              </div>
-              <div className="">
-                <div className="">
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
-                    Home Address
-                  </span>
-                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                    {order?.location}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hidden  mt-8 px-14 gap-6">
-          <div className="w-1/2 border border-[#D9D9D9] bg-[#F4F4F4] h-40 rounded-lg flex flex-col gap-[72px]">
-            <div className="flex justify-between items-center pt-4 px-4">
-              <MdOutlineStorefront size={20} />
-              <span className="text-sm">Abuja</span>
-            </div>
-            <div className="flex items-center justify-between pl-4 pr-8">
-              <div>
-                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
-                  Store Name
-                </span>
-                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                  {order?.store_name}
-                </span>
-              </div>
-              <div>
-                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
-                  Order ID
-                </span>
-                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                  {order?.id}
-                </span>
-              </div>
-              <div>
-                <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal  block">
-                  Product Name
-                </span>
-                <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                  {order?.product_name}{" "}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="w-1/2 border border-[#D9D9D9] h-40 rounded-lg bg-[#F4F4F4]">
-            <div className=" flex flex-col gap-[70px]">
-              <div className="flex justify-between items-center pt-4 px-4">
-                <IoBasketOutline size={20} />
-                <span className="text-[#22C55E] text-[16px] leading-[19px] font-normal">
-                  {order?.order_status}
-                </span>
-              </div>
-              <div className="flex items-center justify-between pl-4 pr-8">
-                <div>
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
-                    Price
-                  </span>
-                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                    {order?.price}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
-                    Quantity
-                  </span>
-                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                    {order?.quantity}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] font-normal block">
-                    Order Total
-                  </span>
-                  <span className="text-[16px] leading-[19px] font-normal text-[#333333]">
-                    {order?.order_total}
-                  </span>
-                </div>
-                <div>
-                  <button
-                    onClick={() =>
-                      navigate(`/my__orders/${order.id}/${order?.order_id}`)
-                    }
-                    className="underline text-[16px] leading-[19px] font-normal text-[#333333] cursor-pointer hover:text-[#197b30]"
-                  >
-                    Return Order
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide">
+        <div className="lg:block hidden mt-8">
+          <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide mb-6">
             Other Items In Your Order
           </h3>
-
-          <div>{/* <OtherOrdersTable columns={columns} data={order} /> */}</div>
+          <div className="w-full">
+            <table className="w-full border-collapse border border-zinc-300 rounded-2xl">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Product Name
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Store Name
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Order Date
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Order ID
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Prices
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    No of items
+                  </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {otherItems?.map((item: any) => (
+                  <tr>
+                    <td className="border border-zinc-300 p-3 px-5 flex gap-2 items-center text-sm">
+                      <img
+                        src={item?.productID.images[0]}
+                        className="w-10 h-10 rounded-full object-cover"
+                        alt="product thumbnail"
+                      />
+                      {item?.productID.information.productName}
+                    </td>
+                    <td className="border border-zinc-300 p-3  px-5 text-sm">
+                      <span>
+                        {item?.vendor.sellerAccountInformation.shopName}
+                      </span>
+                      <span className="block text-neutral-300">
+                        {item?.vendor.businessInformation.city}
+                      </span>
+                    </td>
+                    <td className="border border-zinc-300 p-3  px-5 text-sm">
+                      {moment(item?.orderDate).format("DD MMMM YYYY")}
+                      <span className="block text-neutral-300">
+                        {moment(item?.orderDate).format("h:mmA").toLowerCase()}
+                      </span>
+                    </td>
+                    <td className="border border-zinc-300 p-3  px-5 text-sm">
+                      {item?._id || "-"}
+                    </td>
+                    <td className="border border-zinc-300 p-3  text-sm">
+                      ₦{item?.price.toLocaleString()}
+                    </td>
+                    <td className="border border-zinc-300 p-3 px-5 text-sm">
+                      {item?.quantity}
+                    </td>
+                    <td
+                      className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
+                    >
+                      {item?._status || "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <OrderModal onClose={handleOnclose} visible={showModal} />
@@ -408,21 +490,21 @@ export default MyOrderDetails;
 
 // import React, { useState, useEffect } from "react";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  details: string;
-  note: string;
-  status: string;
-  imageUrl: string;
-}
+// interface Product {
+//   id: number;
+//   name: string;
+//   price: number;
+//   details: string;
+//   note: string;
+//   status: string;
+//   imageUrl: string;
+// }
 
-interface Order {
-  orderId: number;
-  products: Product[];
-  orderDate: Date;
-}
+// interface Order {
+//   orderId: number;
+//   products: Product[];
+//   orderDate: Date;
+// }
 
 const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
   const [returnEligibilities, setReturnEligibilities] = useState<{

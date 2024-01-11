@@ -34,6 +34,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
 
 export const ProductNameColumn = ({ data }: any) => {
   // console.log(data?.data, "data product");
+  // console.log(data, "new data");
   const adata = data?.cell?.value;
   // console.log(adata, "Adata");
 
@@ -241,7 +242,7 @@ const Tcolumns: readonly Column<IOrder>[] = [
   {
     Header: "Product Name",
 
-    accessor: (row) =>
+    accessor: (row, index) =>
       // @ts-ignore
       row.productDetails[0]?.productID.information.productName,
     Cell: (props: any) => <ProductNameColumn data={props} />,
@@ -278,7 +279,7 @@ const Tcolumns: readonly Column<IOrder>[] = [
   },
   {
     Header: "No of Items",
-    accessor: (row) => row?.productDetails[0]?.quantity,
+    accessor: (row) => row?.productDetails.length,
   },
   {
     Header: "Order Total",
@@ -361,6 +362,13 @@ const MyOrder = () => {
   console.log(getAllOrders, "Get All orders");
 
   const allOrders = getAllOrders?.data?.orders;
+  const navigate = useNavigate();
+
+  const handleViewOrder = (id: any) => {
+    navigate(`/my__orders/${id}`, {
+      replace: true,
+    });
+  };
 
   // console.log(user, user._id, typeof user._id, "User");
   console.log(allOrders, "All orders now");
@@ -408,16 +416,17 @@ const MyOrder = () => {
     },
   };
 
+  //@ts-ignore
   const filteredData =
     allOrders?.filter((b: any) =>
       queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
     ) || [];
-  // console.log(filteredData);
+  console.log(filteredData);
 
   return (
     // <h1>Hello</h1>
     <AppLayout>
-      <div className=" lg:px-12 xxs:px-4 mt-20">
+      <div className=" lg:px-12 xxs:px-4 mt-16 bg-neutral-100 lg:bg-white ">
         <div className="xxs:hidden lg:flex items-center flex-col justify-center py-10">
           <h2 className="text-[40px] leading-[47px] font-medium">My Orders</h2>
 
@@ -437,7 +446,7 @@ const MyOrder = () => {
           ) : (
             <div className="flex flex-col items-center justify-center mt-40">
               <CgSpinnerAlt size={80} className="animate-spin" />
-              <p className="mt-4">Fetching data...</p> 
+              <p className="mt-4">Fetching data...</p>
             </div>
           )}
         </div>
@@ -472,7 +481,7 @@ const MyOrder = () => {
               />
             </div>
           </div>
-          <div className="tabs flex gap-4 pt-8 pb-3 overflow-auto bg-[#fff] hide-scrollbar">
+          <div className="tabs flex gap-4 pt-8 pb-3 overflow-auto lg:bg-[#fff] hide-scrollbar">
             {t.map((tab: string, index: React.Key | null | undefined) => (
               <TabSelector
                 key={index}
@@ -592,7 +601,10 @@ const MyOrder = () => {
                         />
                       </figure>
                       <div>
-                        <ul className="">
+                        <ul
+                          className="cursor-pointer"
+                          onClick={() => handleViewOrder(data?._id)}
+                        >
                           <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
                             {
                               data?.productDetails[0].productID.information
@@ -601,7 +613,7 @@ const MyOrder = () => {
                             (1kg)
                           </li>
                           <li className="text-[14px] leading-[16px] font-normal text-[#333333] mt-1 mb-2">
-                            ₦{data?.productDetails[0].price}
+                            ₦{data?.productDetails[0].price.toLocaleString()}
                           </li>
                           <li
                             className={`text-[14px] leading-[16px] font-normal ${getOrderStatus(
@@ -661,7 +673,7 @@ const MyOrder = () => {
                           }
                         </li>
                         <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          ₦{data?.totalAmount}
+                          ₦{data?.totalAmount.toLocaleString()}
                         </li>
                       </ul>
                     </div>
@@ -691,7 +703,7 @@ const AccordionSection = ({
   onToggle,
 }: IAccordionPros) => {
   return (
-    <div className="p-4 w-full rounded-lg shadow-lg bg-[#fff] mt-3">
+    <div className="p-4 w-full rounded-lg bg-[#fff] mt-3">
       <div className=" w-full h-full">
         <div className=" w-full h-full">{title}</div>
       </div>
