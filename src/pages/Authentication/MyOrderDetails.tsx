@@ -70,7 +70,7 @@ const MyOrderDetails = () => {
   const _status = order?.status;
   const _id = order?._id;
   const orderDate = order?.orderDate;
-  const otherItems = order?.productDetails.map((item: any) => ({
+  const otherItems = order?.productDetails?.map((item: any) => ({
     ...item,
     _status,
     orderDate,
@@ -450,13 +450,18 @@ const MyOrderDetails = () => {
                       <span>
                         {item?.vendor.sellerAccountInformation.shopName}
                       </span>
-                      <span>{item?.vendor}</span>
+                      <span className="block text-neutral-300">
+                        {item?.vendor.businessInformation.city}
+                      </span>
                     </td>
                     <td className="border border-zinc-300 p-3  px-5 text-sm">
                       {moment(item?.orderDate).format("DD MMMM YYYY")}
+                      <span className="block text-neutral-300">
+                        {moment(item?.orderDate).format("h:mmA").toLowerCase()}
+                      </span>
                     </td>
                     <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      {item?._id}
+                      {item?._id || "-"}
                     </td>
                     <td className="border border-zinc-300 p-3  text-sm">
                       ₦{item?.price.toLocaleString()}
@@ -467,7 +472,7 @@ const MyOrderDetails = () => {
                     <td
                       className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
                     >
-                      {item?._status}
+                      {item?._status || "-"}
                     </td>
                   </tr>
                 ))}
