@@ -32,6 +32,7 @@ const MyOrderDetails = () => {
   const handleOnclose = () => setShowModal(false);
   const { id } = useParams();
   const { data, error, isLoading } = useGetOrdersById(id as string);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   console.log(data?.data?.order, "hyunmdhdhf");
 
   console.log(error, isLoading, "Get orders by id hmmmm");
@@ -40,8 +41,9 @@ const MyOrderDetails = () => {
 
   const order = data?.data?.order;
   console.log(order, "new order table");
+  const selectedProduct = order?.productDetails[selectedProductIndex];
 
-  const productImg = order?.productDetails[0]?.productID?.images[0];
+  const productImg = selectedProduct?.productID?.images[0];
 
   // const handleRate = (id: any) => {
   //   navigate(`/rate_review/${id}`, {
@@ -76,6 +78,15 @@ const MyOrderDetails = () => {
     orderDate,
     _id,
   }));
+
+  const handleViewOrder = (index: any) => {
+    setSelectedProductIndex(index);
+
+    console.log(id, selectedProductIndex, "other itens id");
+    // navigate(`/my__orders/${id}`, {
+    //   replace: true,
+    // });
+  };
 
   console.log(otherItems, typeof otherItems, "Other new items obj");
 
@@ -336,12 +347,12 @@ const MyOrderDetails = () => {
                   {order?.billingInformation.address}
                 </span>
               </div>
-              <div>
+              {/* <div>
                 <div className="text-neutral-400 text-sm">Home Address</div>
                 <span className="text-zinc-800 text-base">
                   No. 1 Victoria island, off Lekki, Lagos State.
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
@@ -353,10 +364,7 @@ const MyOrderDetails = () => {
               <div>
                 <div className="text-neutral-400 text-sm">Store Name</div>
                 <span className="text-zinc-800 text-base">
-                  {
-                    order?.productDetails[0].vendor.businessInformation
-                      .businessOwnerName
-                  }
+                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
                 </span>
               </div>
               <div>
@@ -366,7 +374,7 @@ const MyOrderDetails = () => {
               <div>
                 <div className="text-neutral-400 text-sm">Product Name</div>
                 <span className="text-zinc-800 text-base">
-                  {order?.productDetails[0].productID.information.productName}
+                  {selectedProduct?.productID.information.productName}
                 </span>
               </div>
             </div>
@@ -382,19 +390,19 @@ const MyOrderDetails = () => {
               <div>
                 <div className="text-neutral-400 text-sm">Price</div>
                 <span className="text-zinc-800 text-base">
-                  ₦{order?.productDetails[0]?.price}
+                  ₦{selectedProduct?.price.toLocaleString()}
                 </span>
               </div>
               <div>
                 <div className="text-neutral-400 text-sm">Quantity</div>
                 <span className="text-zinc-800 text-base">
-                  {order?.productDetails[0]?.quantity}
+                  {selectedProduct?.quantity}
                 </span>
               </div>
               <div>
                 <div className="text-neutral-400 text-sm">Order Total</div>
                 <span className="text-zinc-800 text-base">
-                  ₦{order?.totalAmount}
+                  ₦{order?.totalAmount.toLocaleString()}
                 </span>
               </div>
               <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
@@ -433,10 +441,11 @@ const MyOrderDetails = () => {
                   <th className="border border-zinc-300 py-4 px-8 text-left">
                     Status
                   </th>
+                  <th className="border border-zinc-300 py-4 px-8 text-left"></th>
                 </tr>
               </thead>
               <tbody>
-                {otherItems?.map((item: any) => (
+                {otherItems?.map((item: any, index: any) => (
                   <tr>
                     <td className="border border-zinc-300 p-3 px-5 flex gap-2 items-center text-sm">
                       <img
@@ -473,6 +482,16 @@ const MyOrderDetails = () => {
                       className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
                     >
                       {item?._status || "-"}
+                    </td>
+                    <td className={`p-3 border border-zinc-300 px-5 text-sm`}>
+                      <span
+                        onClick={() => {
+                          handleViewOrder(index);
+                        }}
+                        className="text-zinc-800 text-sm font-normal cursor-pointer underline"
+                      >
+                        View
+                      </span>
                     </td>
                   </tr>
                 ))}
