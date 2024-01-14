@@ -42,6 +42,7 @@ const MyOrderDetails = () => {
   const order = data?.data?.order;
   console.log(order, "new order table");
   const selectedProduct = order?.productDetails[selectedProductIndex];
+  console.log(selectedProduct, "selectedProduct");
 
   const productImg = selectedProduct?.productID?.images[0];
 
@@ -81,14 +82,16 @@ const MyOrderDetails = () => {
 
   const handleViewOrder = (index: any) => {
     setSelectedProductIndex(index);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
 
-    console.log(id, selectedProductIndex, "other itens id");
     // navigate(`/my__orders/${id}`, {
     //   replace: true,
     // });
   };
-
-  console.log(otherItems, typeof otherItems, "Other new items obj");
 
   return (
     <AppLayout>
@@ -138,18 +141,15 @@ const MyOrderDetails = () => {
               />
               <div className="flex-1">
                 <h3 className="text-zinc-800 text-sm font-semibold mb-1">
-                  {order?.productDetails[0].productID.information.productName}
+                  {selectedProduct?.productID.information.productName}
                   &nbsp;(
-                  {order?.productDetails[0].productID.details.productWeight}kg)
+                  {selectedProduct?.productID.details.productWeight}kg)
                 </h3>
                 <span className="text-neutral-500 text-sm block mb-2">
-                  {
-                    order?.productDetails[0].vendor.sellerAccountInformation
-                      .shopName
-                  }
+                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
                 </span>
                 <span className="text-zinc-800 text-sm font-normal block">
-                  ₦{order?.productDetails[0].price.toLocaleString()}
+                  ₦{selectedProduct?.price.toLocaleString()}
                 </span>
               </div>
             </div>
@@ -159,7 +159,7 @@ const MyOrderDetails = () => {
               </li>
               <li className="opacity-0">blank</li>
               <li className="text-zinc-800 text-sm font-normal text-right">
-                X{order?.productDetails[0].quantity}
+                X{selectedProduct?.quantity}
               </li>
             </ul>
 
@@ -202,7 +202,7 @@ const MyOrderDetails = () => {
                   {order?._id}
                 </li>
                 <li className="text-zinc-800 text-sm font-normal">
-                  {order?.productDetails[0].vendor.businessInformation.city}
+                  {selectedProduct?.vendor.businessInformation.city}
                 </li>
                 <li className="text-zinc-800 text-sm font-normal">-</li>
                 <li className="text-zinc-800 text-sm font-normal">
@@ -245,7 +245,7 @@ const MyOrderDetails = () => {
               Other Items in Your Order
             </h3>
 
-            {otherItems?.map((item: any) => (
+            {otherItems?.map((item: any, index: any) => (
               <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
                 <div className="flex gap-2 w-[70%]">
                   <img
@@ -254,7 +254,10 @@ const MyOrderDetails = () => {
                     alt=""
                   />
                   <div className="flex-1">
-                    <h3 className="text-zinc-800 text-sm font-semibold mb-1">
+                    <h3
+                      className="text-zinc-800 text-sm font-semibold mb-1 cursor-pointer"
+                      onClick={() => handleViewOrder(index)}
+                    >
                       {item?.productID.information.productName}
                       &nbsp;(
                       {item?.productID.details.productWeight}
@@ -411,7 +414,6 @@ const MyOrderDetails = () => {
             </div>
           </div>
         </div>
-
         <div className="lg:block hidden mt-8">
           <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide mb-6">
             Other Items In Your Order
@@ -447,13 +449,15 @@ const MyOrderDetails = () => {
               <tbody>
                 {otherItems?.map((item: any, index: any) => (
                   <tr>
-                    <td className="border border-zinc-300 p-3 px-5 flex gap-2 items-center text-sm">
-                      <img
-                        src={item?.productID.images[0]}
-                        className="w-10 h-10 rounded-full object-cover"
-                        alt="product thumbnail"
-                      />
-                      {item?.productID.information.productName}
+                    <td className="border border-zinc-300 p-3  px-5 text-sm">
+                      <div className="flex justify-center items-center">
+                        <img
+                          src={item?.productID.images[0]}
+                          className="w-10 h-10 rounded-full object-cover"
+                          alt="product thumbnail"
+                        />
+                        <span>{item?.productID.information.productName}</span>
+                      </div>
                     </td>
                     <td className="border border-zinc-300 p-3  px-5 text-sm">
                       <span>
