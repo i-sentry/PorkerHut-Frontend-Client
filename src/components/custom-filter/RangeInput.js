@@ -1,29 +1,17 @@
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
-} from "react";
-import "../custom-filter/MultiRangeSlider.css";
-import { TbCurrencyNaira } from "react-icons/tb";
+import React, { useCallback, useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
+import "./MultiRangeSlider.css";
 
-interface MultiRangeSliderProps {
-  min: number;
-  max: number;
-}
-
-const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
+const RangeInput = ({ min, max, onChange }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
-  const range = useRef<HTMLDivElement>(null);
+  const range = useRef(null);
 
   // Convert to percentage
   const getPercent = useCallback(
-    (value: number) => Math.round(((value - min) / (max - min)) * 100),
+    (value) => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
 
@@ -48,29 +36,32 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
     }
   }, [maxVal, getPercent]);
 
-
+  // Get min and max values when their state changes
+  useEffect(() => {
+    onChange({ min: minVal, max: maxVal });
+  }, [minVal, maxVal, onChange]);
 
   return (
-    <div className="md:container xxs:w-full xxs:mb-[40px] xxs:flex xxs:items-center xxs:justify-between z-0">
+    <div className="contain">
       <input
         type="range"
         min={min}
         max={max}
         value={minVal}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+        onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxVal - 1);
           setMinVal(value);
           minValRef.current = value;
         }}
-        className="thumb thumb--left "
-        style={{ zIndex: minVal > max - 100 ? "5" : undefined }}
+        className="thumb thumb--left"
+        style={{ zIndex: minVal > max - 100 && "5" }}
       />
       <input
         type="range"
         min={min}
         max={max}
         value={maxVal}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+        onChange={(event) => {
           const value = Math.max(Number(event.target.value), minVal + 1);
           setMaxVal(value);
           maxValRef.current = value;
@@ -78,24 +69,42 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max }) => {
         className="thumb thumb--right"
       />
 
-      <div className="slider ">
-        <div className="slider__track"></div>
-        <div ref={range} className="slider__range"></div>
+      <div className="slider">
+        <div className="slider__track" />
+        <div ref={range} className="slider__range" />
         <div className="slider__left-value">
-          <span>
-            <TbCurrencyNaira />
-          </span>
-          <span>{minVal}</span>
+          <input
+            value={`₦ ${minVal}`}
+            min={min}
+            max={max}
+            style={{ width: "80px", height: "30px", marginLeft: "-10px" }}
+            className="text-[#333] border-[#197B30]"
+            onChange={(e) => {
+              setMinVal(e.target.value);
+            }}
+          />
         </div>
         <div className="slider__right-value">
-          <span>
-            <TbCurrencyNaira />
-          </span>
-          <span>{maxVal}</span>
+          <input
+            value={`₦ ${maxVal}`}
+            min={min - 1}
+            max={max}
+            className="text-[#333] border-[#197B30]"
+            style={{ width: "80px", height: "30px", marginLeft: "-10px" }}
+            onChange={(e) => {
+              setMaxVal(e.target.value);
+            }}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default MultiRangeSlider;
+RangeInput.propTypes = {
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default RangeInput;

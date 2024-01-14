@@ -101,8 +101,8 @@ const router = createBrowserRouter(
       <Route path="/sign-in" element={<VendorLogin />} />
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/forgot_password" element={<ForgetPassword />} />
-      <Route path="/rate_reviews/" element={<RateReview />} />
-      <Route path="/rate_sucess" element={<RatingSuccess />} />
+      <Route path="/rate_review/:id" element={<RateReview />} />
+      <Route path="/rate_success" element={<RatingSuccess />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         path="/vendors/forgot_password"
@@ -120,7 +120,7 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/product/:id" element={<ProductDetails />} />
-      <Route path="/product/:id/rating-page" element={<CustomerRating />} />
+      <Route path="c" element={<CustomerRating />} />
 
       <Route
         path="/category/:id"

@@ -43,11 +43,11 @@ const MyOrderDetails = () => {
 
   const productImg = order?.productDetails[0]?.productID?.images[0];
 
-  // const handleRate = (id: any) => {
-  //   navigate(`/rate_review/${id}`, {
-  //     replace: true,
-  //   });
-  // };
+  const handleRate = (id: any) => {
+    navigate(`/rate_review/${id}`, {
+      replace: true,
+    });
+  };
 
   // ORDER STATUS COLOR
   const getOrderStatus = (status: any) => {
@@ -297,7 +297,7 @@ const MyOrderDetails = () => {
                 </div>
               </div>
               <button
-                // onClick={() => handleRate(order?._id)}
+                onClick={() => handleRate(order?._id)}
                 className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
               >
                 Rate This Product

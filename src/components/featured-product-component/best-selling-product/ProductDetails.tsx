@@ -48,7 +48,7 @@ const ProductDetails = () => {
   const handleOpen = (value: number) => {
     setOpen(open === value ? null : value);
   };
-  const checkIsFav = useGetFavProduct(user?._id, id);
+  const checkIsFav = useGetFavProduct("6412362b4546368fa400e57c", id);
   const handleClick = () => {
     dispatch(addProductToCart({ id: singleProduct?.data?._id }));
     console.log(singleProduct?.data?._id);

@@ -14,6 +14,7 @@ import { SkeletonLoader } from "../components/category-component/Category";
 import Spinner from "../components/Spinner/Spinner";
 import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
+import Filtercomp from "../components/custom-filter/FilterComp";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -87,11 +88,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
             <div className="lg:flex gap-8 ">
               <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
-                <Filter
-                  setData={setData}
-                  // menuItem={allCategories?.data}
-                  handleClick={handleClick}
-                />
+                <Filtercomp data={data} />
               </div>
 
               <div className="xxs:w-full lg:w-3/4">
