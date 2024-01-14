@@ -450,7 +450,7 @@ const MyOrderDetails = () => {
                 {otherItems?.map((item: any, index: any) => (
                   <tr>
                     <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      <div className="flex justify-center items-center">
+                      <div className="flex justify-left gap-2 flex-wrap items-center">
                         <img
                           src={item?.productID.images[0]}
                           className="w-10 h-10 rounded-full object-cover"
