@@ -26,9 +26,13 @@ interface iProps {
   ) => void;
 }
 
+
+
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [data, setData] = useState([]);
+   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [data, setData] = useState<IProduct[]>([]);
+  const [filteredData, setFilteredData] = useState<IProduct[]>([]);
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
@@ -36,7 +40,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
   // console.log({ menuItems }, "here");
   useEffect(() => setData(getAllProducts?.data), [getAllProducts?.data]);
-  console.log(getAllProducts, "createdProd");
+   useEffect(() => {
+     // Initialize filteredData with the original data when data changes
+     setFilteredData(data);
+   }, [data]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -56,7 +63,45 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  console.log(selectedItems, "selectedItems");
   console.log(data, "data");
+
+  const handleApplyClick = () => {
+    const lowerCaseSelectedItems = selectedItems.map((item) =>
+      item.toLowerCase()
+    );
+
+    // Check if selectedItems array is empty
+    if (lowerCaseSelectedItems.length === 0) {
+      // If empty, set filteredData to the original data
+      setFilteredData(data);
+      return;
+    }
+
+    // Filter the data based on selectedItems, city, and price range
+    const newFilteredData = data.filter((item) => {
+      const categoryMatch = lowerCaseSelectedItems.includes(
+        item.information.subcategory.name.toLowerCase()
+      );
+      const cityMatch = lowerCaseSelectedItems.includes(
+        item.vendor.businessInformation.city.toLowerCase()
+      );
+
+      // Adjust the logic based on your requirements
+      return categoryMatch || cityMatch;
+      // return categoryMatch && cityMatch && priceMatch;
+    });
+
+    console.log("Filtered Data:", newFilteredData);
+    console.log("Selected Items:", selectedItems);
+
+    // Update filteredData state
+    setFilteredData(newFilteredData);
+  };
+
+
+
+
 
   return (
     <>
@@ -88,11 +133,16 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
             <div className="lg:flex gap-8 ">
               <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
-                <Filtercomp data={data} />
+                <Filtercomp
+                  selectedItems={selectedItems}
+                  setSelectedItems={setSelectedItems}
+                  data={data}
+                  handleApplyClick={handleApplyClick}
+                />
               </div>
 
               <div className="xxs:w-full lg:w-3/4">
-                {data && data?.length > 1 ? (
+                {filteredData && filteredData?.length >= 1 ? (
                   <div className=" bg-white w-full">
                     <div className="flex items-center justify-between border-b   pl-3">
                       <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
@@ -100,7 +150,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                           All Products
                         </h1>
                         <div className="flex items-center gap-3">
-                          {data?.length && !isLoading && (
+                          {filteredData?.length && !isLoading && (
                             <p className="text-sm text-[#A2A2A2] ">
                               Showing{" "}
                               <span className="font-medium">
@@ -112,7 +162,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                               </span>{" "}
                               of{" "}
                               <span className="font-medium">
-                                {data?.length}
+                                {filteredData?.length}
                               </span>{" "}
                               results
                             </p>
@@ -129,7 +179,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                           Sort by:
                         </span>
                         <span className="xxs:hidden lg:block">
-                          <Sort data={data} setData={setData} />
+                          <Sort data={filteredData} setData={setData} />
                         </span>
                         <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
                           <FiSettings
@@ -146,9 +196,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         </div>
                       </div>
                     </div>
-                    {data?.length ? (
+                    {filteredData?.length ? (
                       <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
-                        {chunkArray(Object.values(data), itemsPerPage)[
+                        {chunkArray(Object.values(filteredData), itemsPerPage)[
                           currentPageIndex - 1
                         ]?.map((Tdata, index) => {
                           return <ProductCard item={Tdata} key={index} />;
@@ -173,28 +223,30 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         <RxCaretLeft size={16} />
                       </button>
                       <div className="pagination flex gap-1 items-center">
-                        {chunkArray(data, itemsPerPage).map((_, index) => {
-                          return (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentPageIndex(index + 1)}
-                              className={` border-2   border-[#A2A2A2]  ${
-                                currentPageIndex === index + 1
-                                  ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                                  : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
-                              }`}
-                            >
-                              {index + 1}
-                            </button>
-                          );
-                        })}
+                        {chunkArray(filteredData, itemsPerPage).map(
+                          (_, index) => {
+                            return (
+                              <button
+                                key={index}
+                                onClick={() => setCurrentPageIndex(index + 1)}
+                                className={` border-2   border-[#A2A2A2]  ${
+                                  currentPageIndex === index + 1
+                                    ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
+                                    : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                                }`}
+                              >
+                                {index + 1}
+                              </button>
+                            );
+                          }
+                        )}
                       </div>
 
                       <button
                         onClick={prev}
                         className={
                           (currentPageIndex ===
-                          chunkArray(data, itemsPerPage).length
+                          chunkArray(filteredData, itemsPerPage).length
                             ? "no-items"
                             : "") +
                           " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
@@ -237,3 +289,87 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 };
 
 export default ProductPage;
+
+interface IProduct {
+  _id: string;
+  approvalStatus: string;
+  avgRating: number;
+  createdAt: string;
+  details: {
+    deliveryDetails: string;
+    nutritionalValue: string;
+    productContent: string;
+    productDescription: string;
+    productWeight: number;
+  };
+  featured: boolean;
+  images: string[];
+  information: {
+    category: {
+      _id: string;
+      name: string;
+      description: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    categoryQuestions: {
+      // Define the structure of categoryQuestions if available
+    }[];
+    productName: string;
+    subcategory: {
+      _id: string;
+      name: string;
+      description: string;
+      parent: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  };
+  pricing: {
+    productPrice: number;
+    quantity: number;
+    saleEndDate: string;
+    saleStartDate: string;
+    _id: string;
+  };
+  reviews: any[];
+  updatedAt: string;
+  vendor: {
+    businessInformation: {
+      CACCertificateFile: string;
+      CACRegistrationNumber: string;
+      IDFile: string;
+      IDType: string;
+      TINCertificateFile: string;
+      VATRegistered: string;
+      address1: string;
+      address2: string;
+      businessOwnerName: string;
+      city: string;
+      companyRegisteredName: string;
+      dateOfBirth: string;
+    };
+    pickupAddresses: any[];
+    profilePhoto: string;
+    sellerAccountInformation: {
+      accountOwnersName: string;
+      additionalPhoneNumber: string;
+      email: string;
+      entityType: string;
+      password: string;
+      phoneNumber: string;
+      shopName: string;
+    };
+    storeStatus: string;
+    vendorBankAccount: {
+      bankName: string;
+      accountName: string;
+      accountNumber: string;
+    };
+    __v: number;
+    _id: string;
+  };
+  visibilityStatus: string;
+  __v: number;
+}
+

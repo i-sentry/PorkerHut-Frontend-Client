@@ -3,7 +3,8 @@ import { PiCaretUp } from "react-icons/pi";
 
 interface AccordionItemProps {
   title: string;
-  children: React.ReactNode;
+    children: React.ReactNode;
+    
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, children }) => {

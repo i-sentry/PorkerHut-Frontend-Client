@@ -15,7 +15,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, onCheckboxChange }) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center my-3">
       <input
         type="checkbox"
         className="mr-2 rounded-sm border border-[#BDBDBD]"

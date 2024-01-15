@@ -4,15 +4,25 @@ import AccordionItem from "./AccordionItem";
 import Checkbox from "./Checkbox";
 import RangeInput from "./RangeInput";
 import _ from "lodash";
+import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 
 interface FiltercompProps {
-  data: any[]; // Update this based on the expected data type
+  data: any[];
+  selectedItems: string[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
+  handleApplyClick: () => void;
 }
 
-const Filtercomp: React.FC<FiltercompProps> = ({ data }) => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+const Filtercomp: React.FC<FiltercompProps> = ({
+  data,
+  selectedItems,
+  setSelectedItems,
+  handleApplyClick,
+}) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
+  const allCategories = useGetAllCategories();
 
+  const { data: catagories, isLoading } = allCategories;
   const handleCheckboxChange = (label: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, label]);
@@ -44,66 +54,75 @@ const Filtercomp: React.FC<FiltercompProps> = ({ data }) => {
 
   const { highestPrice, lowestPrice } = analyzePrices(data);
 
-  const handleApplyClick = () => {
-    console.log("Selected Items:", selectedItems);
-    console.log("Price Range:", priceRange);
+//   const handleApplyClick = () => {
+//     console.log("Selected Items:", selectedItems);
+//     console.log("Price Range:", priceRange);
+//   };
+  const handleClear = () => {
+    setSelectedItems([]);
+    setPriceRange([0, 100]);
   };
-  console.log(data);
+//   console.log(data);
   const cityData = data?.map((item) =>
     item?.vendor?.businessInformation?.city.toLowerCase()
   );
 
   const UniqueCity: any[] = Array.from(new Set(cityData));
 
-  console.log(UniqueCity, "lii");
+//   console.log(UniqueCity, "lii");
 
   return (
     <div className=" p-4">
       <Accordion
-        items={
-          //   <AccordionItem title="Livestock" key="livestock">
-          //     <Checkbox label="Type 1" onCheckboxChange={handleCheckboxChange} />
-          //     <Checkbox label="Type 2" onCheckboxChange={handleCheckboxChange} />
-          //     {/* Add more checkboxes as needed */}
-          //   </AccordionItem>,
-          //   <AccordionItem title="Feed" key="feed">
-          //     <Checkbox label="Type 1" onCheckboxChange={handleCheckboxChange} />
-          //     <Checkbox label="Type 2" onCheckboxChange={handleCheckboxChange} />
-          //     {/* Add more checkboxes as needed */}
-          //           </AccordionItem>,
-          [
-              <AccordionItem title="Pork" key="pork">
-                <Checkbox label="Type 1" onCheckboxChange={handleCheckboxChange} />
-                <Checkbox label="Type 2" onCheckboxChange={handleCheckboxChange} />
-                {/* Add more checkboxes as needed */}
-              </AccordionItem>,
-            <AccordionItem title={"Location"}>
-              {UniqueCity?.map((city, index) => (
-                <Checkbox
-                  key={index}
-                  label={_.startCase(city)}
-                  onCheckboxChange={handleCheckboxChange}
-                />
-              )) || []}
-            </AccordionItem>,
-            <AccordionItem title="Price" key="price">
-              <RangeInput
-                min={lowestPrice}
-                max={highestPrice}
-                onChange={({ min, max }) =>
-                  console.log(`min = ${min}, max = ${max}`)
-                }
+        items={[
+          ...(catagories?.data || []).map((item: any, index: any) => (
+            <AccordionItem title={_.startCase(item?.name)} key={index}>
+              {(item.subcategories || []).map(
+                (subCategory: any, subIndex: any) => (
+                  <Checkbox
+                    key={subIndex}
+                    label={_.startCase(subCategory.name)}
+                    onCheckboxChange={handleCheckboxChange}
+                  />
+                )
+              )}
+            </AccordionItem>
+          )),
+
+          <AccordionItem title={"Location"}>
+            {(UniqueCity || []).map((city, index) => (
+              <Checkbox
+                key={index}
+                label={_.startCase(city)}
+                onCheckboxChange={handleCheckboxChange}
               />
-            </AccordionItem>,
-          ]
-        }
+            ))}
+          </AccordionItem>,
+          <AccordionItem title="Price" key="price">
+            <RangeInput
+              min={lowestPrice}
+              max={highestPrice}
+              onChange={({ min, max }) =>
+                console.log(`min = ${min}, max = ${max}`)
+              }
+            />
+          </AccordionItem>,
+        ]}
       />
-      <button
-        className="bg-blue-500 text-white px-4 py-2 mt-4"
-        onClick={handleApplyClick}
-      >
-        Apply
-      </button>
+      <div className="flex items-center justify-between ">
+        <button
+          className="border border-[#a10] text-[#a10] rounded  px-4 py-2 mt-4"
+          onClick={handleClear}
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-[#197B30] border border-[#197B30] rounded text-white px-4 py-2 mt-4 text-right"
+          onClick={handleApplyClick}
+        >
+          Apply
+        </button>
+      </div>
     </div>
   );
 };
