@@ -91,11 +91,6 @@ const AdminTable = ({
     useRowSelect
   ) as any;
 
-  console.log("TData:", TData);
-  console.log("Tcolumns:", Tcolumns);
-  console.log("Data:", data);
-  console.log("Columns:", tableColumns);
-
   const {
     getTableBodyProps,
     getTableProps,
@@ -277,25 +272,28 @@ const AdminTable = ({
                           className="border-t border-gray-300 hover:bg-green-100"
                         >
                           {row.cells.map(
-                            (cell: {
-                              getCellProps: () => JSX.IntrinsicAttributes &
-                                React.ClassAttributes<HTMLTableDataCellElement> &
-                                React.TdHTMLAttributes<HTMLTableDataCellElement>;
-                              render: (
-                                arg0: string
-                              ) =>
-                                | string
-                                | number
-                                | boolean
-                                | React.ReactFragment
-                                | React.ReactElement<
-                                    any,
-                                    string | React.JSXElementConstructor<any>
-                                  >
-                                | React.ReactPortal
-                                | null
-                                | undefined;
-                            }) => (
+                            (
+                              cell: {
+                                getCellProps: () => JSX.IntrinsicAttributes &
+                                  React.ClassAttributes<HTMLTableDataCellElement> &
+                                  React.TdHTMLAttributes<HTMLTableDataCellElement>;
+                                render: (
+                                  arg0: string
+                                ) =>
+                                  | string
+                                  | number
+                                  | boolean
+                                  | React.ReactFragment
+                                  | React.ReactElement<
+                                      any,
+                                      string | React.JSXElementConstructor<any>
+                                    >
+                                  | React.ReactPortal
+                                  | null
+                                  | undefined;
+                              },
+                              index: number
+                            ) => (
                               <td
                                 {...cell.getCellProps()}
                                 className="font-light text-sm leading-[19px] text-[#202223] py-4 text-left px-4 whitespace-nowrap"

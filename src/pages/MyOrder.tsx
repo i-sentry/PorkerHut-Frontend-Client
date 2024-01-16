@@ -10,6 +10,8 @@ import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { useGetCustomersOrder } from "../services/hooks/orders";
 import AdminTable from "../components/admin-dashboard-components/AdminTable";
 import { CgSpinnerAlt } from "react-icons/cg";
+import { chunkArray } from "../helper/chunck";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 // import { ImSpinner6 } from "react-icons/im";
 
 export const StatusColumn = ({ data }: { data: string }) => {
@@ -32,9 +34,9 @@ export const StatusColumn = ({ data }: { data: string }) => {
   }
 };
 
-export const ProductNameColumn = ({ data }: any) => {
+export const ProductNameColumn = ({ data, cellIndex }: any) => {
   // console.log(data?.data, "data product");
-  // console.log(data, "new data");
+  console.log(data, cellIndex, "new data");
   const adata = data?.cell?.value;
   // console.log(adata, "Adata");
 
@@ -42,18 +44,20 @@ export const ProductNameColumn = ({ data }: any) => {
 
   const productName = _.startCase(lowerData);
   return (
-    <div className="flex items-center gap-2">
-      <figure className="h-9 w-9 rounded-full border">
-        <img
-          src={data?.data[0]?.productDetails[0]?.productID.images[0]}
-          alt="product"
-          className="rounded-full object-cover w-full h-full"
-        />
-      </figure>
-      <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
-        {productName}
-      </span>
-    </div>
+    <>
+      <div className="flex items-center gap-2">
+        <figure className="h-9 w-9 rounded-full border">
+          <img
+            src={data?.data[cellIndex]?.productDetails[0]?.productID.images[0]}
+            alt="product"
+            className="rounded-full object-cover w-full h-full"
+          />
+        </figure>
+        <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
+          {productName}
+        </span>
+      </div>
+    </>
   );
 };
 export const OrderData = [
@@ -242,10 +246,12 @@ const Tcolumns: readonly Column<IOrder>[] = [
   {
     Header: "Product Name",
 
-    accessor: (row, index) =>
+    accessor: (row) =>
       // @ts-ignore
       row.productDetails[0]?.productID.information.productName,
-    Cell: (props: any) => <ProductNameColumn data={props} />,
+    Cell: (props: any) => (
+      <ProductNameColumn data={props} cellIndex={props.cell.row.index} />
+    ),
   },
   {
     Header: "Store Name",
@@ -365,6 +371,7 @@ const MyOrder = () => {
   const navigate = useNavigate();
 
   const handleViewOrder = (id: any) => {
+    window.scroll(0, 0);
     navigate(`/my__orders/${id}`, {
       replace: true,
     });
@@ -422,6 +429,10 @@ const MyOrder = () => {
       queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
     ) || [];
   console.log(filteredData);
+
+  let itemsPerPage = 8;
+  let currentPage = 1;
+  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
   return (
     // <h1>Hello</h1>
@@ -587,100 +598,155 @@ const MyOrder = () => {
                   </div>
                 </AccordionSection>
               ))} */}
-            {allOrders?.map((data: any, index: number) => (
-              <AccordionSection
-                key={index}
-                title={
-                  <div className="flex justify-between w-full h-full">
-                    <div className="flex gap-2">
-                      <figure className="h-9 w-9 rounded-full border">
-                        <img
-                          src={data?.productDetails[0].productID.images[0]}
-                          alt="product"
-                          className="rounded-full object-cover w-full h-full"
-                        />
-                      </figure>
-                      <div>
-                        <ul
-                          className="cursor-pointer"
-                          onClick={() => handleViewOrder(data?._id)}
-                        >
-                          <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
-                            {
-                              data?.productDetails[0].productID.information
-                                .productName
-                            }
-                            (1kg)
-                          </li>
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333] mt-1 mb-2">
-                            ₦{data?.productDetails[0].price.toLocaleString()}
-                          </li>
-                          <li
-                            className={`text-[14px] leading-[16px] font-normal ${getOrderStatus(
-                              data?.status
-                            )}`}
+
+            {chunkArray(allOrders, itemsPerPage)[currentPageIndex - 1]?.map(
+              (data: any, index: number) => (
+                <AccordionSection
+                  key={index}
+                  title={
+                    <div className=" justify-between w-full h-full flex">
+                      <div className="flex gap-2">
+                        <figure className="h-9 w-9 rounded-full border">
+                          <img
+                            src={data?.productDetails[0].productID.images[0]}
+                            alt="product"
+                            className="rounded-full object-cover w-full h-full"
+                          />
+                        </figure>
+                        <div>
+                          <ul
+                            className="cursor-pointer"
+                            onClick={() => handleViewOrder(data?._id)}
                           >
-                            {data?.status}
-                          </li>
-                        </ul>
+                            <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
+                              {
+                                data?.productDetails[0].productID.information
+                                  .productName
+                              }
+                              (1kg)
+                            </li>
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333] mt-1 mb-2">
+                              ₦{data?.productDetails[0].price.toLocaleString()}
+                            </li>
+                            <li
+                              className={`text-[14px] leading-[16px] font-normal ${getOrderStatus(
+                                data?.status
+                              )}`}
+                            >
+                              {data?.status}
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                    <>
-                      <div>
-                        <ul className="text-right flex flex-col justify-between h-full">
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                            {/* {data?.order_date}
+                      <>
+                        <div>
+                          <ul className="text-right flex flex-col justify-between h-full">
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                              {/* {data?.order_date}
                             {[0].orderDate} */}
-                            {moment(data?.orderDate).format("DD MMM YYYY")}
+                              {moment(data?.orderDate).format("DD MMM YYYY")}
+                            </li>
+                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                              X {data?.productDetails[0].quantity}
+                            </li>
+                          </ul>
+                        </div>
+                      </>
+                    </div>
+                  }
+                  isExpanded={expandedIndex === index}
+                  onToggle={() => handleToggle(index)}
+                >
+                  <div className="flex  justify-between w-full h-full mt-5">
+                    <div className="flex gap-2">
+                      <div className="">
+                        <ul className="flex flex-col justify-between gap-4 text-left">
+                          <li className="text-zinc-800 text-sm font-medium">
+                            Order ID
                           </li>
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                            X {data?.productDetails[0].quantity}
+                          <li className="text-zinc-800 text-sm font-medium">
+                            Location
+                          </li>
+                          <li className="text-zinc-800 text-sm font-medium ">
+                            Total
                           </li>
                         </ul>
                       </div>
-                    </>
+                    </div>
+                    <div>
+                      <div className="">
+                        <ul className="text-right flex flex-col justify-between h-full gap-4">
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            {data?._id}
+                          </li>
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            {
+                              data?.productDetails[0].vendor.businessInformation
+                                .city
+                            }
+                          </li>
+                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            ₦{data?.totalAmount.toLocaleString()}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
+                </AccordionSection>
+              )
+            )}
+            <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 mt-10">
+              <button
+                onClick={() =>
+                  currentPageIndex !== 1
+                    ? setCurrentPageIndex(currentPageIndex - 1)
+                    : null
                 }
-                isExpanded={expandedIndex === index}
-                onToggle={() => handleToggle(index)}
+                className={
+                  (currentPageIndex === 1 ? "no-item" : "") +
+                  " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
+                }
               >
-                <div className="flex  justify-between w-full h-full mt-5">
-                  <div className="flex gap-2">
-                    <div className="">
-                      <ul className="flex flex-col justify-between gap-4 text-left">
-                        <li className="text-zinc-800 text-sm font-medium">
-                          Order ID
-                        </li>
-                        <li className="text-zinc-800 text-sm font-medium">
-                          Location
-                        </li>
-                        <li className="text-zinc-800 text-sm font-medium ">
-                          Total
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="">
-                      <ul className="text-right flex flex-col justify-between h-full gap-4">
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          {data?._id}
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          {
-                            data?.productDetails[0].vendor.businessInformation
-                              .city
-                          }
-                        </li>
-                        <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
-                          ₦{data?.totalAmount.toLocaleString()}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </AccordionSection>
-            ))}
+                <RxCaretLeft size={22} />
+              </button>
+              <div className="pagination flex gap-1 items-center">
+                {chunkArray(allOrders, itemsPerPage).map((_, index) => {
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentPageIndex(index + 1)}
+                      className={` border   border-[#A2A2A2]  ${
+                        currentPageIndex === index + 1
+                          ? "active-page-index    rounded-lg text-white border-[#197B30] bg-[#197b30]"
+                          : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
+                      }`}
+                    >
+                      <span className="text-sm px-1.5">{index + 1}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                onClick={() =>
+                  currentPageIndex !==
+                  chunkArray(allOrders, itemsPerPage).length
+                    ? setCurrentPageIndex(currentPageIndex + 1)
+                    : null
+                }
+                className={
+                  (currentPageIndex ===
+                  chunkArray(allOrders, itemsPerPage).length
+                    ? "no-items"
+                    : "") +
+                  " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
+                }
+              >
+                <span className="">
+                  <RxCaretRight size={22} />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
