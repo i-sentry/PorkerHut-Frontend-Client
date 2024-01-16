@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PorkerLogo from "../../assets/porker hut 1 1.png";
 import Ripples from "react-ripples";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Admin from "../../assets/Admin.png";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ReactLoading from "react-loading";
 import Footer from "../../components/footer-component/Footer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,6 +31,7 @@ const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [eyeState, setEyeState] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const {
     register,
@@ -176,19 +178,20 @@ const AdminLogin: React.FC = () => {
               </div>
               <div className="mt-6">
                 <p className="text-[#A2A2A2] font-normal text-center">
-                  No account account?{" "}
-                  <Link
-                    to="/admin-sign-up"
+                  No account account?
+                  <button
+                    onClick={() => setOpenModal((s) => !s)}
                     className="font-normal hover:underline cursor-pointer text-[#197b30]"
                   >
                     Create one
-                  </Link>
+                  </button>
                 </p>
               </div>
             </div>
           </form>
         </div>
       </div>
+      <CreateAdminAcct openModal={openModal} closeModal={setOpenModal} />
       <Footer />
     </>
   );
