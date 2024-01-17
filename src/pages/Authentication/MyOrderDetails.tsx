@@ -198,8 +198,11 @@ const MyOrderDetails = () => {
                 <li className="text-zinc-800 text-sm font-normal">Status</li>
               </ul>
               <ul className="flex flex-col gap-2 text-right">
-                <li className="text-zinc-800 text-sm font-normal">
-                  {order?._id}
+                <li
+                  className="text-zinc-800 text-sm font-normal"
+                  title={order?._id}
+                >
+                  {order?._id.slice(-7)}
                 </li>
                 <li className="text-zinc-800 text-sm font-normal">
                   {selectedProduct?.vendor.businessInformation.city}
@@ -294,7 +297,33 @@ const MyOrderDetails = () => {
               backgroundPosition: "center",
             }}
           ></div>
-          <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+          <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <MdOutlineStorefront size={20} />
+              <span className="text-neutral-400 text-sm">Abuja</span>
+            </div>
+            <div className="flex justify-between mt-16">
+              <div>
+                <div className="text-neutral-400 text-sm">Store Name</div>
+                <span className="text-zinc-800 text-base">
+                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Order ID</div>
+                <span className="text-zinc-800 text-base" title={order?._id}>
+                  {order?._id.slice(-7)}
+                </span>
+              </div>
+              <div>
+                <div className="text-neutral-400 text-sm">Product Name</div>
+                <span className="text-zinc-800 text-base">
+                  {selectedProduct?.productID.information.productName}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
             <div className="flex justify-between">
               <div className="flex items-start gap-1">
                 <MdPersonOutline size={20} className="mt-1" />
@@ -336,52 +365,6 @@ const MyOrderDetails = () => {
               </div>
             </div>
           </div>
-          <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
-              <MdOutlinePersonPinCircle size={20} />
-              <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
-                Track Order
-              </button>
-            </div>
-            <div className="flex justify-between mt-4 gap-6">
-              <div>
-                <div className="text-neutral-400 text-sm">Billing Address</div>
-                <span className="text-zinc-800 text-base">
-                  {order?.billingInformation.address}
-                </span>
-              </div>
-              {/* <div>
-                <div className="text-neutral-400 text-sm">Home Address</div>
-                <span className="text-zinc-800 text-base">
-                  No. 1 Victoria island, off Lekki, Lagos State.
-                </span>
-              </div> */}
-            </div>
-          </div>
-          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
-              <MdOutlineStorefront size={20} />
-              <span className="text-neutral-400 text-sm">Abuja</span>
-            </div>
-            <div className="flex justify-between mt-16">
-              <div>
-                <div className="text-neutral-400 text-sm">Store Name</div>
-                <span className="text-zinc-800 text-base">
-                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
-                </span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Order ID</div>
-                <span className="text-zinc-800 text-base">{order?._id}</span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Product Name</div>
-                <span className="text-zinc-800 text-base">
-                  {selectedProduct?.productID.information.productName}
-                </span>
-              </div>
-            </div>
-          </div>
           <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
             <div className="flex justify-between">
               <IoBasketOutline size={20} />
@@ -411,6 +394,28 @@ const MyOrderDetails = () => {
               <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
                 Return Order
               </button>
+            </div>
+          </div>
+          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+            <div className="flex justify-between">
+              <MdOutlinePersonPinCircle size={20} />
+              <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
+                Track Order
+              </button>
+            </div>
+            <div className="flex justify-between mt-4 gap-6">
+              <div>
+                <div className="text-neutral-400 text-sm">Billing Address</div>
+                <span className="text-zinc-800 text-base">
+                  {order?.billingInformation.address}
+                </span>
+              </div>
+              {/* <div>
+                <div className="text-neutral-400 text-sm">Home Address</div>
+                <span className="text-zinc-800 text-base">
+                  No. 1 Victoria island, off Lekki, Lagos State.
+                </span>
+              </div> */}
             </div>
           </div>
         </div>

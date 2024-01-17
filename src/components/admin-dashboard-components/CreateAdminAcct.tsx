@@ -56,8 +56,8 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
   return (
     <>
       {openModal && (
-        <div className="w-full h-screen bg-black bg-opacity-30 p-3 fixed top-0 left-0 z-[999]">
-          <div className="w-full h-full flex justify-between items-start gap-9 mb-40 px-[56px] py-12 hide-scroll-bar bg-white relative">
+        <div className="w-full h-screen bg-black bg-opacity-30 p-3  overflow-auto hide-scroll-bar fixed top-0 left-0 z-[999]">
+          <div className="w-full h-auto flex justify-between items-start gap-9 mb-40 px-[56px] py-12 hide-scroll-bar bg-white relative">
             <div className="w-[calc(55%_-_20px)]">
               <div className="border-b border-[#D9D9D9] pb-[9px] flex justify-between items-center">
                 <div
@@ -81,7 +81,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                 <img src={Admin} className="w-11/12 mx-auto" alt="Admin img" />
               </div>
             </div>
-            <div className="w-[calc(45%_-_20px)] h-[500px] px-8 py-8 bg-white border-[#D9D9D9] border overflow-auto hide-scroll-bar">
+            <div className="w-[calc(45%_-_20px)] h-auto px-8 py-8 bg-white border-[#D9D9D9] border overflow-auto hide-scroll-bar">
               <div>
                 <h2 className="text-black text-2xl font-medium mb-2">
                   Create an account
@@ -246,12 +246,12 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                     <div className="mt-8">
                       <p className="text-[#A2A2A2] font-normal text-center">
                         Already have an account?{" "}
-                        <Link
-                          to="/admin-login"
+                        <button
+                          onClick={() => closeModal(false)}
                           className="font-normal hover:underline cursor-pointer text-[#197b30]"
                         >
                           Log in
-                        </Link>
+                        </button>
                       </p>
                     </div>
                   </div>
@@ -261,7 +261,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
 
             {/* CLOSE MODAL BUTTON */}
             <button
-              onClick={closeModal}
+              onClick={() => closeModal((s: boolean) => !s)}
               className="bg-[#197b30] p-2 absolute top-3 right-3"
             >
               <BsXLg className="fill-white" />
