@@ -3,10 +3,15 @@ import React, { useState, ChangeEvent } from "react";
 interface CheckboxProps {
   label: string;
   onCheckboxChange: (label: string, isChecked: boolean) => void;
+
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({ label, onCheckboxChange }) => {
-  const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+
+    // const handleCancelCheck = () => {
+    //     setIsChecked(false)
+    // }
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newCheckedState = event.target.checked;

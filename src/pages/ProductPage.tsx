@@ -98,7 +98,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     // Update filteredData state
     setFilteredData(newFilteredData);
   };
+ const handleClear = () => {
+   setSelectedItems([]);
+   setFilteredData(data);
 
+ };
 
 
 
@@ -138,6 +142,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                   setSelectedItems={setSelectedItems}
                   data={data}
                   handleApplyClick={handleApplyClick}
+                  handleClear={handleClear}
                 />
               </div>
 
@@ -290,7 +295,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
 export default ProductPage;
 
-interface IProduct {
+export interface IProduct {
   _id: string;
   approvalStatus: string;
   avgRating: number;

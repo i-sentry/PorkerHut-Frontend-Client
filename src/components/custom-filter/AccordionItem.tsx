@@ -4,7 +4,7 @@ import { PiCaretUp } from "react-icons/pi";
 interface AccordionItemProps {
   title: string;
     children: React.ReactNode;
-    
+
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, children }) => {
@@ -17,7 +17,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children }) => {
   return (
     <div className="border-b py-2">
       <div className="flex justify-between items-center">
-        <div className="text-[16px]  leading-normal text-[#333] font-normal">
+        <div className="text-[16px]  leading-normal text-[#333] font-semibold">
           {title}
         </div>
         <button

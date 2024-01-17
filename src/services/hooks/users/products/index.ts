@@ -48,3 +48,14 @@ export const useDeleteFavorite = (
       makeDeleteRequest(api.Products.removeFavProduct(userId, productId)),
   });
 };
+
+export const useCreateRating = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      productId: string;
+      userId: string;
+      ratingValue: number;
+      comment: string;
+    }) => makePostRequest(data, api.Ratings.createRating),
+  });
+};

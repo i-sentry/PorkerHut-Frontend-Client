@@ -35,7 +35,6 @@ const MyOrderDetails = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   console.log(data?.data?.order, "hyunmdhdhf");
 
-  console.log(error, isLoading, "Get orders by id hmmmm");
 
   const navigate = useNavigate();
 
@@ -340,7 +339,7 @@ const MyOrderDetails = () => {
                 </div>
               </div>
               <button
-                onClick={() => handleRate(order?._id)}
+                onClick={() => handleRate(selectedProduct?.productID?._id)}
                 className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
               >
                 Rate This Product

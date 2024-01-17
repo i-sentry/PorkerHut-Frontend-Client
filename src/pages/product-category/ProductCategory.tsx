@@ -14,6 +14,8 @@ import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 import { cap } from "../../components/category-card-component/Card";
 import { useGetAllProducts } from "../../services/hooks/Vendor/products";
 import FilterSidebar from "../../components/accordion-component/FilterSidebarModal";
+import Filtercomp from "../../components/custom-filter/FilterComp";
+import { IProduct } from "../ProductPage";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -31,7 +33,9 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const q = queryParams.get("q");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<IProduct[]>([]);
+  const [filteredData, setFilteredData] = useState<IProduct[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
@@ -60,13 +64,52 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     //@ts-ignore
     setData(newItems);
   };
-  useEffect(() => filter(id));
+ useEffect(() => {
+   filter(id);
+ }, [id]);
 
   console.log(data, "data");
 
   React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    window.scrollTo(0, 0);
   }, []);
+
+  const handleApplyClick = () => {
+    const lowerCaseSelectedItems = selectedItems.map((item) =>
+      item.toLowerCase()
+    );
+
+    // Check if selectedItems array is empty
+    if (lowerCaseSelectedItems.length === 0) {
+      // If empty, set filteredData to the original data
+      setFilteredData(data);
+      return;
+    }
+
+    // Filter the data based on selectedItems, city, and price range
+    const newFilteredData = data.filter((item) => {
+      const categoryMatch = lowerCaseSelectedItems.includes(
+        item.information.subcategory.name.toLowerCase()
+      );
+      const cityMatch = lowerCaseSelectedItems.includes(
+        item.vendor.businessInformation.city.toLowerCase()
+      );
+
+      // Adjust the logic based on your requirements
+      return categoryMatch || cityMatch;
+      // return categoryMatch && cityMatch && priceMatch;
+    });
+
+    console.log("Filtered Data:", newFilteredData);
+    console.log("Selected Items:", selectedItems);
+
+    // Update filteredData state
+    setFilteredData(newFilteredData);
+  };
+  const handleClear = () => {
+    setSelectedItems([]);
+    setFilteredData(data);
+  };
 
   return (
     <AppLayout>
@@ -97,8 +140,13 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
 
           <div className="lg:flex gap-8">
             <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
-              {/* <Filter setData={setData} menuItem={menuItems} /> */}
-              <ProductFilter setData={setData} menuItem={menuItems} />
+              <Filtercomp
+                selectedItems={selectedItems}
+                setSelectedItems={setSelectedItems}
+                data={data}
+                handleApplyClick={handleApplyClick}
+                handleClear={handleClear}
+              />
             </div>
             <div className="lg:w-3/4 bg-white xxs:w-full">
               <div className="flex items-center justify-between border-b  pl-3">
@@ -134,14 +182,14 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                 </div>
               </div>
 
-              {data?.length ? (
+              {filteredData?.length ? (
                 <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
-                  {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-                    (Tdata, index) => {
-                      //@ts-ignore
-                      return <ProductCard item={Tdata} key={Tdata.id} />;
-                    }
-                  )}
+                  {chunkArray(filteredData, itemsPerPage)[
+                    currentPageIndex - 1
+                  ]?.map((Tdata, index) => {
+                    //@ts-ignore
+                    return <ProductCard item={Tdata} key={Tdata.id} />;
+                  })}
                 </div>
               ) : (
                 <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-4 xxs:px-4 ">
@@ -166,7 +214,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                   <RxCaretLeft size={16} />
                 </button>
                 <div className="pagination flex gap-1 items-center">
-                  {chunkArray(data, itemsPerPage).map((_, index) => {
+                  {chunkArray(filteredData, itemsPerPage).map((_, index) => {
                     return (
                       <button
                         key={index}

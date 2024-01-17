@@ -11,6 +11,7 @@ interface FiltercompProps {
   selectedItems: string[];
   setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
   handleApplyClick: () => void;
+  handleClear: () => void;
 }
 
 const Filtercomp: React.FC<FiltercompProps> = ({
@@ -18,6 +19,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   selectedItems,
   setSelectedItems,
   handleApplyClick,
+  handleClear,
 }) => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
   const allCategories = useGetAllCategories();
@@ -54,25 +56,25 @@ const Filtercomp: React.FC<FiltercompProps> = ({
 
   const { highestPrice, lowestPrice } = analyzePrices(data);
 
-//   const handleApplyClick = () => {
-//     console.log("Selected Items:", selectedItems);
-//     console.log("Price Range:", priceRange);
-//   };
-  const handleClear = () => {
-    setSelectedItems([]);
-    setPriceRange([0, 100]);
-  };
-//   console.log(data);
+  //   const handleApplyClick = () => {
+  //     console.log("Selected Items:", selectedItems);
+  //     console.log("Price Range:", priceRange);
+  //   };
+
+  //   console.log(data);
   const cityData = data?.map((item) =>
     item?.vendor?.businessInformation?.city.toLowerCase()
   );
 
   const UniqueCity: any[] = Array.from(new Set(cityData));
 
-//   console.log(UniqueCity, "lii");
+  //   console.log(UniqueCity, "lii");
 
   return (
-    <div className=" p-4">
+      <div className=" p-4">
+          <div>
+              <h1>Filters</h1>
+          </div>
       <Accordion
         items={[
           ...(catagories?.data || []).map((item: any, index: any) => (
@@ -91,7 +93,8 @@ const Filtercomp: React.FC<FiltercompProps> = ({
 
           <AccordionItem title={"Location"}>
             {(UniqueCity || []).map((city, index) => (
-              <Checkbox
+                <Checkbox
+
                 key={index}
                 label={_.startCase(city)}
                 onCheckboxChange={handleCheckboxChange}
