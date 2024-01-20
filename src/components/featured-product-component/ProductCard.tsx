@@ -8,6 +8,7 @@ import RatingWidget from "../RatingWidget";
 import noImage from "../../assets/imgn.png";
 import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
+import RatingStars from "../RatingStars";
 
 interface ProductLocationState {
   item: any;
@@ -112,10 +113,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
           {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
-          <RatingWidget
+          {/* <RatingWidget
             onChange={(value) => console.log(value)}
             defaultValue={3}
-          />
+          /> */}
+
+          <RatingStars maxRating={5} />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
             ₦{item?.pricing?.productPrice || ""}
           </span>

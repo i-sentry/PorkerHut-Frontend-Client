@@ -43,6 +43,7 @@ export const api = {
     productByVendorApproved: (id: string | undefined) =>
       `/api/products/approved/${id}`,
     favouriteProduct: "/api/favorite-product/",
+    userFavProduct: (id: string | null) => `/api/favorite-product/${id}`,
     removeFavProduct: (
       userId: string | undefined,
       productId: string | undefined
