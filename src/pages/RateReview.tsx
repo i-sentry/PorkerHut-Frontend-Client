@@ -139,7 +139,7 @@ const navigate = useNavigate()
             <RatingStar maxRating={5} />
             <RatingWidget
               onChange={(value) => console.log(value)}
-              defaultValue={3}
+              defaultValue={0}
             />
             {/* FORM */}
             <div className="w-full mt-8">

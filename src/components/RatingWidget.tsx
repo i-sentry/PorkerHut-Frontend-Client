@@ -33,9 +33,9 @@ const RatingWidget: FC<IRatingProps> = ({
               onClick={() => setRating(ratingValue)}
             />
             <BsStar
-              size={18}
+              size={14}
               color={ratingValue <= (hover || rating) ? "#fe6600" : "#e4e5e9"}
-              className={`cursor-pointer lg:w-8 lg:h-8 ${
+              className={`cursor-pointer mr-[2px] ${
                 i < ratingValue ? "fill-orange-500" : "fill-neutral-500"
               }`}
               onMouseEnter={() => setHover(ratingValue)}
@@ -49,3 +49,4 @@ const RatingWidget: FC<IRatingProps> = ({
 };
 
 export default RatingWidget;
+
