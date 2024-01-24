@@ -49,7 +49,7 @@ export const api = {
       productId: string | undefined
     ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
     isFavProduct: (userId: string | undefined, productId: string | undefined) =>
-      `/api/favorite-product/check-favorite?userId=${userId}&productId=${productId}`,
+      `/api/favorite-product/check-favorite/${userId}/${productId}`,
   },
   Ratings: {
     createRating: "/api/ratings/create",
@@ -154,6 +154,7 @@ export const makePatchRequest = async (
     },
   });
 };
+
 export const makePutRequest = async (
   data: any,
   url: string,
@@ -185,12 +186,12 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
   try {
     const headers: { [key: string]: string } = {};
 
-    // Include bearer token in headers if required
     if (includeAuthHeaders) {
       const accessToken = localStorage.getItem("accessToken");
 
       if (accessToken) {
-        headers.Token = `Bearer ${accessToken}`;
+        headers["x-access-token"] = accessToken;
+        headers["Authorization"] = `Bearer ${accessToken}`;
       } else {
         throw new Error("Access token is missing");
       }

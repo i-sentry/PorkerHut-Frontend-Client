@@ -5,8 +5,8 @@ import { chunkArray } from "../helper/chunck";
 // import { productData } from "../utils/productData";
 import AppLayout from "../components/utility/AppLayout";
 import { useGetUserFavProduct } from "../services/hooks/users/products";
-import RatingStars from "../components/RatingStars";
-import { useGetVendorById } from "../services/hooks/Vendor";
+import FavouriteProductCard from "../components/favourite-product-card/FavouriteProductCard";
+import NoFavorite from "../components/favourite-product-card/NoFavorite";
 
 const FavouriteProductPage = () => {
   const [data, setData] = useState<any[]>([]);
@@ -21,16 +21,21 @@ const FavouriteProductPage = () => {
   console.log(userFavs, "userFavProducts");
 
   const allFav = userFavs?.data?.favoriteProducts;
+
   // const vendorId = allFav?.product?.vendor;
   // const vendorInfo = useGetVendorById(vendorId);
-  console.log(allFav, "All fav");
   // console.log(vendorId, "Vendor ID");
   // console.log(vendorInfo, "vendor info");
 
   // const { data: favprod, isLoading, } = useGetFavProduct();
 
   // useEffect(() => setData(productData), []);
-  useEffect(() => setData(allFav), [allFav]);
+  useEffect(() => {
+    console.log(allFav, "All fav");
+
+    const dataArray = Array.from(allFav);
+    setData(dataArray);
+  }, [allFav]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -57,6 +62,9 @@ const FavouriteProductPage = () => {
             ))}
           </div>
         )}
+
+        {data.length === 0 && <NoFavorite />}
+
         {data && (
           <div className="grid grid-cols-1 gap-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
             {data.map((item: any, index: number) => (
@@ -73,7 +81,9 @@ const FavouriteProductPage = () => {
             }
             className={
               (currentPageIndex === 1 ? "no-item" : "") +
-              " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
+              ` border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1 ${
+                data.length === 0 && "hidden"
+              }`
             }
           >
             <RxCaretLeft size={16} />
@@ -106,7 +116,9 @@ const FavouriteProductPage = () => {
               (currentPageIndex === chunkArray(data, itemsPerPage).length
                 ? "no-items"
                 : "") +
-              " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
+              ` border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md ${
+                data.length === 0 && "hidden"
+              }`
             }
           >
             <RxCaretRight size={16} />
@@ -184,49 +196,6 @@ const FavouriteProductPage = () => {
 };
 
 export default FavouriteProductPage;
-
-const FavouriteProductCard = ({ item }: any) => {
-  const vendorId = item?.product?.vendor;
-  const vendorInfo = useGetVendorById(vendorId);
-  console.log(vendorInfo, "Vendor Info");
-  console.log(vendorId, "vendorId");
-  return (
-    <div className="w-full">
-      <div className="h-[300px] overflow-hidden md:rounded relative group">
-        <img
-          src={item?.product?.images[0] || ""}
-          className="w-full h-full object-cover"
-          alt="product-img"
-        />
-        <button className="w-full absolute bottom-0 left-0 z-10 text-white text-[11px] text-center p-4 font-normal bg-green-700 md:-bottom-full md:group-hover:bottom-0 duration-500">
-          Add to cart
-        </button>
-      </div>
-      <div className="flex justify-between mt-3">
-        <ul>
-          <li className="text-neutral-400 text-xs font-medium">
-            Williams Ochoto Farms
-          </li>
-          <li className="text-zinc-800 text-base font-medium capitalize">
-            {item?.product?.information?.productName || ""}
-          </li>
-          <li>
-            <RatingStars maxRating={5} />
-          </li>
-        </ul>
-        <ul className="text-right">
-          <li className="text-neutral-400 text-xs font-medium">Osun</li>
-          <li className="text-zinc-800 text-base font-medium">
-            {item?.product?.details?.productWeight || ""}g
-          </li>
-          <li>
-            ₦{item?.product?.pricing?.productPrice.toLocaleString() || ""}
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
 
 const SkeletonLoader = () => {
   return (
