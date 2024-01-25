@@ -29,6 +29,13 @@ export const useGetSingleProduct = (id: string | null) => {
     queryKey: ["product +"],
   });
 };
+
+export const useGetVendorInfo = (id: string | undefined) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Vendors.vendorById(id)),
+  });
+};
+
 export const useGetFavProduct = (
   userId: string | undefined,
   productId: string | undefined
@@ -36,6 +43,13 @@ export const useGetFavProduct = (
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.isFavProduct(userId, productId)),
     queryKey: ["productFav +"],
+  });
+};
+
+export const useGetUserFavProduct = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.userFavProduct(id)),
+    queryKey: ["userFavProduct +"],
   });
 };
 

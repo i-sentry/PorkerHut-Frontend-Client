@@ -3,18 +3,19 @@ import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import RatingWidget from "../RatingWidget";
+// import RatingWidget from "../RatingWidget";
 // import { useParams } from "react-router-dom";
 import noImage from "../../assets/imgn.png";
 import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
+import RatingStars from "../RatingStars";
 
 interface ProductLocationState {
   item: any;
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-  console.log({ item }, "item");
+  // console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
-  console.log(item, "itemszz");
+  // console.log(item, "itemszz");
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?._id }));
@@ -102,7 +103,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.pricing?.productPrice || ""}
+          ₦{item?.pricing?.productPrice.toLocaleString() || ""}
         </span>
 
         <NavLink
@@ -112,12 +113,13 @@ const ProductCard = ({ item }: ProductLocationState) => {
           {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
-          <RatingWidget
+          {/* <RatingWidget
             onChange={(value) => console.log(value)}
             defaultValue={3}
-          />
+          /> */}
+          <RatingStars maxRating={5} iconSize={24} />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
-            ₦{item?.pricing?.productPrice || ""}
+            ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>
         </div>
       </div>

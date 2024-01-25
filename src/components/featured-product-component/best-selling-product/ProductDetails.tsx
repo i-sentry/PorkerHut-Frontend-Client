@@ -17,7 +17,7 @@ import { chunkArray } from "../../../helper/chunck";
 import ProductCard from "../ProductCard";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleProduct } from "../../../services/hooks/Vendor/products";
-import RatingWidget from "../../RatingWidget";
+// import RatingWidget from "../../RatingWidget";
 import { IUser } from "../../order-component/OrderCart";
 import {
   useDeleteFavorite,
@@ -25,18 +25,19 @@ import {
   useGetFavProduct,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import RatingStars from "../../RatingStars";
 
 const ProductDetails = () => {
   const location = useLocation();
   const item = location?.state?.item;
   const { id } = useParams();
   // @ts-ignore
-  const { data: singleProduct } = useGetSingleProduct(id);
+  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
   const navigate = useNavigate();
   const addFav = useFavoriteProduct();
   const [isFavorite, setFavorite] = useState(false);
-  console.log(singleProduct?.data, "Stack");
+  console.log(singleProduct?.data, singleProduct?.data?._id, "Stack");
   const [user, setUser] = useState<IUser>();
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -45,15 +46,51 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
 
+  useEffect(() => {
+    // setTemp(false);
+    //@ts-ignore
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
+    if (storedUser !== null) {
+      setUser(storedUser);
+    } else {
+      //@ts-ignore
+      setUser(null);
+    }
+  }, []);
+
+  const StoredUser = JSON.parse(localStorage.getItem("user") as string);
+  console.log(StoredUser, "store user");
+
+  let productID;
+
+  if (!loading) productID = singleProduct?.data?._id;
+
+  const checkIsFav = useGetFavProduct(StoredUser?._id, productID);
+
+  useEffect(
+    () => setFavorite(checkIsFav?.data?.data?.isFavorite),
+    [checkIsFav?.data?.data?.isFavorite]
+  );
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
+  console.log(user, "User Now hhhh");
+  console.log(user?._id, singleProduct?.data?._id, "UserID & ProductID");
+
+  console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
+
   const handleOpen = (value: number) => {
     setOpen(open === value ? null : value);
   };
-  const checkIsFav = useGetFavProduct("6412362b4546368fa400e57c", id);
+
   const handleClick = () => {
     dispatch(addProductToCart({ id: singleProduct?.data?._id }));
     console.log(singleProduct?.data?._id);
   };
-  console.log(checkIsFav, "checkIsFav");
+
   const handleNavigate = () => {
     navigate("/my-cart");
   };
@@ -94,23 +131,6 @@ const ProductDetails = () => {
 
   console.log(user, "users");
 
-  useEffect(() => {
-    // setTemp(false);
-    //@ts-ignore
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
-    if (storedUser !== null) {
-      setUser(storedUser);
-    } else {
-      //@ts-ignore
-      setUser(null);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
-  }, []);
-
   return (
     <AppLayout>
       <div className="md:bg-[#EEEEEE] xxs:bg-white md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14 ">
@@ -133,128 +153,139 @@ const ProductDetails = () => {
           />
         </div>
 
-        <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-5 bg-white md:rounded-sm">
-          <div className="md:w-[65%] flex md:flex-1 md:gap-2 xxs:flex-col-reverse md:flex-row">
-            <div className="md:flex-col md:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
-              {singleProduct?.data?.images.map((image: any, index: number) => (
+        {loading && <SkeletonLoader />}
+
+        {!loading && (
+          <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-5 bg-white md:rounded-sm">
+            <div className="md:w-[65%] flex md:flex-1 md:gap-2 xxs:flex-col-reverse md:flex-row">
+              <div className="md:flex-col md:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
+                {singleProduct?.data?.images.map(
+                  (image: any, index: number) => (
+                    <img
+                      src={image}
+                      key={index}
+                      alt="ProductImg"
+                      onClick={(e) => setSelectedImg(index)}
+                      className="object-cover cursor-pointer w-[75px] h-20 rounded-sm"
+                    />
+                  )
+                )}
+              </div>
+
+              <div className="md:flex-[5]">
                 <img
-                  src={image}
-                  alt="ProductImg"
-                  onClick={(e) => setSelectedImg(index)}
-                  className="object-cover cursor-pointer w-[75px] h-20 rounded-sm"
+                  src={singleProduct?.data?.images[selectedImg]}
+                  alt="img4"
+                  className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
                 />
-              ))}
+              </div>
             </div>
+            <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
+              <div className="flex justify-between items-center">
+                <h1 className="font-semibold text-xl">
+                  {singleProduct?.data?.information?.productName}
+                </h1>
+                {isLoading ? (
+                  <CgSpinner size={23} className="animate-spin" />
+                ) : (
+                  <>
+                    {isFavorite ? (
+                      <span
+                        onClick={removeFav}
+                        className="cursor-pointer bg-orange-400 rounded-full w-8 h-8 text-white flex justify-center items-center"
+                      >
+                        <MdFavorite size={23} />
+                      </span>
+                    ) : (
+                      <span
+                        onClick={toggleFavorite}
+                        className="cursor-pointer hover:text-orange-400"
+                      >
+                        <MdFavoriteBorder size={23} />
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
 
-            <div className="md:flex-[5]">
-              <img
-                src={singleProduct?.data?.images[selectedImg]}
-                alt="img4"
-                className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
-              />
-            </div>
-          </div>
-          <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
-            <div className="flex justify-between items-center">
-              <h1 className="font-semibold text-xl">
-                {singleProduct?.data?.information?.productName}
-              </h1>
-              {isLoading ? (
-                <CgSpinner size={23} className="animate-spin" />
-              ) : (
-                <>
-                  {isFavorite ? (
-                    <span onClick={removeFav} className="cursor-pointer ">
-                      <MdFavorite size={23} color="orange" />
-                    </span>
-                  ) : (
-                    <span
-                      onClick={toggleFavorite}
-                      className="cursor-pointer hover:text-orange-400"
-                    >
-                      <MdFavoriteBorder size={23} />
-                    </span>
-                  )}
-                </>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between py-1">
-              <RatingWidget
+              <div className="flex items-center justify-between py-1">
+                {/* <RatingWidget
                 onChange={(value) => console.log(value)}
                 defaultValue={3}
-              />
-            </div>
+              /> */}
+                <RatingStars maxRating={5} iconSize={32} />
+              </div>
 
-            <span></span>
-            <span className=" font-medium text-base">
-              N{singleProduct?.data?.pricing?.productPrice}
-            </span>
-
-            <span className="font-normal text-sm text-[#797979]">
-              Weight:{" "}
-              <span className="font-medium text-black text-sm">
-                {singleProduct?.data?.details?.productWeight}g
+              <span></span>
+              <span className=" font-medium text-base">
+                ₦{singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
-            </span>
-            <span className="font-normal text-sm text-[#797979]">
-              Category:{" "}
-              <span className="font-medium text-black text-sm">
-                {singleProduct?.data?.information?.category?.name}
-              </span>
-            </span>
 
-            <span className="font-normal text-sm text-[#797979]">
-              Availability:{" "}
-              <span className="font-medium text-black text-sm">
-                {/* 100% Available */}
-                {singleProduct?.data?.pricing?.quantity > 0
-                  ? "100% Available"
-                  : "Out of stock"}
-              </span>
-            </span>
-            <div className="flex flex-col">
-              <h1 className="block font-normal text-base text-[#797979]">
-                Quantity
-              </h1>
-
-              <div className="flex items-center">
-                <button
-                  className="border w-10 h-10"
-                  onClick={() =>
-                    setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
-                  }
-                >
-                  -
-                </button>
-                <span className="border w-10 h-10 flex items-center justify-center">
-                  {quantity}
+              <span className="font-normal text-sm text-[#797979]">
+                Weight:&nbsp;
+                <span className="font-medium text-black text-sm">
+                  {singleProduct?.data?.details?.productWeight}g
                 </span>
+              </span>
+              <span className="font-normal text-sm text-[#797979]">
+                Category:&nbsp;
+                <span className="font-medium text-black text-sm">
+                  {singleProduct?.data?.information?.category?.name}
+                </span>
+              </span>
+
+              <span className="font-normal text-sm text-[#797979]">
+                Availability:&nbsp;
+                <span className="font-medium text-black text-sm">
+                  {/* 100% Available */}
+                  {singleProduct?.data?.pricing?.quantity > 0
+                    ? "100% Available"
+                    : "Out of stock"}
+                </span>
+              </span>
+              <div className="flex flex-col">
+                <h1 className="block font-normal text-base text-[#797979]">
+                  Quantity
+                </h1>
+
+                <div className="flex items-center">
+                  <button
+                    className="border w-10 h-10"
+                    onClick={() =>
+                      setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                    }
+                  >
+                    -
+                  </button>
+                  <span className="border w-10 h-10 flex items-center justify-center">
+                    {quantity}
+                  </span>
+                  <button
+                    className="border w-10 h-10"
+                    onClick={() => setQuantity((prev) => prev + 1)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div className="md:mt-2  md:flex gap-6 xxs:px-4 md:px-0 xxs:mt-4">
                 <button
-                  className="border w-10 h-10"
-                  onClick={() => setQuantity((prev) => prev + 1)}
+                  onClick={handleClick}
+                  className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4 shadow-md"
                 >
-                  +
+                  Add to Cart
+                </button>
+                <button
+                  onClick={handleNavigate}
+                  className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md"
+                >
+                  Buy Now
                 </button>
               </div>
             </div>
-
-            <div className="md:mt-2  md:flex gap-6 xxs:px-4 md:px-0 xxs:mt-4">
-              <button
-                onClick={handleClick}
-                className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4 shadow-md"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={handleNavigate}
-                className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md"
-              >
-                Buy Now
-              </button>
-            </div>
           </div>
-        </div>
+        )}
 
         <div className="bg-white md:p-4 xxs:p-3 rounded-sm">
           <Fragment>
@@ -332,3 +363,30 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
+const SkeletonLoader = () => {
+  return (
+    // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
+    <div className="overflow-hidden relative w-full bg-white p-6 grid grid-cols-2 gap-4">
+      <div className="flex gap-3">
+        <div className="flex flex-col gap-3 w-[25%]">
+          <div className="skeleton-loader h-[100px_!important]"></div>
+          <div className="skeleton-loader h-[100px_!important]"></div>
+          <div className="skeleton-loader h-[100px_!important]"></div>
+        </div>
+        <div className="skeleton-loader w-[73%] h-[350px_!important]"></div>
+      </div>
+      {/* <div className="skeleton-loader"></div> */}
+      <div className="flex flex-col items-start w-full">
+        <div className="w-full">
+          <div className="text-loader h-[30px_!important]"></div>
+          <div className="text-loader h-[30px_!important]"></div>
+        </div>
+        <div className="w-full">
+          <div className="text-loader"></div>
+          <div className="text-loader"></div>
+        </div>
+      </div>
+    </div>
+  );
+};

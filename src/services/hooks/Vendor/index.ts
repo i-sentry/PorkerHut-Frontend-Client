@@ -1,8 +1,12 @@
 import useQueryAction from "../../../lib/useQueryAction";
 import useQueryMutation from "../../../lib/useQueryMutation";
 import { IEmail } from "../../../pages/Authentication/ForgetPassword";
-import { makePostRequest, api, makeGetRequest } from "../../api";
-import { ILoginUser,  IVendorSignUp } from "../../serviceType";
+import {
+  makePostRequest,
+  api,
+  makeGetRequestWithCustomHeader,
+} from "../../api";
+import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
 export const useVendorSignUp = () => {
   return useQueryMutation({
@@ -18,13 +22,12 @@ export const useVendorLogin = () => {
   });
 };
 
-
 export const useGetVendorById = (id: string | undefined) => {
   return useQueryAction({
-    queryFn: ()=> makeGetRequest(api.Vendors.vendorById(id)),
-    queryKey: ['vendor']
-  })
-}
+    queryFn: () => makeGetRequestWithCustomHeader(api.Vendors.vendorById(id)),
+    queryKey: ["vendor"],
+  });
+};
 
 export const useVendorRecoverPassword = () => {
   return useQueryMutation({
