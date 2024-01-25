@@ -18,24 +18,15 @@ const FavouriteProductPage = () => {
     user._id as string
   );
 
-  console.log(userFavs, "userFavProducts");
+  console.log(userFavs, isLoading, "userFavProducts");
 
   const allFav = userFavs?.data?.favoriteProducts;
-
-  // const vendorId = allFav?.product?.vendor;
-  // const vendorInfo = useGetVendorById(vendorId);
-  // console.log(vendorId, "Vendor ID");
-  // console.log(vendorInfo, "vendor info");
+  console.log(allFav, "All fav info");
 
   // const { data: favprod, isLoading, } = useGetFavProduct();
 
   // useEffect(() => setData(productData), []);
-  useEffect(() => {
-    console.log(allFav, "All fav");
-
-    const dataArray = Array.from(allFav);
-    setData(dataArray);
-  }, [allFav]);
+  useEffect(() => setData(allFav), [allFav]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -63,15 +54,18 @@ const FavouriteProductPage = () => {
           </div>
         )}
 
-        {data.length === 0 && <NoFavorite />}
+        {!data && <NoFavorite />}
 
         {data && (
           <div className="grid grid-cols-1 gap-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-            {data.map((item: any, index: number) => (
-              <FavouriteProductCard item={item} key={index} />
-            ))}
+            {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+              (item: any, index: number) => {
+                return <FavouriteProductCard item={item} key={index} />;
+              }
+            )}
           </div>
         )}
+
         <div className="flex items-center justify-center gap-1 bg-white px-4 py-3 sm:px-6 xxs:pt-8 mt-6">
           <button
             onClick={() =>

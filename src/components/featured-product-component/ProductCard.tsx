@@ -103,7 +103,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
         <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
-          ₦{item?.pricing?.productPrice || ""}
+          ₦{item?.pricing?.productPrice.toLocaleString() || ""}
         </span>
 
         <NavLink
@@ -119,7 +119,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
           /> */}
           <RatingStars maxRating={5} iconSize={24} />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
-            ₦{item?.pricing?.productPrice || ""}
+            ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>
         </div>
       </div>

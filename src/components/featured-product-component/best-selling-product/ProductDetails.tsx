@@ -25,7 +25,7 @@ import {
   useGetFavProduct,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import RatingStars from "../../RatingStars";
 
 const ProductDetails = () => {
@@ -46,10 +46,40 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
 
+  useEffect(() => {
+    // setTemp(false);
+    //@ts-ignore
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
+    if (storedUser !== null) {
+      setUser(storedUser);
+    } else {
+      //@ts-ignore
+      setUser(null);
+    }
+  }, []);
+
+  const StoredUser = JSON.parse(localStorage.getItem("user") as string);
+  console.log(StoredUser, "store user");
+
+  let productID;
+
+  if (!loading) productID = singleProduct?.data?._id;
+
+  const checkIsFav = useGetFavProduct(StoredUser?._id, productID);
+
+  useEffect(
+    () => setFavorite(checkIsFav?.data?.data?.isFavorite),
+    [checkIsFav?.data?.data?.isFavorite]
+  );
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+  }, []);
+
   console.log(user, "User Now hhhh");
   console.log(user?._id, singleProduct?.data?._id, "UserID & ProductID");
 
-  const checkIsFav = useGetFavProduct(user?._id, singleProduct?.data?._id);
   console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   const handleOpen = (value: number) => {
@@ -100,28 +130,6 @@ const ProductDetails = () => {
   };
 
   console.log(user, "users");
-
-  useEffect(() => {
-    // setTemp(false);
-    //@ts-ignore
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
-    if (storedUser !== null) {
-      setUser(storedUser);
-    } else {
-      //@ts-ignore
-      setUser(null);
-    }
-  }, []);
-
-  useEffect(
-    () => setFavorite(checkIsFav?.data?.data?.isFavorite),
-    [checkIsFav?.data?.data?.isFavorite]
-  );
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
-  }, []);
 
   return (
     <AppLayout>

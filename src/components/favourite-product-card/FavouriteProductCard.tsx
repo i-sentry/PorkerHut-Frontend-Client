@@ -116,7 +116,7 @@ const FavouriteProductCard = ({ item }: any) => {
   };
 
   const handleClick = () => {
-    dispatch(addProductToCart({ id: item?._id }));
+    dispatch(addProductToCart({ id: item?.product?._id }));
     toast.success(
       `${item?.product?.information?.productName} has been added to cart`
     );
@@ -179,7 +179,7 @@ const FavouriteProductCard = ({ item }: any) => {
             {item?.product?.vendor?.businessInformation?.city}
           </li>
           <li className="text-zinc-800 text-base font-medium">
-            {item?.product?.details?.productWeight || ""}g
+            {item?.product?.details?.productWeight || ""}kg
           </li>
           <li>
             ₦{item?.product?.pricing?.productPrice.toLocaleString() || ""}

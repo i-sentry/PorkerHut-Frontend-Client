@@ -17,7 +17,7 @@ const FeaturedProduct = () => {
     return (
       <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 px-[4%] ">
         {Array.from({ length: 12 }).map((_, index) => (
-          <SkeletonLoader />
+          <SkeletonLoader key={index} />
         ))}
       </div>
     );
@@ -52,8 +52,8 @@ const FeaturedProduct = () => {
               (product: any) => product.images.length > 0
             ),
             itemsPerPage
-          )[currentPageIndex - 1]?.map((item: any) => {
-            return <ProductCard item={item} />;
+          )[currentPageIndex - 1]?.map((item: any, index: number) => {
+            return <ProductCard item={item} key={index} />;
           })}
         </div>
       )}
