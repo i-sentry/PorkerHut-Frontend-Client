@@ -117,9 +117,9 @@ const FavouriteProductCard = ({ item }: any) => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?.product?._id }));
-    toast.success(
-      `${item?.product?.information?.productName} has been added to cart`
-    );
+    // toast.success(
+    //   `${item?.product?.information?.productName} has been added to cart`
+    // );
   };
 
   return (

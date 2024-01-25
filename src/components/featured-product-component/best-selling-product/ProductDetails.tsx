@@ -34,6 +34,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   // @ts-ignore
   const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
+  const StoredUser = JSON.parse(localStorage.getItem("user") as string);
+  const checkIsFav = useGetFavProduct(StoredUser?._id, id);
   const navigate = useNavigate();
   const addFav = useFavoriteProduct();
   const [isFavorite, setFavorite] = useState(false);
@@ -59,14 +61,13 @@ const ProductDetails = () => {
     }
   }, []);
 
-  const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   console.log(StoredUser, "store user");
 
   let productID;
 
   if (!loading) productID = singleProduct?.data?._id;
 
-  const checkIsFav = useGetFavProduct(StoredUser?._id, productID);
+  console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
@@ -79,8 +80,6 @@ const ProductDetails = () => {
 
   console.log(user, "User Now hhhh");
   console.log(user?._id, singleProduct?.data?._id, "UserID & ProductID");
-
-  console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   const handleOpen = (value: number) => {
     setOpen(open === value ? null : value);
@@ -130,6 +129,7 @@ const ProductDetails = () => {
   };
 
   console.log(user, "users");
+  console.log(isFavorite, "my favs");
 
   return (
     <AppLayout>

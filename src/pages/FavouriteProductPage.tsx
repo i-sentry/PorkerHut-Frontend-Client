@@ -24,7 +24,7 @@ const FavouriteProductPage = () => {
   console.log(allFav, "All fav info");
 
   // const { data: favprod, isLoading, } = useGetFavProduct();
-
+  console.log(data, "my data");
   // useEffect(() => setData(productData), []);
   useEffect(() => setData(allFav), [allFav]);
 
@@ -54,7 +54,7 @@ const FavouriteProductPage = () => {
           </div>
         )}
 
-        {!data && <NoFavorite />}
+        {data?.length === 0 && <NoFavorite />}
 
         {data && (
           <div className="grid grid-cols-1 gap-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -76,7 +76,7 @@ const FavouriteProductPage = () => {
             className={
               (currentPageIndex === 1 ? "no-item" : "") +
               ` border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1 ${
-                data.length === 0 && "hidden"
+                data?.length === 0 && "hidden"
               }`
             }
           >
@@ -102,16 +102,16 @@ const FavouriteProductPage = () => {
 
           <button
             onClick={() =>
-              currentPageIndex !== chunkArray(data, itemsPerPage).length
+              currentPageIndex !== chunkArray(data, itemsPerPage)?.length
                 ? setCurrentPageIndex(currentPageIndex + 1)
                 : null
             }
             className={
-              (currentPageIndex === chunkArray(data, itemsPerPage).length
+              (currentPageIndex === chunkArray(data, itemsPerPage)?.length
                 ? "no-items"
                 : "") +
               ` border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md ${
-                data.length === 0 && "hidden"
+                data?.length === 0 && "hidden"
               }`
             }
           >

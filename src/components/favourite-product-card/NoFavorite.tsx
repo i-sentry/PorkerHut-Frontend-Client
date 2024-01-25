@@ -6,8 +6,8 @@ function NoFavorite() {
   return (
     <>
       <div className="text-center mt-12 flex flex-col justify-center items-center">
-        <span className="inline-flex justify-center w-20 h-20 rounded-full items-center bg-red-600 bg-opacity-20 border-red-500 border">
-          <span className="w-14 h-14 bg-red-600 rounded-full justify-center items-center inline-flex">
+        <span className="inline-flex justify-center w-32 h-32 rounded-full items-center bg-neutral-600 bg-opacity-20 border-neutral-500 border">
+          <span className="w-20 h-20 bg-neutral-600 rounded-full justify-center items-center inline-flex">
             <IoHeartDislikeOutline size={32} color="#fff" />
           </span>
         </span>
