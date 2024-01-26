@@ -117,7 +117,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
             onChange={(value) => console.log(value)}
             defaultValue={3}
           /> */}
-          <RatingStars maxRating={5} iconSize={24} />
+          <RatingStars maxRating={5} iconSize={24} canRate={false} />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
             ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>

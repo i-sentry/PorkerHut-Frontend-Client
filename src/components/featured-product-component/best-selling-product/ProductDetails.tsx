@@ -213,7 +213,7 @@ const ProductDetails = () => {
                 onChange={(value) => console.log(value)}
                 defaultValue={3}
               /> */}
-                <RatingStars maxRating={5} iconSize={32} />
+                <RatingStars maxRating={5} iconSize={32} canRate={false} />
               </div>
 
               <span></span>

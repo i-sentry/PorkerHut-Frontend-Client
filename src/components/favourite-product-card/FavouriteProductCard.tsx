@@ -171,7 +171,7 @@ const FavouriteProductCard = ({ item }: any) => {
             {item?.product?.information?.productName || ""}
           </li>
           <li>
-            <RatingStars maxRating={5} iconSize={24} />
+            <RatingStars maxRating={5} iconSize={24} canRate={false} />
           </li>
         </ul>
         <ul className="text-right">
