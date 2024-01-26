@@ -13,6 +13,7 @@ import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCru
 import CustomSelect from "../components/utility/CustomSelect";
 import { SelectOptionType } from "./VetPartnerMobileFormA";
 import RatingWidget from "../components/RatingWidget";
+import RatingStars from "../components/RatingStars";
 
 const RateReview = () => {
   const { id } = useParams();
@@ -26,12 +27,13 @@ const RateReview = () => {
   const userdata = JSON.parse(localStorage.getItem("user") as string);
   const _name = `${userdata?.firstName} ${userdata?.lastName}`;
   const createRating = useCreateRating();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   console.log(_name, "_name");
   console.log(singleProduct);
   console.log(userdata);
 
-  const initiateCreateRating = () => {
+  const initiateCreateRating = (e: any) => {
+    e.preventDefault();
     setLoading(true);
     createRating
       .mutateAsync({
@@ -41,10 +43,10 @@ const navigate = useNavigate()
         comment: ratingComment,
       })
       .then(() => {
-            setLoading(false);
+        setLoading(false);
       })
       .catch(() => {
-         setLoading(false);
+        setLoading(false);
       });
   };
 
@@ -54,8 +56,8 @@ const navigate = useNavigate()
   ];
   return (
     <AppLayout>
-      <section className="max-w-[768px] lg:max-w-[1024px] xl:max-w-[1140px] container flex-col justify-[start_!important]  px-4 mx-auto pt-24 py-16">
-        <div className="xxs:hidden md:block">
+      <section className="max-w-[768px] lg:max-w-[1024px] xl:max-w-[1140px] container flex-col justify-[start_!important]  px-4 mx-auto lg:pt-24 pt-16 py-16">
+        <div className="hidden ">
           <ProductsBreadCrumbs
             items={[
               {
@@ -73,10 +75,10 @@ const navigate = useNavigate()
             ]}
           />
         </div>
-        <h1 className="relative text-zinc-800 w-full text-xl font-semibold flex flex-col gap-2 mb-10 text-center mx-auto justify-center items-center  after:w-[100px] after:inline-block after:h-1.5 after:bg-green-700  after:mt-2 md:text-[32px]">
+        <h1 className="relative text-zinc-800 w-full text-xl font-semibold flex flex-col gap-2 mb-10 text-center mx-auto justify-center items-center  after:w-[100px] after:inline-block after:h-1.5 after:bg-green-700  after:mt-1 md:text-[32px]">
           Rate & Review
         </h1>
-        <div className="w-full flex justify-between items-start">
+        <div className="w-full flex flex-wrap justify-between items-start">
           {/* PRODUCT IMAGES */}
           {/* <div className="w-full mb-8 md:flex md:flex-row-reverse md:gap-4 md:w-10/12 md:mx-auto lg:items-start lg:w-1/2 lg:m-0 ">
             <div className="w-full mb-4 lg:mb-0 lg:h-[427px]">
@@ -105,8 +107,8 @@ const navigate = useNavigate()
             </div>
           </div> */}
 
-          <div className="w-full mb-8 md:flex md:flex-row md:gap-4 md:w-10/12 md:mx-auto lg:items-start lg:w-1/2 lg:m-0 ">
-            <div className="md:flex-col md:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
+          <div className="w-full lg:flex-wrap mb-8 flex flex-wrap-reverse md:flex-row md:gap-4 md:w-full md:mx-auto lg:items-start lg:w-1/2 md:m-0 ">
+            <div className="w-full lg:w-auto lg:flex-col lg:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
               {singleProduct?.data?.images.map((image: any, index: number) => (
                 <img
                   src={image}
@@ -117,7 +119,7 @@ const navigate = useNavigate()
               ))}
             </div>
 
-            <div className="md:flex-[5]">
+            <div className="w-full md:flex-[5]">
               <img
                 src={singleProduct?.data?.images[selectedImg]}
                 alt="img4"
@@ -127,20 +129,21 @@ const navigate = useNavigate()
           </div>
 
           {/* PRODUCT DETAILS */}
-          <div className="w-full md:w-10/12 md:mx-auto lg:w-[calc(50%_-_30px)] lg:m-0">
+          <div className="w-full mt-10 md:w-10/12 md:mx-auto lg:w-[calc(50%_-_30px)] lg:m-0">
             <div className="flex justify-between">
               <h2 className="text-zinc-800 text-lg font-semibold md:text-2xl">
                 {singleProduct?.data?.information?.productName}
               </h2>
               <span className="text-zinc-800 text-opacity-80 text-lg font-medium lg:text-xl">
-                ₦ {singleProduct?.data?.pricing?.productPrice}
+                ₦ {singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
             </div>
-            <RatingStar maxRating={5} />
+            {/* <RatingStar maxRating={5} />
             <RatingWidget
               onChange={(value) => console.log(value)}
               defaultValue={3}
-            />
+            /> */}
+            <RatingStars maxRating={5} iconSize={32} canRate={true} />
             {/* FORM */}
             <div className="w-full mt-8">
               <form id="rating">
@@ -162,7 +165,7 @@ const navigate = useNavigate()
                   <textarea
                     name="review"
                     id="review"
-                    className="form-textarea rounded border border-zinc-300 text-zinc-800 text-sm font-normal w-full h-[120px] resize-none px-4 py-3 pt-4"
+                    className="form-textarea focus:border-green-500 focus:ring-green-500 focus:shadow-none rounded border border-zinc-300 text-zinc-800 text-sm font-normal w-full h-[120px] resize-none px-4 py-3 pt-4"
                     placeholder="Type here"
                     onChange={(e) => setRatingComment(e.target.value)}
                   ></textarea>
@@ -216,25 +219,25 @@ const navigate = useNavigate()
 
 export default RateReview;
 
-const RatingStar = ({ maxRating }: any) => {
-  const [rating, setRating] = useState<number>(0);
+// const RatingStar = ({ maxRating }: any) => {
+//   const [rating, setRating] = useState<number>(0);
 
-  const handleStarClick = (value: number) => {
-    setRating(value);
-  };
+//   const handleStarClick = (value: number) => {
+//     setRating(value);
+//   };
 
-  return (
-    <div className="flex gap-1 mt-3">
-      {Array.from({ length: maxRating }, (_: any, i: any) => (
-        <BsStar
-          size={24}
-          key={i}
-          className={`cursor-pointer lg:w-8 lg:h-8 ${
-            i < rating ? "fill-orange-500" : "fill-neutral-500"
-          }`}
-          onClick={() => handleStarClick(i + 1)}
-        />
-      ))}
-    </div>
-  );
-};
+//   return (
+//     <div className="flex gap-1 mt-3">
+//       {Array.from({ length: maxRating }, (_: any, i: any) => (
+//         <BsStar
+//           size={24}
+//           key={i}
+//           className={`cursor-pointer lg:w-8 lg:h-8 ${
+//             i < rating ? "fill-orange-500" : "fill-neutral-500"
+//           }`}
+//           onClick={() => handleStarClick(i + 1)}
+//         />
+//       ))}
+//     </div>
+//   );
+// };

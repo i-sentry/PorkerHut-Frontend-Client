@@ -35,7 +35,6 @@ const MyOrderDetails = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   console.log(data?.data?.order, "hyunmdhdhf");
 
-
   const navigate = useNavigate();
 
   const order = data?.data?.order;
@@ -46,6 +45,7 @@ const MyOrderDetails = () => {
   const productImg = selectedProduct?.productID?.images[0];
 
   const handleRate = (id: any) => {
+    window.scroll(0, 0);
     navigate(`/rate_review/${id}`, {
       replace: true,
     });
@@ -235,7 +235,10 @@ const MyOrderDetails = () => {
             </div>
             <MdOutlinePersonPinCircle size={20} />
 
-            <button className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold">
+            <button
+              onClick={() => handleRate(selectedProduct?.productID?._id)}
+              className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
+            >
               Rate Product
             </button>
             <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
