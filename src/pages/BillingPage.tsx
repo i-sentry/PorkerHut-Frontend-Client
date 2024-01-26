@@ -88,13 +88,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const [temp, setTemp] = useState(false);
   const [user, setUser] = useState<IUser>();
   const [billingId, setBillingId] = useState("");
-  const myBillingInfo = useMyBillingInfo();
+  const storedUser = JSON.parse(localStorage.getItem("user") as string);
+  const myBillingInfo = useMyBillingInfo(storedUser?._id);
   const showModay = useProtectedInfo((state) => state.isAuthenticated);
   const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
 
-  console.log(myBillingInfo?.data?.billing, "myBillingInfo");
+  console.log(storedUser, "mmmmmmmmmmmmmmm");
 
-  const defaultBillingInfo = myBillingInfo?.data?.billing.find(
+  console.log(myBillingInfo?.data?.data?.billing, "myBillingInfo");
+
+  const defaultBillingInfo = myBillingInfo?.data?.data?.billing.find(
     (info: { isDefault: any }) => info.isDefault === true
   );
   const upDateInfo = useUpdateBillingInfo(
@@ -478,7 +481,6 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                   </div>
                   {/* <div className="flex items-center ">
                     <input
-
                       {...register("isDefault")}
                       type="checkbox"
                       name="isDefault"
@@ -776,7 +778,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       checked={val}
                       className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
                     />
-                    {myBillingInfo?.data?.billing.length < 1 ? (
+                    {myBillingInfo?.data?.data?.billing.length < 1 ? (
                       <label
                         htmlFor=""
                         className="ml-2 text-xs md:text-sm text-slate-500 whitespace-nowrap"

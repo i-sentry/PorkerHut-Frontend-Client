@@ -3,7 +3,7 @@ import useQueryMutation from "../../../lib/useQueryMutation";
 import {
   api,
   makeCustomPutRequest,
-  makeGetRequestWithCustomHeader,
+  makeGetRequest,
   makePostRequest,
   makePostRequestCustom,
 } from "../../api";
@@ -36,9 +36,9 @@ export const useBillingInfo = () => {
   });
 };
 
-export const useMyBillingInfo = () => {
+export const useMyBillingInfo = (id: string) => {
   return useQueryAction({
-    queryFn: () => makeGetRequestWithCustomHeader(api.Billing.getBillingInfo),
+    queryFn: () => makeGetRequest(api.Billing.getBillingInfo(id)),
     queryKey: ["billing"],
   });
 };
