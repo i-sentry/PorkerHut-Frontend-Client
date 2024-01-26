@@ -87,7 +87,7 @@ export const api = {
   },
   Billing: {
     billing: "/api/user/billing",
-    getBillingInfo: "/api/user/billing/me",
+    getBillingInfo: (id: string) => `/api/user/billing/${id}`,
     updateBillingInfo: (id: string) => `/api/users/billing/${id}`,
   },
   Order: {
@@ -167,6 +167,18 @@ export const makePutRequest = async (
   });
 };
 
+// export const makeGetRequest = async <T = any>(
+//   url: string,
+//   includeAuthHeaders: boolean = true
+// ) => {
+//   const temp = await axios.get<T>(`${BASEURL}${url}`, {
+//     headers: {
+//       "x-access-token": localStorage.getItem("accessToken") as string,
+//     },
+//   });
+//   return temp;
+// };
+
 export const makeGetRequest = async <T = any>(
   url: string,
   includeAuthHeaders: boolean = true
@@ -174,6 +186,7 @@ export const makeGetRequest = async <T = any>(
   const temp = await axios.get<T>(`${BASEURL}${url}`, {
     headers: {
       "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
     },
   });
   return temp;
