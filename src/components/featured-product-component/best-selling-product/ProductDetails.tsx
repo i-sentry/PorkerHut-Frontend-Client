@@ -26,7 +26,7 @@ import {
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
-import RatingStars from "../../RatingStars";
+import { RatingStar } from "../../../pages/RateReview";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -39,7 +39,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const addFav = useFavoriteProduct();
   const [isFavorite, setFavorite] = useState(false);
-  console.log(singleProduct?.data, singleProduct?.data?._id, "Stack");
+  // console.log(singleProduct?.data, singleProduct?.data?._id, "Stack");
   const [user, setUser] = useState<IUser>();
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -47,6 +47,9 @@ const ProductDetails = () => {
   const deleteFav = useDeleteFavorite(user?._id, id);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
+  const avgRating = singleProduct?.data?.avgRating;
+  console.log(avgRating, "avgRating");
+  const [userRating, setUserRating] = useState(avgRating as number);
 
   useEffect(() => {
     // setTemp(false);
@@ -209,11 +212,12 @@ const ProductDetails = () => {
               </div>
 
               <div className="flex items-center justify-between py-1">
-                {/* <RatingWidget
-                onChange={(value) => console.log(value)}
-                defaultValue={3}
-              /> */}
-                <RatingStars maxRating={5} iconSize={32} />
+                <RatingStar
+                  // onChange={()=> handleRatingChange()}
+                  defaultValue={userRating}
+                  // starSize={23}
+                  setUserRating={setUserRating}
+                />
               </div>
 
               <span></span>
