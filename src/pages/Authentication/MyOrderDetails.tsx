@@ -236,20 +236,38 @@ const MyOrderDetails = () => {
               </p>
             </div>
             <MdOutlinePersonPinCircle size={20} />
-
-            <button
-              onClick={() => handleRate(selectedProduct?.productID?._id)}
-              className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
-            >
-              Rate Product
-            </button>
-            <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
-              Return Order
-            </button>
-
-            {/* RATE PRODUCT POP INFO */}
-            <div className="bg-white shadow-lg rounded-lg p-4 hidden">
-              You can rate this product until your order is completed
+            <div className="relative w-full">
+              <button
+                onMouseEnter={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(true)
+                    : () => null
+                }
+                onMouseLeave={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(false)
+                    : () => null
+                }
+                onClick={
+                  order?.status !== "completed"
+                    ? () => null
+                    : () => handleRate(selectedProduct?.productID?._id)
+                }
+                className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
+              >
+                Rate Product
+              </button>
+              <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
+                Return Order
+              </button>
+              {/* RATE PRODUCT POP INFO */}
+              <div
+                className={`bg-neutral-300 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                  showInfo && "opacity-100"
+                }`}
+              >
+                You can't rate this product until your order is completed
+              </div>
             </div>
           </div>
           <div>
@@ -375,7 +393,7 @@ const MyOrderDetails = () => {
                   showInfo && "opacity-100"
                 }`}
               >
-                You can rate this product until your order is completed
+                You can't rate this product until your order is completed
               </div>
             </div>
             <div className="flex justify-between mt-3">
