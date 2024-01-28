@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaRegStar } from "react-icons/fa6";
-
+import { IoMdStarOutline } from "react-icons/io";
 type StarRatingProp = {
   maxRating: number;
   defaultRating?: number;
@@ -10,11 +10,11 @@ type StarRatingProp = {
 
 const RatingStars: React.FC<StarRatingProp> = ({
   maxRating,
-  defaultRating = 2,
+  defaultRating,
   iconSize,
   canRate,
 }) => {
-  const [rating, setRating] = useState(defaultRating);
+  const [rating, setRating] = useState(defaultRating || 2);
   const [tempRating, setTempRating] = useState(0);
 
   function handleRating(rating: number) {
@@ -22,7 +22,7 @@ const RatingStars: React.FC<StarRatingProp> = ({
   }
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-0">
       {Array.from({ length: maxRating }, (_, i) => (
         <Star
           onRate={canRate ? () => handleRating(i + 1) : () => null}
@@ -56,9 +56,9 @@ const Star: React.FC<StarProp> = ({
   return (
     <div onClick={onRate} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
       {full ? (
-        <FaRegStar size={iconSize} color="#FE6600" />
+        <IoMdStarOutline size={iconSize} color="#FE6600" />
       ) : (
-        <FaRegStar size={iconSize} color="#797979" />
+        <IoMdStarOutline size={iconSize} color="#797979" />
       )}
     </div>
   );

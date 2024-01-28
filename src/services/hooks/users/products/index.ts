@@ -73,3 +73,10 @@ export const useCreateRating = () => {
     }) => makePostRequest(data, api.Ratings.createRating),
   });
 };
+
+export const useGetAllRatingByUser = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Ratings.allRatingsByUser(id)),
+    queryKey: ["userRating +"],
+  });
+};
