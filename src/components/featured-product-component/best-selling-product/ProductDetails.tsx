@@ -185,7 +185,7 @@ const ProductDetails = () => {
               </div>
             </div>
             <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between flex-wrap items-center">
                 <h1 className="font-semibold text-xl">
                   {singleProduct?.data?.information?.productName}
                 </h1>
@@ -210,17 +210,17 @@ const ProductDetails = () => {
                     )}
                   </>
                 )}
+                <div className="w-full">
+                  <RatingStars maxRating={5} iconSize={36} canRate={false} />
+                </div>
               </div>
 
-              <div className="flex items-center justify-between py-1">
-                {/* <RatingWidget
+              {/*<div className="flex items-center justify-between">
+                <RatingWidget
                 onChange={(value) => console.log(value)}
                 defaultValue={3}
-              /> */}
-                <RatingStars maxRating={5} iconSize={32} canRate={false} />
-              </div>
-
-              <span></span>
+              /> 
+              </div>*/}
               <span className=" font-medium text-base">
                 ₦{singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
