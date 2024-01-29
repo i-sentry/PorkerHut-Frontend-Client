@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { FaRegStar } from "react-icons/fa6";
-
+import { IoMdStarOutline } from "react-icons/io";
 type StarRatingProp = {
   maxRating: number;
   defaultRating?: number;
   iconSize: number;
+  canRate: boolean;
 };
 
 const RatingStars: React.FC<StarRatingProp> = ({
   maxRating,
-  defaultRating = 2,
+  defaultRating,
   iconSize,
+  canRate,
 }) => {
-  const [rating, setRating] = useState(defaultRating);
+  const [rating, setRating] = useState(defaultRating || 2);
   const [tempRating, setTempRating] = useState(0);
 
   function handleRating(rating: number) {
@@ -20,13 +22,13 @@ const RatingStars: React.FC<StarRatingProp> = ({
   }
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-0">
       {Array.from({ length: maxRating }, (_, i) => (
         <Star
-          onRate={() => handleRating(i + 1)}
+          onRate={canRate ? () => handleRating(i + 1) : () => null}
           full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
-          onHoverIn={() => setTempRating(i + 1)}
-          onHoverOut={() => setTempRating(0)}
+          onHoverIn={canRate ? () => setTempRating(i + 1) : () => null}
+          onHoverOut={canRate ? () => setTempRating(0) : () => null}
           iconSize={iconSize}
           key={i}
         />
@@ -54,9 +56,9 @@ const Star: React.FC<StarProp> = ({
   return (
     <div onClick={onRate} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
       {full ? (
-        <FaRegStar size={iconSize} color="#FE6600" />
+        <IoMdStarOutline size={iconSize} color="#FE6600" />
       ) : (
-        <FaRegStar size={iconSize} color="#797979" />
+        <IoMdStarOutline size={iconSize} color="#797979" />
       )}
     </div>
   );

@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import noImage from "../../assets/imgn.png";
 import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
-import { RatingStar } from "../../pages/RateReview";
+import RatingStars from "../RatingStars";
+
 
 interface ProductLocationState {
   item: any;
@@ -115,13 +116,11 @@ const ProductCard = ({ item }: ProductLocationState) => {
           {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
-
-          <RatingStar
-              // onChange={()=> handleRatingChange()}
-              defaultValue={userRating}
-              // starSize={23}
-              setUserRating={setUserRating}
-            />
+          {/* <RatingWidget
+            onChange={(value) => console.log(value)}
+            defaultValue={3}
+          /> */}
+          <RatingStars maxRating={5} iconSize={24} canRate={false} />
           <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
             ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>
