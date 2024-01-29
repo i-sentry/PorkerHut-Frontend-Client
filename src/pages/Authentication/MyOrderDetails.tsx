@@ -259,8 +259,7 @@ const MyOrderDetails = () => {
                   showInfo && "opacity-100"
                 }`}
               >
-                You can't rate, kindly complete your order{" "}
-                <BsFillXCircleFill size={24} color="#f00" />
+                You can't rate, kindly complete your order
               </div>
             </div>
           </div>
@@ -387,8 +386,7 @@ const MyOrderDetails = () => {
                   showInfo && "opacity-100"
                 }`}
               >
-                You can't rate, kindly complete your order{" "}
-                <BsFillXCircleFill color="#f00" />
+                You can't rate, kindly complete your order
               </div>
             </div>
             <div className="flex justify-between mt-3">

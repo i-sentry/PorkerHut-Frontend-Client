@@ -13,7 +13,8 @@ import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { useGetApprovedProductByVendor } from "../services/hooks/Vendor/products";
 import { LuSettings2 } from "react-icons/lu";
-
+import Filtercomp from "../components/custom-filter/FilterComp";
+import RatingStars from "../components/RatingStars";
 
 // import { GoSettings } from "react-icons/go";
 
@@ -28,18 +29,20 @@ interface iProps {
 }
 
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
-  const { id } = useParams()
-  const { store } = useParams()
-  console.log(store, "letsGo")
-
+  const { id } = useParams();
+  const { store } = useParams();
+  console.log(store, "letsGo");
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
   // const getAllProducts = useGetProductByVendor(id)
-  const {data: getApprovedProducts} = useGetApprovedProductByVendor(id)
-
+  const { data: getApprovedProducts } = useGetApprovedProductByVendor(id);
+  const [data, setData] = useState([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const [data, setData] = useState([]);
-  console.log(data, "data")
+  console.log(data, "data");
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
@@ -48,10 +51,57 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
   // console.log(${getApprovedProducts?.data?.information?.productName}, "page")
 
-  useEffect(() => setData(getApprovedProducts?.data), [getApprovedProducts?.data]);
+  const handleApplyClick = () => {
+    console.log("Selected Items click:", selectedItems);
+    const lowerCaseSelectedItems = selectedItems.map((item: any) =>
+      item.toLowerCase()
+    );
+    console.log("lower Items click:", lowerCaseSelectedItems);
 
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+    // Check if selectedItems array is empty
+    if (lowerCaseSelectedItems.length === 0) {
+      // If empty, set filteredData to the original data
+      setFilteredData(data);
+      return;
+    }
+
+    // Filter the data based on selectedItems, city, and price range
+    const newFilteredData = data.filter((item: any) => {
+      const categoryMatch = lowerCaseSelectedItems.includes(
+        item?.information?.subcategory
+      );
+      const cityMatch = lowerCaseSelectedItems.includes(
+        item.vendor.businessInformation.city.toLowerCase()
+      );
+
+      // Adjust the logic based on your requirements
+      return categoryMatch || cityMatch;
+      // return categoryMatch && cityMatch && priceMatch;
+    });
+
+    console.log("Filtered Data:", newFilteredData);
+
+    // Update filteredData state
+    setFilteredData(newFilteredData);
+  };
+
+  const handleClear = () => {
+    setSelectedItems([]);
+    setFilteredData(data);
+  };
+
+  useEffect(
+    () => setData(getApprovedProducts?.data),
+    [getApprovedProducts?.data]
+  );
+
+  console.log(selectedItems, "selectedItems");
+  console.log(data, "data");
+
+  useEffect(() => {
+    // Initialize filteredData with the original data when data changes
+    setFilteredData(data);
+  }, [data]);
 
   // useEffect(() => {
   //   const filteredData = productData.filter(
@@ -74,15 +124,18 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           handleClick={handleClick}
           setData={setData}
           menuItem={menuItems}
-
         />
-        <div className="bg-[#EEEEEE] pt-24 ">
-          <div className="xxs:hidden md:block">
+        <div className="bg-[#EEEEEE] pt-16 ">
+          <div className="xxs:hidden md:block mb-5">
             <ProductsBreadCrumbs
               items={[
                 {
                   name: "Home",
                   link: "/",
+                },
+                {
+                  name: "Products",
+                  link: "/products",
                 },
                 {
                   name: `${getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}`,
@@ -97,25 +150,34 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
               <div className="flex flex-col gap-4">
                 <div className="bg-white px-6 xxs:py-6 md:py-4 rounded-sm mx-4 mb-10 md:mb-0 md:mx-0">
                   <div className=" border-b">
-                    <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0">
-                    {getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}
+                    <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0 mb-2">
+                      {
+                        getApprovedProducts?.data?.[0].vendor
+                          ?.sellerAccountInformation?.shopName
+                      }
                     </h1>
 
                     <div className="mb-2">
-                      <span className="text-zinc-800 text-sm font-normal"> Location Covered: </span>
+                      <span className="text-zinc-800 text-sm font-normal">
+                        {" "}
+                        Location Covered:{" "}
+                      </span>
                       <span className="text-[16px] leading-[16px] font-normal text-[#333333] ">
-                      {getApprovedProducts?.data?.[0].vendor?.businessInformation?.city}
+                        {
+                          getApprovedProducts?.data?.[0].vendor
+                            ?.businessInformation?.city
+                        }
                       </span>
                     </div>
                   </div>
                   <div>
                     <div className="mt-2">
-                      <span className="text-[18px] leading-[12px] font-medium pb-2 mt-2">
+                      <span className="leading-[12px]  pb-2 mt-2  text-zinc-800 text-lg font-medium">
                         Average Rating: 4.7/5
                       </span>
                     </div>
                     <div className="flex text-yellow-500 cursor-pointer mt-2">
-                      {[...Array(5)].map((start, i) => {
+                      {/* {[...Array(5)].map((start, i) => {
                         const ratingValue = i + 1;
                         return (
                           <label className="">
@@ -138,15 +200,29 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                             />
                           </label>
                         );
-                      })}
+                      })} */}
+                      <RatingStars
+                        maxRating={5}
+                        iconSize={24}
+                        canRate={false}
+                        defaultRating={4}
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="bg-white p-6 xxs:hidden md:block">
-                  <Filter
+                  {/* <Filter
                     setData={setData}
                     // menuItem={menuItems}
                     handleClick={handleClick}
+                  /> */}
+
+                  <Filtercomp
+                    selectedItems={selectedItems}
+                    setSelectedItems={setSelectedItems}
+                    data={data}
+                    handleApplyClick={handleApplyClick}
+                    handleClear={handleClear}
                   />
                 </div>
               </div>
@@ -154,7 +230,12 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
             <div className="md:w-3/4 bg-white xxs:w-full px-4">
               <div className="flex items-center justify-between ">
                 <div className="md:flex md:items-center md:justify-between md:gap-16 xxs:py-4">
-                  <h1 className="text-xl font-medium md:pl-4">{getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}</h1>
+                  <h1 className="text-xl font-medium md:pl-4">
+                    {
+                      getApprovedProducts?.data?.[0].vendor
+                        ?.sellerAccountInformation?.shopName
+                    }
+                  </h1>
                   <div>
                     <p className="text-neutral-400 text-base">
                       Showing{" "}
@@ -171,7 +252,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     Sort by:
                   </span>
                   <span className="xxs:hidden md:block">
-                    <Sort data={data} setData={setData} />
+                    <Sort data={filteredData} setData={setData} />
                   </span>
                   <div className="md:hidden flex justify-center items-end gap-2 px-2">
                     <LuSettings2
@@ -184,17 +265,17 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                 </div>
               </div>
 
-              {data?.length ? (
+              {filteredData && filteredData?.length >= 1 ? (
                 <div className="grid md:grid-cols-3 gap-4 mb-6 xxs:grid-cols-2">
-                  {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-                    (Tdata, index) => {
-                      console.log(Tdata, "Tdata");
-                      return <ProductCard item={Tdata} key={index} />;
-                    }
-                  )}
+                  {chunkArray(filteredData, itemsPerPage)[
+                    currentPageIndex - 1
+                  ]?.map((Tdata, index) => {
+                    console.log(Tdata, "Tdata");
+                    return <ProductCard item={Tdata} key={index} />;
+                  })}
                 </div>
               ) : (
-                <div>Fetching Data...</div>
+                <div>Fetching Data...{filteredData.length}</div>
               )}
 
               <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
@@ -212,7 +293,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   <RxCaretLeft size={16} />
                 </button>
                 <div className="pagination flex gap-1 items-center">
-                  {chunkArray(data, itemsPerPage).map((_, index) => {
+                  {chunkArray(filteredData, itemsPerPage).map((_, index) => {
                     return (
                       <button
                         key={index}
@@ -231,12 +312,14 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
 
                 <button
                   onClick={() =>
-                    currentPageIndex !== chunkArray(data, itemsPerPage).length
+                    currentPageIndex !==
+                    chunkArray(filteredData, itemsPerPage).length
                       ? setCurrentPageIndex(currentPageIndex + 1)
                       : null
                   }
                   className={
-                    (currentPageIndex === chunkArray(data, itemsPerPage).length
+                    (currentPageIndex ===
+                    chunkArray(filteredData, itemsPerPage).length
                       ? "no-items"
                       : "") +
                     " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"

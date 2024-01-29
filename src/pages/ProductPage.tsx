@@ -26,11 +26,9 @@ interface iProps {
   ) => void;
 }
 
-
-
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [data, setData] = useState<IProduct[]>([]);
   const [filteredData, setFilteredData] = useState<IProduct[]>([]);
   let itemsPerPage = 20;
@@ -40,10 +38,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
   // console.log({ menuItems }, "here");
   useEffect(() => setData(getAllProducts?.data), [getAllProducts?.data]);
-   useEffect(() => {
-     // Initialize filteredData with the original data when data changes
-     setFilteredData(data);
-   }, [data]);
+  useEffect(() => {
+    // Initialize filteredData with the original data when data changes
+    setFilteredData(data);
+  }, [data]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,14 +96,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     // Update filteredData state
     setFilteredData(newFilteredData);
   };
- const handleClear = () => {
-   setSelectedItems([]);
-   setFilteredData(data);
-
- };
-
-
-
+  const handleClear = () => {
+    setSelectedItems([]);
+    setFilteredData(data);
+  };
 
   return (
     <>
@@ -377,4 +371,3 @@ export interface IProduct {
   visibilityStatus: string;
   __v: number;
 }
-

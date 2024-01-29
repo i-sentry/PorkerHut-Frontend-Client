@@ -23,6 +23,7 @@ import { IUser } from "../../order-component/OrderCart";
 import {
   useDeleteFavorite,
   useFavoriteProduct,
+  useGetAllApprovedProducts,
   useGetFavProduct,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
@@ -35,12 +36,12 @@ const ProductDetails = () => {
   const { id } = useParams();
   // @ts-ignore
   const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
+  const { data: approvedProducts } = useGetAllApprovedProducts();
   const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   const checkIsFav = useGetFavProduct(StoredUser?._id, id);
   const navigate = useNavigate();
   const addFav = useFavoriteProduct();
   const [isFavorite, setFavorite] = useState(false);
-  // console.log(singleProduct?.data, singleProduct?.data?._id, "Stack");
   const [user, setUser] = useState<IUser>();
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -66,6 +67,7 @@ const ProductDetails = () => {
   }, []);
 
   console.log(StoredUser, "store user");
+  console.log(approvedProducts, "All Approved Products");
 
   let productID;
 
@@ -214,13 +216,6 @@ const ProductDetails = () => {
                   <RatingStars maxRating={5} iconSize={36} canRate={false} />
                 </div>
               </div>
-
-              {/*<div className="flex items-center justify-between">
-                <RatingWidget
-                onChange={(value) => console.log(value)}
-                defaultValue={3}
-              /> 
-              </div>*/}
               <span className=" font-medium text-base">
                 ₦{singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>

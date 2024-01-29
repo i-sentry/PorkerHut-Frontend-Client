@@ -14,6 +14,13 @@ export const useGetAllProducts = () => {
   });
 };
 
+export const useGetAllApprovedProducts = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.allApprovedProducts),
+    queryKey: ["Approved-products+"],
+  });
+};
+
 export const useFavoriteProduct = () => {
   return useQueryMutation({
     mutationFn: (data: {
