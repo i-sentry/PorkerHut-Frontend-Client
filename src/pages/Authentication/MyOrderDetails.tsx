@@ -35,7 +35,6 @@ const MyOrderDetails = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   console.log(data?.data?.order, "hyunmdhdhf");
 
-
   const navigate = useNavigate();
 
   const order = data?.data?.order;
@@ -46,10 +45,13 @@ const MyOrderDetails = () => {
   const productImg = selectedProduct?.productID?.images[0];
 
   const handleRate = (id: any) => {
+    window.scroll(0, 0);
     navigate(`/rate_review/${id}`, {
       replace: true,
     });
   };
+
+  const [showInfo, setShowInfo] = useState(false);
 
   // ORDER STATUS COLOR
   const getOrderStatus = (status: any) => {
@@ -234,13 +236,39 @@ const MyOrderDetails = () => {
               </p>
             </div>
             <MdOutlinePersonPinCircle size={20} />
-
-            <button className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold">
-              Rate Product
-            </button>
-            <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
-              Return Order
-            </button>
+            <div className="relative w-full">
+              <button
+                onMouseEnter={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(true)
+                    : () => null
+                }
+                onMouseLeave={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(false)
+                    : () => null
+                }
+                onClick={
+                  order?.status !== "completed"
+                    ? () => null
+                    : () => handleRate(selectedProduct?.productID?._id)
+                }
+                className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
+              >
+                Rate Product
+              </button>
+              <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
+                Return Order
+              </button>
+              {/* RATE PRODUCT POP INFO */}
+              <div
+                className={`bg-neutral-300 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                  showInfo && "opacity-100"
+                }`}
+              >
+                You can't rate this product until your order is completed
+              </div>
+            </div>
           </div>
           <div>
             <h3 className="text-zinc-800 text-lg font-semibold font-['Roboto'] mt-[40] mb-4">
@@ -323,7 +351,7 @@ const MyOrderDetails = () => {
             </div>
           </div>
           <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
+            <div className="flex justify-between relative">
               <div className="flex items-start gap-1">
                 <MdPersonOutline size={20} className="mt-1" />
                 <div className="">
@@ -339,11 +367,34 @@ const MyOrderDetails = () => {
                 </div>
               </div>
               <button
-                onClick={() => handleRate(selectedProduct?.productID?._id)}
+                onMouseEnter={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(true)
+                    : () => null
+                }
+                onMouseLeave={
+                  order?.status !== "completed"
+                    ? () => setShowInfo(false)
+                    : () => null
+                }
+                onClick={
+                  order?.status !== "completed"
+                    ? () => null
+                    : () => handleRate(selectedProduct?.productID?._id)
+                }
                 className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
               >
                 Rate This Product
               </button>
+
+              {/* RATE PRODUCT POP INFO */}
+              <div
+                className={`bg-white opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-12 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-white z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                  showInfo && "opacity-100"
+                }`}
+              >
+                You can't rate this product until your order is completed
+              </div>
             </div>
             <div className="flex justify-between mt-3">
               <div>

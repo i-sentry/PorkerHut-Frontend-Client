@@ -430,7 +430,7 @@ const MyOrder = () => {
     ) || [];
   console.log(filteredData);
 
-  let itemsPerPage = 8;
+  let itemsPerPage = 4;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 

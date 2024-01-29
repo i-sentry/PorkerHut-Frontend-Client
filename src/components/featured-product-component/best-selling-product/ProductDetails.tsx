@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, Fragment, useEffect } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import {
@@ -26,7 +27,7 @@ import {
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
-import { RatingStar } from "../../../pages/RateReview";
+import RatingStars from "../../RatingStars";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -212,12 +213,11 @@ const ProductDetails = () => {
               </div>
 
               <div className="flex items-center justify-between py-1">
-                <RatingStar
-                  // onChange={()=> handleRatingChange()}
-                  defaultValue={userRating}
-                  // starSize={23}
-                  setUserRating={setUserRating}
-                />
+                {/* <RatingWidget
+                onChange={(value) => console.log(value)}
+                defaultValue={3}
+              /> */}
+                <RatingStars maxRating={5} iconSize={32} canRate={false} />
               </div>
 
               <span></span>

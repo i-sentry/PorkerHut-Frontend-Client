@@ -77,6 +77,19 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+
+  const {
+    register: registerForm2,
+    handleSubmit: handleSubmitForm2,
+    reset: resetForm2,
+    control: controlForm2,
+    getValues: getValuesForm2,
+    watch: watchForm2,
+    setValue: setValueForm2,
+    formState: { errors: errors2 },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
   const navigate = useNavigate();
   const location = useLocation();
   const [status, setStatus] = useState("default");
@@ -116,6 +129,17 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setValue("state", defaultBillingInfo?.state);
       setValue("city", defaultBillingInfo?.city);
       setValue("isDefault", defaultBillingInfo?.isDefault);
+
+      // FORM 2
+      setValueForm2("firstName", "");
+      setValueForm2("lastName", "");
+      setValueForm2("email", "");
+      setValueForm2("phoneNumber", "");
+      setValueForm2("address", "");
+      setValueForm2("country", "");
+      setValueForm2("state", "");
+      setValueForm2("city", "");
+      setValueForm2("isDefault", "");
     }
   }, [defaultBillingInfo, setValue, isMyBilling]);
 
@@ -551,7 +575,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     : "translate-x-100 opacity-0"
                 }`}
               >
-                <form onSubmit={handleSubmit(handleCreateBilling)}>
+                <form onSubmit={handleSubmitForm2(handleCreateBilling)}>
                   <div className="lg:flex xxs:block gap-6">
                     <div className=" w-full ">
                       <label
@@ -562,16 +586,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       </label>
                       <input
                         type="text"
-                        {...register("firstName")}
+                        {...registerForm2("firstName")}
                         placeholder="Enter Your First Name"
                         className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
-                          errors.firstName ? "border-[#dd1313]" : ""
+                          errors2.firstName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
-                      {errors.firstName && (
+                      {errors2.firstName && (
                         <span className="text-[#dd1313] text-sm">
-                          {String(errors.firstName?.message)}
+                          {String(errors2.firstName?.message)}
                         </span>
                       )}
                     </div>
@@ -585,16 +609,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       </label>
                       <input
                         type="text"
-                        {...register("lastName")}
+                        {...registerForm2("lastName")}
                         placeholder="Enter Your Last Name"
                         className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
-                          errors.lastName ? "border-[#dd1313]" : ""
+                          errors2.lastName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
-                      {errors.lastName && (
+                      {errors2.lastName && (
                         <span className="text-[#dd1313] text-sm">
-                          {String(errors.lastName?.message)}
+                          {String(errors2.lastName?.message)}
                         </span>
                       )}
                     </div>
@@ -608,16 +632,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     </label>
                     <input
                       type="text"
-                      {...register("email")}
+                      {...registerForm2("email")}
                       placeholder="Enter Your Email Address"
                       className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                        errors.email ? "border-[#dd1313]" : ""
+                        errors2.email ? "border-[#dd1313]" : ""
                       }`}
                       required
                     />
-                    {errors.email && (
+                    {errors2.email && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.email?.message)}
+                        {String(errors2.email?.message)}
                       </span>
                     )}
                   </div>
@@ -631,7 +655,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     </label>
 
                     <Controller
-                      control={control}
+                      control={controlForm2}
                       name="phoneNumber"
                       render={({ field: { onChange, onBlur, value, ref } }) => (
                         <PhoneInput
@@ -642,16 +666,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                             name: "phoneNumber",
                             id: "phoneNumber",
                             className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                              errors.phoneNumber ? "border-[#dd1313]" : ""
+                              errors2.phoneNumber ? "border-[#dd1313]" : ""
                             }`,
                           }}
                         />
                       )}
                     />
 
-                    {errors.phoneNumber && (
+                    {errors2.phoneNumber && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.phoneNumber.message)}
+                        {String(errors2.phoneNumber.message)}
                       </span>
                     )}
                   </div>
@@ -666,15 +690,15 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     <input
                       type="text"
                       required
-                      {...register("address")}
+                      {...registerForm2("address")}
                       placeholder="Enter Delivery Address"
                       className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                        errors.address ? "border-[#dd1313]" : ""
+                        errors2.address ? "border-[#dd1313]" : ""
                       }`}
                     />
-                    {errors.address && (
+                    {errors2.address && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.address?.message)}
+                        {String(errors2.address?.message)}
                       </span>
                     )}
                   </div>
@@ -688,7 +712,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     </label>
 
                     <Controller
-                      control={control}
+                      control={controlForm2}
                       name="country"
                       render={({ field: { onChange, onBlur, value, ref } }) => (
                         <CountryDropdown
@@ -700,17 +724,17 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                             reset({ ...getValues(), state: "" });
                           }}
                           classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] pl-5 rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-[#197b30] focus:outline-1  ${
-                            errors.country ? "border-[#dd1313]" : ""
+                            errors2.country ? "border-[#dd1313]" : ""
                           }`}
                         />
                       )}
                     />
-                    <span className="absolute top-[34px] right-3 pointer-events-none">
+                    <span className="absolute top-[34px] right-3 pointer-events-none hidden">
                       <MdKeyboardArrowDown size={24} color="#a2a2a2" />
                     </span>
-                    {errors.country && (
+                    {errors2.country && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.country?.message)}
+                        {String(errors2.country?.message)}
                       </span>
                     )}
                   </div>
@@ -722,7 +746,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       State
                     </label>
                     <Controller
-                      control={control}
+                      control={controlForm2}
                       name="state"
                       render={({ field: { onChange, value } }) => (
                         <RegionDropdown
@@ -733,17 +757,17 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                           value={value}
                           onChange={onChange}
                           classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                            errors.state ? "border-[#dd1313]" : ""
+                            errors2.state ? "border-[#dd1313]" : ""
                           }`}
                         />
                       )}
                     />
-                    <span className="absolute top-[34px] right-3 pointer-events-none">
+                    <span className="absolute top-[34px] right-3 pointer-events-none hidden">
                       <MdKeyboardArrowDown size={24} color="#a2a2a2" />
                     </span>
-                    {errors.state && (
+                    {errors2.state && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.state?.message)}
+                        {String(errors2.state?.message)}
                       </span>
                     )}
                   </div>
@@ -755,21 +779,21 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     <input
                       type="text"
                       required
-                      {...register("city")}
+                      {...registerForm2("city")}
                       placeholder="Enter City/Town/Street"
                       className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
-                        errors.city ? "border-[#dd1313]" : ""
+                        errors2.city ? "border-[#dd1313]" : ""
                       }`}
                     />
-                    {errors.city && (
+                    {errors2.city && (
                       <span className="text-[#dd1313] text-sm">
-                        {String(errors.city?.message)}
+                        {String(errors2.city?.message)}
                       </span>
                     )}
                   </div>
                   <div className="flex items-center ">
                     <input
-                      {...register("isDefault")}
+                      {...registerForm2("isDefault")}
                       type="checkbox"
                       name="isDefault"
                       onChange={(e: any) => {
