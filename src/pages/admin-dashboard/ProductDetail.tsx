@@ -15,8 +15,8 @@ import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import CustomInput from "../../components/utility/Input/CustomInput";
 import ProductTable from "../../components/utility/ProductTable";
 import Gallery from "../../components/utility/Input/Gallery";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const productInfoSchema = yup.object().shape({
   "productInformation.productName": yup
@@ -37,14 +37,14 @@ const ProductDetails = () => {
   const [productStatus, setProductStatus] = useState("pending");
   //const [status] = useState("pending");
 
-  console.log(loading, 'loading')
+  console.log(loading, "loading");
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
   const catId = queryParams.get("catId");
 
-  const singleProduct = useGetSingleProduct(id);
+  const singleProduct = useGetSingleProduct(id as string);
   // const [images, setImages] = useState<string[]>([]);
 
   const { data: question } = useGetCategoryQuestion(catId);
@@ -234,10 +234,9 @@ const ProductDetails = () => {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
       });
-      singleProduct.refetch()
+      singleProduct.refetch();
       setProductStatus(status);
     } catch (error) {
-
       console.error("Product update failed:", error);
 
       toast.warning("Failed to update product. Please try again.", {
@@ -252,19 +251,18 @@ const ProductDetails = () => {
 
   // const handleProductUpdate = (status: string) => {
   //   setLoading(true);
-    
-  
+
   //   updateProductStatus
   //     .mutateAsync({
   //       approvalStatus: status,
   //     })
   //     .then((res) => {
   //       console.log(res);
-  
+
   //       // Display success toast message
   //       toast.success('Product approved successfully!', {
   //         position: toast.POSITION.TOP_RIGHT,
-  //         autoClose: 3000, 
+  //         autoClose: 3000,
   //       });
   //     })
   //     .catch((err) => {
@@ -274,8 +272,6 @@ const ProductDetails = () => {
   //       setLoading(false);
   //     });
   // };
-
- 
 
   const productInfo = [
     {
@@ -645,50 +641,48 @@ const ProductDetails = () => {
         </TabPanel>
       </div>
       <div className="flex justify-end p-5">
-      <button
-        onClick={() => handleProductUpdate("rejected")}
-        className={`mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff] ${
-          buttonDisabled || productStatus === "rejected"
-            ? "disabled:bg-[#990000] disabled:cursor-not-allowed"
-            : ""
-        }`}
-        disabled={buttonDisabled || productStatus === "rejected"}
-      >
-        Reject
-      </button>
+        <button
+          onClick={() => handleProductUpdate("rejected")}
+          className={`mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff] ${
+            buttonDisabled || productStatus === "rejected"
+              ? "disabled:bg-[#990000] disabled:cursor-not-allowed"
+              : ""
+          }`}
+          disabled={buttonDisabled || productStatus === "rejected"}
+        >
+          Reject
+        </button>
 
-      <button
-        onClick={() => handleProductUpdate("approved")}
-        className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded ${
-          buttonDisabled || productStatus === "approved"
-            ? "disabled:bg-[#568a62] disabled:cursor-not-allowed"
-            : ""
-        }`}
-        disabled={buttonDisabled || productStatus === "approved"}
-      >
+        <button
+          onClick={() => handleProductUpdate("approved")}
+          className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded ${
+            buttonDisabled || productStatus === "approved"
+              ? "disabled:bg-[#568a62] disabled:cursor-not-allowed"
+              : ""
+          }`}
+          disabled={buttonDisabled || productStatus === "approved"}
+        >
           {loading ? (
-            
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  opacity="0.2"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                  fill="white"
-                />
-                <path
-                  d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z"
-                  fill="white"
-                />
-              </svg>
-            
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                opacity="0.2"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                fill="white"
+              />
+              <path
+                d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z"
+                fill="white"
+              />
+            </svg>
           ) : (
             "Approve"
           )}

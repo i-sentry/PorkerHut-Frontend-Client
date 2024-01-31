@@ -36,7 +36,12 @@ const ProductDetails = () => {
   const item = location?.state?.item;
   const { id } = useParams();
   // @ts-ignore
-  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
+  const [productID, setProductID] = useState<string | undefined>(id);
+  useEffect(() => setProductID(id), [id]);
+
+  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(
+    productID as string
+  );
   const { data: allProducts } = useGetAllProducts();
   const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   const checkIsFav = useGetFavProduct(StoredUser?._id, id);
@@ -54,6 +59,7 @@ const ProductDetails = () => {
   console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState(avgRating as number);
 
+  console.log(productID, "productID");
   useEffect(() => {
     // setTemp(false);
     //@ts-ignore
@@ -84,9 +90,9 @@ const ProductDetails = () => {
 
   console.log(singleProduct, relatedProducts, "All Related");
 
-  let productID;
+  // let productID;
 
-  if (!loading) productID = singleProduct?.data?._id;
+  // if (!loading) productID = singleProduct?.data?._id;
 
   // console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 

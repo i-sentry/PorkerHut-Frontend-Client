@@ -38,7 +38,7 @@ export const api = {
     allProducts: "/api/products/",
     createProducts: "/api/products",
     allApprovedProducts: "/api/products/approved",
-    getSingleProduct: (id: string | null) => `/api/products/${id}`,
+    getSingleProduct: (id: string) => `/api/products/${id}`,
     productStatus: (id: string | null) => `/api/products/${id}/approvalStatus`,
     productByVendor: (id: string | undefined) => `/api/products/vendor/${id}`,
     productByVendorApproved: (id: string | undefined) =>
