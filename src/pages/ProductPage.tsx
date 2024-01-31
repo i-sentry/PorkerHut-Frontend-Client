@@ -115,14 +115,16 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
       <FilterSidebar
         open={openModal}
         onClose={() => setOpenModal(false)}
-        setData={setData}
-        // menuItem={allCategories?.data}
-        handleClick={handleClick}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
+        data={data}
+        handleApplyClick={handleApplyClick}
+        handleClear={handleClear}
       />
 
       <AppLayout>
         <div className="bg-[#EEEEEE] overflow-hidden relative lg:pb-10">
-          <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0 ">
+          <div className="bg-[#EEEEEE] mt-16 lg:mt-24 lg:px-14 xxs:px-0 ">
             <div className="lg:px-0 xxs:px-4">
               <ProductsBreadCrumbs
                 items={[
@@ -189,7 +191,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         <span className="xxs:hidden lg:block">
                           <Sort data={filteredData} setData={setData} />
                         </span>
-                        <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
+                        <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium cursor-pointer ">
                           <FiSettings
                             className="rotate-90 "
                             size={22}

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Sort from "../components/accordion-component/Sort";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 
-import { productData } from "../utils/productData";
+// import { productData } from "../utils/productData";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
@@ -47,7 +47,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
-  const menuItems = [...new Set(productData.map((d: any) => d.category))];
+  // const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
   // console.log(${getApprovedProducts?.data?.information?.productName}, "page")
 
@@ -121,9 +121,11 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
         <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
-          handleClick={handleClick}
-          setData={setData}
-          menuItem={menuItems}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          data={data}
+          handleApplyClick={handleApplyClick}
+          handleClear={handleClear}
         />
         <div className="bg-[#EEEEEE] pt-16 ">
           <div className="xxs:hidden md:block mb-5">
@@ -254,12 +256,11 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   <span className="xxs:hidden md:block">
                     <Sort data={filteredData} setData={setData} />
                   </span>
-                  <div className="md:hidden flex justify-center items-end gap-2 px-2">
-                    <LuSettings2
-                      className=" "
-                      size={22}
-                      onClick={() => setOpenModal(true)}
-                    />
+                  <div
+                    onClick={() => setOpenModal(true)}
+                    className="md:hidden flex justify-center items-end gap-2 px-2 cursor-pointer"
+                  >
+                    <LuSettings2 className=" " size={22} />
                     <span className="text-sm">Filter Products</span>
                   </div>
                 </div>
