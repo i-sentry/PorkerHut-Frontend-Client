@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, Fragment, useEffect } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import {
@@ -22,6 +23,7 @@ import { IUser } from "../../order-component/OrderCart";
 import {
   useDeleteFavorite,
   useFavoriteProduct,
+  useGetAllProducts,
   useGetFavProduct,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
@@ -33,13 +35,18 @@ const ProductDetails = () => {
   const item = location?.state?.item;
   const { id } = useParams();
   // @ts-ignore
-  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
+  const [productID, setProductID] = useState<string | undefined>(id);
+  useEffect(() => setProductID(id), [id]);
+
+  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(
+    productID as string
+  );
+  const { data: allProducts } = useGetAllProducts();
   const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   const checkIsFav = useGetFavProduct(StoredUser?._id, id);
   const navigate = useNavigate();
   const addFav = useFavoriteProduct();
   const [isFavorite, setFavorite] = useState(false);
-  // console.log(singleProduct?.data, singleProduct?.data?._id, "Stack");
   const [user, setUser] = useState<IUser>();
   const dispatch = useDispatch();
   const [selectedImg, setSelectedImg] = useState(0);
@@ -51,6 +58,7 @@ const ProductDetails = () => {
   console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState(avgRating as number);
 
+  console.log(productID, "productID");
   useEffect(() => {
     // setTemp(false);
     //@ts-ignore
@@ -64,13 +72,28 @@ const ProductDetails = () => {
     }
   }, []);
 
-  console.log(StoredUser, "store user");
+  // console.log(StoredUser, "store user");
+  // console.log(allProducts, "All Products");
 
-  let productID;
+  const filteredApprovedProduct = allProducts?.data?.filter(
+    (product: any) =>
+      product?.approvalStatus === "approved" &&
+      product?._id !== singleProduct?.data._id
+  );
 
-  if (!loading) productID = singleProduct?.data?._id;
+  const relatedProducts = filteredApprovedProduct?.filter(
+    (product: any) =>
+      product?.information?.subcategory.name ===
+      singleProduct?.data?.information?.subcategory?.name
+  );
 
-  console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
+  console.log(singleProduct, relatedProducts, "All Related");
+
+  // let productID;
+
+  // if (!loading) productID = singleProduct?.data?._id;
+
+  // console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
@@ -184,7 +207,7 @@ const ProductDetails = () => {
               </div>
             </div>
             <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between flex-wrap items-center">
                 <h1 className="font-semibold text-xl">
                   {singleProduct?.data?.information?.productName}
                 </h1>
@@ -209,17 +232,10 @@ const ProductDetails = () => {
                     )}
                   </>
                 )}
+                <div className="w-full">
+                  <RatingStars maxRating={5} iconSize={36} canRate={false} />
+                </div>
               </div>
-
-              <div className="flex items-center justify-between py-1">
-                {/* <RatingWidget
-                onChange={(value) => console.log(value)}
-                defaultValue={3}
-              /> */}
-                <RatingStars maxRating={5} iconSize={32} canRate={false} />
-              </div>
-
-              <span></span>
               <span className=" font-medium text-base">
                 ₦{singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
@@ -355,9 +371,16 @@ const ProductDetails = () => {
           </h1>
 
           <div className="grid grid-cols-2 md:grid-cols-4 w-full xxs:px-3 md:px-0 xxs:gap-4 ">
-            {chunkArray(productData, 8)[1 - 1].map((item) => (
-              <ProductCard item={item} key={item.id} />
-            ))}
+            {relatedProducts?.length >= 1 &&
+              chunkArray(relatedProducts, 8)[1 - 1]?.map(
+                (item: any, index: number) => (
+                  <ProductCard item={item} key={index} />
+                )
+              )}
+
+            {relatedProducts?.length < 1 && (
+              <p className="text-gray-500 px-4 mb-4">No Related Products yet</p>
+            )}
           </div>
         </div>
       </div>

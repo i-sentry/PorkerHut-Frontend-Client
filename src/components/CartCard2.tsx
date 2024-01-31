@@ -4,11 +4,10 @@ import {
   deleteProductFromCart,
   incrementProductQty,
   IProduct,
-
 } from "../redux/features/product/productSlice";
 import { useDispatch } from "react-redux";
-import RatingWidget from "./RatingWidget";
 import { usePopModal } from "../store/overlay";
+import RatingStars from "./RatingStars";
 
 const porkerPickupAddress =
   "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
@@ -84,10 +83,11 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     {item?.information?.productName}
                   </h3>
                   {/* <p>Product ID: {item?._id}</p> */}
-                  <RatingWidget
+                  {/* <RatingWidget
                     onChange={(value) => console.log(value)}
                     defaultValue={2}
-                  />
+                  /> */}
+                  <RatingStars maxRating={5} iconSize={24} canRate={false} />
                   <span>{item?.details?.productWeight} Kg</span>
                 </div>
               </div>

@@ -15,6 +15,7 @@ import Spinner from "../components/Spinner/Spinner";
 import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
+import { CgSpinnerAlt } from "react-icons/cg";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -26,11 +27,9 @@ interface iProps {
   ) => void;
 }
 
-
-
 const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [data, setData] = useState<IProduct[]>([]);
   const [filteredData, setFilteredData] = useState<IProduct[]>([]);
   let itemsPerPage = 20;
@@ -39,11 +38,19 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const { data: getAllProducts, isLoading } = useGetAllProducts();
 
   // console.log({ menuItems }, "here");
-  useEffect(() => setData(getAllProducts?.data), [getAllProducts?.data]);
-   useEffect(() => {
-     // Initialize filteredData with the original data when data changes
-     setFilteredData(data);
-   }, [data]);
+  useEffect(
+    () =>
+      setData(
+        getAllProducts?.data?.filter(
+          (product: any) => product?.approvalStatus === "approved"
+        )
+      ),
+    [getAllProducts?.data]
+  );
+  useEffect(() => {
+    // Initialize filteredData with the original data when data changes
+    setFilteredData(data);
+  }, [data]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,28 +105,26 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     // Update filteredData state
     setFilteredData(newFilteredData);
   };
- const handleClear = () => {
-   setSelectedItems([]);
-   setFilteredData(data);
-
- };
-
-
-
+  const handleClear = () => {
+    setSelectedItems([]);
+    setFilteredData(data);
+  };
 
   return (
     <>
       <FilterSidebar
         open={openModal}
         onClose={() => setOpenModal(false)}
-        setData={setData}
-        // menuItem={allCategories?.data}
-        handleClick={handleClick}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
+        data={data}
+        handleApplyClick={handleApplyClick}
+        handleClear={handleClear}
       />
 
       <AppLayout>
         <div className="bg-[#EEEEEE] overflow-hidden relative lg:pb-10">
-          <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0 ">
+          <div className="bg-[#EEEEEE] mt-16 lg:mt-24 lg:px-14 xxs:px-0 ">
             <div className="lg:px-0 xxs:px-4">
               <ProductsBreadCrumbs
                 items={[
@@ -186,7 +191,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         <span className="xxs:hidden lg:block">
                           <Sort data={filteredData} setData={setData} />
                         </span>
-                        <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium ">
+                        <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium cursor-pointer ">
                           <FiSettings
                             className="rotate-90 "
                             size={22}
@@ -263,7 +268,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center my-16">
-                    <svg
+                    {/* <svg
                       className="w-12 h-12 text-gray-400"
                       fill="none"
                       strokeLinecap="round"
@@ -281,7 +286,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </svg>
                     <p className="mt-2 text-sm text-gray-500">
                       No products available.
-                    </p>
+                    </p> */}
+
+                    <CgSpinnerAlt size={80} className="animate-spin" />
+                    <p className="mt-4">Fetching Products...</p>
                   </div>
                 )}
               </div>
@@ -377,4 +385,3 @@ export interface IProduct {
   visibilityStatus: string;
   __v: number;
 }
-

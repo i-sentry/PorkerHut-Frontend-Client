@@ -39,6 +39,7 @@ export interface IProduct {
   featured: boolean;
   images: string[];
   information: {
+    subcartegory: any;
     categoryQuestions: any[]; // You can define a specific type here if needed
     productBreed: string;
     productName: string;

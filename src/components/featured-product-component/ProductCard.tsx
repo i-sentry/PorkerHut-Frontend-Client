@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
@@ -10,21 +11,18 @@ import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
 import RatingStars from "../RatingStars";
 
-
 interface ProductLocationState {
   item: any;
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-  console.log({ item }, "item");
+  // console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
- const avgRating = item?.avgRating;
- console.log(avgRating, "avgRating");
- const [userRating, setUserRating] = useState(avgRating as number);
+
   const isOutOfStock = item?.pricing?.quantity < 1;
 
   // console.log(item, "itemszz");

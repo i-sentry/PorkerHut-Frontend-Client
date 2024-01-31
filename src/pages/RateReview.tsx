@@ -26,6 +26,15 @@ const RateReview = () => {
   const [userName, setuserName] = useState<SelectOptionType>(null);
   const userdata = JSON.parse(localStorage.getItem("user") as string);
   const _name = `${userdata?.firstName} ${userdata?.lastName}`;
+  const avgRating = singleProduct?.data?.avgRating;
+  console.log(avgRating, "avgRating");
+  const [userRating, setUserRating] = useState(avgRating as number);
+
+  // const handleRatingChange = (value: number) => {
+  //   console.log(value, "value");
+  //   setUserRating(value);
+  // };
+
   const createRating = useCreateRating();
   const navigate = useNavigate();
   console.log(_name, "_name");

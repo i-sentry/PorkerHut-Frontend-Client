@@ -25,11 +25,14 @@ import {
 } from "../redux/features/product/productSlice";
 // import { useAppSelector } from "../redux/hook";
 import { usePopModal } from "../store/overlay";
+import { IProduct } from "./ProductPage";
+import { useGetAllProducts } from "../services/hooks/users/products";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.product.cart);
+  const { data: allProducts } = useGetAllProducts();
   const [showModal, setShowModal] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [selectedState, setSelectedState] = useState("");
@@ -55,7 +58,6 @@ const CartPage = () => {
     );
   }, 0);
   // console.log(Object.values(cart).length, "Object.values(cart).length");
-  // console.log(cart, "(cart)");
 
   const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedState(e.target.value);
@@ -81,6 +83,30 @@ const CartPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const cartItems: string[] = [];
+  const cartSubCategory: string[] = [];
+
+  Object.values(cart).forEach((item: any) => {
+    cartItems.push(item?._id);
+    cartSubCategory.push(item?.information?.subcategory?.name);
+  });
+
+  console.log(cart, cartItems, "(cart Items)");
+  console.log(cartSubCategory, "(cart cartSub)");
+
+  const filteredApprovedProduct = allProducts?.data?.filter(
+    (product: any, index: number) =>
+      product?.approvalStatus === "approved" &&
+      !cartItems?.includes(product?._id)
+  );
+  console.log(cartItems, filteredApprovedProduct, "filteredApprovedProduct");
+
+  const relatedProducts = filteredApprovedProduct?.filter((product: any) =>
+    cartSubCategory?.includes(product?.information?.subcategory?.name)
+  );
+
+  console.log(relatedProducts, "related products");
 
   return (
     <AppLayout>
@@ -200,7 +226,6 @@ const CartPage = () => {
                   {/* @ts-ignore */}
                   <CartCard2 item={cart} />
 
-
                   <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
                 </div>
                 {/* ))} */}
@@ -216,9 +241,11 @@ const CartPage = () => {
               </h1>
 
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full">
-                {chunkArray(productData, 8)?.[1 - 1]?.map((item) => (
-                  <ProductCard item={item} key={item?.id} />
-                ))}
+                {chunkArray(relatedProducts, 8)?.[1 - 1]?.map(
+                  (item: any, index: number) => (
+                    <ProductCard item={item} key={index} />
+                  )
+                )}
               </div>
             </div>
             <div className=" p-5 md:hidden ">
@@ -355,3 +382,6 @@ const CartPage = () => {
 };
 
 export default CartPage;
+function item(value: IProduct, index: number, array: IProduct[]): void {
+  throw new Error("Function not implemented.");
+}

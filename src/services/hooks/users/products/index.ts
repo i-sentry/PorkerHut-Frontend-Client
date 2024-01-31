@@ -14,6 +14,13 @@ export const useGetAllProducts = () => {
   });
 };
 
+export const useGetAllApprovedProducts = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Products.allApprovedProducts),
+    queryKey: ["Approved-products+"],
+  });
+};
+
 export const useFavoriteProduct = () => {
   return useQueryMutation({
     mutationFn: (data: {
@@ -23,7 +30,7 @@ export const useFavoriteProduct = () => {
   });
 };
 
-export const useGetSingleProduct = (id: string | null) => {
+export const useGetSingleProduct = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.getSingleProduct(id)),
     queryKey: ["product +"],

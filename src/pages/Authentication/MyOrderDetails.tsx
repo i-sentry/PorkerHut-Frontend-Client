@@ -16,6 +16,7 @@ import { Tooltip } from "../../components/utility/ToolTip";
 import AppLayout from "../../components/utility/AppLayout";
 import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
+import { BsFillXCircleFill, BsXCircleFill } from "react-icons/bs";
 // import OtherOrdersTable from "../../components/OtherOrdersTable";
 
 // const columns = [
@@ -131,7 +132,6 @@ const MyOrderDetails = () => {
         </div>
 
         {/* NEW CARDS FOR MOBILE */}
-
         <div className="flex flex-col gap-6 lg:hidden">
           <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
             <div className="flex gap-2 w-[70%]">
@@ -238,19 +238,12 @@ const MyOrderDetails = () => {
             <MdOutlinePersonPinCircle size={20} />
             <div className="relative w-full">
               <button
-                onMouseEnter={
-                  order?.status !== "completed"
-                    ? () => setShowInfo(true)
-                    : () => null
-                }
-                onMouseLeave={
-                  order?.status !== "completed"
-                    ? () => setShowInfo(false)
-                    : () => null
-                }
                 onClick={
                   order?.status !== "completed"
-                    ? () => null
+                    ? () => {
+                        setShowInfo(true);
+                        setTimeout(() => setShowInfo(false), 2000);
+                      }
                     : () => handleRate(selectedProduct?.productID?._id)
                 }
                 className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
@@ -262,11 +255,11 @@ const MyOrderDetails = () => {
               </button>
               {/* RATE PRODUCT POP INFO */}
               <div
-                className={`bg-neutral-300 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                className={`bg-neutral-300 flex items-center gap-1 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
                   showInfo && "opacity-100"
                 }`}
               >
-                You can't rate this product until your order is completed
+                You can't rate, kindly complete your order
               </div>
             </div>
           </div>
@@ -389,11 +382,11 @@ const MyOrderDetails = () => {
 
               {/* RATE PRODUCT POP INFO */}
               <div
-                className={`bg-white opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-12 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-white z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                className={`bg-white flex gap-1 items-center opacity-0 border border-neutral-200 duration-300 shadow-lg rounded-lg p-4 absolute -top-16 right-3 after:block after:border-[10px] after:border-t-white after:w-0 after:border-b-transparent z-20 after:z-0 after:absolute after:-bottom-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
                   showInfo && "opacity-100"
                 }`}
               >
-                You can't rate this product until your order is completed
+                You can't rate, kindly complete your order
               </div>
             </div>
             <div className="flex justify-between mt-3">

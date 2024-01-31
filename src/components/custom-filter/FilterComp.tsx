@@ -71,10 +71,10 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   //   console.log(UniqueCity, "lii");
 
   return (
-      <div className=" p-4">
-          <div>
-              <h1>Filters</h1>
-          </div>
+    <div className=" p-4">
+      <div className="hidden lg:block">
+        <h1>Filters</h1>
+      </div>
       <Accordion
         items={[
           ...(catagories?.data || []).map((item: any, index: any) => (
@@ -93,8 +93,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
 
           <AccordionItem title={"Location"}>
             {(UniqueCity || []).map((city, index) => (
-                <Checkbox
-
+              <Checkbox
                 key={index}
                 label={_.startCase(city)}
                 onCheckboxChange={handleCheckboxChange}
@@ -112,7 +111,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
           </AccordionItem>,
         ]}
       />
-      <div className="flex items-center justify-between ">
+      <div className="hidden lg:flex items-center justify-between ">
         <button
           className="border border-[#a10] text-[#a10] rounded  px-4 py-2 mt-4"
           onClick={handleClear}

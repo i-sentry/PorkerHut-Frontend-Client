@@ -64,9 +64,9 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     //@ts-ignore
     setData(newItems);
   };
- useEffect(() => {
-   filter(id);
- }, [id]);
+  useEffect(() => {
+    filter(id);
+  }, [id]);
 
   console.log(data, "data");
 
@@ -117,9 +117,11 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
         <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
-          setData={undefined}
-          menuItem={undefined}
-          handleClick={handleClick}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          data={data}
+          handleApplyClick={handleApplyClick}
+          handleClear={handleClear}
         />
         <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0">
           <div className="lg:px-0 xxs:px-4">

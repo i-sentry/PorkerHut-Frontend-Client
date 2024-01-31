@@ -1,6 +1,11 @@
 import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeGetRequest, makePostRequest, makePutRequest } from "../../../api";
+import {
+  api,
+  makeGetRequest,
+  makePostRequest,
+  makePutRequest,
+} from "../../../api";
 
 export const useCreateProduct = () => {
   return useQueryMutation({
@@ -22,7 +27,7 @@ export const useGetAllProducts = () => {
   });
 };
 
-export const useGetSingleProduct = (id: string | null) => {
+export const useGetSingleProduct = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.getSingleProduct(id)),
     queryKey: ["product +"],
@@ -33,12 +38,12 @@ export const useGetProductByVendor = (id: string | undefined) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.productByVendor(id)),
     queryKey: ["vendorProducts"],
-  })
-}
+  });
+};
 
 export const useGetApprovedProductByVendor = (id: string | undefined) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.productByVendorApproved(id)),
     queryKey: ["productByVendorApproved"],
-  })
-}
+  });
+};
