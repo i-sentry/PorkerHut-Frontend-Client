@@ -23,12 +23,13 @@ import { IUser } from "../../order-component/OrderCart";
 import {
   useDeleteFavorite,
   useFavoriteProduct,
-  useGetAllApprovedProducts,
+  useGetAllProducts,
   useGetFavProduct,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
 import RatingStars from "../../RatingStars";
+import { number } from "yup";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -36,7 +37,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   // @ts-ignore
   const { data: singleProduct, isLoading: loading } = useGetSingleProduct(id);
-  const { data: approvedProducts } = useGetAllApprovedProducts();
+  const { data: allProducts } = useGetAllProducts();
   const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   const checkIsFav = useGetFavProduct(StoredUser?._id, id);
   const navigate = useNavigate();
@@ -66,14 +67,28 @@ const ProductDetails = () => {
     }
   }, []);
 
-  console.log(StoredUser, "store user");
-  console.log(approvedProducts, "All Approved Products");
+  // console.log(StoredUser, "store user");
+  // console.log(allProducts, "All Products");
+
+  const filteredApprovedProduct = allProducts?.data?.filter(
+    (product: any) =>
+      product?.approvalStatus === "approved" &&
+      product?._id !== singleProduct?.data._id
+  );
+
+  const relatedProducts = filteredApprovedProduct?.filter(
+    (product: any) =>
+      product?.information?.subcategory.name ===
+      singleProduct?.data?.information?.subcategory?.name
+  );
+
+  console.log(singleProduct, relatedProducts, "All Related");
 
   let productID;
 
   if (!loading) productID = singleProduct?.data?._id;
 
-  console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
+  // console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
@@ -351,9 +366,16 @@ const ProductDetails = () => {
           </h1>
 
           <div className="grid grid-cols-2 md:grid-cols-4 w-full xxs:px-3 md:px-0 xxs:gap-4 ">
-            {chunkArray(productData, 8)[1 - 1].map((item) => (
-              <ProductCard item={item} key={item.id} />
-            ))}
+            {relatedProducts?.length >= 1 &&
+              chunkArray(relatedProducts, 8)[1 - 1]?.map(
+                (item: any, index: number) => (
+                  <ProductCard item={item} key={index} />
+                )
+              )}
+
+            {relatedProducts?.length < 1 && (
+              <p className="text-gray-500 px-4 mb-4">No Related Products yet</p>
+            )}
           </div>
         </div>
       </div>

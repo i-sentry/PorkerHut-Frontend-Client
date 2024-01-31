@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Filter from "../components/accordion-component/Accordion";
+// import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 
@@ -9,7 +9,7 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import ProductCard from "../components/featured-product-component/ProductCard";
 import { chunkArray } from "../helper/chunck";
 import AppLayout from "../components/utility/AppLayout";
-import { AiFillStar } from "react-icons/ai";
+// import { AiFillStar } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { useGetApprovedProductByVendor } from "../services/hooks/Vendor/products";
 import { LuSettings2 } from "react-icons/lu";
@@ -32,8 +32,8 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const { id } = useParams();
   const { store } = useParams();
   console.log(store, "letsGo");
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  // const [rating, setRating] = useState(0);
+  // const [hover, setHover] = useState(0);
   // const getAllProducts = useGetProductByVendor(id)
   const { data: getApprovedProducts } = useGetApprovedProductByVendor(id);
   const [data, setData] = useState([]);
@@ -68,7 +68,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
     // Filter the data based on selectedItems, city, and price range
     const newFilteredData = data.filter((item: any) => {
       const categoryMatch = lowerCaseSelectedItems.includes(
-        item?.information?.subcategory
+        item?.information?.subcategory?.name.toLowerCase()
       );
       const cityMatch = lowerCaseSelectedItems.includes(
         item.vendor.businessInformation.city.toLowerCase()
@@ -150,7 +150,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
               <div className="flex flex-col gap-4">
                 <div className="bg-white px-6 xxs:py-6 md:py-4 rounded-sm mx-4 mb-10 md:mb-0 md:mx-0">
                   <div className=" border-b">
-                    <h1 className="text-[18px] leading-[12px] font-medium pb-2 md:pb-0 mb-2">
+                    <h1 className="text-[18px] leading-[12px] font-medium pb-2 capitalize md:pb-0 mb-2">
                       {
                         getApprovedProducts?.data?.[0].vendor
                           ?.sellerAccountInformation?.shopName
@@ -162,7 +162,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                         {" "}
                         Location Covered:{" "}
                       </span>
-                      <span className="text-[16px] leading-[16px] font-normal text-[#333333] ">
+                      <span className="text-[16px] leading-[16px] font-normal capitalize text-[#333333] ">
                         {
                           getApprovedProducts?.data?.[0].vendor
                             ?.businessInformation?.city
@@ -275,7 +275,27 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   })}
                 </div>
               ) : (
-                <div>Fetching Data...{filteredData.length}</div>
+                <div className="flex flex-col items-center justify-center my-16">
+                  <svg
+                    className="w-12 h-12 text-gray-400"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
+                    <path
+                      d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                  <p className="mt-2 text-sm text-gray-500">
+                    No products available.
+                  </p>
+                </div>
               )}
 
               <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">

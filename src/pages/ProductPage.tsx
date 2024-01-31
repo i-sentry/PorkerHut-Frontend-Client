@@ -15,6 +15,7 @@ import Spinner from "../components/Spinner/Spinner";
 import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
+import { CgSpinnerAlt } from "react-icons/cg";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -37,7 +38,15 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const { data: getAllProducts, isLoading } = useGetAllProducts();
 
   // console.log({ menuItems }, "here");
-  useEffect(() => setData(getAllProducts?.data), [getAllProducts?.data]);
+  useEffect(
+    () =>
+      setData(
+        getAllProducts?.data?.filter(
+          (product: any) => product?.approvalStatus === "approved"
+        )
+      ),
+    [getAllProducts?.data]
+  );
   useEffect(() => {
     // Initialize filteredData with the original data when data changes
     setFilteredData(data);
@@ -257,7 +266,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center my-16">
-                    <svg
+                    {/* <svg
                       className="w-12 h-12 text-gray-400"
                       fill="none"
                       strokeLinecap="round"
@@ -275,7 +284,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </svg>
                     <p className="mt-2 text-sm text-gray-500">
                       No products available.
-                    </p>
+                    </p> */}
+
+                    <CgSpinnerAlt size={80} className="animate-spin" />
+                    <p className="mt-4">Fetching Products...</p>
                   </div>
                 )}
               </div>

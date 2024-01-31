@@ -16,7 +16,7 @@ interface ProductLocationState {
 }
 
 const ProductCard = ({ item }: ProductLocationState) => {
-  console.log({ item }, "item");
+  // console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
