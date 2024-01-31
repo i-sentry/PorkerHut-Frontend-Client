@@ -29,7 +29,6 @@ import {
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
 import RatingStars from "../../RatingStars";
-import { number } from "yup";
 
 const ProductDetails = () => {
   const location = useLocation();

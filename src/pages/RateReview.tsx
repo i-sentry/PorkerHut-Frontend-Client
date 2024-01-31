@@ -48,7 +48,7 @@ const RateReview = () => {
       .mutateAsync({
         productId: id as string,
         userId: userdata._id,
-        ratingValue: userRating,
+        ratingValue: 4, //add dynamically
         comment: ratingComment,
       })
       .then(() => {
