@@ -81,9 +81,23 @@ export const useCreateRating = () => {
   });
 };
 
+export const useGetAllProductRating = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Ratings.allRating(id)),
+    queryKey: ["userRating +"],
+  });
+};
+
 export const useGetAllRatingByUser = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Ratings.allRatingsByUser(id)),
     queryKey: ["userRating +"],
+  });
+};
+
+export const useGetRatingDetails = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Ratings.ratingDetails(id)),
+    queryKey: ["ratingDetails +"],
   });
 };
