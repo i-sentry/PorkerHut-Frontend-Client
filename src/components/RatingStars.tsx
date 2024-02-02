@@ -5,6 +5,7 @@ type StarRatingProp = {
   defaultRating?: number;
   iconSize: number;
   canRate: boolean;
+  onSetRating?: any;
 };
 
 const RatingStars: React.FC<StarRatingProp> = ({
@@ -12,6 +13,7 @@ const RatingStars: React.FC<StarRatingProp> = ({
   defaultRating,
   iconSize,
   canRate,
+  onSetRating,
 }) => {
   const [rating, setRating] = useState(defaultRating ?? 2);
   const [tempRating, setTempRating] = useState(0);
@@ -22,6 +24,7 @@ const RatingStars: React.FC<StarRatingProp> = ({
 
   function handleRating(rating: number) {
     setRating(rating);
+    onSetRating(rating);
   }
 
   return (

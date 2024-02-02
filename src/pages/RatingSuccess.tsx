@@ -1,16 +1,25 @@
-import Footer from "../components/footer-component/Footer";
-import NavBar from "../components/nav-component/NavBar";
-import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
+// import Footer from "../components/footer-component/Footer";
+// import NavBar from "../components/nav-component/NavBar";
+// import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 // @ts-ignore
 import StarGif from "../assets/ratingsuccess.gif";
 import { Link } from "react-router-dom";
+import { BsX } from "react-icons/bs";
 
-const RatingSuccess = () => {
+type RatingSuccessProps = {
+  modal: boolean;
+  setModal: any;
+};
+
+const RatingSuccess: React.FC<RatingSuccessProps> = ({ modal, setModal }) => {
   return (
     <>
-      <NavBar />
-      <section className="w-full bg-neutral-100 flex-col justify-[start_!important]  px-4 mx-auto pt-20 py-16">
-        <div className="flex mb-2">
+      <section
+        className={`w-full bg-black bg-opacity-50 h-screen fixed top-0 left-0 backdrop-blur-xl flex justify-center items-center duration-500 px-4 mx-auto pt-20 py-16 md:pt-48 cursor-pointer ${
+          modal ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* <div className="flex mb-2">
           <ProductsBreadCrumbs
             items={[
               {
@@ -31,8 +40,8 @@ const RatingSuccess = () => {
               },
             ]}
           />
-        </div>
-        <div className="w-full bg-white py-28 flex justify-center items-center">
+        </div> */}
+        <div className="w-full relative bg-white py-16 flex justify-center items-center rounded-xl lg:w-[700px]">
           <div className="flex flex-col justify-center items-center text-center p-8">
             <img
               src={StarGif}
@@ -49,9 +58,14 @@ const RatingSuccess = () => {
               Continue Shopping
             </Link>
           </div>
+          <button
+            className="flex gap-1 text-lg items-center absolute top-4 right-4 cursor-pointer"
+            onClick={() => setModal(false)}
+          >
+            <BsX size={24} /> close
+          </button>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

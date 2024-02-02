@@ -372,7 +372,7 @@ const MyOrderDetails = () => {
                 }
                 onClick={
                   order?.status !== "completed"
-                    ? () => null
+                    ? () => handleRate(selectedProduct?.productID?._id)
                     : () => handleRate(selectedProduct?.productID?._id)
                 }
                 className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
