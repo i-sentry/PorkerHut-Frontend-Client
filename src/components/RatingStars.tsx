@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdStarOutline } from "react-icons/io";
 type StarRatingProp = {
   maxRating: number;
@@ -15,6 +15,10 @@ const RatingStars: React.FC<StarRatingProp> = ({
 }) => {
   const [rating, setRating] = useState(defaultRating ?? 2);
   const [tempRating, setTempRating] = useState(0);
+
+  useEffect(() => {
+    setRating(defaultRating ?? 2);
+  }, [defaultRating]);
 
   function handleRating(rating: number) {
     setRating(rating);

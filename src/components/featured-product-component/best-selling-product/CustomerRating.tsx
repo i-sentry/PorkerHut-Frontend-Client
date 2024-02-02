@@ -215,6 +215,7 @@ const CustomerRating = () => {
                   canRate={false}
                 />
                 <div>
+                  defaultRating={review?.rating}
                   <span className=" text-sm">{review?.comment}</span>
                 </div>
               </div>
