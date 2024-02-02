@@ -136,7 +136,10 @@ const CustomerRating = () => {
   const storedUser = JSON.parse(localStorage.getItem("user") as string);
   // const { data: ratings, isLoading } = useGetAllProductRating(id as string);
   const { data: ratingDetails, isLoading } = useGetRatingDetails(id as string);
+
   const [data, setData] = useState<any>({});
+  const [ratingCard, setRatingCard] = useState<any>([]);
+
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
@@ -144,6 +147,9 @@ const CustomerRating = () => {
   // const menuItems = [...new Set(ratingData.map((d: any) => d.category))];
   const allProductRatings = ratingDetails?.data?.ratingStatistics[0];
   useEffect(() => setData(allProductRatings), [allProductRatings]);
+  useEffect(() => {
+    setRatingCard(allProductRatings?.ratings);
+  }, [allProductRatings?.ratings]);
 
   console.log(allProductRatings, "User, All Ratings");
   console.log(ratingDetails, "Product Rating Details");
@@ -172,14 +178,19 @@ const CustomerRating = () => {
           ]}
         />
         <div className="py-2 pt-8">
-          <StarRating rating={0} data={data} />
+          <StarRating
+            rating={0}
+            data={data}
+            dataCard={ratingCard}
+            setData={setRatingCard}
+          />
         </div>
 
         <div className="md:grid md:gap-4 md:grid-cols-3 md:mt-5 bg-white px-6 py-6">
           {isLoading && <SkeletonLoader />}
 
           {data &&
-            data?.ratings?.map((review: any, index: number) => (
+            ratingCard?.map((review: any, index: number) => (
               <div
                 key={index}
                 className="bg-[#F4F4F4] p-4 flex flex-col gap-3 rounded-sm xxs:mb-4 md:mb-0"
@@ -207,7 +218,7 @@ const CustomerRating = () => {
                   <span className=" text-sm">{review?.comment}</span>
                 </div>
               </div>
-            ))}      
+            ))}
         </div>
       </div>
 
