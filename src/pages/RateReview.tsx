@@ -15,6 +15,7 @@ import { SelectOptionType } from "./VetPartnerMobileFormA";
 import RatingWidget from "../components/RatingWidget";
 import RatingStars from "../components/RatingStars";
 import { toast } from "react-toastify";
+import RatingSuccess from "./RatingSuccess";
 
 const RateReview = () => {
   const { id } = useParams();
@@ -30,6 +31,7 @@ const RateReview = () => {
   const avgRating = singleProduct?.data?.avgRating;
   console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState<number>();
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleRatingChange = (newRating: number) => {
     setUserRating(newRating);
@@ -54,9 +56,7 @@ const RateReview = () => {
       })
       .then(() => {
         setLoading(false);
-        navigate(`/rate_success`, {
-          replace: true,
-        });
+        setModal(true);
       })
       .catch(() => {
         setLoading(false);
@@ -230,6 +230,8 @@ const RateReview = () => {
             </div>
           </div>
         </div>
+
+        <RatingSuccess modal={modal} setModal={setModal} />
       </section>
     </AppLayout>
   );
