@@ -64,6 +64,8 @@ export const api = {
     AddNew: "/api/ratings/add",
     RatingStat: (productId: string | undefined) =>
       `/products/${productId}/rating-stats`,
+    ratingDetails: (productId: string | undefined) =>
+      `/api/ratings/products/${productId}/details`,
   },
   Vets: {
     createVet: "/api/vets",

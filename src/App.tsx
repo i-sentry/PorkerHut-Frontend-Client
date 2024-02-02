@@ -120,7 +120,7 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/product/:id" element={<ProductDetails />} />
-      <Route path="/customer-ratings" element={<CustomerRating />} />
+      <Route path="/product/rating/:id" element={<CustomerRating />} />
 
       <Route
         path="/category/:id"
@@ -141,7 +141,7 @@ const router = createBrowserRouter(
       <Route path="/pay-card" element={<PayOption />} />
       <Route path="/order+cancel" element={<OrderCancel />} />
 
-      <Route path="/rating" element={<RatingCard />} />
+      {/* <Route path="/rating" element={<RatingCard />} /> */}
       <Route path="/tracking+order" element={<OrderTracking />} />
       <Route path="/return+order" element={<ReturnOrder />} />
       <Route path="/payment-success" element={<PaymentSuccessPage />} />
