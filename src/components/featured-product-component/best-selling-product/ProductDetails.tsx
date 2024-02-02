@@ -9,7 +9,7 @@ import {
 import StarRating from "./ProductDetailRating";
 import RatingCard from "./RatingCard";
 import ProductsBreadCrumbs from "../../story-components/ProductsBreadCrumbs";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { addProductToCart } from "../../../redux/features/product/productSlice";
 import AppLayout from "../../utility/AppLayout";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,7 @@ import {
   useFavoriteProduct,
   useGetAllProducts,
   useGetFavProduct,
+  useGetRatingDetails,
 } from "../../../services/hooks/users/products";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
@@ -36,12 +37,24 @@ const ProductDetails = () => {
   const { id } = useParams();
   // @ts-ignore
   const [productID, setProductID] = useState<string | undefined>(id);
+  const [data, setData] = useState<any>({});
+  const [ratingCard, setRatingCard] = useState<any>([]);
   useEffect(() => setProductID(id), [id]);
 
   const { data: singleProduct, isLoading: loading } = useGetSingleProduct(
     productID as string
   );
   const { data: allProducts } = useGetAllProducts();
+  const { data: ratingDetails } = useGetRatingDetails(id as string);
+  const allProductRatings = ratingDetails?.data?.ratingStatistics[0];
+
+  useEffect(() => {
+    setData(allProductRatings);
+  }, [allProductRatings]);
+  useEffect(() => {
+    setRatingCard(allProductRatings?.ratings);
+  }, [allProductRatings?.ratings]);
+
   const StoredUser = JSON.parse(localStorage.getItem("user") as string);
   const checkIsFav = useGetFavProduct(StoredUser?._id, id);
   const navigate = useNavigate();
@@ -355,11 +368,32 @@ const ProductDetails = () => {
                 Product Reviews
               </AccordionHeader>
               <AccordionBody>
-                <StarRating rating={0} />
+                {!data && (
+                  <div className="">
+                    No reviews have been added yet for this product. Check out
+                    other{" "}
+                    <Link
+                      to="/products"
+                      className="text-green-500 underline capitalize font-medium"
+                    >
+                      products
+                    </Link>
+                  </div>
+                )}
+                {data && (
+                  <div>
+                    <StarRating
+                      rating={0}
+                      data={data}
+                      dataCard={ratingCard}
+                      setData={setRatingCard}
+                    />
 
-                <div>
-                  <RatingCard id={item?.id} />
-                </div>
+                    <div>
+                      <RatingCard id={productID} data={ratingCard} />
+                    </div>
+                  </div>
+                )}
               </AccordionBody>
             </Accordion>
           </Fragment>

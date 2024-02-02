@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaRegStar } from "react-icons/fa6";
 import { IoMdStarOutline } from "react-icons/io";
 type StarRatingProp = {
   maxRating: number;
@@ -14,7 +13,7 @@ const RatingStars: React.FC<StarRatingProp> = ({
   iconSize,
   canRate,
 }) => {
-  const [rating, setRating] = useState(defaultRating || 2);
+  const [rating, setRating] = useState(defaultRating ?? 2);
   const [tempRating, setTempRating] = useState(0);
 
   function handleRating(rating: number) {
