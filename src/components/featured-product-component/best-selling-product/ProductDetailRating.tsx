@@ -24,7 +24,7 @@ const StarRating: React.FC<{
 
   return (
     <>
-      <div className="md:flex md:items-center gap-10 xxs:hidden">
+      <div className="md:flex md:items-center gap-10 hidden">
         <div className="flex flex-col justify-center">
           <h1 className="text-neutral-500 font-medium whitespace-nowrap">
             Customer Reviews
@@ -156,13 +156,13 @@ const StarRating: React.FC<{
           </div>
         </div>
       </div>
-      <div className="w-full mt-14 flex justify-between items-center">
-        <p className="text-neutral-500 text-sm">
+      <div className="w-full hidden mt-14 md:flex  justify-between items-center">
+        <p className="text-neutral-500 text-sm w-2/3">
           Thank you very much for the reviews! These are actual, unfiltered and
           real reviews from our customers.
         </p>
 
-        <div className="inline-flex items-center">
+        <div className="inline-flex items-start w-1/3 justify-end">
           <span>Sort by:&nbsp;</span>
           <RatingSort data={dataCard} setData={setData} />
         </div>

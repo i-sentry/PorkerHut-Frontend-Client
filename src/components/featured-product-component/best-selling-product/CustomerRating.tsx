@@ -140,7 +140,7 @@ const CustomerRating = () => {
   const [data, setData] = useState<any>({});
   const [ratingCard, setRatingCard] = useState<any>([]);
 
-  let itemsPerPage = 20;
+  let itemsPerPage = 8;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
@@ -186,9 +186,9 @@ const CustomerRating = () => {
           />
         </div>
 
-        <div className="md:grid md:gap-4 md:grid-cols-3 md:mt-5 bg-white px-6 py-6">
+        <div className="md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-3 md:mt-5 bg-white px-6 py-6">
           {isLoading && <SkeletonLoader />}
-
+          {/* 
           {data &&
             ratingCard?.map((review: any, index: number) => (
               <div
@@ -219,11 +219,44 @@ const CustomerRating = () => {
                   <span className=" text-sm">{review?.comment}</span>
                 </div>
               </div>
-            ))}
+            ))} */}
+
+          {data &&
+            chunkArray(ratingCard, itemsPerPage)[currentPageIndex - 1]?.map(
+              (review: any, index: number) => (
+                <div
+                  key={index}
+                  className="bg-[#F4F4F4] p-4 flex flex-col gap-3 rounded-sm xxs:mb-4 md:mb-0"
+                >
+                  <div className="flex justify-between">
+                    <div className="items-center flex gap-2">
+                      <MdMessage size={20} />
+                      <h1 className="inline">
+                        {`${review?.userDetails?.firstName} ${review?.userDetails?.lastName}`}
+                      </h1>
+                    </div>
+                    <div>
+                      <span className="text-[#040303] text-xs">
+                        {moment(review?.created_at).format("DD-MM-YYYY")}
+                      </span>
+                    </div>
+                  </div>
+                  <RatingStars
+                    maxRating={5}
+                    defaultRating={review?.rating}
+                    iconSize={24}
+                    canRate={false}
+                  />
+                  <div>
+                    <span className=" text-sm">{review?.comment}</span>
+                  </div>
+                </div>
+              )
+            )}
         </div>
       </div>
 
-      <div className="flex items-center justify-center bg-[#EEEEEE] gap-1 bg- px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 mt-6 mb-10">
         <button
           onClick={() =>
             currentPageIndex !== 1
@@ -232,24 +265,24 @@ const CustomerRating = () => {
           }
           className={
             (currentPageIndex === 1 ? "no-item" : "") +
-            " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
+            " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
           }
         >
-          <RxCaretLeft size={16} />
+          <RxCaretLeft size={22} />
         </button>
         <div className="pagination flex gap-1 items-center">
-          {chunkArray(data, itemsPerPage).map((_, index) => {
+          {chunkArray(ratingCard, itemsPerPage).map((_, index) => {
             return (
               <button
                 key={index}
                 onClick={() => setCurrentPageIndex(index + 1)}
-                className={` border-2   border-[#A2A2A2]  ${
+                className={` border   border-[#A2A2A2]  ${
                   currentPageIndex === index + 1
-                    ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                    : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                    ? "active-page-index    rounded-lg text-white border-[#197B30] bg-[#197b30]"
+                    : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
                 }`}
               >
-                {index + 1}
+                <span className="text-sm px-1.5">{index + 1}</span>
               </button>
             );
           })}
@@ -257,18 +290,20 @@ const CustomerRating = () => {
 
         <button
           onClick={() =>
-            currentPageIndex !== chunkArray(data, itemsPerPage).length
+            currentPageIndex !== chunkArray(ratingCard, itemsPerPage).length
               ? setCurrentPageIndex(currentPageIndex + 1)
               : null
           }
           className={
-            (currentPageIndex === chunkArray(data, itemsPerPage).length
+            (currentPageIndex === chunkArray(ratingCard, itemsPerPage).length
               ? "no-items"
               : "") +
-            " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
+            " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
           }
         >
-          <RxCaretRight size={16} />
+          <span className="">
+            <RxCaretRight size={22} />
+          </span>
         </button>
       </div>
 
