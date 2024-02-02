@@ -14,6 +14,7 @@ import CustomSelect from "../components/utility/CustomSelect";
 import { SelectOptionType } from "./VetPartnerMobileFormA";
 import RatingWidget from "../components/RatingWidget";
 import RatingStars from "../components/RatingStars";
+import { toast } from "react-toastify";
 
 const RateReview = () => {
   const { id } = useParams();
@@ -28,12 +29,12 @@ const RateReview = () => {
   const _name = `${userdata?.firstName} ${userdata?.lastName}`;
   const avgRating = singleProduct?.data?.avgRating;
   console.log(avgRating, "avgRating");
-  const [userRating, setUserRating] = useState(avgRating as number);
+  const [userRating, setUserRating] = useState<number>();
 
-  // const handleRatingChange = (value: number) => {
-  //   console.log(value, "value");
-  //   setUserRating(value);
-  // };
+  const handleRatingChange = (newRating: number) => {
+    setUserRating(newRating);
+    console.log(newRating, "newRating");
+  };
 
   const createRating = useCreateRating();
   const navigate = useNavigate();
@@ -48,11 +49,14 @@ const RateReview = () => {
       .mutateAsync({
         productId: id as string,
         userId: userdata._id,
-        ratingValue: 4, //add dynamically
+        ratingValue: userRating as number, //add dynamically
         comment: ratingComment,
       })
       .then(() => {
         setLoading(false);
+        navigate(`/rate_success`, {
+          replace: true,
+        });
       })
       .catch(() => {
         setLoading(false);
@@ -152,7 +156,12 @@ const RateReview = () => {
               onChange={(value) => console.log(value)}
               defaultValue={3}
             /> */}
-            <RatingStars maxRating={5} iconSize={32} canRate={true} />
+            <RatingStars
+              maxRating={5}
+              iconSize={32}
+              canRate={true}
+              onSetRating={handleRatingChange}
+            />
             {/* FORM */}
             <div className="w-full mt-8">
               <form id="rating" onSubmit={initiateCreateRating}>
