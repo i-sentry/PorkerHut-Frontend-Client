@@ -50,6 +50,64 @@ const NavBar = () => {
 
   const showSearch = useSearchStore((state) => state.showSearch);
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
+
+  const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+  const SESSION_KEY = "accessToken";
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkSession = () => {
+      try {
+        const storedSession = localStorage.getItem(SESSION_KEY);
+
+        if (storedSession) {
+          const storedTimestamp = parseInt(storedSession, 10);
+          const currentTime = new Date().getTime();
+          const sessionExpired =
+            currentTime - storedTimestamp > SESSION_DURATION;
+
+          if (!sessionExpired) {
+            setIsLoggedIn(true);
+          } else {
+            // Session has expired, logout the user
+            handleLogout();
+            // Optionally, inform the user about the session expiry
+            alert("Your session has expired. Please log in again.");
+          }
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+        // Handle the error (e.g., log it, show a user-friendly message)
+      }
+    };
+
+    checkSession();
+  }, []);
+
+  // const handleLogin = () => {
+  //   try {
+  //     const currentTimestamp = new Date().getTime();
+  //     localStorage.setItem(SESSION_KEY, currentTimestamp.toString());
+  //     setIsLoggedIn(true);
+  //   } catch (error) {
+  //     console.error("Error during login:", error);
+  //     // Handle the error (e.g., log it, show a user-friendly message)
+  //   }
+  // };
+
+  // const handleLogout = () => {
+  //   try {
+  //     localStorage.removeItem(SESSION_KEY);
+  //     setIsLoggedIn(false);
+  //   } catch (error) {
+  //     console.error("Error during logout:", error);
+  //     // Handle the error (e.g., log it, show a user-friendly message)
+  //   }
+  // };
+
   const handleClickOutsideDropdown = (e: any) => {
     if (open && dropdownRef.current?.contains(e.target as Node)) {
       setOpen(true);
