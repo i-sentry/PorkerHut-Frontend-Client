@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { IoMdStarOutline } from "react-icons/io";
-import Sort from "../../accordion-component/Sort";
+//@ts-ignore
 import RatingSort from "../../accordion-component/RatingSort";
 
 const StarRating: React.FC<{

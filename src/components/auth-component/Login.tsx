@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -16,7 +16,7 @@ interface ILoginProps {
 }
 const Login = () => {
   const [eyeState, setEyeState] = useState(false);
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isError, setIsError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,8 +32,12 @@ const navigate = useNavigate()
   const [val, setVal] = useState(false);
   const onSubmit = handleSubmit((data, e) => {
     setLoading(true);
+    const { email, password } = data;
     login
-      .mutateAsync(data)
+      .mutateAsync({
+        email: email.toLowerCase(),
+        password: password,
+      })
       .then((res) => {
         setLoading(false);
         // dispatch(
@@ -187,7 +191,6 @@ const navigate = useNavigate()
                     >
                       Forgot Password?
                     </Link>
-
                   </div>
                 </div>
                 <div className="mt-10">
