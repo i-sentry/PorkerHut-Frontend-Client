@@ -16,7 +16,8 @@ import { Tooltip } from "../../components/utility/ToolTip";
 import AppLayout from "../../components/utility/AppLayout";
 import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
-import { BsFillXCircleFill, BsXCircleFill } from "react-icons/bs";
+// import { BsFillXCircleFill, BsXCircleFill } from "react-icons/bs";
+import { CgSpinnerAlt } from "react-icons/cg";
 // import OtherOrdersTable from "../../components/OtherOrdersTable";
 
 // const columns = [
@@ -32,7 +33,7 @@ const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const handleOnclose = () => setShowModal(false);
   const { id } = useParams();
-  const { data, error, isLoading } = useGetOrdersById(id as string);
+  const { data, isLoading } = useGetOrdersById(id as string);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   console.log(data?.data?.order, "hyunmdhdhf");
 
@@ -131,426 +132,458 @@ const MyOrderDetails = () => {
           </span>
         </div>
 
+        {isLoading && (
+          <div className="flex flex-col justify-center items-center py-20">
+            <CgSpinnerAlt size={80} className="animate-spin" />
+            <p className="mt-4">Fetching data...</p>
+          </div>
+        )}
+
         {/* NEW CARDS FOR MOBILE */}
-        <div className="flex flex-col gap-6 lg:hidden">
-          <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-            <div className="flex gap-2 w-[70%]">
-              <img
-                src={productImg}
-                className="w-10 h-10 rounded-full object-cover"
-                alt=""
-              />
-              <div className="flex-1">
-                <h3 className="text-zinc-800 text-sm font-semibold mb-1">
-                  {selectedProduct?.productID.information.productName}
-                  &nbsp;(
-                  {selectedProduct?.productID.details.productWeight}kg)
-                </h3>
-                <span className="text-neutral-500 text-sm block mb-2">
-                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
-                </span>
-                <span className="text-zinc-800 text-sm font-normal block">
-                  ₦{selectedProduct?.price.toLocaleString()}
-                </span>
-              </div>
-            </div>
-            <ul className="w-[80px]">
-              <li className="text-zinc-800 text-[13px] font-normal text-right">
-                {moment(order?.orderDate).format("DD MMM YYYY")}
-              </li>
-              <li className="opacity-0">blank</li>
-              <li className="text-zinc-800 text-sm font-normal text-right">
-                X{selectedProduct?.quantity}
-              </li>
-            </ul>
-
-            <div className="border-t flex justify-between w-full mt-9 pt-8">
-              <ul className="flex flex-col gap-2">
-                <li className="text-zinc-400 text-sm font-normal">Subtotal</li>
-                <li className="text-zinc-400 text-sm font-normal">VAT</li>
-                <li className="text-zinc-400 text-sm font-normal">
-                  Delivery Fee
-                </li>
-                <li className="text-zinc-800 text-sm font-medium">Total</li>
-              </ul>
-              <ul className="flex flex-col gap-2 text-right">
-                <li className="text-zinc-400 text-sm font-normal">
-                  ₦{order?.subtotal.toLocaleString()}
-                </li>
-                <li className="text-zinc-400 text-sm font-normal">-</li>
-                <li className="text-zinc-400 text-sm font-normal">-</li>
-                <li className="text-zinc-800 text-sm font-normal">
-                  ₦{order?.totalAmount.toLocaleString()}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-            <div className="flex justify-between w-full">
-              <ul className="flex flex-col gap-2">
-                <li className="text-zinc-800 text-sm font-normal">Order ID</li>
-                <li className="text-zinc-800 text-sm font-normal">
-                  Store Location
-                </li>
-                <li className="text-zinc-800 text-sm font-normal">
-                  Delivery date
-                </li>
-                <li className="text-zinc-800 text-sm font-normal">Payment</li>
-                <li className="text-zinc-800 text-sm font-normal">Status</li>
-              </ul>
-              <ul className="flex flex-col gap-2 text-right">
-                <li
-                  className="text-zinc-800 text-sm font-normal"
-                  title={order?._id}
-                >
-                  {order?._id.slice(-7)}
-                </li>
-                <li className="text-zinc-800 text-sm font-normal">
-                  {selectedProduct?.vendor.businessInformation.city}
-                </li>
-                <li className="text-zinc-800 text-sm font-normal">-</li>
-                <li className="text-zinc-800 text-sm font-normal">
-                  ₦{order?.totalAmount.toLocaleString()}
-                </li>
-                <li>
-                  <span className={`text-neutral-400 text-sm ${status}`}>
-                    {order?.status}
+        {data && (
+          <div className="flex flex-col gap-6 lg:hidden">
+            <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+              <div className="flex gap-2 w-[70%]">
+                <img
+                  src={productImg}
+                  className="w-10 h-10 rounded-full object-cover"
+                  alt=""
+                />
+                <div className="flex-1">
+                  <h3 className="text-zinc-800 text-sm font-semibold mb-1">
+                    {selectedProduct?.productID.information.productName}
+                    &nbsp;(
+                    {selectedProduct?.productID.details.productWeight}kg)
+                  </h3>
+                  <span className="text-neutral-500 text-sm block mb-2">
+                    {selectedProduct?.vendor.sellerAccountInformation.shopName}
                   </span>
+                  <span className="text-zinc-800 text-sm font-normal block">
+                    ₦{selectedProduct?.price.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+              <ul className="w-[80px]">
+                <li className="text-zinc-800 text-[13px] font-normal text-right">
+                  {moment(order?.orderDate).format("DD MMM YYYY")}
+                </li>
+                <li className="opacity-0">blank</li>
+                <li className="text-zinc-800 text-sm font-normal text-right">
+                  X{selectedProduct?.quantity}
                 </li>
               </ul>
-            </div>
-          </div>
-          <div className="flex justify-between flex-wrap bg-white rounded-lg py-6 px-4">
-            <div className="w-11/12">
-              <p className="text-zinc-800 text-[13px] font-medium mb-2">
-                {order?.customer?.firstName} {order?.customer.lastName}
-              </p>
-              <p className="text-neutral-500 text-[13px] font-normal mb-1 ">
-                {order?.billingInformation.address}
-              </p>
-              <p className="text-neutral-500 text-[13px] font-normal mb-1">
-                {order?.billingInformation?.phoneNumber}
-              </p>
-              <p className="text-neutral-500 text-[13px] font-normal mb-1">
-                {order?.customer.email}
-              </p>
-            </div>
-            <MdOutlinePersonPinCircle size={20} />
-            <div className="relative w-full">
-              <button
-                onClick={
-                  order?.status !== "completed"
-                    ? () => {
-                        setShowInfo(true);
-                        setTimeout(() => setShowInfo(false), 2000);
-                      }
-                    : () => handleRate(selectedProduct?.productID?._id)
-                }
-                className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
-              >
-                Rate Product
-              </button>
-              <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
-                Return Order
-              </button>
-              {/* RATE PRODUCT POP INFO */}
-              <div
-                className={`bg-neutral-300 flex items-center gap-1 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
-                  showInfo && "opacity-100"
-                }`}
-              >
-                You can't rate, kindly complete your order
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-zinc-800 text-lg font-semibold font-['Roboto'] mt-[40] mb-4">
-              Other Items in Your Order
-            </h3>
 
-            {otherItems?.map((item: any, index: any) => (
-              <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-                <div className="flex gap-2 w-[70%]">
-                  <img
-                    src={item?.productID.images[0]}
-                    className="w-10 h-10 rounded-full object-cover"
-                    alt=""
-                  />
-                  <div className="flex-1">
-                    <h3
-                      className="text-zinc-800 text-sm font-semibold mb-1 cursor-pointer"
-                      onClick={() => handleViewOrder(index)}
-                    >
-                      {item?.productID.information.productName}
-                      &nbsp;(
-                      {item?.productID.details.productWeight}
-                      kg)
-                    </h3>
-                    <span className="text-neutral-500 text-sm block mb-2">
-                      {item?.vendor.sellerAccountInformation.shopName}
-                    </span>
-                    <span className={`text-neutral-400 text-sm ${status}`}>
-                      {item?._status}
-                    </span>
-                  </div>
-                </div>
-                <ul className="w-[80px] flex flex-col justify-between">
-                  <li className="text-zinc-800 text-[13px] font-normal text-right">
-                    {moment(item?.orderDate).format("DD MMM YYYY")}
+              <div className="border-t flex justify-between w-full mt-9 pt-8">
+                <ul className="flex flex-col gap-2">
+                  <li className="text-zinc-400 text-sm font-normal">
+                    Subtotal
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal text-right">
-                    X{item?.quantity}
+                  <li className="text-zinc-400 text-sm font-normal">VAT</li>
+                  <li className="text-zinc-400 text-sm font-normal">
+                    Delivery Fee
+                  </li>
+                  <li className="text-zinc-800 text-sm font-medium">Total</li>
+                </ul>
+                <ul className="flex flex-col gap-2 text-right">
+                  <li className="text-zinc-400 text-sm font-normal">
+                    ₦{order?.subtotal.toLocaleString()}
+                  </li>
+                  <li className="text-zinc-400 text-sm font-normal">-</li>
+                  <li className="text-zinc-400 text-sm font-normal">-</li>
+                  <li className="text-zinc-800 text-sm font-normal">
+                    ₦{order?.totalAmount.toLocaleString()}
                   </li>
                 </ul>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* NEW CARD STACKS FOR DESKTOP */}
-        <div className="hidden lg:flex justify-between flex-wrap gap-5">
-          <div
-            className="w-1/4 h-[200px] rounded-lg"
-            style={{
-              backgroundImage: `url('${productImg}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></div>
-          <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
-              <MdOutlineStorefront size={20} />
-              <span className="text-neutral-400 text-sm">Abuja</span>
             </div>
-            <div className="flex justify-between mt-16">
-              <div>
-                <div className="text-neutral-400 text-sm">Store Name</div>
-                <span className="text-zinc-800 text-base">
-                  {selectedProduct?.vendor.sellerAccountInformation.shopName}
-                </span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Order ID</div>
-                <span className="text-zinc-800 text-base" title={order?._id}>
-                  {order?._id.slice(-7)}
-                </span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Product Name</div>
-                <span className="text-zinc-800 text-base">
-                  {selectedProduct?.productID.information.productName}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between relative">
-              <div className="flex items-start gap-1">
-                <MdPersonOutline size={20} className="mt-1" />
-                <div className="">
-                  <span className="block text-zinc-800 text-base font-normal">
-                    {order?.customer?.firstName}
-                  </span>
-                  <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
-                    Order Date: &nbsp;
-                    <span className="text-[#333333]">
-                      {moment(order?.orderDate).format("DD MMMM YYYY")}
+            <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+              <div className="flex justify-between w-full">
+                <ul className="flex flex-col gap-2">
+                  <li className="text-zinc-800 text-sm font-normal">
+                    Order ID
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal">
+                    Store Location
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal">
+                    Delivery date
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal">Payment</li>
+                  <li className="text-zinc-800 text-sm font-normal">Status</li>
+                </ul>
+                <ul className="flex flex-col gap-2 text-right">
+                  <li
+                    className="text-zinc-800 text-sm font-normal"
+                    title={order?._id}
+                  >
+                    {order?._id.slice(-7)}
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal">
+                    {selectedProduct?.vendor.businessInformation.city}
+                  </li>
+                  <li className="text-zinc-800 text-sm font-normal">-</li>
+                  <li className="text-zinc-800 text-sm font-normal">
+                    ₦{order?.totalAmount.toLocaleString()}
+                  </li>
+                  <li>
+                    <span className={`text-neutral-400 text-sm ${status}`}>
+                      {order?.status}
                     </span>
-                  </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-between flex-wrap bg-white rounded-lg py-6 px-4">
+              <div className="w-11/12">
+                <p className="text-zinc-800 text-[13px] font-medium mb-2">
+                  {order?.customer?.firstName} {order?.customer.lastName}
+                </p>
+                <p className="text-neutral-500 text-[13px] font-normal mb-1 ">
+                  {order?.billingInformation.address}
+                </p>
+                <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                  {order?.billingInformation?.phoneNumber}
+                </p>
+                <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                  {order?.customer.email}
+                </p>
+              </div>
+              <MdOutlinePersonPinCircle size={20} />
+              <div className="relative w-full">
+                <button
+                  onClick={
+                    order?.status !== "completed"
+                      ? () => {
+                          setShowInfo(true);
+                          setTimeout(() => setShowInfo(false), 2000);
+                        }
+                      : () => handleRate(selectedProduct?.productID?._id)
+                  }
+                  className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
+                >
+                  Rate Product
+                </button>
+                <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
+                  Return Order
+                </button>
+                {/* RATE PRODUCT POP INFO */}
+                <div
+                  className={`bg-neutral-300 flex items-center gap-1 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                    showInfo && "opacity-100"
+                  }`}
+                >
+                  You can't rate, kindly complete your order
                 </div>
               </div>
-              <button
-                onMouseEnter={
-                  order?.status !== "completed"
-                    ? () => setShowInfo(true)
-                    : () => null
-                }
-                onMouseLeave={
-                  order?.status !== "completed"
-                    ? () => setShowInfo(false)
-                    : () => null
-                }
-                onClick={
-                  order?.status !== "completed"
-                    ? () => handleRate(selectedProduct?.productID?._id)
-                    : () => handleRate(selectedProduct?.productID?._id)
-                }
-                className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
-              >
-                Rate This Product
-              </button>
+            </div>
+            <div>
+              <h3 className="text-zinc-800 text-lg font-semibold font-['Roboto'] mt-[40] mb-4">
+                Other Items in Your Order
+              </h3>
 
-              {/* RATE PRODUCT POP INFO */}
+              {otherItems?.map((item: any, index: any) => (
+                <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
+                  <div className="flex gap-2 w-[70%]">
+                    <img
+                      src={item?.productID.images[0]}
+                      className="w-10 h-10 rounded-full object-cover"
+                      alt=""
+                    />
+                    <div className="flex-1">
+                      <h3
+                        className="text-zinc-800 text-sm font-semibold mb-1 cursor-pointer"
+                        onClick={() => handleViewOrder(index)}
+                      >
+                        {item?.productID.information.productName}
+                        &nbsp;(
+                        {item?.productID.details.productWeight}
+                        kg)
+                      </h3>
+                      <span className="text-neutral-500 text-sm block mb-2">
+                        {item?.vendor.sellerAccountInformation.shopName}
+                      </span>
+                      <span className={`text-neutral-400 text-sm ${status}`}>
+                        {item?._status}
+                      </span>
+                    </div>
+                  </div>
+                  <ul className="w-[80px] flex flex-col justify-between">
+                    <li className="text-zinc-800 text-[13px] font-normal text-right">
+                      {moment(item?.orderDate).format("DD MMM YYYY")}
+                    </li>
+                    <li className="text-zinc-800 text-sm font-normal text-right">
+                      X{item?.quantity}
+                    </li>
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* NEW CARD STACKS FOR DESKTOP */}
+
+        {data && (
+          <>
+            <div className="hidden lg:flex justify-between flex-wrap gap-5">
               <div
-                className={`bg-white flex gap-1 items-center opacity-0 border border-neutral-200 duration-300 shadow-lg rounded-lg p-4 absolute -top-16 right-3 after:block after:border-[10px] after:border-t-white after:w-0 after:border-b-transparent z-20 after:z-0 after:absolute after:-bottom-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
-                  showInfo && "opacity-100"
-                }`}
-              >
-                You can't rate, kindly complete your order
+                className="w-1/4 h-[200px] rounded-lg"
+                style={{
+                  backgroundImage: `url('${productImg}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+                <div className="flex justify-between">
+                  <MdOutlineStorefront size={20} />
+                  <span className="text-neutral-400 text-sm">Abuja</span>
+                </div>
+                <div className="flex justify-between mt-16">
+                  <div>
+                    <div className="text-neutral-400 text-sm">Store Name</div>
+                    <span className="text-zinc-800 text-base">
+                      {
+                        selectedProduct?.vendor.sellerAccountInformation
+                          .shopName
+                      }
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-neutral-400 text-sm">Order ID</div>
+                    <span
+                      className="text-zinc-800 text-base"
+                      title={order?._id}
+                    >
+                      {order?._id.slice(-7)}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-neutral-400 text-sm">Product Name</div>
+                    <span className="text-zinc-800 text-base">
+                      {selectedProduct?.productID.information.productName}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex justify-between mt-3">
-              <div>
-                <span className="text-neutral-400 text-sm font-normal">
-                  Phone
-                </span>
-                <span className="text-zinc-800 text-base block">
-                  {order?.billingInformation?.phoneNumber}
-                </span>
+              <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+                <div className="flex justify-between relative">
+                  <div className="flex items-start gap-1">
+                    <MdPersonOutline size={20} className="mt-1" />
+                    <div className="">
+                      <span className="block text-zinc-800 text-base font-normal">
+                        {order?.customer?.firstName}
+                      </span>
+                      <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
+                        Order Date: &nbsp;
+                        <span className="text-[#333333]">
+                          {moment(order?.orderDate).format("DD MMMM YYYY")}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onMouseEnter={
+                      order?.status !== "completed"
+                        ? () => setShowInfo(true)
+                        : () => null
+                    }
+                    onMouseLeave={
+                      order?.status !== "completed"
+                        ? () => setShowInfo(false)
+                        : () => null
+                    }
+                    onClick={
+                      order?.status !== "completed"
+                        ? () => handleRate(selectedProduct?.productID?._id)
+                        : () => handleRate(selectedProduct?.productID?._id)
+                    }
+                    className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
+                  >
+                    Rate This Product
+                  </button>
+
+                  {/* RATE PRODUCT POP INFO */}
+                  <div
+                    className={`bg-white flex gap-1 items-center opacity-0 border border-neutral-200 duration-300 shadow-lg rounded-lg p-4 absolute -top-16 right-3 after:block after:border-[10px] after:border-t-white after:w-0 after:border-b-transparent z-20 after:z-0 after:absolute after:-bottom-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                      showInfo && "opacity-100"
+                    }`}
+                  >
+                    You can't rate, kindly complete your order
+                  </div>
+                </div>
+                <div className="flex justify-between mt-3">
+                  <div>
+                    <span className="text-neutral-400 text-sm font-normal">
+                      Phone
+                    </span>
+                    <span className="text-zinc-800 text-base block">
+                      {order?.billingInformation?.phoneNumber}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-neutral-400 text-sm font-normal">
+                      Email
+                    </span>
+                    <span className="text-zinc-800 text-base block">
+                      {order?.customer.email}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <span className="text-neutral-400 text-sm font-normal">
-                  Email
-                </span>
-                <span className="text-zinc-800 text-base block">
-                  {order?.customer.email}
-                </span>
+              <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+                <div className="flex justify-between">
+                  <IoBasketOutline size={20} />
+                  <span className={`text-neutral-400 text-sm ${status}`}>
+                    {order?.status}
+                  </span>
+                </div>
+                <div className="flex justify-between items-end mt-16">
+                  <div>
+                    <div className="text-neutral-400 text-sm">Price</div>
+                    <span className="text-zinc-800 text-base">
+                      ₦{selectedProduct?.price.toLocaleString()}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-neutral-400 text-sm">Quantity</div>
+                    <span className="text-zinc-800 text-base">
+                      {selectedProduct?.quantity}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-neutral-400 text-sm">Order Total</div>
+                    <span className="text-zinc-800 text-base">
+                      ₦{order?.totalAmount.toLocaleString()}
+                    </span>
+                  </div>
+                  <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
+                    Return Order
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
-              <IoBasketOutline size={20} />
-              <span className={`text-neutral-400 text-sm ${status}`}>
-                {order?.status}
-              </span>
-            </div>
-            <div className="flex justify-between items-end mt-16">
-              <div>
-                <div className="text-neutral-400 text-sm">Price</div>
-                <span className="text-zinc-800 text-base">
-                  ₦{selectedProduct?.price.toLocaleString()}
-                </span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Quantity</div>
-                <span className="text-zinc-800 text-base">
-                  {selectedProduct?.quantity}
-                </span>
-              </div>
-              <div>
-                <div className="text-neutral-400 text-sm">Order Total</div>
-                <span className="text-zinc-800 text-base">
-                  ₦{order?.totalAmount.toLocaleString()}
-                </span>
-              </div>
-              <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
-                Return Order
-              </button>
-            </div>
-          </div>
-          <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-            <div className="flex justify-between">
-              <MdOutlinePersonPinCircle size={20} />
-              <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
-                Track Order
-              </button>
-            </div>
-            <div className="flex justify-between mt-4 gap-6">
-              <div>
-                <div className="text-neutral-400 text-sm">Billing Address</div>
-                <span className="text-zinc-800 text-base">
-                  {order?.billingInformation.address}
-                </span>
-              </div>
-              {/* <div>
+              <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+                <div className="flex justify-between">
+                  <MdOutlinePersonPinCircle size={20} />
+                  <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
+                    Track Order
+                  </button>
+                </div>
+                <div className="flex justify-between mt-4 gap-6">
+                  <div>
+                    <div className="text-neutral-400 text-sm">
+                      Billing Address
+                    </div>
+                    <span className="text-zinc-800 text-base">
+                      {order?.billingInformation.address}
+                    </span>
+                  </div>
+                  {/* <div>
                 <div className="text-neutral-400 text-sm">Home Address</div>
                 <span className="text-zinc-800 text-base">
                   No. 1 Victoria island, off Lekki, Lagos State.
                 </span>
               </div> */}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="lg:block hidden mt-8">
-          <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide mb-6">
-            Other Items In Your Order
-          </h3>
-          <div className="w-full">
-            <table className="w-full border-collapse border border-zinc-300 rounded-2xl">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Product Name
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Store Name
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Order Date
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Order ID
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Prices
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    No of items
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left">
-                    Status
-                  </th>
-                  <th className="border border-zinc-300 py-4 px-8 text-left"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {otherItems?.map((item: any, index: any) => (
-                  <tr>
-                    <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      <div className="flex justify-left gap-2 flex-wrap items-center">
-                        <img
-                          src={item?.productID.images[0]}
-                          className="w-10 h-10 rounded-full object-cover"
-                          alt="product thumbnail"
-                        />
-                        <span>{item?.productID.information.productName}</span>
-                      </div>
-                    </td>
-                    <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      <span>
-                        {item?.vendor.sellerAccountInformation.shopName}
-                      </span>
-                      <span className="block text-neutral-300">
-                        {item?.vendor.businessInformation.city}
-                      </span>
-                    </td>
-                    <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      {moment(item?.orderDate).format("DD MMMM YYYY")}
-                      <span className="block text-neutral-300">
-                        {moment(item?.orderDate).format("h:mmA").toLowerCase()}
-                      </span>
-                    </td>
-                    <td className="border border-zinc-300 p-3  px-5 text-sm">
-                      {item?._id || "-"}
-                    </td>
-                    <td className="border border-zinc-300 p-3  text-sm">
-                      ₦{item?.price.toLocaleString()}
-                    </td>
-                    <td className="border border-zinc-300 p-3 px-5 text-sm">
-                      {item?.quantity}
-                    </td>
-                    <td
-                      className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
-                    >
-                      {item?._status || "-"}
-                    </td>
-                    <td className={`p-3 border border-zinc-300 px-5 text-sm`}>
-                      <span
-                        onClick={() => {
-                          handleViewOrder(index);
-                        }}
-                        className="text-zinc-800 text-sm font-normal cursor-pointer underline"
-                      >
-                        View
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+            <div className="lg:block hidden mt-8">
+              <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide mb-6">
+                Other Items In Your Order
+              </h3>
+              <div className="w-full">
+                <table className="w-full border-collapse border border-zinc-300 rounded-2xl">
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Product Name
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Store Name
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Order Date
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Order ID
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Prices
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        No of items
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                        Status
+                      </th>
+                      <th className="border border-zinc-300 py-4 px-8 text-left"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {otherItems?.map((item: any, index: any) => (
+                      <tr>
+                        <td className="border border-zinc-300 p-3  px-5 text-sm">
+                          <div className="flex justify-left gap-2 flex-wrap items-center">
+                            <img
+                              src={item?.productID.images[0]}
+                              className="w-10 h-10 rounded-full object-cover"
+                              alt="product thumbnail"
+                            />
+                            <span>
+                              {item?.productID.information.productName}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="border border-zinc-300 p-3  px-5 text-sm">
+                          <span>
+                            {item?.vendor.sellerAccountInformation.shopName}
+                          </span>
+                          <span className="block text-neutral-300">
+                            {item?.vendor.businessInformation.city}
+                          </span>
+                        </td>
+                        <td className="border border-zinc-300 p-3  px-5 text-sm">
+                          {moment(item?.orderDate).format("DD MMMM YYYY")}
+                          <span className="block text-neutral-300">
+                            {moment(item?.orderDate)
+                              .format("h:mmA")
+                              .toLowerCase()}
+                          </span>
+                        </td>
+                        <td className="border border-zinc-300 p-3  px-5 text-sm">
+                          {item?._id || "-"}
+                        </td>
+                        <td className="border border-zinc-300 p-3  text-sm">
+                          ₦{item?.price.toLocaleString()}
+                        </td>
+                        <td className="border border-zinc-300 p-3 px-5 text-sm">
+                          {item?.quantity}
+                        </td>
+                        <td
+                          className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
+                        >
+                          {item?._status || "-"}
+                        </td>
+                        <td
+                          className={`p-3 border border-zinc-300 px-5 text-sm`}
+                        >
+                          <span
+                            onClick={() => {
+                              handleViewOrder(index);
+                            }}
+                            className="text-zinc-800 text-sm font-normal cursor-pointer underline"
+                          >
+                            View
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <OrderModal onClose={handleOnclose} visible={showModal} />
     </AppLayout>

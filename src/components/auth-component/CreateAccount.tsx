@@ -8,7 +8,6 @@ import ReactLoading from "react-loading";
 import { useUserSignUp } from "../../services/hooks/users";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
 
-
 const CreateAccount: any = () => {
   const navigate = useNavigate();
   const createUserAcc = useUserSignUp();
@@ -30,7 +29,7 @@ const CreateAccount: any = () => {
       .mutateAsync({
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        email: email.toLowerCase(),
         password: password,
       })
       .then((res) => {
@@ -59,10 +58,9 @@ const CreateAccount: any = () => {
   const passwordref = useRef({});
   passwordref.current = watch("password", "");
 
-
-    React.useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
-    }, []);
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
+  }, []);
   return (
     <>
       <div className="mb-20">
@@ -256,5 +254,3 @@ const CreateAccount: any = () => {
 };
 
 export default CreateAccount;
-
-

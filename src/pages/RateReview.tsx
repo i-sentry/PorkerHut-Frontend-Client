@@ -69,7 +69,7 @@ const RateReview = () => {
   ];
   return (
     <AppLayout>
-      <section className="max-w-[768px] lg:max-w-[1024px] xl:max-w-[1140px] container flex-col justify-[start_!important]  px-4 mx-auto lg:pt-24 pt-16 py-16">
+      <section className="w-full lg:max-w-[1024px] xl:max-w-[1140px] flex-col justify-[start_!important]  px-4 mx-auto lg:pt-24 pt-16 py-16">
         <div className="hidden ">
           <ProductsBreadCrumbs
             items={[
@@ -142,7 +142,7 @@ const RateReview = () => {
           </div>
 
           {/* PRODUCT DETAILS */}
-          <div className="w-full mt-10 md:w-10/12 md:mx-auto lg:w-[calc(50%_-_30px)] lg:m-0">
+          <div className="w-full mt-10 lg:w-[calc(50%_-_30px)] lg:m-0">
             <div className="flex justify-between">
               <h2 className="text-zinc-800 text-lg font-semibold md:text-2xl">
                 {singleProduct?.data?.information?.productName}
@@ -159,6 +159,7 @@ const RateReview = () => {
             <RatingStars
               maxRating={5}
               iconSize={32}
+              defaultRating={0}
               canRate={true}
               onSetRating={handleRatingChange}
             />
