@@ -9,7 +9,6 @@ import StarRating from "./ProductDetailRating";
 import NavBar from "../../nav-component/NavBar";
 import Footer from "../../footer-component/Footer";
 import { useGetRatingDetails } from "../../../services/hooks/users/products";
-import { IoMdStarOutline } from "react-icons/io";
 import moment from "moment";
 import RatingStars from "../../RatingStars";
 import { useParams } from "react-router-dom";
@@ -133,7 +132,6 @@ import { useParams } from "react-router-dom";
 const CustomerRating = () => {
   const { id } = useParams();
 
-  const storedUser = JSON.parse(localStorage.getItem("user") as string);
   // const { data: ratings, isLoading } = useGetAllProductRating(id as string);
   const { data: ratingDetails, isLoading } = useGetRatingDetails(id as string);
 

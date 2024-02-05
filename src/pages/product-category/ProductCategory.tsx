@@ -8,7 +8,7 @@ import ProductCard from "../../components/featured-product-component/ProductCard
 import { chunkArray } from "../../helper/chunck";
 import AppLayout from "../../components/utility/AppLayout";
 import { useLocation, useParams } from "react-router-dom";
-import ProductFilter from "./ProductFilter";
+// import ProductFilter from "./ProductFilter";
 import { SkeletonLoader } from "../../components/category-component/Category";
 import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 import { cap } from "../../components/category-card-component/Card";
@@ -57,16 +57,17 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   // console.log(approvalStatus, vendor);
 
   // useEffect(() => setData(productData), [productData]);
-  const filter = (id: any) => {
-    const newItems = getAllProducts?.data.filter((data: any) => {
-      return data.category === id;
-    });
-    //@ts-ignore
-    setData(newItems);
-  };
+
   useEffect(() => {
+    const filter = (id: any) => {
+      const newItems = getAllProducts?.data.filter((data: any) => {
+        return data.category === id;
+      });
+      //@ts-ignore
+      setData(newItems);
+    };
     filter(id);
-  }, [id]);
+  }, [getAllProducts?.data, id]);
 
   console.log(data, "data");
 

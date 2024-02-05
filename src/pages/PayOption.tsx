@@ -7,12 +7,11 @@ import FlutterwaveImg from "../assets/images/FlutterwaveImg.png";
 import MasterLogoImg from "../assets/images/MasterLogoImg.png";
 import PaystackImg from "../assets/images/PaystackImg.png";
 import Footer from "../components/footer-component/Footer";
-import OrderCart from "../components/order-component/OrderCart";
+// import OrderCart from "../components/order-component/OrderCart";
 
 export {};
 
 const PayOption = () => {
-
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -27,7 +26,7 @@ const PayOption = () => {
         <div className=" bg-[#F5F5F5]">
           <div className="">
             <div className="px-8">
-            <ProductsBreadCrumbs
+              <ProductsBreadCrumbs
                 items={[
                   {
                     name: "Home",

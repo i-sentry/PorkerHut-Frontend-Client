@@ -47,6 +47,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
 
   const onSubmit: SubmitHandler<AdminSignUpProps> = (data) => {
     console.log(data);
+    setLoading(false);
   };
 
   const toggleConfirmEye = (e: any) => {

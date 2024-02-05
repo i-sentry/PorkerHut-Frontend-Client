@@ -1,7 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import {
-  HiOutlineSearch
-} from "react-icons/hi";
+import { HiOutlineSearch } from "react-icons/hi";
 import React, { Fragment } from "react";
 import classNames from "classnames";
 

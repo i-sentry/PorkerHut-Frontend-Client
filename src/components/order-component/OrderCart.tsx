@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { IProduct } from "../../redux/features/product/productSlice";
 import { RootState } from "../../redux/store";
@@ -86,34 +86,32 @@ const OrderCart = ({
       });
   };
 
-const initiatePayment = (id:string) => {
-  makePayment
-    .mutateAsync({
-      email: user?.email,
-      amount: sumTotal,
-      full_name: `${user?.firstName} ${user?.lastName}`,
-      order_id: id,
-      //subject to change to ngn
-      currency: "GHS",
-    })
-    // .mutateAsync({ email: user?.email, amount: sumTotal })
-    .then((res) => {
-      console.log(res,"payment")
-      const authorizationUrl = res.data?.data.data.authorization_url;
-      if (authorizationUrl) {
-        window.open(authorizationUrl, "_blank");
-      } else {
-        console.error("Authorization URL not found in the response");
-      }
-       setLoading(false);
-    })
-    .catch((err) => {
-          setLoading(false);
-      console.error("Error during payment:", err);
-    });
-};
-
-
+  const initiatePayment = (id: string) => {
+    makePayment
+      .mutateAsync({
+        email: user?.email,
+        amount: sumTotal,
+        full_name: `${user?.firstName} ${user?.lastName}`,
+        order_id: id,
+        //subject to change to ngn
+        currency: "GHS",
+      })
+      // .mutateAsync({ email: user?.email, amount: sumTotal })
+      .then((res) => {
+        console.log(res, "payment");
+        const authorizationUrl = res.data?.data.data.authorization_url;
+        if (authorizationUrl) {
+          window.open(authorizationUrl, "_blank");
+        } else {
+          console.error("Authorization URL not found in the response");
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error("Error during payment:", err);
+      });
+  };
 
   if (temp === true) {
     initiateCreateProduct();

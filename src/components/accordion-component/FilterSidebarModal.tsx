@@ -1,7 +1,6 @@
 import React from "react";
-import Filter from "./Accordion";
 import Filtercomp from "../custom-filter/FilterComp";
-import { BsX, BsXCircle } from "react-icons/bs";
+import { BsX } from "react-icons/bs";
 
 interface FilterSidebarProps {
   open: boolean;

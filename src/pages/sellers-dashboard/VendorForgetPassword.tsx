@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import Ripples from "react-ripples";
@@ -14,9 +14,9 @@ export interface IEmail {
 }
 
 const VendorForgetPassword = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [isError, setIsError] = useState("");
+  // const [isError, setIsError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const recoverPassword = useVendorRecoverPassword();
@@ -24,7 +24,7 @@ const VendorForgetPassword = () => {
   const {
     register,
     handleSubmit,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm<IEmail>();
 
@@ -87,7 +87,7 @@ const VendorForgetPassword = () => {
                     name="email"
                     placeholder="Enter your email address"
                     id="email"
-                    onFocus={() => setIsError("")}
+                    // onFocus={() => setIsError("")}
                     className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                       errors.email
                         ? "border-[#e10] focus-within:border-[#e10]"
@@ -121,8 +121,7 @@ const VendorForgetPassword = () => {
                   <p className="text-[#A2A2A2] font-normal">
                     Remember your password?{" "}
                     <a
-                                          href="sign-in?q=vendor"
-                                          
+                      href="sign-in?q=vendor"
                       className="font-normal hover:underline cursor-pointer text-[#197b30]"
                     >
                       Back to login

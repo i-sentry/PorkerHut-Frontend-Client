@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import Ripples from "react-ripples";
@@ -13,9 +13,9 @@ export interface IEmail {
 }
 
 const ForgetPassword = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [isError, setIsError] = useState("");
+  // const [isError, setIsError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const recoverPassword = useRecoverPassword();
@@ -23,7 +23,6 @@ const ForgetPassword = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<IEmail>();
 
@@ -67,7 +66,6 @@ const ForgetPassword = () => {
                     to the email address.
                   </p>
                 </div>
-               
               </div>
 
               <form className="mt-8" onSubmit={onSubmit}>
@@ -87,7 +85,7 @@ const ForgetPassword = () => {
                     name="email"
                     placeholder="Enter your email address"
                     id="email"
-                    onFocus={() => setIsError("")}
+                    // onFocus={() => setIsError("")}
                     className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
                       errors.email
                         ? "border-[#e10] focus-within:border-[#e10]"

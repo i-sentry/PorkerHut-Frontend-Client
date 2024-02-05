@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Accordion from "./Accordion";
 import AccordionItem from "./AccordionItem";
 import Checkbox from "./Checkbox";
@@ -21,10 +20,10 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   handleApplyClick,
   handleClear,
 }) => {
-  const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
+  // const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
   const allCategories = useGetAllCategories();
 
-  const { data: catagories, isLoading } = allCategories;
+  const { data: catagories } = allCategories;
   const handleCheckboxChange = (label: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, label]);
@@ -35,9 +34,9 @@ const Filtercomp: React.FC<FiltercompProps> = ({
     }
   };
 
-  const handleRangeChange = (values: number[]) => {
-    setPriceRange(values);
-  };
+  // const handleRangeChange = (values: number[]) => {
+  //   setPriceRange(values);
+  // };
 
   const analyzePrices = (products: any[]) => {
     if (products?.length === 0) {
