@@ -11,6 +11,8 @@ import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
+import Popover from "../../components/utility/PopOver";
+import { BiCaretDown } from "react-icons/bi";
 
 const Settings = () => {
   const [, setImage] = useState(null);
@@ -29,6 +31,9 @@ const Settings = () => {
     "Password",
   ]);
   const inputRef = useRef(null);
+  const [action, setAction] = useState("Grant Access");
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -59,6 +64,8 @@ const Settings = () => {
     });
   };
 
+  console.log(email, "emailemail");
+
   const handleImage = (e: any) => {
     setOverlayVisibility(false);
     setImage(e.target.files[0]);
@@ -66,42 +73,6 @@ const Settings = () => {
     setCurrentImage(URL.createObjectURL(e.target.files[0]));
     //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
   };
-
-  // const AccInfo = [
-  //   {
-  //     id: 1,
-  //     label: "Full Name",
-  //     value: "full_name",
-  //     dafaultValue: "Williams",
-  //     type: "text",
-  //     required: "true",
-  //   },
-  //   {
-  //     id: 2,
-  //     label: "Email",
-  //     value: "email",
-  //     dafaultValue: "Williams",
-  //     type: "email",
-  //     required: "true",
-  //   },
-  //   {
-  //     id: 3,
-  //     label: "Street Address",
-  //     value: "street_address",
-  //     dafaultValue: "Williams",
-  //     type: "text",
-  //     required: "true",
-  //   },
-  //   // {
-  //   //   id: 4,
-  //   //   label: "Phone Number",
-  //   //   value: "phone_number",
-  //   //   dafaultValue: "Williams",
-  //   //   type: "tel",
-  //   //   required: "true"
-
-  //   // },
-  // ];
 
   const data = [
     {
@@ -130,23 +101,60 @@ const Settings = () => {
     e.preventDefault();
     setEyeState2((prev) => !prev);
   };
+  const handleButtonClick = (clickedAction: string) => {
+    setAction(clickedAction);
+    setShowConfirmationModal(true);
+  };
 
+  const handleConfirm = () => {
+
+    setShowConfirmationModal(false);
+  };
+
+  const handleCancel = () => {
+    setShowConfirmationModal(false);
+  };
   // GRANT MEMBER ACCESS (ADMIN SIGN UP)
 
+  // const openModal = () => {
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   searchParams.set("email", email);
+  //   const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+  //   window.history.replaceState({}, "", newUrl);
+  //   setModalOpen(true);
+  // };
+
   const openModal = () => {
-    if (email) {
-      setModalOpen(true);
-    }
-  };
+  const searchParams = new URLSearchParams();
+  searchParams.set("email", email);
+  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+  window.history.replaceState({}, "", newUrl);
+  setModalOpen(true);
+};
+
+
+
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
+  const component = (action: string) => {
+    return (
+      <div className="flex gap-4 items--center">
+        <p>{`${action}`}</p> <RxCaretDown size={20} />
+      </div>
+    );
+  };
+
   return (
     <div className="pl-10 pt-10 pr-5">
       {/* ADMIN SIGN UP MODAL */}
-      <CreateAdminAcct openModal={modalOpen} closeModal={closeModal} />
+      <CreateAdminAcct
+        openModal={modalOpen}
+        closeModal={closeModal}
+
+      />
 
       <div className="mb-5">
         <div className="">
@@ -268,15 +276,6 @@ const Settings = () => {
                         // unoptimized={true}
                         alt="profile"
                       />
-                      {/* {overlayVisibility && (
-                        <div className="transparent-black-overlay grayscale inset-0 w-[100px] h-[100px] rounded-full absolute left-[36.1%] md:left-[45.3%] top-[0] md:top-[-0px]"></div>
-                      )}
-                      <span
-                        // onClick={removeImage}
-                        className=" font-normal bg-slate-400 p-2 rounded-full h-5 w-5 text-lg flex items-center justify-center shadow-gray-900 t active:scale-90 active:transition-all"
-                      >
-                        <Tooltip message="Delete">X</Tooltip>
-                      </span> */}
                     </>
                   ) : (
                     <>
@@ -315,7 +314,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Full Name</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Full Name"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -326,7 +325,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Email</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Email"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -337,7 +336,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Street Address</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Address"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -349,7 +348,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Phone number</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Phonenumber"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -370,7 +369,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Store Name</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Store name"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -381,7 +380,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Store ID</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Store id"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -392,7 +391,7 @@ const Settings = () => {
                     <p className=" text-[#344054]">Location</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="080 000 0000"
+                        placeholder="Location"
                         type="tel"
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
@@ -430,57 +429,63 @@ const Settings = () => {
 
                   <div className="flex items-center  ">
                     <button
-                      className="bg-[#197b30] hover:bg-[#21aa41] text-white select-none py-3 px-4 rounded font-normal"
+                      className="bg-[#197b30] hover:bg-[#197b30] text-white select-none py-3 px-4 rounded font-normal disabled:bg-[#568a62] disabled:cursor-pointed"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={openModal}
+                      disabled={!email}
                     >
                       Grant Access
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-8">
-                  <div className="flex gap-2 mt-5 items-center">
-                    <figure className="">
-                      <img
-                        src={avatar}
-                        alt="avatar"
-                        className="object-cover w-8 h-8 rounded-full"
-                      />
-                    </figure>
-                    <div>
-                      <h1 className="text-xs font-normal text-[#333333]">
-                        Jeremiah steller
-                      </h1>
-                      <p className="text-xs text-[#797979]">test22@gmail.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <p className="font-semibold text-xs"> Grant Access</p>
-                    <span>
-                      <RxCaretDown size={18} />
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
+
+                <div className="flex items-center justify-between mt-10">
                   <div className="flex gap-2 mt-3 items-center">
                     <img
                       src={currentImage ? currentImage : avatar}
                       alt="avatar"
-                      className="object-contain w-8 h-8"
+                      className="object-contain w-10 h-10"
                     />
-                    <div>
+                    <div className="space-y-2">
                       <h1 className="text-xs font-normal text-[#333333]">
                         Jeremiah steller
                       </h1>
                       <p className="text-xs text-[#797979]">test22@gmail.com</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <p className="font-semibold text-xs"> Access Denied</p>
-                    <span>
-                      <RxCaretDown size={18} />
-                    </span>
-                  </div>
+
+                  <>
+                    <Popover
+                      buttonContent={component(action)}
+                      placementOrder={"auto"}
+                      closeOnClick={true}
+                    >
+                      <div className="w-[150px] py-2">
+                        <button
+                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+                          onClick={() => handleButtonClick("Grant Access")}
+                        >
+                          Grant Access
+                        </button>
+                        {/* {permissions.canEdit && ( */}
+                        <button
+                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+                          onClick={() => handleButtonClick("Deny Access")}
+                        >
+                          Deny Access
+                        </button>
+                        {/* )}  */}
+                        {/* {permissions.canDelete && ( */}
+                        <button
+                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+                          onClick={() => handleButtonClick("Delete Account")}
+                        >
+                          Delete Account
+                        </button>
+                        {/* )} */}
+                      </div>
+                    </Popover>
+                  </>
                 </div>
               </div>
             </div>
@@ -655,6 +660,34 @@ const Settings = () => {
           </TabPanel>
         </div>
       </div>
+
+      {showConfirmationModal && (
+        <div
+          onClick={() => setShowConfirmationModal(false)}
+          className="fixed inset-0 bg-black opacity-50 z-50"
+        ></div>
+      )}
+      {showConfirmationModal && (
+        <div className="fixed inset-1/3  bg-white p-4 z-50 rounded-md flex items-center justify-center flex-col">
+          <h2 className="text-lg font-semibold mb-4 text-center">
+            Are you sure you want to {action}?
+          </h2>
+          <div className="flex space-x-4 text-center">
+            <button
+              className="bg-[#197B30] text-white px-4 py-2 rounded"
+              onClick={handleConfirm}
+            >
+              Yes, Continue
+            </button>
+            <button
+              className="bg-[#fff] border-[#e10] border focus-within:border-[#e10] text-[#e10]  px-4 py-2 rounded"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

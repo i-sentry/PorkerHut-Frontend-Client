@@ -7,7 +7,8 @@ export interface ISignUpUser {
   firstName: string;
   lastName: string;
   password: string;
-  email: string;
+  email: string | null;
+  role?: string;
 }
 export interface IBankData {
   active: boolean;

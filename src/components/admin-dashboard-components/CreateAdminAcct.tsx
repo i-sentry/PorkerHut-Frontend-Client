@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { BsXLg } from "react-icons/bs";
 import PorkerLogo from "../../assets/porker hut 1 1.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Admin from "../../assets/Admin.png";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import ReactLoading from "react-loading";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CustomSelect, { SelectOptionType } from "../utility/CustomSelect";
+import { useUserSignUp } from "../../services/hooks/users";
+import { toast } from "react-toastify";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -20,6 +23,7 @@ const schema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters"),
+  role: yup.string().required("role is required"),
 });
 
 interface AdminSignUpProps {
@@ -27,6 +31,7 @@ interface AdminSignUpProps {
   lastName: string;
   email: string;
   password: string;
+  role: string;
 }
 
 type SignUpModal = {
@@ -36,24 +41,70 @@ type SignUpModal = {
 
 const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
   const navigate = useNavigate();
-  // const [eyeState, setEyeState] = useState(false);
+  const createUserAcc = useUserSignUp();
   const [loading, setLoading] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
+  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
   const {
     register,
+    setValue,
     handleSubmit,
+    control,
+    reset,
+    clearErrors,
     formState: { errors },
   } = useForm<AdminSignUpProps>({ resolver: yupResolver(schema) });
-
+  const location = useLocation();
+  console.log(location, "location");
+  const queryParams = new URLSearchParams(location.search);
+  const encodedEmail = queryParams.get("email");
+  // console.log(encodedEmail, "encodedEmail");
+  const email = encodedEmail ? decodeURIComponent(encodedEmail) : null;
   const onSubmit: SubmitHandler<AdminSignUpProps> = (data) => {
-    console.log(data);
-    setLoading(false);
+    setLoading(true);
+    const { firstName, lastName, password, role } = data;
+    createUserAcc
+      //@ts-ignore
+      .mutateAsync({
+        firstName: firstName,
+        lastName: lastName,
+        email: email && email.toLowerCase(),
+        password: password,
+        role: role,
+      })
+      .then((res: any) => {
+        reset();
+        toast.success(`Account Created Successfully`);
+        closeModal();
+        setLoading(false);
+        console.log(res);
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log(e);
+      });
+  };
+  // console.log(email, "email");
+  const close = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.delete("email");
+    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+    closeModal((s: boolean) => !s);
+    setValue("email", "");
+    reset();
   };
 
   const toggleConfirmEye = (e: any) => {
     e.preventDefault();
     setEyeState2((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (email) {
+      setValue("email", email as string);
+    }
+  }, [email, setValue]);
   return (
     <>
       {openModal && (
@@ -96,7 +147,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   <div className="flex gap-3 mt-4">
-                    <div>
+                    <div className="w-1/2">
                       <label
                         htmlFor=""
                         className="text-zinc-800 text-sm font-normal"
@@ -109,7 +160,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                         name="firstName"
                         placeholder="Enter your first name"
                         id="firstName"
-                        className={`rounded w-full px-3 py-2 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                        className={`rounded w-full px-3 py-3 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                           errors.firstName
                             ? "border-[#e10] focus-within:border-[#e10]"
                             : "border-[#D9D9D9] "
@@ -121,7 +172,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                         </p>
                       )}
                     </div>
-                    <div className="">
+                    <div className="w-1/2">
                       <label
                         htmlFor=""
                         className="text-zinc-800 text-sm font-normal"
@@ -134,7 +185,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                         name="lastName"
                         placeholder="Enter your last name"
                         id="lastName"
-                        className={`rounded w-full px-3 py-2 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                        className={`rounded w-full px-3 py-3 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                           errors.lastName
                             ? "border-[#e10] focus-within:border-[#e10]"
                             : "border-[#D9D9D9] "
@@ -156,12 +207,20 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                         Email Address
                       </label>
                       <input
-                        {...register("email", { required: true })}
+                        {...register("email", {
+                          required: "Email address is required",
+                          // pattern: {
+                          //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          //   message: "Invalid email address",
+                          // },
+                        })}
                         type="email"
                         name="email"
+                        value={email as string}
+                        disabled
                         placeholder="Enter your email address"
                         id="email"
-                        className={`rounded w-full px-3 py-2 border text-sm font-normal border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                        className={`rounded w-full px-3 py-3 border text-sm font-normal border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
                           errors.email
                             ? "border-[#e10] focus-within:border-[#e10]"
                             : "border-[#D9D9D9] "
@@ -173,6 +232,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                         </p>
                       )}
                     </div>
+
                     <div className="w-1/2">
                       <label
                         htmlFor=""
@@ -180,14 +240,28 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                       >
                         Role
                       </label>
-                      <select
+                      <Controller
                         name="role"
-                        id="role"
-                        className="w-full px-3 py-[9px] mt-1 text-sm font-normal border border-[#D9D9D9] rounded-[4px] focus:outline-none  focus:border-[#197B30]"
-                      >
-                        <option value="Admin">Admin</option>
-                        <option value="SuperAdmin">Super Admin</option>
-                      </select>
+                        control={control}
+                        rules={{ required: "Role is required" }}
+                        render={({ field }) => (
+                          <CustomSelect
+                            selectedOption={dropOption}
+                            setSelectOption={(selectedOption) => {
+                              setDropOption(selectedOption);
+                              setValue("role", selectedOption?.value);
+                              clearErrors("role");
+                            }}
+                            placeholder={"Select role"}
+                            options={role || []}
+                          />
+                        )}
+                      />
+                      {errors.role && (
+                        <p className="mt-1 text-sm text-[#e10]">
+                          {errors.role.message}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -205,7 +279,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
                       name="password"
                       placeholder="**********"
                       id="password"
-                      className={`rounded w-full px-3 py-2 border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                      className={`rounded w-full px-3 py-3 border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
                         errors.password
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[##EEEEEE] "
@@ -263,7 +337,7 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
 
             {/* CLOSE MODAL BUTTON */}
             <button
-              onClick={() => closeModal((s: boolean) => !s)}
+              onClick={close}
               className="bg-[#197b30] p-2 absolute top-3 right-3"
             >
               <BsXLg className="fill-white" />
@@ -276,3 +350,8 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
 };
 
 export default CreateAdminAcct;
+
+const role = [
+  { id: 1, value: "admin", label: "Admin" },
+  { id: 2, value: "super-admin", label: "Super Admin" },
+];

@@ -177,7 +177,7 @@ const AdminLogin: React.FC = () => {
                   </button>
                 </Ripples>
               </div>
-              <div className="mt-6">
+              {/* <div className="mt-6">
                 <p className="text-[#A2A2A2] font-normal text-center">
                   No account account?
                   <button
@@ -187,12 +187,12 @@ const AdminLogin: React.FC = () => {
                     Create one
                   </button>
                 </p>
-              </div>
+              </div> */}
             </div>
           </form>
         </div>
       </div>
-      <CreateAdminAcct openModal={openModal} closeModal={setOpenModal} />
+      {/* <CreateAdminAcct openModal={openModal} closeModal={setOpenModal} email={email} /> */}
       <Footer />
     </>
   );
