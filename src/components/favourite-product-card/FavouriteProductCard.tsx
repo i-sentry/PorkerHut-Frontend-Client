@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import RatingStars from "../RatingStars";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { CgUnavailable } from "react-icons/cg";
 
 // type Product = {

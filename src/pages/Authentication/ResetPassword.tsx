@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import ReactLoading from "react-loading";
-import { useRestPassword, useUserSignUp } from "../../services/hooks/users";
+import { useRestPassword } from "../../services/hooks/users";
 import AppLayout from "../../components/utility/AppLayout";
 import { ToastContainer, toast } from "react-toastify";
 

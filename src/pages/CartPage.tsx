@@ -2,8 +2,8 @@ import React from "react";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import { chunkArray } from "../helper/chunck";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { MdOutlineShoppingCart, MdOutlineSpeakerNotes } from "react-icons/md";
-import { productData } from "../utils/productData";
+import { MdOutlineShoppingCart } from "react-icons/md";
+// import { productData } from "../utils/productData";
 
 import ProductCard from "../components/featured-product-component/ProductCard";
 
@@ -16,31 +16,30 @@ import { useNavigate } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
 import CartMobileModal from "../components/CartMobileModal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  // decrementProductQty,
-  deleteProductFromCart,
-  // incrementProductQty,
-  // IProduct,
-} from "../redux/features/product/productSlice";
+// import { useDispatch } from "react-redux";
+import // decrementProductQty,
+// deleteProductFromCart,
+// incrementProductQty,
+// IProduct,
+"../redux/features/product/productSlice";
 // import { useAppSelector } from "../redux/hook";
 import { usePopModal } from "../store/overlay";
-import { IProduct } from "./ProductPage";
+// import { IProduct } from "./ProductPage";
 import { useGetAllProducts } from "../services/hooks/users/products";
 
 const CartPage = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.product.cart);
   const { data: allProducts } = useGetAllProducts();
   const [showModal, setShowModal] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [selectedState, setSelectedState] = useState("");
+  // const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  const totalQuantity = useSelector(
-    (state: RootState) => state.product.totalQuantity
-  );
+  // const totalQuantity = useSelector(
+  //   (state: RootState) => state.product.totalQuantity
+  // );
   const isMobileScreen = useMediaQuery("(max-width: 639px)");
   const toggleModal = usePopModal((state) => state.toggleModal);
 
@@ -65,9 +64,9 @@ const CartPage = () => {
 
   // console.log(Object.values(cart).length, "Object.values(cart).length");
 
-  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedState(e.target.value);
-  };
+  // const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedState(e.target.value);
+  // };
 
   const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity(e.target.value);
@@ -390,6 +389,6 @@ const CartPage = () => {
 };
 
 export default CartPage;
-function item(value: IProduct, index: number, array: IProduct[]): void {
-  throw new Error("Function not implemented.");
-}
+// function item(value: IProduct, index: number, array: IProduct[]): void {
+//   throw new Error("Function not implemented.");
+// }

@@ -12,17 +12,14 @@ import "react-phone-input-2/lib/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
   useBillingInfo,
-  useMakePayment,
   useMyBillingInfo,
   useUpdateBillingInfo,
 } from "../services/hooks/payment";
-import { useCartTotalAmount, useProtectedInfo } from "../store";
+import { useProtectedInfo } from "../store";
 
 import LoginProtectedModal from "../components/auth-component/LoginProtectedModal";
 import ReactLoading from "react-loading";
-import { ImSpinner6 } from "react-icons/im";
 import Ripples from "react-ripples";
-import { useCreateOrder } from "../services/hooks/orders";
 import PaymentFailedStatus from "./product-category/PaymentFailedStatus";
 import PaymentSuccessPage from "./PaymentSuccessPage";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -95,7 +92,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const [status, setStatus] = useState("default");
   // const makePayment = useMakePayment();
   const [val, setVal] = useState(false);
-  const cartTotal = useCartTotalAmount((state) => state.cartTotal);
+  // const cartTotal = useCartTotalAmount((state) => state.cartTotal);
   const createBilling = useBillingInfo();
   const [loading, setLoading] = useState(false);
   const [temp, setTemp] = useState(false);
@@ -141,7 +138,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setValueForm2("city", "");
       setValueForm2("isDefault", "");
     }
-  }, [defaultBillingInfo, setValue, isMyBilling]);
+  }, [defaultBillingInfo, setValue, isMyBilling, setValueForm2]);
 
   console.log(isMyBilling, "isMyBilling");
 
@@ -721,7 +718,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                           onChange={(val) => {
                             onChange(val);
                             // Clear the state when the country changes
-                            reset({ ...getValues(), state: "" });
+                            resetForm2({ ...getValuesForm2(), state: "" });
                           }}
                           classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] pl-5 rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-[#197b30] focus:outline-1  ${
                             errors2.country ? "border-[#dd1313]" : ""
@@ -753,7 +750,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                           blankOptionLabel=""
                           defaultOptionLabel="Select State"
                           id="state"
-                          country={watch("country")}
+                          country={watchForm2("country")}
                           value={value}
                           onChange={onChange}
                           classes={`w-full h-12 text-[#333333] appearance-none border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Filter from "../components/accordion-component/Accordion";
+// import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
 
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
@@ -11,8 +11,8 @@ import AppLayout from "../components/utility/AppLayout";
 import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
 import { SkeletonLoader } from "../components/category-component/Category";
-import Spinner from "../components/Spinner/Spinner";
-import { useGetAllCategories } from "../services/hooks/Vendor/category";
+// import Spinner from "../components/Spinner/Spinner";
+// import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
 import { CgSpinnerAlt } from "react-icons/cg";

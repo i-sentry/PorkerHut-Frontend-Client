@@ -41,6 +41,7 @@ const AdminLogin: React.FC = () => {
 
   const onSubmit: SubmitHandler<AdminLoginProps> = (data) => {
     console.log(data);
+    setLoading(false);
   };
 
   const toggleEye = (e: any) => {

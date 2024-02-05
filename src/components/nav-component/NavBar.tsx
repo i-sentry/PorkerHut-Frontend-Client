@@ -54,6 +54,7 @@ const NavBar = () => {
   const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
   const SESSION_KEY = "accessToken";
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const NavBar = () => {
     };
 
     checkSession();
-  }, []);
+  }, [SESSION_DURATION]);
 
   // const handleLogin = () => {
   //   try {

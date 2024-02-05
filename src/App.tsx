@@ -54,7 +54,6 @@ import SellerLayout from "./layout/SellerLayout";
 import PayOption from "./pages/PayOption";
 import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
 import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
-import RatingCard from "./components/featured-product-component/best-selling-product/RatingCard";
 import ProductCategory from "./pages/product-category/ProductCategory";
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
 
@@ -84,7 +83,6 @@ import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword
 import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 import AdminLogin from "./pages/Authentication/AdminLogin";
 import RateReview from "./pages/RateReview";
-import RatingSuccess from "./pages/RatingSuccess";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

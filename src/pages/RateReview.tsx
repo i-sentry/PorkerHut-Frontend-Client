@@ -1,8 +1,8 @@
-import Footer from "../components/footer-component/Footer";
-import NavBar from "../components/nav-component/NavBar";
-import Product from "../assets/images/productimg1.png";
-import { BsStar } from "react-icons/bs";
-import { FC, SetStateAction, useEffect, useState } from "react";
+// import Footer from "../components/footer-component/Footer";
+// import NavBar from "../components/nav-component/NavBar";
+// import Product from "../assets/images/productimg1.png";
+// import { BsStar } from "react-icons/bs";
+import { useState } from "react";
 import {
   useCreateRating,
   useGetSingleProduct,
@@ -12,9 +12,9 @@ import AppLayout from "../components/utility/AppLayout";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import CustomSelect from "../components/utility/CustomSelect";
 import { SelectOptionType } from "./VetPartnerMobileFormA";
-import RatingWidget from "../components/RatingWidget";
+// import RatingWidget from "../components/RatingWidget";
 import RatingStars from "../components/RatingStars";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import RatingSuccess from "./RatingSuccess";
 
 const RateReview = () => {

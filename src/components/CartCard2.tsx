@@ -3,7 +3,6 @@ import {
   decrementProductQty,
   deleteProductFromCart,
   incrementProductQty,
-  IProduct,
 } from "../redux/features/product/productSlice";
 import { useDispatch } from "react-redux";
 import { usePopModal } from "../store/overlay";
@@ -15,7 +14,6 @@ const porkerPickupAddress =
 const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   const dispatch = useDispatch();
   const [items, setItem] = useState<any[]>([]);
-  // const
   const [selectedOption, setSelectedOption] = useState<string>("delivery");
   const toggleModal = usePopModal((state) => state.toggleModal);
   const setLocation = usePopModal((state) => state.setLocation);
