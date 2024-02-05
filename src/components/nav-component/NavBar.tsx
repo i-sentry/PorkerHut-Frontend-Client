@@ -294,7 +294,7 @@ const NavBar = () => {
                 onClick={() => navigate("/my-cart")}
               >
                 <img className="w-6" src={CartLogo} alt="" />
-                {Object.values(cart).length >= 1 && (
+                {Object.values(cart).length >= 0 && (
                   <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
                     {Object.values(cart).length}
                   </span>
