@@ -12,7 +12,7 @@ import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import Popover from "../../components/utility/PopOver";
-import { BiCaretDown } from "react-icons/bi";
+// import { BiCaretDown } from "react-icons/bi";
 
 const Settings = () => {
   const [, setImage] = useState(null);

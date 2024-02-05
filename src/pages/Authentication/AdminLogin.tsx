@@ -9,7 +9,7 @@ import ReactLoading from "react-loading";
 import Footer from "../../components/footer-component/Footer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
+// import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 
 const schema = yup.object().shape({
   email: yup
@@ -31,7 +31,7 @@ const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [eyeState, setEyeState] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
 
   const {
     register,
