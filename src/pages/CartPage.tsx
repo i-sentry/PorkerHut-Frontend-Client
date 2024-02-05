@@ -57,6 +57,12 @@ const CartPage = () => {
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
+
+  const cartTotalQuantity = Object.values(cart).reduce((acc, current) => {
+    return acc + (current?.pricing?.quantity as number);
+  }, 0);
+  console.log(cartTotalQuantity, "cartTotalQuantity");
+
   // console.log(Object.values(cart).length, "Object.values(cart).length");
 
   const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -136,7 +142,9 @@ const CartPage = () => {
               <div className="header-text">
                 <div className=" xxs:flex xxs:items-center xxs:mb-3 md:mb-0">
                   <h1 className="md:p-8  xxs:p-4 text-2xl font-semibold text-[#333333]">
-                    Cart({Object.values(cart).length}) Cart({totalQuantity})
+                    {/* Cart({Object.values(cart).length}) Cart(
+                    {totalQuantity}) */}
+                    Cart({cartTotalQuantity})
                   </h1>
 
                   <div className="md:hidden">
