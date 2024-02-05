@@ -156,7 +156,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     value="delivery"
                     checked={selectedOption === "delivery"}
                     onChange={() => handleRadioChange("delivery", item?._id)}
-                    className="h-4 w-4 text-[#FE6600] accent-[#FE6600] focus:ring-[#FE6600] border-gray-300 rounded checked:bg-[#FE6600]"
+                    className="bg-neutral-300 checked:bg-[#FE6600] checked:focus:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0"
                   />
                   <p className="text-sm text-[#333] font-semibold">
                     Door Delivery{" "}
@@ -174,7 +174,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     value="pickup"
                     checked={selectedOption === "pickup"}
                     onChange={() => handleRadioChange("pickup", item?._id)}
-                    className="h-4 w-4 text-[#FE6600] accent-[#FE6600] focus:ring-[#FE6600] border-gray-300 rounded checked:bg-[#FE6600]"
+                    className="bg-neutral-300 checked:bg-[#FE6600] checked:focus:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0"
                   />
                   <span className="text-sm text-[#333] font-semibold">
                     Pickup
