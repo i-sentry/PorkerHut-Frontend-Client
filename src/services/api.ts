@@ -96,6 +96,7 @@ export const api = {
   Order: {
     order: "/api/orders",
     orderbyId: (id: string) => `/api/orders/${id}`,
+    vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
   },
 };

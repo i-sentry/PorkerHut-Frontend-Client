@@ -27,6 +27,13 @@ export const useGetOrdersById = (id: string) => {
   });
 };
 
+export const useGetVendorOrders = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.vendorOrders(id)),
+    queryKey: ["vendor+orders"],
+  });
+};
+
 export const useGetCustomersOrder = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.Order.customerOrder(id)),
