@@ -140,13 +140,13 @@ const AdminTable = ({
       </div>
 
       <div
-        className={`md:flex  items-center ${
+        className={`md:flex gap-7 items-center ${
           showDropDown ? "justify-between" : "justify-end"
         }  mt-5 my-6 w-full `}
       >
         {showDropDown && (
-          <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
-            <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+          <div className="md:flex items-center gap-3 xxs:hidden">
+            <div className="flex h-full items-center border-r-[1px] border-r-[#D0D5DD]">
               <input
                 type="checkbox"
                 className="text-primary  accent-[#197B30] text-xs md:text-sm"
@@ -167,7 +167,7 @@ const AdminTable = ({
             </div>
           </div>
         )}
-        <div className=" md:flex md:justify-end xxs:block">
+        <div className=" md:flex md:w-[200px] flex-grow md:justify-end xxs:block">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -176,8 +176,8 @@ const AdminTable = ({
         </div>
       </div>
       <div className="flex flex-col bg-white mb-8 ">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full">
+        <div className="overflow-x-auto">
+          <div className="block w-full">
             <div className="">
               <table
                 {...getTableProps()}

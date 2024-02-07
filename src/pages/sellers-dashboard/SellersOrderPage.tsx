@@ -1,5 +1,3 @@
-import React from "react";
-
 // import { Column } from "react-table";
 import _ from "lodash";
 
@@ -11,6 +9,8 @@ import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
+import { useGetVendorOrders } from "../../services/hooks/orders";
+import { useEffect, useState } from "react";
 
 // type OrderDataProps = {
 //   id: string;
@@ -217,7 +217,27 @@ const orderData = [
 ];
 
 const SellersOrderPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [vendorOrders, setVendorOrders] = useState<any[]>([]);
   const openModal = useShowModal((state) => state.openModal);
+  const store = JSON.parse(localStorage.getItem("vendor") as string);
+  const { data, isLoading } = useGetVendorOrders(store?.vendor?._id);
+  const orders = data?.data?.orders;
+
+  useEffect(() => setVendorOrders(orders), [orders]);
+  console.log(orders, isLoading, "is load data");
+
+  // const color3 = () => {
+  //   const pending = vendorOrders?.filter(
+  //     (order) => order?.status === "pending"
+  //   ).length;
+  //   const completed = vendorOrders?.filter(
+  //     (order) => order?.status === "pending"
+  //   ).length;
+  //   console.log(pending, "pending");
+  // };
+  // color3();
+
   const color = (val: { title: string; figure?: string | undefined }) => {
     switch (val?.title) {
       case "Pending Order":
@@ -278,8 +298,6 @@ const SellersOrderPage = () => {
     }
   };
 
-
-
   const card = orderData.map(
     (val: { title: string; figure?: string | undefined }) => (
       <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] md:border-r-[1px] xxs:h-[124px]">
@@ -290,44 +308,44 @@ const SellersOrderPage = () => {
 
   return (
     <>
-   {openModal && <OrderSideModal/>}
-    <div className="pb-10 xxs:px-4 md:px-0">
-      <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
-        Orders
-      </h1>
-      <div className="md:flex h-20 items-center justify-center xxs: hidden">
-        {orderData.map(
-          (val: { title: string; figure?: string | undefined }) => (
-            <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
-              <div>{color(val)}</div>
-            </div>
-          )
-        )}
-      </div>
-
-      <div className=" mx-auto md:hidden xxs:block">
-        <Carousel cards={card} />
-      </div>
-
-      <div className="md:mt-6 xxs:mt-16 mb-8">
-        <h1 className="my-4 text-[24px] leading-[28px] font-normal">
-          Overview
+      {openModal && <OrderSideModal />}
+      <div className="pb-10 xxs:px-4 md:px-0">
+        <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
+          Orders
         </h1>
-      </div>
+        <div className="md:flex h-20 items-center justify-center xxs: hidden">
+          {orderData.map(
+            (val: { title: string; figure?: string | undefined }) => (
+              <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
+                <div>{color(val)}</div>
+              </div>
+            )
+          )}
+        </div>
 
-      <div className="hide-scroll-bar">
-        <AdminTable
-          // @ts-ignore
-          Tcolumns={column}
-          tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-          TData={mockData}
-          placeholder={"Search product name, store names, category...."}
-          showIcon={true}
-          showCheckbox={true}
-          showDropDown={true}
-        />
+        <div className=" mx-auto md:hidden xxs:block">
+          <Carousel cards={card} />
+        </div>
+
+        <div className="md:mt-6 xxs:mt-16 mb-8">
+          <h1 className="my-4 text-[24px] leading-[28px] font-normal">
+            Overview
+          </h1>
+        </div>
+
+        <div className="hide-scroll-bar">
+          <AdminTable
+            // @ts-ignore
+            Tcolumns={column}
+            tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
+            TData={mockData}
+            placeholder={"Search product name, store names, category...."}
+            showIcon={true}
+            showCheckbox={true}
+            showDropDown={true}
+          />
+        </div>
       </div>
-    </div>
     </>
   );
 };

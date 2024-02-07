@@ -10,15 +10,14 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
   }, 1000);
 
   return (
-    <div className="flex w-full items-center justify-between gap-4 relative ">
+    <div className="relative w-full">
       <input
         type="search"
         value={value || ""}
         placeholder={placeholder}
         // placeholder="Order  number, item name or other criteria"
 
-        className="xxs:w-full md:w-[500px]  bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-3 md:py-2 xxs:py-3 placeholder:text-[12px] placeholder:font-light placeholder:leading-[15px]"
-
+        className="w-full  bg-[#F4F4F4] focus:outline-none focus:border focus:border-green-500 active:outline-none rounded-md px-3 md:py-2 xxs:py-3 placeholder:text-[12px] placeholder:font-light placeholder:leading-[15px] focus:ring-0"
         onChange={(e) => {
           setValue(e.target.value);
           handleChange(e.target.value);
@@ -27,7 +26,7 @@ const GlobalFilter = ({ filter, setFilter, placeholder }: any) => {
         onBlur={() => setIsFocused(false)}
       />
       {!isFocused && (
-        <div className="absolute right-3">
+        <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <BsSearch />
         </div>
       )}
