@@ -167,7 +167,7 @@ const AdminTable = ({
             </div>
           </div>
         )}
-        <div className=" md:flex md:w-[200px] flex-grow md:justify-end xxs:block">
+        <div className=" md:flex md:w-[350px] md:justify-end xxs:block">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}

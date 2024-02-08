@@ -5,8 +5,10 @@ import { orderStatement } from "../../utils/orderStatement";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Statementcolumn } from "../../components/Table/column";
-
-
+import { useGetVendorOrders } from "../../services/hooks/orders";
+import { Column } from "react-table";
+import moment from "moment";
+import { Tooltip } from "../../components/utility/ToolTip";
 
 const data = [
   {
@@ -26,10 +28,131 @@ const data = [
   },
 ];
 
+const Tcolumns: readonly Column<object>[] = [
+  {
+    Header: "Product Name",
+    accessor: (row: any) => (
+      <span className="align-top" style={{ textTransform: "capitalize" }}>
+        {row?.productDetails[0].productID.information.productName}
+      </span>
+    ),
+  },
+
+  {
+    Header: "Delivered to",
+    accessor: (row: any) => (
+      <div className="whitespace-pre-wrap w-[200px] align-top">
+        {row?.billingInformation?.address}
+      </div>
+    ),
+  },
+  {
+    Header: "Delievery Date",
+    accessor: "",
+
+    // accessor: (row: any) => {
+    //   const date = moment(new Date(row?.orderDate)).format("DD MMMM YYYY");
+    //   return date;
+    // },
+  },
+  {
+    Header: "Order Number",
+    // accessor: "_id",
+    accessor: (row: any) => (
+      <Tooltip message={row?._id}>
+        <span className="cursor-pointer">{row?._id.slice(0, 6)}...</span>
+      </Tooltip>
+    ),
+  },
+  {
+    Header: "Price",
+    accessor: (row) =>
+      // @ts-ignore
+      `₦${row.productDetails[0]?.price.toLocaleString()}`,
+  },
+  {
+    Header: "Charges",
+    accessor: "",
+    // accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
+  },
+  {
+    Header: "Payout Amount",
+    accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
+  },
+  {
+    Header: "Status",
+    accessor: (row: any) => {
+      switch (row?.status?.toLowerCase()) {
+        case "completed":
+          return (
+            <span className="">
+              <span className="w-2 h-2 bg-green-500 rounded-full"></span>{" "}
+              Completed
+            </span>
+          );
+
+        case "failed":
+          return (
+            <span className="">
+              <span className="w-2 h-2 bg-[#F91919] inline-block rounded-full"></span>{" "}
+              Failed
+            </span>
+          );
+        case "pending":
+          return (
+            <span className="">
+              <span className="w-2 h-2 bg-[#F29339] inline-block rounded-full"></span>{" "}
+              Pending
+            </span>
+          );
+        case "returned":
+          return (
+            <span className="">
+              <span className="w-2 h-2 bg-[#198df9] inline-block rounded-full"></span>{" "}
+              Returned
+            </span>
+          );
+        case "returned Failed":
+          return (
+            <span className=" text-[#F91919]">
+              <span className="w-2 h-2 bg-[#F91919] inline-block rounded-full"></span>{" "}
+              Returned Failed
+            </span>
+          );
+        default:
+          return (
+            <span className="font-normal text-sm text-[#202223] ">
+              {row?.status}
+            </span>
+          );
+      }
+    },
+  },
+  // {
+  //   Header: "View more",
+  //   Cell: ({ row }: any) => {
+  //     const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
+  //     return (
+  //       <span
+  //         onClick={() => toggleOpenModal(true)}
+  //         className="hover:underline hover:text-[#0eb6683] cursor-pointer"
+  //       >
+  //         View
+  //       </span>
+  //     );
+  //   },
+  // },
+];
+
 const SellersAccount = () => {
-
-
   const [selectedTab, setSelectedTab] = useTabs(["Statement", "Overview"]);
+  const [vendorOrders, setVendorOrders] = useState<any[]>([]);
+  const store = JSON.parse(localStorage.getItem("vendor") as string);
+  const { data: ordervendor, isLoading } = useGetVendorOrders(
+    store?.vendor?._id
+  );
+  const orders = ordervendor?.data?.orders;
+  useEffect(() => setVendorOrders(orders), [orders]);
 
   const cards = data.map((data) => (
     <div
@@ -48,7 +171,7 @@ const SellersAccount = () => {
   ));
 
   return (
-    <div className="xxs:px-4 md:px-0">
+    <div className="xxs:px-4 md:px-0 wh">
       {" "}
       <div className="flex  flex-col gap-2 mb-8">
         <h1 className="md:text-[36px] md:leading-[42px] font-medium xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
@@ -304,11 +427,11 @@ const SellersAccount = () => {
               <div className="">
                 <AdminTable
                   // @ts-ignore
-                  Tcolumns={Statementcolumn}
+                  Tcolumns={Tcolumns}
                   // @ts-ignore
                   optionalColumn={false}
                   tabs={[]}
-                  TData={orderStatement}
+                  TData={vendorOrders}
                   placeholder={
                     "Search product name, store names, category.... "
                   }
@@ -344,7 +467,7 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
     setActiveIndex((prevIndex: number) =>
       prevIndex === cards.length - 1 ? 0 : prevIndex + 1
     );
-  },[cards.length]);
+  }, [cards.length]);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -56,7 +56,7 @@ export const column: Column<{
           onClick={() => toggleOpenModal(true)}
           className="hover:underline hover:text-[#0eb6683] cursor-pointer"
         >
-          View 
+          View
         </span>
       );
     },
