@@ -107,7 +107,6 @@ const Settings = () => {
   };
 
   const handleConfirm = () => {
-
     setShowConfirmationModal(false);
   };
 
@@ -125,15 +124,12 @@ const Settings = () => {
   // };
 
   const openModal = () => {
-  const searchParams = new URLSearchParams();
-  searchParams.set("email", email);
-  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-  window.history.replaceState({}, "", newUrl);
-  setModalOpen(true);
-};
-
-
-
+    const searchParams = new URLSearchParams();
+    searchParams.set("email", email);
+    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+    setModalOpen(true);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -153,7 +149,7 @@ const Settings = () => {
       <CreateAdminAcct
         openModal={modalOpen}
         closeModal={closeModal}
-
+        email={email}
       />
 
       <div className="mb-5">

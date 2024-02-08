@@ -37,9 +37,10 @@ interface AdminSignUpProps {
 type SignUpModal = {
   openModal: boolean;
   closeModal: any;
+  email: string;
 };
 
-const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
+const CreateAdminAcct = ({ openModal, closeModal, email }: SignUpModal) => {
   const navigate = useNavigate();
   const createUserAcc = useUserSignUp();
   const [loading, setLoading] = useState(false);
@@ -54,12 +55,12 @@ const CreateAdminAcct = ({ openModal, closeModal }: SignUpModal) => {
     clearErrors,
     formState: { errors },
   } = useForm<AdminSignUpProps>({ resolver: yupResolver(schema) });
-  const location = useLocation();
-  console.log(location, "location");
-  const queryParams = new URLSearchParams(location.search);
-  const encodedEmail = queryParams.get("email");
-  // console.log(encodedEmail, "encodedEmail");
-  const email = encodedEmail ? decodeURIComponent(encodedEmail) : null;
+  // const location = useLocation();
+  // console.log(location, "location");
+  // const queryParams = new URLSearchParams(location.search);
+  // const encodedEmail = queryParams.get("email");
+  // // console.log(encodedEmail, "encodedEmail");
+  // const email = encodedEmail ? decodeURIComponent(encodedEmail) : null;
   const onSubmit: SubmitHandler<AdminSignUpProps> = (data) => {
     setLoading(true);
     const { firstName, lastName, password, role } = data;
@@ -353,5 +354,6 @@ export default CreateAdminAcct;
 
 const role = [
   { id: 1, value: "admin", label: "Admin" },
-  { id: 2, value: "super-admin", label: "Super Admin" },
+  { id: 2, value: "superadmin", label: "Super Admin" },
 ];
+// user, admin, superadmin;
