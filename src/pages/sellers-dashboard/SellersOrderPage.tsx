@@ -3,14 +3,19 @@ import _ from "lodash";
 
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 // import Table from "../../components/Table/Table";
+import { Column } from "react-table";
 
-import mockData from "../../utils/json/mockData.json";
+// import mockData from "../../utils/json/mockData.json";
 import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { useEffect, useState } from "react";
+// import Popover from "../../components/utility/PopOver";
+import { CgSpinnerAlt } from "react-icons/cg";
+import moment from "moment";
+import { Tooltip } from "../../components/utility/ToolTip";
 
 // type OrderDataProps = {
 //   id: string;
@@ -216,6 +221,77 @@ const orderData = [
   },
 ];
 
+const Tcolumns: readonly Column<object>[] = [
+  {
+    Header: "Order Number",
+    // accessor: "_id",
+    accessor: (row: any) => (
+      <Tooltip message={row?._id}>
+        <span className="cursor-pointer">{row?._id.slice(0, 10)}...</span>
+      </Tooltip>
+    ),
+  },
+  {
+    Header: "Confirmation Date",
+    accessor: (row: any) => {
+      const date = moment(new Date(row?.orderDate)).format("DD MMMM YYYY");
+      return date;
+    },
+  },
+  {
+    Header: "Update Price",
+    accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
+  },
+  {
+    Header: "Price",
+    accessor: (row) =>
+      // @ts-ignore
+      `₦${row.productDetails[0]?.price.toLocaleString()}`,
+  },
+  {
+    Header: "Quality",
+    accessor: (row: any) => row?.productDetails?.length,
+  },
+  {
+    Header: "Status",
+    accessor: (row: any) => {
+      switch (row?.status?.toLowerCase()) {
+        case "completed":
+          return <span className="text-[#22C55E]">Completed</span>;
+
+        case "failed":
+          return <span className=" text-[#F91919]">Failed</span>;
+        case "pending":
+          return <span className=" text-[#F29339]">Pending</span>;
+        case "returned":
+          return <span className=" text-[#198df9]">Returned</span>;
+        case "returned Failed":
+          return <span className=" text-[#F91919]">Returned Failed</span>;
+        default:
+          return (
+            <span className="font-normal text-sm text-[#202223] ">
+              {row?.status}
+            </span>
+          );
+      }
+    },
+  },
+  {
+    Header: "View more",
+    Cell: ({ row }: any) => {
+      const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
+      return (
+        <span
+          onClick={() => toggleOpenModal(true)}
+          className="hover:underline hover:text-[#0eb6683] cursor-pointer"
+        >
+          View
+        </span>
+      );
+    },
+  },
+];
+
 const SellersOrderPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
@@ -309,11 +385,11 @@ const SellersOrderPage = () => {
   return (
     <>
       {openModal && <OrderSideModal />}
-      <div className="pb-10 xxs:px-4 md:px-0">
-        <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
+      <div className="pb-10 mt-2 xxs:px-4 md:px-0">
+        {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
           Orders
-        </h1>
-        <div className="md:flex h-20 items-center justify-center xxs: hidden">
+        </h1> */}
+        <div className=" h-20 items-center justify-center hidden">
           {orderData.map(
             (val: { title: string; figure?: string | undefined }) => (
               <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
@@ -322,7 +398,9 @@ const SellersOrderPage = () => {
             )
           )}
         </div>
-
+        <div>
+          <MonthSelector data={vendorOrders} loading={isLoading} />
+        </div>
         <div className=" mx-auto md:hidden xxs:block">
           <Carousel cards={card} />
         </div>
@@ -336,9 +414,9 @@ const SellersOrderPage = () => {
         <div className="hide-scroll-bar">
           <AdminTable
             // @ts-ignore
-            Tcolumns={column}
+            Tcolumns={Tcolumns}
             tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-            TData={mockData}
+            TData={vendorOrders}
             placeholder={"Search product name, store names, category...."}
             showIcon={true}
             showCheckbox={true}
@@ -351,3 +429,126 @@ const SellersOrderPage = () => {
 };
 
 export default SellersOrderPage;
+
+const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
+  data,
+  loading,
+}) => {
+  const [selectedMonth, setSelectedMonth] = useState<number>(
+    new Date().getMonth() + 1
+  );
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMonth(parseInt(event.target.value));
+    console.log(event.target.value, "gsgsgsg");
+  };
+
+  const filteredData = data?.filter((order: any) => {
+    const month = new Date(order?.orderDate)?.toLocaleString("en-US", {
+      month: "numeric",
+    });
+    return +month === selectedMonth;
+  });
+
+  const getOrderStatusLength = (orders: any[], status: string) => {
+    return orders?.filter((order) => order?.status === status)?.length;
+  };
+
+  const pendingOrders = getOrderStatusLength(filteredData, "pending");
+  const completedOrders = getOrderStatusLength(filteredData, "completed");
+  const failedOrders = getOrderStatusLength(filteredData, "failed");
+  const returnedOrders = getOrderStatusLength(filteredData, "returned");
+
+  console.log(
+    filteredData,
+    pendingOrders,
+    completedOrders,
+    failedOrders,
+    returnedOrders
+  );
+
+  return (
+    <section className="flex item-center">
+      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-1 p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+        <label htmlFor="monthSelect">
+          <select
+            id="monthSelect"
+            value={selectedMonth}
+            onChange={handleChange}
+            className="cursor-pointer border-none w-[140px] focus:ring-0 bg-transparent"
+          >
+            <option value={1}>January</option>
+            <option value={2}>February</option>
+            <option value={3}>March</option>
+            <option value={4}>April</option>
+            <option value={5}>May</option>
+            <option value={6}>June</option>
+            <option value={7}>July</option>
+            <option value={8}>August</option>
+            <option value={9}>September</option>
+            <option value={10}>October</option>
+            <option value={11}>November</option>
+            <option value={12}>December</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+        <h1 className=" text-[#F29339] text-lg leading-[23.44px] font-medium">
+          Pending Orders
+        </h1>
+        <span className="text-[#F29339] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+          (
+          {loading ? (
+            <CgSpinnerAlt size={20} className="animate-spin" />
+          ) : (
+            pendingOrders
+          )}
+          )
+        </span>
+      </div>
+      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+        <h1 className=" text-[#22C55E] text-lg leading-[23.44px] font-medium whitespace-nowrap">
+          Completed Orders
+        </h1>
+        <span className="text-[#22C55E] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+          (
+          {loading ? (
+            <CgSpinnerAlt size={20} className="animate-spin" />
+          ) : (
+            completedOrders
+          )}
+          )
+        </span>
+      </div>
+      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+        <h1 className=" text-[#F91919] text-lg leading-[23.44px] font-medium">
+          Failed Orders
+        </h1>
+        <span className="text-[#F91919] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+          (
+          {loading ? (
+            <CgSpinnerAlt size={20} className="animate-spin" />
+          ) : (
+            failedOrders
+          )}
+          )
+        </span>
+      </div>
+      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+        <h1 className=" text-lg leading-[23.44px] font-medium">
+          Returned Orders
+        </h1>
+        <span className="text-lg leading-[23.44px] font-medium flex items-center justify-center">
+          (
+          {loading ? (
+            <CgSpinnerAlt size={20} className="animate-spin" />
+          ) : (
+            returnedOrders
+          )}
+          )
+        </span>
+      </div>
+    </section>
+  );
+};
