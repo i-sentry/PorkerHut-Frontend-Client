@@ -99,6 +99,9 @@ export const api = {
     vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
   },
+  admin: {
+    inviteAdmin: "/api/user/admin-invite",
+  },
 };
 
 export const makePostRequest = async (

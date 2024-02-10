@@ -278,7 +278,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
               ) : (
                 <div className="flex flex-col items-center justify-center my-16">
                   <svg
-                    className="w-12 h-12 text-gray-400"
+                    className="w-5 h-5 text-gray-400"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"

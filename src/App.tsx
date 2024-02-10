@@ -86,6 +86,7 @@ import AdminLogin from "./pages/Authentication/AdminLogin";
 import Settings from "./pages/admin-dashboard/Settings";
 import ProductCategory from "./pages/product-category/ProductCategory";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
+import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -103,7 +104,7 @@ const router = createBrowserRouter(
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/forgot_password" element={<ForgetPassword />} />
       <Route path="/rate_review/:id" element={<RateReview />} />
-      {/* <Route path="/rate_success" element={<RatingSuccess />} /> */}
+      <Route path="/admin/registration" element={<CreateAdminAcct />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         path="/vendors/forgot_password"
