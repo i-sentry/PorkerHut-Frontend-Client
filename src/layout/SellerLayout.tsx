@@ -1,10 +1,21 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
 
 const Layout = () => {
-  console.log(localStorage.getItem("vendor"), "done");
+  const navigate = useNavigate();
+  const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const accessToken = localStorage.getItem("vendorAccessToken");
+
+  console.log(vendor, accessToken, "vendorrr");
+
+  useEffect(() => {
+    if (accessToken === "undefined" || accessToken === null) {
+      // Route Back to Seller Login Screen
+      navigate("/sign-in?q=vendor");
+    }
+  }, [accessToken, navigate]);
 
   return (
     <div className="h-screen w-screen overflow-hidden hide-scroll-bar">
