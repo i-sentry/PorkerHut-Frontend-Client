@@ -13,7 +13,8 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import Popover from "../../components/utility/PopOver";
 import { BiCaretDown } from "react-icons/bi";
-import { useInviteAdmin } from "../../services/hooks/admin/Auth";
+import { useGetAllAdmin, useInviteAdmin } from "../../services/hooks/admin/Auth";
+import ReactLoading from "react-loading";
 
 const Settings = () => {
   const [, setImage] = useState(null);
@@ -35,7 +36,7 @@ const Settings = () => {
   const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
+const getAllAdmin = useGetAllAdmin()
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -56,6 +57,8 @@ const Settings = () => {
       action: "Apply",
     },
   ]);
+
+  console.log(getAllAdmin,"getAllAdmin")
 
   const handleValueChange = (index: number, value: string | number) => {
     setItems((prevState) => {
@@ -442,6 +445,7 @@ const Settings = () => {
                 <div className="container mx-auto pt-8">
                   <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
+                {}
                 <div className="flex items-center justify-between mt-10">
                   <div className="flex gap-2 mt-3 items-center">
                     <img
@@ -709,7 +713,7 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
   const [loading, setLoading] = useState(false);
 
   const handleGrantAccess = () => {
-    setLoading(true)
+    // setLoading(true)
     if (email && role) {
       onGrantAccess(email, role);
           setLoading(false);
@@ -718,7 +722,7 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
     }
   };
 
-  const roles = ["Admin", "SuperAdmin"]; // Example roles
+  const roles = ["user", "admin", "Superadmin"]; // Example roles
 
   return (
     <div className=" flex items-center ">
@@ -752,22 +756,7 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
         onClick={handleGrantAccess}
       >
         {loading ? (
-          <svg
-            className="w-12 h-12 text-gray-400"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
-            <path
-              d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></path>
-          </svg>
+         "Loading.."
         ) : (
           "Grant Access"
         )}

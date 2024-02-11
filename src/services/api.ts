@@ -101,6 +101,7 @@ export const api = {
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
+    getAdmin: "/api/user/admin"
   },
 };
 
@@ -212,6 +213,7 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
       if (accessToken) {
         headers["x-access-token"] = accessToken;
         headers["Authorization"] = `Bearer ${accessToken}`;
+        headers["Token"] = `Bearer ${accessToken}`;
       } else {
         throw new Error("Access token is missing");
       }

@@ -54,7 +54,7 @@ const CreateAdminAcct = () => {
   // console.log(location, "location");
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  // // console.log(encodedEmail, "encodedEmail");
+  console.log(token, "encodedEmail");
   // const email = encodedEmail ? decodeURIComponent(encodedEmail) : null;
   const onSubmit: SubmitHandler<AdminSignUpProps> = (data) => {
     setLoading(true);
@@ -72,7 +72,7 @@ const CreateAdminAcct = () => {
       .then((res: any) => {
         reset();
         toast.success(`Account Created Successfully`);
-      navigate("/sign-in?q=vendor");
+      navigate("/admin-login");
         setLoading(false);
         console.log(res);
       })
@@ -330,12 +330,12 @@ const CreateAdminAcct = () => {
           </div>
 
           {/* CLOSE MODAL BUTTON */}
-          <button
+          {/* <button
             onClick={close}
             className="bg-[#197b30] p-2 absolute top-3 right-3"
           >
             <BsXLg className="fill-white" />
-          </button>
+          </button> */}
         </div>
       </div>
     </>

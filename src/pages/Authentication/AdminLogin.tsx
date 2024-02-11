@@ -65,7 +65,7 @@ const login = useUserLogin();
             // setIsOpen(true);
 
             // setAuth(res);
-            navigate("/");
+            navigate("/admin");
             // setIsLogin(true);
             localStorage.removeItem("accessToken");
             localStorage.removeItem("admin");

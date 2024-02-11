@@ -8,14 +8,13 @@ const Layout = () => {
   const vendor = JSON.parse(localStorage.getItem("vendor") as string);
   const accessToken = localStorage.getItem("vendorAccessToken");
 
-  console.log(vendor, accessToken, "vendorrr");
-
   useEffect(() => {
-    if (accessToken === "undefined" || accessToken === null) {
-      // Route Back to Seller Login Screen
+  const path = window.location.pathname;
+  if ((path.startsWith("/vendor") ) && (!accessToken || accessToken === "undefined" || accessToken === null)) {
+
       navigate("/sign-in?q=vendor");
-    }
-  }, [accessToken, navigate]);
+  }
+}, [accessToken, navigate]);
 
   return (
     <div className="hide-scroll-bar h-screen w-screen overflow-hidden">

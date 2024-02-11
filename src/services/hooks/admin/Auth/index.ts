@@ -1,6 +1,6 @@
+import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makePostRequest } from "../../../api";
-import { ISignUpUser } from "../../../serviceType";
+import { api, makeGetRequestWithCustomHeader, makePostRequest } from "../../../api";
 
 export const useInviteAdmin = () => {
   return useQueryMutation({
@@ -19,5 +19,12 @@ export const useAdminSignUp = () => {
       role: string;
       invitationToken: string;
     }) => makePostRequest(data, api.Users.userSignup),
+  });
+};
+
+export const useGetAllAdmin = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequestWithCustomHeader(api.admin.getAdmin),
+    queryKey: ["getAdmin"],
   });
 };
