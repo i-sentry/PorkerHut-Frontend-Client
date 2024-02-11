@@ -1,4 +1,3 @@
-
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 
 export interface Iprops {
@@ -44,7 +43,7 @@ const PerformanceWidget = ({
   return (
     <div className="">
       <div
-        className={`flex flex-auto justify-between flex-col p-3  h-[162px] w-full rounded-lg shadow-sm xxs:flex-shrink-0 md:flex-shrink border border-[${buttonColor}] shadow-md`}
+        className={`flex h-[162px] w-full flex-auto flex-col  justify-between rounded-lg border p-3 shadow-sm xxs:flex-shrink-0 md:flex-shrink border-[${buttonColor}] shadow-md`}
         style={{
           backgroundColor: color,
           border: border,
@@ -52,12 +51,12 @@ const PerformanceWidget = ({
         }}
       >
         <div className="flex items-start ">
-          <div className="text-[#333333] text-[16px] leading-[18px]  font-normal ">
+          <div className="text-[16px] font-normal leading-[18px]  text-[#333333] ">
             {type}
           </div>
         </div>
         <div>
-          <span className="text-[#333333] font-normal   text-[24px] leading-[24px]">
+          <span className="text-[24px] font-bold leading-[24px] text-[#333333]">
             {value}
           </span>
         </div>
@@ -66,9 +65,9 @@ const PerformanceWidget = ({
           <div className="">
             {/* AiOutlineFall */}
             <span
-              className={`bg-[${buttonColor}] text-[${textColor}] flex py-2 rounded-md  transition-all active:scale-90 disabled:cursor-not-allowed`}
+              className={`bg-[${buttonColor}] text-[${textColor}] flex rounded-md py-2  transition-all active:scale-90 disabled:cursor-not-allowed`}
             >
-              {percentage > 50 ? (
+              {percentage < 0 ? (
                 <span>
                   {" "}
                   <AiOutlineFall color="#F91919" size={23} />
@@ -83,18 +82,18 @@ const PerformanceWidget = ({
               <div>
                 <p className="flex ">
                   <span
-                    className={`text-[12px] leading-[24px] font-normal  ${
-                      percentage > 50 ? "text-[#F91919]" : "text-[#22C55E]"
+                    className={`text-[12px] font-normal leading-[24px]  ${
+                      percentage < 0 ? "text-[#F91919]" : "text-[#22C55E]"
                     }  px-1`}
                   >
-                    {percentageValue}%
+                    {Math.abs(percentageValue)}%
                   </span>
                   {percentage > 50 ? (
-                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
+                    <span className="pr-1 text-[12px] font-normal leading-[24px] text-[#333333]">
                       Decrease from yesterday
                     </span>
                   ) : (
-                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
+                    <span className="pr-1 text-[12px] font-normal leading-[24px] text-[#333333]">
                       Increase from yesterday
                     </span>
                   )}
@@ -104,7 +103,7 @@ const PerformanceWidget = ({
           </div>
         </div>
       </div>
-      <p className=" text-center text-[12px] leading-[24px] font-normal text-[#a2a2a2] mt-5">
+      <p className=" mt-2 text-center text-[12px] font-normal leading-[18px] text-[#a2a2a2]">
         {text}
       </p>
     </div>
