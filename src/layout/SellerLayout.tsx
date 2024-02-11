@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
