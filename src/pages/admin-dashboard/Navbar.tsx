@@ -10,7 +10,8 @@ import { FaBars } from "react-icons/fa";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
-
+   const admin = JSON.parse(localStorage.getItem("admin") as string);
+console.log(admin, "admin")
   return (
     <div className="bg-white border border-[#D9D9D9] h-16  top-0 w-full px-4 flex items-center justify-between  fixed z-50">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3 ">

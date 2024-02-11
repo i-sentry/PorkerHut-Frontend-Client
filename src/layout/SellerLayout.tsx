@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
+import logo from "../assets/images/porkerlogo.png";
 
 const Layout = () => {
   const navigate = useNavigate();
-  const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const [loading, setLoading] = useState(true)
+
   const accessToken = localStorage.getItem("vendorAccessToken");
 
   useEffect(() => {
@@ -14,9 +16,29 @@ const Layout = () => {
 
       navigate("/sign-in?q=vendor");
   }
+    setLoading(false)
 }, [accessToken, navigate]);
 
   return (
+
+    <>
+  {loading ? (
+
+<div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center">
+        <img
+            src={logo}
+            alt="loaderLogo"
+            className="w-20 h-20 animate-pulse"
+        />
+        <p className="text-[#333333] text-[14px] leading-[24px]">
+            Fetching Data...
+        </p>
+    </div>
+</div>
+
+      ) : (
+
     <div className="hide-scroll-bar h-screen w-screen overflow-hidden">
       <div className="grid h-full w-full grid-rows-[auto_1fr]">
         <div className="sticky top-0 left-0 right-0 z-50">
@@ -31,6 +53,9 @@ const Layout = () => {
         </div>
       </div>
     </div>
+      )}
+
+    </>
   );
 };
 
