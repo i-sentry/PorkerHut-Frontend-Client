@@ -87,7 +87,7 @@ import Settings from "./pages/admin-dashboard/Settings";
 import ProductCategory from "./pages/product-category/ProductCategory";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
-
+import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -178,6 +178,10 @@ const router = createBrowserRouter(
         <Route path="/vendor/products" element={<SellersProductPage />} />
 
         <Route path="/vendor/create-product" element={<StepperComponent />} />
+        <Route
+          path="/vendor/product/create-product"
+          element={<SellerStepperComponent />}
+        />
         <Route path="/vendor/create" element={<ProductAccordion />} />
         <Route path="/vendor/account+statement" element={<SellersAccount />} />
         <Route
@@ -211,8 +215,8 @@ const router = createBrowserRouter(
         <Route path="/admin/messages" element={<Messages />} />
         <Route path="/admin/settings" element={<Settings />} />
       </Route>
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 function App() {

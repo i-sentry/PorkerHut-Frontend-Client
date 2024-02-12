@@ -90,11 +90,11 @@ const ProductDetails = () => {
       pricing: {
         saleStartDate:
           moment(currentProductData?.pricing.saleStartDate).format(
-            "YYYY-MM-DD"
+            "YYYY-MM-DD",
           ) || "",
         saleEndDate:
           moment(currentProductData?.pricing.saleEndDate).format(
-            "YYYY-MM-DD"
+            "YYYY-MM-DD",
           ) || "",
         productPrice: currentProductData?.pricing.productPrice || 0,
         quantity: currentProductData?.pricing.quantity || 0,
@@ -193,11 +193,11 @@ const ProductDetails = () => {
         pricing: {
           saleStartDate:
             moment(currentProductData?.pricing.saleStartDate).format(
-              "YYYY-MM-DD"
+              "YYYY-MM-DD",
             ) || "",
           saleEndDate:
             moment(currentProductData?.pricing.saleEndDate).format(
-              "YYYY-MM-DD"
+              "YYYY-MM-DD",
             ) || "",
           productPrice: currentProductData?.pricing.productPrice || 0,
           quantity: currentProductData?.pricing.quantity || 0,
@@ -388,7 +388,7 @@ const ProductDetails = () => {
           <h1 className="text-[36px] font-semibold leading-normal">
             Product Created
           </h1>
-          <span className="text-[#A2A2A2] font-normal text-sm">
+          <span className="text-sm font-normal text-[#A2A2A2]">
             Find all created product here for approval.
           </span>
         </div>
@@ -396,11 +396,11 @@ const ProductDetails = () => {
 
       <ProductTable data={currentProductData} />
 
-      <nav className=" border-b-2 border-[#E8E9EB] flex py-3 bg-[#F4F4F4] space-x-4 rounded-t-md pl-4 mt-10">
+      <nav className=" mt-10 flex space-x-4 rounded-t-md border-b-2 border-[#E8E9EB] bg-[#F4F4F4] py-3 pl-4">
         <TabSelector
-          className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 ${
+          className={` relative cursor-pointer bg-transparent p-1.5 text-sm font-light transition-all duration-300 ${
             selectedTab === "Information"
-              ? " block border border-[#197B30] font-normal rounded-md text-[#197B30] p-1.5"
+              ? " block rounded-md border border-[#197B30] p-1.5 font-normal text-[#197B30]"
               : "font-light"
           } `}
           isActive={selectedTab === "Information"}
@@ -414,9 +414,9 @@ const ProductDetails = () => {
         </TabSelector>
 
         <TabSelector
-          className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 ${
+          className={` relative cursor-pointer bg-transparent p-1.5 text-sm font-light transition-all duration-300 ${
             selectedTab === "Details"
-              ? "block border border-[#197B30] font-normal rounded-md text-[#197B30] p-1.5"
+              ? "block rounded-md border border-[#197B30] p-1.5 font-normal text-[#197B30]"
               : "font-light"
           } `}
           isActive={selectedTab === "Details"}
@@ -429,9 +429,9 @@ const ProductDetails = () => {
           More Product Details
         </TabSelector>
         <TabSelector
-          className={` cursor-pointer relative bg-transparent  font-light text-sm p-1.5 transition-all duration-300 ${
+          className={` relative cursor-pointer bg-transparent  p-1.5 text-sm font-light transition-all duration-300 ${
             selectedTab === "Pricing"
-              ? "block border border-[#197B30] font-normal  rounded-md text-[#197B30] p-1.5"
+              ? "block rounded-md border border-[#197B30]  p-1.5 font-normal text-[#197B30]"
               : "font-light"
           } `}
           isActive={selectedTab === "Pricing"}
@@ -444,9 +444,9 @@ const ProductDetails = () => {
           Product Pricing
         </TabSelector>
         <TabSelector
-          className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 ${
+          className={` relative cursor-pointer bg-transparent  p-1.5  text-sm transition-all duration-300 ${
             selectedTab === "Images"
-              ? "block border border-[#197B30] font-normal rounded-md text-[#197B30] p-1.5"
+              ? "block rounded-md border border-[#197B30] p-1.5 font-normal text-[#197B30]"
               : "font-light"
           } `}
           isActive={selectedTab === "Images"}
@@ -459,7 +459,7 @@ const ProductDetails = () => {
           Images
         </TabSelector>
       </nav>
-      <div className=" py-4 px-8  bg-[#F4F4F4]">
+      <div className=" bg-[#F4F4F4] py-4  px-8">
         <TabPanel hidden={selectedTab !== "Information"}>
           {" "}
           <div>
@@ -469,6 +469,7 @@ const ProductDetails = () => {
             <div>
               <>
                 {productInfo.map((data, index) => {
+                  console.log(data, "data data fsfaya");
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
@@ -512,48 +513,48 @@ const ProductDetails = () => {
             <h1 className="pb-5 text-lg">Product Pricing</h1>
             <div className="flex flex-col">
               <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                  <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-md">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-md">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-[#333333]">
                         <tr>
                           <th
                             scope="col"
-                            className="px-6 py-4 text-left text-xs font-medium text-[#fff] border  tracking-wider"
+                            className="border px-6 py-4 text-left text-xs font-medium tracking-wider  text-[#fff]"
                           >
                             Product Id
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-4 text-left text-xs font-medium text-[#fff] border  tracking-wider"
+                            className="border px-6 py-4 text-left text-xs font-medium tracking-wider  text-[#fff]"
                           >
                             Sales Start Date
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-4 text-left text-xs font-medium text-[#fff] border  tracking-wider"
+                            className="border px-6 py-4 text-left text-xs font-medium tracking-wider  text-[#fff]"
                           >
                             Sales End Date
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-4 text-left text-xs font-medium text-[#fff] border  tracking-wider"
+                            className="border px-6 py-4 text-left text-xs font-medium tracking-wider  text-[#fff]"
                           >
                             Product Price
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-4 text-left text-xs font-medium text-[#fff] border  tracking-wider"
+                            className="border px-6 py-4 text-left text-xs font-medium tracking-wider  text-[#fff]"
                           >
                             Product Quantity
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200 ">
+                      <tbody className="divide-y divide-gray-200 bg-white ">
                         <tr>
                           {pricingDetails.map((data, index) => {
                             return (
-                              <td className="px-[6px] py-[4px] border">
+                              <td className="border px-[6px] py-[4px]">
                                 <CustomInput
                                   data={data}
                                   register={register}
@@ -643,9 +644,9 @@ const ProductDetails = () => {
       <div className="flex justify-end p-5">
         <button
           onClick={() => handleProductUpdate("rejected")}
-          className={`mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff] ${
+          className={`mr-2 rounded border border-[#f91919] bg-[#fff] px-6 py-2 text-sm font-light text-[#f91919] hover:bg-[#f91919] hover:text-[#fff] ${
             buttonDisabled || productStatus === "rejected"
-              ? "disabled:bg-[#990000] disabled:cursor-not-allowed"
+              ? "disabled:cursor-not-allowed disabled:bg-[#990000]"
               : ""
           }`}
           disabled={buttonDisabled || productStatus === "rejected"}
@@ -655,16 +656,16 @@ const ProductDetails = () => {
 
         <button
           onClick={() => handleProductUpdate("approved")}
-          className={`px-6 py-2 text-sm w-35 font-light bg-[#197B30] text-white rounded ${
+          className={`w-35 rounded bg-[#197B30] px-6 py-2 text-sm font-light text-white ${
             buttonDisabled || productStatus === "approved"
-              ? "disabled:bg-[#568a62] disabled:cursor-not-allowed"
+              ? "disabled:cursor-not-allowed disabled:bg-[#568a62]"
               : ""
           }`}
           disabled={buttonDisabled || productStatus === "approved"}
         >
           {loading ? (
             <svg
-              className="animate-spin h-5 w-5 text-white"
+              className="h-5 w-5 animate-spin text-white"
               width="24px"
               height="24px"
               viewBox="0 0 24 24"

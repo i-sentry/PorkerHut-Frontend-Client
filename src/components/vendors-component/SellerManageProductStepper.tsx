@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
-import ProductInformation from "./ProductInformation";
+// import ProductInformation from "./ProductInformation";
 
-import ProductPricing from "./ProductPricing";
-import Stepper from "./Steppers";
+// import ProductPricing from "./ProductPricing";
+// import Stepper from "./Steppers";
 import { AiOutlineLine } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -12,11 +12,16 @@ import {
   IProductInfo,
   useProductState,
 } from "../../context/ProductInfoContext";
-import ProductImage from "./ProductImage";
-import ProductDetails from "./ProductDetails";
+// import ProductImage from "./ProductImage";
+// import ProductDetails from "./ProductDetails";
 import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
 import { useSuccessOverlay } from "../../store/overlay";
+import ProductInformation from "../step/ProductInformation";
+import ProductDetails from "../step/ProductDetails";
+import ProductPricing from "../step/ProductPricing";
+import ProductImage from "../step/ProductImage";
+import Stepper from "../step/Steppers";
 
 export const steps = [
   "Product Information",
@@ -25,7 +30,7 @@ export const steps = [
   "Images",
 ];
 
-const StepperComponent = () => {
+const SellerStepperComponent = () => {
   const { state: productData, setState: setProductData } = useProductState();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -216,4 +221,4 @@ const StepperComponent = () => {
   );
 };
 
-export default StepperComponent;
+export default SellerStepperComponent;

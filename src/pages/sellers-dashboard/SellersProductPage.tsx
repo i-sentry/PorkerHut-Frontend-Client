@@ -37,7 +37,7 @@ const StatusColumn = ({ d }: any) => {
   return (
     <div>
       <span
-        className={`text-[14px] font-normal leading-[normal] whitespace-nowrap ${statusClassName}`}
+        className={`whitespace-nowrap text-[14px] font-normal leading-[normal] ${statusClassName}`}
       >
         {formattedStatus}
       </span>
@@ -50,7 +50,7 @@ const QuantityColumn = ({ d }: any) => {
 
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {pricing?.quantity}
       </span>
     </div>
@@ -64,7 +64,7 @@ const PriceColumn = ({ d }: any) => {
 
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         ₦ {formattedPrice}
       </span>
     </div>
@@ -76,16 +76,16 @@ const ProductNameColumn = ({ d }: any) => {
   console.log(images);
 
   return (
-    <div className="group flex items-center gap-2 relative cursor-pointer">
-      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+    <div className="group relative flex cursor-pointer items-center gap-2">
+      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {information?.productName}
       </span>
 
-      <div className="w-[100px] h-[100px] overflow-hidden rounded-lg absolute top-0 -right-10 z-10 duration-300 opacity-0 group-hover:opacity-100">
+      <div className="absolute top-0 -right-10 z-10 h-[100px] w-[100px] overflow-hidden rounded-lg opacity-0 duration-300 group-hover:opacity-100">
         <img
           src={images[0]}
           alt="product thumbnail"
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
     </div>
@@ -98,7 +98,7 @@ const DateColumn = ({ d }: any) => {
   const formattedDate = moment(createdAt).format("DD MMM YYYY");
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {formattedDate}
       </span>
     </div>
@@ -111,8 +111,8 @@ const ProductIDColumn = ({ d }: any) => {
   console.log(productId, d, "pppppp");
 
   return (
-    <div>
-      <Tooltip message={productId}>{productId.slice(-7)}</Tooltip>
+    <div className="cursor-pointer">
+      <Tooltip message={productId}>{productId.slice(0, 7)}...</Tooltip>
     </div>
   );
 };
@@ -134,7 +134,6 @@ const SellersProductPage = () => {
   //@ts-ignore
   const store = JSON.parse(localStorage.getItem("vendor"));
 
-  console.log(store.vendor._id, "store");
   const id = store.vendor._id;
   const { data: vendorProducts, isLoading } = useGetProductByVendor(id);
 
@@ -147,7 +146,7 @@ const SellersProductPage = () => {
 
     dataCopy.sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     return dataCopy;
@@ -155,7 +154,7 @@ const SellersProductPage = () => {
 
   if (isLoading || !vendorProducts?.data) {
     return (
-      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+      <div className="flex h-screen  flex-col items-center justify-center bg-[#A2A2A2] ">
         <span className="animate-spin">
           <ImSpinner6 size={30} />
         </span>
@@ -164,14 +163,22 @@ const SellersProductPage = () => {
     );
   }
 
+  console.log(store.vendor._id, productData, "store");
+
   const handleView = (id: any, catId: any) => {
+    // navigate(
+    //   `/vendor/create-product?id=${encodeURIComponent(
+    //     id,
+    //   )}&cate=${encodeURIComponent(catId)}`,
+    //   {
+    //     replace: true,
+    //   },
+    // );
+
     navigate(
-      `/vendor/create-product?id=${encodeURIComponent(
-        id
-      )}&catId=${encodeURIComponent(catId)}`,
-      {
-        replace: true,
-      }
+      `/vendor/product/create-product?cate=${encodeURIComponent(
+        catId,
+      )}&sub=${encodeURIComponent(id)}`,
     );
   };
 
@@ -218,13 +225,17 @@ const SellersProductPage = () => {
     },
 
     {
-      Header: "Status",
+      Header: "Product Status",
 
       Cell: (data) => {
         const d = data?.row.original;
 
         return <StatusColumn d={d} />;
       },
+    },
+    {
+      Header: "Visibility Status",
+      accessor: "visibilityStatus",
     },
     {
       Header: "Active",
@@ -240,14 +251,16 @@ const SellersProductPage = () => {
     {
       Header: "Action",
       Cell: ({ row }: any) => {
-        const id = row?.original?._id;
+        // const id = row?.original?._id;
+        const id = row?.original?.information?.subcategory?._id;
         const catId = row?.original?.information?.category?._id;
+        console.log(row?.original, "osjdbhdhdhhd");
 
         return (
           <div>
             <span
               onClick={() => handleView(id, catId)}
-              className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
+              className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
             >
               View
             </span>
@@ -260,11 +273,11 @@ const SellersProductPage = () => {
   return (
     <div className="pb-10 xxs:px-4 md:px-0">
       <div className="">
-        <h1 className="md:text-[36px] md:leading-[42px] font-medium mb-3 xxs:text-[20px] xxs:leading-[23px] ">
+        <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
           Manage Products
         </h1>
         <div className="mb-4 ">
-          <span className="text-[14px] leading-[16px] font-normal text-[#A2A2A2] ">
+          <span className="text-[14px] font-normal leading-[16px] text-[#A2A2A2] ">
             The product overview where all products are managed.
           </span>
         </div>
