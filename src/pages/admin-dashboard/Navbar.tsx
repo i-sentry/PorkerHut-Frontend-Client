@@ -2,16 +2,23 @@ import { Menu, Transition } from "@headlessui/react";
 import { HiOutlineSearch } from "react-icons/hi";
 import React, { Fragment } from "react";
 import classNames from "classnames";
-
+import avata from "../../assets/avata.png"
 import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
+import _ from "lodash";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
+  const admin = JSON.parse(localStorage.getItem("admin") as string);
+  const role = admin?.role === 'superadmin' ? 'Super Admin' : 'Admin';
   const navigate = useNavigate();
-   const admin = JSON.parse(localStorage.getItem("admin") as string);
-console.log(admin, "admin")
+
+  const logOut = () => {
+   window.localStorage.clear();
+
+    navigate("/admin-login");
+  }
   return (
     <div className="bg-white border border-[#D9D9D9] h-16  top-0 w-full px-4 flex items-center justify-between  fixed z-50">
       <div className="flex items-center justify-center md:gap-2 xxs:gap-3 ">
@@ -44,17 +51,17 @@ console.log(admin, "admin")
               <div>
                 <Menu.Button className="  flex items-center justify-between md:gap-2">
                   <div
-                    className="h-12 w-12 rounded-full bg-cover bg-no-repeat bg-center flex"
+                    className="h-10 w-10 rounded-full bg-cover bg-no-repeat bg-center flex"
                     style={{
                       backgroundImage:
-                        'url("https://source.unsplash.com/80x80?face")',
+                        `url(${avata})`
                     }}
                   ></div>
                   <div className="md:flex md:flex-col md:gap-1 xxs:hidden">
                     <span className="text-base font-semibold leading-4">
-                      John Doe
+                     {admin.firstName} {admin.lastName}
                     </span>
-                    <span className="text-xs font-light">Administrator</span>
+                    <span className="text-xs font-light">{role}</span>
                   </div>
 
                   <div>
@@ -75,7 +82,7 @@ console.log(admin, "admin")
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/profile")}
+
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
@@ -88,7 +95,7 @@ console.log(admin, "admin")
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/settings")}
+                        onClick={() => navigate("/admin/settings")}
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
@@ -101,6 +108,7 @@ console.log(admin, "admin")
                   <Menu.Item>
                     {({ active }) => (
                       <div
+                      onClick={logOut}
                         className={classNames(
                           active && "bg-gray-100",
                           "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
