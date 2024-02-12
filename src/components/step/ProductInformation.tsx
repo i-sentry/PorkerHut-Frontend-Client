@@ -1,21 +1,14 @@
 import { useForm } from "react-hook-form";
-import React, {
-  useCallback,
-  useContext,
-  useMemo
-} from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import logo from "../../assets/images/porkerlogo.png";
 import StepperControl from "./StepperControl";
 import { productStepsContext } from "../../context/StepperContext";
 import { productInfo } from "../../utils/formData";
 import {
   useGetAllCategoriesQuestions,
-  useGetCategoryQuestion
+  useGetCategoryQuestion,
 } from "../../services/hooks/Vendor/category";
 import { useLocation } from "react-router-dom";
-
-
-
 
 export default function ProductInformation({
   cate,
@@ -24,12 +17,8 @@ export default function ProductInformation({
   cate: string | null;
   subCate: string | null;
 }) {
-  const {
-    checkoutSteps,
-    currentStep,
-    productData,
-    handleChange,
-  } = useContext(productStepsContext);
+  const { checkoutSteps, currentStep, productData, handleChange } =
+    useContext(productStepsContext);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("cate");
@@ -61,10 +50,8 @@ export default function ProductInformation({
     }
   }, [question?.data, convertToCamelCase]);
 
-
-
   const {
-    formState: {errors },
+    formState: { errors },
   } = useForm<any>();
 
   React.useEffect(() => {
@@ -78,25 +65,25 @@ export default function ProductInformation({
     <div>
       {" "}
       <div>
-        <div className=" lg:p-8 p-5   bg-[#F4F4F4] rounded-md">
+        <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
               Product information
             </h1>
-            <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+            <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
               Please fill in the necessary information.{" "}
             </p>
           </div>
           <div>
             <form>
               {catQuestions.isLoading ? (
-                <div className="flex flex-col items-center justify-center h-32">
+                <div className="flex h-32 flex-col items-center justify-center">
                   <img
                     src={logo}
                     alt="loaderlogo"
-                    className="w-20 h-20 animate-pulse"
+                    className="h-20 w-20 animate-pulse"
                   />
-                  <p className="text-[#333333] text-[14px] leading-[24px]">
+                  <p className="text-[14px] leading-[24px] text-[#333333]">
                     Loading questions...
                   </p>
                 </div>
@@ -105,14 +92,20 @@ export default function ProductInformation({
                   {productInfo?.map((data, index) => {
                     const [section, field] = data.name.split("."); // Split the name into section and field
                     const value = productData[section][field]; // Access the nested property value
+                    console.log(
+                      data,
+                      productData,
+                      typeof value,
+                      "prod infosssss",
+                    );
 
                     return (
                       <div className="my-2 w-full" key={index}>
                         <label
                           htmlFor={data.name}
-                          className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                          className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                             data.required
-                              ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                              ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                               : ""
                           }`}
                         >
@@ -125,14 +118,14 @@ export default function ProductInformation({
                           name={data.name}
                           onChange={handleChange}
                           value={value || ""}
-                          className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                          className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}
                         />
-                        <span className="text-[#797979] text-[12px] leading-none">
+                        <span className="text-[12px] leading-none text-[#797979]">
                           {data.info}
                         </span>
-                        <p className="my-2 text-[red] text-xs">
+                        <p className="my-2 text-xs text-[red]">
                           {/* {errors[data.name] && errors[data.name].message} */}
                         </p>
                       </div>
@@ -147,9 +140,9 @@ export default function ProductInformation({
                       <div className="my-2 w-full" key={index}>
                         <label
                           htmlFor={data.name}
-                          className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                          className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                             data.required
-                              ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                              ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                               : ""
                           }`}
                         >
@@ -162,14 +155,14 @@ export default function ProductInformation({
                           name={data.name}
                           onChange={handleChange}
                           value={value || ""}
-                          className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                          className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}
                         />
-                        <span className="text-[#797979] text-[12px] leading-none">
+                        <span className="text-[12px] leading-none text-[#797979]">
                           {data.questionHint}
                         </span>
-                        <p className="my-2 text-[red] text-xs">
+                        <p className="my-2 text-xs text-[red]">
                           {/* {errors[data.name] && errors[data.name].message} */}
                         </p>
                       </div>
@@ -189,15 +182,6 @@ export default function ProductInformation({
   );
 }
 
-
-
-
-
-
-
-
-
-
 // import { useForm } from "react-hook-form";
 // import React, {
 //   useCallback,
@@ -213,9 +197,6 @@ export default function ProductInformation({
 //   useGetCategoryQuestion
 // } from "../../services/hooks/Vendor/category";
 // import { useLocation } from "react-router-dom";
-
-
-
 
 // export default function ProductInformation({
 //   cate,
@@ -260,8 +241,6 @@ export default function ProductInformation({
 //       return updatedQuestions;
 //     }
 //   }, [question?.data, convertToCamelCase]);
-
-
 
 //   const {
 //     formState: {errors },
