@@ -13,9 +13,11 @@ import { useLocation } from "react-router-dom";
 export default function ProductInformation({
   cate,
   subCate,
+  productDetails,
 }: {
   cate: string | null;
   subCate: string | null;
+  productDetails?: any;
 }) {
   const { checkoutSteps, currentStep, productData, handleChange } =
     useContext(productStepsContext);
@@ -117,7 +119,11 @@ export default function ProductInformation({
                           placeholder={data.place_holder}
                           name={data.name}
                           onChange={handleChange}
-                          value={value || ""}
+                          value={
+                            value ||
+                            productDetails?.information?.productName ||
+                            ""
+                          }
                           className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}
@@ -154,7 +160,13 @@ export default function ProductInformation({
                           placeholder={data.place_holder}
                           name={data.name}
                           onChange={handleChange}
-                          value={value || ""}
+                          value={
+                            value ||
+                            productDetails?.information?.categoryQuestions[
+                              index
+                            ].answer ||
+                            ""
+                          }
                           className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}

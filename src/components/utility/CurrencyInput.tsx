@@ -2,9 +2,10 @@ import React, { useState } from "react";
 
 interface CurrencyInputProps {
   onChange: (value: number) => void;
+  price?: number;
 }
 
-const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange }) => {
+const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange, price }) => {
   const [value, setValue] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,10 +31,10 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange }) => {
   return (
     <input
       type="text"
-      value={formatCurrency(value)}
+      value={formatCurrency(String(price)) || formatCurrency(value)}
       onChange={handleChange}
-      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm  "border-ErrorBorder"
-      }`}
+      className={`focus:ring-primaryDark focus:border-primaryDark "border-ErrorBorder" } relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10  focus:outline-none
+      sm:text-sm`}
       placeholder="Enter price"
     />
   );

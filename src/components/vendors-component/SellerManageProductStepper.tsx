@@ -22,6 +22,7 @@ import ProductDetails from "../step/ProductDetails";
 import ProductPricing from "../step/ProductPricing";
 import ProductImage from "../step/ProductImage";
 import Stepper from "../step/Steppers";
+import { useGetSingleProduct } from "../../services/hooks/Vendor/products";
 
 export const steps = [
   "Product Information",
@@ -32,20 +33,33 @@ export const steps = [
 
 const SellerStepperComponent = () => {
   const { state: productData, setState: setProductData } = useProductState();
+  const [productDetails, setProductDetails] = useState({});
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("cate");
   const subcategory = queryParams.get("sub");
+  const productId = queryParams.get("id");
   const Tcategory = useGetOneCategory(category);
   const showOverlay = useSuccessOverlay(
     (state: { showOverlay: any }) => state.showOverlay,
   );
+  const { data, isLoading } = useGetSingleProduct(productId as string);
+  console.log(data?.data, "single id sisisisisi");
+
+  useEffect(() => {
+    if (!isLoading && data?.data) {
+      setProductDetails(data?.data);
+    }
+  }, [data?.data, isLoading]);
 
   const subCategory = () => {
     return Tcategory?.data?.data.subcategories?.filter(
       (cat: { _id: string | null }) => cat._id === subcategory,
     );
   };
+
+  console.log(productId, "id dddddd");
+
   const cateName = Tcategory?.data?.data?.name;
   console.log(cateName, Tcategory, category, "cateName");
 
@@ -67,11 +81,29 @@ const SellerStepperComponent = () => {
   const displayStep = (step: number) => {
     switch (step) {
       case 1:
-        return <ProductInformation cate={categoryName} subCate={filtered} />;
+        return (
+          <ProductInformation
+            cate={categoryName}
+            productDetails={productDetails}
+            subCate={filtered}
+          />
+        );
       case 2:
-        return <ProductDetails cate={categoryName} subCate={filtered} />;
+        return (
+          <ProductDetails
+            cate={categoryName}
+            details={productDetails}
+            subCate={filtered}
+          />
+        );
       case 3:
-        return <ProductPricing cate={categoryName} subCate={filtered} />;
+        return (
+          <ProductPricing
+            cate={categoryName}
+            details={productDetails}
+            subCate={filtered}
+          />
+        );
       case 4:
         return <ProductImage cate={categoryName} subCate={filtered} />;
       default:

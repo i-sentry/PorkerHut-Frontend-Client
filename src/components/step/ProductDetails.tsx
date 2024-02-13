@@ -8,9 +8,11 @@ import { IProductInfo } from "../../context/ProductInfoContext";
 export default function ProductDetails({
   cate,
   subCate,
+  details,
 }: {
   cate: string | null;
   subCate: string | null;
+  details?: any;
 }) {
   const {
     checkoutSteps,
@@ -48,19 +50,30 @@ export default function ProductDetails({
     <div>
       {" "}
       <div>
-        <div className=" lg:p-8 p-5  bg-[#F4F4F4] rounded-md">
+        <div className=" rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
               More Product Details
             </h1>
-            <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+            <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
               Please fill in the necessary information.{" "}
             </p>
           </div>
           <div>
             <form>
               {productDetails?.map((data, index) => {
-                const [section, field] = data.name.split("."); // Split the name into section and field
+                const [section, field] = data.name.split(".");
+                // Split the name into section and
+                const answer = [
+                  details?.details?.productWeight,
+                  details?.details?.productContent,
+                  details?.details?.cookingMethod,
+                  details?.details?.nutritionalValue,
+                  details?.details?.deliveryDetails,
+                ];
+
+                console.log(answer[index], "ansuueeuu");
+
                 const value = productData?.[section][field];
                 if (section === "productDetails" && field === "cookingMethod") {
                   if (cate === "Livestocks" || cate === "Farm feeds") {
@@ -80,9 +93,9 @@ export default function ProductDetails({
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -95,22 +108,22 @@ export default function ProductDetails({
                         placeholder={data.place_holder}
                         name={data.name}
                         onChange={handleChange}
-                        value={value || ""}
-                        className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                        value={answer[index] || value || ""}
+                        className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                           errors[data.name] ? "border-ErrorBorder" : ""
                         }`}
                       />
                       {data.name === "productDetails.weight" && (
-                        <span className="absolute top-1/2 right-3 transform -translate-y-1/2 text-green-500 text-sm font-semibold">
+                        <span className="absolute top-1/2 right-3 -translate-y-1/2 transform text-sm font-semibold text-green-500">
                           kg
                         </span>
                       )}
                     </div>
 
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
@@ -118,7 +131,7 @@ export default function ProductDetails({
               })}
               <label
                 htmlFor="productDetails.productDescription"
-                className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${'after:content-["*"] after:ml-0.5 after:text-red-500'}`}
+                className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
               >
                 Product Description{" "}
               </label>
@@ -126,16 +139,16 @@ export default function ProductDetails({
                 id="productDetails.productDescription"
                 name="productDetails.productDescription"
                 rows={5}
-                className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                   errors["productDetails.productDescription"]
                     ? "border-ErrorBorder"
                     : ""
                 }`}
                 placeholder="Enter product description"
-                value={productData.productDetails.productDescription || ""}
+                value={details?.details?.productDescription || ""}
                 onChange={handleTextArea}
               ></textarea>
-              <span className="text-[#797979] text-[12px] leading-none">
+              <span className="text-[12px] leading-none text-[#797979]">
                 The product description should give the customer useful
                 information about the product to ensure a purchase.
               </span>

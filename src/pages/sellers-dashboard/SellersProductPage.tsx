@@ -165,7 +165,7 @@ const SellersProductPage = () => {
 
   console.log(store.vendor._id, productData, "store");
 
-  const handleView = (id: any, catId: any) => {
+  const handleView = (sub: any, catId: any, id: any) => {
     // navigate(
     //   `/vendor/create-product?id=${encodeURIComponent(
     //     id,
@@ -178,7 +178,7 @@ const SellersProductPage = () => {
     navigate(
       `/vendor/product/create-product?cate=${encodeURIComponent(
         catId,
-      )}&sub=${encodeURIComponent(id)}`,
+      )}&sub=${encodeURIComponent(sub)}&id=${encodeURIComponent(id)}`,
     );
   };
 
@@ -251,15 +251,15 @@ const SellersProductPage = () => {
     {
       Header: "Action",
       Cell: ({ row }: any) => {
-        // const id = row?.original?._id;
-        const id = row?.original?.information?.subcategory?._id;
+        const id = row?.original?._id;
+        const sub = row?.original?.information?.subcategory?._id;
         const catId = row?.original?.information?.category?._id;
         console.log(row?.original, "osjdbhdhdhhd");
 
         return (
           <div>
             <span
-              onClick={() => handleView(id, catId)}
+              onClick={() => handleView(sub, catId, id)}
               className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
             >
               View
@@ -276,19 +276,19 @@ const SellersProductPage = () => {
         <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
           Manage Products
         </h1>
-        <div className="mb-4 ">
+        <div className="">
           <span className="text-[14px] font-normal leading-[16px] text-[#A2A2A2] ">
             The product overview where all products are managed.
           </span>
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-2">
         <AdminTable
           showDropDown={true}
           showCheckbox={true}
           Tcolumns={Tcolumns}
-          tabs={["All", "Approved", "Pending", "Rejected Products", "Sold out"]}
+          tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
           TData={productData}
           placeholder={"Search product name, store names, category.... "}
         />

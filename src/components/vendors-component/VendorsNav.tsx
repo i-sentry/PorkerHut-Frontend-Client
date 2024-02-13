@@ -13,6 +13,7 @@ const VendorsNav = () => {
   const [vendor, setVendor] = useState<any>({});
   const showSideBar = useSidebarState((state) => state.sideBarOpen);
   const toggleSidebar = useSidebarState((state) => state.toggleSidebar);
+  const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const [, setSearchParams] = useSearchParams();
@@ -36,7 +37,7 @@ const VendorsNav = () => {
   };
 
   const handleLogout = () => {
-      window.localStorage.clear();
+    window.localStorage.clear();
 
     navigate("/sign-in?q=vendor");
   };
@@ -84,8 +85,33 @@ const VendorsNav = () => {
             className="h-9 w-[350px] rounded-l-lg border-none bg-[#F4F4F4] pl-4 text-sm focus:border focus:border-green-500 focus:outline-none focus:ring-green-500"
           />
         </div>
-        <div className="cursor-pointer lg:hidden">
+        <div
+          className="cursor-pointer lg:hidden"
+          onClick={() => setActiveSearch((act) => !act)}
+        >
           <HiOutlineSearch size={32} />
+        </div>
+
+        {/* SEARCH MODAL */}
+        <div
+          onClick={() => setActiveSearch(false)}
+          className={`fixed top-[56px] left-0 z-40 flex h-full w-full justify-center bg-black bg-opacity-80 p-8 duration-300 ${activeSearch ? "visible" : "pointer-events-none invisible"} lg:hidden`}
+        >
+          <label
+            htmlFor="search"
+            aria-label="search"
+            className="block w-[300px]"
+          >
+            <input
+              type="search"
+              name="search"
+              id="search"
+              autoFocus
+              placeholder="Search here..."
+              className="form-input w-full rounded-lg border-none bg-[#F4F4F4] px-4 py-3 text-sm focus:border focus:border-green-500 focus:outline-none focus:ring-green-500"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </label>
         </div>
 
         <div className="md:pr-4">
