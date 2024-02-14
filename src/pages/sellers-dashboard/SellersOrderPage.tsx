@@ -6,7 +6,7 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 
 // import mockData from "../../utils/json/mockData.json";
-import { column } from "../../components/Table/column";
+// import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
@@ -501,7 +501,6 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
           </select>
         </label>
       </div>
-
       <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
         <h1 className=" text-lg font-medium leading-[23.44px] text-[#F29339]">
           Pending Orders

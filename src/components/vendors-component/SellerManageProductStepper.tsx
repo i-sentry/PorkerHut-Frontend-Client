@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 // import ProductInformation from "./ProductInformation";
 
@@ -14,15 +14,26 @@ import {
 } from "../../context/ProductInfoContext";
 // import ProductImage from "./ProductImage";
 // import ProductDetails from "./ProductDetails";
-import { useGetOneCategory } from "../../services/hooks/Vendor/category";
+import {
+  useGetCategoryQuestion,
+  useGetOneCategory,
+} from "../../services/hooks/Vendor/category";
+import logo from "../../assets/images/porkerlogo.png";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
 import { useSuccessOverlay } from "../../store/overlay";
-import ProductInformation from "../step/ProductInformation";
-import ProductDetails from "../step/ProductDetails";
-import ProductPricing from "../step/ProductPricing";
-import ProductImage from "../step/ProductImage";
+// import ProductInformation from "../step/ProductInformation";
+// import ProductDetails from "../step/ProductDetails";
+// import ProductPricing from "../step/ProductPricing";
+// import ProductImage from "../step/ProductImage";
 import Stepper from "../step/Steppers";
 import { useGetSingleProduct } from "../../services/hooks/Vendor/products";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import moment from "moment";
+import { InputTypes } from "../utility/Input/AmountField";
+import CustomInput from "../utility/Input/CustomInput";
+import StepperControl from "../step/StepperControl";
 
 export const steps = [
   "Product Information",
@@ -31,26 +42,126 @@ export const steps = [
   "Images",
 ];
 
+const productInfoSchema = yup.object().shape({
+  "productInformation.productName": yup
+    .string()
+    .required("Product name is required"),
+  "productInformation.mainColour": yup
+    .string()
+    .required("Product colour is required"),
+  // "productInformation.productBreed": yup.string().required("Product breed is required")
+});
+
 const SellerStepperComponent = () => {
   const { state: productData, setState: setProductData } = useProductState();
-  const [productDetails, setProductDetails] = useState({});
+  const [finalData, setFinalData] = useState([]);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [progress, setProgress] = useState(25);
+  const [productQuestions, setproductQuestions] = useState<any[]>([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const category = queryParams.get("cate");
-  const subcategory = queryParams.get("sub");
+  // const category2 = queryParams.get("catId");
   const productId = queryParams.get("id");
-  const Tcategory = useGetOneCategory(category);
   const showOverlay = useSuccessOverlay(
     (state: { showOverlay: any }) => state.showOverlay,
   );
   const { data, isLoading } = useGetSingleProduct(productId as string);
-  console.log(data?.data, "single id sisisisisi");
+  const currentProductData = data?.data;
+  const subcategory = currentProductData?.information?.subcategory?._id;
+  const category = currentProductData?.information?.category?._id;
+  const Tcategory = useGetOneCategory(category);
+  const { data: question, isLoading: loading } =
+    useGetCategoryQuestion(category);
+  console.log("question:", question?.data);
+
+  const {
+    register,
+    control,
+    reset, // Function to reset form value
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(productInfoSchema),
+    defaultValues: {
+      approvalStatus: currentProductData?.approvalStatus || "",
+      avgRating: currentProductData?.avgRating || 0,
+      productInformation: {
+        productName: currentProductData?.information.productName || "",
+        mainColour:
+          currentProductData?.information?.categoryQuestions[1]?.answer || "",
+        productBreed:
+          // currentProductData?.information?.categoryQuestions[0]?.answer || "",
+          currentProductData?.information?.subcategory?.name || "duroc",
+      },
+      productDetails: {
+        productWeight: currentProductData?.details.productWeight || "",
+        productContent: currentProductData?.details.productContent || "",
+        cookingMethod: currentProductData?.details?.cookingMethod || "",
+        productDescription:
+          currentProductData?.details.productDescription || "",
+        deliveryDetails: currentProductData?.details.deliveryDetails || "",
+        nutritionalValue: currentProductData?.details.nutritionalValue || "",
+      },
+      pricing: {
+        saleStartDate:
+          moment(currentProductData?.pricing?.saleStartDate).format(
+            "YYYY-MM-DD",
+          ) || "",
+        saleEndDate:
+          moment(currentProductData?.pricing?.saleEndDate).format(
+            "YYYY-MM-DD",
+          ) || "",
+        productPrice: currentProductData?.pricing?.productPrice || 0,
+        quantity: currentProductData?.pricing?.quantity || 0,
+      },
+      _id: currentProductData?._id,
+    },
+  });
 
   useEffect(() => {
-    if (!isLoading && data?.data) {
-      setProductDetails(data?.data);
+    if (!loading) setproductQuestions(question?.data);
+  }, [loading, question?.data]);
+
+  console.log("productQuestions", productQuestions);
+
+  useEffect(() => {
+    if (currentProductData) {
+      reset({
+        approvalStatus: currentProductData?.approvalStatus || "",
+        avgRating: currentProductData?.avgRating || 0,
+        productInformation: {
+          productName: currentProductData?.information.productName || "",
+          mainColour:
+            currentProductData?.information.categoryQuestions[0]?.answer || "",
+          productBreed:
+            // currentProductData?.information.categoryQuestions[0]?.answer || "",
+            currentProductData?.information?.subcategory?.name || "duroc",
+        },
+        productDetails: {
+          productWeight: currentProductData?.details.productWeight || "",
+          productContent: currentProductData?.details.productContent || "",
+          cookingMethod: currentProductData?.details?.cookingMethod || "",
+          productDescription:
+            currentProductData?.details.productDescription || "",
+          deliveryDetails: currentProductData?.details.deliveryDetails || "",
+          nutritionalValue: currentProductData?.details.nutritionalValue || "",
+        },
+        pricing: {
+          saleStartDate:
+            moment(currentProductData?.pricing.saleStartDate).format(
+              "YYYY-MM-DD",
+            ) || "",
+          saleEndDate:
+            moment(currentProductData?.pricing.saleEndDate).format(
+              "YYYY-MM-DD",
+            ) || "",
+          // productPrice: currentProductData?.pricing?.productPrice || "0",
+          productPrice: currentProductData?.information.productName || "",
+          quantity: currentProductData?.pricing?.quantity || 0,
+        },
+        _id: currentProductData?._id,
+      });
     }
-  }, [data?.data, isLoading]);
+  }, [currentProductData, reset]);
 
   const subCategory = () => {
     return Tcategory?.data?.data.subcategories?.filter(
@@ -67,11 +178,8 @@ const SellerStepperComponent = () => {
     ? cateName.charAt(0).toUpperCase() + cateName.slice(1)
     : "";
 
-  const [finalData, setFinalData] = useState([]);
-  const [currentStep, setCurrentStep] = useState(1);
   const checkoutSteps = steps;
   const numSteps = 4;
-  const [progress, setProgress] = useState(25);
   const filteredSubcategories = subCategory();
   const filtered =
     filteredSubcategories?.find(
@@ -82,30 +190,146 @@ const SellerStepperComponent = () => {
     switch (step) {
       case 1:
         return (
-          <ProductInformation
-            cate={categoryName}
-            productDetails={productDetails}
-            subCate={filtered}
-          />
+          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+            <div className=" mb-8">
+              <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
+                Product information
+              </h1>
+              <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
+                Please fill in the necessary information.{" "}
+              </p>
+            </div>
+            <div>
+              {isLoading && !currentProductData && !question ? (
+                <div className="flex h-32 flex-col items-center justify-center">
+                  <img
+                    src={logo}
+                    alt="loaderlogo"
+                    className="h-20 w-20 animate-pulse"
+                  />
+                  <p className="text-[14px] leading-[24px] text-[#333333]">
+                    Loading questions...
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {productInfo.map((data, index) => {
+                    console.log(data, "data data fsfaya");
+                    return (
+                      <div key={index + data?.name}>
+                        <CustomInput
+                          data={data}
+                          register={register}
+                          errors={errors}
+                          control={control}
+                        />
+                      </div>
+                    );
+                  })}
+                  <div>
+                    {currentStep !== checkoutSteps?.length && (
+                      <StepperControl />
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         );
       case 2:
         return (
-          <ProductDetails
-            cate={categoryName}
-            details={productDetails}
-            subCate={filtered}
-          />
+          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+            <div className=" mb-8">
+              <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
+                More Product Details
+              </h1>
+              <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
+                Please fill in the necessary information.{" "}
+              </p>
+            </div>
+            <div>
+              <>
+                {productDetails.map((data, index) => {
+                  console.log(data, "data data fsfaya");
+                  return (
+                    <div key={index + data?.name}>
+                      <CustomInput
+                        data={data}
+                        register={register}
+                        errors={errors}
+                        control={control}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            </div>
+            <div>
+              {currentStep !== checkoutSteps?.length && <StepperControl />}
+            </div>
+          </div>
         );
       case 3:
         return (
-          <ProductPricing
-            cate={categoryName}
-            details={productDetails}
-            subCate={filtered}
-          />
+          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+            <div className=" mb-8">
+              <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl">
+                Product Pricing
+              </h1>
+              <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
+                Please fill in the necessary information.{" "}
+              </p>
+            </div>
+            <div className="grid grid-cols-4 items-end gap-2 p-2 text-xs">
+              <>
+                {pricingDetails.map((data, index) => {
+                  console.log(data, "data data fsfaya");
+                  return (
+                    <div key={index + data?.name}>
+                      <CustomInput
+                        data={data}
+                        register={register}
+                        errors={errors}
+                        control={control}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            </div>
+            <div>
+              {currentStep !== checkoutSteps?.length && <StepperControl />}
+            </div>
+          </div>
         );
       case 4:
-        return <ProductImage cate={categoryName} subCate={filtered} />;
+        return (
+          <div className=" rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
+            <div className=" mb-8">
+              <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
+                Product Images
+              </h1>
+              <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
+                Images need to be at least 800 x 800 pixel with a maximum of
+                3000 x 3000 pixel.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-4 ">
+              {currentProductData?.images?.map((img: string, index: number) => (
+                <div key={index}>
+                  <img
+                    src={img}
+                    alt="product thumbnail"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+            <div>
+              {currentStep !== checkoutSteps.length - 1 && <StepperControl />}
+            </div>
+          </div>
+        );
       default:
     }
   };
@@ -135,6 +359,38 @@ const SellerStepperComponent = () => {
     // check if steps are within bounds
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   };
+
+  const { text, amount, richText, date } = InputTypes;
+
+  const convertToCamelCase = useCallback((str: string) => {
+    return str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) => {
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+      })
+      .replace(/\s+/g, "");
+  }, []);
+
+  const questions = useMemo(() => {
+    if (!loading && productQuestions) {
+      const updatedQuestions = productQuestions?.map((obj: any) => {
+        const camelCaseQuestion = convertToCamelCase(obj.question);
+        const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
+        return {
+          ...obj,
+          name: `productInformation?.${camelCaseQuestion}`,
+          place_holder: placeHolder,
+          type: text,
+          info: obj.questionHint,
+          label: obj.question,
+          error_message: "",
+        };
+      });
+      return updatedQuestions;
+    }
+    return [];
+  }, [loading, productQuestions, convertToCamelCase, text]);
+  console.log("question", questions);
+
   useEffect(() => {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
     setProgress(stepProgress);
@@ -149,6 +405,117 @@ const SellerStepperComponent = () => {
       />
     );
   }
+
+  const productInfo = [
+    {
+      label: "Product Name",
+      name: "productInformation.productName",
+      place_holder: "Enter product name",
+      type: text,
+      info: "Name of the product. For better listing, the name should match actual product.",
+      required: "true",
+      error_message: "",
+    },
+    ...questions,
+  ];
+
+  const productDetails = [
+    {
+      label: "Product Weight",
+      name: "productDetails.productWeight",
+      place_holder: "Enter product weight",
+      error_message: "",
+      type: "number",
+      info: "Please fill in the product weight.",
+      required: "true",
+    },
+    {
+      label: "Product Content",
+      name: "productDetails.productContent",
+      place_holder: "Enter product content",
+      error_message: "Product content is required",
+      type: text,
+      info: "The product content should give the customer an overview of what they ordered.",
+      required: "true",
+    },
+    {
+      label: "Cooking Method",
+      name: "productDetails.cookingMethod",
+      place_holder: "Enter cooking method",
+      error_message: "Cooking method is required",
+      type: text,
+      info: "Give a brief details on how its being Cooked. Example: Fried, Roasting, Boiling, Grilling.",
+      // required: "false",
+    },
+    {
+      label: "Nutritional Value",
+      name: "productDetails.nutritionalValue",
+      place_holder: "Enter nutritional value ",
+      error_message: "Nutritional Value is required",
+      type: text,
+      info: "Give a brief details on how its nutritional value . Example: Protein, Carbohydrates, vitamins, Fats.",
+      // required: "false",
+    },
+    {
+      label: "Delivery Details",
+      name: "productDetails.deliveryDetails",
+      place_holder: "Enter delivery details",
+      error_message: "Cooking method is required",
+      type: text,
+      info: "Please fill in where this product can be delivered to.",
+      required: "true",
+    },
+    {
+      label: "Product Description",
+      name: "productDetails.productDescription",
+      place_holder: "Enter product description",
+      error_message: "Cooking method is required",
+      type: richText,
+      info: "The product description should give the customer useful  information about the product to ensure a purchase.",
+      required: "true",
+    },
+  ];
+
+  const pricingDetails = [
+    // {
+    //   label: "Product Id",
+    //   name: "_id",
+    //   place_holder: "Enter product id",
+    //   error_message: "Id is required",
+    //   type: text,
+    // },
+    {
+      label: "Sale Start Date",
+      type: date,
+      // required: true,
+      name: "pricing.saleStartDate",
+      // place_holder: "Enter product description",
+      error_message: "Cooking method is required",
+    },
+    {
+      label: "Sale End Date",
+      type: date,
+      // required: true,
+      name: "pricing.saleEndDate",
+    },
+    {
+      label: "Product Price",
+      type: amount,
+      required: true,
+      name: "pricing.productPrice",
+    },
+    {
+      label: "Product Quantity",
+      type: "number",
+      required: true,
+      name: "pricing.quantity",
+    },
+  ];
+
+  // if (!currentProductData && !question) {
+  //   return <div>Loading**</div>;
+  // }
+
   return (
     <div className=" ">
       <div className="hidden items-center gap-2 py-5 md:hidden lg:flex">
@@ -222,23 +589,25 @@ const SellerStepperComponent = () => {
           </p>
         </div>
       </div>
-      <div className="my-0 xxs:px-4 md:my-0 lg:my-10 lg:px-0">
-        <productStepsContext.Provider
-          //@ts-ignore
-          value={{
-            productData,
-            setProductData,
-            finalData,
-            setFinalData,
-            checkoutSteps,
-            currentStep,
-            handleClick,
-            handleChange,
-          }}
-        >
-          {displayStep(currentStep)}
-        </productStepsContext.Provider>
-      </div>
+      <form id="manage-product">
+        <div className="my-0 xxs:px-4 md:my-0 lg:my-10 lg:px-0">
+          <productStepsContext.Provider
+            //@ts-ignore
+            value={{
+              productData,
+              setProductData,
+              finalData,
+              setFinalData,
+              checkoutSteps,
+              currentStep,
+              handleClick,
+              handleChange,
+            }}
+          >
+            {displayStep(currentStep)}
+          </productStepsContext.Provider>
+        </div>
+      </form>
 
       {/* navigation button */}
       {/* {currentStep !== steps.length && (

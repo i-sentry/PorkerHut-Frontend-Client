@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import CurrencyInput from "../utility/CurrencyInput";
 import StepperControl from "./StepperControl";
@@ -38,7 +38,7 @@ export default function ProductPricing({
 }) {
   const { checkoutSteps, currentStep, handleChange } =
     useContext(productStepsContext);
-  const [formData] = useState<Record<string, string>>({});
+  // const [formData] = useState<Record<string, string>>({});
 
   const {
     formState: { errors },
@@ -61,10 +61,7 @@ export default function ProductPricing({
               {Object.entries(initialFormData).map(([key, item], index) => {
                 console.log(key, "h22");
                 console.log(item.name, "hh");
-                const dates = [
-                  details?.pricing?.saleStartDate,
-                  details?.pricing?.saleEndDate,
-                ];
+
                 return (
                   <div key={key} className="mb-4 ">
                     <label
@@ -79,8 +76,7 @@ export default function ProductPricing({
                     </label>
                     <input
                       onChange={handleChange}
-                      // value={formData[key] }
-                      value={dates[index].substring(0, 10)}
+                      // value={formData[key] || ""}
                       name={item.name}
                       // placeholder={item.placeholder}
                       type={item.type}
@@ -99,7 +95,6 @@ export default function ProductPricing({
                   Product Price
                 </label>
                 <CurrencyInput
-                  price={details?.pricing?.productPrice}
                   onChange={(value) =>
                     //@ts-ignore
                     handleChange({
@@ -119,7 +114,7 @@ export default function ProductPricing({
                   onChange={handleChange}
                   name="pricing.productQuantity"
                   id="productQuantity"
-                  value={details?.pricing?.quantity}
+                  // value={details?.pricing?.quantity || ""}
                   placeholder="Enter product quantity"
                   type="number"
                   className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
@@ -149,7 +144,7 @@ export default function ProductPricing({
               </label>
               <input
                 onChange={handleChange}
-                value={formData[key] || ""}
+                // value={formData[key] || ""}
                 name={item.name}
                 placeholder={item.placeholder}
                 type={item.type}

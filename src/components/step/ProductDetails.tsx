@@ -8,7 +8,6 @@ import { IProductInfo } from "../../context/ProductInfoContext";
 export default function ProductDetails({
   cate,
   subCate,
-  details,
 }: {
   cate: string | null;
   subCate: string | null;
@@ -26,7 +25,10 @@ export default function ProductDetails({
 
   const {
     formState: { errors },
-  } = useForm<any>({ defaultValues: "", mode: "onSubmit" });
+  } = useForm<any>({
+    defaultValues: "",
+    mode: "onSubmit",
+  });
 
   const handleTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -64,16 +66,6 @@ export default function ProductDetails({
               {productDetails?.map((data, index) => {
                 const [section, field] = data.name.split(".");
                 // Split the name into section and
-                const answer = [
-                  details?.details?.productWeight,
-                  details?.details?.productContent,
-                  details?.details?.cookingMethod,
-                  details?.details?.nutritionalValue,
-                  details?.details?.deliveryDetails,
-                ];
-
-                console.log(answer[index], "ansuueeuu");
-
                 const value = productData?.[section][field];
                 if (section === "productDetails" && field === "cookingMethod") {
                   if (cate === "Livestocks" || cate === "Farm feeds") {
@@ -108,18 +100,18 @@ export default function ProductDetails({
                         placeholder={data.place_holder}
                         name={data.name}
                         onChange={handleChange}
-                        value={answer[index] || value || ""}
+                        value={value || ""}
                         className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                           errors[data.name] ? "border-ErrorBorder" : ""
                         }`}
                       />
+
                       {data.name === "productDetails.weight" && (
                         <span className="absolute top-1/2 right-3 -translate-y-1/2 transform text-sm font-semibold text-green-500">
                           kg
                         </span>
                       )}
                     </div>
-
                     <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
@@ -145,7 +137,6 @@ export default function ProductDetails({
                     : ""
                 }`}
                 placeholder="Enter product description"
-                value={details?.details?.productDescription || ""}
                 onChange={handleTextArea}
               ></textarea>
               <span className="text-[12px] leading-none text-[#797979]">

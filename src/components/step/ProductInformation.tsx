@@ -13,11 +13,9 @@ import { useLocation } from "react-router-dom";
 export default function ProductInformation({
   cate,
   subCate,
-  productDetails,
 }: {
   cate: string | null;
   subCate: string | null;
-  productDetails?: any;
 }) {
   const { checkoutSteps, currentStep, productData, handleChange } =
     useContext(productStepsContext);
@@ -39,7 +37,7 @@ export default function ProductInformation({
 
   const questions = useMemo(() => {
     if (question?.data) {
-      const updatedQuestions = question.data.map((obj: any) => {
+      const updatedQuestions = question?.data?.map((obj: any) => {
         const camelCaseQuestion = convertToCamelCase(obj.question);
         const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
         return {
@@ -48,6 +46,8 @@ export default function ProductInformation({
           place_holder: placeHolder,
         };
       });
+      console.log("updatedQuestions", updatedQuestions);
+
       return updatedQuestions;
     }
   }, [question?.data, convertToCamelCase]);
@@ -119,11 +119,7 @@ export default function ProductInformation({
                           placeholder={data.place_holder}
                           name={data.name}
                           onChange={handleChange}
-                          value={
-                            value ||
-                            productDetails?.information?.productName ||
-                            ""
-                          }
+                          value={value || ""}
                           className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}
@@ -160,13 +156,7 @@ export default function ProductInformation({
                           placeholder={data.place_holder}
                           name={data.name}
                           onChange={handleChange}
-                          value={
-                            value ||
-                            productDetails?.information?.categoryQuestions[
-                              index
-                            ].answer ||
-                            ""
-                          }
+                          value={value || ""}
                           className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                             errors[data.name] ? "border-ErrorBorder" : ""
                           }`}

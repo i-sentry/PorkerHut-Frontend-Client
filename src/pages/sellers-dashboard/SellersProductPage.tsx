@@ -165,7 +165,7 @@ const SellersProductPage = () => {
 
   console.log(store.vendor._id, productData, "store");
 
-  const handleView = (sub: any, catId: any, id: any) => {
+  const handleView = (id: any) => {
     // navigate(
     //   `/vendor/create-product?id=${encodeURIComponent(
     //     id,
@@ -175,11 +175,7 @@ const SellersProductPage = () => {
     //   },
     // );
 
-    navigate(
-      `/vendor/product/create-product?cate=${encodeURIComponent(
-        catId,
-      )}&sub=${encodeURIComponent(sub)}&id=${encodeURIComponent(id)}`,
-    );
+    navigate(`/vendor/product/create-product?id=${encodeURIComponent(id)}`);
   };
 
   const Tcolumns: readonly Column<object>[] = [
@@ -252,14 +248,13 @@ const SellersProductPage = () => {
       Header: "Action",
       Cell: ({ row }: any) => {
         const id = row?.original?._id;
-        const sub = row?.original?.information?.subcategory?._id;
-        const catId = row?.original?.information?.category?._id;
+        // const catId = row?.original?.information?.category?._id;
         console.log(row?.original, "osjdbhdhdhhd");
 
         return (
           <div>
             <span
-              onClick={() => handleView(sub, catId, id)}
+              onClick={() => handleView(id)}
               className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
             >
               View

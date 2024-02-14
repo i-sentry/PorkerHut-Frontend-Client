@@ -5,7 +5,7 @@ interface CurrencyInputProps {
   price?: number;
 }
 
-const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange, price }) => {
+const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange }) => {
   const [value, setValue] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange, price }) => {
   return (
     <input
       type="text"
-      value={formatCurrency(String(price)) || formatCurrency(value)}
+      value={formatCurrency(value)}
       onChange={handleChange}
       className={`focus:ring-primaryDark focus:border-primaryDark "border-ErrorBorder" } relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10  focus:outline-none
       sm:text-sm`}
