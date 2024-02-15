@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface CurrencyInputProps {
   onChange: (value: number) => void;
   price?: number;
 }
 
-const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange }) => {
+const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange, price }) => {
   const [value, setValue] = useState<string>("");
+  useEffect(() => {
+    if (price) setValue(String(price));
+  }, [price]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

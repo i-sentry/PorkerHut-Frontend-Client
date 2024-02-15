@@ -34,6 +34,7 @@ import moment from "moment";
 import { InputTypes } from "../utility/Input/AmountField";
 import CustomInput from "../utility/Input/CustomInput";
 import StepperControl from "../step/StepperControl";
+import CurrencyInput from "../utility/CurrencyInput";
 
 export const steps = [
   "Product Information",
@@ -60,7 +61,7 @@ const SellerStepperComponent = () => {
   const [productQuestions, setproductQuestions] = useState<any[]>([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  // const category2 = queryParams.get("catId");
+  const category = queryParams.get("catId");
   const productId = queryParams.get("id");
   const showOverlay = useSuccessOverlay(
     (state: { showOverlay: any }) => state.showOverlay,
@@ -68,7 +69,7 @@ const SellerStepperComponent = () => {
   const { data, isLoading } = useGetSingleProduct(productId as string);
   const currentProductData = data?.data;
   const subcategory = currentProductData?.information?.subcategory?._id;
-  const category = currentProductData?.information?.category?._id;
+  // const category = currentProductData?.information?.category?._id;
   const Tcategory = useGetOneCategory(category);
   const { data: question, isLoading: loading } =
     useGetCategoryQuestion(category);
@@ -250,7 +251,27 @@ const SellerStepperComponent = () => {
             <div>
               <>
                 {productDetails.map((data, index) => {
-                  console.log(data, "data data fsfaya");
+                  const [section, field] = data.name.split(".");
+                  if (
+                    section === "productDetails" &&
+                    field === "cookingMethod"
+                  ) {
+                    if (
+                      categoryName === "Livestocks" ||
+                      categoryName === "Farm feeds"
+                    ) {
+                      return null; // Skip rendering this input
+                    }
+                  }
+                  if (
+                    section === "productDetails" &&
+                    field === "nutritionalValue"
+                  ) {
+                    if (categoryName === "Pork") {
+                      return null; // Skip rendering this input
+                    }
+                  }
+
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
@@ -283,7 +304,30 @@ const SellerStepperComponent = () => {
             <div className="grid grid-cols-4 items-end gap-2 p-2 text-xs">
               <>
                 {pricingDetails.map((data, index) => {
-                  console.log(data, "data data fsfaya");
+                  const [section, field] = data.name.split(".");
+                  if (section === "pricing" && field === "productPrice") {
+                    return (
+                      <div className="text-xs">
+                        <label
+                          htmlFor="productPrice"
+                          className={`mb-[6px] block py-3 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
+                        >
+                          Product Price
+                        </label>
+                        <CurrencyInput
+                          price={currentProductData?.pricing?.productPrice}
+                          onChange={(value) =>
+                            //@ts-ignore
+                            handleChange({
+                              target: { name: "pricing.productPrice", value },
+                            } as React.ChangeEvent<HTMLInputElement>)
+                          }
+                        />
+                      </div>
+                    );
+                  }
+
+                  console.log(section, field, "data data fsfaya");
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
