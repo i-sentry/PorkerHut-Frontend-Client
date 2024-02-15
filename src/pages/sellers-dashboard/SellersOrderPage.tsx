@@ -502,7 +502,7 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
         </label>
       </div>
       <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
-        <h1 className=" text-lg font-medium leading-[23.44px] text-[#F29339]">
+        <h1 className=" text-center text-lg font-medium leading-[23.44px] text-[#F29339]">
           Pending Orders
         </h1>
         <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#F29339]">
@@ -516,7 +516,7 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
         </span>
       </div>
       <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
-        <h1 className=" whitespace-nowrap text-lg font-medium leading-[23.44px] text-[#22C55E]">
+        <h1 className=" text-center text-lg font-medium leading-[23.44px] text-[#22C55E]">
           Completed Orders
         </h1>
         <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#22C55E]">
@@ -530,7 +530,7 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
         </span>
       </div>
       <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
-        <h1 className=" text-lg font-medium leading-[23.44px] text-[#F91919]">
+        <h1 className="text-center text-lg font-medium leading-[23.44px] text-[#F91919]">
           Failed Orders
         </h1>
         <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#F91919]">
@@ -544,7 +544,7 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
         </span>
       </div>
       <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
-        <h1 className=" text-lg font-medium leading-[23.44px]">
+        <h1 className="text-center text-lg font-medium leading-[23.44px]">
           Returned Orders
         </h1>
         <span className="flex items-center justify-center text-lg font-medium leading-[23.44px]">

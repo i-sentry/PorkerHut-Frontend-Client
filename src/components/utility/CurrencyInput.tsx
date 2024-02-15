@@ -36,8 +36,8 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({ onChange, price }) => {
       type="text"
       value={formatCurrency(value)}
       onChange={handleChange}
-      className={`focus:ring-primaryDark focus:border-primaryDark "border-ErrorBorder" } relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10  focus:outline-none
-      sm:text-sm`}
+      className={`relative block h-12 w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[10px] text-sm leading-normal text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:border-green-500  focus:outline-none
+      focus:ring-green-500`}
       placeholder="Enter price"
     />
   );

@@ -45,7 +45,7 @@ const Layout = () => {
             <div className="hide-scroll-bar h-full w-full overflow-x-hidden md:flex">
               <SellerSideNav />
 
-              <div className="hide-scroll-bar flex-1 overflow-y-auto pt-10 md:px-4 md:pt-4 lg:pt-[40px]">
+              <div className="hide-scroll-bar flex-1 overflow-y-auto pt-6 md:px-4 md:pt-4 lg:pt-[40px]">
                 <Outlet />
               </div>
             </div>

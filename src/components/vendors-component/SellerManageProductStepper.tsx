@@ -301,7 +301,7 @@ const SellerStepperComponent = () => {
                 Please fill in the necessary information.{" "}
               </p>
             </div>
-            <div className="grid grid-cols-4 items-end gap-2 p-2 text-xs">
+            <div className="grid grid-cols-2 gap-2 p-2 text-xs lg:grid-cols-4">
               <>
                 {pricingDetails.map((data, index) => {
                   const [section, field] = data.name.split(".");
@@ -310,7 +310,7 @@ const SellerStepperComponent = () => {
                       <div className="text-xs">
                         <label
                           htmlFor="productPrice"
-                          className={`mb-[6px] block py-3 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
+                          className={`mb-[6px] block text-[14px] leading-normal text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
                         >
                           Product Price
                         </label>
