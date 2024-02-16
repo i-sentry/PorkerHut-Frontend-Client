@@ -6,14 +6,14 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 
 // import mockData from "../../utils/json/mockData.json";
-import { column } from "../../components/Table/column";
+// import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { useEffect, useState } from "react";
 // import Popover from "../../components/utility/PopOver";
-import { CgSpinnerAlt } from "react-icons/cg";
+import { CgSpinner, CgSpinnerAlt } from "react-icons/cg";
 import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
 
@@ -38,7 +38,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className=" text-[#F91919]">Returned Failed</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
@@ -50,7 +50,7 @@ export const ProductNameColumn = ({ data }: any) => {
   const productName = _.startCase(lowerData);
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[16px] leading-[19px] font-normal whitespace-nowrap  text-[#333333]">
+      <span className="whitespace-nowrap text-[16px] font-normal leading-[19px]  text-[#333333]">
         {productName}
       </span>
     </div>
@@ -269,7 +269,7 @@ const Tcolumns: readonly Column<object>[] = [
           return <span className=" text-[#F91919]">Returned Failed</span>;
         default:
           return (
-            <span className="font-normal text-sm text-[#202223] ">
+            <span className="text-sm font-normal text-[#202223] ">
               {row?.status}
             </span>
           );
@@ -283,7 +283,7 @@ const Tcolumns: readonly Column<object>[] = [
       return (
         <span
           onClick={() => toggleOpenModal(true)}
-          className="hover:underline hover:text-[#0eb6683] cursor-pointer"
+          className="cursor-pointer hover:text-[#0eb6683] hover:underline"
         >
           View
         </span>
@@ -300,7 +300,10 @@ const SellersOrderPage = () => {
   const { data, isLoading } = useGetVendorOrders(store?.vendor?._id);
   const orders = data?.data?.orders;
 
-  useEffect(() => setVendorOrders(orders), [orders]);
+  useEffect(() => {
+    if (!isLoading) setVendorOrders(orders);
+  }, [isLoading, orders]);
+
   console.log(orders, isLoading, "is load data");
 
   // const color3 = () => {
@@ -319,10 +322,10 @@ const SellersOrderPage = () => {
       case "Pending Order":
         return (
           <>
-            <h1 className="text-[20px] leading-[23.44px] font-medium">
+            <h1 className="text-[20px] font-medium leading-[23.44px]">
               {val?.title}
             </h1>
-            <span className="  text-[20px] leading-[23.44px] font-medium flex items-center justify-center">
+            <span className="  flex items-center justify-center text-[20px] font-medium leading-[23.44px]">
               ({val?.figure})
             </span>
           </>
@@ -330,10 +333,10 @@ const SellersOrderPage = () => {
       case "Ready to Go":
         return (
           <>
-            <h1 className=" text-[#F29339] text-[20px] leading-[23.44px] font-medium">
+            <h1 className=" text-[20px] font-medium leading-[23.44px] text-[#F29339]">
               {val?.title}
             </h1>
-            <span className="text-[#F29339] text-[20px] leading-[23.44px] font-medium flex items-center justify-center">
+            <span className="flex items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#F29339]">
               ({val?.figure})
             </span>
           </>
@@ -341,10 +344,10 @@ const SellersOrderPage = () => {
       case "Fufilled Orders":
         return (
           <>
-            <h1 className="text-[#22C55E] text-[20px] leading-[23.44px] font-medium">
+            <h1 className="text-[20px] font-medium leading-[23.44px] text-[#22C55E]">
               {val?.title}
             </h1>
-            <span className=" text-[#22C55E]  text-[20px] leading-[23.44px] font-medium flex items-center justify-center">
+            <span className=" flex  items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#22C55E]">
               ({val?.figure})
             </span>
           </>
@@ -352,10 +355,10 @@ const SellersOrderPage = () => {
       case "Failed Orders":
         return (
           <>
-            <h1 className=" text-[#F91919] text-[20px] leading-[23.44px] font-medium">
+            <h1 className=" text-[20px] font-medium leading-[23.44px] text-[#F91919]">
               {val?.title}
             </h1>
-            <span className="text-[#F91919] text-[20px] leading-[23.44px] font-medium flex items-center justify-center">
+            <span className="flex items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#F91919]">
               ({val?.figure})
             </span>
           </>
@@ -363,10 +366,10 @@ const SellersOrderPage = () => {
       default:
         return (
           <>
-            <h1 className=" text-[20px] leading-[23.44px] font-medium">
+            <h1 className=" text-[20px] font-medium leading-[23.44px]">
               {val?.title}
             </h1>
-            <span className=" text-[20px] leading-[23.44px] font-medium flex items-center justify-center">
+            <span className=" flex items-center justify-center text-[20px] font-medium leading-[23.44px]">
               {val?.figure}
             </span>
           </>
@@ -376,53 +379,59 @@ const SellersOrderPage = () => {
 
   const card = orderData.map(
     (val: { title: string; figure?: string | undefined }) => (
-      <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] md:border-r-[1px] xxs:h-[124px]">
+      <div className="flex h-full flex-1 flex-col items-center justify-center border-[#D9D9D9] bg-[#F4F4F4] xxs:h-[124px] md:border-r-[1px]">
         <div>{color(val)}</div>
       </div>
-    )
+    ),
   );
 
   return (
     <>
       {openModal && <OrderSideModal />}
-      <div className="pb-10 mt-2 xxs:px-4 md:px-0">
+      <div className="mt-2 pb-10 xxs:px-4 md:px-0">
         {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
           Orders
         </h1> */}
-        <div className=" h-20 items-center justify-center hidden">
+        <div className=" hidden h-20 items-center justify-center">
           {orderData.map(
             (val: { title: string; figure?: string | undefined }) => (
-              <div className="bg-[#F4F4F4] h-full flex flex-col items-center justify-center flex-1 border-[#D9D9D9] border-r-[1px]">
+              <div className="flex h-full flex-1 flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4]">
                 <div>{color(val)}</div>
               </div>
-            )
+            ),
           )}
         </div>
         <div>
           <MonthSelector data={vendorOrders} loading={isLoading} />
         </div>
-        <div className=" mx-auto md:hidden xxs:block">
+        <div className=" mx-auto xxs:block md:hidden">
           <Carousel cards={card} />
         </div>
 
-        <div className="md:mt-6 xxs:mt-16 mb-8">
-          <h1 className="my-4 text-[24px] leading-[28px] font-normal">
+        <div className="mb-8 xxs:mt-16 md:mt-6">
+          <h1 className="my-4 text-[24px] font-normal leading-[28px]">
             Overview
           </h1>
         </div>
 
-        <div className="hide-scroll-bar">
-          <AdminTable
-            // @ts-ignore
-            Tcolumns={Tcolumns}
-            tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-            TData={vendorOrders}
-            placeholder={"Search product name, store names, category...."}
-            showIcon={true}
-            showCheckbox={true}
-            showDropDown={true}
-          />
-        </div>
+        {vendorOrders?.length > 0 ? (
+          <div className="hide-scroll-bar">
+            <AdminTable
+              // @ts-ignore
+              Tcolumns={Tcolumns}
+              tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
+              TData={vendorOrders}
+              placeholder={"Search product name, store names, category...."}
+              showIcon={true}
+              showCheckbox={true}
+              showDropDown={true}
+            />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center pt-16">
+            <CgSpinner size={72} className="animate-spin" />
+          </div>
+        )}
       </div>
     </>
   );
@@ -435,7 +444,7 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
   loading,
 }) => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
-    new Date().getMonth() + 1
+    new Date().getMonth() + 1,
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -464,18 +473,18 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
     pendingOrders,
     completedOrders,
     failedOrders,
-    returnedOrders
+    returnedOrders,
   );
 
   return (
-    <section className="flex item-center">
-      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-1 p-5 px-3 border-[#D9D9D9] border-r-[1px]">
+    <section className="item-center flex">
+      <div className="flex h-auto flex-1 flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
         <label htmlFor="monthSelect">
           <select
             id="monthSelect"
             value={selectedMonth}
             onChange={handleChange}
-            className="cursor-pointer border-none w-[140px] focus:ring-0 bg-transparent"
+            className="w-[140px] cursor-pointer border-none bg-transparent focus:ring-0"
           >
             <option value={1}>January</option>
             <option value={2}>February</option>
@@ -492,12 +501,11 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
           </select>
         </label>
       </div>
-
-      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
-        <h1 className=" text-[#F29339] text-lg leading-[23.44px] font-medium">
+      <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
+        <h1 className=" text-center text-lg font-medium leading-[23.44px] text-[#F29339]">
           Pending Orders
         </h1>
-        <span className="text-[#F29339] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+        <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#F29339]">
           (
           {loading ? (
             <CgSpinnerAlt size={20} className="animate-spin" />
@@ -507,11 +515,11 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
           )
         </span>
       </div>
-      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
-        <h1 className=" text-[#22C55E] text-lg leading-[23.44px] font-medium whitespace-nowrap">
+      <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
+        <h1 className=" text-center text-lg font-medium leading-[23.44px] text-[#22C55E]">
           Completed Orders
         </h1>
-        <span className="text-[#22C55E] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+        <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#22C55E]">
           (
           {loading ? (
             <CgSpinnerAlt size={20} className="animate-spin" />
@@ -521,11 +529,11 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
           )
         </span>
       </div>
-      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
-        <h1 className=" text-[#F91919] text-lg leading-[23.44px] font-medium">
+      <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
+        <h1 className="text-center text-lg font-medium leading-[23.44px] text-[#F91919]">
           Failed Orders
         </h1>
-        <span className="text-[#F91919] text-lg leading-[23.44px] font-medium flex items-center justify-center">
+        <span className="flex items-center justify-center text-lg font-medium leading-[23.44px] text-[#F91919]">
           (
           {loading ? (
             <CgSpinnerAlt size={20} className="animate-spin" />
@@ -535,11 +543,11 @@ const MonthSelector: React.FC<{ data: any[]; loading: boolean }> = ({
           )
         </span>
       </div>
-      <div className="bg-[#F4F4F4] h-auto flex flex-col items-center justify-center flex-grow p-5 px-3 border-[#D9D9D9] border-r-[1px]">
-        <h1 className=" text-lg leading-[23.44px] font-medium">
+      <div className="flex h-auto flex-grow flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3">
+        <h1 className="text-center text-lg font-medium leading-[23.44px]">
           Returned Orders
         </h1>
-        <span className="text-lg leading-[23.44px] font-medium flex items-center justify-center">
+        <span className="flex items-center justify-center text-lg font-medium leading-[23.44px]">
           (
           {loading ? (
             <CgSpinnerAlt size={20} className="animate-spin" />

@@ -42,7 +42,7 @@ const ProductDetails = () => {
   useEffect(() => setProductID(id), [id]);
 
   const { data: singleProduct, isLoading: loading } = useGetSingleProduct(
-    productID as string
+    productID as string,
   );
   const { data: allProducts } = useGetAllProducts();
   const { data: ratingDetails } = useGetRatingDetails(id as string);
@@ -91,13 +91,13 @@ const ProductDetails = () => {
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any) =>
       product?.approvalStatus === "approved" &&
-      product?._id !== singleProduct?.data._id
+      product?._id !== singleProduct?.data._id,
   );
 
   const relatedProducts = filteredApprovedProduct?.filter(
     (product: any) =>
       product?.information?.subcategory.name ===
-      singleProduct?.data?.information?.subcategory?.name
+      singleProduct?.data?.information?.subcategory?.name,
   );
 
   console.log(singleProduct, relatedProducts, "All Related");
@@ -110,7 +110,7 @@ const ProductDetails = () => {
 
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
-    [checkIsFav?.data?.data?.isFavorite]
+    [checkIsFav?.data?.data?.isFavorite],
   );
 
   React.useEffect(() => {
@@ -141,7 +141,7 @@ const ProductDetails = () => {
         setFavorite((prevFavorite) => !prevFavorite);
         setIsLoading(false);
         toast.success(
-          `${singleProduct?.data?.information?.productName} has been added to favorite`
+          `${singleProduct?.data?.information?.productName} has been added to favorite`,
         );
       })
       .catch(() => {
@@ -158,7 +158,7 @@ const ProductDetails = () => {
         setFavorite((prevFavorite) => !prevFavorite);
         setIsLoading(false);
         toast.success(
-          `${singleProduct?.data?.information?.productName} has been removed from favorite`
+          `${singleProduct?.data?.information?.productName} has been removed from favorite`,
         );
       })
       .catch(() => {
@@ -172,7 +172,7 @@ const ProductDetails = () => {
 
   return (
     <AppLayout>
-      <div className="md:bg-[#EEEEEE] xxs:bg-white md:px-10 pt-4 flex flex-col gap-6 mt-20 pb-14 ">
+      <div className="mt-20 flex flex-col gap-6 pt-4 pb-14 xxs:bg-white md:bg-[#EEEEEE] md:px-10 ">
         <div className="xxs:hidden md:block">
           <ProductsBreadCrumbs
             items={[
@@ -195,9 +195,9 @@ const ProductDetails = () => {
         {loading && <SkeletonLoader />}
 
         {!loading && (
-          <div className="md:flex md:px-6 xxs:px-3 md:4 py-8 md:gap-5 bg-white md:rounded-sm">
-            <div className="md:w-[65%] flex md:flex-1 md:gap-2 xxs:flex-col-reverse md:flex-row">
-              <div className="md:flex-col md:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
+          <div className="md:4 bg-white py-8 xxs:px-3 md:flex md:gap-5 md:rounded-sm md:px-6">
+            <div className="flex xxs:flex-col-reverse md:w-[65%] md:flex-1 md:flex-row md:gap-2">
+              <div className="xxs:mt-3 xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 md:mt-0 md:flex-col md:justify-start">
                 {singleProduct?.data?.images.map(
                   (image: any, index: number) => (
                     <img
@@ -205,9 +205,9 @@ const ProductDetails = () => {
                       key={index}
                       alt="ProductImg"
                       onClick={(e) => setSelectedImg(index)}
-                      className="object-cover cursor-pointer w-[75px] h-20 rounded-sm"
+                      className="h-20 w-[75px] cursor-pointer rounded-sm object-cover"
                     />
-                  )
+                  ),
                 )}
               </div>
 
@@ -215,13 +215,13 @@ const ProductDetails = () => {
                 <img
                   src={singleProduct?.data?.images[selectedImg]}
                   alt="img4"
-                  className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
+                  className=" w-full rounded-sm object-cover  xxs:h-[300px] md:h-[400px]"
                 />
               </div>
             </div>
-            <div className="md:w-[35%] md:flex-1 flex flex-col gap-3 xxs:mt-4 md:mt-0">
-              <div className="flex justify-between flex-wrap items-center">
-                <h1 className="font-semibold text-xl">
+            <div className="flex flex-col gap-3 xxs:mt-4 md:mt-0 md:w-[35%] md:flex-1">
+              <div className="flex flex-wrap items-center justify-between">
+                <h1 className="text-xl font-semibold">
                   {singleProduct?.data?.information?.productName}
                 </h1>
                 {isLoading ? (
@@ -231,7 +231,7 @@ const ProductDetails = () => {
                     {isFavorite ? (
                       <span
                         onClick={removeFav}
-                        className="cursor-pointer bg-orange-400 rounded-full w-8 h-8 text-white flex justify-center items-center"
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-orange-400 text-white"
                       >
                         <MdFavorite size={23} />
                       </span>
@@ -249,26 +249,26 @@ const ProductDetails = () => {
                   <RatingStars maxRating={5} iconSize={36} canRate={false} />
                 </div>
               </div>
-              <span className=" font-medium text-base">
+              <span className=" text-base font-medium">
                 ₦{singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
 
-              <span className="font-normal text-sm text-[#797979]">
+              <span className="text-sm font-normal text-[#797979]">
                 Weight:&nbsp;
-                <span className="font-medium text-black text-sm">
+                <span className="text-sm font-medium text-black">
                   {singleProduct?.data?.details?.productWeight}g
                 </span>
               </span>
-              <span className="font-normal text-sm text-[#797979]">
+              <span className="text-sm font-normal text-[#797979]">
                 Category:&nbsp;
-                <span className="font-medium text-black text-sm">
+                <span className="text-sm font-medium text-black">
                   {singleProduct?.data?.information?.category?.name}
                 </span>
               </span>
 
-              <span className="font-normal text-sm text-[#797979]">
+              <span className="text-sm font-normal text-[#797979]">
                 Availability:&nbsp;
-                <span className="font-medium text-black text-sm">
+                <span className="text-sm font-medium text-black">
                   {/* 100% Available */}
                   {singleProduct?.data?.pricing?.quantity > 0
                     ? "100% Available"
@@ -276,24 +276,24 @@ const ProductDetails = () => {
                 </span>
               </span>
               <div className="flex flex-col">
-                <h1 className="block font-normal text-base text-[#797979]">
+                <h1 className="block text-base font-normal text-[#797979]">
                   Quantity
                 </h1>
 
                 <div className="flex items-center">
                   <button
-                    className="border w-10 h-10"
+                    className="h-10 w-10 border"
                     onClick={() =>
                       setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
                     }
                   >
                     -
                   </button>
-                  <span className="border w-10 h-10 flex items-center justify-center">
+                  <span className="flex h-10 w-10 items-center justify-center border">
                     {quantity}
                   </span>
                   <button
-                    className="border w-10 h-10"
+                    className="h-10 w-10 border"
                     onClick={() => setQuantity((prev) => prev + 1)}
                   >
                     +
@@ -301,16 +301,23 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="md:mt-2  md:flex gap-6 xxs:px-4 md:px-0 xxs:mt-4">
+              <div className="gap-6  xxs:mt-4 xxs:px-4 md:mt-2 md:flex md:px-0">
                 <button
-                  onClick={handleClick}
-                  className="bg-[#197B30] xxs:w-full md:w-[200px] md:h-10 xxs:h-14 text-white rounded-sm font-medium xxs:mb-4 shadow-md"
+                  onClick={
+                    singleProduct?.data?.pricing?.quantity > 0
+                      ? handleClick
+                      : () => null
+                  }
+                  className={`rounded-sm font-medium text-white shadow-md xxs:mb-4 xxs:h-14 xxs:w-full md:h-10 md:w-[200px] ${singleProduct?.data?.pricing?.quantity > 0 ? "bg-[#197b30]" : "cursor-not-allowed bg-red-600"}`}
                 >
-                  Add to Cart
+                  {singleProduct?.data?.pricing?.quantity > 0
+                    ? "Add to Cart"
+                    : "Out of Stock"}
                 </button>
                 <button
                   onClick={handleNavigate}
-                  className="md:w-[200px] xxs:w-full md:h-10 xxs:h-14 border-[#197B30] border text-[#197B30] rounded-sm font-medium shadow-md"
+                  disabled={singleProduct?.data?.pricing?.quantity < 1}
+                  className={`rounded-sm border border-[#197B30] font-medium text-[#197B30] shadow-md xxs:h-14 xxs:w-full md:h-10 md:w-[200px] ${singleProduct?.data?.pricing?.quantity > 0 ? "opacity-100" : "opacity-40"}`}
                 >
                   Buy Now
                 </button>
@@ -319,12 +326,12 @@ const ProductDetails = () => {
           </div>
         )}
 
-        <div className="bg-white md:p-4 xxs:p-3 rounded-sm">
+        <div className="rounded-sm bg-white xxs:p-3 md:p-4">
           <Fragment>
             <Accordion open={open === 1}>
               <AccordionHeader
                 onClick={() => handleOpen(1)}
-                className="font-medium text-base"
+                className="text-base font-medium"
               >
                 Product Description
               </AccordionHeader>
@@ -374,7 +381,7 @@ const ProductDetails = () => {
                     other{" "}
                     <Link
                       to="/products"
-                      className="text-green-500 underline capitalize font-medium"
+                      className="font-medium capitalize text-green-500 underline"
                     >
                       products
                     </Link>
@@ -399,21 +406,21 @@ const ProductDetails = () => {
           </Fragment>
         </div>
 
-        <div className="more-items bg-white mt-6">
-          <h1 className="text-[18px] text-[#333333] font-semibold py-6 px-4 hidden md:block">
+        <div className="more-items mt-6 bg-white">
+          <h1 className="hidden py-6 px-4 text-[18px] font-semibold text-[#333333] md:block">
             Related Products
           </h1>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 w-full xxs:px-3 md:px-0 xxs:gap-4 ">
+          <div className="grid w-full grid-cols-2 xxs:gap-4 xxs:px-3 md:grid-cols-4 md:px-0 ">
             {relatedProducts?.length >= 1 &&
               chunkArray(relatedProducts, 8)[1 - 1]?.map(
                 (item: any, index: number) => (
                   <ProductCard item={item} key={index} />
-                )
+                ),
               )}
 
             {relatedProducts?.length < 1 && (
-              <p className="text-gray-500 px-4 mb-4">No Related Products yet</p>
+              <p className="mb-4 px-4 text-gray-500">No Related Products yet</p>
             )}
           </div>
         </div>
@@ -427,17 +434,17 @@ export default ProductDetails;
 const SkeletonLoader = () => {
   return (
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
-    <div className="overflow-hidden relative w-full bg-white p-6 grid grid-cols-2 gap-4">
+    <div className="relative grid w-full grid-cols-2 gap-4 overflow-hidden bg-white p-6">
       <div className="flex gap-3">
-        <div className="flex flex-col gap-3 w-[25%]">
+        <div className="flex w-[25%] flex-col gap-3">
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
         </div>
-        <div className="skeleton-loader w-[73%] h-[350px_!important]"></div>
+        <div className="skeleton-loader h-[350px_!important] w-[73%]"></div>
       </div>
       {/* <div className="skeleton-loader"></div> */}
-      <div className="flex flex-col items-start w-full">
+      <div className="flex w-full flex-col items-start">
         <div className="w-full">
           <div className="text-loader h-[30px_!important]"></div>
           <div className="text-loader h-[30px_!important]"></div>

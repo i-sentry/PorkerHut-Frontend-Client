@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { FaTimes } from "react-icons/fa";
 
-
 interface CreateProductImageProps {
   img: string;
   imageUrl: string;
@@ -16,7 +15,6 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
   setImageUrl,
 }) => {
   const [, setImage] = useState<File | null>(null);
-
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -36,12 +34,16 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
   return (
     <div>
       <div className="m-auto">
-        <div className="h-52 w-full  lg:h-56 flex justify-center items-center md:h-56 border-gray-200 bg-white border-dashed border-2 relative">
+        <div className="relative flex  h-52 w-full items-center justify-center border-2 border-dashed border-gray-200 bg-white md:h-56 lg:h-56">
           {imageUrl ? (
             <>
-              <img src={imageUrl} alt="product" className="w-full h-full" />
+              <img
+                src={imageUrl}
+                alt="product"
+                className="h-full w-full object-cover"
+              />
               <button
-                className="absolute top-2 right-2 bg-white rounded-full p-1 shadow"
+                className="absolute top-2 right-2 rounded-full bg-white p-1 shadow"
                 onClick={handleRemoveImage}
               >
                 <FaTimes />
@@ -49,8 +51,8 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
             </>
           ) : (
             <>
-              <label htmlFor="file" className="text-sm h-full flex text-right">
-                <span className="cursor-pointer my-auto border border-[#197B30] text-[#197B30] py-2 px-8 text-[14px] leading-[24px] rounded-md active:scale-90 duration-300 ease-in-out">
+              <label htmlFor="file" className="flex h-full text-right text-sm">
+                <span className="my-auto cursor-pointer rounded-md border border-[#197B30] py-2 px-8 text-[14px] leading-[24px] text-[#197B30] duration-300 ease-in-out active:scale-90">
                   Browse
                 </span>
               </label>
@@ -59,7 +61,7 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
                 type="file"
                 name="file"
                 onChange={(evt) => uploadImg(evt)}
-                className="hidden appearance-none outline-none text-sm"
+                className="hidden appearance-none text-sm outline-none"
               />
             </>
           )}

@@ -25,7 +25,7 @@ export const steps = [
   "Images",
 ];
 
-function StepperComponent() {
+const StepperComponent = () => {
   const { state: productData, setState: setProductData } = useProductState();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -33,15 +33,17 @@ function StepperComponent() {
   const subcategory = queryParams.get("sub");
   const Tcategory = useGetOneCategory(category);
   const showOverlay = useSuccessOverlay(
-    (state: { showOverlay: any }) => state.showOverlay
+    (state: { showOverlay: any }) => state.showOverlay,
   );
-  
+
   const subCategory = () => {
     return Tcategory?.data?.data.subcategories?.filter(
-      (cat: { _id: string | null }) => cat._id === subcategory
+      (cat: { _id: string | null }) => cat._id === subcategory,
     );
   };
   const cateName = Tcategory?.data?.data?.name;
+  console.log(cateName, Tcategory, category, "cateName");
+
   const categoryName = cateName
     ? cateName.charAt(0).toUpperCase() + cateName.slice(1)
     : "";
@@ -54,10 +56,8 @@ function StepperComponent() {
   const filteredSubcategories = subCategory();
   const filtered =
     filteredSubcategories?.find(
-      (subcategory: { name: string }) => subcategory.name
+      (subcategory: { name: string }) => subcategory.name,
     )?.name ?? "";
-
-
 
   const displayStep = (step: number) => {
     switch (step) {
@@ -114,29 +114,29 @@ function StepperComponent() {
   }
   return (
     <div className=" ">
-      <div className="lg:flex md:hidden hidden items-center gap-2 py-5">
-        <h1 className="md:text-[36px] md:leading-[42px] md:font-medium  xxs:font-normal  mb-3 xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
-          Create Products
+      <div className="hidden items-center gap-2 py-5 md:hidden lg:flex">
+        <h1 className="mb-3 text-[#1F1F1F] xxs:text-[20px]  xxs:font-normal  xxs:leading-[23px] md:text-[36px] md:font-medium md:leading-[42px]">
+          {"Create Products"}
         </h1>
 
         <div className="flex items-center gap-2">
           <AiOutlineLine size={30} />
-          <span className="text-[16px] leading-[19px] font-normal text-[#A2A2A2]">
+          <span className="text-[16px] font-normal leading-[19px] text-[#A2A2A2]">
             {categoryName}
           </span>
           <GoChevronRight className="text-[#A2A2A2]" />
 
-          <span className="ext-[16px] leading-[19px] font-normal text-[#A2A2A2]">
+          <span className="ext-[16px] font-normal leading-[19px] text-[#A2A2A2]">
             {filtered && filtered}
           </span>
         </div>
       </div>
       {/* Stepper */}
-      <div className="horizontal lg:flex md:hidden hidden ">
+      <div className="horizontal hidden md:hidden lg:flex ">
         <Stepper steps={steps} currentStep={currentStep} />
       </div>
-      <div className="md:flex flex items-center gap-5 lg:hidden mx-3">
-        <div className="w-20 my-6">
+      <div className="mx-3 flex items-center gap-5 md:flex lg:hidden">
+        <div className="my-6 w-20">
           <CircularProgressbar
             value={progress}
             text={`${currentStep} of 4`}
@@ -177,7 +177,7 @@ function StepperComponent() {
           />
         </div>
         <div>
-          <h1 className="text-[#333333] font-semibold text-base">
+          <h1 className="text-base font-semibold text-[#333333]">
             Step {currentStep}
           </h1>
           <p className="text-base font-light">
@@ -185,7 +185,7 @@ function StepperComponent() {
           </p>
         </div>
       </div>
-      <div className="lg:my-10 md:my-0 my-0 lg:px-0 xxs:px-4">
+      <div className="my-0 xxs:px-4 md:my-0 lg:my-10 lg:px-0">
         <productStepsContext.Provider
           //@ts-ignore
           value={{
@@ -214,6 +214,6 @@ function StepperComponent() {
       {showOverlay && <SuccessScreen title={""} msg={""} url={""} />}
     </div>
   );
-}
+};
 
 export default StepperComponent;
