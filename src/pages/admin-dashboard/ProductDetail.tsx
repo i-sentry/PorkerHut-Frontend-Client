@@ -128,6 +128,7 @@ const ProductDetails = () => {
       });
       return updatedQuestions;
     }
+    return [];
   }, [question?.data, convertToCamelCase, text]);
 
   // useEffect(() => {
