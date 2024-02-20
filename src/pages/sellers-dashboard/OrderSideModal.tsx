@@ -10,6 +10,24 @@ const OrderSideModal = ({ orderInfo }: any) => {
   const closeModal = () => {
     toggleOpenModal(false);
   };
+
+  const getStatus = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return "text-[#F29339]";
+      case "completed":
+        return "text-[#22C55E]";
+      case "failed":
+        return "text-[#F91919]";
+      case "returned":
+        return "text-[#198df9]";
+      case "returned failed":
+        return "text-[#f91919]";
+      default:
+        return "text-[#202223]";
+    }
+  };
+
   return (
     <>
       <div
@@ -33,13 +51,65 @@ const OrderSideModal = ({ orderInfo }: any) => {
                 </Tooltip>
               </div>
 
-              <div>
-                <h3 className="font-bold">
-                  Customer Details Product Order Notes Price Quantity Status
-                </h3>
-                <p>
-                  {orderInfo.firstName} {orderInfo.lastName}
-                </p>
+              <div className="mt-10 flex flex-col gap-8">
+                <div className="">
+                  <h3 className="text-lg font-bold">Customer Details</h3>
+                  <p className="capitalize">
+                    {orderInfo?.billingInformation?.firstName}{" "}
+                    {orderInfo?.billingInformation?.lastName} -{" "}
+                    {orderInfo?.billingInformation?.address}
+                  </p>
+                  <p className="mt-1 font-semibold">
+                    {orderInfo?.billingInformation?.phoneNumber}
+                  </p>
+                </div>
+
+                <div className="">
+                  <h3 className="text-lg font-bold">Products</h3>
+                  <p>
+                    {orderInfo?.productDetails?.map(
+                      (product: any, index: number) => (
+                        <span key={index} className="block capitalize">
+                          - {product?.productID?.information?.productName}
+                        </span>
+                      ),
+                    )}
+                  </p>
+                </div>
+                <div className="">
+                  <h3 className="text-lg font-bold"> Order Notes</h3>
+                  <p>{orderInfo?.orderNotes || "Needed from Backend"}</p>
+                </div>
+                <div className="">
+                  <h3 className="text-lg font-bold">Price</h3>
+                  <p>₦{orderInfo?.totalAmount.toLocaleString()}</p>
+                </div>
+                <div className="">
+                  <h3 className="text-lg font-bold">Quantity</h3>
+                  <p>{orderInfo?.productDetails.length}</p>
+                </div>
+                <div className="">
+                  <h3 className="text-lg font-bold">Status</h3>
+                  <p className={`capitalize ${getStatus(orderInfo?.status)}`}>
+                    {orderInfo?.status}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold">Product Images</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {orderInfo?.productDetails?.map(
+                      (product: any, index: number) => (
+                        <img
+                          key={index}
+                          className="h-[100px] w-full object-cover"
+                          src={product?.productID.images[index]}
+                          alt={product?.productID?.information?.productName}
+                        />
+                      ),
+                    )}
+                  </div>
+                </div>
               </div>
             </>
           </div>
