@@ -221,80 +221,10 @@ const orderData = [
   },
 ];
 
-const Tcolumns: readonly Column<object>[] = [
-  {
-    Header: "Order Number",
-    // accessor: "_id",
-    accessor: (row: any) => (
-      <Tooltip message={row?._id}>
-        <span className="cursor-pointer">{row?._id.slice(0, 10)}...</span>
-      </Tooltip>
-    ),
-  },
-  {
-    Header: "Confirmation Date",
-    accessor: (row: any) => {
-      const date = moment(new Date(row?.orderDate)).format("DD MMMM YYYY");
-      return date;
-    },
-  },
-  {
-    Header: "Update Price",
-    accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
-  },
-  {
-    Header: "Price",
-    accessor: (row) =>
-      // @ts-ignore
-      `₦${row.productDetails[0]?.price.toLocaleString()}`,
-  },
-  {
-    Header: "Quality",
-    accessor: (row: any) => row?.productDetails?.length,
-  },
-  {
-    Header: "Status",
-    accessor: (row: any) => {
-      switch (row?.status?.toLowerCase()) {
-        case "completed":
-          return <span className="text-[#22C55E]">Completed</span>;
-
-        case "failed":
-          return <span className=" text-[#F91919]">Failed</span>;
-        case "pending":
-          return <span className=" text-[#F29339]">Pending</span>;
-        case "returned":
-          return <span className=" text-[#198df9]">Returned</span>;
-        case "returned Failed":
-          return <span className=" text-[#F91919]">Returned Failed</span>;
-        default:
-          return (
-            <span className="text-sm font-normal text-[#202223] ">
-              {row?.status}
-            </span>
-          );
-      }
-    },
-  },
-  {
-    Header: "View more",
-    Cell: ({ row }: any) => {
-      const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
-      return (
-        <span
-          onClick={() => toggleOpenModal(true)}
-          className="cursor-pointer hover:text-[#0eb6683] hover:underline"
-        >
-          View
-        </span>
-      );
-    },
-  },
-];
-
 const SellersOrderPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
+  const [orderInfo, setOrderInfo] = useState<any>({});
   const openModal = useShowModal((state) => state.openModal);
   const store = JSON.parse(localStorage.getItem("vendor") as string);
   const { data, isLoading } = useGetVendorOrders(store?.vendor?._id);
@@ -316,6 +246,85 @@ const SellersOrderPage = () => {
   //   console.log(pending, "pending");
   // };
   // color3();
+
+  const Tcolumns: readonly Column<object>[] = [
+    {
+      Header: "Order Number",
+      // accessor: "_id",
+      accessor: (row: any) => (
+        <Tooltip message={row?._id}>
+          <span className="cursor-pointer">{row?._id.slice(0, 10)}...</span>
+        </Tooltip>
+      ),
+    },
+    {
+      Header: "Confirmation Date",
+      accessor: (row: any) => {
+        const date = moment(new Date(row?.orderDate)).format("DD MMMM YYYY");
+        return date;
+      },
+    },
+    {
+      Header: "Update Price",
+      accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
+    },
+    {
+      Header: "Price",
+      accessor: (row) =>
+        // @ts-ignore
+        `₦${row.productDetails[0]?.price.toLocaleString()}`,
+    },
+    {
+      Header: "Quality",
+      accessor: (row: any) => row?.productDetails?.length,
+    },
+    {
+      Header: "Status",
+      accessor: (row: any) => {
+        switch (row?.status?.toLowerCase()) {
+          case "completed":
+            return <span className="text-[#22C55E]">Completed</span>;
+
+          case "failed":
+            return <span className=" text-[#F91919]">Failed</span>;
+          case "pending":
+            return <span className=" text-[#F29339]">Pending</span>;
+          case "returned":
+            return <span className=" text-[#198df9]">Returned</span>;
+          case "returned Failed":
+            return <span className=" text-[#F91919]">Returned Failed</span>;
+          default:
+            return (
+              <span className="text-sm font-normal text-[#202223] ">
+                {row?.status}
+              </span>
+            );
+        }
+      },
+    },
+    {
+      Header: "View more",
+      Cell: ({ row }: any) => {
+        const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
+        const id = row?.original;
+        // console.log(id, row, "original");
+
+        return (
+          <span
+            onClick={() => {
+              toggleOpenModal(true);
+              setOrderInfo({ ...id });
+            }}
+            className="cursor-pointer hover:text-[#0eb6683] hover:underline"
+          >
+            View
+          </span>
+        );
+      },
+    },
+  ];
+
+  console.log(orderInfo, "orderinfos");
 
   const color = (val: { title: string; figure?: string | undefined }) => {
     switch (val?.title) {
@@ -387,7 +396,7 @@ const SellersOrderPage = () => {
 
   return (
     <>
-      {openModal && <OrderSideModal />}
+      {openModal && <OrderSideModal orderInfo={orderInfo} />}
       <div className="mt-2 pb-10 xxs:px-4 md:px-0">
         {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
           Orders

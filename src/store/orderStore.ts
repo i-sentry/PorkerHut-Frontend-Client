@@ -1,4 +1,4 @@
-import create from "zustand"
+import create from "zustand";
 
 interface IOrderStore {
   showOrderDetails: boolean;
@@ -10,14 +10,14 @@ interface IOrderStore {
   setSelectedOrderId: (id: string) => void;
 }
 
- export const useOrderStore = create<IOrderStore>((set) => ({
-   showOrderDetails: false,
-   ordersData: [],
-   selectedOrderId: "",
+export const useOrderStore = create<IOrderStore>((set) => ({
+  showOrderDetails: false,
+  ordersData: [],
+  selectedOrderId: "",
 
-   setShowOrderDetails: (shouldShow: boolean) =>
-     set((state: any) => ({ showOrderDetails: shouldShow })),
-   setOrdersData: (data: any) => set((state: any) => ({ ordersData: data })),
-   setSelectedOrderId: (id: string) =>
-     set((state: any) => ({ selectedOrderId: id })),
- }));
+  setShowOrderDetails: (shouldShow: boolean) =>
+    set((state: any) => ({ showOrderDetails: shouldShow })),
+  setOrdersData: (data: any) => set((state: any) => ({ ordersData: data })),
+  setSelectedOrderId: (id: string) =>
+    set((state: any) => ({ selectedOrderId: id })),
+}));

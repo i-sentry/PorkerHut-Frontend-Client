@@ -8,12 +8,13 @@ import banner1 from "../../assets/images/SellerHomeBanner.png";
 // import { announcementData } from "../../utils/announcementData";
 
 import { RiMessage2Line } from "react-icons/ri";
+import { useGetVendorOrders } from "../../services/hooks/orders";
+import { CgSpinner } from "react-icons/cg";
+// import { useGetVendorById } from "../../services/hooks/Vendor";
 
 interface SliderProps {
   sliderImages: never[];
 }
-
-
 
 const items = [
   {
@@ -42,25 +43,58 @@ const items = [
   },
 ];
 
-const totalItem = [
-  {
-    day: "Today",
-    total: 12,
-  },
-  {
-    day: "Yesterday",
-    total: 30,
-  },
-  {
-    day: "Older",
-    total: 12,
-  },
-];
-
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
+  const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+
+  const { data, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
+
+  const vendorOrders = data?.data?.orders;
+  const todayOrder = vendorOrders?.filter((order: any) => {
+    const todayDate = new Date().getTime();
+    const orderDate = new Date(order?.orderDate).getTime();
+
+    return orderDate === todayDate && order?.status === "pending";
+  }).length;
+
+  const yesterdayOrder = vendorOrders?.filter((order: any) => {
+    const curDate = new Date().setDate(new Date().getDate() - 1);
+    const orderDate = new Date(order?.orderDate).getTime();
+
+    return orderDate === curDate && order?.status === "pending";
+  }).length;
+
+  const olderOrders = vendorOrders?.filter((order: any) => {
+    const todayDate = new Date().getTime();
+    const yesterdayDate = new Date().setDate(new Date().getDate() - 1);
+    const orderDate = new Date(order?.orderDate).getTime();
+
+    return (
+      orderDate !== todayDate &&
+      orderDate !== yesterdayDate &&
+      order?.status === "pending"
+    );
+  }).length;
+
+  console.log(vendor, "vendor");
+
+  const totalItem = [
+    {
+      day: "Today",
+      total: todayOrder,
+    },
+    {
+      day: "Yesterday",
+      total: yesterdayOrder,
+    },
+    {
+      day: "Older",
+      total: olderOrders,
+    },
+  ];
+
   const dataSlider = [
     {
       id: 1,
@@ -87,7 +121,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     } else if (slideIndex === dataSlider.length) {
       setSlideIndex(1);
     }
-  },[dataSlider.length, slideIndex]);
+  }, [dataSlider.length, slideIndex]);
 
   // const prevSlide = () => {
   //   if (slideIndex !== 1) {
@@ -103,7 +137,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }, 3000);
 
     return () => clearInterval(id);
-  }, [nextSlide, slideIndex, sliderImages]);
+  }, [nextSlide]);
 
   const moveDot = (index: any) => {
     setSlideIndex(index);
@@ -112,48 +146,48 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   return (
     <div className="mb-20">
       <div className="relative">
-        <div className=" w-full h-[320px]  ">
+        <div className=" h-[320px] w-full  ">
           {dataSlider.map((obj, index) => {
             return (
               <div
                 key={index}
-                className={`w-full h-full absolute opacity-0 transition-opacity duration-400 xxs:px-5 md:px-0 ${
+                className={`duration-400 absolute h-full w-full opacity-0 transition-opacity xxs:px-5 md:px-0 ${
                   slideIndex === index + 1 ? "active-anim opacity-100" : ""
                 }`}
               >
                 <img
                   src={obj.src}
                   alt=""
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
             );
           })}
         </div>
-        <div className=" absolute mx-auto left-[50%] transform -translate-x-1/2 flex mt-4">
+        <div className=" absolute left-[50%] mx-auto mt-4 flex -translate-x-1/2 transform">
           {dataSlider.map((_, index) => (
             <div
               key={index}
               onClick={() => moveDot(index + 1)}
-              className={`w-[6px] h-[6px]  border-3 rounded-full mr-2 ${
+              className={`border-3 mr-2  h-[6px] w-[6px] rounded-full ${
                 slideIndex === index + 1
-                  ? "bg-[#197B30] border-[#197B30]"
-                  : "bg-gray-300 border-gray-300"
+                  ? "border-[#197B30] bg-[#197B30]"
+                  : "border-gray-300 bg-gray-300"
               }`}
             ></div>
           ))}
         </div>
       </div>
-      <div className="my-8 overflow-y-scroll no-scrollbar hide-scrollbar">
-      <p className="marquee w-full text-center whitespace-nowrap hide-scroll-bar ">
-        jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj</p>
+      <div className="no-scrollbar hide-scrollbar my-8 overflow-y-scroll">
+        <p className="marquee hide-scroll-bar w-full whitespace-nowrap text-center ">
+          jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj
+        </p>
       </div>
-      
 
-      <div className="mt-28 grid md:grid-cols-2 xxs:grid-rows-1 md:gap-10 xxs:px-4 xxs:gap-14">
+      <div className="mt-28 grid xxs:grid-rows-1 xxs:gap-14 xxs:px-4 md:grid-cols-2 md:gap-10">
         <div className="">
-          <div className="flex items-center justify-between bg-[#F4F4F4] py-8 px-4 rounded-t-md">
-            <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
+          <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] py-8 px-4">
+            <span className="font-normal leading-[24px] tracking-[0.15px]  text-[#A2A2A2] xxs:text-[16px] md:text-[24px]">
               Announcements
             </span>
             <RiMessage2Line size={26} className="text-[#F91919]" />
@@ -162,14 +196,14 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex xxs:flex-col md:flex-row md:gap-10 xxs:gap-8 px-4 py-10 border-t-0 border border-[#A2A2A2]"
+              className="flex border border-t-0 border-[#A2A2A2] px-4 py-10 xxs:flex-col xxs:gap-8 md:flex-row md:gap-10"
             >
-              <span className="whitespace-nowrap text-[16px] leading-[24px] font-normal">
+              <span className="whitespace-nowrap text-[16px] font-normal leading-[24px]">
                 {item.date}
               </span>
 
-              <div className="flex gap-2 flex-col">
-                <span className=" text-[18px] leading-[24px] font-medium">
+              <div className="flex flex-col gap-2">
+                <span className=" text-[18px] font-medium leading-[24px]">
                   {item.title}
                 </span>
                 <span className="text-[16px] font-normal leading-[24px] text-[#333333]">
@@ -182,8 +216,8 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
         <div className="flex flex-col gap-10">
           <div className=" ">
-            <div className=" bg-[#F4F4F4] py-8 px-4 rounded-t-md">
-              <span className="md:text-[24px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
+            <div className=" rounded-t-md bg-[#F4F4F4] py-8 px-4">
+              <span className="font-normal leading-[24px] tracking-[0.15px]  text-[#A2A2A2] xxs:text-[16px] md:text-[24px]">
                 Total Pending Orders
               </span>
             </div>
@@ -191,39 +225,41 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
             {totalItem.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between px-4 py-10 border border-t-0 border-[#A2A2A2] "
+                className="flex items-center justify-between border border-t-0 border-[#A2A2A2] px-4 py-10 "
               >
-                <span className="md:text-[16px] xxs:text-[14px] leading-[24px] font-normal text-[#333333]">
+                <span className="font-normal leading-[24px] text-[#333333] xxs:text-[14px] md:text-[16px]">
                   {item.day}
                 </span>
-                <span className="md:text-[16px] xxs:text-[14px] leading-[24px] font-normal text-[#333333]">
-                  {item.total}
+                <span className="font-normal leading-[24px] text-[#333333] xxs:text-[14px] md:text-[16px]">
+                  {isLoading ? (
+                    <CgSpinner size={20} className=" animate-spin" />
+                  ) : (
+                    item.total
+                  )}
                 </span>
               </div>
             ))}
           </div>
           <div className=" ">
             <div className=" bg-[#F4F4F4] py-8 px-4">
-              <span className="md:text-[18px] leading-[24px] xxs:text-[16px]  font-normal text-[#A2A2A2] tracking-[0.15px]">
+              <span className="font-normal leading-[24px] tracking-[0.15px]  text-[#A2A2A2] xxs:text-[16px] md:text-[18px]">
                 Your Rating
               </span>
             </div>
 
-
-              <div className="flex items-center justify-between px-4 py-4 border-t-0 border border-[#A2A2A2]">
-                <div className=" ">
-                  <p className="md:text-[16px] leading-[24px] xxs:text-[16px]  font-normal text-[#333333] tracking-[0.15px]">
-                    Average Customer Rating
-                  </p>
-                  <p className="text-[#22C55E] text-[13px] leading-[24px] mt-2">
-                    Excellent
-                  </p>
-                </div>
-                <span className="md:text-[18px] xxs:text-[16px] leading-[24px] font-normal text-[#333333]">
-                  12
-                </span>
+            <div className="flex items-center justify-between border border-t-0 border-[#A2A2A2] px-4 py-4">
+              <div className=" ">
+                <p className="font-normal leading-[24px] tracking-[0.15px]  text-[#333333] xxs:text-[16px] md:text-[16px]">
+                  Average Customer Rating
+                </p>
+                <p className="mt-2 text-[13px] leading-[24px] text-[#22C55E]">
+                  Excellent
+                </p>
               </div>
-
+              <span className="font-normal leading-[24px] text-[#333333] xxs:text-[16px] md:text-[18px]">
+                12
+              </span>
+            </div>
           </div>
         </div>
       </div>

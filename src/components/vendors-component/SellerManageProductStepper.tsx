@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import ReactLoading from "react-loading";
@@ -94,9 +95,11 @@ const SellerStepperComponent = () => {
       productInformation: {
         productName: currentProductData?.information.productName || "",
         mainColour:
-          currentProductData?.information?.categoryQuestions[1]?.answer || "",
+          currentProductData?.information?.categoryQuestions[0]?.answer || "",
         productBreed:
           currentProductData?.information?.categoryQuestions[0]?.answer || "",
+        typeOfPork:
+          currentProductData?.information.categoryQuestions[1]?.answer || "",
       },
       productDetails: {
         productWeight: currentProductData?.details.productWeight || "",
@@ -135,9 +138,11 @@ const SellerStepperComponent = () => {
         productInformation: {
           productName: currentProductData?.information.productName || "",
           mainColour:
-            currentProductData?.information.categoryQuestions[0]?.answer || "",
+            currentProductData?.information?.categoryQuestions[0]?.answer || "",
           productBreed:
-            currentProductData?.information.categoryQuestions[0]?.answer || "",
+            currentProductData?.information?.categoryQuestions[0]?.answer || "",
+          typeOfPork:
+            currentProductData?.information.categoryQuestions[1]?.answer || "",
         },
         productDetails: {
           productWeight: currentProductData?.details.productWeight || "",
@@ -213,7 +218,7 @@ const SellerStepperComponent = () => {
               ) : (
                 <>
                   {productInfo.map((data, index) => {
-                    // console.log(data, "data data fsfaya");
+                    console.log(data, "data data fsfaya");
                     return (
                       <div key={index + data?.name}>
                         <CustomInput
@@ -290,6 +295,7 @@ const SellerStepperComponent = () => {
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
+                        defaultValues
                         data={data}
                         register={register}
                         errors={errors}
@@ -541,6 +547,8 @@ const SellerStepperComponent = () => {
     },
     ...questions,
   ];
+
+  console.log(productInfo, productInfo);
 
   const productDetails = [
     {
