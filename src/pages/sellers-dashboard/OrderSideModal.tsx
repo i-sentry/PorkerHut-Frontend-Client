@@ -37,12 +37,12 @@ const OrderSideModal = ({ orderInfo }: any) => {
         <div className="modal_overlay  flex h-full cursor-pointer bg-[#13111173]  xxs:justify-center xxs:p-5 md:justify-end md:p-0">
           <div className="relative flex max-h-full  w-full max-w-sm flex-col overflow-auto  bg-white p-5 xxs:rounded-md md:h-full  md:max-w-sm md:rounded-l-md md:px-7 ">
             <>
-              <div className="flex items-end justify-end pb-3">
+              <div className="fixed top-5 right-5 flex items-end justify-end pb-3">
                 <Tooltip message="close">
                   <div
                     onClick={closeModal}
-                    className="close  flex h-10 w-10 items-center justify-center  rounded-full
-                    p-3 hover:rounded-full hover:bg-[#F7FBFB] hover:text-center "
+                    className="close flex h-10  w-10 items-center justify-center
+                    bg-white p-3"
                   >
                     <span className="transition duration-150  ease-in-out hover:rotate-90 hover:transform">
                       <IoMdClose size={29} className="" />
@@ -96,7 +96,7 @@ const OrderSideModal = ({ orderInfo }: any) => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold">Product Images</h3>
+                  <h3 className="mb-5 text-lg font-bold">Product Images</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {orderInfo?.productDetails?.map(
                       (product: any, index: number) => (
