@@ -24,7 +24,7 @@ const AdminLayout = () => {
       // navigate("/admin-login");
     }
     setLoading(false);
-  }, [accessToken, navigate]);
+  }, [accessToken, admin?.isAdmin, navigate]);
 
   return (
     <>

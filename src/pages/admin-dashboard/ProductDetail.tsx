@@ -78,6 +78,8 @@ const ProductDetails = () => {
           currentProductData?.information.categoryQuestions[0]?.answer || "",
         productBreed:
           currentProductData?.information.categoryQuestions[1]?.answer || "",
+        typeOfPork:
+          currentProductData?.information.categoryQuestions[1]?.answer || "",
       },
       productDetails: {
         productWeight: currentProductData?.details.productWeight || "",
@@ -128,6 +130,7 @@ const ProductDetails = () => {
       });
       return updatedQuestions;
     }
+    return [];
   }, [question?.data, convertToCamelCase, text]);
 
   // useEffect(() => {
@@ -180,6 +183,8 @@ const ProductDetails = () => {
           mainColour:
             currentProductData?.information.categoryQuestions[0]?.answer || "",
           productBreed:
+            currentProductData?.information.categoryQuestions[0]?.answer || "",
+          typeOfPork:
             currentProductData?.information.categoryQuestions[1]?.answer || "",
         },
         productDetails: {

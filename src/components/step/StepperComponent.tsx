@@ -42,7 +42,7 @@ const StepperComponent = () => {
     );
   };
   const cateName = Tcategory?.data?.data?.name;
-  console.log(cateName, Tcategory, category, "cateName");
+  // console.log(cateName, Tcategory, category, "cateName");
 
   const categoryName = cateName
     ? cateName.charAt(0).toUpperCase() + cateName.slice(1)

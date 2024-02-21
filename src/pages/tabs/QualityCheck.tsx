@@ -10,23 +10,26 @@ const QualityCheck = ({ setShowTab }: IAccount) => {
   return (
     <div className=" mb-10">
       <div className="flex items-center gap-2 py-4 ">
-        <div onClick={() => setShowTab((prev) => !prev)} className=" text-[]">
-          <HiOutlineChevronLeft size={20} />
+        <div
+          onClick={() => setShowTab((prev) => !prev)}
+          className="flex cursor-pointer items-center"
+        >
+          <HiOutlineChevronLeft size={20} color="#197b30" />
+          <span className="flex items-center gap-1 text-[16px] text-[#197b30] md:leading-[19px]">
+            <BiShieldQuarter size={24} />
+            Quality Control
+          </span>
         </div>
-        <span className="flex gap-1 items-center text-[#197b30] text-[16px] md:leading-[19px]">
-          <BiShieldQuarter size={24} />
-          Quality Control
-        </span>
       </div>
 
-      <div className="bg-[#F4F4F4] py-8 px-6 rounded-sm ">
+      <div className="rounded-sm bg-[#F4F4F4] py-8 px-6 ">
         <h3
-          className="text-[20px] leading-[23px] font-normal flex items-center justify-center"
+          className="flex items-center justify-center text-[20px] font-normal leading-[23px]"
           style={{ transition: "opacity 0.5s ease-in" }}
         >
           What is Quality Check?
         </h3>
-        <div className="flex items-center justify-center mt-1">
+        <div className="mt-1 flex items-center justify-center">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
         <div className="mt-6">

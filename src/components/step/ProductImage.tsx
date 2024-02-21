@@ -30,18 +30,18 @@ const ProductImage = ({
     field: string,
   ) => {
     const selectedFiles = Array.from(e.target.files || []);
-    console.log(selectedFiles, "kk");
+    // console.log(selectedFiles, "kk");
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-    console.log(updatedFiles, "updatedFiles");
-    console.log(field);
+    // console.log(updatedFiles, "updatedFiles");
+    // console.log(field);
     setImg(field, updatedFiles);
   };
 
-  console.log(currentStep, "currentStep");
+  // console.log(currentStep, "currentStep");
 
   return (
     <>

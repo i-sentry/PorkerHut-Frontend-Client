@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { productStepsContext } from "../../context/StepperContext";
+import ReactLoading from "react-loading";
+
 // import ProductInformation from "./ProductInformation";
 
 // import ProductPricing from "./ProductPricing";
@@ -57,6 +60,7 @@ const SellerStepperComponent = () => {
   const { state: productData, setState: setProductData } = useProductState();
   const [finalData, setFinalData] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(25);
   const [productQuestions, setproductQuestions] = useState<any[]>([]);
   const location = useLocation();
@@ -71,27 +75,31 @@ const SellerStepperComponent = () => {
   const subcategory = currentProductData?.information?.subcategory?._id;
   // const category = currentProductData?.information?.category?._id;
   const Tcategory = useGetOneCategory(category);
-  const { data: question, isLoading: loading } =
+  const { data: question, isLoading: Loading } =
     useGetCategoryQuestion(category);
-  console.log("question:", question?.data);
 
   const {
     register,
     control,
+    getValues,
     reset, // Function to reset form value
+    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(productInfoSchema),
     defaultValues: {
       approvalStatus: currentProductData?.approvalStatus || "",
       avgRating: currentProductData?.avgRating || 0,
+      images: currentProductData?.images,
+
       productInformation: {
         productName: currentProductData?.information.productName || "",
         mainColour:
-          currentProductData?.information?.categoryQuestions[1]?.answer || "",
+          currentProductData?.information?.categoryQuestions[0]?.answer || "",
         productBreed:
-          // currentProductData?.information?.categoryQuestions[0]?.answer || "",
-          currentProductData?.information?.subcategory?.name || "duroc",
+          currentProductData?.information?.categoryQuestions[0]?.answer || "",
+        typeOfPork:
+          currentProductData?.information.categoryQuestions[1]?.answer || "",
       },
       productDetails: {
         productWeight: currentProductData?.details.productWeight || "",
@@ -119,10 +127,8 @@ const SellerStepperComponent = () => {
   });
 
   useEffect(() => {
-    if (!loading) setproductQuestions(question?.data);
-  }, [loading, question?.data]);
-
-  console.log("productQuestions", productQuestions);
+    if (!Loading) setproductQuestions(question?.data);
+  }, [Loading, question?.data]);
 
   useEffect(() => {
     if (currentProductData) {
@@ -132,10 +138,11 @@ const SellerStepperComponent = () => {
         productInformation: {
           productName: currentProductData?.information.productName || "",
           mainColour:
-            currentProductData?.information.categoryQuestions[0]?.answer || "",
+            currentProductData?.information?.categoryQuestions[0]?.answer || "",
           productBreed:
-            // currentProductData?.information.categoryQuestions[0]?.answer || "",
-            currentProductData?.information?.subcategory?.name || "duroc",
+            currentProductData?.information?.categoryQuestions[0]?.answer || "",
+          typeOfPork:
+            currentProductData?.information.categoryQuestions[1]?.answer || "",
         },
         productDetails: {
           productWeight: currentProductData?.details.productWeight || "",
@@ -155,8 +162,7 @@ const SellerStepperComponent = () => {
             moment(currentProductData?.pricing.saleEndDate).format(
               "YYYY-MM-DD",
             ) || "",
-          // productPrice: currentProductData?.pricing?.productPrice || "0",
-          productPrice: currentProductData?.information.productName || "",
+          productPrice: currentProductData?.pricing?.productPrice || 0,
           quantity: currentProductData?.pricing?.quantity || 0,
         },
         _id: currentProductData?._id,
@@ -170,10 +176,7 @@ const SellerStepperComponent = () => {
     );
   };
 
-  console.log(productId, "id dddddd");
-
   const cateName = Tcategory?.data?.data?.name;
-  console.log(cateName, Tcategory, category, "cateName");
 
   const categoryName = cateName
     ? cateName.charAt(0).toUpperCase() + cateName.slice(1)
@@ -227,10 +230,27 @@ const SellerStepperComponent = () => {
                       </div>
                     );
                   })}
-                  <div>
+                  {/* <div>
                     {currentStep !== checkoutSteps?.length && (
                       <StepperControl />
                     )}
+                  </div> */}
+                  <div className="my-8 flex items-center justify-center gap-3">
+                    <button
+                      disabled={currentStep === 1}
+                      onClick={() => {
+                        handleClick("");
+                      }}
+                      className={`rounded-md border border-[#197b30] bg-[#dddddd] px-10 py-3 font-medium text-[#197b30] ${currentStep === 1 ? "cursor-not-allowed" : ""}`}
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={() => handleClick("next")}
+                      className="rounded-md bg-[#197b30] px-8 py-3 font-medium text-white"
+                    >
+                      Continue
+                    </button>
                   </div>
                 </>
               )}
@@ -275,6 +295,7 @@ const SellerStepperComponent = () => {
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
+                        defaultValues
                         data={data}
                         register={register}
                         errors={errors}
@@ -285,8 +306,25 @@ const SellerStepperComponent = () => {
                 })}
               </>
             </div>
-            <div>
+            {/* <div>
               {currentStep !== checkoutSteps?.length && <StepperControl />}
+            </div> */}
+            <div className="my-8 flex items-center justify-center gap-3">
+              <button
+                disabled={currentStep === 1}
+                onClick={() => {
+                  handleClick("");
+                }}
+                className={`rounded-md border border-[#197b30] bg-[#dddddd] px-10 py-3 font-medium text-[#197b30] ${currentStep === 1 ? "cursor-not-allowed" : ""}`}
+              >
+                Back
+              </button>
+              <button
+                onClick={() => handleClick("next")}
+                className="rounded-md bg-[#197b30] px-8 py-3 font-medium text-white"
+              >
+                Continue
+              </button>
             </div>
           </div>
         );
@@ -307,7 +345,7 @@ const SellerStepperComponent = () => {
                   const [section, field] = data.name.split(".");
                   if (section === "pricing" && field === "productPrice") {
                     return (
-                      <div className="text-xs">
+                      <div className="text-xs" key={index}>
                         <label
                           htmlFor="productPrice"
                           className={`mb-[6px] block text-[14px] leading-normal text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
@@ -327,7 +365,7 @@ const SellerStepperComponent = () => {
                     );
                   }
 
-                  console.log(section, field, "data data fsfaya");
+                  // console.log(section, field, "data data fsfaya");
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
@@ -341,8 +379,25 @@ const SellerStepperComponent = () => {
                 })}
               </>
             </div>
-            <div>
+            {/* <div>
               {currentStep !== checkoutSteps?.length && <StepperControl />}
+            </div> */}
+            <div className="my-8 flex items-center justify-center gap-3">
+              <button
+                disabled={currentStep === 1}
+                onClick={() => {
+                  handleClick("");
+                }}
+                className={`rounded-md border border-[#197b30] bg-[#dddddd] px-10 py-3 font-medium text-[#197b30] ${currentStep === 1 ? "cursor-not-allowed" : ""}`}
+              >
+                Back
+              </button>
+              <button
+                onClick={() => handleClick("next")}
+                className="rounded-md bg-[#197b30] px-8 py-3 font-medium text-white"
+              >
+                Continue
+              </button>
             </div>
           </div>
         );
@@ -358,9 +413,9 @@ const SellerStepperComponent = () => {
                 3000 x 3000 pixel.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-4 ">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 ">
               {currentProductData?.images?.map((img: string, index: number) => (
-                <div key={index}>
+                <div key={index} className="">
                   <img
                     src={img}
                     alt="product thumbnail"
@@ -369,8 +424,38 @@ const SellerStepperComponent = () => {
                 </div>
               ))}
             </div>
-            <div>
+            {/* <div>
               {currentStep !== checkoutSteps.length - 1 && <StepperControl />}
+            </div> */}
+            <div className="my-8 flex items-center justify-center gap-3">
+              <button
+                disabled={currentStep === 1}
+                onClick={() => {
+                  handleClick("");
+                }}
+                className={`rounded-md border border-[#197b30] bg-[#dddddd] px-10 py-3 font-medium text-[#197b30] ${currentStep === 1 ? "cursor-not-allowed" : ""}`}
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                // onClick={() => console.log("CLicked COnfirm")}
+                onClick={() => handleProductUpdate()}
+                className="rounded-md bg-[#197b30] px-8 py-3 font-medium text-white"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-end">
+                    <ReactLoading
+                      type="spin"
+                      color="#FFFFFF"
+                      height={20}
+                      width={20}
+                    />
+                  </div>
+                ) : (
+                  "Confirm"
+                )}
+              </button>
             </div>
           </div>
         );
@@ -380,7 +465,7 @@ const SellerStepperComponent = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
 
     // Split the name into nested properties
     const [section, field] = name.split(".");
@@ -433,7 +518,7 @@ const SellerStepperComponent = () => {
     }
     return [];
   }, [loading, productQuestions, convertToCamelCase, text]);
-  console.log("question", questions);
+  // console.log("question", questions);
 
   useEffect(() => {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
@@ -462,6 +547,8 @@ const SellerStepperComponent = () => {
     },
     ...questions,
   ];
+
+  console.log(productInfo, productInfo);
 
   const productDetails = [
     {
@@ -560,8 +647,26 @@ const SellerStepperComponent = () => {
   //   return <div>Loading**</div>;
   // }
 
+  const onSubmit = (event: any) => {
+    console.log(event);
+
+    console.log("Ready To Update");
+    event.preventDefault();
+
+    if (currentStep === checkoutSteps?.length) {
+      console.log("Ready To Update");
+    }
+  };
+
+  const handleProductUpdate = () => {
+    const formData = getValues();
+    const data = new FormData();
+
+    console.log(data, formData, "Product Update");
+  };
+
   return (
-    <div className=" ">
+    <div className="">
       <div className="hidden items-center gap-2 py-5 md:hidden lg:flex">
         <h1 className="mb-3 text-[#1F1F1F] xxs:text-[20px]  xxs:font-normal  xxs:leading-[23px] md:text-[36px] md:font-medium md:leading-[42px]">
           {"Create Products"}
@@ -633,34 +738,26 @@ const SellerStepperComponent = () => {
           </p>
         </div>
       </div>
-      <form id="manage-product">
-        <div className="my-0 xxs:px-4 md:my-0 lg:my-10 lg:px-0">
-          <productStepsContext.Provider
-            //@ts-ignore
-            value={{
-              productData,
-              setProductData,
-              finalData,
-              setFinalData,
-              checkoutSteps,
-              currentStep,
-              handleClick,
-              handleChange,
-            }}
-          >
-            {displayStep(currentStep)}
-          </productStepsContext.Provider>
-        </div>
+      <form id="manage-product" onSubmit={handleSubmit(onSubmit)}>
+        {/* <div className="my-0 xxs:px-4 md:my-0 lg:my-10 lg:px-0"> */}
+        <productStepsContext.Provider
+          //@ts-ignore
+          value={{
+            productData,
+            setProductData,
+            finalData,
+            setFinalData,
+            checkoutSteps,
+            currentStep,
+            handleClick,
+            handleChange,
+          }}
+        >
+          {displayStep(currentStep)}
+        </productStepsContext.Provider>
+        {/* </div> */}
+        {/* <button type="submit">Submit</button> */}
       </form>
-
-      {/* navigation button */}
-      {/* {currentStep !== steps.length && (
-        <StepperControl
-          handleClick={handleClick}
-          currentStep={currentStep}
-          steps={steps}
-        />
-      )} */}
       {showOverlay && <SuccessScreen title={""} msg={""} url={""} />}
     </div>
   );
