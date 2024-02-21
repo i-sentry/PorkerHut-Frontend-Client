@@ -94,7 +94,7 @@ const OrderCart = ({
         full_name: `${user?.firstName} ${user?.lastName}`,
         order_id: id,
         //subject to change to ngn
-        currency: "GHS",
+        currency: "NGN",
       })
       // .mutateAsync({ email: user?.email, amount: sumTotal })
       .then((res) => {
@@ -120,14 +120,14 @@ const OrderCart = ({
 
   console.log(user, "user");
   return (
-    <div className=" w-full lg:w-auto bg-white rounded-lg self-start  lg:top-[100px]">
+    <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
       <div className="px-4 py-6">
-        <h1 className="text-[24px] leading-[28px] text-[#333333] font-semibold">
+        <h1 className="text-[24px] font-semibold leading-[28px] text-[#333333]">
           Orders
         </h1>
       </div>
 
-      <div className="overflow-y-auto max-h-[440px] ">
+      <div className="max-h-[440px] overflow-y-auto ">
         {Object.values(cart).map((item, idx) => (
           <div key={idx}>
             <OrderCard item={item} />
@@ -137,36 +137,36 @@ const OrderCart = ({
 
       <div className="">
         <div className="py-4">
-          <div className="flex justify-between px-4 py-2 font-medium w-full mb-3">
-            <span className="text-[20px] self-center leading-[23px] font-medium text-[#333333]">
+          <div className="mb-3 flex w-full justify-between px-4 py-2 font-medium">
+            <span className="self-center text-[20px] font-medium leading-[23px] text-[#333333]">
               Subtotal
             </span>
-            <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               ₦{cartTotal.toLocaleString()}
             </span>
           </div>
-          <div className="flex justify-between px-4 py-2 font-medium mb-3">
-            <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+          <div className="mb-3 flex justify-between px-4 py-2 font-medium">
+            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               VAT
             </span>
-            <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               ₦{vat.toLocaleString()}
             </span>
           </div>
           <div className="flex justify-between px-4 py-2 font-medium ">
-            <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               Delivery.
             </span>
-            <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               ₦{dFee.toLocaleString()}
             </span>
           </div>
         </div>
-        <div className="flex justify-between py-5 px-4 font-medium border-t border-[#D9D9D9]">
-          <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+        <div className="flex justify-between border-t border-[#D9D9D9] py-5 px-4 font-medium">
+          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
             Total
           </span>
-          <span className="text-[20px] leading-[23px] font-medium text-[#333333]">
+          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
             ₦{sumTotal?.toLocaleString()}
           </span>
         </div>
@@ -177,23 +177,23 @@ const OrderCart = ({
 
 const OrderCard = ({ item }: { item: IProduct }) => {
   return (
-    <div className="flex justify-start gap-4 px-4 py-6 border-b">
+    <div className="flex justify-start gap-4 border-b px-4 py-6">
       <figure className="h-[86px] w-[102px] overflow-hidden rounded">
         <img
           src={item?.images?.[0] || ""}
           alt={item?.information?.productName}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       </figure>
 
       <div className="flex flex-col">
-        <h1 className="text-[16px] leading-[24px] text-[#333333] font-medium w-40">
+        <h1 className="w-40 text-[16px] font-medium leading-[24px] text-[#333333]">
           {item?.information?.productName}
         </h1>
-        <p className=" text-[#797979] text-[16px] leading-[24px]  font-medium  mt-1">
+        <p className=" mt-1 text-[16px] font-medium  leading-[24px]  text-[#797979]">
           {item?.details?.productWeight} x {item?.pricing?.quantity}
         </p>
-        <span className=" text-[16px] leading-[24px] text-[#333333] font-medium mt-2">
+        <span className=" mt-2 text-[16px] font-medium leading-[24px] text-[#333333]">
           ₦{item?.pricing?.productPrice}
         </span>
       </div>
