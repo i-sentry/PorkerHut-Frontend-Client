@@ -78,7 +78,23 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     );
   }).length;
 
-  console.log(vendor, "vendor");
+  // console.log(vendorOrders, "vendor");
+
+  const ratings = vendorOrders?.flatMap((order: any) =>
+    order?.productDetails?.map((item: any) => item?.productID?.avgRating),
+  );
+  const sumOfRatings = ratings?.reduce(
+    (total: any, rating: any) => total + rating,
+    0,
+  );
+
+  const averageRating = sumOfRatings / ratings?.length;
+
+  console.log(averageRating, "averageRating");
+
+  // Rating thresholds
+  const poorThreshold = 2.5;
+  const excellentThreshold = 4.0;
 
   const totalItem = [
     {
@@ -137,7 +153,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }, 3000);
 
     return () => clearInterval(id);
-  }, [nextSlide]);
+  }, []);
 
   const moveDot = (index: any) => {
     setSlideIndex(index);
@@ -247,17 +263,34 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
               </span>
             </div>
 
-            <div className="flex items-center justify-between border border-t-0 border-[#A2A2A2] px-4 py-4">
+            <div className="flex items-start justify-between border border-t-0 border-[#A2A2A2] px-4 py-4">
               <div className=" ">
                 <p className="font-normal leading-[24px] tracking-[0.15px]  text-[#333333] xxs:text-[16px] md:text-[16px]">
                   Average Customer Rating
                 </p>
-                <p className="mt-2 text-[13px] leading-[24px] text-[#22C55E]">
-                  Excellent
-                </p>
+                {averageRating >= excellentThreshold && (
+                  <p className="mt-2 inline-block rounded-sm bg-[#22C55E] px-2 py-0.5 text-[13px] leading-[24px] text-white">
+                    Excellent
+                  </p>
+                )}
+                {averageRating >= poorThreshold &&
+                  averageRating < excellentThreshold && (
+                    <p className="mt-2 inline-block rounded-sm bg-orange-600 px-2 py-0.5 text-[13px] leading-[24px] text-white">
+                      Good
+                    </p>
+                  )}
+                {averageRating < poorThreshold && (
+                  <p className="mt-2 inline-block rounded-sm bg-red-600 px-2 py-0.5 text-[13px] leading-[24px] text-white">
+                    Poor
+                  </p>
+                )}
               </div>
               <span className="font-normal leading-[24px] text-[#333333] xxs:text-[16px] md:text-[18px]">
-                12
+                {isLoading ? (
+                  <CgSpinner size={20} className=" animate-spin" />
+                ) : (
+                  averageRating.toFixed(2)
+                )}
               </span>
             </div>
           </div>

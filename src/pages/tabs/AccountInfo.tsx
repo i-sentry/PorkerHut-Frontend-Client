@@ -364,16 +364,16 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-3  pt-3 pb-8">
+          <div className="flex flex-col items-center justify-center gap-3 pt-3  pb-8 xs:flex-row">
             <div
               onClick={handleDeleteClick}
-              className="cursor-pointer rounded border border-[#F91919] px-6  py-4  text-[14px] font-semibold leading-[16px] text-[#F91919]"
+              className="w-full cursor-pointer rounded border border-[#F91919] px-6 py-4 text-center  text-[14px]  font-semibold leading-[16px] text-[#F91919] xs:w-auto"
             >
               Delete Account{" "}
             </div>
             <button
               type="submit"
-              className="rounded border border-[#197B30] bg-[#197B30] px-8 py-4 text-[14px] font-semibold leading-[16px]  text-white"
+              className="w-full rounded border border-[#197B30] bg-[#197B30] px-8 py-4 text-[14px] font-semibold leading-[16px] text-white  xs:w-auto"
             >
               Save Changes{" "}
             </button>

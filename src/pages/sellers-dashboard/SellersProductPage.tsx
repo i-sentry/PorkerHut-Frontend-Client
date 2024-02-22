@@ -269,7 +269,7 @@ const SellersProductPage = () => {
 
   return (
     <div className="pb-10 xxs:px-4 md:px-0">
-      <div className="">
+      <div className="mb-5">
         <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
           Manage Products
         </h1>

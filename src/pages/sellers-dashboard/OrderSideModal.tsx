@@ -35,7 +35,10 @@ const OrderSideModal = ({ orderInfo }: any) => {
         className="modal  fixed top-0 left-0 z-50 h-full w-full items-center justify-center transition-opacity duration-300 "
       >
         <div className="modal_overlay  flex h-full cursor-pointer bg-[#13111173]  xxs:justify-center xxs:p-5 md:justify-end md:p-0">
-          <div className="relative flex max-h-full  w-full max-w-sm flex-col overflow-auto  bg-white p-5 xxs:rounded-md md:h-full  md:max-w-sm md:rounded-l-md md:px-7 ">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-full  w-full max-w-sm cursor-auto flex-col overflow-auto  bg-white p-5 xxs:rounded-md md:h-full  md:max-w-sm md:rounded-l-md md:px-7 "
+          >
             <>
               <div className="fixed top-5 right-5 flex items-end justify-end pb-3">
                 <Tooltip message="close">
@@ -51,9 +54,13 @@ const OrderSideModal = ({ orderInfo }: any) => {
                 </Tooltip>
               </div>
 
-              <div className="mt-10 flex flex-col gap-8">
+              <div className="mt-6 flex flex-col gap-8">
+                <h3 className="text-xl font-bold uppercase text-green-700">
+                  Order Details
+                </h3>
+
                 <div className="">
-                  <h3 className="text-lg font-bold">Customer Details</h3>
+                  <h3 className="text-lg font-bold">Customer</h3>
                   <p className="capitalize">
                     {orderInfo?.billingInformation?.firstName}{" "}
                     {orderInfo?.billingInformation?.lastName} -{" "}

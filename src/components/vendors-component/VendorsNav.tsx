@@ -8,6 +8,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
 import { useSearchParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+import { BsXLg } from "react-icons/bs";
 
 const VendorsNav = () => {
   const [vendor, setVendor] = useState<any>({});
@@ -43,7 +45,7 @@ const VendorsNav = () => {
   };
 
   return (
-    <div className="z-50 flex w-full items-center justify-between border-b border-[#D9D9D9] bg-[#fff] py-2.5 px-4 shadow">
+    <div className="z-[999] flex w-full items-center justify-between border-b border-[#D9D9D9] bg-[#fff] py-2.5 px-4 shadow">
       <div className="flex items-center justify-center xxs:gap-3 md:gap-2">
         <div className="block md:block lg:hidden">
           {showSideBar ? (
@@ -89,7 +91,7 @@ const VendorsNav = () => {
           className="cursor-pointer lg:hidden"
           onClick={() => setActiveSearch((act) => !act)}
         >
-          <HiOutlineSearch size={32} />
+          <HiOutlineSearch size={24} />
         </div>
 
         {/* SEARCH MODAL */}
@@ -100,7 +102,7 @@ const VendorsNav = () => {
           <label
             htmlFor="search"
             aria-label="search"
-            className="block w-[300px]"
+            className="mt-5 block w-[300px]"
           >
             <input
               type="search"
@@ -112,6 +114,12 @@ const VendorsNav = () => {
               onClick={(e) => e.stopPropagation()}
             />
           </label>
+          {/* <span
+            onClick={() => setActiveSearch(false)}
+            className="absolute top-2 right-3 cursor-pointer text-white"
+          >
+            <BsXLg size={24} />
+          </span> */}
         </div>
 
         <div className="md:pr-4">
@@ -120,13 +128,9 @@ const VendorsNav = () => {
               <div>
                 <Menu.Button className="  flex   justify-between gap-1 md:gap-2">
                   <div className="flex items-center gap-1">
-                    <div
-                      className="flex rounded-full bg-cover bg-center bg-no-repeat xxs:h-9 xxs:w-9 md:h-12 md:w-12"
-                      style={{
-                        backgroundImage:
-                          'url("https://source.unsplash.com/80x80?face")',
-                      }}
-                    ></div>
+                    <span className="inline-block">
+                      <FaUserCircle size={32} className="text-neutral-300" />
+                    </span>
                     <div className="hidden items-center md:hidden lg:flex lg:flex-col lg:gap-1">
                       <span className="text-base font-bold leading-4">
                         {accountOwnersName}

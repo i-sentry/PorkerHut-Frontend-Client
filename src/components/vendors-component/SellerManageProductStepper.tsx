@@ -53,7 +53,12 @@ const productInfoSchema = yup.object().shape({
   "productInformation.mainColour": yup
     .string()
     .required("Product colour is required"),
-  // "productInformation.productBreed": yup.string().required("Product breed is required")
+  "productInformation.productBreed": yup
+    .string()
+    .required("Product breed is required"),
+  "productInformation.typeOfPork": yup
+    .string()
+    .required("Pork type is required"),
 });
 
 const SellerStepperComponent = () => {
@@ -194,7 +199,7 @@ const SellerStepperComponent = () => {
     switch (step) {
       case 1:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 Product information
@@ -226,6 +231,7 @@ const SellerStepperComponent = () => {
                           register={register}
                           errors={errors}
                           control={control}
+                          defaultValues
                         />
                       </div>
                     );
@@ -259,7 +265,7 @@ const SellerStepperComponent = () => {
         );
       case 2:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 More Product Details
@@ -330,7 +336,7 @@ const SellerStepperComponent = () => {
         );
       case 3:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl">
                 Product Pricing
@@ -403,7 +409,7 @@ const SellerStepperComponent = () => {
         );
       case 4:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4] p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 Product Images
@@ -506,7 +512,7 @@ const SellerStepperComponent = () => {
         const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
         return {
           ...obj,
-          name: `productInformation?.${camelCaseQuestion}`,
+          name: `productInformation.${camelCaseQuestion}`,
           place_holder: placeHolder,
           type: text,
           info: obj.questionHint,
