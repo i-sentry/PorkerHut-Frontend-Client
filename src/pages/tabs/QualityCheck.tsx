@@ -27,7 +27,7 @@ const QualityCheck = ({ setShowTab }: IAccount) => {
           className="flex items-center justify-center text-[20px] font-normal leading-[23px]"
           style={{ transition: "opacity 0.5s ease-in" }}
         >
-          What is Quality Check?
+          Vendor Quality Assurance Guidelines
         </h3>
         <div className="mt-1 flex items-center justify-center">
           <div className=" block h-1 w-20 bg-[#197B30]"></div>

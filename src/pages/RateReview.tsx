@@ -5,6 +5,7 @@
 import { useState } from "react";
 import {
   useCreateRating,
+  useGetRatedProduct,
   useGetSingleProduct,
 } from "../services/hooks/users/products";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,6 +33,10 @@ const RateReview = () => {
   console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState<number>();
   const [modal, setModal] = useState<boolean>(false);
+
+  const { data } = useGetRatedProduct(userdata?._id, id as string);
+
+  const isRated = data?.data;
 
   const handleRatingChange = (newRating: number) => {
     setUserRating(newRating);
@@ -69,7 +74,7 @@ const RateReview = () => {
   ];
   return (
     <AppLayout>
-      <section className="w-full lg:max-w-[1024px] xl:max-w-[1140px] flex-col justify-[start_!important]  px-4 mx-auto lg:pt-24 pt-16 py-16">
+      <section className="justify-[start_!important] mx-auto w-full flex-col px-4  py-16 pt-16 lg:max-w-[1024px] lg:pt-24 xl:max-w-[1140px]">
         <div className="hidden ">
           <ProductsBreadCrumbs
             items={[
@@ -88,10 +93,10 @@ const RateReview = () => {
             ]}
           />
         </div>
-        <h1 className="relative text-zinc-800 w-full text-xl font-semibold flex flex-col gap-2 mb-10 text-center mx-auto justify-center items-center  after:w-[100px] after:inline-block after:h-1.5 after:bg-green-700  after:mt-1 md:text-[32px]">
+        <h1 className="relative mx-auto mb-10 flex w-full flex-col items-center justify-center gap-2 text-center text-xl font-semibold text-zinc-800  after:mt-1 after:inline-block after:h-1.5 after:w-[100px]  after:bg-green-700 md:text-[32px]">
           Rate & Review
         </h1>
-        <div className="w-full flex flex-wrap justify-between items-start">
+        <div className="flex w-full flex-wrap items-start justify-between">
           {/* PRODUCT IMAGES */}
           {/* <div className="w-full mb-8 md:flex md:flex-row-reverse md:gap-4 md:w-10/12 md:mx-auto lg:items-start lg:w-1/2 lg:m-0 ">
             <div className="w-full mb-4 lg:mb-0 lg:h-[427px]">
@@ -120,14 +125,14 @@ const RateReview = () => {
             </div>
           </div> */}
 
-          <div className="w-full lg:flex-wrap mb-8 flex flex-wrap-reverse md:flex-row md:gap-4 md:w-full md:mx-auto lg:items-start lg:w-1/2 md:m-0 ">
-            <div className="w-full lg:w-auto lg:flex-col lg:justify-start xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 xxs:mt-3 md:mt-0">
+          <div className="mb-8 flex w-full flex-wrap-reverse md:m-0 md:mx-auto md:w-full md:flex-row md:gap-4 lg:w-1/2 lg:flex-wrap lg:items-start ">
+            <div className="w-full xxs:mt-3 xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 md:mt-0 lg:w-auto lg:flex-col lg:justify-start">
               {singleProduct?.data?.images.map((image: any, index: number) => (
                 <img
                   src={image}
                   alt="ProductImg"
                   onClick={(e) => setSelectedImg(index)}
-                  className="object-cover cursor-pointer w-[75px] h-20 rounded-sm"
+                  className="h-20 w-[75px] cursor-pointer rounded-sm object-cover"
                 />
               ))}
             </div>
@@ -136,18 +141,18 @@ const RateReview = () => {
               <img
                 src={singleProduct?.data?.images[selectedImg]}
                 alt="img4"
-                className=" object-cover md:h-[400px] xxs:h-[300px]  w-full rounded-sm"
+                className=" w-full rounded-sm object-cover  xxs:h-[300px] md:h-[400px]"
               />
             </div>
           </div>
 
           {/* PRODUCT DETAILS */}
-          <div className="w-full mt-10 lg:w-[calc(50%_-_30px)] lg:m-0">
+          <div className="mt-10 w-full lg:m-0 lg:w-[calc(50%_-_30px)]">
             <div className="flex justify-between">
-              <h2 className="text-zinc-800 text-lg font-semibold md:text-2xl">
+              <h2 className="text-lg font-semibold text-zinc-800 md:text-2xl">
                 {singleProduct?.data?.information?.productName}
               </h2>
-              <span className="text-zinc-800 text-opacity-80 text-lg font-medium lg:text-xl">
+              <span className="text-lg font-medium text-zinc-800 text-opacity-80 lg:text-xl">
                 ₦ {singleProduct?.data?.pricing?.productPrice.toLocaleString()}
               </span>
             </div>
@@ -159,15 +164,15 @@ const RateReview = () => {
             <RatingStars
               maxRating={5}
               iconSize={32}
-              defaultRating={0}
+              defaultRating={isRated?.rating?.rating || 0}
               canRate={true}
               onSetRating={handleRatingChange}
             />
             {/* FORM */}
-            <div className="w-full mt-8">
+            <div className="mt-8 w-full">
               <form id="rating" onSubmit={initiateCreateRating}>
-                <label htmlFor="name" className="w-full block mb-6">
-                  <span className="text-zinc-800 text-sm font-normal mb-2 inline-block">
+                <label htmlFor="name" className="mb-6 block w-full">
+                  <span className="mb-2 inline-block text-sm font-normal text-zinc-800">
                     Your Name
                   </span>
                   <CustomSelect
@@ -177,14 +182,15 @@ const RateReview = () => {
                     options={user || []}
                   />
                 </label>
-                <label htmlFor="review" className="w-full block">
-                  <span className="text-zinc-800 text-sm font-normal mb-2 inline-block">
+                <label htmlFor="review" className="block w-full">
+                  <span className="mb-2 inline-block text-sm font-normal text-zinc-800">
                     Detailed Review
                   </span>
                   <textarea
                     name="review"
                     id="review"
-                    className="form-textarea focus:border-green-500 focus:ring-green-500 focus:shadow-none rounded border border-zinc-300 text-zinc-800 text-sm font-normal w-full h-[120px] resize-none px-4 py-3 pt-4"
+                    defaultValue={isRated?.rating.comment || ""}
+                    className="form-textarea h-[120px] w-full resize-none rounded border border-zinc-300 px-4 py-3 pt-4 text-sm font-normal text-zinc-800 focus:border-green-500 focus:shadow-none focus:ring-green-500"
                     placeholder="Type here"
                     onChange={(e) => setRatingComment(e.target.value)}
                   ></textarea>
@@ -192,18 +198,18 @@ const RateReview = () => {
                 <div className="mt-8 flex justify-center gap-3 lg:justify-end">
                   <button
                     onClick={() => navigate(-1)}
-                    className="text-[#a10] text-sm font-semibold px-8 py-3 bg-white rounded border border-[#a10] inline-flex justify-start items-start"
+                    className="inline-flex items-start justify-start rounded border border-[#a10] bg-white px-8 py-3 text-sm font-semibold text-[#a10]"
                   >
                     Cancel
                   </button>
                   <button
                     // onClick={initiateCreateRating}
-                    className="py-3 px-8 text-white text-sm font-semibold bg-green-700 rounded justify-center items-center inline-flex"
+                    className="inline-flex items-center justify-center rounded bg-green-700 py-3 px-8 text-sm font-semibold text-white"
                     type="submit"
                   >
                     {loading ? (
                       <svg
-                        className="animate-spin h-5 w-5  text-white"
+                        className="h-5 w-5 animate-spin  text-white"
                         width="24px"
                         height="24px"
                         viewBox="0 0 24 24"

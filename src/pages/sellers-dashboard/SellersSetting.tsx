@@ -16,6 +16,7 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 type FormData = {
   fullName: string;
@@ -236,8 +237,8 @@ function SettingssTab() {
                 style={{ display: tab === "account" ? "block" : "none" }}
               >
                 <div className="m-auto">
-                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-black">
-                    {imageUrl ? (
+                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-black">
+                    {/* {imageUrl ? (
                       <img
                         src={imageUrl}
                         alt="uploaded"
@@ -259,7 +260,8 @@ function SettingssTab() {
                           className=" hidden appearance-none text-sm outline-none "
                         />
                       </>
-                    )}
+                    )} */}
+                    <FaUserCircle size={60} className="text-neutral-300" />
                   </div>
                 </div>
 
@@ -269,15 +271,15 @@ function SettingssTab() {
                 >
                   {vendorName}
                 </h3>
-                <label
+                {/* <label
                   htmlFor="file"
-                  className="flex items-center gap-2 text-right text-sm"
+                  className="fle items-center gap-2 text-right text-sm"
                 >
                   <FiCamera className="text-[#197B30]" />
                   <span className=" my-auto  cursor-pointer py-4 text-[14px] font-medium leading-[16px] text-[#197B30]">
                     Change profile picture
                   </span>{" "}
-                </label>
+                </label> */}
 
                 <div
                   className="mt-8 flex flex-col gap-4"
@@ -464,7 +466,7 @@ function SettingssTab() {
                   className="flex items-center justify-center text-[24px] font-medium leading-[28px]"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  What is Quality Check?
+                  Vendor Quality Assurance Guidelines
                 </h3>
                 <div className="mt-2 flex items-center justify-center">
                   <div className=" block h-1 w-20 bg-[#197B30]"></div>

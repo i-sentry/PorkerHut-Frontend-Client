@@ -53,7 +53,12 @@ const productInfoSchema = yup.object().shape({
   "productInformation.mainColour": yup
     .string()
     .required("Product colour is required"),
-  // "productInformation.productBreed": yup.string().required("Product breed is required")
+  "productInformation.productBreed": yup
+    .string()
+    .required("Product breed is required"),
+  "productInformation.typeOfPork": yup
+    .string()
+    .required("Pork type is required"),
 });
 
 const SellerStepperComponent = () => {
@@ -226,6 +231,7 @@ const SellerStepperComponent = () => {
                           register={register}
                           errors={errors}
                           control={control}
+                          defaultValues
                         />
                       </div>
                     );
@@ -506,7 +512,7 @@ const SellerStepperComponent = () => {
         const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
         return {
           ...obj,
-          name: `productInformation?.${camelCaseQuestion}`,
+          name: `productInformation.${camelCaseQuestion}`,
           place_holder: placeHolder,
           type: text,
           info: obj.questionHint,
