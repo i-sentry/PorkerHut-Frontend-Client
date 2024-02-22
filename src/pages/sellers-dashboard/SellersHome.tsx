@@ -80,15 +80,15 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   // console.log(vendorOrders, "vendor");
 
-  const ratings = vendorOrders.flatMap((order: any) =>
+  const ratings = vendorOrders?.flatMap((order: any) =>
     order?.productDetails?.map((item: any) => item?.productID?.avgRating),
   );
-  const sumOfRatings = ratings.reduce(
+  const sumOfRatings = ratings?.reduce(
     (total: any, rating: any) => total + rating,
     0,
   );
 
-  const averageRating = sumOfRatings / ratings.length;
+  const averageRating = sumOfRatings / ratings?.length;
 
   console.log(averageRating, "averageRating");
 
@@ -286,7 +286,11 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                 )}
               </div>
               <span className="font-normal leading-[24px] text-[#333333] xxs:text-[16px] md:text-[18px]">
-                {averageRating.toFixed(2)}
+                {isLoading ? (
+                  <CgSpinner size={20} className=" animate-spin" />
+                ) : (
+                  averageRating.toFixed(2)
+                )}
               </span>
             </div>
           </div>

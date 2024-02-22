@@ -135,26 +135,28 @@ const SellersPerformance = () => {
   console.log(vendorOrders, isLoading, "vendorOrders");
 
   const salesRevenue = vendorOrders
-    ?.map((order: any) => order.subtotal)
+    ?.map((order: any) => order?.subtotal)
     ?.reduce((acc: any, price: any) => acc + price, 0);
 
   const itemSold = vendorOrders
-    ?.map((order: any) => order.productDetails.length)
+    ?.map((order: any) => order?.productDetails?.length)
     ?.reduce((acc: any, item: any) => acc + item, 0);
 
   console.log("salesRevenue", salesRevenue);
 
   const monthData = vendorOrders?.map((order: any) => {
-    const monthIndex = new Date(order.orderDate).getMonth();
-    return new Date(0, monthIndex).toLocaleString("default", { month: "long" });
+    const monthIndex = new Date(order.orderDate)?.getMonth();
+    return new Date(0, monthIndex)?.toLocaleString("default", {
+      month: "long",
+    });
   });
 
   console.log(monthData, "monthData");
 
   const chartData = vendorOrders
-    ?.flatMap((order: any) => order.productDetails)
+    ?.flatMap((order: any) => order?.productDetails)
     ?.map((product: any) => ({
-      price: product.productID.pricing.productPrice,
+      price: product?.productID?.pricing?.productPrice,
     }));
   console.log(chartData, "chartData");
 
@@ -178,7 +180,7 @@ const SellersPerformance = () => {
       {
         label: "Assets Status",
         // data: [33, 53, 85, 41, 44, 65],
-        data: chartData.map((item: any) => item.price),
+        data: chartData?.map((item: any) => item?.price),
         fill: true,
         backgroundColor: (context: ScriptableContext<"line">) => {
           const chart = context.chart;
