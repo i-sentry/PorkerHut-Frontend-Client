@@ -1,6 +1,8 @@
 import React from "react";
 import { BiShieldQuarter } from "react-icons/bi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { standards } from "../sellers-dashboard/SellersSetting";
 
 interface IAccount {
   setShowTab: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,18 +35,36 @@ const QualityCheck = ({ setShowTab }: IAccount) => {
           <div className=" block h-1 w-20 bg-[#197B30]"></div>
         </div>
         <div className="mt-6">
-          <p className=" text-justify text-[16px] leading-[19px]">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
-            magnam quam beatae quo recusandae optio commodi totam doloribus,
-            nihil, laudantium itaque error reiciendis quidem. Provident optio
-            excepturi laborum quis quidem, rem maiores accusamus voluptas amet
-            sequi itaque culpa enim consequuntur architecto cupiditate nesciunt
-            reiciendis eum, veniam laudantium, minus quaerat quod? Excepturi,
-            aut nisi consequuntur vel ut consequatur natus accusamus magni.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-            impedit nostrum, obcaecati accusantium dicta deserunt perspiciatis,
-            quas cupiditate corrupti veritatis maiores culpa commodi ab cum
-            debitis hic? Corporis sint harum .
+          <p className="text-[16px]">
+            Welcome to Porker Hut Vendor Partnership Program. We are excited to
+            collaborate with you to offer premium pork, pig, and feed products
+            to our discerning customers across Nigeria. Our success is built on
+            a foundation of quality, and we are committed to ensuring that every
+            product listed on our platform meets the highest standards. Here's
+            what you need to know about our quality assurance process:
+          </p>
+
+          <div className="mt-3 space-y-4">
+            {standards.map((policy: any) => (
+              <div className="font-bold">
+                <span>{policy.title}:</span>
+                <div className="font-normal">
+                  {policy.points.map((point: any) => (
+                    <div className=" flex items-start gap-2 font-normal">
+                      <span className="mt-1">
+                        <IoIosCheckmarkCircle className="text-green-700" />
+                      </span>
+                      {point}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5">
+            Thank you for choosing to partner with Porker-Hut. By upholding the
+            highest standards of quality and excellence, we can create value for
+            our customers and drive success for your business.
           </p>
         </div>
       </div>

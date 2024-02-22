@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
-import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import {
   MdOutlineEnhancedEncryption,
   MdOutlineNotifications,
@@ -17,6 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 type FormData = {
   fullName: string;
@@ -29,6 +30,51 @@ type FormData = {
   address: string;
 };
 
+export const standards = [
+  {
+    title: "Product Quality Standards",
+    points: [
+      "All products listed on our platform must meet or exceed industry standards for freshness, safety, and quality.",
+      "We expect vendors to adhere to best practices in sourcing, production, and handling to maintain the integrity of their products.",
+    ],
+  },
+  {
+    title: "Certification and Compliance",
+    points: [
+      "Vendors are required to provide documentation certifying the quality, origin, and compliance of their products with relevant regulatory requirements.",
+      "Certifications related to food safety, hygiene, and animal welfare are highly encouraged and may be mandatory for certain products.",
+    ],
+  },
+  {
+    title: "Quality Control Measures",
+    points: [
+      "Vendors must implement stringent quality control measures throughout the production and packaging process to ensure consistency and compliance with our standards.",
+      "Regular inspections and testing may be conducted to verify product quality and safety.",
+    ],
+  },
+  {
+    title: "Transparency and Information",
+    points: [
+      "Transparency is key. Vendors should provide detailed product information, including sourcing practices, ingredients, nutritional facts, and any relevant certifications.",
+      "Clear and accurate product descriptions help customers make informed purchasing decisions and build trust in your brand.",
+    ],
+  },
+  {
+    title: "Continuous Improvement",
+    points: [
+      "We value feedback from both customers and vendors. Your insights are essential for identifying areas of improvement and enhancing product quality.",
+      "Vendors are encouraged to actively participate in our quality assurance initiatives and collaborate with us to raise the bar for excellence.",
+    ],
+  },
+  {
+    title: "Collaboration and Support",
+    points: [
+      "Our team is here to support you every step of the way. If you have any questions, concerns, or need assistance with compliance or quality issues, please don't hesitate to reach out.",
+      "Together, we can build a strong partnership based on mutual trust, integrity, and a shared commitment to delivering exceptional products to our customers.",
+    ],
+  },
+];
+
 function SettingssTab() {
   const [vendor, setVendor] = useState<any>({});
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,8 +82,8 @@ function SettingssTab() {
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3] = useState(false);
 
-  const [, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  // const [, setImage] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
 
   const tab = searchParams.get("tab") || "account";
 
@@ -55,15 +101,15 @@ function SettingssTab() {
   //    handleImage(e, img);
   //  };
 
-  const handleImage = (e: any) => {
-    const file = e.target.files && e.target.files[0];
+  // const handleImage = (e: any) => {
+  //   const file = e.target.files && e.target.files[0];
 
-    if (file) {
-      console.log(file, "file");
-      setImage(file);
-      setImageUrl(URL.createObjectURL(file));
-    }
-  };
+  //   if (file) {
+  //     console.log(file, "file");
+  //     setImage(file);
+  //     setImageUrl(URL.createObjectURL(file));
+  //   }
+  // };
 
   const toggleEye = (e: any) => {
     e.preventDefault();
@@ -165,9 +211,9 @@ function SettingssTab() {
           </span>
         </div>
         <section className=" space-y-1 rounded-[4px]  bg-[#F4F4F4]">
-          <div className=" flex w-full flex-row flex-wrap items-stretch justify-center xl:items-stretch xl:justify-between">
-            <div className="overflow-hidden px-8 lg:px-0 xl:h-full xl:w-1/4 xl:overflow-visible xl:px-4">
-              <div className="hide-scroll-bar flex  justify-start gap-4 overflow-x-auto py-4 md:w-full md:flex-row md:items-center md:border-gray-400 lg:items-start xl:h-screen xl:flex-col xl:space-y-2 xl:overflow-visible xl:border-r">
+          <div className=" relative flex w-full flex-row flex-wrap items-stretch justify-center xl:items-stretch xl:justify-between">
+            <div className=" overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-400">
+              <div className="hide-scroll-bar flex justify-start  gap-4 overflow-x-auto  py-4 md:w-full md:flex-row md:items-center  lg:items-start xl:h-full  xl:flex-col xl:space-y-2 xl:overflow-visible">
                 <button
                   onClick={() => handleClick("account")}
                   className={` cursor-pointer py-2 md:rounded md:bg-[#ffffff] md:px-3 xl:rounded-none xl:bg-transparent xl:px-0  ${
@@ -471,31 +517,38 @@ function SettingssTab() {
                 <div className="mt-2 flex items-center justify-center">
                   <div className=" block h-1 w-20 bg-[#197B30]"></div>
                 </div>
-                <div className="px-[20px] pt-[24px] pb-[80px]">
+                <div className="pt-[24px] pb-[80px]">
                   <p className="text-left text-[16px] font-normal leading-[150%]">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Dolorum magnam quam beatae quo recusandae optio commodi
-                    totam doloribus, nihil, laudantium itaque error reiciendis
-                    quidem. Provident optio excepturi laborum quis quidem, rem
-                    maiores accusamus voluptas amet sequi itaque culpa enim
-                    consequuntur architecto cupiditate nesciunt reiciendis eum,
-                    veniam laudantium, minus quaerat quod? Excepturi, aut nisi
-                    consequuntur vel ut consequatur natus accusamus magni. Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                    impedit nostrum, obcaecati accusantium dicta deserunt
-                    perspiciatis, quas cupiditate corrupti veritatis maiores
-                    culpa commodi ab cum debitis hic? Corporis sint harum magni
-                    eaque officiis nobis repudiandae praesentium eum facilis,
-                    eveniet, omnis nulla labore dignissimos obcaecati
-                    voluptatibus cumque quibusdam illo fugiat sequi molestias
-                    reprehenderit rerum! Repudiandae at cum quibusdam nostrum
-                    voluptate optio, vero eius magnam adipisci cupiditate nobis
-                    esse labore rerum perspiciatis quas fugiat excepturi enim,
-                    obcaecati voluptas aspernatur, molestiae ratione
-                    reprehenderit maxime facilis. Ut consequatur beatae
-                    blanditiis eos asperiores consectetur reiciendis cupiditate
-                    dolores odit! Alias beatae voluptatem quibusdam omnis
-                    accusantium in.
+                    Welcome to Porker Hut Vendor Partnership Program. We are
+                    excited to collaborate with you to offer premium pork, pig,
+                    and feed products to our discerning customers across
+                    Nigeria. Our success is built on a foundation of quality,
+                    and we are committed to ensuring that every product listed
+                    on our platform meets the highest standards. Here's what you
+                    need to know about our quality assurance process:
+                  </p>
+                  <div className="mt-3 space-y-4">
+                    {standards.map((policy: any) => (
+                      <div className="font-bold">
+                        <span>{policy.title}:</span>
+                        <div className="font-normal">
+                          {policy.points.map((point: any) => (
+                            <div className=" flex items-start gap-2 font-normal">
+                              <span className="mt-1">
+                                <IoIosCheckmarkCircle className="text-green-700" />
+                              </span>
+                              {point}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-5">
+                    Thank you for choosing to partner with Porker-Hut. By
+                    upholding the highest standards of quality and excellence,
+                    we can create value for our customers and drive success for
+                    your business.
                   </p>
                 </div>
               </div>

@@ -199,7 +199,7 @@ const SellerStepperComponent = () => {
     switch (step) {
       case 1:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 Product information
@@ -265,7 +265,7 @@ const SellerStepperComponent = () => {
         );
       case 2:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 More Product Details
@@ -336,7 +336,7 @@ const SellerStepperComponent = () => {
         );
       case 3:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]   p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl">
                 Product Pricing
@@ -409,7 +409,7 @@ const SellerStepperComponent = () => {
         );
       case 4:
         return (
-          <div className=" rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
+          <div className=" mt-4 rounded-md bg-[#F4F4F4] p-5 lg:p-8">
             <div className=" mb-8">
               <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
                 Product Images
