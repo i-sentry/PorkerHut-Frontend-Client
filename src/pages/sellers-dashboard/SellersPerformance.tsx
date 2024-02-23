@@ -6,6 +6,7 @@ import ChartLayout from "../../components/vendors-component/ChatLayout";
 import { Carousel } from "./SellersAccount";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
 import { useGetVendorOrders } from "../../services/hooks/orders";
+import { CgSpinner } from "react-icons/cg";
 
 interface IData {
   color: string;
@@ -132,7 +133,7 @@ const SellersPerformance = () => {
   const { data: vo, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   const vendorOrders = vo?.data?.orders;
 
-  console.log(vendorOrders, isLoading, "vendorOrders");
+  // console.log(vendorOrders, isLoading, "vendorOrders");
 
   const salesRevenue = vendorOrders
     ?.map((order: any) => order?.subtotal)
@@ -142,7 +143,7 @@ const SellersPerformance = () => {
     ?.map((order: any) => order?.productDetails?.length)
     ?.reduce((acc: any, item: any) => acc + item, 0);
 
-  console.log("salesRevenue", salesRevenue);
+  // console.log("salesRevenue", salesRevenue);
 
   const monthData = vendorOrders?.map((order: any) => {
     const monthIndex = new Date(order.orderDate)?.getMonth();
@@ -151,14 +152,14 @@ const SellersPerformance = () => {
     });
   });
 
-  console.log(monthData, "monthData");
+  // console.log(monthData, "monthData");
 
   const chartData = vendorOrders
     ?.flatMap((order: any) => order?.productDetails)
     ?.map((product: any) => ({
       price: product?.productID?.pricing?.productPrice,
     }));
-  console.log(chartData, "chartData");
+  // console.log(chartData, "chartData");
 
   const data = {
     labels: [
@@ -266,7 +267,7 @@ const SellersPerformance = () => {
 
   const card = performanceWidgetsData.map((val) => (
     <div>
-      <div>{MobilePerformanceWidget(val)}</div>
+      <div>{MobilePerformanceWidget(val, isLoading)}</div>
     </div>
   ));
 
@@ -294,6 +295,7 @@ const SellersPerformance = () => {
           disable={false}
           amount={""}
           text="Value of the goods you have sold"
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -310,6 +312,7 @@ const SellersPerformance = () => {
           disable={false}
           amount={""}
           text="Number of orders delivered and in delivery."
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -326,6 +329,7 @@ const SellersPerformance = () => {
           disable={false}
           amount={""}
           text="Number of Items expected to get to the  customer"
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -342,6 +346,7 @@ const SellersPerformance = () => {
           disable={false}
           amount={""}
           text="Number of visit on your page"
+          isLoading={isLoading}
         />
       </div>
       <div className="mt-8 xxs:block md:hidden">
@@ -378,7 +383,7 @@ const SellersPerformance = () => {
 
 export default SellersPerformance;
 
-const MobilePerformanceWidget = (props: any) => {
+const MobilePerformanceWidget = (props: any, isLoading: any) => {
   // const openModal = (e: any) => {
   //   e.preventDefault();
   //   props.action();
@@ -405,8 +410,12 @@ const MobilePerformanceWidget = (props: any) => {
           </div>
         </div>
         <div className="mb-6">
-          <span className="block text-center text-[24px] font-bold leading-[24px] text-[#333333]">
-            {props.value}
+          <span className="flex items-center justify-center text-center text-[24px] font-bold leading-[24px] text-[#333333]">
+            {isLoading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              props.value
+            )}
           </span>
         </div>
         <div>
