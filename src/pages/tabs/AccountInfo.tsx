@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FiCamera } from "react-icons/fi";
+// import { FiCamera } from "react-icons/fi";
 // import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
 import { MdOutlinePerson } from "react-icons/md";
 // import MobileTabs from "../tabs/MobileTabs";
@@ -31,18 +31,18 @@ interface IAccount {
 }
 const AccountInfo = ({ setShowTab }: IAccount) => {
   const [vendor, setVendor] = useState<any>({});
-  const [, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  // const [, setImage] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleImage = (e: any) => {
-    const file = e.target.files && e.target.files[0];
+  // const handleImage = (e: any) => {
+  //   const file = e.target.files && e.target.files[0];
 
-    if (file) {
-      console.log(file, "file");
-      setImage(file);
-      setImageUrl(URL.createObjectURL(file));
-    }
-  };
+  //   if (file) {
+  //     console.log(file, "file");
+  //     setImage(file);
+  //     setImageUrl(URL.createObjectURL(file));
+  //   }
+  // };
 
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [country, setCountry] = useState("");
