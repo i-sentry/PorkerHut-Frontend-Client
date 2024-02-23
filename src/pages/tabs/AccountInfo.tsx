@@ -14,6 +14,7 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { HiOutlineChevronLeft } from "react-icons/hi";
+import { FaUserCircle } from "react-icons/fa";
 
 type FormData = {
   fullName: string;
@@ -172,7 +173,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
       >
         <div className="flex flex-col items-center justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full border border-slate-400">
-            {imageUrl ? (
+            {/* {imageUrl ? (
               <img
                 src={imageUrl}
                 alt="uploaded"
@@ -194,13 +195,14 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
                   className=" hidden appearance-none text-sm outline-none "
                 />
               </>
-            )}
+            )} */}
+            <FaUserCircle size={60} className="text-neutral-300" />
           </div>
 
-          <h3 className=" pt-2 text-[18px]  font-semibold leading-[21px] text-[#333333]">
+          <h3 className=" mb-6 pt-2 text-[18px] font-semibold leading-[21px] text-[#333333]">
             {vendorName}
           </h3>
-          <label
+          {/* <label
             htmlFor="file"
             className="flex items-center gap-2 text-right text-sm"
           >
@@ -208,7 +210,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             <span className=" my-auto  cursor-pointer py-4 text-[13px] font-medium leading-[15px] text-[#197B30]">
               Change profile picture
             </span>{" "}
-          </label>
+          </label> */}
         </div>
 
         <div

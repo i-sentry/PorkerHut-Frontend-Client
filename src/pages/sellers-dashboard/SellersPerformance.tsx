@@ -145,12 +145,12 @@ const SellersPerformance = () => {
 
   // console.log("salesRevenue", salesRevenue);
 
-  const monthData = vendorOrders?.map((order: any) => {
-    const monthIndex = new Date(order.orderDate)?.getMonth();
-    return new Date(0, monthIndex)?.toLocaleString("default", {
-      month: "long",
-    });
-  });
+  // const monthData = vendorOrders?.map((order: any) => {
+  //   const monthIndex = new Date(order.orderDate)?.getMonth();
+  //   return new Date(0, monthIndex)?.toLocaleString("default", {
+  //     month: "long",
+  //   });
+  // });
 
   // console.log(monthData, "monthData");
 
