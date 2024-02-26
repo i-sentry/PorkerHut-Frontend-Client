@@ -26,7 +26,7 @@ const QualityCheck = ({ setShowTab }: IAccount) => {
 
       <div className="rounded-sm bg-[#F4F4F4] py-8 px-6 ">
         <h3
-          className="flex items-center justify-center text-[24px] font-bold"
+          className="flex items-center justify-center text-center text-[24px] font-bold"
           style={{ transition: "opacity 0.5s ease-in" }}
         >
           Vendor Quality Assurance Guidelines

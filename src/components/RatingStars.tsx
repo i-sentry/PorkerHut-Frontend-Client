@@ -60,7 +60,12 @@ const Star: React.FC<StarProp> = ({
   iconSize,
 }) => {
   return (
-    <div onClick={onRate} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+    <div
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+      className="cursor-poiner"
+    >
       {full ? (
         <IoMdStarOutline size={iconSize} color="#FE6600" />
       ) : (

@@ -212,7 +212,7 @@ function SettingssTab() {
         </div>
         <section className=" space-y-1 rounded-[4px]  bg-[#F4F4F4]">
           <div className=" relative flex w-full flex-row flex-wrap items-stretch justify-center xl:items-stretch xl:justify-between">
-            <div className=" overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-400">
+            <div className=" overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-200">
               <div className="hide-scroll-bar flex justify-start  gap-4 overflow-x-auto  py-4 md:w-full md:flex-row md:items-center  lg:items-start xl:h-full  xl:flex-col xl:space-y-2 xl:overflow-visible">
                 <button
                   onClick={() => handleClick("account")}
