@@ -1,19 +1,17 @@
-
-import FeaturedProduct from '../featured-product-component/best-selling-product/FeaturedProduct';
-import { Link } from 'react-router-dom';
-import { AiOutlineRight } from 'react-icons/ai';
+import FeaturedProduct from "../featured-product-component/best-selling-product/FeaturedProduct";
+import { Link } from "react-router-dom";
+import { AiOutlineRight } from "react-icons/ai";
 
 const Header = () => {
-
   return (
-    <div className="p-3 px-0 my-10">
-      <div className="flex justify-center items-center mb-2">
-        <h1 className="font-medium lg:leading-[47px] lg:text-[40px] md:text-[40px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
+    <div className="my-10 p-3 px-0">
+      <div className="flex items-center justify-center">
+        <h1 className="font-bold text-[#333333] xxs:text-[20px] md:text-[40px] lg:text-[40px]">
           Featured Products
         </h1>
       </div>
-      <div className="flex items-center justify-center lg:mb-16 xxs:mb-6">
-        <div className=" block h-1.5 w-20 bg-[#197B30]"></div>
+      <div className="flex items-center justify-center xxs:mb-6 lg:mb-16">
+        <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
       <FeaturedProduct />
 
@@ -21,13 +19,13 @@ const Header = () => {
         to="/products"
         className="my-10 flex items-center justify-center hover:text-[#197b30]"
       >
-        <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px] font-medium mr-2 underline  hover:text-[#197b30]">
+        <span className="mr-2 whitespace-normal text-[16px] font-medium leading-[19px] text-[#333333] underline  hover:text-[#197b30]">
           SEE ALL
         </span>
         <AiOutlineRight />
       </Link>
     </div>
   );
-}
+};
 
-export default Header
+export default Header;

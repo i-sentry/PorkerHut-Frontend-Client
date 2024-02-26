@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { NavLink } from "react-router-dom";
@@ -42,17 +42,17 @@ const ProductCard = ({ item }: ProductLocationState) => {
   };
 
   return (
-    <div className=" flex flex-col z-10   lg:p-3 p-0 transform  hover:shadow-xl  cursor:pointer rounded-sm ">
-      <div className="w-full md:h-[380px] xxs:h-52 flex item-center justify-center relative group rounded-md">
+    <div className=" cursor:pointer z-10 flex transform  flex-col overflow-hidden rounded-sm  p-0  hover:shadow-xl lg:p-3 ">
+      <div className="item-center group relative flex w-full justify-center overflow-hidden rounded-md xxs:h-52 md:h-[380px]">
         <img
           onClick={handleCardClick}
           src={item?.images?.[0] || noImage}
           alt=""
           className={cn(
-            "w-full h-full object-cover hover:cursor-pointer rounded-sm duration-700 ease-in-out group-hover:opacity-75 ",
+            "h-full w-full rounded-sm object-cover duration-700 ease-in-out hover:cursor-pointer group-hover:opacity-75 ",
             isLoading
               ? "scale-110 blur-2xl grayscale"
-              : "scale-100 blur-0 grayscale-0"
+              : "scale-100 blur-0 grayscale-0",
           )}
           onLoad={handleLoading}
           loading="lazy"
@@ -60,15 +60,15 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
         <div
           onClick={isOutOfStock ? () => {} : handleClick}
-          className={`flex items-center justify-center absolute w-full xxs:h-12 lg:h-14 ${
-            isOutOfStock ? "bg-[#BB0101]" : "bg-[#197B30]"
-          } xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 duration-700 cursor-pointer ${
+          className={`absolute flex w-full items-center justify-center py-3 lg:py-3.5 ${
+            isOutOfStock ? "bg-[#BB0101]" : "cursor-pointer bg-[#197B30]"
+          } duration-700 xxs:bottom-0 lg:bottom-[-72px] lg:group-hover:bottom-0 ${
             isOutOfStock
               ? ""
-              : "active:opacity-50 active:scale-90 transition-all"
+              : "transition-all active:scale-90 active:opacity-50"
           }`}
         >
-          <span className="text-white  xxs:text-[11px] xxs:leading-[14px] md:text-base rounded-b-md font-normal ">
+          <span className="rounded-b-md  font-normal text-white xxs:text-[11px] xxs:leading-[14px] md:text-base ">
             {isOutOfStock ? (
               <div className="flex items-center gap-2">
                 <CgUnavailable size={16} color="white" />
@@ -80,46 +80,42 @@ const ProductCard = ({ item }: ProductLocationState) => {
           </span>
         </div>
       </div>
-      <div className="z-10 bg-white xxs:px-2 lg:px-0">
-        <div className="lg:flex items-center justify-between py-1 xxs:hidden">
+      <div className="z-10 mt-2 bg-white xxs:px-2 lg:px-0">
+        <div className="items-center justify-between py-1 xxs:hidden md:flex">
           <NavLink
             to={`/store-page/${item?.vendor?._id}`}
-            className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium"
+            className="whitespace-normal text-[12px] font-medium capitalize leading-[14px] text-[#A2A2A2]"
           >
             {item?.vendor?.sellerAccountInformation?.shopName || ""}
           </NavLink>
-          <span className="text-[#A2A2A2] whitespace-normal text-[12px] leading-[14px] font-medium">
+          <span className="whitespace-normal text-[12px] font-medium capitalize leading-[14px] text-[#A2A2A2]">
             {item?.vendor?.businessInformation?.city || ""}
           </span>
         </div>
-        <div className="flex items-center justify-between py-1">
+        <div className="mt-1 flex items-center justify-between">
           <h1
             onClick={handleCardClick}
-            className="  whitespace-normal sm:text-[16px] sm:leading-[19px] font-medium  cursor-pointer lg:text-[#197b30] hover:underline active:scale-90 transition-all ease-in-out  xxs:text-[#333333] xxs:leading-[15px] xxs:text-[13px]"
+            className="cursor-pointer whitespace-normal font-medium capitalize transition-all  ease-in-out hover:underline active:scale-90 xxs:text-[13px] xxs:leading-[15px] xxs:text-[#333333]  sm:text-[16px] sm:leading-[19px] lg:text-[#197b30]"
           >
             {item?.information?.productName || ""}
           </h1>
-          <span className="hidden text-[#333333] whitespace-normal text-[16px] leading-[19px] font-normal  lg:block">
-            {item?.details?.productWeight || ""}g
+          <span className="hidden whitespace-normal text-[16px] font-normal leading-[19px] text-[#333333]  lg:block">
+            {item?.details?.productWeight || ""}kg
           </span>
         </div>
-        <span className="whitespace-nowrap lg:text-2xl tracking-wider font-normal lg:hidden block text-[#333333] xxs:text-lg">
+        <span className="block whitespace-nowrap font-bold text-[#111111] xxs:text-lg lg:hidden lg:text-2xl">
           ₦{item?.pricing?.productPrice.toLocaleString() || ""}
         </span>
 
         <NavLink
           to={`/store-page/${item._id}`}
-          className="text-xs text-[#A2A2A2] whitespace-normal lg:hidden xxs:block "
+          className="whitespace-normal text-xs capitalize text-[#A2A2A2] xxs:block md:hidden "
         >
           {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
-          {/* <RatingWidget
-            onChange={(value) => console.log(value)}
-            defaultValue={3}
-          /> */}
-          <RatingStars maxRating={5} iconSize={24} canRate={false} />
-          <span className="text-[#333333] whitespace-normal text-[16px] leading-[19px]  font-normal xxs:hidden lg:block">
+          <RatingStars maxRating={5} iconSize={20} canRate={false} />
+          <span className="whitespace-normal text-[16px] font-normal leading-[19px]  text-[#333333] xxs:hidden lg:block">
             ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>
         </div>

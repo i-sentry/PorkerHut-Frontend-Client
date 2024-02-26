@@ -5,7 +5,7 @@ import { imageUrl } from "../../services/api";
 import moment from "moment";
 
 const Loader = () => (
-  <div className="overflow-hidden relative w-full">
+  <div className="relative w-full overflow-hidden">
     <div className="skeleton-loader"></div>
     <div className="header-loader"></div>
     <div className="text-loader"></div>
@@ -28,30 +28,30 @@ const BlogCard = ({ blog }: { blog: any }) => {
   const formattedDate = moment(createdAt).format("MMMM Do YYYY");
 
   return (
-    <div className="max-w-[500px] bg-white rounded-md hover:shadow-md group overflow-hidden">
+    <div className="group max-w-[500px] overflow-hidden rounded-md bg-white hover:shadow-md">
       {blog ? (
         <>
           <Link to="#" className="">
             <img
-              className="rounded-t overflow-hidden h-[300px] object-cover w-full"
+              className="h-[300px] w-full overflow-hidden rounded-t object-cover"
               src={imgUrl}
               alt=""
             />
           </Link>
-          <p className="py-3 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] md:text-[12px] md:leading-[16px] px-2">
+          <p className="py-3 px-2 font-normal text-[#333333] xxs:text-[13px] xxs:leading-[15px] md:text-[12px] md:leading-[16px]">
             {formattedDate}
           </p>
-          <div className="pb-3 px-2">
-            <h1 className="text-[24px] leading-[26px] font-medium text-[#333333] whitespace-pre-line">
+          <div className="px-2 pb-3">
+            <h1 className="whitespace-pre-line text-[24px] font-medium leading-[26px] text-[#333333]">
               {title}
               <span className="block">({minutes} min read)</span>
             </h1>
-            <p className="mb-3 font-normal text-[#797979] text-left text-[16px] leading-[19px] tracking-[0.04em] my-3 xxs:text-[14px] xxs:leading-[16px]">
+            <p className="my-3 mb-3 text-left text-[16px] font-normal leading-[19px] tracking-[0.04em] text-[#797979] xxs:text-[14px] xxs:leading-[16px]">
               {truncatedString}
             </p>
             <Link
               to={`/blog/${_id}`}
-              className="inline-flex items-center px-6 py-2 text-[14px] leading-[24px] font-medium text-center text-white bg-[#197B30] rounded hover:bg-[#197b30c8] focus:ring-4 focus:outline-none focus:ring-[#69a477] "
+              className="inline-flex items-center rounded bg-[#197B30] px-6 py-2 text-center text-[14px] font-medium leading-[24px] text-white hover:bg-[#197b30c8] focus:outline-none focus:ring-4 focus:ring-[#69a477] "
             >
               Read more
             </Link>

@@ -47,7 +47,7 @@ const FeaturedProduct = () => {
           <p className="mt-2 text-sm text-gray-500">No products available.</p>
         </div>
       ) : (
-        <div className="grid w-full px-[4%] xxs:grid-cols-2  xxs:gap-4 lg:grid-cols-4 lg:gap-3 ">
+        <div className="grid w-full px-[4%] xxs:grid-cols-2  xxs:gap-4 lg:grid-cols-3 lg:gap-3 xl:grid-cols-4 ">
           {chunkArray(
             getAllProducts?.data.filter(
               (product: any) =>
