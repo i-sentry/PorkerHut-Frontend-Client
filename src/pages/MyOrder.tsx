@@ -25,11 +25,11 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className=" text-[#F29339]">Pending</span>;
     case "returned":
       return <span className=" text-[#198df9]">Returned</span>;
-    case "returned Failed":
+    case "returned failed":
       return <span className=" text-[#F91919]">Returned Failed</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
@@ -50,10 +50,10 @@ export const ProductNameColumn = ({ data, cellIndex }: any) => {
           <img
             src={data?.data[cellIndex]?.productDetails[0]?.productID.images[0]}
             alt="product"
-            className="rounded-full object-cover w-full h-full"
+            className="h-full w-full rounded-full object-cover"
           />
         </figure>
-        <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
+        <span className="whitespace-nowrap text-sm font-light  text-[#333333]">
           {productName}
         </span>
       </div>
@@ -312,10 +312,10 @@ const DateColumn = ({ d }: any) => {
   const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
   return (
     <div className="flex flex-col items-start">
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {formattedDate}
       </span>
-      <span className="text-neutral-400 text-sm font-light capitalize mt-1">
+      <span className="mt-1 text-sm font-light capitalize text-neutral-400">
         {formattedTime}
       </span>
     </div>
@@ -331,10 +331,10 @@ const StoreNameColumn = ({ d }: any) => {
   const storeCity = d?.productDetails[0].vendor.businessInformation.city;
   return (
     <div className="flex flex-col items-start">
-      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {storeName}
       </span>
-      <span className="text-neutral-400 text-sm font-light capitalize mt-1">
+      <span className="mt-1 text-sm font-light capitalize text-neutral-400">
         {storeCity}
       </span>
     </div>
@@ -414,7 +414,7 @@ const MyOrder = () => {
         <div>
           <span
             onClick={() => handleView(row?.original?._id)}
-            className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
+            className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
           >
             View
           </span>
@@ -426,7 +426,7 @@ const MyOrder = () => {
   //@ts-ignore
   const filteredData =
     allOrders?.filter((b: any) =>
-      queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue))
+      queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue)),
     ) || [];
   console.log(filteredData);
 
@@ -437,11 +437,11 @@ const MyOrder = () => {
   return (
     // <h1>Hello</h1>
     <AppLayout>
-      <div className=" lg:px-12 xxs:px-4 mt-16 bg-neutral-100 lg:bg-white ">
-        <div className="xxs:hidden lg:flex items-center flex-col justify-center py-10">
-          <h2 className="text-[40px] leading-[47px] font-medium">My Orders</h2>
+      <div className=" mt-16 bg-neutral-100 xxs:px-4 lg:bg-white lg:px-12 ">
+        <div className="flex-col items-center justify-center py-10 xxs:hidden lg:flex">
+          <h2 className="text-[40px] font-medium leading-[47px]">My Orders</h2>
 
-          <div className="h-1.5 w-24 bg-[#197B30] mt-1"></div>
+          <div className="mt-1 h-1.5 w-24 bg-[#197B30]"></div>
         </div>
         <div className="xxs:hidden lg:block">
           {allOrders ? (
@@ -455,23 +455,23 @@ const MyOrder = () => {
               // showFilter={true}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center mt-40">
+            <div className="mt-40 flex flex-col items-center justify-center">
               <CgSpinnerAlt size={80} className="animate-spin" />
               <p className="mt-4">Fetching data...</p>
             </div>
           )}
         </div>
         {/* mobile */}
-        <div className="lg:hidden flex flex-col py-10">
-          <div className=" flex items-center w-full">
+        <div className="flex flex-col py-10 lg:hidden">
+          <div className=" flex w-full items-center">
             <label htmlFor="simple-search" className="sr-only">
               Search
             </label>
-            <div className="relative rounded-full  w-full bg-[#F4F4F4]">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <div className="relative w-full  rounded-full bg-[#F4F4F4]">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
                   aria-hidden="true"
-                  className="w-5 h-5 text-gray-500 "
+                  className="h-5 w-5 text-gray-500 "
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -486,19 +486,19 @@ const MyOrder = () => {
               <input
                 type="search"
                 id="simple-search"
-                className="bg-[#F4F4F4] border border-gray-300 text-[#333333] text-[14px] leading-[16px] focus:ring-[#197B30] rounded-full  focus:border-[#197B30] block  pl-10 p-3  w-full"
+                className="block w-full rounded-full border border-gray-300 bg-[#F4F4F4] p-3 pl-10  text-[14px] leading-[16px]  text-[#333333] focus:border-[#197B30]  focus:ring-[#197B30]"
                 placeholder="Search product name or store names"
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </div>
           </div>
-          <div className="tabs flex gap-4 pt-8 pb-3 overflow-auto lg:bg-[#fff] hide-scrollbar">
+          <div className="tabs hide-scrollbar flex gap-4 overflow-auto pt-8 pb-3 lg:bg-[#fff]">
             {t.map((tab: string, index: React.Key | null | undefined) => (
               <TabSelector
                 key={index}
-                className={`cursor-pointer relative underline bg-transparent text-[16px] leading-[19px] font-normal text-center p-2 px-5 text-[#5c6f7f]${
+                className={`relative cursor-pointer bg-transparent p-2 px-5 text-center text-[16px] font-normal leading-[19px] underline text-[#5c6f7f]${
                   selectedTab === tab
-                    ? " text-[#197B30] no-underline border border-[#197B30] rounded-[8px] shadow-lg transition-all ease-in-out duration-100"
+                    ? " rounded-[8px] border border-[#197B30] text-[#197B30] no-underline shadow-lg transition-all duration-100 ease-in-out"
                     : ""
                 }`}
                 isActive={selectedTab === tab}
@@ -604,13 +604,13 @@ const MyOrder = () => {
                 <AccordionSection
                   key={index}
                   title={
-                    <div className=" justify-between w-full h-full flex">
+                    <div className=" flex h-full w-full justify-between">
                       <div className="flex gap-2">
                         <figure className="h-9 w-9 rounded-full border">
                           <img
                             src={data?.productDetails[0].productID.images[0]}
                             alt="product"
-                            className="rounded-full object-cover w-full h-full"
+                            className="h-full w-full rounded-full object-cover"
                           />
                         </figure>
                         <div>
@@ -618,19 +618,19 @@ const MyOrder = () => {
                             className="cursor-pointer"
                             onClick={() => handleViewOrder(data?._id)}
                           >
-                            <li className="text-[14px] leading-[16px] font-medium text-[#333333]">
+                            <li className="text-[14px] font-medium leading-[16px] text-[#333333]">
                               {
                                 data?.productDetails[0].productID.information
                                   .productName
                               }
                               (1kg)
                             </li>
-                            <li className="text-[14px] leading-[16px] font-normal text-[#333333] mt-1 mb-2">
+                            <li className="mt-1 mb-2 text-[14px] font-normal leading-[16px] text-[#333333]">
                               ₦{data?.productDetails[0].price.toLocaleString()}
                             </li>
                             <li
-                              className={`text-[14px] leading-[16px] font-normal ${getOrderStatus(
-                                data?.status
+                              className={`text-[14px] font-normal leading-[16px] ${getOrderStatus(
+                                data?.status,
                               )}`}
                             >
                               {data?.status}
@@ -640,13 +640,13 @@ const MyOrder = () => {
                       </div>
                       <>
                         <div>
-                          <ul className="text-right flex flex-col justify-between h-full">
-                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          <ul className="flex h-full flex-col justify-between text-right">
+                            <li className="text-[14px] font-normal leading-[16px] text-[#333333]">
                               {/* {data?.order_date}
                             {[0].orderDate} */}
                               {moment(data?.orderDate).format("DD MMM YYYY")}
                             </li>
-                            <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                            <li className="text-[14px] font-normal leading-[16px] text-[#333333]">
                               X {data?.productDetails[0].quantity}
                             </li>
                           </ul>
@@ -657,17 +657,17 @@ const MyOrder = () => {
                   isExpanded={expandedIndex === index}
                   onToggle={() => handleToggle(index)}
                 >
-                  <div className="flex  justify-between w-full h-full mt-5">
+                  <div className="mt-5  flex h-full w-full justify-between">
                     <div className="flex gap-2">
                       <div className="">
                         <ul className="flex flex-col justify-between gap-4 text-left">
-                          <li className="text-zinc-800 text-sm font-medium">
+                          <li className="text-sm font-medium text-zinc-800">
                             Order ID
                           </li>
-                          <li className="text-zinc-800 text-sm font-medium">
+                          <li className="text-sm font-medium text-zinc-800">
                             Location
                           </li>
-                          <li className="text-zinc-800 text-sm font-medium ">
+                          <li className="text-sm font-medium text-zinc-800 ">
                             Total
                           </li>
                         </ul>
@@ -675,17 +675,17 @@ const MyOrder = () => {
                     </div>
                     <div>
                       <div className="">
-                        <ul className="text-right flex flex-col justify-between h-full gap-4">
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                        <ul className="flex h-full flex-col justify-between gap-4 text-right">
+                          <li className="text-[14px] font-normal leading-[16px] text-[#333333]">
                             {data?._id}
                           </li>
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          <li className="text-[14px] font-normal leading-[16px] text-[#333333]">
                             {
                               data?.productDetails[0].vendor.businessInformation
                                 .city
                             }
                           </li>
-                          <li className="text-[14px] leading-[16px] font-normal text-[#333333]">
+                          <li className="text-[14px] font-normal leading-[16px] text-[#333333]">
                             ₦{data?.totalAmount.toLocaleString()}
                           </li>
                         </ul>
@@ -693,9 +693,9 @@ const MyOrder = () => {
                     </div>
                   </div>
                 </AccordionSection>
-              )
+              ),
             )}
-            <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 mt-10">
+            <div className="mt-10 flex items-center justify-center    gap-1 bg-white px-4 py-3 sm:px-6">
               <button
                 onClick={() =>
                   currentPageIndex !== 1
@@ -704,12 +704,12 @@ const MyOrder = () => {
                 }
                 className={
                   (currentPageIndex === 1 ? "no-item" : "") +
-                  " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
+                  " rounded-l-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white "
                 }
               >
                 <RxCaretLeft size={22} />
               </button>
-              <div className="pagination flex gap-1 items-center">
+              <div className="pagination flex items-center gap-1">
                 {chunkArray(allOrders, itemsPerPage).map((_, index) => {
                   return (
                     <button
@@ -717,11 +717,11 @@ const MyOrder = () => {
                       onClick={() => setCurrentPageIndex(index + 1)}
                       className={` border   border-[#A2A2A2]  ${
                         currentPageIndex === index + 1
-                          ? "active-page-index    rounded-lg text-white border-[#197B30] bg-[#197b30]"
-                          : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
+                          ? "active-page-index    rounded-lg border-[#197B30] bg-[#197b30] text-white"
+                          : "rounded-lg border-[#A2A2A2]  text-[#A2A2A2] hover:bg-slate-100"
                       }`}
                     >
-                      <span className="text-sm px-1.5">{index + 1}</span>
+                      <span className="px-1.5 text-sm">{index + 1}</span>
                     </button>
                   );
                 })}
@@ -739,7 +739,7 @@ const MyOrder = () => {
                   chunkArray(allOrders, itemsPerPage).length
                     ? "no-items"
                     : "") +
-                  " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
+                  " rounded-r-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white"
                 }
               >
                 <span className="">
@@ -769,26 +769,26 @@ const AccordionSection = ({
   onToggle,
 }: IAccordionPros) => {
   return (
-    <div className="p-4 w-full rounded-lg bg-[#fff] mt-3">
-      <div className=" w-full h-full">
-        <div className=" w-full h-full">{title}</div>
+    <div className="mt-3 w-full rounded-lg bg-[#fff] p-4">
+      <div className=" h-full w-full">
+        <div className=" h-full w-full">{title}</div>
       </div>
       <button
         onClick={onToggle}
-        className="py-0.5 transition duration-500 active:scale-90 w-full m-auto text-center flex items-center justify-center"
+        className="m-auto flex w-full items-center justify-center py-0.5 text-center transition duration-500 active:scale-90"
       >
         {!isExpanded && <IoChevronDown size={20} color="#197B30" />}
       </button>
       <div
         className={
           (isExpanded ? "flex flex-col" : "hidden") +
-          " transition-all duration-700 ease-in-out w-full h-full pt-5"
+          " h-full w-full pt-5 transition-all duration-700 ease-in-out"
         }
       >
-        <div className=" w-full h-full">{children}</div>
+        <div className=" h-full w-full">{children}</div>
         <button
           onClick={onToggle}
-          className="py-0.5 transition duration-500 active:scale-90 w-full m-auto text-center flex items-center justify-center"
+          className="m-auto flex w-full items-center justify-center py-0.5 text-center transition duration-500 active:scale-90"
         >
           {isExpanded && <IoChevronUp size={20} color="#197B30" />}
         </button>

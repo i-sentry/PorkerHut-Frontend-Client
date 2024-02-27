@@ -8,6 +8,7 @@ import {
   useCreateRating,
   useGetRatedProduct,
   useGetSingleProduct,
+  useUpdateRating,
 } from "../services/hooks/users/products";
 import { useNavigate, useParams } from "react-router-dom";
 import AppLayout from "../components/utility/AppLayout";
@@ -47,7 +48,7 @@ const RateReview = () => {
   }, [isRated?.message]);
 
   // const productRated = ;
-  // console.log(productRated, "productRated");
+  console.log(isRated, "productRated");
 
   const handleRatingChange = (newRating: number) => {
     setUserRating(newRating);
@@ -55,6 +56,7 @@ const RateReview = () => {
   };
 
   const createRating = useCreateRating();
+  const updateRating = useUpdateRating(isRated?.rating._id);
   const navigate = useNavigate();
   console.log(_name, "_name");
   console.log(singleProduct);
@@ -63,20 +65,37 @@ const RateReview = () => {
   const initiateCreateRating = (e: any) => {
     e.preventDefault();
     setLoading(true);
-    createRating
-      .mutateAsync({
-        productId: id as string,
-        userId: userdata._id,
-        ratingValue: userRating as number, //add dynamically
-        comment: ratingComment,
-      })
-      .then(() => {
-        setLoading(false);
-        setModal(true);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    if (rated) {
+      updateRating
+        .mutateAsync({
+          productId: id as string,
+          userId: userdata._id,
+          ratingValue: userRating as number, //add dynamically
+          comment: ratingComment,
+        })
+        .then(() => {
+          setLoading(false);
+          setModal(true);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    } else {
+      createRating
+        .mutateAsync({
+          productId: id as string,
+          userId: userdata._id,
+          ratingValue: userRating as number, //add dynamically
+          comment: ratingComment,
+        })
+        .then(() => {
+          setLoading(false);
+          setModal(true);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }
   };
 
   const user = [

@@ -81,6 +81,17 @@ export const useCreateRating = () => {
   });
 };
 
+export const useUpdateRating = (ratingId: string) => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      productId: string;
+      userId: string;
+      ratingValue: number;
+      comment: string;
+    }) => makePostRequest(data, api.Ratings.updateRating(ratingId)),
+  });
+};
+
 export const useGetAllProductRating = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Ratings.allRating(id)),

@@ -57,12 +57,16 @@ const MyOrderDetails = () => {
 
   // ORDER STATUS COLOR
   const getOrderStatus = (status: any) => {
-    switch (status) {
+    switch (status?.toLowerCase()) {
       case "pending":
         return "text-orange-400";
       case "completed":
         return "text-green-500";
       case "failed":
+        return "text-red-600";
+      case "returned":
+        return "text-[#198df9]";
+      case "returned failed":
         return "text-red-600";
       default:
         return "gray";
@@ -70,18 +74,20 @@ const MyOrderDetails = () => {
   };
 
   const orderStatus = order?.status;
-  const status = getOrderStatus(orderStatus);
+  const statusOrder = getOrderStatus(orderStatus);
 
   // OTHER ITEMS IN AN OTHER
-  const _status = order?.status;
+  const status = order?.status;
   const _id = order?._id;
   const orderDate = order?.orderDate;
   const otherItems = order?.productDetails?.map((item: any) => ({
     ...item,
-    _status,
+    status,
     orderDate,
     _id,
   }));
+
+  console.log(otherItems, "otherItems");
 
   const handleViewOrder = (index: any) => {
     setSelectedProductIndex(index);
@@ -99,19 +105,19 @@ const MyOrderDetails = () => {
   return (
     <AppLayout>
       {false && <OrderDetails order={order} />}
-      <div className="mx-auto py-16 pt-8 px-4 bg-neutral-100 lg:bg-white">
+      <div className="mx-auto bg-neutral-100 py-16 px-4 pt-8 lg:bg-white">
         {/* HEADING FOR DESKTOP */}
-        <div className="items-center flex-col justify-center py-10 relative hidden lg:flex">
-          <h2 className="md:text-[40px] md:leading-[47px] xxs:text-lg font-medium text-[#333333]">
+        <div className="relative hidden flex-col items-center justify-center py-10 lg:flex">
+          <h2 className="font-medium text-[#333333] xxs:text-lg md:text-[40px] md:leading-[47px]">
             My Order Details
           </h2>
 
-          <div className="h-1.5 w-16 bg-[#197B30] mt-1"></div>
+          <div className="mt-1 h-1.5 w-16 bg-[#197B30]"></div>
           <div
             onClick={() => {
               navigate("/my__orders");
             }}
-            className="hover:rotate-[-60%] hover:transform absolute right-0 bottom-4 cursor:pointer transition duration-150 ease-in-out "
+            className="cursor:pointer absolute right-0 bottom-4 transition duration-150 ease-in-out hover:rotate-[-60%] hover:transform "
           >
             <Tooltip message="close">
               <IoMdClose size={20} />
@@ -121,19 +127,19 @@ const MyOrderDetails = () => {
 
         {/* HEADING FOR MOBILE */}
         <div
-          className="flex gap-2 items-center mb-4 lg:hidden cursor-pointer"
+          className="mb-4 flex cursor-pointer items-center gap-2 lg:hidden"
           onClick={() => {
             navigate("/my__orders");
           }}
         >
           <IoChevronBack size={24} />
-          <span className="text-zinc-800 text-base font-normal">
+          <span className="text-base font-normal text-zinc-800">
             Order Details
           </span>
         </div>
 
         {isLoading && (
-          <div className="flex flex-col justify-center items-center py-20">
+          <div className="flex flex-col items-center justify-center py-20">
             <CgSpinnerAlt size={80} className="animate-spin" />
             <p className="mt-4">Fetching data...</p>
           </div>
@@ -142,109 +148,109 @@ const MyOrderDetails = () => {
         {/* NEW CARDS FOR MOBILE */}
         {data && (
           <div className="flex flex-col gap-6 lg:hidden">
-            <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-              <div className="flex gap-2 w-[70%]">
+            <div className="flex flex-wrap justify-between rounded-lg bg-white p-4">
+              <div className="flex w-[70%] gap-2">
                 <img
                   src={productImg}
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="h-10 w-10 rounded-full object-cover"
                   alt=""
                 />
                 <div className="flex-1">
-                  <h3 className="text-zinc-800 text-sm font-semibold mb-1">
+                  <h3 className="mb-1 text-sm font-semibold text-zinc-800">
                     {selectedProduct?.productID.information.productName}
                     &nbsp;(
                     {selectedProduct?.productID.details.productWeight}kg)
                   </h3>
-                  <span className="text-neutral-500 text-sm block mb-2">
+                  <span className="mb-2 block text-sm text-neutral-500">
                     {selectedProduct?.vendor.sellerAccountInformation.shopName}
                   </span>
-                  <span className="text-zinc-800 text-sm font-normal block">
+                  <span className="block text-sm font-normal text-zinc-800">
                     ₦{selectedProduct?.price.toLocaleString()}
                   </span>
                 </div>
               </div>
               <ul className="w-[80px]">
-                <li className="text-zinc-800 text-[13px] font-normal text-right">
+                <li className="text-right text-[13px] font-normal text-zinc-800">
                   {moment(order?.orderDate).format("DD MMM YYYY")}
                 </li>
                 <li className="opacity-0">blank</li>
-                <li className="text-zinc-800 text-sm font-normal text-right">
+                <li className="text-right text-sm font-normal text-zinc-800">
                   X{selectedProduct?.quantity}
                 </li>
               </ul>
 
-              <div className="border-t flex justify-between w-full mt-9 pt-8">
+              <div className="mt-9 flex w-full justify-between border-t pt-8">
                 <ul className="flex flex-col gap-2">
-                  <li className="text-zinc-400 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-400">
                     Subtotal
                   </li>
-                  <li className="text-zinc-400 text-sm font-normal">VAT</li>
-                  <li className="text-zinc-400 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-400">VAT</li>
+                  <li className="text-sm font-normal text-zinc-400">
                     Delivery Fee
                   </li>
-                  <li className="text-zinc-800 text-sm font-medium">Total</li>
+                  <li className="text-sm font-medium text-zinc-800">Total</li>
                 </ul>
                 <ul className="flex flex-col gap-2 text-right">
-                  <li className="text-zinc-400 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-400">
                     ₦{order?.subtotal.toLocaleString()}
                   </li>
-                  <li className="text-zinc-400 text-sm font-normal">-</li>
-                  <li className="text-zinc-400 text-sm font-normal">-</li>
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-400">-</li>
+                  <li className="text-sm font-normal text-zinc-400">-</li>
+                  <li className="text-sm font-normal text-zinc-800">
                     ₦{order?.totalAmount.toLocaleString()}
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-              <div className="flex justify-between w-full">
+            <div className="flex flex-wrap justify-between rounded-lg bg-white p-4">
+              <div className="flex w-full justify-between">
                 <ul className="flex flex-col gap-2">
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-800">
                     Order ID
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-800">
                     Store Location
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-800">
                     Delivery date
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal">Payment</li>
-                  <li className="text-zinc-800 text-sm font-normal">Status</li>
+                  <li className="text-sm font-normal text-zinc-800">Payment</li>
+                  <li className="text-sm font-normal text-zinc-800">Status</li>
                 </ul>
                 <ul className="flex flex-col gap-2 text-right">
                   <li
-                    className="text-zinc-800 text-sm font-normal"
+                    className="text-sm font-normal text-zinc-800"
                     title={order?._id}
                   >
                     {order?._id.slice(-7)}
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-800">
                     {selectedProduct?.vendor.businessInformation.city}
                   </li>
-                  <li className="text-zinc-800 text-sm font-normal">-</li>
-                  <li className="text-zinc-800 text-sm font-normal">
+                  <li className="text-sm font-normal text-zinc-800">-</li>
+                  <li className="text-sm font-normal text-zinc-800">
                     ₦{order?.totalAmount.toLocaleString()}
                   </li>
                   <li>
-                    <span className={`text-neutral-400 text-sm ${status}`}>
+                    <span className={`text-sm ${statusOrder}`}>
                       {order?.status}
                     </span>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="flex justify-between flex-wrap bg-white rounded-lg py-6 px-4">
+            <div className="flex flex-wrap justify-between rounded-lg bg-white py-6 px-4">
               <div className="w-11/12">
-                <p className="text-zinc-800 text-[13px] font-medium mb-2">
+                <p className="mb-2 text-[13px] font-medium text-zinc-800">
                   {order?.customer?.firstName} {order?.customer.lastName}
                 </p>
-                <p className="text-neutral-500 text-[13px] font-normal mb-1 ">
+                <p className="mb-1 text-[13px] font-normal text-neutral-500 ">
                   {order?.billingInformation.address}
                 </p>
-                <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                <p className="mb-1 text-[13px] font-normal text-neutral-500">
                   {order?.billingInformation?.phoneNumber}
                 </p>
-                <p className="text-neutral-500 text-[13px] font-normal mb-1">
+                <p className="mb-1 text-[13px] font-normal text-neutral-500">
                   {order?.customer.email}
                 </p>
               </div>
@@ -259,16 +265,16 @@ const MyOrderDetails = () => {
                         }
                       : () => handleRate(selectedProduct?.productID?._id)
                   }
-                  className="py-3 w-full mt-8 rounded border border-green-700 text-green-700 text-sm font-semibold"
+                  className="mt-8 w-full rounded border border-green-700 py-3 text-sm font-semibold text-green-700"
                 >
                   Rate Product
                 </button>
-                <button className="w-full text-center mt-4 text-zinc-800 text-base font-normal font-['Roboto'] underline">
+                <button className="mt-4 w-full text-center font-['Roboto'] text-base font-normal text-zinc-800 underline">
                   Return Order
                 </button>
                 {/* RATE PRODUCT POP INFO */}
                 <div
-                  className={`bg-neutral-300 flex items-center gap-1 opacity-0 duration-300 shadow-lg rounded-lg p-4 absolute top-20 right-0 after:block after:border-[10px] after:border-t-transparent after:w-0 after:border-b-neutral-300 z-20 after:z-0 after:absolute after:-top-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                  className={`absolute top-20 right-0 z-20 flex items-center gap-1 rounded-lg bg-neutral-300 p-4 opacity-0 shadow-lg duration-300 after:absolute after:-top-5 after:right-3 after:z-0 after:block after:w-0 after:scale-105 after:border-[10px] after:border-t-transparent after:border-b-neutral-300 after:border-r-transparent after:border-l-transparent  ${
                     showInfo && "opacity-100"
                   }`}
                 >
@@ -277,21 +283,24 @@ const MyOrderDetails = () => {
               </div>
             </div>
             <div>
-              <h3 className="text-zinc-800 text-lg font-semibold font-['Roboto'] mt-[40] mb-4">
+              <h3 className="mt-[40] mb-4 font-['Roboto'] text-lg font-semibold text-zinc-800">
                 Other Items in Your Order
               </h3>
 
               {otherItems?.map((item: any, index: any) => (
-                <div className="flex justify-between flex-wrap bg-white rounded-lg p-4">
-                  <div className="flex gap-2 w-[70%]">
+                <div
+                  className="flex flex-wrap justify-between rounded-lg bg-white p-4"
+                  key={index}
+                >
+                  <div className="flex w-[70%] gap-2">
                     <img
                       src={item?.productID.images[0]}
-                      className="w-10 h-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover"
                       alt=""
                     />
                     <div className="flex-1">
                       <h3
-                        className="text-zinc-800 text-sm font-semibold mb-1 cursor-pointer"
+                        className="mb-1 cursor-pointer text-sm font-semibold text-zinc-800"
                         onClick={() => handleViewOrder(index)}
                       >
                         {item?.productID.information.productName}
@@ -299,19 +308,19 @@ const MyOrderDetails = () => {
                         {item?.productID.details.productWeight}
                         kg)
                       </h3>
-                      <span className="text-neutral-500 text-sm block mb-2">
+                      <span className="mb-2 block text-sm text-neutral-500">
                         {item?.vendor.sellerAccountInformation.shopName}
                       </span>
-                      <span className={`text-neutral-400 text-sm ${status}`}>
-                        {item?._status}
+                      <span className={`text-sm ${statusOrder}`}>
+                        {item?.status}
                       </span>
                     </div>
                   </div>
-                  <ul className="w-[80px] flex flex-col justify-between">
-                    <li className="text-zinc-800 text-[13px] font-normal text-right">
+                  <ul className="flex w-[80px] flex-col justify-between">
+                    <li className="text-right text-[13px] font-normal text-zinc-800">
                       {moment(item?.orderDate).format("DD MMM YYYY")}
                     </li>
-                    <li className="text-zinc-800 text-sm font-normal text-right">
+                    <li className="text-right text-sm font-normal text-zinc-800">
                       X{item?.quantity}
                     </li>
                   </ul>
@@ -325,24 +334,24 @@ const MyOrderDetails = () => {
 
         {data && (
           <>
-            <div className="hidden lg:flex justify-between flex-wrap gap-5">
+            <div className="hidden flex-wrap justify-between gap-5 lg:flex">
               <div
-                className="w-1/4 h-[200px] rounded-lg"
+                className="h-[200px] w-1/4 rounded-lg"
                 style={{
                   backgroundImage: `url('${productImg}')`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
               ></div>
-              <div className="lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)] lg:min-h-[100px] xl:min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+              <div className="flex flex-col justify-between rounded-lg border border-[#D9D9D9] bg-[#F4F4F4]  p-4 lg:min-h-[100px] lg:w-[calc(75%_-_20px)] xl:min-h-[200px] xl:w-[calc(75%_/_2_-_20px)]">
                 <div className="flex justify-between">
                   <MdOutlineStorefront size={20} />
-                  <span className="text-neutral-400 text-sm">Abuja</span>
+                  <span className="text-sm text-neutral-400">Abuja</span>
                 </div>
-                <div className="flex justify-between mt-16">
+                <div className="mt-16 flex justify-between">
                   <div>
-                    <div className="text-neutral-400 text-sm">Store Name</div>
-                    <span className="text-zinc-800 text-base">
+                    <div className="text-sm text-neutral-400">Store Name</div>
+                    <span className="text-base text-zinc-800">
                       {
                         selectedProduct?.vendor.sellerAccountInformation
                           .shopName
@@ -350,31 +359,31 @@ const MyOrderDetails = () => {
                     </span>
                   </div>
                   <div>
-                    <div className="text-neutral-400 text-sm">Order ID</div>
+                    <div className="text-sm text-neutral-400">Order ID</div>
                     <span
-                      className="text-zinc-800 text-base"
+                      className="text-base text-zinc-800"
                       title={order?._id}
                     >
                       {order?._id.slice(-7)}
                     </span>
                   </div>
                   <div>
-                    <div className="text-neutral-400 text-sm">Product Name</div>
-                    <span className="text-zinc-800 text-base">
+                    <div className="text-sm text-neutral-400">Product Name</div>
+                    <span className="text-base text-zinc-800">
                       {selectedProduct?.productID.information.productName}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="lg:w-full xl:w-[calc(75%_/_2_-_20px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
-                <div className="flex justify-between relative">
+              <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-[#D9D9D9] bg-[#F4F4F4] p-4 lg:w-full xl:w-[calc(75%_/_2_-_20px)]">
+                <div className="relative flex justify-between">
                   <div className="flex items-start gap-1">
                     <MdPersonOutline size={20} className="mt-1" />
                     <div className="">
-                      <span className="block text-zinc-800 text-base font-normal">
+                      <span className="block text-base font-normal text-zinc-800">
                         {order?.customer?.firstName}
                       </span>
-                      <span className="text-[#A2A2A2] text-[14px] leading-[16px] pr-2">
+                      <span className="pr-2 text-[14px] leading-[16px] text-[#A2A2A2]">
                         Order Date: &nbsp;
                         <span className="text-[#333333]">
                           {moment(order?.orderDate).format("DD MMMM YYYY")}
@@ -395,86 +404,86 @@ const MyOrderDetails = () => {
                     }
                     onClick={
                       order?.status !== "completed"
-                        ? () => handleRate(selectedProduct?.productID?._id)
+                        ? () => null
                         : () => handleRate(selectedProduct?.productID?._id)
                     }
-                    className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600"
+                    className="cursor-pointer text-base font-semibold text-zinc-800 underline hover:text-green-600"
                   >
                     Rate This Product
                   </button>
 
                   {/* RATE PRODUCT POP INFO */}
                   <div
-                    className={`bg-white flex gap-1 items-center opacity-0 border border-neutral-200 duration-300 shadow-lg rounded-lg p-4 absolute -top-16 right-3 after:block after:border-[10px] after:border-t-white after:w-0 after:border-b-transparent z-20 after:z-0 after:absolute after:-bottom-5 after:right-3 after:border-r-transparent after:border-l-transparent after:scale-105  ${
+                    className={`absolute -top-16 right-3 z-20 flex items-center gap-1 rounded-lg border border-neutral-200 bg-white p-4 opacity-0 shadow-lg duration-300 after:absolute after:-bottom-5 after:right-3 after:z-0 after:block after:w-0 after:scale-105 after:border-[10px] after:border-t-white after:border-b-transparent after:border-r-transparent after:border-l-transparent  ${
                       showInfo && "opacity-100"
                     }`}
                   >
                     You can't rate, kindly complete your order
                   </div>
                 </div>
-                <div className="flex justify-between mt-3">
+                <div className="mt-3 flex justify-between">
                   <div>
-                    <span className="text-neutral-400 text-sm font-normal">
+                    <span className="text-sm font-normal text-neutral-400">
                       Phone
                     </span>
-                    <span className="text-zinc-800 text-base block">
+                    <span className="block text-base text-zinc-800">
                       {order?.billingInformation?.phoneNumber}
                     </span>
                   </div>
                   <div>
-                    <span className="text-neutral-400 text-sm font-normal">
+                    <span className="text-sm font-normal text-neutral-400">
                       Email
                     </span>
-                    <span className="text-zinc-800 text-base block">
+                    <span className="block text-base text-zinc-800">
                       {order?.customer.email}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+              <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-[#D9D9D9] bg-[#F4F4F4] p-4 lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)]">
                 <div className="flex justify-between">
                   <IoBasketOutline size={20} />
-                  <span className={`text-neutral-400 text-sm ${status}`}>
+                  <span className={`text-sm ${statusOrder}`}>
                     {order?.status}
                   </span>
                 </div>
-                <div className="flex justify-between items-end mt-16">
+                <div className="mt-16 flex items-end justify-between">
                   <div>
-                    <div className="text-neutral-400 text-sm">Price</div>
-                    <span className="text-zinc-800 text-base">
+                    <div className="text-sm text-neutral-400">Price</div>
+                    <span className="text-base text-zinc-800">
                       ₦{selectedProduct?.price.toLocaleString()}
                     </span>
                   </div>
                   <div>
-                    <div className="text-neutral-400 text-sm">Quantity</div>
-                    <span className="text-zinc-800 text-base">
+                    <div className="text-sm text-neutral-400">Quantity</div>
+                    <span className="text-base text-zinc-800">
                       {selectedProduct?.quantity}
                     </span>
                   </div>
                   <div>
-                    <div className="text-neutral-400 text-sm">Order Total</div>
-                    <span className="text-zinc-800 text-base">
+                    <div className="text-sm text-neutral-400">Order Total</div>
+                    <span className="text-base text-zinc-800">
                       ₦{order?.totalAmount.toLocaleString()}
                     </span>
                   </div>
-                  <button className="text-zinc-800 text-base font-medium underline hover:text-green-600 cursor-pointer">
+                  <button className="cursor-pointer text-base font-medium text-zinc-800 underline hover:text-green-600">
                     Return Order
                   </button>
                 </div>
               </div>
-              <div className="lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)] min-h-[200px] bg-[#F4F4F4] border border-[#D9D9D9]  rounded-lg p-4 flex flex-col justify-between">
+              <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-[#D9D9D9] bg-[#F4F4F4] p-4 lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)]">
                 <div className="flex justify-between">
                   <MdOutlinePersonPinCircle size={20} />
-                  <button className="text-zinc-800 text-base font-semibold underline cursor-pointer hover:text-green-600">
+                  <button className="cursor-pointer text-base font-semibold text-zinc-800 underline hover:text-green-600">
                     Track Order
                   </button>
                 </div>
-                <div className="flex justify-between mt-4 gap-6">
+                <div className="mt-4 flex justify-between gap-6">
                   <div>
-                    <div className="text-neutral-400 text-sm">
+                    <div className="text-sm text-neutral-400">
                       Billing Address
                     </div>
-                    <span className="text-zinc-800 text-base">
+                    <span className="text-base text-zinc-800">
                       {order?.billingInformation.address}
                     </span>
                   </div>
@@ -487,12 +496,12 @@ const MyOrderDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:block hidden mt-8">
-              <h3 className="text-zinc-800 text-2xl font-semibold font-['Roboto'] tracking-wide mb-6">
+            <div className="mt-8 hidden lg:block">
+              <h3 className="mb-6 font-['Roboto'] text-2xl font-semibold tracking-wide text-zinc-800">
                 Other Items In Your Order
               </h3>
               <div className="w-full">
-                <table className="w-full border-collapse border border-zinc-300 rounded-2xl">
+                <table className="w-full border-collapse rounded-2xl border border-zinc-300">
                   <thead>
                     <tr className="bg-gray-200">
                       <th className="border border-zinc-300 py-4 px-8 text-left">
@@ -521,12 +530,12 @@ const MyOrderDetails = () => {
                   </thead>
                   <tbody>
                     {otherItems?.map((item: any, index: any) => (
-                      <tr>
+                      <tr key={index}>
                         <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          <div className="flex justify-left gap-2 flex-wrap items-center">
+                          <div className="justify-left flex flex-wrap items-center gap-2">
                             <img
                               src={item?.productID.images[0]}
-                              className="w-10 h-10 rounded-full object-cover"
+                              className="h-10 w-10 rounded-full object-cover"
                               alt="product thumbnail"
                             />
                             <span>
@@ -560,18 +569,18 @@ const MyOrderDetails = () => {
                           {item?.quantity}
                         </td>
                         <td
-                          className={`p-3 border border-zinc-300 px-5 text-sm ${status}`}
+                          className={`border border-zinc-300 p-3 px-5 text-sm ${statusOrder}`}
                         >
-                          {item?._status || "-"}
+                          {item?.status || "-"}
                         </td>
                         <td
-                          className={`p-3 border border-zinc-300 px-5 text-sm`}
+                          className={`border border-zinc-300 p-3 px-5 text-sm`}
                         >
                           <span
                             onClick={() => {
                               handleViewOrder(index);
                             }}
-                            className="text-zinc-800 text-sm font-normal cursor-pointer underline"
+                            className="cursor-pointer text-sm font-normal text-zinc-800 underline"
                           >
                             View
                           </span>
@@ -638,7 +647,7 @@ const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
     // Logic for initiating return for a specific product
     // This could involve API calls, state updates, etc.
     console.log(
-      `Return initiated for product ${productId} in order ${order.orderId}`
+      `Return initiated for product ${productId} in order ${order.orderId}`,
     );
   };
   const buyAgain = (productId: number) => {
@@ -658,26 +667,26 @@ const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
   });
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Order Details</h2>
+    <div className="mx-auto max-w-xl rounded-md bg-white p-6 shadow-md">
+      <h2 className="mb-4 text-2xl font-bold">Order Details</h2>
 
       {Object.entries(groupedProducts).map(([storeName, products]) => (
         <div key={storeName} className="mb-6">
-          <h3 className="text-xl font-semibold mb-2">{storeName}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <h3 className="mb-2 text-xl font-semibold">{storeName}</h3>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (
-              <div key={product.id} className="bg-gray-100 p-4 rounded-md">
+              <div key={product.id} className="rounded-md bg-gray-100 p-4">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-40 object-cover mb-4 rounded-md"
+                  className="mb-4 h-40 w-full rounded-md object-cover"
                 />
-                <div className="flex flex-col justify-between h-full">
+                <div className="flex h-full flex-col justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="mb-2 text-lg font-semibold">
                       {product.name}
                     </h3>
-                    <p className="text-gray-500 mb-2">{product.details}</p>
+                    <p className="mb-2 text-gray-500">{product.details}</p>
                     <p className="text-gray-500">
                       Price: ₦{product.price.toLocaleString()}
                     </p>
@@ -689,20 +698,20 @@ const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
                   <div className="mt-4">
                     <button
                       onClick={() => buyAgain(product.id)}
-                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-800 mr-2"
+                      className="focus:shadow-outline-green mr-2 rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600 focus:outline-none active:bg-green-800"
                     >
                       Buy Again
                     </button>
                     {returnEligibilities[product.id] && (
                       <button
                         onClick={() => initiateReturn(product.id)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                        className="focus:shadow-outline-blue rounded bg-blue-500 px-3 py-1 text-white hover:bg-blue-600 focus:outline-none active:bg-blue-800"
                       >
                         Initiate Return
                       </button>
                     )}
                     {!returnEligibilities[product.id] && (
-                      <p className="text-red-500 mt-2">
+                      <p className="mt-2 text-red-500">
                         Product not eligible for return.
                       </p>
                     )}
