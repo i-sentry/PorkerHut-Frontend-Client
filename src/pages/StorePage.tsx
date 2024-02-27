@@ -30,34 +30,26 @@ interface iProps {
 
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const { id } = useParams();
-  const { store } = useParams();
-  console.log(store, "letsGo");
-  // const [rating, setRating] = useState(0);
-  // const [hover, setHover] = useState(0);
-  // const getAllProducts = useGetProductByVendor(id)
+  // const { store } = useParams();
+
   const { data: getApprovedProducts, isLoading } =
     useGetApprovedProductByVendor(id);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState([]);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  console.log(data, "data");
   let itemsPerPage = 20;
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
   // const menuItems = [...new Set(productData.map((d: any) => d.category))];
 
-  // console.log(${getApprovedProducts?.data?.information?.productName}, "page")
-
   const handleApplyClick = () => {
-    console.log("Selected Items click:", selectedItems);
     const lowerCaseSelectedItems = selectedItems.map((item: any) =>
       item.toLowerCase(),
     );
-    console.log("lower Items click:", lowerCaseSelectedItems);
 
     // Check if selectedItems array is empty
     if (lowerCaseSelectedItems.length === 0) {
@@ -80,10 +72,9 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
       // return categoryMatch && cityMatch && priceMatch;
     });
 
-    console.log("Filtered Data:", newFilteredData);
-
     // Update filteredData state
     setFilteredData(newFilteredData);
+    setOpenModal(false);
   };
 
   const handleClear = () => {
@@ -92,29 +83,23 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
   };
 
   useEffect(() => {
-    if (!isLoading) {
-      setData(getApprovedProducts?.data);
-    }
+    setData(getApprovedProducts?.data);
   }, [getApprovedProducts?.data, isLoading]);
-
-  console.log(selectedItems, "selectedItems");
-  console.log(data, "data");
 
   useEffect(() => {
     // Initialize filteredData with the original data when data changes
     setFilteredData(data);
   }, [data]);
 
-  // useEffect(() => {
-  //   const filteredData = productData.filter(
-  //     (item) => item.title === id
-  //   );
-  //   setData(filteredData);
-  // }, [id]);
-
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
+
+  const totalRating = data
+    ?.map((rating: any) => rating?.avgRating)
+    ?.reduce((acc: any, cur: any) => acc + cur, 0);
+
+  const avgRating = totalRating / data?.length;
 
   return (
     <AppLayout>
@@ -142,7 +127,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   link: "/products",
                 },
                 {
-                  name: `${getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}`,
+                  name: `${isLoading ? "" : getApprovedProducts?.data?.[0].vendor?.sellerAccountInformation?.shopName}`,
                   link: "/store-page",
                 },
               ]}
@@ -182,10 +167,10 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
           )}
 
           {!isLoading && data && (
-            <div className="gap-8 md:flex">
-              <div className="static top-[50px] h-full overflow-hidden  md:block md:w-1/4">
+            <div className="gap-8 lg:flex">
+              <div className="static top-[50px] h-full overflow-hidden  lg:block lg:w-1/4">
                 <div className="flex flex-col gap-4">
-                  <div className="mx-4 mb-10 rounded-sm bg-white px-6 xxs:py-6 md:mx-0 md:mb-0 md:py-4">
+                  <div className="mx-4 mb-4 rounded-sm bg-white px-6 xxs:py-6 md:mx-0 md:mb-0 md:py-4">
                     <div className=" border-b">
                       <h1 className="mb-2 pb-2 text-[18px] font-medium capitalize leading-[12px] md:pb-0">
                         {
@@ -210,50 +195,21 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     <div>
                       <div className="mt-2">
                         <span className="mt-2  pb-2 text-lg  font-medium leading-[12px] text-zinc-800">
-                          Average Rating: 4.7/5
+                          Average Rating: {avgRating}
+                          /5
                         </span>
                       </div>
                       <div className="mt-2 flex cursor-pointer text-yellow-500">
-                        {/* {[...Array(5)].map((start, i) => {
-                        const ratingValue = i + 1;
-                        return (
-                          <label className="">
-                            <input
-                              type="radio"
-                              name="rating"
-                              className="hidden"
-                              value={ratingValue}
-                              onClick={() => setRating(ratingValue)}
-                            />
-                            <AiFillStar
-                              size={20}
-                              color={
-                                ratingValue <= (hover || rating)
-                                  ? "#fe6600"
-                                  : "#e4e5e9"
-                              }
-                              onMouseEnter={() => setHover(ratingValue)}
-                              onMouseLeave={() => setHover(0)}
-                            />
-                          </label>
-                        );
-                      })} */}
                         <RatingStars
                           maxRating={5}
                           iconSize={24}
                           canRate={false}
-                          defaultRating={4}
+                          defaultRating={avgRating}
                         />
                       </div>
                     </div>
                   </div>
-                  <div className="bg-white p-6 xxs:hidden md:block">
-                    {/* <Filter
-                    setData={setData}
-                    // menuItem={menuItems}
-                    handleClick={handleClick}
-                  /> */}
-
+                  <div className="bg-white p-6 xxs:hidden lg:block">
                     <Filtercomp
                       selectedItems={selectedItems}
                       setSelectedItems={setSelectedItems}
@@ -264,7 +220,7 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white px-4 xxs:w-full md:w-3/4">
+              <div className="mt-4 bg-white px-4 xxs:w-full lg:mt-0 lg:w-3/4">
                 <div className="flex items-center justify-between ">
                   <div className="xxs:py-4 md:flex md:items-center md:justify-between md:gap-16">
                     <h1 className="text-xl font-medium md:pl-4">
@@ -285,15 +241,15 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                   </div>
 
                   <div className="flex items-center ">
-                    <span className="ml-14 pt-2 text-base font-normal text-[#BDBDBD] xxs:hidden md:block">
+                    <span className="ml-14 pt-2 text-base font-normal text-[#BDBDBD] xxs:hidden lg:block">
                       Sort by:
                     </span>
-                    <span className="xxs:hidden md:block">
+                    <span className="xxs:hidden lg:block">
                       <Sort data={filteredData} setData={setData} />
                     </span>
                     <div
                       onClick={() => setOpenModal(true)}
-                      className="flex cursor-pointer items-end justify-center gap-2 px-2 md:hidden"
+                      className="flex cursor-pointer items-end justify-center gap-2 px-2 lg:hidden"
                     >
                       <LuSettings2 className=" " size={22} />
                       <span className="text-sm">Filter Products</span>
@@ -306,7 +262,6 @@ const StorePage: React.FC<iProps> = ({ handleClick }) => {
                     {chunkArray(filteredData, itemsPerPage)[
                       currentPageIndex - 1
                     ]?.map((Tdata, index) => {
-                      console.log(Tdata, "Tdata");
                       return <ProductCard item={Tdata} key={index} />;
                     })}
                   </div>

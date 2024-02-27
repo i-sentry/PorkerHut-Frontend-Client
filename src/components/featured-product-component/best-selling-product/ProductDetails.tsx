@@ -68,15 +68,12 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
   const avgRating = singleProduct?.data?.avgRating;
-  console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState(avgRating as number);
 
-  console.log(productID, "productID");
   useEffect(() => {
     // setTemp(false);
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
     } else {
@@ -97,8 +94,6 @@ const ProductDetails = () => {
       singleProduct?.data?.information?.subcategory?.name,
   );
 
-  console.log(singleProduct, relatedProducts, "All Related");
-
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
     [checkIsFav?.data?.data?.isFavorite],
@@ -107,9 +102,6 @@ const ProductDetails = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
-
-  console.log(user, "User Now hhhh");
-  console.log(user?._id, singleProduct?.data?._id, "UserID & ProductID");
 
   const handleOpen = (value: number) => {
     setOpen(open === value ? null : value);

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
-
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
@@ -11,8 +9,6 @@ import AppLayout from "../components/utility/AppLayout";
 import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
 import { SkeletonLoader } from "../components/category-component/Category";
-// import Spinner from "../components/Spinner/Spinner";
-// import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
 import { CgSpinnerAlt } from "react-icons/cg";
@@ -37,7 +33,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   const { data: getAllProducts, isLoading } = useGetAllProducts();
 
-  // console.log({ menuItems }, "here");
   useEffect(
     () =>
       setData(
@@ -47,6 +42,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
       ),
     [getAllProducts?.data],
   );
+
   useEffect(() => {
     // Initialize filteredData with the original data when data changes
     setFilteredData(data);
@@ -69,9 +65,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  console.log(selectedItems, "selectedItems");
-  console.log(data, "data");
 
   const handleApplyClick = () => {
     const lowerCaseSelectedItems = selectedItems.map((item) =>
@@ -98,9 +91,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
       return categoryMatch || cityMatch;
       // return categoryMatch && cityMatch && priceMatch;
     });
-
-    console.log("Filtered Data:", newFilteredData);
-    console.log("Selected Items:", selectedItems);
 
     // Update filteredData state
     setFilteredData(newFilteredData);
@@ -208,7 +198,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </div>
                     </div>
                     {filteredData?.length ? (
-                      <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4 lg:grid-cols-3  lg:gap-3 lg:px-0">
+                      <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4 md:grid-cols-3  lg:gap-3 lg:px-0">
                         {chunkArray(Object.values(filteredData), itemsPerPage)[
                           currentPageIndex - 1
                         ]?.map((Tdata, index) => {

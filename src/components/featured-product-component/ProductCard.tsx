@@ -43,7 +43,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
 
   return (
     <div className=" cursor:pointer z-10 flex transform  flex-col overflow-hidden rounded-sm  p-0  hover:shadow-xl lg:p-3 ">
-      <div className="item-center group relative flex w-full justify-center overflow-hidden rounded-md xxs:h-52 md:h-[380px]">
+      <div className="item-center group relative flex w-full justify-center overflow-hidden rounded-md xxs:h-52 md:h-[250px]">
         <img
           onClick={handleCardClick}
           src={item?.images?.[0] || noImage}
