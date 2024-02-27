@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useReadingTime } from "react-hook-reading-time";
 import { imageUrl } from "../../services/api";
 import moment from "moment";
+import Image from "../../assets/defaultBlogImg.png";
 
 const Loader = () => (
   <div className="relative w-full overflow-hidden">
@@ -23,6 +24,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
     _id,
   } = blog || {};
   const { minutes } = useReadingTime(content);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const imgUrl = `${imageUrl}/${featuredImage}`;
   const truncatedString = content?.slice(0, 250) + "...";
   const formattedDate = moment(createdAt).format("MMMM Do YYYY");
@@ -34,7 +36,8 @@ const BlogCard = ({ blog }: { blog: any }) => {
           <Link to="#" className="">
             <img
               className="h-[300px] w-full overflow-hidden rounded-t object-cover"
-              src={imgUrl}
+              // src={imgUrl}
+              src={Image}
               alt=""
             />
           </Link>

@@ -49,8 +49,9 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
+  console.log(cart, "cart");
   // const products = useAppSelector((state) => state.product);
-  const cartTotal = Object.values(cart).reduce((acc, current) => {
+  const cartTotal = Object.values(cart)?.reduce((acc, current) => {
     return (
       acc +
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)

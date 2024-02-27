@@ -85,9 +85,6 @@ const ProductDetails = () => {
     }
   }, []);
 
-  // console.log(StoredUser, "store user");
-  // console.log(allProducts, "All Products");
-
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any) =>
       product?.approvalStatus === "approved" &&
@@ -101,12 +98,6 @@ const ProductDetails = () => {
   );
 
   console.log(singleProduct, relatedProducts, "All Related");
-
-  // let productID;
-
-  // if (!loading) productID = singleProduct?.data?._id;
-
-  // console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
 
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
@@ -126,7 +117,6 @@ const ProductDetails = () => {
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: singleProduct?.data?._id }));
-    console.log(singleProduct?.data?._id);
   };
 
   const handleNavigate = () => {
@@ -166,9 +156,6 @@ const ProductDetails = () => {
         toast.error(`Could not complete this action`);
       });
   };
-
-  console.log(user, "users");
-  console.log(isFavorite, "my favs");
 
   return (
     <AppLayout>
@@ -275,7 +262,7 @@ const ProductDetails = () => {
                 </span>
               </span>
               <div className="flex flex-col">
-                <h1 className="block text-base font-normal text-[#797979]">
+                <h1 className="block text-sm font-normal text-[#797979]">
                   Quantity
                 </h1>
 
@@ -433,9 +420,9 @@ export default ProductDetails;
 const SkeletonLoader = () => {
   return (
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
-    <div className="relative grid w-full grid-cols-2 gap-4 overflow-hidden bg-white p-6">
-      <div className="flex gap-3">
-        <div className="flex w-[25%] flex-col gap-3">
+    <div className="relative grid w-full gap-4 overflow-hidden bg-white p-6 px-0 md:grid-cols-2 md:px-4">
+      <div className="flex flex-col-reverse gap-3 md:flex-row">
+        <div className="mx-auto flex w-10/12 gap-3 md:mx-0 md:w-[25%] md:flex-col">
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
@@ -443,12 +430,14 @@ const SkeletonLoader = () => {
         <div className="skeleton-loader h-[350px_!important] w-[73%]"></div>
       </div>
       {/* <div className="skeleton-loader"></div> */}
-      <div className="flex w-full flex-col items-start">
-        <div className="w-full">
+      <div className="mt-6 flex w-full flex-col items-start md:mt-0">
+        <div className="w-full space-y-3">
           <div className="text-loader h-[30px_!important]"></div>
           <div className="text-loader h-[30px_!important]"></div>
         </div>
-        <div className="w-full">
+        <div className="w-full space-y-4">
+          <div className="text-loader"></div>
+          <div className="text-loader"></div>
           <div className="text-loader"></div>
           <div className="text-loader"></div>
         </div>
