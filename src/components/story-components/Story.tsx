@@ -18,50 +18,50 @@ const Story = () => {
     " Sustainability is a vital part of our business ethos. We are dedicated to raising our pigs using humane and environmentally-friendly practices, ensuring the longevity of our operations and the world we live in. All of our pork products are responsibly sourced from farms that employ sustainable farming methods, ensuring that we play our part in creating a sustainable future.";
 
   return (
-    <div className=" lg:mt-10  xxs:pb-4">
-      <div className="flex justify-center items-center lg:mx-10 xxs:mt-4 mb-2">
-        <h1 className="font-medium md:text-[40px] lg:text-[40px] lg:leading-[47px] xxs:text-[20px] xxs:leading-[23px] text-[#333333]">
+    <div className=" xxs:pb-4  lg:mt-10">
+      <div className="mb-2 flex items-center justify-center xxs:mt-4 lg:mx-10">
+        <h1 className="font-medium text-[#333333] xxs:text-[20px] xxs:leading-[23px] md:text-[40px] lg:text-[40px] lg:leading-[47px]">
           How We Are Different
         </h1>
       </div>
-      <div className="flex items-center justify-center mb-16">
+      <div className="mb-16 flex items-center justify-center">
         <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
-      <div className="grid lg:grid-cols-3 lg:gap-12 xxs:gap-5 px-[4%]">
+      <div className="grid px-[4%] xxs:gap-5 lg:grid-cols-3 lg:gap-12">
         <div
-          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
+          className="flex h-[380px] flex-col items-start justify-end rounded p-4 md:h-[480px]"
           style={{
             backgroundImage: `url(${ethicalPic})`,
             backgroundSize: "cover",
           }}
         >
           <div>
-            <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#fff] ">
               Sustainability
             </h1>
             <TruncatedText text={sustainability} maxLength={120} />
           </div>
         </div>
         <div
-          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
+          className="flex h-[380px] flex-col items-start justify-end rounded p-4 md:h-[480px]"
           style={{
             backgroundImage: `url(${qualityPic})`,
             backgroundSize: "cover",
           }}
         >
-          <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
+          <h1 className="text-[24px] font-medium leading-[28px] text-[#fff] ">
             Transparency
           </h1>
           <TruncatedText text={transparency} maxLength={120} />
         </div>
         <div
-          className="p-4 flex flex-col items-start justify-end rounded h-[380px] md:h-[480px]"
+          className="flex h-[380px] flex-col items-start justify-end rounded p-4 md:h-[480px]"
           style={{
             backgroundImage: `url(${transparencyPic})`,
             backgroundSize: "cover",
           }}
         >
-          <h1 className="text-[#fff] font-medium text-[24px] leading-[28px] ">
+          <h1 className="text-[24px] font-medium leading-[28px] text-[#fff] ">
             Community
           </h1>
 
@@ -69,10 +69,10 @@ const Story = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center lg:my-10 xxs:my-10 lg:mb-0">
+      <div className="flex items-center justify-center xxs:my-10 lg:my-10 lg:mb-0">
         <NavLink
           to="/about-us"
-          className="py-3 px-7 bg-[#197B30] text-[#fff] rounded text-[16px] leading-[24px] shadow-md"
+          className="rounded bg-[#197B30] py-3 px-7 text-[16px] leading-[24px] text-[#fff] shadow-md"
         >
           Read Our Story
         </NavLink>
@@ -101,12 +101,12 @@ export const TruncatedText: React.FC<TruncatedTextProps> = ({
 
   return (
     <div className="">
-      <p className="text-[#E6E6E6] pt-2  leading-[24px] font-normal text-justify text-[16px] ">
+      <p className="pt-2 text-[16px]  font-normal leading-[24px] text-[#E6E6E6] ">
         {truncatedText}
         {text.length > maxLength && (
           <span
             onClick={toggleTruncated}
-            className="text-[#7ff39a] text-sm cursor-pointer hover:opacity-100"
+            className="cursor-pointer text-sm text-[#7ff39a] hover:opacity-100"
           >
             {" "}
             {isTruncated ? " See More " : ""}

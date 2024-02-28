@@ -15,7 +15,7 @@
 }
 
 .main-div {
-  @apply px-2 w-full max-w-[1000px] mx-auto;
+  @apply mx-auto w-full max-w-[1000px] px-2;
 }
 .title {
   @apply text-xl font-medium;
@@ -88,7 +88,8 @@
   stroke-miterlimit: 10;
   margin: 10% auto;
   box-shadow: inset 0px 0px 0px #4ade80;
-  animation: fill 0.4s ease-in-out 0.4s forwards,
+  animation:
+    fill 0.4s ease-in-out 0.4s forwards,
     scale 0.3s ease-in-out 0.9s both;
 }
 

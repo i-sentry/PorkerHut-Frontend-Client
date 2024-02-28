@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import Filter from "../components/accordion-component/Accordion";
 import Sort from "../components/accordion-component/Sort";
-
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
 import FilterSidebar from "../components/accordion-component/FilterSidebarModal";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
@@ -11,8 +9,6 @@ import AppLayout from "../components/utility/AppLayout";
 import { FiSettings } from "react-icons/fi";
 import { useGetAllProducts } from "../services/hooks/users/products";
 import { SkeletonLoader } from "../components/category-component/Category";
-// import Spinner from "../components/Spinner/Spinner";
-// import { useGetAllCategories } from "../services/hooks/Vendor/category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
 import { CgSpinnerAlt } from "react-icons/cg";
@@ -23,7 +19,7 @@ interface iProps {
   handleClick: (
     event:
       | React.ChangeEvent<HTMLInputElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
 }
 
@@ -37,16 +33,16 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   const { data: getAllProducts, isLoading } = useGetAllProducts();
 
-  // console.log({ menuItems }, "here");
   useEffect(
     () =>
       setData(
         getAllProducts?.data?.filter(
-          (product: any) => product?.approvalStatus === "approved"
-        )
+          (product: any) => product?.approvalStatus === "approved",
+        ),
       ),
-    [getAllProducts?.data]
+    [getAllProducts?.data],
   );
+
   useEffect(() => {
     // Initialize filteredData with the original data when data changes
     setFilteredData(data);
@@ -70,12 +66,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  console.log(selectedItems, "selectedItems");
-  console.log(data, "data");
-
   const handleApplyClick = () => {
     const lowerCaseSelectedItems = selectedItems.map((item) =>
-      item.toLowerCase()
+      item.toLowerCase(),
     );
 
     // Check if selectedItems array is empty
@@ -88,10 +81,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     // Filter the data based on selectedItems, city, and price range
     const newFilteredData = data.filter((item) => {
       const categoryMatch = lowerCaseSelectedItems.includes(
-        item.information.subcategory.name.toLowerCase()
+        item.information.subcategory.name.toLowerCase(),
       );
       const cityMatch = lowerCaseSelectedItems.includes(
-        item.vendor.businessInformation.city.toLowerCase()
+        item.vendor.businessInformation.city.toLowerCase(),
       );
 
       // Adjust the logic based on your requirements
@@ -99,11 +92,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
       // return categoryMatch && cityMatch && priceMatch;
     });
 
-    console.log("Filtered Data:", newFilteredData);
-    console.log("Selected Items:", selectedItems);
-
     // Update filteredData state
     setFilteredData(newFilteredData);
+    setOpenModal(false);
   };
   const handleClear = () => {
     setSelectedItems([]);
@@ -123,9 +114,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
       />
 
       <AppLayout>
-        <div className="bg-[#EEEEEE] overflow-hidden relative lg:pb-10">
-          <div className="bg-[#EEEEEE] mt-16 lg:mt-24 lg:px-14 xxs:px-0 ">
-            <div className="lg:px-0 xxs:px-4">
+        <div className="relative overflow-hidden bg-[#EEEEEE] lg:pb-10">
+          <div className="mt-5 bg-[#EEEEEE] xxs:px-0 lg:mt-7 lg:px-4 ">
+            <div className="xxs:px-4 lg:px-0">
               <ProductsBreadCrumbs
                 items={[
                   {
@@ -140,8 +131,8 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               />
             </div>
 
-            <div className="lg:flex gap-8 ">
-              <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
+            <div className="gap-8 lg:flex ">
+              <div className="static top-[50px] h-full overflow-hidden rounded-sm bg-white p-6 xxs:hidden lg:block lg:w-1/4">
                 <Filtercomp
                   selectedItems={selectedItems}
                   setSelectedItems={setSelectedItems}
@@ -153,10 +144,10 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
               <div className="xxs:w-full lg:w-3/4">
                 {filteredData && filteredData?.length >= 1 ? (
-                  <div className=" bg-white w-full">
+                  <div className=" w-full bg-white">
                     <div className="flex items-center justify-between border-b   pl-3">
-                      <div className="lg:flex lg:items-center lg:justify-between lg:gap-8 xxs:py-4">
-                        <h1 className="lg:text-xl xxs:text-lg text-[#333333] font-medium xxs:pl-0 ">
+                      <div className="xxs:py-4 lg:flex lg:items-center lg:justify-between lg:gap-8">
+                        <h1 className="font-medium text-[#333333] xxs:pl-0 xxs:text-lg lg:text-xl ">
                           All Products
                         </h1>
                         <div className="flex items-center gap-3">
@@ -185,13 +176,13 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </div>
 
                       <div className="flex items-center ">
-                        <span className="pt-2 ml-14 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
+                        <span className="ml-14 pt-2 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
                           Sort by:
                         </span>
                         <span className="xxs:hidden lg:block">
                           <Sort data={filteredData} setData={setData} />
                         </span>
-                        <div className="lg:hidden xxs:flex justify-center items-end gap-2 px-3 font-medium cursor-pointer ">
+                        <div className="cursor-pointer items-end justify-center gap-2 px-3 font-medium xxs:flex lg:hidden ">
                           <FiSettings
                             className="rotate-90 "
                             size={22}
@@ -207,7 +198,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </div>
                     </div>
                     {filteredData?.length ? (
-                      <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
+                      <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4 md:grid-cols-3  lg:gap-3 lg:px-0">
                         {chunkArray(Object.values(filteredData), itemsPerPage)[
                           currentPageIndex - 1
                         ]?.map((Tdata, index) => {
@@ -215,7 +206,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         })}
                       </div>
                     ) : (
-                      <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-4 xxs:px-4 ">
+                      <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
                         {Array.from({ length: 12 }).map((_, index) => (
                           <SkeletonLoader />
                         ))}
@@ -227,12 +218,12 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                         onClick={next}
                         className={
                           (currentPageIndex === 1 ? "no-item" : "") +
-                          " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
+                          " rounded-l-md border-2  border-[#A2A2A2] p-1  hover:bg-[#A2A2A2] hover:text-white"
                         }
                       >
                         <RxCaretLeft size={16} />
                       </button>
-                      <div className="pagination flex gap-1 items-center">
+                      <div className="pagination flex items-center gap-1">
                         {chunkArray(filteredData, itemsPerPage).map(
                           (_, index) => {
                             return (
@@ -241,14 +232,14 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                                 onClick={() => setCurrentPageIndex(index + 1)}
                                 className={` border-2   border-[#A2A2A2]  ${
                                   currentPageIndex === index + 1
-                                    ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                                    : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                                    ? "active-page-index flex-1 rounded-md  border-[#197B30] p-[1px] px-2 text-[#197B30]"
+                                    : "flex-1 rounded-md border-[#A2A2A2] p-[1px] px-2 text-[#A2A2A2] hover:bg-slate-100"
                                 }`}
                               >
                                 {index + 1}
                               </button>
                             );
-                          }
+                          },
                         )}
                       </div>
 
@@ -259,7 +250,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                           chunkArray(filteredData, itemsPerPage).length
                             ? "no-items"
                             : "") +
-                          " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
+                          " rounded-r-md border-2  border-[#A2A2A2] p-1 hover:bg-[#A2A2A2] hover:text-white"
                         }
                       >
                         <RxCaretRight size={16} />
@@ -267,7 +258,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center my-16">
+                  <div className="my-16 flex flex-col items-center justify-center">
                     {/* <svg
                       className="w-12 h-12 text-gray-400"
                       fill="none"

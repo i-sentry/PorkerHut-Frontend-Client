@@ -49,8 +49,9 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
+  console.log(cart, "cart");
   // const products = useAppSelector((state) => state.product);
-  const cartTotal = Object.values(cart).reduce((acc, current) => {
+  const cartTotal = Object.values(cart)?.reduce((acc, current) => {
     return (
       acc +
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)
@@ -103,12 +104,12 @@ const CartPage = () => {
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any, index: number) =>
       product?.approvalStatus === "approved" &&
-      !cartItems?.includes(product?._id)
+      !cartItems?.includes(product?._id),
   );
   console.log(cartItems, filteredApprovedProduct, "filteredApprovedProduct");
 
   const relatedProducts = filteredApprovedProduct?.filter((product: any) =>
-    cartSubCategory?.includes(product?.information?.subcategory?.name)
+    cartSubCategory?.includes(product?.information?.subcategory?.name),
   );
 
   console.log(relatedProducts, "related products");
@@ -120,10 +121,10 @@ const CartPage = () => {
         onClose={() => setShowModal(false)}
       />
 
-      <div className=" md:bg-[#F5F5F5]  lg:px-[4%] md:pb-[4%] md:pt-[7%] flex flex-col xxs:mt-28 md:mt-0">
+      <div className=" flex flex-col pt-4 xxs:mt-8 md:mt-0 md:bg-[#F5F5F5] md:pb-[4%] md:pt-5 lg:px-[4%]">
         {Object.values(cart).length > 0 ? (
           <>
-            <div className="xxs:hidden md:block">
+            <div className="block px-4">
               <ProductsBreadCrumbs
                 items={[
                   {
@@ -137,16 +138,16 @@ const CartPage = () => {
                 ]}
               />
             </div>
-            <div className="cart-items bg-white flex flex-col">
+            <div className="cart-items flex flex-col bg-white">
               <div className="header-text">
-                <div className=" xxs:flex xxs:items-center xxs:mb-3 md:mb-0">
-                  <h1 className="md:p-8  xxs:p-4 text-2xl font-semibold text-[#333333]">
+                <div className=" xxs:mb-3 xxs:flex xxs:items-center md:mb-0">
+                  <h1 className="text-2xl  font-semibold text-[#333333] xxs:p-4 md:p-8">
                     {/* Cart({Object.values(cart).length}) Cart(
                     {totalQuantity}) */}
                     Cart({cartTotalQuantity})
                   </h1>
 
-                  <div className="md:hidden">
+                  <div className="hidden">
                     <ProductsBreadCrumbs
                       items={[
                         {
@@ -162,15 +163,15 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <div className="product-headers border-b  hidden md:flex pb-2">
-                  <p className="ml-8 mr-24 md:text-[16px] text-[#BDBDBD]">
+                <div className="product-headers hidden  border-b pb-2 md:flex">
+                  <p className="ml-8 mr-24 text-[#BDBDBD] md:text-[16px]">
                     Product
                   </p>
-                  <div className="right flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20 flex justify-between">
-                    <p className="w-[136px] md:text-[16px] text-[#BDBDBD]">
+                  <div className="right flex flex-1 justify-between lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
+                    <p className="w-[136px] text-[#BDBDBD] md:text-[16px]">
                       Quantity
                     </p>
-                    <p className="w-[100px] text-center md:text-[16px] text-[#BDBDBD]">
+                    <p className="w-[100px] text-center text-[#BDBDBD] md:text-[16px]">
                       Price
                     </p>
                   </div>
@@ -179,7 +180,7 @@ const CartPage = () => {
 
               <div>
                 {/* {Object.values(cart).map((item, idx) => ( */}
-                <div className=" pt-8  flex flex-col gap-4 order-2 md:order-none xxs:hidden md:flex">
+                <div className=" order-2  flex flex-col gap-4 pt-8 xxs:hidden md:order-none md:flex">
                   {/* @ts-ignore */}
                   <CartCard2 item={cart} />
 
@@ -188,26 +189,26 @@ const CartPage = () => {
                 {/* ))} */}
               </div>
 
-              <div className="order-1 md:order-none flex">
-                <div className="w-[365px] hidden md:flex" />
-                <div className="right flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
+              <div className="order-1 flex md:order-none">
+                <div className="hidden w-[365px] md:flex" />
+                <div className="right flex-1 lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
                   <div className=" flex justify-between">
-                    <h1 className=" md:p-8 px-4 text-base font-semibold text-[#333333]">
+                    <h1 className=" px-4 text-base font-semibold text-[#333333] md:p-8">
                       Subtotal
                     </h1>
-                    <h1 className="items-end md:p-8  px-4 text-base font-semibold text-[#333333]">
+                    <h1 className="items-end px-4  text-base font-semibold text-[#333333] md:p-8">
                       ₦{cartTotal.toLocaleString()}
                     </h1>
                   </div>
-                  <div className=" p-5 flex gap-5 justify-center ">
+                  <div className=" flex justify-center gap-5 p-5 ">
                     <button
                       onClick={handleNavigate}
-                      className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center hidden"
+                      className=" hidden w-full select-none items-center whitespace-nowrap rounded-[4px] border border-[#479559] py-4 px-[45px] text-[14px] font-medium tracking-wider text-[#197B30] md:inline-block md:py-3 md:px-6 md:text-[14px]"
                     >
                       Continue to Shopping
                     </button>
                     <button
-                      className={`border xxs:z-20 md:z-0 border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] rounded-[4px] text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center w-full  ${
+                      className={`w-full select-none items-center whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#197B30] py-4 px-[45px] text-[14px] font-medium tracking-wider text-[#fff] xxs:z-20 md:z-0 md:inline-block md:py-3 md:px-6 md:text-[14px]  ${
                         isMobileScreen
                           ? isScrolling
                             ? "fixed top-[79px] w-[92%]"
@@ -227,36 +228,36 @@ const CartPage = () => {
             </div>
 
             <div>
-              <div className="p-4 flex flex-col gap-6 order-2 md:order-none md:hidden">
+              <div className="order-2 flex flex-col gap-6 p-4 md:order-none md:hidden">
                 {/* {Object.values(cart).map((item, idx) => ( */}
-                <div>
+                <div className="">
                   {/* @ts-ignore */}
                   <CartCard2 item={cart} />
 
-                  <div className="w-full h-[1px] border border-[#E1E1E1] my-6"></div>
+                  <div className="my-6 h-[1px] w-full border border-[#E1E1E1]"></div>
                 </div>
                 {/* ))} */}
               </div>
             </div>
 
-            <div className="more-items bg-white md:mt-16 xxs:mt-0 p-4">
-              <h1 className="text-[18px] text-[#333333] font-semibold py-6 md:hidden">
+            <div className="more-items bg-white p-4 xxs:mt-0 md:mt-16">
+              <h1 className="py-6 text-[18px] font-semibold text-[#333333] md:hidden">
                 Shop More Items
               </h1>
-              <h1 className="text-[18px] text-[#333333] font-semibold py-6 hidden md:block">
+              <h1 className="hidden py-6 text-[18px] font-semibold text-[#333333] md:block">
                 Related Products
               </h1>
 
-              <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full">
+              <div className="grid w-full grid-cols-2 gap-4 lg:grid-cols-4">
                 {chunkArray(relatedProducts, 8)?.[1 - 1]?.map(
                   (item: any, index: number) => (
                     <ProductCard item={item} key={index} />
-                  )
+                  ),
                 )}
               </div>
             </div>
             <div className=" p-5 md:hidden ">
-              <button className=" border border-[#479559] md:text-[14px] text-[14px] md:py-3 md:px-6 py-4 px-[45px] w-full rounded-[4px] text-[#197B30] bg-[#fff] md:inline-block select-none tracking-wider font-medium whitespace-nowrap items-center">
+              <button className=" w-full select-none items-center whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#fff] py-4 px-[45px] text-[14px] font-medium tracking-wider text-[#197B30] md:inline-block md:py-3 md:px-6 md:text-[14px]">
                 Continue Shopping
               </button>
             </div>
@@ -277,22 +278,22 @@ const CartPage = () => {
                 ]}
               />
             </div>
-            <div className="  bg-white border h-[500px]  rounded-lg">
+            <div className="  h-[500px] rounded-lg border  bg-white">
               {/* <h1 className=" p-8 text-2xl font-semibold text-[#333333]">
                 Cart
               </h1> */}
-              <div className=" flex flex-col justify-center h-full items-center text-center  relative m-auto">
-                <h1 className=" text-[32px] leading-9 text-[#333333] font-normal pb-9">
+              <div className=" relative m-auto flex h-full flex-col items-center  justify-center text-center">
+                <h1 className=" pb-9 text-[32px] font-normal leading-9 text-[#333333]">
                   Your Cart is Empty
                 </h1>
-                <div className=" opacity-[0.1] absolute  top-40 ">
+                <div className=" absolute top-40  opacity-[0.1] ">
                   <MdOutlineShoppingCart size={100} />
                 </div>
                 <button
                   onClick={() => {
                     navigate("/products");
                   }}
-                  className=" border border-[#479559] md:text-[14px] text-[8px] md:py-3 md:px-8 py-4 px-[45px] rounded-md text-[#fff] bg-[#197B30] md:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                  className=" select-none whitespace-nowrap rounded-md border border-[#479559] bg-[#197B30] py-4 px-[45px] text-[8px] font-medium tracking-wider text-[#fff] md:inline-block md:py-3 md:px-8 md:text-[14px]"
                 >
                   Start Shopping
                 </button>
@@ -302,16 +303,16 @@ const CartPage = () => {
         )}
       </div>
       {openModal && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-50 bg-gray-500">
-          <div className="bg-zinc-100 w-[680px] mb-4 p-6 md:p-10 rounded-lg shadow-lg relative">
+        <div className="fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-gray-500 bg-opacity-50">
+          <div className="relative mb-4 w-[680px] rounded-lg bg-zinc-100 p-6 shadow-lg md:p-10">
             <div className="flex items-center ">
               <button
                 onClick={() => toggleModal(false)}
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer"
+                className="absolute top-2 right-2 cursor-pointer text-gray-500 hover:text-gray-700"
               >
-                <span className="text-3xl p-10 mt-6 block">×</span>
+                <span className="mt-6 block p-10 text-3xl">×</span>
               </button>
-              <h2 className="text-xl font-semibold mb-4 mt-6">
+              <h2 className="mb-4 mt-6 text-xl font-semibold">
                 Select a Pick-up station close to you
               </h2>
             </div>
@@ -321,7 +322,7 @@ const CartPage = () => {
               </label>
               <input
                 id="state"
-                className="w-full border rounded-md p-4 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full rounded-md border p-4 focus:border-blue-300 focus:outline-none focus:ring"
                 value={location}
                 disabled={true}
                 // onChange={handleStateChange}
@@ -333,7 +334,7 @@ const CartPage = () => {
               </label>
               <select
                 id="city"
-                className="w-full border rounded-md p-4 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full rounded-md border p-4 focus:border-blue-300 focus:outline-none focus:ring"
                 value={selectedCity}
                 onChange={handleCityChange}
               >
@@ -343,18 +344,18 @@ const CartPage = () => {
                 </option>
                 {/* Add city options based on the selected state */}
               </select>
-              <span className="info-tooltip opacity-70 text-neutral-400 text-sm font-normal">
+              <span className="info-tooltip text-sm font-normal text-neutral-400 opacity-70">
                 No 14, Cresent by philip’s junction beside zenith bank off
                 kudirat Lugbe way Abuja - Abuja
               </span>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4 justify-between text-zinc-800 mt-6 mb-8">
+            <div className="mt-6 mb-8 flex flex-col justify-between gap-4 text-zinc-800 md:flex-row">
               <div>
-                <h2 className="text-zinc-800 text-sm font-medium ">
+                <h2 className="text-sm font-medium text-zinc-800 ">
                   Contact Information
                 </h2>
-                <p className="text-zinc-800 text-xs font-normal">
+                <p className="text-xs font-normal text-zinc-800">
                   Jane Jackson | +2349012345678
                 </p>
               </div>
@@ -367,15 +368,15 @@ const CartPage = () => {
               </div>
             </div>
 
-            <div className="flex md:justify-end mb-4 gap-6">
+            <div className="mb-4 flex gap-6 md:justify-end">
               <button
-                className="px-10 py-2 text-green-700 text-sm font-semibold rounded border mr-2 border-green-700"
+                className="mr-2 rounded border border-green-700 px-10 py-2 text-sm font-semibold text-green-700"
                 onClick={() => toggleModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="px-10 py-2 bg-green-700 rounded text-white text-sm font-semibold"
+                className="rounded bg-green-700 px-10 py-2 text-sm font-semibold text-white"
                 onClick={() => toggleModal(false)}
               >
                 Select

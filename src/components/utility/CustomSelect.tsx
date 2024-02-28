@@ -1,11 +1,7 @@
 import _ from "lodash-es";
 
 import React, { useEffect } from "react";
-import {
-  Control,
-  Controller,
-  UseFormGetValues,
-} from "react-hook-form";
+import { Control, Controller, UseFormGetValues } from "react-hook-form";
 import Select from "react-select";
 
 export type SelectOptionType = {
@@ -55,7 +51,7 @@ const CustomSelect = (props: CustomSelectProps) => {
     (option: SelectOptionType) =>
       option?.value === selectedOption?.value ||
       (option?.value === selectedOption?.value &&
-        selectedOption?.value.toString())
+        selectedOption?.value.toString()),
   );
 
   const customStyles = {
@@ -82,16 +78,17 @@ const CustomSelect = (props: CustomSelectProps) => {
     }),
   };
 
- useEffect(() => {
-   if (defaultValue) {
-     const defaultOption = alteredOptions.find(
-       (option: SelectOptionType) =>
-         option?.value === defaultValue.value ||
-         (option?.value === defaultValue.value && defaultValue.value.toString())
-     );
-     setSelectOption(defaultOption);
-   }
- }, [defaultValue, alteredOptions, setSelectOption]);
+  useEffect(() => {
+    if (defaultValue) {
+      const defaultOption = alteredOptions.find(
+        (option: SelectOptionType) =>
+          option?.value === defaultValue.value ||
+          (option?.value === defaultValue.value &&
+            defaultValue.value.toString()),
+      );
+      setSelectOption(defaultOption);
+    }
+  }, [defaultValue, alteredOptions, setSelectOption]);
 
   return (
     <div className="w-full">
@@ -103,7 +100,7 @@ const CustomSelect = (props: CustomSelectProps) => {
             getValues &&
             alteredOptions.find(
               (option: SelectOptionType) =>
-                option?.label === getValues(_.camelCase(name))
+                option?.label === getValues(_.camelCase(name)),
             )
           }
           render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -114,7 +111,7 @@ const CustomSelect = (props: CustomSelectProps) => {
                 getValues &&
                 alteredOptions.find(
                   (option: SelectOptionType) =>
-                    option?.label === getValues(_.camelCase(name))
+                    option?.label === getValues(_.camelCase(name)),
                 )
               }
               options={alteredOptions}

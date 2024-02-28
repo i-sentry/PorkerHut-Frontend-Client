@@ -68,15 +68,12 @@ const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
   const avgRating = singleProduct?.data?.avgRating;
-  console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState(avgRating as number);
 
-  console.log(productID, "productID");
   useEffect(() => {
     // setTemp(false);
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
     } else {
@@ -84,9 +81,6 @@ const ProductDetails = () => {
       setUser(null);
     }
   }, []);
-
-  // console.log(StoredUser, "store user");
-  // console.log(allProducts, "All Products");
 
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any) =>
@@ -100,14 +94,6 @@ const ProductDetails = () => {
       singleProduct?.data?.information?.subcategory?.name,
   );
 
-  console.log(singleProduct, relatedProducts, "All Related");
-
-  // let productID;
-
-  // if (!loading) productID = singleProduct?.data?._id;
-
-  // console.log(checkIsFav?.data?.data?.isFavorite, "checkIsFav");
-
   useEffect(
     () => setFavorite(checkIsFav?.data?.data?.isFavorite),
     [checkIsFav?.data?.data?.isFavorite],
@@ -117,16 +103,12 @@ const ProductDetails = () => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
-  console.log(user, "User Now hhhh");
-  console.log(user?._id, singleProduct?.data?._id, "UserID & ProductID");
-
   const handleOpen = (value: number) => {
     setOpen(open === value ? null : value);
   };
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: singleProduct?.data?._id }));
-    console.log(singleProduct?.data?._id);
   };
 
   const handleNavigate = () => {
@@ -167,35 +149,31 @@ const ProductDetails = () => {
       });
   };
 
-  console.log(user, "users");
-  console.log(isFavorite, "my favs");
-
   return (
     <AppLayout>
-      <div className="mt-20 flex flex-col gap-6 pt-4 pb-14 xxs:bg-white md:bg-[#EEEEEE] md:px-10 ">
-        <div className="xxs:hidden md:block">
-          <ProductsBreadCrumbs
-            items={[
-              {
-                name: "Home",
-                link: "/",
-              },
-              {
-                name: "Products",
-                link: "/products",
-              },
-              {
-                name: "Product Details",
-                link: "#",
-              },
-            ]}
-          />
-        </div>
-
+      <div className="mt-14 bg-[#EEEEEE] px-4 lg:pt-5">
+        <ProductsBreadCrumbs
+          items={[
+            {
+              name: "Home",
+              link: "/",
+            },
+            {
+              name: "Products",
+              link: "/products",
+            },
+            {
+              name: "Product Details",
+              link: "#",
+            },
+          ]}
+        />
+      </div>
+      <div className="flex flex-col gap-6 px-4 pt-2 pb-14 md:bg-[#EEEEEE]">
         {loading && <SkeletonLoader />}
 
         {!loading && (
-          <div className="md:4 bg-white py-8 xxs:px-3 md:flex md:gap-5 md:rounded-sm md:px-6">
+          <div className="bg-white py-8 md:flex md:gap-5 md:rounded-sm md:px-6">
             <div className="flex xxs:flex-col-reverse md:w-[65%] md:flex-1 md:flex-row md:gap-2">
               <div className="xxs:mt-3 xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 md:mt-0 md:flex-col md:justify-start">
                 {singleProduct?.data?.images.map(
@@ -221,7 +199,7 @@ const ProductDetails = () => {
             </div>
             <div className="flex flex-col gap-3 xxs:mt-4 md:mt-0 md:w-[35%] md:flex-1">
               <div className="flex flex-wrap items-center justify-between">
-                <h1 className="text-xl font-semibold">
+                <h1 className="text-xl font-semibold capitalize">
                   {singleProduct?.data?.information?.productName}
                 </h1>
                 {isLoading ? (
@@ -256,12 +234,12 @@ const ProductDetails = () => {
               <span className="text-sm font-normal text-[#797979]">
                 Weight:&nbsp;
                 <span className="text-sm font-medium text-black">
-                  {singleProduct?.data?.details?.productWeight}g
+                  {singleProduct?.data?.details?.productWeight}kg
                 </span>
               </span>
               <span className="text-sm font-normal text-[#797979]">
                 Category:&nbsp;
-                <span className="text-sm font-medium text-black">
+                <span className="text-sm font-medium capitalize text-black">
                   {singleProduct?.data?.information?.category?.name}
                 </span>
               </span>
@@ -276,7 +254,7 @@ const ProductDetails = () => {
                 </span>
               </span>
               <div className="flex flex-col">
-                <h1 className="block text-base font-normal text-[#797979]">
+                <h1 className="block text-sm font-normal text-[#797979]">
                   Quantity
                 </h1>
 
@@ -301,7 +279,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <div className="gap-6  xxs:mt-4 xxs:px-4 md:mt-2 md:flex md:px-0">
+              <div className="gap-6  xxs:mt-4 md:mt-2 md:flex md:px-0">
                 <button
                   onClick={
                     singleProduct?.data?.pricing?.quantity > 0
@@ -434,9 +412,9 @@ export default ProductDetails;
 const SkeletonLoader = () => {
   return (
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
-    <div className="relative grid w-full grid-cols-2 gap-4 overflow-hidden bg-white p-6">
-      <div className="flex gap-3">
-        <div className="flex w-[25%] flex-col gap-3">
+    <div className="relative grid w-full gap-4 overflow-hidden bg-white p-6 px-0 md:grid-cols-2 md:px-4">
+      <div className="flex flex-col-reverse gap-3 md:flex-row">
+        <div className="mx-auto flex w-10/12 gap-3 md:mx-0 md:w-[25%] md:flex-col">
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
           <div className="skeleton-loader h-[100px_!important]"></div>
@@ -444,12 +422,14 @@ const SkeletonLoader = () => {
         <div className="skeleton-loader h-[350px_!important] w-[73%]"></div>
       </div>
       {/* <div className="skeleton-loader"></div> */}
-      <div className="flex w-full flex-col items-start">
-        <div className="w-full">
+      <div className="mt-6 flex w-full flex-col items-start md:mt-0">
+        <div className="w-full space-y-3">
           <div className="text-loader h-[30px_!important]"></div>
           <div className="text-loader h-[30px_!important]"></div>
         </div>
-        <div className="w-full">
+        <div className="w-full space-y-4">
+          <div className="text-loader"></div>
+          <div className="text-loader"></div>
           <div className="text-loader"></div>
           <div className="text-loader"></div>
         </div>

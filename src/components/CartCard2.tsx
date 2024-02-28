@@ -59,14 +59,14 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   }, [product]); // Include product in the dependency array
 
   return (
-    <div>
+    <div className="space-y-8">
       {Object.values(items).map((item, idx) => (
         <div key={idx + "index"}>
-          <div className="flex items-center px-0 md:px-5 gap-6">
+          <div className="flex items-center gap-6 px-0 md:px-5">
             <div>
-              <div className="flex  gap-4">
+              <div className="flex gap-4">
                 <div className="img flex flex-col">
-                  <figure className="bg-white w-[150px] flex-1">
+                  <figure className="w-[150px] flex-1 bg-white">
                     <img
                       style={{ width: 150, height: 140 }}
                       src={item?.images?.[0] || ""}
@@ -76,7 +76,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   </figure>
                 </div>
 
-                <div className="product-info hidden md:flex flex-col gap-2">
+                <div className="product-info hidden flex-col gap-2 md:flex">
                   <h3 className="font-bold">
                     {item?.information?.productName}
                   </h3>
@@ -91,28 +91,28 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
               </div>
             </div>
 
-            <div className="right-group flex flex-col gap-4 md:flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
+            <div className="right-group flex flex-col gap-4 md:flex-1 lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
               <div className="details flex flex-col gap-2 md:flex-row-reverse md:justify-between">
                 <p className="md:hidden">{item?.information?.productName}</p>
                 <h3 className="font-bold">
                   ₦{item?.pricing?.productPrice?.toLocaleString()}
                 </h3>
-                <div className="flex mt-1">
+                <div className="mt-1 flex">
                   <div
-                    className=" h-[40px] w-[46px] flex items-center justify-center border border-[#D9D9D9] cursor-pointer"
+                    className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9]"
                     onClick={() =>
                       dispatch(decrementProductQty({ id: item?._id }))
                     }
                   >
                     <p className="flex justify-center font-semibold">-</p>
                   </div>
-                  <div className=" h-[40px] w-[52px] flex items-center justify-center border-y border-[#D9D9D9] font-semibold">
+                  <div className=" flex h-[40px] w-[52px] items-center justify-center border-y border-[#D9D9D9] font-semibold">
                     <p className="flex justify-center">
                       {item?.pricing?.quantity}
                     </p>
                   </div>
                   <div
-                    className=" h-[40px] w-[46px] flex items-center justify-center border border-[#D9D9D9] font-semibold cursor-pointer"
+                    className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9] font-semibold"
                     onClick={() =>
                       dispatch(incrementProductQty({ id: item?._id }))
                     }
@@ -122,14 +122,14 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 </div>
               </div>
 
-              <div className="hidden md:flex flex-col">
+              <div className="hidden flex-col md:flex">
                 <div className="flex items-center justify-between">
                   <label htmlFor=" text-[#333333] text-sm">Order Notes</label>
                   <span
                     onClick={() =>
                       dispatch(deleteProductFromCart({ id: item?._id }))
                     }
-                    className="order-notes text-[#A2A2A2] text-sm  underline cursor-pointer"
+                    className="order-notes cursor-pointer text-sm  text-[#A2A2A2] underline"
                   >
                     Remove
                   </span>
@@ -139,24 +139,24 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   cols={50}
                   id="order-notes"
                   placeholder="Type here"
-                  className=" h-16 outline-none border rounded px-5 py-4 mt-1"
+                  className=" mt-1 h-16 rounded border px-5 py-4 outline-none"
                 ></textarea>
               </div>
             </div>
           </div>
           {item?.vendor?.sellerAccountInformation?.shopName ===
             "Test Shop Ltd" && (
-            <div className="flex mt-4 mb-5 p-0 md:px-5 md:flex-row flex-col gap-4">
+            <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
               <div className="">
-                <label className="flex items-center space-x-2 cursor-pointer">
+                <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="radio"
                     value="delivery"
                     checked={selectedOption === "delivery"}
                     onChange={() => handleRadioChange("delivery", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:focus:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0"
+                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
                   />
-                  <p className="text-sm text-[#333] font-semibold">
+                  <p className="text-sm font-semibold text-[#333]">
                     Door Delivery{" "}
                     <span className="text-xs font-normal">
                       (Starting from ₦1,500)
@@ -165,22 +165,22 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 </label>
               </div>
 
-              <div className="md:flex-1 lg:flex-grow-0 lg:flex-shrink-0 lg:basis-1/2 lg:ml-auto lg:mr-20">
-                <label className="flex items-center space-x-2 cursor-pointer">
+              <div className="md:flex-1 lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
+                <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="radio"
                     value="pickup"
                     checked={selectedOption === "pickup"}
                     onChange={() => handleRadioChange("pickup", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:focus:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0"
+                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
                   />
-                  <span className="text-sm text-[#333] font-semibold">
+                  <span className="text-sm font-semibold text-[#333]">
                     Pickup
                   </span>
                 </label>
 
                 {selectedOption === "pickup" && (
-                  <div className="mt-4 mb-4 md:hidden flex flex-col">
+                  <div className="mt-4 mb-4 flex flex-col md:hidden">
                     <div className="flex items-center justify-between">
                       <label htmlFor=" text-[#333333] font- text-sm">
                         Available Pickup Address
@@ -190,7 +190,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                           toggleModal(true);
                           setLocation(item?.vendor?.businessInformation?.city);
                         }}
-                        className="order-notes text-[#522828] text-sm  underline cursor-pointer"
+                        className="order-notes cursor-pointer text-sm  text-[#522828] underline"
                       >
                         Change pickup station
                       </span>
@@ -202,12 +202,12 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                       value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
                       id="pick_up"
                       placeholder=""
-                      className="text-[12px] leading-[16px]  outline-none border rounded px-5 py-4 mt-1"
+                      className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
                     ></textarea>
                   </div>
                 )}
 
-                <div className="mt-4 mb-4 hidden md:flex flex-col">
+                <div className="mt-4 mb-4 hidden flex-col md:flex">
                   <div className="flex items-center justify-between">
                     <label htmlFor=" text-[#333333] font- text-sm">
                       Available Pickup Address
@@ -217,7 +217,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                         toggleModal(true);
                         setLocation(item?.vendor?.businessInformation?.city);
                       }}
-                      className="order-notes text-[#522828] text-sm  underline cursor-pointer"
+                      className="order-notes cursor-pointer text-sm  text-[#522828] underline"
                     >
                       Change pickup station
                     </span>
@@ -228,7 +228,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     cols={50}
                     id="pick_up"
                     value={porkerPickupAddress}
-                    className=" h-16 outline-none border rounded px-5 py-4 mt-1 text-[12px] leading-[16px]"
+                    className=" mt-1 h-16 rounded border px-5 py-4 text-[12px] leading-[16px] outline-none"
                   ></textarea>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
+import { CgSpinner } from "react-icons/cg";
 
 export interface Iprops {
   color: string;
@@ -14,6 +15,7 @@ export interface Iprops {
   navigate: string;
   disable: boolean;
   text: string;
+  isLoading: boolean;
 }
 
 const PerformanceWidget = ({
@@ -29,6 +31,7 @@ const PerformanceWidget = ({
   type,
   value,
   text,
+  isLoading,
 }: Iprops) => {
   // const openModal = (e: any) => {
   //   e.preventDefault();
@@ -57,7 +60,11 @@ const PerformanceWidget = ({
         </div>
         <div>
           <span className="text-[24px] font-bold leading-[24px] text-[#333333]">
-            {value}
+            {isLoading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              value
+            )}
           </span>
         </div>
         <div>
