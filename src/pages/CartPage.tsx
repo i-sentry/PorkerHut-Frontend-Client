@@ -164,7 +164,7 @@ const CartPage = () => {
                 </div>
 
                 <div className="product-headers hidden  border-b pb-2 md:flex">
-                  <p className="ml-8 mr-24 text-[#BDBDBD] md:text-[16px]">
+                  <p className="ml-8 text-[#BDBDBD] md:w-[300px] md:text-[16px] lg:mr-24 lg:w-auto">
                     Product
                   </p>
                   <div className="right flex flex-1 justify-between lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
@@ -178,15 +178,12 @@ const CartPage = () => {
                 </div>
               </div>
 
-              <div>
-                {/* {Object.values(cart).map((item, idx) => ( */}
-                <div className=" order-2  flex flex-col gap-4 pt-8 xxs:hidden md:order-none md:flex">
-                  {/* @ts-ignore */}
-                  <CartCard2 item={cart} />
+              {/* {Object.values(cart).map((item, idx) => ( */}
+              <div className=" order-2  flex flex-col gap-4 pt-8 xxs:hidden md:order-none md:flex">
+                {/* @ts-ignore */}
+                <CartCard2 item={cart} />
 
-                  <hr className="mt-4" />
-                </div>
-                {/* ))} */}
+                <hr className="mt-4" />
               </div>
 
               <div className="order-1 flex md:order-none">

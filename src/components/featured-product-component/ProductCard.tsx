@@ -114,7 +114,12 @@ const ProductCard = ({ item }: ProductLocationState) => {
           {item?.vendor?.sellerAccountInformation?.shopName || ""}
         </NavLink>
         <div className="flex items-center justify-between py-1">
-          <RatingStars maxRating={5} iconSize={20} canRate={false} />
+          <RatingStars
+            maxRating={5}
+            iconSize={20}
+            canRate={false}
+            defaultRating={item?.avgRating}
+          />
           <span className="whitespace-normal text-[16px] font-normal leading-[19px]  text-[#333333] xxs:hidden lg:block">
             ₦{item?.pricing?.productPrice.toLocaleString() || ""}
           </span>

@@ -16,31 +16,28 @@ const CartMobileModal = ({ isVisible, onClose }: ModalProps) => {
   return (
     <div
       id="wrapper"
-      className="fixed inset-0 w-full h-full  bg-black bg-opacity-25  flex items-center z-50 py-60 px-5"
+      className="fixed inset-0 z-50 flex  h-full w-full  items-center bg-black bg-opacity-25 py-60 px-5"
       onClick={handleClose}
-
     >
-      <div className="w-full h-full"
-
-      >
-        <div className="bg-white  rounded px-4 py-4">
+      <div className="h-full w-full">
+        <div className="rounded  bg-white px-4 py-4">
           <div className="flex items-center justify-between text-[#797979]">
             <h1 className="text-[#797979]">Order Notes</h1>
-            <MdOutlineCancel size={20}
-             onClick={onClose}
-
+            <MdOutlineCancel
+              size={20}
+              onClick={onClose}
+              className="cursor-pointer"
             />
           </div>
-          <div className="mt-2">
-            <form action="" className="">
+          <div className="mt-4">
+            <form className="">
               <textarea
-
                 id="order-notes"
                 placeholder="Type here"
-                className=" h-16 outline-none border rounded px-5 py-4 mt-2 w-full"
+                className=" mt-2 h-[100px] w-full rounded border px-5 py-4 outline-none"
               ></textarea>
               <div className="mt-4">
-                <button className="bg-[#197B30] h-16 text-white rounded  hover:bg-[#197B39] w-full">
+                <button className="h-16 w-full rounded bg-[#197B30]  text-white hover:bg-[#197B39]">
                   Add note
                 </button>
               </div>

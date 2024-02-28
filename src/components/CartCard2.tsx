@@ -7,6 +7,8 @@ import {
 import { useDispatch } from "react-redux";
 import { usePopModal } from "../store/overlay";
 import RatingStars from "./RatingStars";
+import { MdOutlineSpeakerNotes } from "react-icons/md";
+import CartMobileModal from "./CartMobileModal";
 
 const porkerPickupAddress =
   "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
@@ -17,6 +19,11 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   const [selectedOption, setSelectedOption] = useState<string>("delivery");
   const toggleModal = usePopModal((state) => state.toggleModal);
   const setLocation = usePopModal((state) => state.setLocation);
+  const [noteModal, setNoteModal] = useState<boolean>(false);
+
+  const handleCloseModal = () => {
+    setNoteModal(false);
+  };
 
   const updatedValues = {
     option: selectedOption,
@@ -62,7 +69,13 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     <div className="space-y-8">
       {Object.values(items).map((item, idx) => (
         <div key={idx + "index"}>
-          <div className="flex items-center gap-6 px-0 md:px-5">
+          <div className="relative flex items-center gap-6 px-0 md:px-5">
+            <span
+              onClick={() => dispatch(deleteProductFromCart({ id: item?._id }))}
+              className="absolute top-0 right-1 block cursor-pointer  text-right text-sm text-[#A2A2A2] underline md:hidden"
+            >
+              Remove
+            </span>
             <div>
               <div className="flex gap-4">
                 <div className="img flex flex-col">
@@ -77,7 +90,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 </div>
 
                 <div className="product-info hidden flex-col gap-2 md:flex">
-                  <h3 className="font-bold">
+                  <h3 className="font-bold capitalize">
                     {item?.information?.productName}
                   </h3>
                   {/* <p>Product ID: {item?._id}</p> */}
@@ -93,7 +106,9 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
 
             <div className="right-group flex flex-col gap-4 md:flex-1 lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
               <div className="details flex flex-col gap-2 md:flex-row-reverse md:justify-between">
-                <p className="md:hidden">{item?.information?.productName}</p>
+                <p className="capitalize md:hidden">
+                  {item?.information?.productName}
+                </p>
                 <h3 className="font-bold">
                   ₦{item?.pricing?.productPrice?.toLocaleString()}
                 </h3>
@@ -139,15 +154,24 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   cols={50}
                   id="order-notes"
                   placeholder="Type here"
-                  className=" mt-1 h-16 rounded border px-5 py-4 outline-none"
+                  className=" mt-1 h-16 w-full rounded border px-5 py-4 outline-none"
                 ></textarea>
               </div>
             </div>
           </div>
+          <div className="mt-2 md:hidden">
+            <button
+              className="inline-flex items-center gap-2"
+              onClick={() => setNoteModal(true)}
+            >
+              <MdOutlineSpeakerNotes className="text-neutral-600" />
+              Add Note
+            </button>
+          </div>
           {item?.vendor?.sellerAccountInformation?.shopName ===
             "Test Shop Ltd" && (
             <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
-              <div className="">
+              <div className="w-[300px]">
                 <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="radio"
@@ -165,7 +189,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 </label>
               </div>
 
-              <div className="md:flex-1 lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
+              <div className="md:flex-grow lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
                 <label className="flex cursor-pointer items-center space-x-2">
                   <input
                     type="radio"
@@ -236,6 +260,8 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
           )}
         </div>
       ))}
+
+      <CartMobileModal isVisible={noteModal} onClose={handleCloseModal} />
     </div>
   );
 };
