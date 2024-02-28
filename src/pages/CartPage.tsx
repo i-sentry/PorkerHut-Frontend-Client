@@ -49,7 +49,7 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
-  console.log(cart, "cart");
+  // console.log(cart, "cart");
   // const products = useAppSelector((state) => state.product);
   const cartTotal = Object.values(cart)?.reduce((acc, current) => {
     return (
@@ -61,7 +61,7 @@ const CartPage = () => {
   const cartTotalQuantity = Object.values(cart).reduce((acc, current) => {
     return acc + (current?.pricing?.quantity as number);
   }, 0);
-  console.log(cartTotalQuantity, "cartTotalQuantity");
+  // console.log(cartTotalQuantity, "cartTotalQuantity");
 
   // console.log(Object.values(cart).length, "Object.values(cart).length");
 
@@ -98,8 +98,8 @@ const CartPage = () => {
     cartSubCategory.push(item?.information?.subcategory?.name);
   });
 
-  console.log(cart, cartItems, "(cart Items)");
-  console.log(cartSubCategory, "(cart cartSub)");
+  // console.log(cart, cartItems, "(cart Items)");
+  // console.log(cartSubCategory, "(cart cartSub)");
 
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any, index: number) =>
@@ -121,10 +121,10 @@ const CartPage = () => {
         onClose={() => setShowModal(false)}
       />
 
-      <div className=" flex flex-col pt-4 xxs:mt-8 md:mt-0 md:bg-[#F5F5F5] md:pb-[4%] md:pt-5 lg:px-[4%]">
+      <div className=" flex flex-col pt-4 xxs:mt-8 md:mt-0 md:bg-[#F5F5F5] md:pb-[4%] md:pt-5 lg:px-4 lg:pt-7">
         {Object.values(cart).length > 0 ? (
           <>
-            <div className="block px-4">
+            <div className="block px-4 lg:px-0">
               <ProductsBreadCrumbs
                 items={[
                   {
