@@ -5,6 +5,7 @@ import {
   makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
+  makePatchRequest,
   makePostRequest,
   makePutRequest,
 } from "../../../api";
@@ -86,7 +87,7 @@ export const useCreateRating = () => {
 export const useUpdateRating = (ratingId: string) => {
   return useQueryMutation({
     mutationFn: (data: { ratingValue: number; comment: string }) =>
-      makeCustomPutRequest(data, api.Ratings.updateRating(ratingId)),
+      makePatchRequest(data, api.Ratings.updateRating(ratingId)),
   });
 };
 

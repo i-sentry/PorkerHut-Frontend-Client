@@ -115,9 +115,10 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                 <div className="mt-1 flex">
                   <div
                     className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9]"
-                    onClick={() =>
-                      dispatch(decrementProductQty({ id: item?._id }))
-                    }
+                    onClick={() => {
+                      console.log("decrementProductQty");
+                      dispatch(decrementProductQty({ id: item?._id }));
+                    }}
                   >
                     <p className="flex justify-center font-semibold">-</p>
                   </div>
@@ -128,9 +129,10 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   </div>
                   <div
                     className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9] font-semibold"
-                    onClick={() =>
-                      dispatch(incrementProductQty({ id: item?._id }))
-                    }
+                    onClick={() => {
+                      console.log("decrementProductQty");
+                      dispatch(incrementProductQty({ id: item?._id }));
+                    }}
                   >
                     <p className="flex justify-center ">+</p>
                   </div>
