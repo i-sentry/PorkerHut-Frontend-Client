@@ -157,21 +157,21 @@ const Footer = () => {
           <div className=" flex-col gap-3 text-justify xxs:hidden md:flex">
             <div className="flex flex-col text-xl font-semibold not-italic text-[#FFFFFF] xxs:mx-auto xxs:text-center md:mx-0 md:text-left">
               <p>Social Media</p>
-              {/* <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span> */}
+
             </div>
 
-            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              Facebook
-            </span>
-            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              Instagram
-            </span>
-            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              Twitter
-            </span>
-            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              LinkedIn
-            </span>
+           <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+    <a href="https://web.facebook.com/profile.php?id=100087600040948">Facebook</a>
+  </span>
+  <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+    <a href="https://www.instagram.com/porkerhutnaija/">Instagram</a>
+  </span>
+  <span  className="font-Roboto cursor-pointer text-sm font-normal text-[#393838] hover:text-[#197b30]">
+    <a href="https://twitter.com/yourusername">Twitter</a>
+  </span>
+  <span  className="font-Roboto cursor-pointer text-sm font-normal text-[#393838] hover:text-[#197b30]">
+    <a href="https://www.linkedin.com/in/yourprofile">LinkedIn</a>
+  </span>
           </div>
           {/*  <div className="md:hidden">
             <div className="flex flex-col text-xl font-semibold not-italic text-[#FFFFFF] xxs:mx-auto xxs:mb-4 xxs:text-center md:mx-0 md:mb-0 md:text-left">

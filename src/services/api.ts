@@ -6,7 +6,7 @@ switch (process.env.NODE_ENV) {
     BASEURL = process.env.REACT_APP_BASE_URL;
     break;
   default:
-    BASEURL = process.env.REACT_APP_BASE_URL;
+    BASEURL = process.env.REACT_APP_STAGING_BASE_URL;
     break;
 }
 
