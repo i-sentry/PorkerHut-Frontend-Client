@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AreaChart } from "./AreaChart";
 import { useGetOrders } from "../../services/hooks/orders";
+import { CgSpinner } from "react-icons/cg";
 
 const Overview = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -29,7 +30,11 @@ const Overview = () => {
           <>
             <h1 className="text-xs font-light text-[#F29339]">{val?.title}</h1>
             <span className="text-xl font-medium text-[#F29339]">
-              {val?.figure}
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
             </span>
           </>
         );
@@ -38,7 +43,11 @@ const Overview = () => {
           <>
             <h1 className="text-xs font-light text-[#22C55E]">{val?.title}</h1>
             <span className="text-xl font-medium text-[#22C55E]">
-              {val?.figure}
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
             </span>
           </>
         );
@@ -47,7 +56,11 @@ const Overview = () => {
           <>
             <h1 className="text-xs font-light text-[#F91919]">{val?.title}</h1>
             <span className="text-xl font-medium text-[#F91919]">
-              {val?.figure}
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
             </span>
           </>
         );
@@ -173,7 +186,13 @@ const Overview = () => {
             <h1 className="text-xs font-normal  text-[#A2A2A2]">
               {val?.title}
             </h1>
-            <span className="text-xl font-medium">{val?.figure}</span>
+            <span className="text-xl font-medium">
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
+            </span>
           </div>
         ))}
       </div>
