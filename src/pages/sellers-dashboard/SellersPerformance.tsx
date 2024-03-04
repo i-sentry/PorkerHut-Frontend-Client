@@ -353,7 +353,7 @@ const SellersPerformance = () => {
         <Carousel cards={card} />
       </div>
       <div className="hide-scroll-bar relative mt-10 h-full overflow-y-scroll md:mb-20">
-        <div className="absolute right-8 top-10 mt-4 flex items-center gap-4 px-4">
+        <div className="absolute right-8 top-10 mt-4 hidden items-center gap-4 px-4 md:flex">
           <label className="" htmlFor="week"></label>
           <input
             type="week"

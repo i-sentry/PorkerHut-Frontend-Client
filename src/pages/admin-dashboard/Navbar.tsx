@@ -7,7 +7,7 @@ import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
-import _ from "lodash";
+// import _ from "lodash";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
   const admin = JSON.parse(localStorage.getItem("admin") as string);
@@ -33,7 +33,17 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
         </h1>
       </div>
       <div className="flex items-center justify-between gap-20">
-        <div className="xxs:hidden md:relative md:flex md:items-center md:justify-center">
+        <div className="hidden lg:relative lg:flex lg:items-center lg:justify-center">
+          <div className="absolute top-1/2 left-[352px] flex h-9 w-10 -translate-y-1/2 items-center justify-center rounded-r-lg bg-[#F4F4F4] text-[#1F1F1F]">
+            <HiOutlineSearch size={20} />
+          </div>
+          <input
+            type="text"
+            placeholder="Search here..."
+            className="h-9 w-[350px] rounded-l-lg border-none bg-[#F4F4F4] pl-4 text-sm focus:border focus:border-green-500 focus:outline-none focus:ring-green-500"
+          />
+        </div>
+        {/* <div className="xxs:hidden md:relative md:flex md:items-center md:justify-center">
           <div className="absolute top-1/2 left-[352px] flex h-9 w-10 -translate-y-1/2 items-center justify-center rounded-r-lg bg-[#F4F4F4] text-[#1F1F1F]">
             <HiOutlineSearch size={20} />
           </div>
@@ -42,7 +52,7 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
             placeholder="Search here..."
             className="h-9 w-[350px] rounded-l-lg bg-[#F4F4F4] pl-4 text-sm focus:outline-none active:outline-none"
           />
-        </div>
+        </div> */}
 
         <div className="md:pr-4">
           <div className="flex items-center justify-center gap-4">

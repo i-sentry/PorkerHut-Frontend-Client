@@ -4,10 +4,10 @@ import { TabSelector } from "../../components/utility/TabSelector";
 import { orderStatement } from "../../utils/orderStatement";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { Statementcolumn } from "../../components/Table/column";
+// import { Statementcolumn } from "../../components/Table/column";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { Column } from "react-table";
-import moment from "moment";
+// import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
 
 const data = [
@@ -148,9 +148,7 @@ const SellersAccount = () => {
   const [selectedTab, setSelectedTab] = useTabs(["Statement", "Overview"]);
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
   const store = JSON.parse(localStorage.getItem("vendor") as string);
-  const { data: ordervendor, isLoading } = useGetVendorOrders(
-    store?.vendor?._id,
-  );
+  const { data: ordervendor } = useGetVendorOrders(store?.vendor?._id);
   const orders = ordervendor?.data?.orders;
   useEffect(() => setVendorOrders(orders), [orders]);
 
