@@ -2,9 +2,12 @@ import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
+  makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
+  makePatchRequest,
   makePostRequest,
+  makePutRequest,
 } from "../../../api";
 
 export const useGetAllProducts = () => {
@@ -83,12 +86,8 @@ export const useCreateRating = () => {
 
 export const useUpdateRating = (ratingId: string) => {
   return useQueryMutation({
-    mutationFn: (data: {
-      productId: string;
-      userId: string;
-      ratingValue: number;
-      comment: string;
-    }) => makePostRequest(data, api.Ratings.updateRating(ratingId)),
+    mutationFn: (data: { ratingValue: number; comment: string }) =>
+      makePatchRequest(data, api.Ratings.updateRating(ratingId)),
   });
 };
 

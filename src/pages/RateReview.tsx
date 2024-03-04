@@ -65,11 +65,9 @@ const RateReview = () => {
   const initiateCreateRating = (e: any) => {
     e.preventDefault();
     setLoading(true);
-    if (rated) {
+    if (isRated?.message === "Rating found") {
       updateRating
         .mutateAsync({
-          productId: id as string,
-          userId: userdata._id,
           ratingValue: userRating as number, //add dynamically
           comment: ratingComment,
         })
