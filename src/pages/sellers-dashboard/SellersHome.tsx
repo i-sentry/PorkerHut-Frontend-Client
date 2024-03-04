@@ -153,7 +153,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }, 3000);
 
     return () => clearInterval(id);
-  }, []);
+  }, [nextSlide]);
 
   const moveDot = (index: any) => {
     setSlideIndex(index);

@@ -9,7 +9,7 @@ import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
 import { useSearchParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import { BsXLg } from "react-icons/bs";
+// import { BsXLg } from "react-icons/bs";
 
 const VendorsNav = () => {
   const [vendor, setVendor] = useState<any>({});
