@@ -161,6 +161,7 @@ const Footer = () => {
 
             <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
               <a
+                rel="noreferrer"
                 href="https://web.facebook.com/profile.php?id=100087600040948"
                 target="_blank"
               >
@@ -169,6 +170,7 @@ const Footer = () => {
             </span>
             <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
               <a
+                rel="noreferrer"
                 href="https://www.instagram.com/porkerhutnaija/"
                 target="_blank"
               >
@@ -176,12 +178,17 @@ const Footer = () => {
               </a>
             </span>
             <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] ">
-              <a href="https://twitter.com/PorkerN87229" target="_blank">
+              <a
+                rel="noreferrer"
+                href="https://twitter.com/PorkerN87229"
+                target="_blank"
+              >
                 Twitter
               </a>
             </span>
             <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
               <a
+                rel="noreferrer"
                 href="https://www.linkedin.com/in/porker-hut-24b1222b8/"
                 target="_blank"
               >
