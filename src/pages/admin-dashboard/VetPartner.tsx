@@ -1,134 +1,115 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { Column } from "react-table";
-import VetData from "../../utils/json/vetData.json";
+import React, { useEffect, useState } from "react";
+import { useGetAllVets } from "../../services/hooks/service/vet";
+import logo from "../../assets/images/porkerlogo.png";
+import VetCard from "../../components/admin-dashboard-components/VetCard";
+import { chunkArray } from "../../helper/chunck";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
-    case "approved":
-      return <span className="text-[#22C55E]">Approved</span>;
-
-    case "rejected":
-      return <span className=" text-[#F91919]">Rejected</span>;
-    case "pending":
-      return <span className=" text-[#F29339]">Pending</span>;
-    // case "returned":
-    //   return <span className=" text-[#198df9]">Returned</span>;
-    // case "returned Failed":
-    //   return <span className=" text-[#F91919]">Returned Failed</span>;
-    default:
-      return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
-      );
-  }
-};
-
-// export const ProductNameColumn = ({ data }: any) => {
-//   console.log(data?.row?.original?.img, "data");
-//   const adata = data?.cell?.value;
-//   const lowerData = adata?.toLowerCase();
-//   const assetName = _.startCase(lowerData);
-//   return (
-//     <div className="flex items-center gap-2">
-//       <figure className="h-9 w-9 rounded-full border">
-//         <img
-//           src={data?.row?.original?.img}
-//           alt="product"
-//           className="rounded-full"
-//         />
-//       </figure>
-//       <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
-//         {assetName}
-//       </span>
-//     </div>
-//   );
-// };
-
-const Tabcolumns: readonly Column<object>[] = [
-  {
-    Header: "Account Name",
-    accessor: "accountName",
-    // Cell: (props: any) => <ProductNameColumn data={props} />,
-  },
-  {
-    Header: "Business Name",
-    accessor: "businessName",
-  },
-  {
-    Header: "Email Address",
-    accessor: "email",
-  },
-  {
-    Header: "Phone Number",
-    accessor: "phone",
-  },
-  {
-    Header: "Type of Vet",
-    accessor: "vet_type",
-  },
-  {
-    Header: "State of Operation",
-    accessor: "state",
-  },
-  {
-    Header: "Status",
-    accessor: "status",
-    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
-  },
-];
+let currentPage = 1;
+const itemsPerPage = 4;
 
 const VetPartner = () => {
-  const optionalColumn = {
-    id: "expand",
-    // The header can use the table's getToggleAllRowsSelectedProps method
-    // to render a checkbox
-    Header: (
-      <div>
-        {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
-      </div>
-    ),
-    // The cell can use the individual row's getToggleRowSelectedProps method
-    // to the render a checkbox
-    Cell: ({ row }: any) => {
-      const navigate = useNavigate();
+  const [vets, setVets] = useState([]);
+  const { data, isLoading } = useGetAllVets();
+  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
+  const allVets = data?.data?.data;
 
-      const handleView = (id: any) => {
-        navigate(`/admin/admin-order/${id}`, {
-          replace: true,
-        });
-      };
-      return (
-        <div>
-          <span
-            onClick={() => handleView(row?.original?.id)}
-            className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
-          >
-            View
-          </span>
-        </div>
-      );
-    },
-  };
+  useEffect(() => {
+    if (!isLoading) setVets(allVets);
+  }, [allVets, isLoading]);
+
+  console.log(vets, "All vet");
 
   return (
-    <div className="pl-10 pt-10 pr-5 ">
+    <div className="px-5 py-10">
       <div className="mb-5">
-        <h1 className="text-2xl font-medium "> Vets</h1>
-        <span className="text-[#A2A2A2] font-light text-sm">
-          All new vet partner can be approved and rejected.
+        <h1 className="text-2xl font-medium ">Vets</h1>
+        <span className="text-sm font-light text-[#A2A2A2]">
+          Here you can check all available details of each vets.
         </span>
       </div>
-      <div>
-        <AdminTable
-          // @ts-ignore
-          optionalColumn={optionalColumn}
-          tabs={["All", "Approved", "Pending", "Rejected"]}
-          Tcolumns={Tabcolumns}
-          TData={VetData}
-          placeholder={"Search account owner, email address, store name.... "}
-        />
-      </div>
+
+      {isLoading && (
+        <div className="flex h-screen flex-col items-center justify-center">
+          <div className="flex flex-col items-center">
+            <img
+              src={logo}
+              alt="loaderLogo"
+              className="h-20 w-20 animate-pulse"
+            />
+            <p className="text-[14px] leading-[24px] text-[#333333]">
+              Fetching Data...
+            </p>
+          </div>
+        </div>
+      )}
+      {!isLoading && vets?.length > 0 ? (
+        <>
+          <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 xxl:gap-3">
+            {vets?.map((vet: any, index: number) => (
+              <VetCard item={vet} key={index} />
+            ))}
+            {chunkArray(vets, itemsPerPage)[currentPageIndex - 1]?.map(
+              (vet: any, index: any) => {
+                return <VetCard item={vet} key={index} />;
+              },
+            )}
+          </div>
+          <div className="mt-10 flex items-center justify-center  gap-1 bg-white px-4 py-3 sm:px-6">
+            <button
+              onClick={() =>
+                currentPageIndex !== 1
+                  ? setCurrentPageIndex(currentPageIndex - 1)
+                  : null
+              }
+              disabled={currentPageIndex === 1}
+              className={
+                (currentPageIndex === 1 ? "no-item" : "") +
+                " rounded-l-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white "
+              }
+            >
+              <RxCaretLeft size={22} />
+            </button>
+            <div className="pagination flex items-center gap-1">
+              {chunkArray(vets, itemsPerPage).map((_, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPageIndex(index + 1)}
+                    className={` border   border-[#A2A2A2]  ${
+                      currentPageIndex === index + 1
+                        ? "active-page-index    rounded-lg border-[#197B30] bg-[#3b554115] text-[#197B30]"
+                        : "rounded-lg border-[#A2A2A2]  text-[#A2A2A2] hover:bg-slate-100"
+                    }`}
+                  >
+                    <span className="px-1.5 text-sm">{index + 1}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() =>
+                currentPageIndex !== chunkArray(vets, itemsPerPage).length
+                  ? setCurrentPageIndex(currentPageIndex + 1)
+                  : null
+              }
+              className={
+                (currentPageIndex === chunkArray(vets, itemsPerPage).length
+                  ? "no-items"
+                  : "") +
+                " rounded-r-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white"
+              }
+            >
+              <span className="">
+                <RxCaretRight size={22} />
+              </span>
+            </button>
+          </div>
+        </>
+      ) : (
+        "No Vet partners yet"
+      )}
     </div>
   );
 };

@@ -41,29 +41,24 @@ interface FileData {
 }
 
 const BusinessInfo = () => {
-  const {
-    checkoutSteps,
-    currentStep,
-    userData,
-    setUserData,
-    handleChange,
-  } = useContext(SellersStepsContext);
-  
+  const { checkoutSteps, currentStep, userData, setUserData, handleChange } =
+    useContext(SellersStepsContext);
+
   const [vatRegistered, setVatRegistered] = useState<SelectOptionType>(null);
   const [IDType, setIDType] = useState<SelectOptionType>(null);
   const [select, setSelect] = useState<string>("");
   const onSelect = (code: string): void => setSelect(code);
   // const [componentFiles, setComponentFiles] = useState<File[]>([]);
   // const [filenames, setFilenames] = useState<string[]>([]);
-  
-  const [selectedFile, ] = useState<any>(null);
-  const [selecFile,] = useState<any>(null);
-  const [seFile, ] = useState<any>(null);
+
+  const [selectedFile] = useState<any>(null);
+  const [selecFile] = useState<any>(null);
+  const [seFile] = useState<any>(null);
   // const [documentType, setDocumentType] = useState("Incorporation Document");
-  const [, ] = useState({
+  const [,] = useState({
     selected1: "",
     selected2: "",
-    selected3: ""
+    selected3: "",
   });
   const { setFiles, seFiles, selecFiles, selectedFiles } =
     useContext(FileContext);
@@ -91,7 +86,7 @@ const BusinessInfo = () => {
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    field: string
+    field: string,
   ) => {
     console.log(event, "jio,");
     const selectedFiles = Array.from(event.target.files || []);
@@ -109,7 +104,7 @@ const BusinessInfo = () => {
     event: React.MouseEvent<HTMLButtonElement>,
     index: number,
     files: FileData[] | null,
-    field: string
+    field: string,
   ) => {
     event.preventDefault();
     if (files) {
@@ -195,12 +190,12 @@ const BusinessInfo = () => {
     <div>
       {" "}
       <div>
-        <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
+        <div className="m-auto min-h-[600px] max-w-[600px] rounded-md   bg-[#F4F4F4] p-5">
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px]">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl">
               Business Information
             </h1>
-            <p className="text-[#797979] text-[14px] leading-[16px] mt-3">
+            <p className="mt-3 text-[14px] leading-[16px] text-[#797979]">
               Please fill in the necessary information.{" "}
             </p>
           </div>
@@ -214,9 +209,9 @@ const BusinessInfo = () => {
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -229,21 +224,21 @@ const BusinessInfo = () => {
                       name={data.name}
                       onChange={handleChange}
                       value={value || ""}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
                 );
               })}
               <>
-                <span className="text-[#333333] text-[14px] leading-[16px]">
+                <span className="text-[14px] leading-[16px] text-[#333333]">
                   Choose country of operation
                 </span>
                 <ReactFlagsSelect className="bg-white" {...flagsSelectProps} />
@@ -253,7 +248,7 @@ const BusinessInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[14px] leading-[16px] mb-[6px] text-[#333333]"
+                    className="mb-[6px] block text-[14px] leading-[16px] text-[#333333]"
                   >
                     Business owner or legal representative ID type
                   </label>
@@ -267,17 +262,17 @@ const BusinessInfo = () => {
                 </div>
               </>
               <>
-                <span className="text-[#333333] text-[14px] leading-[16px]">
+                <span className="text-[14px] leading-[16px] text-[#333333]">
                   Upload a copy of the ID
                 </span>
                 <div className="mt-2">
                   <div className="flex flex-col">
-                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                    <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
                       <label
                         htmlFor={"selected"}
-                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                        className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                       >
-                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                        <span className="my-auto cursor-pointer px-8 text-[#333333]">
                           Select file
                         </span>{" "}
                       </label>
@@ -292,13 +287,13 @@ const BusinessInfo = () => {
                         id={"selected"}
                       />
                       {selectedFiles && Array.isArray(selectedFiles) && (
-                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                        <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {selectedFiles.map((file, index) => {
                             console.log(file, "filess");
                             return (
                               <div
                                 key={index}
-                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                className="flex shrink-0 items-center rounded-md bg-emerald-600 px-2 text-xs text-white"
                               >
                                 <span>{file.name}</span>
                                 <button
@@ -308,7 +303,7 @@ const BusinessInfo = () => {
                                       event,
                                       index,
                                       selectedFiles,
-                                      "selected"
+                                      "selected",
                                     )
                                   }
                                 >
@@ -322,7 +317,7 @@ const BusinessInfo = () => {
                     </div>
                   </div>
 
-                  <span className=" text-[#797979]  text-[12px] leading-none">
+                  <span className=" text-[12px]  leading-none text-[#797979]">
                     Documents allowed are images, PDF files and MS word
                     documents.
                   </span>
@@ -337,9 +332,9 @@ const BusinessInfo = () => {
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -352,14 +347,14 @@ const BusinessInfo = () => {
                       name={data.name}
                       onChange={handleChange}
                       value={value || ""}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {/* {data.info} */}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
@@ -367,17 +362,17 @@ const BusinessInfo = () => {
               })}
 
               <>
-                <span className="text-[#333333] text-[14px] leading-[16px]">
+                <span className="text-[14px] leading-[16px] text-[#333333]">
                   Upload a copy of your CAC Certificate
                 </span>
                 <div className="mt-2">
                   <div className="flex flex-col">
-                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                    <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
                       <label
                         htmlFor={"selec"}
-                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                        className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                       >
-                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                        <span className="my-auto cursor-pointer px-8 text-[#333333]">
                           Select file
                         </span>{" "}
                       </label>
@@ -391,13 +386,13 @@ const BusinessInfo = () => {
                         id={"selec"}
                       />
                       {selecFiles && Array.isArray(selecFiles) && (
-                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                        <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {selecFiles.map((file, index) => {
                             console.log(file, "filess");
                             return (
                               <div
                                 key={index}
-                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                className="flex shrink-0 items-center rounded-md bg-emerald-600 px-2 text-xs text-white"
                               >
                                 <span>{file.name}</span>
                                 <button
@@ -407,7 +402,7 @@ const BusinessInfo = () => {
                                       event,
                                       index,
                                       selecFiles,
-                                      "selec"
+                                      "selec",
                                     )
                                   }
                                 >
@@ -421,7 +416,7 @@ const BusinessInfo = () => {
                     </div>
                   </div>
 
-                  <span className=" text-[#797979]  text-[12px] leading-none">
+                  <span className=" text-[12px]  leading-none text-[#797979]">
                     Please ensure that the document that you provide includes
                     the list of the company ultimate beneficial owners. Porker
                     Hut reserves the right to contact you to confirm.
@@ -430,18 +425,18 @@ const BusinessInfo = () => {
               </>
 
               <>
-                <span className="text-[#333333] text-[14px] leading-[16px]">
+                <span className="text-[14px] leading-[16px] text-[#333333]">
                   Upload a copy of your Tax Identification Number(TIN)
                   certificate
                 </span>
                 <div className="mt-2">
                   <div className="flex flex-col">
-                    <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                    <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
                       <label
                         htmlFor={"se"}
-                        className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                        className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                       >
-                        <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                        <span className="my-auto cursor-pointer px-8 text-[#333333]">
                           Select file
                         </span>{" "}
                       </label>
@@ -455,13 +450,13 @@ const BusinessInfo = () => {
                         id={"se"}
                       />
                       {seFiles && Array.isArray(seFiles) && (
-                        <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                        <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {seFiles.map((file, index) => {
                             console.log(file, "filess");
                             return (
                               <div
                                 key={index}
-                                className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                className="flex shrink-0 items-center rounded-md bg-emerald-600 px-2 text-xs text-white"
                               >
                                 <span>{file.name}</span>
                                 <button
@@ -480,7 +475,7 @@ const BusinessInfo = () => {
                     </div>
                   </div>
 
-                  <span className=" text-[#797979]  text-[12px] leading-none">
+                  <span className=" text-[12px]  leading-none text-[#797979]">
                     Tin is required for all individuals and corporate deriving
                     income Under Nigeria’s legislation.
                   </span>
@@ -494,9 +489,9 @@ const BusinessInfo = () => {
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -509,14 +504,14 @@ const BusinessInfo = () => {
                       name={data.name}
                       onChange={handleChange}
                       value={value || ""}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {/* {data.info} */}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
@@ -526,7 +521,7 @@ const BusinessInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[14px] leading-[16px] mb-[6px] text-[#333333]"
+                    className="mb-[6px] block text-[14px] leading-[16px] text-[#333333]"
                   >
                     Are you VAT registered?
                   </label>
