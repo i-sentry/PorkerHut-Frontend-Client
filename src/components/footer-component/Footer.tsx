@@ -157,42 +157,38 @@ const Footer = () => {
           <div className=" flex-col gap-3 text-justify xxs:hidden md:flex">
             <div className="flex flex-col text-xl font-semibold not-italic text-[#FFFFFF] xxs:mx-auto xxs:text-center md:mx-0 md:text-left">
               <p>Social Media</p>
-
             </div>
 
-           <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              <a href="https://web.facebook.com/profile.php?id=100087600040948"  target="_blank">Facebook</a>
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+              <a
+                href="https://web.facebook.com/profile.php?id=100087600040948"
+                target="_blank"
+              >
+                Facebook
+              </a>
             </span>
             <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              <a href="https://www.instagram.com/porkerhutnaija/" target="_blank">Instagram</a>
+              <a
+                href="https://www.instagram.com/porkerhutnaija/"
+                target="_blank"
+              >
+                Instagram
+              </a>
             </span>
-            <span  className="font-Roboto cursor-pointer text-sm font-normal text-[#393838] ">
-              {/* <a href="https://twitter.com/yourusername" target="_blank">Twitter</a> */}
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] ">
+              <a href="https://twitter.com/PorkerN87229" target="_blank">
+                Twitter
+              </a>
             </span>
-            <span  className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-              <a href="https://www.linkedin.com/in/porker-hut-24b1222b8/" target="_blank">LinkedIn</a>
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+              <a
+                href="https://www.linkedin.com/in/porker-hut-24b1222b8/"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
             </span>
           </div>
-          {/*  <div className="md:hidden">
-            <div className="flex flex-col text-xl font-semibold not-italic text-[#FFFFFF] xxs:mx-auto xxs:mb-4 xxs:text-center md:mx-0 md:mb-0 md:text-left">
-              <p>Social Media</p>
-              <span className="h-1 w-10 self-center bg-[#197B30] xxs:block md:hidden"></span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-                Facebook
-              </span>
-              <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-                Instagram
-              </span>
-              <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-                Twitter
-              </span>
-              <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
-                LinkedIn
-              </span>
-            </div>
-          </div> */}
         </div>
         <hr className="xxs:hidden md:block" />
 
