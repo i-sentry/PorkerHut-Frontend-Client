@@ -35,7 +35,7 @@ const InputComponent = ({
       <input
         type={type}
         placeholder={placeholder}
-        className={`appearance-none  relative block w-full px-[14px] py-[12px] border border-gray-300 placeholder-slate-300 text-gray-900 rounded-md focus:outline-none focus:ring-[#197b30] focus:border-[#197b30]focus:z-10 sm:text-sm`}
+        className={`appearance-none  relative block w-full px-[14px] py-[12px] border border-gray-300 placeholder-slate-300 text-gray-900 rounded-md focus:outline-none focus:ring-[#197b30] focus:border-[#197b30] focus:z-10 sm:text-sm`}
         value={value}
         name={name}
         required={required ? required : false}

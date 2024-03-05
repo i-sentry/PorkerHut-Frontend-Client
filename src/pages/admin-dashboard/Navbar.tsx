@@ -2,39 +2,59 @@ import { Menu, Transition } from "@headlessui/react";
 import { HiOutlineSearch } from "react-icons/hi";
 import React, { Fragment } from "react";
 import classNames from "classnames";
-
+import avata from "../../assets/avata.png";
 import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
+  const admin = JSON.parse(localStorage.getItem("admin") as string);
+  const role = admin?.role === "superadmin" ? "Super Admin" : "Admin";
   const navigate = useNavigate();
 
+  const logOut = () => {
+    window.localStorage.clear();
+
+    navigate("/admin-login");
+  };
   return (
-    <div className="bg-white border border-[#D9D9D9] h-16  top-0 w-full px-4 flex items-center justify-between  fixed z-50">
-      <div className="flex items-center justify-center md:gap-2 xxs:gap-3 ">
+    <div className="fixed top-0 z-50 flex  h-16 w-full items-center justify-between border border-[#D9D9D9]  bg-white px-4">
+      <ToastContainer/>
+      <div className="flex items-center justify-center xxs:gap-3 md:gap-2 ">
         <FaBars
           size={30}
           onClick={() => setSidebar(!sidebar)}
           className="md:hidden"
         />
-        <img src={PorkerLogo} alt="" className="md:cursor-pointer h-9" />
-        <h1 className="porker md:text-xl xxs:text-lg font-bold text-[#197B30]  font-Roboto-slab select-none">
+        <img src={PorkerLogo} alt="" className="h-9 md:cursor-pointer" />
+        <h1 className="porker select-none font-Roboto-slab font-bold text-[#197B30]  xxs:text-lg md:text-xl">
           Porker Hut
         </h1>
       </div>
       <div className="flex items-center justify-between gap-20">
-        <div className="md:relative md:flex md:items-center md:justify-center xxs:hidden">
-          <div className="text-[#1F1F1F] absolute top-1/2 -translate-y-1/2 left-[352px] h-9 bg-[#F4F4F4] w-10 flex items-center justify-center rounded-r-lg">
+        <div className="hidden lg:relative lg:flex lg:items-center lg:justify-center">
+          <div className="absolute top-1/2 left-[352px] flex h-9 w-10 -translate-y-1/2 items-center justify-center rounded-r-lg bg-[#F4F4F4] text-[#1F1F1F]">
             <HiOutlineSearch size={20} />
           </div>
           <input
             type="text"
             placeholder="Search here..."
-            className="text-sm focus:outline-none active:outline-none h-9 w-[350px] bg-[#F4F4F4] rounded-l-lg pl-4"
+            className="h-9 w-[350px] rounded-l-lg border-none bg-[#F4F4F4] pl-4 text-sm focus:border focus:border-green-500 focus:outline-none focus:ring-green-500"
           />
         </div>
+        {/* <div className="xxs:hidden md:relative md:flex md:items-center md:justify-center">
+          <div className="absolute top-1/2 left-[352px] flex h-9 w-10 -translate-y-1/2 items-center justify-center rounded-r-lg bg-[#F4F4F4] text-[#1F1F1F]">
+            <HiOutlineSearch size={20} />
+          </div>
+          <input
+            type="text"
+            placeholder="Search here..."
+            className="h-9 w-[350px] rounded-l-lg bg-[#F4F4F4] pl-4 text-sm focus:outline-none active:outline-none"
+          />
+        </div> */}
 
         <div className="md:pr-4">
           <div className="flex items-center justify-center gap-4">
@@ -43,17 +63,16 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
               <div>
                 <Menu.Button className="  flex items-center justify-between md:gap-2">
                   <div
-                    className="h-12 w-12 rounded-full bg-cover bg-no-repeat bg-center flex"
+                    className="flex h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat"
                     style={{
-                      backgroundImage:
-                        'url("https://source.unsplash.com/80x80?face")',
+                      backgroundImage: `url(${avata})`,
                     }}
                   ></div>
-                  <div className="md:flex md:flex-col md:gap-1 xxs:hidden">
+                  <div className="xxs:hidden md:flex md:flex-col md:gap-1">
                     <span className="text-base font-semibold leading-4">
-                      John Doe
+                      {admin?.firstName} {admin?.lastName}
                     </span>
-                    <span className="text-xs font-light">Administrator</span>
+                    <span className="text-xs font-light">{role}</span>
                   </div>
 
                   <div>
@@ -70,14 +89,13 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-sm bg-white p-1 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/profile")}
                         className={classNames(
                           active && "bg-gray-100",
-                          "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                          "cursor-pointer rounded-sm px-4 py-2 text-gray-700 focus:bg-gray-200 active:bg-gray-200",
                         )}
                       >
                         <h1 className="text-sm">Notification Preferences</h1>
@@ -87,10 +105,10 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => navigate("/settings")}
+                        onClick={() => navigate("/admin/settings")}
                         className={classNames(
                           active && "bg-gray-100",
-                          "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                          "cursor-pointer rounded-sm px-4 py-2 text-gray-700 focus:bg-gray-200 active:bg-gray-200",
                         )}
                       >
                         <h1 className="text-sm">Change Password</h1>
@@ -100,9 +118,10 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
+                        onClick={logOut}
                         className={classNames(
                           active && "bg-gray-100",
-                          "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
+                          "cursor-pointer rounded-sm px-4 py-2 text-gray-700 focus:bg-gray-200 active:bg-gray-200",
                         )}
                       >
                         <h1 className="text-sm">Logout</h1>

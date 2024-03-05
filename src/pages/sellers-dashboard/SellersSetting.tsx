@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
-import { FiCamera, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import {
   MdOutlineEnhancedEncryption,
   MdOutlineNotifications,
@@ -16,6 +16,8 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+import { IoIosCheckmarkCircle } from "react-icons/io";
 
 type FormData = {
   fullName: string;
@@ -28,6 +30,51 @@ type FormData = {
   address: string;
 };
 
+export const standards = [
+  {
+    title: "Product Quality Standards",
+    points: [
+      "All products listed on our platform must meet or exceed industry standards for freshness, safety, and quality.",
+      "We expect vendors to adhere to best practices in sourcing, production, and handling to maintain the integrity of their products.",
+    ],
+  },
+  {
+    title: "Certification and Compliance",
+    points: [
+      "Vendors are required to provide documentation certifying the quality, origin, and compliance of their products with relevant regulatory requirements.",
+      "Certifications related to food safety, hygiene, and animal welfare are highly encouraged and may be mandatory for certain products.",
+    ],
+  },
+  {
+    title: "Quality Control Measures",
+    points: [
+      "Vendors must implement stringent quality control measures throughout the production and packaging process to ensure consistency and compliance with our standards.",
+      "Regular inspections and testing may be conducted to verify product quality and safety.",
+    ],
+  },
+  {
+    title: "Transparency and Information",
+    points: [
+      "Transparency is key. Vendors should provide detailed product information, including sourcing practices, ingredients, nutritional facts, and any relevant certifications.",
+      "Clear and accurate product descriptions help customers make informed purchasing decisions and build trust in your brand.",
+    ],
+  },
+  {
+    title: "Continuous Improvement",
+    points: [
+      "We value feedback from both customers and vendors. Your insights are essential for identifying areas of improvement and enhancing product quality.",
+      "Vendors are encouraged to actively participate in our quality assurance initiatives and collaborate with us to raise the bar for excellence.",
+    ],
+  },
+  {
+    title: "Collaboration and Support",
+    points: [
+      "Our team is here to support you every step of the way. If you have any questions, concerns, or need assistance with compliance or quality issues, please don't hesitate to reach out.",
+      "Together, we can build a strong partnership based on mutual trust, integrity, and a shared commitment to delivering exceptional products to our customers.",
+    ],
+  },
+];
+
 function SettingssTab() {
   const [vendor, setVendor] = useState<any>({});
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,8 +82,8 @@ function SettingssTab() {
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3] = useState(false);
 
-  const [, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  // const [, setImage] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
 
   const tab = searchParams.get("tab") || "account";
 
@@ -45,11 +92,24 @@ function SettingssTab() {
     //setTab(tabIndex);
   };
 
-  const handleImage = (e: any) => {
-    const file = e.target.files[0];
-    setImage(file);
-    setImageUrl(URL.createObjectURL(file));
-  };
+  //  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //    const file = e.target.files && e.target.files[0];
+  //    if (file) {
+  //      setImage(file);
+  //      setImageUrl(URL.createObjectURL(file));
+  //    }
+  //    handleImage(e, img);
+  //  };
+
+  // const handleImage = (e: any) => {
+  //   const file = e.target.files && e.target.files[0];
+
+  //   if (file) {
+  //     console.log(file, "file");
+  //     setImage(file);
+  //     setImageUrl(URL.createObjectURL(file));
+  //   }
+  // };
 
   const toggleEye = (e: any) => {
     e.preventDefault();
@@ -62,8 +122,8 @@ function SettingssTab() {
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const [email] = useState("");
-  const [storeName] = useState("");
+  // const [email] = useState("");
+  // const [storeName] = useState("");
   useEffect(() => {
     //@ts-ignore
     const storedVendor = JSON.parse(localStorage.getItem("vendor"));
@@ -74,14 +134,11 @@ function SettingssTab() {
   }, []);
 
   console.log(vendor);
-  const accountOwnersName =
-    vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
-  const shopName = vendor?.vendor?.sellerAccountInformation.shopName;
+  const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
+  // const accountOwnersName =
+  //   vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
   const phone = vendor?.vendor?.sellerAccountInformation.phoneNumber;
   const storeEmail = vendor?.vendor?.sellerAccountInformation.email;
-  const address = vendor?.vendor?.businessInformation.address1;
-  const city = vendor?.vendor?.businessInformation.city;
-  const id = vendor?.vendor?._id;
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
     storeName: Yup.string()
@@ -95,7 +152,7 @@ function SettingssTab() {
     phoneNumber: Yup.string()
       .required("Valid Phone Number is required")
       .min(6, "Valid Phone Number must be at least 6 characters")
-      .max(12, "Valid Phone Number must not exceed 12 characters"),
+      .max(14, "Valid Phone Number must not exceed 14 characters"),
   });
 
   const {
@@ -105,115 +162,140 @@ function SettingssTab() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
+    defaultValues: {
+      fullName: vendor?.vendor?.businessInformation?.businessOwnerName || "",
+      storeName: vendor?.vendor?.sellerAccountInformation.shopName || "",
+      email: vendor?.vendor?.sellerAccountInformation.email || "",
+      storeId: vendor?.vendor?._id || "",
+      streetAddress: vendor?.vendor?.businessInformation.address1 || "",
+      location: vendor?.vendor?.businessInformation.city || "",
+      phoneNumber: vendor?.vendor?.sellerAccountInformation.phoneNumber || "",
+    },
   });
 
-  console.log({ errors });
+  useEffect(() => {
+    if (vendor) {
+      reset({
+        fullName: vendor?.vendor?.businessInformation?.businessOwnerName || "",
+        storeName: vendor?.vendor?.sellerAccountInformation.shopName || "",
+        email: vendor?.vendor?.sellerAccountInformation.email || "",
+        storeId: vendor?.vendor?._id || "",
+        streetAddress: vendor?.vendor?.businessInformation.address1 || "",
+        location: vendor?.vendor?.businessInformation.city || "",
+        phoneNumber: vendor?.vendor?.sellerAccountInformation.phoneNumber || "",
+      });
+    }
+  }, [reset, vendor]);
+
+  // console.log({ errors });
 
   const onSubmit = (data: FormData) => {
-    data.phoneNumber = phoneNumber;
+    // data.phoneNumber = phoneNumber;
 
-    data.email = email;
-    data.storeName = storeName;
-
+    // data.email = email;
+    // data.storeName = storeName;
+    console.log(data.storeName);
     console.log(JSON.stringify(data, null, 2));
     reset();
   };
 
   return (
     <>
-      <div className=" flex mb-20 flex-col justify-center md:block xxs:hidden ">
-        <div className="flex  flex-col gap-2 mb-8">
-          <h1 className="md:text-[36px] md:leading-[42px] font-medium xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
+      <div className=" mb-20 flex flex-col justify-center xxs:hidden md:block ">
+        <div className="mb-8  flex flex-col gap-2">
+          <h1 className="font-medium text-[#1F1F1F] xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px]">
             Settings
           </h1>
-          <span className="text-[#A2A2A2] md:text-[16px] md:leading-[18.75px] font-normal xxs:text-[14px] xxs:leading-[16px] mt-1">
+          <span className="mt-1 font-normal text-[#A2A2A2] xxs:text-[14px] xxs:leading-[16px] md:text-[16px] md:leading-[18.75px]">
             All information's available.
           </span>
         </div>
-        <section className=" space-y-1 bg-[#F4F4F4]  rounded-[4px]">
-          <div className=" flex flex-row items-stretch justify-between w-full">
-            <div className="flex flex-col justify-start w-1/4 space-y-2 md:border-r md:border-gray-400 p-4">
-              <button
-                onClick={() => handleClick("account")}
-                className={` py-2 cursor-pointer  ${
-                  tab === "account" ? " text-[#197B30] " : "text-[#797979]"
-                }`}
-              >
-                <div className="flex gap-3 ">
-                  <MdOutlinePerson size={24} />
-                  <span className="text-[16px] leading-[19px] font-normal ">
-                    Account Information
-                  </span>
-                </div>
-              </button>
-              <span
-                onClick={() => handleClick("quality-control")}
-                className={` py-2 cursor-pointer  ${
-                  tab === "quality-control"
-                    ? " text-[#197B30]"
-                    : "text-[#797979]"
-                }`}
-              >
-                <div className="flex gap-3 ">
-                  <BiShieldQuarter size={24} />
+        <section className=" space-y-1 rounded-[4px]  bg-[#F4F4F4]">
+          <div className=" relative flex w-full flex-row flex-wrap items-stretch justify-center xl:items-stretch xl:justify-between">
+            <div className=" overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-200">
+              <div className="hide-scroll-bar flex justify-start  gap-4 overflow-x-auto  py-4 md:w-full md:flex-row md:items-center  lg:items-start xl:h-full  xl:flex-col xl:space-y-2 xl:overflow-visible">
+                <button
+                  onClick={() => handleClick("account")}
+                  className={` cursor-pointer py-2 md:rounded md:bg-[#ffffff] md:px-3 xl:rounded-none xl:bg-transparent xl:px-0  ${
+                    tab === "account" ? " text-[#197B30] " : "text-[#797979]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <MdOutlinePerson size={24} />
+                    <span className="whitespace-nowrap text-[16px] font-normal leading-[19px] ">
+                      Account Information
+                    </span>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleClick("quality-control")}
+                  className={` cursor-pointer py-2 md:rounded md:bg-[#ffffff] md:px-3 xl:rounded-none xl:bg-transparent xl:px-0 ${
+                    tab === "quality-control"
+                      ? " text-[#197B30]"
+                      : "text-[#797979]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <BiShieldQuarter size={24} />
 
-                  <span className="text-[16px] leading-[19px] font-normal ">
-                    Quality Control
-                  </span>
-                </div>
-              </span>
-              <span
-                onClick={() => handleClick("notification")}
-                className={` py-2 cursor-pointer  ${
-                  tab === "notification"
-                    ? "z-20 text-[#197B30]"
-                    : "text-[#797979]"
-                }`}
-              >
-                <div className="flex gap-3 ">
-                  <MdOutlineNotifications size={24} />
-                  <span className="text-[16px] leading-[19px] font-normal ">
-                    Notification
-                  </span>
-                </div>
-              </span>
-              <span
-                onClick={() => handleClick("change-password")}
-                className={` py-2 cursor-pointer ${
-                  tab === "change-password"
-                    ? "z-20 text-[#197B30]"
-                    : "text-[#797979]"
-                }`}
-              >
-                <div className="flex gap-3 ">
-                  <MdOutlineEnhancedEncryption size={24} />
-                  <span className="text-[16px] leading-[19px] font-normal ">
-                    Change Password
-                  </span>
-                </div>
-              </span>
+                    <span className="whitespace-nowrap text-[16px] font-normal leading-[19px] ">
+                      Quality Control
+                    </span>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleClick("notification")}
+                  className={` cursor-pointer py-2 md:rounded md:bg-[#ffffff] md:px-3 xl:rounded-none xl:bg-transparent xl:px-0 ${
+                    tab === "notification"
+                      ? "z-20 text-[#197B30]"
+                      : "text-[#797979]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <MdOutlineNotifications size={24} />
+                    <span className="whitespace-nowrap text-[16px] font-normal leading-[19px] ">
+                      Notification
+                    </span>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleClick("change-password")}
+                  className={` cursor-pointer py-2 md:rounded md:bg-[#ffffff] md:px-3 xl:rounded-none xl:bg-transparent xl:px-0 ${
+                    tab === "change-password"
+                      ? "z-20 text-[#197B30]"
+                      : "text-[#797979]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <MdOutlineEnhancedEncryption size={24} />
+                    <span className="whitespace-nowrap text-[16px] font-normal leading-[19px] ">
+                      Change Password
+                    </span>
+                  </div>
+                </button>
+              </div>
             </div>
 
-            <div className="w-3/4 pt-6 pl-10 pr-8">
+            <div className="px-8 pt-6 md:w-full xl:w-3/4 xl:px-4">
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="space-2-2 "
                 style={{ display: tab === "account" ? "block" : "none" }}
               >
                 <div className="m-auto">
-                  <div className="w-16 h-16 flex items-center justify-center border border-black rounded-full">
-                    {imageUrl ? (
+                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-black">
+                    {/* {imageUrl ? (
                       <img
                         src={imageUrl}
                         alt="uploaded"
                         style={{ maxWidth: "100%", maxHeight: "100%" }}
-                        className="w-28 h-28 rounded-full cursor-pointer"
+                        className="h-28 w-28 cursor-pointer rounded-full object-cover"
                       />
                     ) : (
                       <>
                         <label htmlFor="file" className="">
                           <FiCamera size={20} className="text-gray-400" />
-                          <span className=" cursor-pointer  my-auto text-[#197B30]"></span>{" "}
+                          <span className=" my-auto  cursor-pointer text-[#197B30]"></span>{" "}
                         </label>
 
                         <input
@@ -221,31 +303,32 @@ function SettingssTab() {
                           type="file"
                           name="file"
                           onClick={handleImage}
-                          className=" hidden appearance-none outline-none text-sm "
+                          className=" hidden appearance-none text-sm outline-none "
                         />
                       </>
-                    )}
+                    )} */}
+                    <FaUserCircle size={60} className="text-neutral-300" />
                   </div>
                 </div>
 
                 <h3
-                  className=" text-[24px] leading-[28px]  text-[#333333] pt-2 font-semibold"
+                  className=" pt-2 text-[24px]  font-semibold leading-[28px] text-[#333333]"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  {accountOwnersName}
+                  {vendorName}
                 </h3>
-                <label
+                {/* <label
                   htmlFor="file"
-                  className="text-sm flex items-center gap-2 text-right"
+                  className="fle items-center gap-2 text-right text-sm"
                 >
                   <FiCamera className="text-[#197B30]" />
-                  <span className=" cursor-pointer  my-auto text-[#197B30] text-[14px] leading-[16px] py-4 font-medium">
+                  <span className=" my-auto  cursor-pointer py-4 text-[14px] font-medium leading-[16px] text-[#197B30]">
                     Change profile picture
                   </span>{" "}
-                </label>
+                </label> */}
 
                 <div
-                  className="flex flex-col gap-4"
+                  className="mt-8 flex flex-col gap-4"
                   style={{
                     transitionDelay: "0.2s",
                     transition: "opacity 0 0.5s ease-in",
@@ -254,42 +337,40 @@ function SettingssTab() {
                   <div className="grid grid-cols-2 gap-8">
                     <div className=" w-full ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
-                        htmlFor=""
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
+                        htmlFor="fullName"
                       >
                         FullName
                       </label>
                       <input
-                        value={accountOwnersName}
                         type="text"
                         {...register("fullName")}
                         placeholder="Enter Your Full Name"
-                        className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                        className={`h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30]  ${
                           errors.fullName ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.fullName?.message}
                       </div>
                     </div>
 
                     <div className="w-full xxs:mt-3 md:mt-0">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Store Name
                       </label>
                       <input
-                        value={shopName}
                         type="text"
                         {...register("storeName")}
                         placeholder="Enter Your Store Name"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-1 focus:outline-[#197b30] ${
                           errors.storeName ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.storeName?.message}
                       </div>
                     </div>
@@ -297,43 +378,41 @@ function SettingssTab() {
                   <div className="grid grid-cols-2 gap-8">
                     <div className=" input my-1 ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Email Address
                       </label>
                       <input
                         type="email"
-                        value={storeEmail}
                         {...register("email")}
                         placeholder="Enter Your Email Address"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                           errors.email ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm lowercase text-[#dd1313]">
                         {errors.email?.message}
                       </div>
                     </div>
 
                     <div className=" input my-1 ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Store ID
                       </label>
                       <input
-                        value={id}
                         type="text"
                         disabled
                         {...register("storeId")}
                         placeholder="Enter Store ID"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                           errors.storeId ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.storeId?.message}
                       </div>
                     </div>
@@ -341,50 +420,48 @@ function SettingssTab() {
                   <div className="grid grid-cols-2 gap-8">
                     <div className=" input my-1 ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Street Address
                       </label>
                       <input
-                        value={address}
                         type="text"
                         {...register("streetAddress")}
                         placeholder="Enter Street Address"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 capitalize text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                           errors.streetAddress ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.streetAddress?.message}
                       </div>
                     </div>
 
                     <div className=" input my-1 ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Location
                       </label>
                       <input
-                        value={city}
                         type="text"
                         {...register("location")}
                         placeholder="Enter Location"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                           errors.location ? "border-[#dd1313]" : ""
                         }`}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.location?.message}
                       </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-8">
-                    <div className="mb-3 input">
+                    <div className="input mb-3">
                       <label
-                        className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor="phonenumber"
                       >
                         Phone Number
@@ -403,7 +480,7 @@ function SettingssTab() {
                           }`,
                         }}
                       />
-                      <div className="text-[#dd1313] text-sm">
+                      <div className="text-sm text-[#dd1313]">
                         {errors.phoneNumber?.message}
                       </div>
                     </div>
@@ -412,13 +489,13 @@ function SettingssTab() {
                   <div className="flex gap-6 pt-3 pb-8">
                     <button
                       type="submit"
-                      className="border border-[#F91919]  text-[#F91919] h-12 px-[16px] rounded text-[14px] leading-[16px] font-semibold"
+                      className="h-12 rounded  border border-[#F91919] px-[16px] text-[14px] font-semibold leading-[16px] text-[#F91919]"
                     >
                       Delete Account{" "}
                     </button>
                     <button
                       type="submit"
-                      className="bg-[#197B30] text-white h-12 px-[16px] rounded text-[14px] leading-[16px]  font-semibold"
+                      className="h-12 rounded bg-[#197B30] px-[16px] text-[14px] font-semibold leading-[16px]  text-white"
                     >
                       Save Changes{" "}
                     </button>
@@ -432,39 +509,46 @@ function SettingssTab() {
                 }}
               >
                 <h3
-                  className="text-[24px] leading-[28px] font-medium flex items-center justify-center"
+                  className="flex items-center justify-center text-[24px] font-medium leading-[28px]"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  What is Quality Check?
+                  Vendor Quality Assurance Guidelines
                 </h3>
-                <div className="flex items-center justify-center">
+                <div className="mt-2 flex items-center justify-center">
                   <div className=" block h-1 w-20 bg-[#197B30]"></div>
                 </div>
-                <div className="px-[20px] pt-[24px] pb-[80px]">
-                  <p className="text-left text-[16px] leading-[19px] font-normal">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Dolorum magnam quam beatae quo recusandae optio commodi
-                    totam doloribus, nihil, laudantium itaque error reiciendis
-                    quidem. Provident optio excepturi laborum quis quidem, rem
-                    maiores accusamus voluptas amet sequi itaque culpa enim
-                    consequuntur architecto cupiditate nesciunt reiciendis eum,
-                    veniam laudantium, minus quaerat quod? Excepturi, aut nisi
-                    consequuntur vel ut consequatur natus accusamus magni. Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit. Sunt
-                    impedit nostrum, obcaecati accusantium dicta deserunt
-                    perspiciatis, quas cupiditate corrupti veritatis maiores
-                    culpa commodi ab cum debitis hic? Corporis sint harum magni
-                    eaque officiis nobis repudiandae praesentium eum facilis,
-                    eveniet, omnis nulla labore dignissimos obcaecati
-                    voluptatibus cumque quibusdam illo fugiat sequi molestias
-                    reprehenderit rerum! Repudiandae at cum quibusdam nostrum
-                    voluptate optio, vero eius magnam adipisci cupiditate nobis
-                    esse labore rerum perspiciatis quas fugiat excepturi enim,
-                    obcaecati voluptas aspernatur, molestiae ratione
-                    reprehenderit maxime facilis. Ut consequatur beatae
-                    blanditiis eos asperiores consectetur reiciendis cupiditate
-                    dolores odit! Alias beatae voluptatem quibusdam omnis
-                    accusantium in.
+                <div className="pt-[24px] pb-[80px]">
+                  <p className="text-left text-[16px] font-normal leading-[150%]">
+                    Welcome to Porker Hut Vendor Partnership Program. We are
+                    excited to collaborate with you to offer premium pork, pig,
+                    and feed products to our discerning customers across
+                    Nigeria. Our success is built on a foundation of quality,
+                    and we are committed to ensuring that every product listed
+                    on our platform meets the highest standards. Here's what you
+                    need to know about our quality assurance process:
+                  </p>
+                  <div className="mt-3 space-y-4">
+                    {standards.map((policy: any) => (
+                      <div className="font-bold">
+                        <span>{policy.title}:</span>
+                        <div className="font-normal">
+                          {policy.points.map((point: any) => (
+                            <div className=" flex items-start gap-2 font-normal">
+                              <span className="mt-1">
+                                <IoIosCheckmarkCircle className="text-green-700" />
+                              </span>
+                              {point}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-5">
+                    Thank you for choosing to partner with Porker-Hut. By
+                    upholding the highest standards of quality and excellence,
+                    we can create value for our customers and drive success for
+                    your business.
                   </p>
                 </div>
               </div>
@@ -473,32 +557,32 @@ function SettingssTab() {
                 style={{ display: tab === "notification" ? "block" : "none" }}
               >
                 <div
-                  className="text-xl font-bold leading-tight py-4"
+                  className="py-4 text-xl font-bold leading-tight"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  <SellersNotificationTable />
+                  <SellersNotificationTable storeEmail={storeEmail} />
                 </div>
               </div>
               <div
-                className="space-y-3 mb-6"
+                className="mb-6 space-y-3"
                 style={{
                   display: tab === "change-password" ? "block" : "none",
                 }}
               >
                 <div className="mb-3">
-                  <h1 className="text-[20px] leading-[28px] font-medium text-[#333333]">
+                  <h1 className="text-[20px] font-medium leading-[28px] text-[#333333]">
                     Change Password
                   </h1>
                   {/* <span className="text-[#A2A2A2] text-sm font-light">
                 All information available.
               </span> */}
                 </div>
-                <div className="w-[60%] my-4">
+                <div className="my-4 w-full xl:w-[60%]">
                   <div className="w-full ">
-                    <div className="mt-2 relative">
+                    <div className="relative mt-2">
                       <label
                         htmlFor=""
-                        className="text-[14px] leading-[16px] font-normal"
+                        className="text-[14px] font-normal leading-[16px]"
                       >
                         Old password
                       </label>
@@ -508,12 +592,12 @@ function SettingssTab() {
                         name="password"
                         placeholder="**********"
                         id="password"
-                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]
+                        className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]
 
                     `}
                       />
                       <button
-                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                         onClick={toggleConfirmEye}
                       >
                         {eyeState2 ? (
@@ -523,10 +607,10 @@ function SettingssTab() {
                         )}
                       </button>
                     </div>
-                    <div className="mt-2 relative">
+                    <div className="relative mt-2">
                       <label
                         htmlFor=""
-                        className="text-[14px] leading-[16px] font-normal"
+                        className="text-[14px] font-normal leading-[16px]"
                       >
                         New Password
                       </label>
@@ -542,10 +626,10 @@ function SettingssTab() {
                         autoComplete="on"
                         placeholder="**********"
                         id="confirmPassword"
-                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                        className={`mt-1 w-full appearance-none rounded border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
                       />
                       <button
-                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                         onClick={toggleEye}
                       >
                         {eyeState ? (
@@ -555,10 +639,10 @@ function SettingssTab() {
                         )}
                       </button>
                     </div>
-                    <div className="mt-2 relative">
+                    <div className="relative mt-2">
                       <label
                         htmlFor=""
-                        className="text-[14px] leading-[16px] font-normal"
+                        className="text-[14px] font-normal leading-[16px]"
                       >
                         Repeat Password
                       </label>
@@ -574,10 +658,10 @@ function SettingssTab() {
                         autoComplete="on"
                         placeholder="**********"
                         id="confirmPassword"
-                        className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                        className={`mt-1 w-full appearance-none rounded border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
                       />
                       <button
-                        className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                         onClick={toggleEye}
                       >
                         {eyeState ? (
@@ -588,8 +672,8 @@ function SettingssTab() {
                       </button>
                     </div>
                   </div>
-                  <div className="text-sm text-[#A2A2A2] py-2  text-justify">
-                    <p className="text-justify text-[14px] leading-[16px] font-normal ">
+                  <div className="py-2 text-justify text-sm  text-[#A2A2A2]">
+                    <p className="text-justify text-[14px] font-normal leading-[16px] ">
                       {" "}
                       The password should be at least 8 characters long. it must{" "}
                       <br />
@@ -597,8 +681,8 @@ function SettingssTab() {
                       number.
                     </p>
                   </div>
-                  <div className="flex justify-start ">
-                    <button className="px-6 py-3 text-[14px] leading-[16px] font-semibold  bg-[#197B30] text-white rounded">
+                  <div className="mt-5 flex justify-start">
+                    <button className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white">
                       Save Changes
                     </button>
                   </div>
@@ -608,7 +692,7 @@ function SettingssTab() {
           </div>
         </section>
       </div>
-      <div className="md:hidden xxs:block ">
+      <div className="xxs:block md:hidden ">
         <MobileTabs />
       </div>
       {/* <Snackbar message="successfull  "/> */}

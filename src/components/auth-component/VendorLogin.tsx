@@ -33,21 +33,19 @@ const VendorLogin = () => {
       .then((res) => {
         setLoading(false);
         navigate("/vendor");
-        localStorage.removeItem("accessToken");
+        localStorage.removeItem("vendorAccessToken");
         localStorage.removeItem("vendor");
         localStorage.removeItem("user");
-        localStorage.setItem("accessToken", res?.data?.accessToken);
+        localStorage.setItem("vendorAccessToken", res?.data?.token);
         localStorage.setItem("vendor", JSON.stringify(res?.data));
-        console.log(res);
+        console.log(res, "res");
       })
       .catch((e) => {
         setLoading(false);
 
         setIsError(e?.response?.data?.message);
-
       });
   });
-
 
   const toggleEye = (e: any) => {
     e.preventDefault();
@@ -163,7 +161,6 @@ const VendorLogin = () => {
                   >
                     Forgot Password?
                   </Link>
-
                 </div>
               </div>
               <div className="mt-3">
@@ -214,3 +211,4 @@ const VendorLogin = () => {
 };
 
 export default VendorLogin;
+

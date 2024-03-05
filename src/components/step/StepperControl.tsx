@@ -54,24 +54,24 @@ export default function StepperControl() {
   const [loading, setIsLoading] = useState(false);
   // const { data: questions } = useGetCategoryQuestion(category);
   const setShowOverlay = useSuccessOverlay(
-    (state: { setShowOverlays: any }) => state.setShowOverlays
+    (state: { setShowOverlays: any }) => state.setShowOverlays,
   );
   const { checkoutSteps, currentStep, handleClick, productData } =
     useContext(productStepsContext);
   const { img1, img2, img3, img4, img5, img6, img7, img8 } =
     useContext(ProductImagesContext);
 
-  console.log(img1, img2, img3, img4, img5, img6, img7, img8);
+  // console.log(img1, img2, img3, img4, img5, img6, img7, img8);
 
   const appendFilesToFormData = (
     fieldName: string,
     formData: FormData,
-    files?: FileData[] | null
+    files?: FileData[] | null,
   ) => {
     if (files) {
       for (const fileData of files) {
         formData.append(fieldName, fileData.file);
-        console.log(fileData.file);
+        // console.log(fileData.file);
       }
     }
   };
@@ -102,81 +102,93 @@ export default function StepperControl() {
       const pricing = productData.pricing ?? {};
       const data = new FormData();
 
+      console.log(data, productInformation, "productinfossss");
+      console.log(
+        productInformation.mainColour,
+        productInformation.typeOfMeat,
+        productInformation.typeOfProducts,
+        "inofssss",
+      );
+
       const answer1 =
         productInformation.mainColour ||
         productInformation.typeOfMeat ||
-        productInformation.typeOfProducts;
+        productInformation.typeOfProducts ||
+        productInformation.typeOfPork ||
+        "";
 
       const answer =
         productInformation.productBrand ||
         productInformation.productBreed ||
         "";
 
+      console.log(answer1, "answer1");
+
       data.append(
         "information[productName]",
-        productInformation.productName ?? ""
+        productInformation.productName ?? "",
       );
       data.append("information[category]", category ?? "");
       data.append("information[subcategory]", subcategory ?? "");
 
       data.append(
         `information[categoryQuestions][0][question]`,
-        category ?? ""
+        category ?? "",
       );
       data.append(`information[categoryQuestions][0][answer]`, answer);
       data.append(
         `information[categoryQuestions][1][question]`,
-        subcategory ?? ""
+        subcategory ?? "",
       );
       data.append(`information[categoryQuestions][1][answer]`, answer1);
 
       data.append(
         "details[productWeight]",
-        productDetails.productWeight?.toString() ?? ""
+        productDetails.productWeight?.toString() ?? "",
       );
       data.append(
         "details[productContent]",
-        productDetails.productContent ?? ""
+        productDetails.productContent ?? "",
       );
 
       if (productDetails.cookingMethod && productDetails.cookingMethod !== "") {
         data.append(
           "details[cookingMethod]",
-          productDetails.cookingMethod.toString()
+          productDetails.cookingMethod.toString(),
         );
       }
 
       if (productDetails.nutritionalValue !== "") {
         data.append(
           "details[nutritionalValue]",
-          productDetails.nutritionalValue?.toString()
+          productDetails.nutritionalValue?.toString(),
         );
       }
 
       data.append(
         "details[deliveryDetails]",
-        productDetails.deliveryDetails ?? ""
+        productDetails.deliveryDetails ?? "",
       );
       data.append(
         "details[productDescription]",
-        productDetails.productDescription ?? ""
+        productDetails.productDescription ?? "",
       );
 
       data.append(
         "pricing[saleStartDate]",
-        pricing.salesStartDate?.toString() ?? ""
+        pricing.salesStartDate?.toString() ?? "",
       );
       data.append(
         "pricing[saleEndDate]",
-        pricing.salesEndDate?.toString() ?? ""
+        pricing.salesEndDate?.toString() ?? "",
       );
       data.append(
         "pricing[productPrice]",
-        pricing.productPrice?.toString() ?? ""
+        pricing.productPrice?.toString() ?? "",
       );
       data.append(
         "pricing[quantity]",
-        pricing.productQuantity?.toString() ?? ""
+        pricing.productQuantity?.toString() ?? "",
       );
       if (vendorId) {
         data.append("vendorId", vendorId ?? "");
@@ -191,6 +203,7 @@ export default function StepperControl() {
       appendFilesToFormData("productImages", data, img7);
       appendFilesToFormData("productImages", data, img8);
       try {
+        // console.log(data, "create product");
         const response = await createProduct.mutateAsync(data);
         setIsLoading(false);
         setShowOverlay(true);
@@ -210,13 +223,13 @@ export default function StepperControl() {
   };
 
   return (
-    <div className="flex justify-center gap-8 mt-10">
+    <div className="mt-10 flex justify-center gap-8">
       <button
         disabled={currentStep === 1}
         onClick={() => {
           handleClick("");
         }}
-        className={`bg-[#ddddddfd] border border-[#197B30] text-[#197B30] px-10 py-2.5 w-[132px] rounded text-button  shadow-lg  duration-100 ease-in-out disabled:bg-[#ddddddfd] ${
+        className={`text-button w-[132px] rounded border border-[#197B30] bg-[#ddddddfd] px-10 py-2.5 text-[#197B30]  shadow-lg  duration-100 ease-in-out disabled:bg-[#ddddddfd] ${
           currentStep === 1 ? "cursor-not-allowed" : ""
         }`}
       >
@@ -227,7 +240,7 @@ export default function StepperControl() {
         onClick={(e) => {
           initiateCreateProduct(e);
         }}
-        className="bg-[#197b30]  text-white border border-[#197b30] px-10 py-2.5 w-[132px] rounded text-button   shadow-lg  duration-100 ease-in-out flex items-center justify-center"
+        className="text-button  flex w-[132px] items-center justify-center rounded border border-[#197b30] bg-[#197b30]   px-10  py-2.5 text-white shadow-lg duration-100 ease-in-out"
       >
         {loading ? (
           <div className="flex items-center justify-end">

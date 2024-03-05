@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useState } from "react";
 import CreateProductImage from "./CreateProductImage";
 import StepperControl from "./StepperControl";
@@ -12,57 +13,49 @@ const ProductImage = ({
   cate: string | null;
   subCate: string | null;
 }) => {
-  // const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [imageUrl1, setImageUrl1] = useState<string>("");
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [imageUrl3, setImageUrl3] = useState<string>("");
   const [imageUrl4, setImageUrl4] = useState<string>("");
-  const [imageUrl5, setImageUrl5] = useState<string>("");
-  const [imageUrl6, setImageUrl6] = useState<string>("");
-  const [imageUrl7, setImageUrl7] = useState<string>("");
-  const [imageUrl8, setImageUrl8] = useState<string>("");
-  const { setImg } =
-    useContext(ProductImagesContext);
-  const {
-    checkoutSteps,
-    currentStep
-  } = useContext(productStepsContext);
-
- 
+  // const [imageUrl5, setImageUrl5] = useState<string>("");
+  // const [imageUrl6, setImageUrl6] = useState<string>("");
+  // const [imageUrl7, setImageUrl7] = useState<string>("");
+  // const [imageUrl8, setImageUrl8] = useState<string>("");
+  const { setImg } = useContext(ProductImagesContext);
+  const { checkoutSteps, currentStep } = useContext(productStepsContext);
 
   const handleImage = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: string
+    field: string,
   ) => {
     const selectedFiles = Array.from(e.target.files || []);
-    console.log(selectedFiles, "kk");
-
+    // console.log(selectedFiles, "kk");
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-    console.log(updatedFiles, "updatedFiles");
-    console.log(field);
+    // console.log(updatedFiles, "updatedFiles");
+    // console.log(field);
     setImg(field, updatedFiles);
-
   };
 
-  console.log(currentStep, "currentStep");
+  // console.log(currentStep, "currentStep");
 
   return (
     <>
-      <div className=" lg:p-8 p-5  bg-[#F4F4F4] rounded-md">
+      <div className=" rounded-md bg-[#F4F4F4]  p-5 lg:p-8">
         <div className=" mb-8">
-          <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+          <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
             Product Images
           </h1>
-          <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+          <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
             Images need to be at least 800 x 800 pixel with a maximum of 3000 x
             3000 pixel.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 ">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-2 lg:grid-cols-4 ">
           <CreateProductImage
             img={"img1"}
             handleImage={handleImage}
@@ -87,7 +80,7 @@ const ProductImage = ({
             setImageUrl={setImageUrl4}
             imageUrl={imageUrl4}
           />
-          <CreateProductImage
+          {/* <CreateProductImage
             img={"img5"}
             handleImage={handleImage}
             setImageUrl={setImageUrl5}
@@ -110,7 +103,7 @@ const ProductImage = ({
             handleImage={handleImage}
             setImageUrl={setImageUrl8}
             imageUrl={imageUrl8}
-          />
+          /> */}
         </div>
 
         <div>

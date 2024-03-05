@@ -6,7 +6,7 @@ switch (process.env.NODE_ENV) {
     BASEURL = process.env.REACT_APP_BASE_URL;
     break;
   default:
-    BASEURL = process.env.REACT_APP_BASE_URL;
+    BASEURL = process.env.REACT_APP_STAGING_BASE_URL;
     break;
 }
 
@@ -47,7 +47,7 @@ export const api = {
     userFavProduct: (id: string | null) => `/api/favorite-product/${id}`,
     removeFavProduct: (
       userId: string | undefined,
-      productId: string | undefined
+      productId: string | undefined,
     ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
     isFavProduct: (userId: string | undefined, productId: string | undefined) =>
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
@@ -66,6 +66,8 @@ export const api = {
       `/products/${productId}/rating-stats`,
     ratingDetails: (productId: string | undefined) =>
       `/api/ratings/products/${productId}/details`,
+    isRated: (userId: string, productID: string) =>
+      `/api/ratings/check-rating/user/${userId}/product/${productID}`,
   },
   Vets: {
     createVet: "/api/vets",
@@ -74,7 +76,7 @@ export const api = {
     getBanks: "/api/pay/banks",
     resolveAcc: (
       account_number: string | number,
-      bank_code?: string | number
+      bank_code?: string | number,
     ) =>
       `/api/pay/account-details?account_number=${account_number}&bank_code=${bank_code}`,
   },
@@ -96,14 +98,19 @@ export const api = {
   Order: {
     order: "/api/orders",
     orderbyId: (id: string) => `/api/orders/${id}`,
+    vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
+  },
+  admin: {
+    inviteAdmin: "/api/user/admin-invite",
+    getAdmin: "/api/user/admin",
   },
 };
 
 export const makePostRequest = async (
   data: any,
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   return await axios.post(`${BASEURL}${url}`, data, {
     headers: {
@@ -115,7 +122,7 @@ export const makePostRequest = async (
 
 export const makeDeleteRequest = async <T = any>(
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   return await axios.delete<T>(`${BASEURL}${url}`, {
     headers: {
@@ -127,7 +134,7 @@ export const makeDeleteRequest = async <T = any>(
 export const makePostRequestWithCustomHeaders = async (
   data: any,
   url: string,
-  headers?: any
+  headers?: any,
 ) => {
   const temp = await fetch(`${BASEURL}${url}`, {
     method: "POST",
@@ -149,7 +156,7 @@ export const makePostRequestWithCustomHeaders = async (
 export const makePatchRequest = async (
   data: any,
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   return await axios.patch(`${BASEURL}${url}`, data, {
     headers: {
@@ -161,7 +168,7 @@ export const makePatchRequest = async (
 export const makePutRequest = async (
   data: any,
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   return await axios.put(`${BASEURL}${url}`, data, {
     headers: {
@@ -184,7 +191,7 @@ export const makePutRequest = async (
 
 export const makeGetRequest = async <T = any>(
   url: string,
-  includeAuthHeaders: boolean = true
+  includeAuthHeaders: boolean = true,
 ) => {
   const temp = await axios.get<T>(`${BASEURL}${url}`, {
     headers: {
@@ -197,7 +204,7 @@ export const makeGetRequest = async <T = any>(
 
 export const makeGetRequestWithCustomHeader = async <T = any>(
   url: string,
-  includeAuthHeaders: boolean = true
+  includeAuthHeaders: boolean = true,
 ) => {
   try {
     const headers: { [key: string]: string } = {};
@@ -208,6 +215,7 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
       if (accessToken) {
         headers["x-access-token"] = accessToken;
         headers["Authorization"] = `Bearer ${accessToken}`;
+        headers["Token"] = `Bearer ${accessToken}`;
       } else {
         throw new Error("Access token is missing");
       }
@@ -228,7 +236,7 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
 export const makeCustomPutRequest = async (
   data: any,
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   return await axios.put(`${BASEURL}${url}`, data, {
     headers: {
@@ -241,7 +249,7 @@ export const makeCustomPutRequest = async (
 export const makePostRequestCustom = async (
   data: any,
   url: string,
-  includeAuthHeader: boolean = true
+  includeAuthHeader: boolean = true,
 ) => {
   try {
     const headers: { [key: string]: string } = {};

@@ -2,9 +2,12 @@ import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
+  makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
+  makePatchRequest,
   makePostRequest,
+  makePutRequest,
 } from "../../../api";
 
 export const useGetAllProducts = () => {
@@ -45,7 +48,7 @@ export const useGetVendorInfo = (id: string | undefined) => {
 
 export const useGetFavProduct = (
   userId: string | undefined,
-  productId: string | undefined
+  productId: string | undefined,
 ) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.isFavProduct(userId, productId)),
@@ -62,7 +65,7 @@ export const useGetUserFavProduct = (id: string) => {
 
 export const useDeleteFavorite = (
   userId: string | undefined,
-  productId: string | undefined
+  productId: string | undefined,
 ) => {
   return useQueryMutation({
     mutationFn: () =>
@@ -78,6 +81,13 @@ export const useCreateRating = () => {
       ratingValue: number;
       comment: string;
     }) => makePostRequest(data, api.Ratings.createRating),
+  });
+};
+
+export const useUpdateRating = (ratingId: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { ratingValue: number; comment: string }) =>
+      makePatchRequest(data, api.Ratings.updateRating(ratingId)),
   });
 };
 
@@ -99,5 +109,12 @@ export const useGetRatingDetails = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Ratings.ratingDetails(id)),
     queryKey: ["ratingDetails +"],
+  });
+};
+
+export const useGetRatedProduct = (userId: string, productId: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Ratings.isRated(userId, productId)),
+    queryKey: ["userRating +"],
   });
 };

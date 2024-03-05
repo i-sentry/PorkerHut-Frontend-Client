@@ -30,11 +30,11 @@ const FilterSidebar = ({
   if (!open) return null;
   return (
     <>
-      <div className="md:hidden xxs:block bg-white w-[80%] z-50 py-20 pb-[120px]   fixed overflow-hidden px-4 h-full">
+      <div className="fixed left-0 z-50 h-full w-[80%] overflow-hidden bg-white py-20 px-4 pb-[120px] xxs:block lg:hidden">
         <div className=" flex items-center justify-between">
-          <span className=" font-medium text-[16px] ">Filters</span>
+          <span className=" text-[16px] font-medium ">Filters</span>
           <span
-            className=" flex gap-1 items-center font-medium text-base cursor-pointer text-[#197b30]"
+            className=" flex cursor-pointer items-center gap-1 text-base font-medium text-[#197b30]"
             onClick={onClose}
           >
             <BsX size={20} />
@@ -63,13 +63,13 @@ const FilterSidebar = ({
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={handleClear}
-            className="border-red-500 border text-red-500 py-3 px-6 rounded shadow-md"
+            className="rounded border border-red-500 py-3 px-6 text-red-500 shadow-md"
           >
             Clear filter
           </button>
           <button
             onClick={handleApplyClick}
-            className="bg-[#197B30] text-white py-3 px-6 rounded shadow-md"
+            className="rounded bg-[#197B30] py-3 px-6 text-white shadow-md"
           >
             Show result
           </button>
@@ -77,7 +77,7 @@ const FilterSidebar = ({
       </div>
       <div
         onClick={onClose}
-        className="md:hidden xxs:fixed  bg-gray-800 bg-opacity-50 w-1/5 min-h-screen z-50 top-0 right-0 absolute"
+        className="absolute top-0  right-0 z-50 min-h-screen w-1/5 bg-gray-800 bg-opacity-50 xxs:fixed lg:hidden"
       ></div>
     </>
   );

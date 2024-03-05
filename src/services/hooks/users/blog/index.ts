@@ -1,5 +1,6 @@
 import useQueryAction from "../../../../lib/useQueryAction";
-import { api, makeGetRequest } from "../../../api";
+import useQueryMutation from "../../../../lib/useQueryMutation";
+import { api, makeGetRequest, makePostRequest } from "../../../api";
 
 export const useGetAllBlogs = () => {
   return useQueryAction({
@@ -13,3 +14,10 @@ export const useGetBlog = (id: string | undefined) => {
     queryKey: ["blogs", id],
   });
 };
+
+export const useCreateBlog = ()=> {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequest(data, api.Blogs.allBlogs),
+  });
+}

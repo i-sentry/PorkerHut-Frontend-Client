@@ -7,10 +7,10 @@ function ToggleSwitch() {
     <div className="r">
       {/* Switch Container */}
       <div
-        className={`md:w-24 md:h-6 w-20 h-7 flex items-center cursor-pointer ${
+        className={`flex h-7 w-20 cursor-pointer items-center md:h-6 md:w-24 ${
           toggle
-            ? "border-2 border-red-500 rounded-sm"
-            : "border-[#22c55e] border-2 rounded-sm"
+            ? "rounded-sm border-2 border-red-500"
+            : "rounded-sm border-2 border-[#22c55e]"
         } `}
         onClick={() => {
           setToggle(!toggle);
@@ -18,22 +18,22 @@ function ToggleSwitch() {
       >
         {/* Switch */}
         <div
-          className={`md:w-12 md:h-5 h-5 w-[34px] border-2  shadow-lg  duration-300 ease-in-out  relative ${
+          className={`relative h-5 w-[34px] border-2 shadow-lg  duration-300  ease-in-out md:h-5  md:w-12 ${
             toggle
-              ? "transform translate-x-11 bg-red-500 border-red-500 "
-              : "bg-[#22C55E] border-[#22c55e]"
+              ? "translate-x-11 transform border-red-500 bg-red-500 "
+              : "border-[#22c55e] bg-[#22C55E]"
           }`}
         >
           {/* Text */}
           <span
-            className={`absolute inset-0 flex items-center justify-center text-[16px] leading-[19px] font-normal text-white ${
-              toggle ? "opacity-0 bg-[#22c55e]" : "opacity-100"
+            className={`absolute inset-0 flex items-center justify-center text-[16px] font-normal leading-[19px] text-white ${
+              toggle ? "bg-[#22c55e] opacity-0" : "opacity-100"
             }`}
           >
             ON
           </span>
           <span
-            className={`absolute inset-0 text-[16px] leading-[19px] font-normal flex items-center justify-center text-white ${
+            className={`absolute inset-0 flex items-center justify-center text-[16px] font-normal leading-[19px] text-white ${
               toggle ? "opacity-100" : "opacity-0"
             }`}
           >

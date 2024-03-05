@@ -1,32 +1,58 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
-
+import logo from "../assets/images/porkerlogo.png";
 
 const Layout = () => {
-  console.log(localStorage.getItem("vendor"), "done");
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-  
+  const accessToken = localStorage.getItem("vendorAccessToken");
 
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (
+      path.startsWith("/vendor") &&
+      (!accessToken || accessToken === "undefined" || accessToken === null)
+    ) {
+      navigate("/sign-in?q=vendor");
+    }
+    setLoading(false);
+  }, [accessToken, navigate]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden hide-scroll-bar">
-      <div className="grid grid-rows-[auto_1fr] w-full h-full">
-        <div className="sticky top-0 left-0 right-0 z-50">
-          <VendorsNav />
-        </div>
-        <div className="md:flex h-full w-full overflow-x-hidden hide-scroll-bar">
-          <div className="">
-            <SellerSideNav />
+    <>
+      {loading ? (
+        <div className="flex h-screen flex-col items-center justify-center">
+          <div className="flex flex-col items-center">
+            <img
+              src={logo}
+              alt="loaderLogo"
+              className="h-20 w-20 animate-pulse"
+            />
+            <p className="text-[14px] leading-[24px] text-[#333333]">
+              Fetching Data...
+            </p>
           </div>
-          <div className="overflow-y-auto flex-1 pt-0 md:pt-4 lg:pt-[40px] md:px-4 lg:pl-20  lg::pr-6 hide-scroll-bar">
-            <Outlet />
-          </div>
         </div>
-      </div>
+      ) : (
+        <div className="hide-scroll-bar h-screen w-screen overflow-hidden">
+          <div className="grid h-full w-full grid-rows-[auto_1fr]">
+            <div className="sticky top-0 left-0 right-0 z-50">
+              <VendorsNav />
+            </div>
+            <div className="hide-scroll-bar h-full w-full overflow-x-hidden md:flex">
+              <SellerSideNav />
 
-    </div>
+              <div className="hide-scroll-bar flex-1 overflow-y-auto pt-6 md:px-4 md:pt-4 lg:pt-[40px]">
+                <Outlet />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

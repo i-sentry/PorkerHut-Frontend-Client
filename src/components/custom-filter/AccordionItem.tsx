@@ -3,8 +3,7 @@ import { PiCaretUp } from "react-icons/pi";
 
 interface AccordionItemProps {
   title: string;
-    children: React.ReactNode;
-
+  children: React.ReactNode;
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, children }) => {
@@ -16,15 +15,17 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children }) => {
 
   return (
     <div className="border-b py-2">
-      <div className="flex justify-between items-center">
-        <div className="text-[16px]  leading-normal text-[#333] font-semibold">
+      <div
+        className="flex cursor-pointer items-center justify-between"
+        onClick={handleToggleAccordion}
+      >
+        <div className="text-[16px]  font-semibold leading-normal text-[#333]">
           {title}
         </div>
         <button
-          className={`transition-transform transform ${
+          className={`transform transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
-          onClick={handleToggleAccordion}
         >
           <PiCaretUp />
         </button>

@@ -108,10 +108,10 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   console.log(myBillingInfo?.data?.data?.billing, "myBillingInfo");
 
   const defaultBillingInfo = myBillingInfo?.data?.data?.billing.find(
-    (info: { isDefault: any }) => info.isDefault === true
+    (info: { isDefault: any }) => info.isDefault === true,
   );
   const upDateInfo = useUpdateBillingInfo(
-    (defaultBillingInfo?._id as string) ?? (billingId as string)
+    (defaultBillingInfo?._id as string) ?? (billingId as string),
   );
   // Use defaultBillingInfo to set default values for the form
   useEffect(() => {
@@ -225,8 +225,8 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
         isOpen={showModay}
         onClose={() => setShowModal(false)}
       />
-      <div className="  bg-[#F5F5F5] min-h-screen my-20 lg:px-12 xxs:px-4">
-        <div className=" lg:py-6 xxs:pt-4 xxs:pb-6">
+      <div className="  my-20 min-h-screen bg-[#F5F5F5] xxs:px-4 lg:px-12">
+        <div className=" xxs:pt-4 xxs:pb-6 lg:py-6">
           <ProductsBreadCrumbs
             items={[
               {
@@ -245,15 +245,15 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
           />
         </div>
 
-        <div className="flex gap-8  pb-10 relative ">
-          <div className=" lg:w-2/3 xxs:w-full bg-white lg:px-6 xxs:px-3 flex flex-col gap-4 py-6 rounded-lg">
-            <h1 className=" lg:text-[24px] lg:leading-[28px] text-[#333333] font-medium xxs:text-[18px] xxs:leading-[21px] mb-4">
-              Billing Information
+        <div className="relative flex  gap-8 pb-10 ">
+          <div className=" flex flex-col gap-4 rounded-lg bg-white py-6 xxs:w-full xxs:px-3 lg:w-2/3 lg:px-6 ">
+            <h1 className=" mb-4 font-medium text-[#333333] xxs:text-[18px] xxs:leading-[21px] lg:text-[24px] lg:leading-[28px]">
+              Billing Informations
             </h1>
-            <div className="tabs flex relative mb-4">
+            <div className="tabs relative mb-4 flex">
               <Link
                 to={"/billing/me"}
-                className={`flex items-center justify-center text-sm md:text-lg font-semibold flex-1 p-4 ${
+                className={`flex flex-1 items-center justify-center p-4 text-sm font-semibold md:text-lg ${
                   !isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
@@ -261,31 +261,31 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               </Link>
               <Link
                 to={"/billing"}
-                className={`flex items-center justify-center text-sm  md:text-lg font-semibold flex-1 p-1 md:p-4 ${
+                className={`flex flex-1 items-center justify-center  p-1 text-sm font-semibold md:p-4 md:text-lg ${
                   isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
                 Enter New Information
               </Link>
               <div
-                className={`indicator h-[2px] w-1/2 bg-[#197B30] transition-all duration-500 absolute bottom-0 ${
+                className={`indicator absolute bottom-0 h-[2px] w-1/2 bg-[#197B30] transition-all duration-500 ${
                   isMyBilling ? "left-0" : "left-[50%]"
                 } rounded-xl`}
               ></div>
             </div>
-            <div className="flex ">
+            <div className="flex overflow-x-hidden">
               <div
-                className={`w-full transition-all duration-1000 shrink-0 ${
+                className={`w-full shrink-0 transition-all duration-1000 ${
                   isMyBilling
                     ? "translate-x-0 opacity-100"
                     : "-translate-x-full opacity-0"
                 }`}
               >
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="lg:flex xxs:block gap-6">
+                  <div className="gap-6 xxs:block lg:flex">
                     <div className=" w-full ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         First Name
@@ -295,13 +295,13 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         type="text"
                         {...register("firstName")}
                         placeholder="Enter Your First Name"
-                        className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                        className={`h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30]  ${
                           errors.firstName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
                       {errors.firstName && (
-                        <span className="text-[#dd1313] text-sm">
+                        <span className="text-sm text-[#dd1313]">
                           {String(errors.firstName?.message)}
                         </span>
                       )}
@@ -309,7 +309,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
 
                     <div className="w-full xxs:mt-3 lg:mt-0">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Last Name
@@ -319,13 +319,13 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         type="text"
                         {...register("lastName")}
                         placeholder="Enter Your Last Name"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-1 focus:outline-[#197b30] ${
                           errors.lastName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
                       {errors.lastName && (
-                        <span className="text-[#dd1313] text-sm">
+                        <span className="text-sm text-[#dd1313]">
                           {String(errors.lastName?.message)}
                         </span>
                       )}
@@ -333,7 +333,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                   </div>
                   <div className=" input my-3 ">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor=""
                     >
                       Email Address
@@ -343,21 +343,21 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       type="text"
                       {...register("email")}
                       placeholder="Enter Your Email Address"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors.email ? "border-[#dd1313]" : ""
                       }`}
                       required
                     />
                     {errors.email && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.email?.message)}
                       </span>
                     )}
                   </div>
 
-                  <div className="mb-3 input">
+                  <div className="input mb-3">
                     <label
-                      className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="phoneNumber"
                     >
                       Phone Number
@@ -384,7 +384,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     />
 
                     {errors.phoneNumber && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.phoneNumber.message)}
                       </span>
                     )}
@@ -392,7 +392,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
 
                   <div className="mb-3">
                     <label
-                      className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor=""
                     >
                       Address
@@ -403,20 +403,20 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       required
                       {...register("address")}
                       placeholder="Enter Delivery Address"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors.address ? "border-[#dd1313]" : ""
                       }`}
                     />
                     {errors.address && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.address?.message)}
                       </span>
                     )}
                   </div>
 
-                  <div className="mb-3 input">
+                  <div className="input mb-3">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="country"
                     >
                       Country
@@ -442,14 +442,14 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       )}
                     />
                     {errors.country && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.country?.message)}
                       </span>
                     )}
                   </div>
-                  <div className="mb-3 input">
+                  <div className="input mb-3">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="state"
                     >
                       State
@@ -474,14 +474,14 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     />
 
                     {errors.state && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.state?.message)}
                       </span>
                     )}
                   </div>
 
                   <div className=" mb-3">
-                    <h1 className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1">
+                    <h1 className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]">
                       City/Town/Street
                     </h1>
                     <input
@@ -490,12 +490,12 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       required
                       {...register("city")}
                       placeholder="Enter City/Town/Street"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors.city ? "border-[#dd1313]" : ""
                       }`}
                     />
                     {errors.city && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors.city?.message)}
                       </span>
                     )}
@@ -516,11 +516,11 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     </label>
                   </div> */}
 
-                  <div className="xxs:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:py-10 lg:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
+                  <div className="flex flex-1 flex-col gap-3 rounded-lg pb-4 text-center xxs:py-10 lg:flex-row lg:justify-end lg:rounded-t-none lg:bg-white lg:py-4">
                     <div className="">
                       <button
                         onClick={() => navigate("/products")}
-                        className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                        className="w-full select-none whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#fff] py-4 text-[16px] font-medium tracking-wider text-[#197B30] lg:inline-block lg:py-3 lg:px-6 lg:text-[14px]"
                       >
                         Continue to Shopping
                       </button>
@@ -533,11 +533,11 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       >
                         <button
                           type="submit"
-                          className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30]  select-none tracking-wider font-medium whitespace-nowrap"
+                          className="inline-flex w-full select-none items-center justify-center whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#197B30] py-4  text-[16px] font-medium tracking-wider text-[#fff] lg:py-3 lg:px-6 lg:text-[14px]"
                         >
                           {loading ? (
                             <svg
-                              className="animate-spin h-5 w-5  text-white"
+                              className="h-5 w-5 animate-spin  text-white"
                               width="24px"
                               height="24px"
                               viewBox="0 0 24 24"
@@ -566,17 +566,17 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                 </form>
               </div>
               <div
-                className={` w-full transition-all duration-1000 shrink-0 ${
+                className={` w-full shrink-0 transition-all duration-1000 ${
                   !isMyBilling
                     ? "-translate-x-full opacity-100"
                     : "translate-x-100 opacity-0"
                 }`}
               >
                 <form onSubmit={handleSubmitForm2(handleCreateBilling)}>
-                  <div className="lg:flex xxs:block gap-6">
+                  <div className="gap-6 xxs:block lg:flex">
                     <div className=" w-full ">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         First Name
@@ -585,13 +585,13 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         type="text"
                         {...registerForm2("firstName")}
                         placeholder="Enter Your First Name"
-                        className={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1  ${
+                        className={`h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30]  ${
                           errors2.firstName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
                       {errors2.firstName && (
-                        <span className="text-[#dd1313] text-sm">
+                        <span className="text-sm text-[#dd1313]">
                           {String(errors2.firstName?.message)}
                         </span>
                       )}
@@ -599,7 +599,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
 
                     <div className="w-full xxs:mt-3 lg:mt-0">
                       <label
-                        className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                        className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor=""
                       >
                         Last Name
@@ -608,13 +608,13 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         type="text"
                         {...registerForm2("lastName")}
                         placeholder="Enter Your Last Name"
-                        className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5  focus:outline-[#197b30] focus:outline-1 ${
+                        className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-1 focus:outline-[#197b30] ${
                           errors2.lastName ? "border-[#dd1313]" : ""
                         }`}
                         required
                       />
                       {errors2.lastName && (
-                        <span className="text-[#dd1313] text-sm">
+                        <span className="text-sm text-[#dd1313]">
                           {String(errors2.lastName?.message)}
                         </span>
                       )}
@@ -622,7 +622,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                   </div>
                   <div className=" input my-3 ">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor=""
                     >
                       Email Address
@@ -631,21 +631,21 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       type="text"
                       {...registerForm2("email")}
                       placeholder="Enter Your Email Address"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors2.email ? "border-[#dd1313]" : ""
                       }`}
                       required
                     />
                     {errors2.email && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.email?.message)}
                       </span>
                     )}
                   </div>
 
-                  <div className="mb-3 input">
+                  <div className="input mb-3">
                     <label
-                      className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="phoneNumber"
                     >
                       Phone Number
@@ -671,7 +671,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     />
 
                     {errors2.phoneNumber && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.phoneNumber.message)}
                       </span>
                     )}
@@ -679,7 +679,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
 
                   <div className="mb-3">
                     <label
-                      className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor=""
                     >
                       Address
@@ -689,20 +689,20 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       required
                       {...registerForm2("address")}
                       placeholder="Enter Delivery Address"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors2.address ? "border-[#dd1313]" : ""
                       }`}
                     />
                     {errors2.address && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.address?.message)}
                       </span>
                     )}
                   </div>
 
-                  <div className="mb-3 input relative">
+                  <div className="input relative mb-3">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="country"
                     >
                       Country
@@ -726,18 +726,18 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         />
                       )}
                     />
-                    <span className="absolute top-[34px] right-3 pointer-events-none hidden">
+                    <span className="pointer-events-none absolute top-[34px] right-3 hidden">
                       <MdKeyboardArrowDown size={24} color="#a2a2a2" />
                     </span>
                     {errors2.country && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.country?.message)}
                       </span>
                     )}
                   </div>
-                  <div className="relative mb-3 input after:content-[`hello`]">
+                  <div className="input relative mb-3 after:content-[`hello`]">
                     <label
-                      className=" text-[#333333] text-[14px] block leading-[16px] font-normal mb-1"
+                      className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                       htmlFor="state"
                     >
                       State
@@ -759,18 +759,18 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         />
                       )}
                     />
-                    <span className="absolute top-[34px] right-3 pointer-events-none hidden">
+                    <span className="pointer-events-none absolute top-[34px] right-3 hidden">
                       <MdKeyboardArrowDown size={24} color="#a2a2a2" />
                     </span>
                     {errors2.state && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.state?.message)}
                       </span>
                     )}
                   </div>
 
                   <div className=" mb-3">
-                    <h1 className="  text-[#333333] text-[14px] block leading-[16px] font-normal mb-1">
+                    <h1 className="  mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]">
                       City/Town/Street
                     </h1>
                     <input
@@ -778,12 +778,12 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       required
                       {...registerForm2("city")}
                       placeholder="Enter City/Town/Street"
-                      className={` w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      className={` h-12 w-full rounded-lg border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
                         errors2.city ? "border-[#dd1313]" : ""
                       }`}
                     />
                     {errors2.city && (
-                      <span className="text-[#dd1313] text-sm">
+                      <span className="text-sm text-[#dd1313]">
                         {String(errors2.city?.message)}
                       </span>
                     )}
@@ -797,19 +797,19 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                         setVal(!val);
                       }}
                       checked={val}
-                      className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                      className="h-4 w-4 cursor-pointer rounded checked:bg-[#197B30] checked:hover:bg-[#197B30] focus:border-[#197B30] focus:ring-0 checked:focus:bg-[#197B30]"
                     />
                     {myBillingInfo?.data?.data?.billing.length < 1 ? (
                       <label
                         htmlFor=""
-                        className="ml-2 text-xs md:text-sm text-slate-500 whitespace-nowrap"
+                        className="ml-2 whitespace-nowrap text-xs text-slate-500 md:text-sm"
                       >
                         Should we save this as your default billing information?
                       </label>
                     ) : (
                       <label
                         htmlFor=""
-                        className="ml-2 text-xs md:text-sm text-slate-500 whitespace-nowrap"
+                        className="ml-2 text-xs text-slate-500 md:text-sm"
                       >
                         Should we update your default billing information with
                         details provided?
@@ -817,16 +817,16 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     )}
                   </div>
 
-                  <div className="xxs:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:py-10 lg:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 pb-4">
-                    <div className="">
+                  <div className="flex flex-1 flex-col items-center justify-center gap-3 rounded-lg pb-4 text-center xxs:py-10  lg:flex-row lg:justify-end lg:rounded-t-none lg:bg-white lg:py-4">
+                    <div className="w-full">
                       <button
                         onClick={() => navigate("/products")}
-                        className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                        className="w-full select-none whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#fff] py-4 text-[16px] font-medium tracking-wider text-[#197B30] lg:inline-block lg:py-3 lg:px-6 lg:text-[14px]"
                       >
                         Continue to Shopping
                       </button>
                     </div>
-                    <div>
+                    <div className="w-full">
                       <Ripples
                         className="w-full"
                         color="#f5f5f550"
@@ -834,11 +834,11 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       >
                         <button
                           type="submit"
-                          className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                          className="flex w-full select-none items-center justify-center whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#197B30] py-4 text-[16px] font-medium tracking-wider text-[#fff] lg:inline-block lg:py-3 lg:px-6 lg:text-[14px]"
                         >
                           {loading ? (
                             <svg
-                              className="animate-spin h-5 w-5 text-white"
+                              className="h-5 w-5 animate-spin text-white"
                               width="24px"
                               height="24px"
                               viewBox="0 0 24 24"
@@ -868,7 +868,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               </div>
             </div>
           </div>
-          <div className="lg:block xxs:hidden w-1/3">
+          <div className="w-1/3 xxs:hidden lg:block">
             <OrderCart
               temp={temp}
               setLoading={setLoading}
@@ -879,11 +879,12 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
             />
           </div>
         </div>
-        <div className="lg:hidden text-center lg:bg-white rounded-lg lg:rounded-t-none lg:py-4 xxs:pb-10 xxs:flex flex-col gap-3 lg:justify-end lg:flex-row flex-1 ">
+        <div className="flex-1 flex-col gap-3 rounded-lg text-center xxs:hidden xxs:pb-10 lg:hidden lg:flex-row lg:justify-end lg:rounded-t-none lg:bg-white lg:py-4 ">
           <div>
             <button
+              onClick={() => handleSubmit(onSubmit)}
               type="submit"
-              className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#fff] bg-[#197B30] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+              className="w-full select-none whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#197B30] py-4 text-[16px] font-medium tracking-wider text-[#fff] lg:inline-block lg:py-3 lg:px-6 lg:text-[14px]"
             >
               {loading ? (
                 <div className="mx-auto flex items-center justify-center">
@@ -895,7 +896,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                   />
                 </div>
               ) : (
-                " Proceed to Payments"
+                " Proceed to Payments mob"
               )}
             </button>
           </div>
@@ -903,7 +904,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
             <Ripples className="w-full" color="#197b307a" during={2000}>
               <button
                 onClick={() => navigate("/products")}
-                className="w-full border border-[#479559] lg:text-[14px] text-[16px] lg:py-3 lg:px-6 py-4 rounded-[4px] text-[#197B30] bg-[#fff] lg:inline-block select-none tracking-wider font-medium whitespace-nowrap"
+                className="w-full select-none whitespace-nowrap rounded-[4px] border border-[#479559] bg-[#fff] py-4 text-[16px] font-medium tracking-wider text-[#197B30] lg:inline-block lg:py-3 lg:px-6 lg:text-[14px]"
               >
                 Continue to Shopping
               </button>

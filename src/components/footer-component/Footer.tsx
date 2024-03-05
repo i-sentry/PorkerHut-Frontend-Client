@@ -7,9 +7,9 @@ const Footer = () => {
   return (
     <div className="bg-[#333333]">
       <div className="flex flex-col px-[4%]">
-        <div className="bg-[#F4F4F4] md:mt-5  rounded-md mb-2 p-6 mt-10">
-          <div className=" flex md:justify-between md:flex-col lg:flex-row  items-center max-sm:flex-col max-sm:overflow-hidden max-md:flex-col">
-            <span className="font-semibold  md:text-[32px] md:mb-4 lg:mb-0 md:text-2xl sm:text-base  md::mb-2 ">
+        <div className="mb-2 mt-10  rounded-md bg-[#F4F4F4] p-6 md:mt-5">
+          <div className=" flex items-center max-md:flex-col max-sm:flex-col  max-sm:overflow-hidden md:flex-col md:justify-between lg:flex-row">
+            <span className="md::mb-2  font-semibold sm:text-base md:mb-4 md:text-[32px] md:text-2xl  lg:mb-0 ">
               Subscribe to Our Newsletter
             </span>
 
@@ -17,18 +17,18 @@ const Footer = () => {
               <input
                 type="text"
                 placeholder="Enter your email address"
-                className="p-2 border-solid border border-[#D9D9D9] border-r-0 w-96 rounded-l outline-0 border-inherit max-md:w-full max-md:border-solid max-md:border-2 max-md:rounded-r-md max-md:mb-2 placeholder:text-[#A2A2A2] placeholder:text-sm"
+                className="w-96 rounded-l border border-r-0 border-solid border-[#D9D9D9] border-inherit p-2 outline-0 placeholder:text-sm placeholder:text-[#A2A2A2] max-md:mb-2 max-md:w-full max-md:rounded-r-md max-md:border-2 max-md:border-solid"
               />
               <button
                 type="submit"
-                className="p-2 z-50 text-white bg-[#197B30] md:w-32 rounded border-hidden items-center max-md:rounded-l-md tracking-wider select-none max-sm:w-full   max-sm:rounded-md hover:bg-green-900 "
+                className="z-50 select-none items-center rounded border-hidden bg-[#197B30] p-2 tracking-wider text-white hover:bg-green-900 max-md:rounded-l-md max-sm:w-full   max-sm:rounded-md md:w-32 "
               >
                 Submit
               </button>
             </form>
           </div>
         </div>
-        <div className="md:flex md:justify-between gap-12 mt-7 mb-6 max-md:flex-wrap">
+        <div className="mt-7 mb-6 gap-12 max-md:flex-wrap md:flex md:justify-between">
           <div className="flex flex-col gap-3 text-justify">
             <div
               onClick={() => navigate("/")}
@@ -36,50 +36,50 @@ const Footer = () => {
             >
               <img src={PorkerLogo} alt="porkerhutLogo" />
               <div className="flex flex-col md:mx-0">
-                <p className="title text-xl  font-semibold text text-left  text-[#FFFFFF] font-Roboto-slab">
+                <p className="title text  text-left font-Roboto-slab text-xl  font-semibold text-[#FFFFFF]">
                   Porker Hut
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="text-[#D9D9D9] font-normal text-sm text-left md:leading-6 xxs:leading-8">
+              <p className="text-left text-sm font-normal text-[#D9D9D9] xxs:leading-8 md:leading-6">
                 An Agro-Commerce E-Commerce platform where <br /> you can put
                 your products and get customers <br /> from you at no extra cost
               </p>
             </div>
           </div>
-          <div className=" xxs:pt-10 md:pt-0 xxs:flex-col">
-            <div className="flex-1 flex flex-col md:gap-3 text-justify xxs:gap-5">
-              <h1 className="text-xl font-semibold not-italic text-[#FFFFFF] font-Roboto">
+          <div className=" xxs:flex-col xxs:pt-10 md:pt-0">
+            <div className="flex flex-1 flex-col text-justify xxs:gap-5 md:gap-3">
+              <h1 className="font-Roboto text-xl font-semibold not-italic text-[#FFFFFF]">
                 Company
               </h1>
               <Link
                 to={"/affiliate"}
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Affiliate
               </Link>
               <span
                 onClick={() => navigate("/about-us", { replace: true })}
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 About
               </span>
               <span
                 onClick={() => navigate("/blog", { replace: true })}
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Blog
               </span>
               <span
                 onClick={() => navigate("/contact-us", { replace: true })}
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Contact Us
               </span>
             </div>
-            <div className="md:hidden xxs:flex-1 xxs:flex-col xxs:flex gap-2 xxs:mt-5 xxs:py-5 xxs:gap-5">
+            <div className="gap-2 xxs:mt-5 xxs:flex xxs:flex-1 xxs:flex-col xxs:gap-5 xxs:py-5 md:hidden">
               <h1
                 onClick={() => navigate("/products")}
                 className="text-xl font-semibold not-italic text-[#FFFFFF]"
@@ -87,8 +87,10 @@ const Footer = () => {
                 Products
               </h1>
               <span
-                onClick={() => navigate("/category/646387cdc7fe89756fe83fec?q=pork")} 
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                onClick={() =>
+                  navigate("/category/646387cdc7fe89756fe83fec?q=pork")
+                }
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Porks
               </span>
@@ -97,7 +99,7 @@ const Footer = () => {
                 onClick={() =>
                   navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds")
                 }
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
                 // to={`/category/${item._id}?q=${item?.name}`}
               >
                 Animal Feeds
@@ -106,7 +108,7 @@ const Footer = () => {
                 onClick={() =>
                   navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks")
                 }
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Livestock
               </span>
@@ -114,33 +116,32 @@ const Footer = () => {
                 onClick={() =>
                   navigate("/services/agro-services", { replace: true })
                 }
-                className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Agro-Services
               </span>
             </div>
           </div>
 
-          
-          <div className="md:flex xxs:hidden flex-col gap-3 text-justify">
+          <div className="flex-col gap-3 text-justify xxs:hidden md:flex">
             <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
               Products
             </h1>
             <Link
-              to={'/category/646387cdc7fe89756fe83fec?q=pork'}
-              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              to={"/category/646387cdc7fe89756fe83fec?q=pork"}
+              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
             >
               Porks
             </Link>
             <Link
               to={`/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds`}
-              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
             >
               Animal Feeds
             </Link>
             <Link
               to={`/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks`}
-              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
             >
               Livestock
             </Link>
@@ -148,69 +149,72 @@ const Footer = () => {
               onClick={() =>
                 navigate("/services/agro-services ", { replace: true })
               }
-              className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]"
+              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
             >
               Agro-Services
             </span>
           </div>
-          <div className=" md:flex xxs:hidden flex-col gap-3 text-justify">
-            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF]">
+          <div className=" flex-col gap-3 text-justify xxs:hidden md:flex">
+            <div className="flex flex-col text-xl font-semibold not-italic text-[#FFFFFF] xxs:mx-auto xxs:text-center md:mx-0 md:text-left">
               <p>Social Media</p>
-              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center "></span>
             </div>
 
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-              Facebook
-            </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-              Instagram
-            </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-              Twitter
-            </span>
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
-              LinkedIn
-            </span>
-          </div>
-          <div className="md:hidden">
-            <div className="text-xl md:text-left xxs:text-center flex flex-col xxs:mx-auto md:mx-0 font-semibold not-italic text-[#FFFFFF] xxs:mb-4 md:mb-0">
-              <p>Social Media</p>
-              <span className="md:hidden xxs:block h-1 w-10 bg-[#197B30] self-center"></span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+              <a
+                rel="noreferrer"
+                href="https://web.facebook.com/profile.php?id=100087600040948"
+                target="_blank"
+              >
                 Facebook
-              </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              </a>
+            </span>
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+              <a
+                rel="noreferrer"
+                href="https://www.instagram.com/porkerhutnaija/"
+                target="_blank"
+              >
                 Instagram
-              </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              </a>
+            </span>
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] ">
+              <a
+                rel="noreferrer"
+                href="https://twitter.com/PorkerN87229"
+                target="_blank"
+              >
                 Twitter
-              </span>
-              <span className="font-normal text-sm text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+              </a>
+            </span>
+            <span className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]">
+              <a
+                rel="noreferrer"
+                href="https://www.linkedin.com/in/porker-hut-24b1222b8/"
+                target="_blank"
+              >
                 LinkedIn
-              </span>
-            </div>
+              </a>
+            </span>
           </div>
         </div>
         <hr className="xxs:hidden md:block" />
 
-        <div className="md:flex justify-between items-center md:mt-5">
-          <div className="flex xxs:gap-8 items-center justify-center  md:gap-10 mb-6 xxs:mb-2 ">
-            <span className="font-normal md:text-sm text-xs text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30] ">
+        <div className="items-center justify-between md:mt-5 md:flex">
+          <div className="mb-6 flex items-center justify-center  xxs:mb-2 xxs:gap-8 md:gap-10 ">
+            <span className="font-Roboto cursor-pointer text-xs font-normal text-[#D9D9D9] hover:text-[#197b30] md:text-sm ">
               Legal Notice
             </span>
-            <span className="font-normal md:text-sm text-xs text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            <span className="font-Roboto cursor-pointer text-xs font-normal text-[#D9D9D9] hover:text-[#197b30] md:text-sm">
               Privacy Policy{" "}
             </span>
-            <span className="font-normal md:text-sm text-xs text-[#D9D9D9] font-Roboto cursor-pointer hover:text-[#197b30]">
+            <span className="font-Roboto cursor-pointer text-xs font-normal text-[#D9D9D9] hover:text-[#197b30] md:text-sm">
               Terms & Conditions
             </span>
           </div>
           <hr className=" xxs:w-full md:hidden" />
 
-          <div className="max-md:mt-2 xxs:flex xxs:justify-center xxs:items-center xxs:mb-8 xxs:mt-4">
-            <span className="font-normal text-sm text-[#D9D9D9] font-Roboto">
+          <div className="max-md:mt-2 xxs:mb-8 xxs:mt-4 xxs:flex xxs:items-center xxs:justify-center">
+            <span className="font-Roboto text-sm font-normal text-[#D9D9D9]">
               &copy; {new Date().getFullYear()}. All rights Reserved
             </span>
           </div>

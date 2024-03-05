@@ -88,7 +88,7 @@ const AdminTable = ({
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
   ) as any;
 
   const {
@@ -110,22 +110,22 @@ const AdminTable = ({
     } else {
       setTdata(
         TData.filter(
-          (d: { order_status: string }) =>
-            d?.order_status?.toLowerCase() === chosenTab.toLowerCase()
-        )
+          (d: { status: string }) =>
+            d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+        ),
       );
     }
   }, [chosenTab, TData, tabs]);
 
   return (
     <>
-      <div className="flex gap-2 w-full overflow-x-scroll xxs:py-4 md:py-0 hide-scrollbar">
+      <div className="hide-scrollbar flex w-full gap-2 overflow-x-scroll xxs:py-4 md:py-0">
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}
-            className={`cursor-pointer relative underline bg-transparent text-center px-4 text-[#5c6f7f] ${
+            className={`relative cursor-pointer bg-transparent px-4 text-center text-[#5c6f7f] underline ${
               selectedTab === tab
-                ? "text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
+                ? "rounded-md border border-[#197B30] text-[#197B30] no-underline shadow-md transition-all duration-100 ease-in-out"
                 : ""
             }`}
             isActive={selectedTab === tab}
@@ -140,16 +140,16 @@ const AdminTable = ({
       </div>
 
       <div
-        className={`md:flex  items-center ${
+        className={`items-center gap-7 md:flex ${
           showDropDown ? "justify-between" : "justify-end"
-        }  mt-5 my-6 w-full `}
+        }  my-6 mt-5 w-full `}
       >
         {showDropDown && (
-          <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
-            <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+          <div className="items-center gap-3 xxs:hidden md:flex">
+            <div className="flex h-full items-center border-r-[1px] border-r-[#D0D5DD]">
               <input
                 type="checkbox"
-                className="text-primary  accent-[#197B30] text-xs md:text-sm"
+                className="text-primary  text-xs accent-[#197B30] md:text-sm"
                 readOnly
                 checked={numOfSelectedRow > 0 ? true : false}
               />
@@ -162,12 +162,12 @@ const AdminTable = ({
             <div className="max-w-xl ">
               <OrderDropDown />
             </div>
-            <div className="bg-[#197B30] text-[#fff] px-4 py-1.5 text-sm rounded-md cursor-pointer">
+            <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]">
               Go
             </div>
           </div>
         )}
-        <div className=" md:flex md:justify-end xxs:block">
+        <div className=" xxs:block md:flex md:w-[350px] md:justify-end">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -175,13 +175,13 @@ const AdminTable = ({
           />
         </div>
       </div>
-      <div className="flex flex-col bg-white mb-8 ">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full">
+      <div className="mb-8 flex flex-col bg-white ">
+        <div className="overflow-x-auto">
+          <div className="block w-full">
             <div className="">
               <table
                 {...getTableProps()}
-                className="appearance-none bg-white min-w-full mb-6 border border-gray-300 rounded-lg"
+                className="mb-6 min-w-full appearance-none rounded-lg border border-gray-300 bg-white"
               >
                 <thead className="bg-[#F4F4F4]">
                   {headerGroups.map(
@@ -196,14 +196,14 @@ const AdminTable = ({
                           {headerGroup.headers.map(
                             (column: {
                               getHeaderProps: (
-                                arg0: any
+                                arg0: any,
                               ) => JSX.IntrinsicAttributes &
                                 React.ClassAttributes<HTMLTableHeaderCellElement> &
                                 React.ThHTMLAttributes<HTMLTableHeaderCellElement>;
                               getSortByToggleProps: () => any;
                               id: React.Key | null | undefined;
                               render: (
-                                arg0: string
+                                arg0: string,
                               ) =>
                                 | string
                                 | number
@@ -219,14 +219,14 @@ const AdminTable = ({
                               canSort: boolean;
                             }) => (
                               <th
-                                className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 rounded-t-md"
+                                className="text-primary whitespace-nowrap rounded-t-md py-4 px-4 text-left text-sm font-normal"
                                 {...column.getHeaderProps(
-                                  column.getSortByToggleProps()
+                                  column.getSortByToggleProps(),
                                 )}
                                 key={column.id}
                               >
                                 <div className="flex items-center">
-                                  <span className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal">
+                                  <span className="flex items-center text-[16px] font-normal leading-[19px] text-[#333333]">
                                     {column.render("Header")}
                                   </span>
                                   {showIcon && column.canSort === true && (
@@ -247,16 +247,16 @@ const AdminTable = ({
                                   )}
                                 </div>
                               </th>
-                            )
+                            ),
                           )}
                         </tr>
                       );
-                    }
+                    },
                   )}
                 </thead>
                 <tbody
                   {...getTableBodyProps()}
-                  className="mt-3 pt-3 w-full space-y-8"
+                  className="mt-3 w-full space-y-8 pt-3"
                 >
                   {page.map(
                     (row: {
@@ -278,7 +278,7 @@ const AdminTable = ({
                                   React.ClassAttributes<HTMLTableDataCellElement> &
                                   React.TdHTMLAttributes<HTMLTableDataCellElement>;
                                 render: (
-                                  arg0: string
+                                  arg0: string,
                                 ) =>
                                   | string
                                   | number
@@ -292,19 +292,19 @@ const AdminTable = ({
                                   | null
                                   | undefined;
                               },
-                              index: number
+                              index: number,
                             ) => (
                               <td
                                 {...cell.getCellProps()}
-                                className="font-light text-sm leading-[19px] text-[#202223] py-4 text-left px-4 whitespace-nowrap"
+                                className="whitespace-nowrap py-4 px-4 text-left text-sm font-light leading-[19px] text-[#202223]"
                               >
                                 {cell.render("Cell")}
                               </td>
-                            )
+                            ),
                           )}
                         </tr>
                       );
-                    }
+                    },
                   )}
                 </tbody>
               </table>

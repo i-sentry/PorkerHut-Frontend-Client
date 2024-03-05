@@ -13,9 +13,10 @@ const FeaturedProduct = () => {
   useEffect(() => setData(productData), []);
 
   const { data: getAllProducts, isLoading } = useGetAllProducts();
+
   if (isLoading) {
     return (
-      <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 px-[4%] ">
+      <div className="grid w-full px-[4%] xxs:grid-cols-2  xxs:gap-4 lg:grid-cols-4 lg:gap-3 ">
         {Array.from({ length: 12 }).map((_, index) => (
           <SkeletonLoader key={index} />
         ))}
@@ -26,9 +27,9 @@ const FeaturedProduct = () => {
   return (
     <>
       {getAllProducts && getAllProducts?.data?.length < 1 ? (
-        <div className="flex flex-col items-center justify-center my-16">
+        <div className="my-16 flex flex-col items-center justify-center">
           <svg
-            className="w-12 h-12 text-gray-400"
+            className="h-12 w-12 text-gray-400"
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -46,12 +47,14 @@ const FeaturedProduct = () => {
           <p className="mt-2 text-sm text-gray-500">No products available.</p>
         </div>
       ) : (
-        <div className="w-full grid lg:grid-cols-4 lg:gap-3  xxs:gap-4 xxs:grid-cols-2 px-[4%] ">
+        <div className="grid w-full px-[4%] xxs:grid-cols-2  xxs:gap-4 lg:grid-cols-3 lg:gap-3 xl:grid-cols-4 ">
           {chunkArray(
             getAllProducts?.data.filter(
-              (product: any) => product.images.length > 0
+              (product: any) =>
+                product?.images.length > 0 &&
+                product?.approvalStatus === "approved",
             ),
-            itemsPerPage
+            itemsPerPage,
           )[currentPageIndex - 1]?.map((item: any, index: number) => {
             return <ProductCard item={item} key={index} />;
           })}

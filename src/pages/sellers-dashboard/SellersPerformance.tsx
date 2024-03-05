@@ -1,12 +1,12 @@
 import React from "react";
 import PerformanceWidget from "../../components/performanceComp/PerformanceWidget";
-import {
-  ScriptableContext,
-} from "chart.js";
+import { ScriptableContext } from "chart.js";
 import { Line } from "react-chartjs-2";
 import ChartLayout from "../../components/vendors-component/ChatLayout";
 import { Carousel } from "./SellersAccount";
 import { AiOutlineFall, AiOutlineRise } from "react-icons/ai";
+import { useGetVendorOrders } from "../../services/hooks/orders";
+import { CgSpinner } from "react-icons/cg";
 
 interface IData {
   color: string;
@@ -23,7 +23,7 @@ interface IData {
   text: string;
 }
 
-const cardData: IData[] = [
+/* const cardData: IData[] = [
   {
     color: "#F4F4F4",
     currency: "thr",
@@ -88,7 +88,7 @@ const cardData: IData[] = [
     amount: "",
     text: "sed do eiusmod tempor incididunt",
   },
-];
+]; */
 
 export const options = {
   responsive: true,
@@ -129,12 +129,59 @@ export const options = {
 };
 
 const SellersPerformance = () => {
+  const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const { data: vo, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
+  const vendorOrders = vo?.data?.orders;
+
+  // console.log(vendorOrders, isLoading, "vendorOrders");
+
+  const salesRevenue = vendorOrders
+    ?.map((order: any) => order?.subtotal)
+    ?.reduce((acc: any, price: any) => acc + price, 0);
+
+  const itemSold = vendorOrders
+    ?.map((order: any) => order?.productDetails?.length)
+    ?.reduce((acc: any, item: any) => acc + item, 0);
+
+  // console.log("salesRevenue", salesRevenue);
+
+  // const monthData = vendorOrders?.map((order: any) => {
+  //   const monthIndex = new Date(order.orderDate)?.getMonth();
+  //   return new Date(0, monthIndex)?.toLocaleString("default", {
+  //     month: "long",
+  //   });
+  // });
+
+  // console.log(monthData, "monthData");
+
+  const chartData = vendorOrders
+    ?.flatMap((order: any) => order?.productDetails)
+    ?.map((product: any) => ({
+      price: product?.productID?.pricing?.productPrice,
+    }));
+  // console.log(chartData, "chartData");
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+
     datasets: [
       {
         label: "Assets Status",
-        data: [33, 53, 85, 41, 44, 65],
+        // data: [33, 53, 85, 41, 44, 65],
+        data: chartData?.map((item: any) => item?.price),
         fill: true,
         backgroundColor: (context: ScriptableContext<"line">) => {
           const chart = context.chart;
@@ -151,36 +198,104 @@ const SellersPerformance = () => {
     ],
   };
 
-  const card = cardData.map((val) => (
+  const performanceWidgetsData: IData[] = [
+    {
+      color: "#F4F4F4",
+      currency: "thr",
+      action: () => {
+        throw new Error("Function not implemented.");
+      },
+      percentage: 10,
+      value: `₦${salesRevenue?.toLocaleString()}`,
+      type: "Sales",
+      borderColor: "#d9d9d9",
+      textColor: "red",
+      navigate: "link",
+      disable: false,
+      amount: "",
+      text: "Value of the goods you have sold",
+    },
+    {
+      color: "#F4F4F4",
+      currency: "thr",
+      action: () => {
+        throw new Error("Function not implemented.");
+      },
+      percentage: -5,
+      value: vendorOrders?.length,
+      type: "Orders",
+      borderColor: "#d9d9d9",
+      textColor: "red",
+      navigate: "link",
+      disable: false,
+      amount: "",
+      text: "Number of orders delivered and in delivery.",
+    },
+    {
+      color: "#F4F4F4",
+      currency: "thr",
+      action: () => {
+        throw new Error("Function not implemented.");
+      },
+      percentage: 2,
+      value: itemSold,
+      type: "Items Sold",
+      borderColor: "#d9d9d9",
+      textColor: "red",
+      navigate: "link",
+      disable: false,
+      amount: "",
+      text: "Number of Items expected to get to the customer",
+    },
+    {
+      color: "#F4F4F4",
+      currency: "thr",
+      action: () => {
+        throw new Error("Function not implemented.");
+      },
+      percentage: 10,
+      value: "300k",
+      type: "Page views",
+      borderColor: "#d9d9d9",
+      textColor: "red",
+      navigate: "link",
+      disable: false,
+      amount: "",
+      text: "Number of visit on your page",
+    },
+  ];
+
+  const card = performanceWidgetsData.map((val) => (
     <div>
-      <div>{MobilePerformanceWidget(val)}</div>
+      <div>{MobilePerformanceWidget(val, isLoading)}</div>
     </div>
   ));
 
   return (
     <div className="overflow-hidden xxs:px-4 md:px-0">
-      <h1 className="md:text-[32px] md:leading-[46px] xxs:text-[20px] xxs:leading-[23px] text-[#333333] font-normal">
+      <h1 className="font-bold text-[#333333] xxs:text-[20px] xxs:leading-[23px] md:text-[32px] md:leading-[46px]">
         Performance
       </h1>
-      <p className="text-[#A2A2A2] md:text-[14px] xxs:text-[13px] xxs:leading-[15px] md:leading-[16px] ">
+      <p className="text-[#A2A2A2] xxs:text-[13px] xxs:leading-[15px] md:text-[14px] md:leading-[16px] ">
         This is an overview of your performance
       </p>
-      <div className="w-full md:grid grid-cols-4 gap-4 xxs:gap-5 md:gap-3  whitespace-no wrap  xxs:mt-0 md:mt-4 hidden">
+      <div className="whitespace-no wrap hidden w-full gap-4 xxs:mt-0 xxs:gap-5 md:mt-4  md:grid md:grid-cols-2  md:gap-4 xl:grid-cols-4 xl:gap-6">
         <PerformanceWidget
           color={"#F4F4F4"}
           currency={"thr"}
           action={function (): void {
             throw new Error("Function not implemented.");
           }}
-          percentage={5}
-          value={"# 100,00,00"}
+          percentage={10}
+          value={`₦${salesRevenue?.toLocaleString()}`}
           type={"Sales"}
           borderColor={"#d9d9d9"}
           textColor={"red"}
           navigate={"link"}
           disable={false}
           amount={""}
-          text="lorem ispsum nesr jdhfdffs"
+          text="Value of the goods you have sold"
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -188,15 +303,16 @@ const SellersPerformance = () => {
           action={function (): void {
             throw new Error("Function not implemented.");
           }}
-          percentage={5}
-          value={"# 100,00,00"}
-          type={"Sales"}
+          percentage={-5}
+          value={vendorOrders?.length}
+          type={"Orders"}
           borderColor={"#d9d9d9"}
           textColor={"red"}
           navigate={"link"}
           disable={false}
           amount={""}
-          text="tomorrow ispsum he jdhfdffs"
+          text="Number of orders delivered and in delivery."
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -204,15 +320,16 @@ const SellersPerformance = () => {
           action={function (): void {
             throw new Error("Function not implemented.");
           }}
-          percentage={5}
-          value={"# 100,00,00"}
-          type={"Sales"}
+          percentage={2}
+          value={itemSold}
+          type={"Items Sold"}
           borderColor={"#d9d9d9"}
           textColor={"red"}
           navigate={"link"}
           disable={false}
           amount={""}
-          text="lorem hhhshdsa nesr jdhfdffs"
+          text="Number of Items expected to get to the  customer"
+          isLoading={isLoading}
         />
         <PerformanceWidget
           color={"#F4F4F4"}
@@ -220,21 +337,29 @@ const SellersPerformance = () => {
           action={function (): void {
             throw new Error("Function not implemented.");
           }}
-          percentage={5}
-          value={"# 100,00,00"}
-          type={"Sales"}
+          percentage={10}
+          value={"300k"}
+          type={"Page views"}
           borderColor={"#d9d9d9"}
           textColor={"red"}
           navigate={"link"}
           disable={false}
           amount={""}
-          text="pork meet ispsum hgh jdhfdffs"
+          text="Number of visit on your page"
+          isLoading={isLoading}
         />
       </div>
-      <div className="md:hidden xxs:block mt-8">
+      <div className="mt-8 xxs:block md:hidden">
         <Carousel cards={card} />
       </div>
-      <div className="md:mb-20 overflow-y-scroll h-full mt-10 hide-scroll-bar">
+      <div className="hide-scroll-bar relative mt-10 h-full overflow-y-scroll md:mb-20">
+        <div className="absolute right-8 top-10 mt-4 hidden items-center gap-4 px-4 md:flex">
+          <label className="" htmlFor="week"></label>
+          <input
+            type="week"
+            className="w-42 h-10 rounded border px-2 focus:outline-none "
+          />
+        </div>
         <ChartLayout
           title=""
           value={"Sales Overview"}
@@ -245,7 +370,11 @@ const SellersPerformance = () => {
           style={{ width: "100%" }}
         >
           {/* @ts-ignore */}
-          <Line data={data} options={options} />
+          <Line
+            data={data}
+            style={{ width: "100%", height: "480px" }}
+            options={options}
+          />
         </ChartLayout>
       </div>
     </div>
@@ -254,7 +383,7 @@ const SellersPerformance = () => {
 
 export default SellersPerformance;
 
-const MobilePerformanceWidget = (props: any) => {
+const MobilePerformanceWidget = (props: any, isLoading: any) => {
   // const openModal = (e: any) => {
   //   e.preventDefault();
   //   props.action();
@@ -268,21 +397,25 @@ const MobilePerformanceWidget = (props: any) => {
   return (
     <div className="">
       <div
-        className={`flex flex-auto justify-between flex-col p-3  h-[162px] w-full rounded-lg shadow-sm xxs:flex-shrink-0 md:flex-shrink border border-[${props.buttonColor}] shadow-md`}
+        className={`flex h-[162px] w-full flex-auto flex-col justify-center gap-2 rounded-lg border p-3 shadow-sm xxs:flex-shrink-0 md:flex-shrink border-[${props.buttonColor}] shadow-md`}
         style={{
           backgroundColor: props.color,
           border: props.border,
           borderColor: props.buttonColor,
         }}
       >
-        <div className="flex items-start ">
-          <div className="text-[#333333] text-[16px] leading-[18px]  font-normal ">
+        <div className="mb-3 flex items-start justify-center">
+          <div className="text-center text-[16px] font-normal leading-[18px] text-[#333333] ">
             {props.type}
           </div>
         </div>
-        <div>
-          <span className="text-[#333333] font-normal   text-[24px] leading-[24px]">
-            {props.value}
+        <div className="mb-6">
+          <span className="flex items-center justify-center text-center text-[24px] font-bold leading-[24px] text-[#333333]">
+            {isLoading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              props.value
+            )}
           </span>
         </div>
         <div>
@@ -290,7 +423,7 @@ const MobilePerformanceWidget = (props: any) => {
           <div className="">
             {/* AiOutlineFall */}
             <span
-              className={`bg-[${props.buttonColor}] text-[${props.textColor}] flex py-2 rounded-md  transition-all active:scale-90 disabled:cursor-not-allowed`}
+              className={`bg-[${props.buttonColor}] text-[${props.textColor}] flex items-center justify-center rounded-md py-2 transition-all active:scale-90 disabled:cursor-not-allowed`}
             >
               {props.percentage > 50 ? (
                 <span>
@@ -307,7 +440,7 @@ const MobilePerformanceWidget = (props: any) => {
               <div>
                 <p className="flex ">
                   <span
-                    className={`text-[12px] leading-[24px] font-normal  ${
+                    className={`text-[12px] font-normal leading-[24px]  ${
                       props.percentage > 50
                         ? "text-[#F91919]"
                         : "text-[#22C55E]"
@@ -316,11 +449,11 @@ const MobilePerformanceWidget = (props: any) => {
                     {percentageValue}%
                   </span>
                   {props.percentage > 50 ? (
-                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
+                    <span className="pr-1 text-[12px] font-normal leading-[24px] text-[#333333]">
                       Decrease from yesterday
                     </span>
                   ) : (
-                    <span className="pr-1 text-[#333333] text-[12px] leading-[24px] font-normal">
+                    <span className="pr-1 text-[12px] font-normal leading-[24px] text-[#333333]">
                       Increase from yesterday
                     </span>
                   )}
@@ -330,7 +463,7 @@ const MobilePerformanceWidget = (props: any) => {
           </div>
         </div>
       </div>
-      <p className=" text-center text-[12px] leading-[24px] font-normal text-[#a2a2a2] mt-5">
+      <p className=" mt-5 text-center text-[12px] font-normal leading-[24px] text-[#a2a2a2]">
         {props.text}
       </p>
     </div>

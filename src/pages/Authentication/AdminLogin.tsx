@@ -9,7 +9,8 @@ import ReactLoading from "react-loading";
 import Footer from "../../components/footer-component/Footer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
+import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
+import { useUserLogin } from "../../services/hooks/users";
 
 const schema = yup.object().shape({
   email: yup
@@ -31,17 +32,53 @@ const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [eyeState, setEyeState] = useState(false);
-  // const [openModal, setOpenModal] = useState(false);
-
+  const [openModal, setOpenModal] = useState(false);
+    const [isError, setIsError] = useState("");
+const login = useUserLogin();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AdminLoginProps>({ resolver: yupResolver(schema) });
 
-  const onSubmit: SubmitHandler<AdminLoginProps> = (data) => {
-    console.log(data);
-    setLoading(false);
+  const onSubmit: SubmitHandler<AdminLoginProps> = (data, e) => {
+        setLoading(true);
+        const { email, password } = data;
+        login
+          .mutateAsync({
+            email: email.toLowerCase(),
+            password: password,
+          })
+          .then((res) => {
+            setLoading(false);
+            // dispatch(
+            //   addOption(
+            //     // res?.data?.accessToken
+            //     res?.data?.email,
+            //     res?.data?.firstName,
+            //     res?.data?.isAdmin,
+            //     res?.data?.lastName,
+            //     res?.data?._id
+            //   )
+            // );
+            e?.target.reset();
+            // setIsOpen(true);
+
+            // setAuth(res);
+            navigate("/admin");
+            // setIsLogin(true);
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("admin");
+            localStorage.setItem("accessToken", res?.data?.accessToken);
+            localStorage.setItem("admin", JSON.stringify(res?.data));
+            // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
+            console.log(res);
+          })
+          .catch((e) => {
+            setLoading(false);
+
+            setIsError(e?.response?.data);
+          });
   };
 
   const toggleEye = (e: any) => {

@@ -12,7 +12,9 @@ import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import Popover from "../../components/utility/PopOver";
-// import { BiCaretDown } from "react-icons/bi";
+import { BiCaretDown } from "react-icons/bi";
+import { useGetAllAdmin, useInviteAdmin } from "../../services/hooks/admin/Auth";
+import ReactLoading from "react-loading";
 
 const Settings = () => {
   const [, setImage] = useState(null);
@@ -30,10 +32,11 @@ const Settings = () => {
     "Commissions",
     "Password",
   ]);
+  const inviteAdmin = useInviteAdmin();
   const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
+const getAllAdmin = useGetAllAdmin()
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -54,6 +57,8 @@ const Settings = () => {
       action: "Apply",
     },
   ]);
+
+  console.log(getAllAdmin,"getAllAdmin")
 
   const handleValueChange = (index: number, value: string | number) => {
     setItems((prevState) => {
@@ -93,6 +98,16 @@ const Settings = () => {
     },
   ];
 
+  const handleInvite = (email: string, role: string) => {
+    inviteAdmin
+      .mutateAsync({
+        email,
+        role,
+      })
+      .then((res: any) => {})
+      .catch((err: any) => {});
+  };
+
   const toggleEye = (e: any) => {
     e.preventDefault();
     setEyeState((prev) => !prev);
@@ -107,7 +122,6 @@ const Settings = () => {
   };
 
   const handleConfirm = () => {
-
     setShowConfirmationModal(false);
   };
 
@@ -125,15 +139,12 @@ const Settings = () => {
   // };
 
   const openModal = () => {
-  const searchParams = new URLSearchParams();
-  searchParams.set("email", email);
-  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-  window.history.replaceState({}, "", newUrl);
-  setModalOpen(true);
-};
-
-
-
+    const searchParams = new URLSearchParams();
+    searchParams.set("email", email);
+    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+    setModalOpen(true);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -149,14 +160,7 @@ const Settings = () => {
 
   return (
     <div className="pl-10 pt-10 pr-5">
-      {/* ADMIN SIGN UP MODAL */}
-      <CreateAdminAcct
-        openModal={modalOpen}
-        closeModal={closeModal}
-
-      />
-
-      <div className="mb-5">
+   <div className="mb-5">
         <div className="">
           <h1 className="text-2xl font-medium ">Settings</h1>
           <span className="text-[#A2A2A2] font-normal text-sm">
@@ -413,7 +417,7 @@ const Settings = () => {
                 </span>
               </div>
               <div className=" mt-4 text-sm  w-[60%]">
-                <div className="flex gap-4">
+                {/* <div className="flex gap-4">
                   <div className="flex-1 ">
                     <div className="flex flex-col    text-sm">
                       <div className="flex-[2]">
@@ -437,8 +441,11 @@ const Settings = () => {
                       Grant Access
                     </button>
                   </div>
+                </div> */}
+                <div className="container mx-auto pt-8">
+                  <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
-
+                {}
                 <div className="flex items-center justify-between mt-10">
                   <div className="flex gap-2 mt-3 items-center">
                     <img
@@ -693,3 +700,67 @@ const Settings = () => {
 };
 
 export default Settings;
+
+interface InputComponentProps {
+  onGrantAccess: (email: string, role: string) => void;
+}
+
+const EmailInputComponent: React.FC<InputComponentProps> = ({
+  onGrantAccess,
+}) => {
+  const [email, setEmail] = useState<string>("");
+  const [role, setRole] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const handleGrantAccess = () => {
+    // setLoading(true)
+    if (email && role) {
+      onGrantAccess(email, role);
+          setLoading(false);
+    } else {
+      alert("Please enter email address and select role.");
+    }
+  };
+
+  const roles = ["user", "admin", "Superadmin"]; // Example roles
+
+  return (
+    <div className=" flex items-center ">
+      <div className="relative w-full">
+        <input
+          type="email"
+          className="w-full px-4 py-2 border border-gray-200   placeholder:text-sm focus:outline-none focus:ring-[#197b30] focus:border-[#197b30] appearance-none "
+          placeholder="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="absolute inset-y-0 right-1 flex items-center">
+          <select
+            className="px-2 py-1 text-sm text-gray-600 font-light border-hidden focus:outline-none focus:ring-none focus:border-none appearance-none"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option className="text-sm text-gray-600 pr-4" value="">
+              Select Role
+            </option>
+            {roles.map((role, index) => (
+              <option key={index} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <button
+        className="px-4 py-2.5 ml-4 bg-[#197b30] text-white  hover:bg-[#197b30] focus:outline-none whitespace-nowrap border border-[#197b30] shadow-inner disabled:bg-[#568a62] disabled:cursor-pointed"
+        onClick={handleGrantAccess}
+      >
+        {loading ? (
+         "Loading.."
+        ) : (
+          "Grant Access"
+        )}
+      </button>
+    </div>
+  );
+};

@@ -32,10 +32,10 @@ const Aside = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleMenuClick = (route:string) => {
-    toggleSideBar(false)
-    navigate(route)
-  }
+  const handleMenuClick = (route: string) => {
+    toggleSideBar(false);
+    navigate(route);
+  };
 
   useEffect(() => {
     //@ts-ignore
@@ -55,16 +55,20 @@ const Aside = () => {
 
   return (
     <div
-      className={`lg:flex fixed lg:relative md:top-16 lg:top-0 left-0 z-40 bg-[#EEEEEE] lg:bg-white  w-[284px] border-r overflow-auto  h-screen flex-col  pt-5 transition-all duration-500 ${
+      className={`fixed left-0 z-40 h-screen w-[284px] flex-col overflow-auto border-r bg-[#EEEEEE]  pt-5 transition-all duration-500  md:top-16 lg:relative  lg:top-0 lg:flex lg:bg-white ${
         !sideBarOpen ? "-translate-x-full lg:translate-x-0" : ""
       }`}
     >
       {user !== null && (
         <>
-          <div className="flex items-center pl-5 my-7 gap-2">
+          <div className="my-7 flex items-center gap-2 pl-5">
             <MdOutlinePerson size={24} color={"#197b30"} />
-            <span className="pl-1 text-[#333333] text-[18px] leading-[21px] font-normal whitespace-nowrap">
-              Hi, {user?.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : ''}
+            <span className="whitespace-nowrap pl-1 text-[18px] font-normal leading-[21px] text-[#333333]">
+              Hi,{" "}
+              {user?.firstName
+                ? user.firstName.charAt(0).toUpperCase() +
+                  user.firstName.slice(1)
+                : ""}
             </span>
             {isOpen ? (
               <BiChevronUp
@@ -92,17 +96,17 @@ const Aside = () => {
               leaveTo="transform opacity-0 scale-95"
               show={isOpen}
             >
-              <Menu.Items className="origin-top-right z-10 absolute right-4 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-4 z-10 mt-2 w-48 origin-top-right rounded-sm bg-white p-1 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
                   {({ active }) => (
                     <div
                       onClick={() => handleMenuClick("/profile")}
                       className={classNames(
                         active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                        "cursor-pointer rounded-sm px-4 py-2  focus:bg-gray-200 active:bg-gray-200",
                       )}
                     >
-                      <h1 className="text-[14px] leading-[16px] font-normal  text-[#333333] flex items-center gap-3">
+                      <h1 className="flex items-center gap-3  text-[14px] font-normal leading-[16px] text-[#333333]">
                         <HiOutlineUserCircle size={24} />
                         My Account
                       </h1>
@@ -115,10 +119,10 @@ const Aside = () => {
                       onClick={() => handleMenuClick("/my__orders")}
                       className={classNames(
                         active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                        "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                       )}
                     >
-                      <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                      <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                         <ImDownload size={24} />
                         My Order
                       </h1>
@@ -131,10 +135,10 @@ const Aside = () => {
                       onClick={() => handleMenuClick("/favorite+products")}
                       className={classNames(
                         active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                        "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                       )}
                     >
-                      <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                      <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                         <IoMdHeartEmpty size={24} />
                         My Favorites
                       </h1>
@@ -146,12 +150,12 @@ const Aside = () => {
                     <div
                       className={classNames(
                         active && "bg-gray-100",
-                        "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-[#197B30] focus:text-[#fff] border-[#197B30] border-t flex w-full"
+                        "flex w-full cursor-pointer rounded-sm border-t border-[#197B30] px-4 py-2 focus:bg-[#197B30] focus:text-[#fff] active:bg-gray-200",
                       )}
                     >
                       <h1
                         onClick={handleLogout}
-                        className="text-[14px] leading-[16px] font-normal text-[#197B30] flex justify-center w-full"
+                        className="flex w-full justify-center text-[14px] font-normal leading-[16px] text-[#197B30]"
                       >
                         Logout
                       </h1>
@@ -172,7 +176,7 @@ const Aside = () => {
         </span>
       </div> */}
 
-      {MainSideBarLinks.map((item, index) => {
+      {MainSideBarLinks?.map((item, index) => {
         //@ts-ignore
         return (
           <>
@@ -181,7 +185,7 @@ const Aside = () => {
         );
       })}
       {user === null && (
-        <div className="flex flex-col lg:hidden gap-3 pr-4 px-5 mt-4">
+        <div className="mt-4 flex flex-col gap-3 px-5 pr-4 lg:hidden">
           <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
           <NavButton className={loginBtn} text="Login" path="/login" />
         </div>

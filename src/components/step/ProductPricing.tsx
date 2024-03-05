@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { productStepsContext } from "../../context/StepperContext";
 import CurrencyInput from "../utility/CurrencyInput";
 import StepperControl from "./StepperControl";
@@ -13,7 +13,6 @@ type FormField = {
 };
 
 const initialFormData: Record<string, FormField> = {
-
   startDate: {
     label: "Sale Start Date",
     type: "date",
@@ -26,51 +25,50 @@ const initialFormData: Record<string, FormField> = {
     required: true,
     name: "pricing.salesEndDate",
   },
-
 };
 
 export default function ProductPricing({
   cate,
   subCate,
+  details,
 }: {
   cate: string | null;
   subCate: string | null;
+  details?: any;
 }) {
-  const {
-    checkoutSteps,
-    currentStep,
-    handleChange,
-  } = useContext(productStepsContext);
-  const [formData] = useState<Record<string, string>>({});
+  const { checkoutSteps, currentStep, handleChange } =
+    useContext(productStepsContext);
+  // const [formData] = useState<Record<string, string>>({});
 
   const {
     formState: { errors },
   } = useForm<any>({ defaultValues: "", mode: "onSubmit" });
   return (
-    <div className="  bg-[#F4F4F4] lg:p-8 p-5 rounded-md">
+    <div className="  rounded-md bg-[#F4F4F4] p-5 lg:p-8">
       <div className=" mb-8">
-        <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+        <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
           Product Pricing
         </h1>
-        <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+        <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
           Please fill in the necessary information.{" "}
         </p>
       </div>
 
-      <div className="bg-white border  ">
-        <div className="lg:block md:hidden hidden">
+      <div className="border bg-white  ">
+        <div className="hidden md:hidden lg:block">
           <form className="">
-            <div className="text-xs grid grid-cols-4 gap-2 p-2">
-              {Object.entries(initialFormData).map(([key, item]) => {
+            <div className="grid grid-cols-4 gap-2 p-2 text-xs">
+              {Object.entries(initialFormData).map(([key, item], index) => {
                 console.log(key, "h22");
                 console.log(item.name, "hh");
+
                 return (
                   <div key={key} className="mb-4 ">
                     <label
                       htmlFor={item.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-3 ${
+                      className={`mb-[6px] block py-3 text-[14px] leading-[16px] text-[#333333] ${
                         item.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -78,11 +76,11 @@ export default function ProductPricing({
                     </label>
                     <input
                       onChange={handleChange}
-                      value={formData[key] }
+                      // value={formData[key] || ""}
                       name={item.name}
                       // placeholder={item.placeholder}
                       type={item.type}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                         errors[item.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
@@ -92,7 +90,7 @@ export default function ProductPricing({
               <div className="text-xs">
                 <label
                   htmlFor="productPrice"
-                  className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-3 ${'after:content-["*"] after:ml-0.5 after:text-red-500'}`}
+                  className={`mb-[6px] block py-3 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
                 >
                   Product Price
                 </label>
@@ -108,7 +106,7 @@ export default function ProductPricing({
               <div className="text-xs">
                 <label
                   htmlFor="productQuantity"
-                  className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-3 ${'after:content-["*"] after:ml-0.5 after:text-red-500'}`}
+                  className={`mb-[6px] block py-3 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
                 >
                   Product Quantity
                 </label>
@@ -116,9 +114,10 @@ export default function ProductPricing({
                   onChange={handleChange}
                   name="pricing.productQuantity"
                   id="productQuantity"
+                  // value={details?.pricing?.quantity || ""}
                   placeholder="Enter product quantity"
                   type="number"
-                  className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                  className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                     errors["pork.productQuantity"] ? "border-ErrorBorder" : ""
                   }`}
                 />
@@ -130,14 +129,14 @@ export default function ProductPricing({
           </form>
         </div>
 
-        <form className="bg-white border p-4 lg:hidden md:flex flex flex-col">
+        <form className="flex flex-col border bg-white p-4 md:flex lg:hidden">
           {Object.entries(initialFormData).map(([key, item]) => (
             <div key={key} className="mb-4 ">
               <label
                 htmlFor={item.name}
-                className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-2 ${
+                className={`mb-[6px] block py-2 text-[14px] leading-[16px] text-[#333333] ${
                   item.required
-                    ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                    ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                     : ""
                 }`}
               >
@@ -145,11 +144,11 @@ export default function ProductPricing({
               </label>
               <input
                 onChange={handleChange}
-                value={formData[key] || ""}
+                // value={formData[key] || ""}
                 name={item.name}
                 placeholder={item.placeholder}
                 type={item.type}
-                className={`appearance-none relative block w-full px-[14px] py-[12px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[12px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                   errors[item.name] ? "border-ErrorBorder" : ""
                 }`}
               />
@@ -159,7 +158,7 @@ export default function ProductPricing({
           <div className="text-xs">
             <label
               htmlFor="productPrice"
-              className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-2 ${'after:content-["*"] after:ml-0.5 after:text-red-500'}`}
+              className={`mb-[6px] block py-2 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
             >
               Product Price
             </label>
@@ -175,7 +174,7 @@ export default function ProductPricing({
           <div className="text-xs">
             <label
               htmlFor="productQuantity"
-              className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] py-2 ${'after:content-["*"] after:ml-0.5 after:text-red-500'}`}
+              className={`mb-[6px] block py-2 text-[14px] leading-[16px] text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
             >
               Product Quantity
             </label>
@@ -185,7 +184,7 @@ export default function ProductPricing({
               id="productQuantity"
               placeholder="Enter product quantity"
               type="number"
-              className={`appearance-none relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+              className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:outline-none sm:text-sm ${
                 errors["pork.productQuantity"] ? "border-ErrorBorder" : ""
               }`}
             />

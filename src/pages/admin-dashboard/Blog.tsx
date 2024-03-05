@@ -1,9 +1,34 @@
 import React, { useState } from "react";
-// import ReactQuill, { Quill } from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import { EditorState, convertToRaw } from 'draft-js';
+//@ts-ignore
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useCreateBlog } from "../../services/hooks/users/blog";
+import { Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { IoMdCloudUpload } from "react-icons/io";
+import draftToHtml from 'draftjs-to-html';
+import { LuLoader } from "react-icons/lu";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Blog = () => {
+  const  createBlog = useCreateBlog()
   const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [subject, setSubject] = useState<string>("");
+  const [blogContent, setBlogContent] = useState<string>("");
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [isLoading, setIsLoading] = useState(false)
+
+ const onEditorStateChange = (newEditorState: EditorState) => {
+    setEditorState(newEditorState);
+    setBlogContent(
+      draftToHtml(convertToRaw(newEditorState.getCurrentContent()))
+    );
+  };
   const cancelDefaultBehavior = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -51,12 +76,47 @@ const Blog = () => {
     setCurrentImage(URL.createObjectURL(e.target.files[0]));
   };
 
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+setIsLoading(true)
+    // Validate form data
+    if (!currentImage || !subject || !blogContent) {
+      alert("Please fill in all fields");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("Title", subject);
+    formData.append("Content", blogContent);
+    formData.append("featuredImage", currentImage);
+    console.log(formData);
+    createBlog.mutateAsync(formData).then((res) => {
+      setIsLoading(false)
+      console.log(res)
+        setCurrentImage(null);
+    setSubject("");
+      setBlogContent("");
+        toast.success("Blog added successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+      }).catch((err) =>{
+      setIsLoading(false)
+      })
+
+    // Clear form fields
+
+  };
+
   React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
+    window.scrollTo(0, 0);
   }, []);
 
+  const isDisabled = !currentImage || !subject || !blogContent;
+
+
+
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="pl-10 pt-10 pr-5  h-screen">
       <div className="">
         <div className="flex items-center justify-between">
           <div className="mb-2">
@@ -76,48 +136,50 @@ const Blog = () => {
             </div>
           )}
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <div
-              className="dnd bg-[#fff] h-[220px] flex items-center justify-center border border-dashed border-[#A2A2A2] rounded-md"
-              onDragEnter={handleDragEnter}
-              onDragLeave={handleDragLeave}
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-            >
-              {currentImage ? (
-                <>
-                  <img
-                    src={currentImage}
-                    alt="blogImg"
-                    className=" w-full h-full object-cover"
-                  />
-                </>
-              ) : (
-                <>
-                  <label
-                    htmlFor={"inputId"}
-                    className="text-3xl font- text-center text-[#797979] "
-                  >
-                    <span className="mb-4">
-                      Drag and drop blog header here or
-                    </span>{" "}
-                    <br />
-                    <div className="mt-3 inline-block text-[#197B30] border border-[#197B30] p-3 rounded-md text-sm cursor-pointer text-center  font-normal active:scale-90 hover:text-[#fff] hover:bg-[#197b30]">
-                      Browse to add
-                    </div>{" "}
-                  </label>
-                  <input
-                    onChange={(e) => handleUpload(e)}
-                    className="hidden"
-                    accept="image/*"
-                    type="file"
-                    name={"inputId"}
-                    id={"inputId"}
-                  />
-                </>
-              )}
-            </div>
+  className="dnd bg-[#fff] h-[220px] flex items-center justify-center border border-dashed border-[#A2A2A2] rounded-md overflow-hidden"
+  onDragEnter={handleDragEnter}
+  onDragLeave={handleDragLeave}
+  onDragOver={handleDragOver}
+  onDrop={handleDrop}
+>
+  {currentImage ? (
+    <>
+      <img
+        src={currentImage}
+        alt="blogImg"
+        className="w-full max-h-full"
+      />
+    </>
+  ) : (
+    <>
+      <label
+        htmlFor={"inputId"}
+        className="text-3xl font- text-center text-[#797979] "
+      >
+        <span className="mb-4">
+          Drag and drop blog header here or
+        </span>{" "}
+        <br />
+        <div className="mt-3 inline-flex items-center gap-1 text-[#197B30] border border-[#197B30] p-3 rounded-md text-sm cursor-pointer text-center  font-normal active:scale-90 hover:text-[#fff] hover:bg-[#197b30]">
+          <IoMdCloudUpload />
+          <span>  Browse to add</span>
+        </div>{" "}
+      </label>
+      <input
+        onChange={(e) => handleUpload(e)}
+        className="hidden"
+        accept="image/*"
+        type="file"
+        name={"inputId"}
+        id={"inputId"}
+      />
+    </>
+  )}
+</div>
+
           </div>
           <div className="flex flex-col mt-1">
             <label htmlFor="subject" className=" font-light">
@@ -125,25 +187,173 @@ const Blog = () => {
             </label>
             <input
               type="text"
-              placeholder="Enter subject"
+              placeholder="Enter blog title"
               name="subject"
               id="subject"
-              className="px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring focus:ring-[#197b30] focus:border-[#197B30] placeholder:text-sm placeholder:font-light"
+      onChange={(e) => setSubject(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring focus:ring-[#197b30] focus:border-[#197B30] placeholder:text-sm placeholder:font-light font-bold"
             />
           </div>
 
-          <div className="mt-2">
-            {/* <ReactQuill
-              className=""
-              theme="snow"
-              value={description}
-              placeholder="Type something..."
-              onChange={setDescription}
-            /> */}
+          <div className="mt-2  h-60">
+
+          <Editor
+                editorState={editorState}
+                toolbarClassName="toolbarClassName border border-gray-300"
+                wrapperClassName="wrapperClassName h-60 "
+                editorClassName="editorClassName border focus:ring-[#197b30] focus:border-[#197b30] focus:outline-none border-gray-300 px-3 h-full"
+        onEditorStateChange={onEditorStateChange}
+                 hashtag={{
+                          separator: ' ',
+                          trigger: '#',
+                        }}
+                  toolBar={{
+  options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
+  inline: {
+    inDropdown: false,
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+    options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace', 'superscript', 'subscript'],
+    bold: { icon: "bold", className: undefined },
+    italic: { icon: "italic", className: undefined },
+    underline: { icon: "underline", className: undefined },
+    strikethrough: { icon: "strikethrough", className: undefined },
+    monospace: { icon: "monospace", className: undefined },
+    superscript: { icon: "superscript", className: undefined },
+    subscript: { icon: "subscript", className: undefined },
+  },
+  blockType: {
+    inDropdown: true,
+    options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+  },
+  fontSize: {
+    icon: "fontSize",
+    options: [8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96],
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+  },
+  fontFamily: {
+    options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana'],
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+  },
+  list: {
+    inDropdown: false,
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+    options: ['unordered', 'ordered', 'indent', 'outdent'],
+    unordered: { icon: "unordered", className: undefined },
+    ordered: { icon: "ordered", className: undefined },
+    indent: { icon: "indent", className: undefined },
+    outdent: { icon: "outdent", className: undefined },
+  },
+  textAlign: {
+    inDropdown: false,
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+    options: ['left', 'center', 'right', 'justify'],
+    left: { icon: "left", className: undefined },
+    center: { icon: "center", className: undefined },
+    right: { icon: "right", className: undefined },
+    justify: { icon: "justify", className: undefined },
+  },
+  colorPicker: {
+    icon: "color",
+    className: undefined,
+    component: undefined,
+    popupClassName: undefined,
+    colors: ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 'rgb(44,130,201)',
+      'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
+      'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
+      'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
+      'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
+      'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'],
+  },
+  link: {
+    inDropdown: false,
+    className: undefined,
+    component: undefined,
+    popupClassName: undefined,
+    dropdownClassName: undefined,
+    showOpenOptionOnHover: true,
+    defaultTargetOption: '_self',
+    options: ['link', 'unlink'],
+    link: { icon: "link", className: undefined },
+    unlink: { icon: "unlink", className: undefined },
+    linkCallback: undefined
+  },
+  emoji: {
+    icon: "emoji",
+    className: undefined,
+    component: undefined,
+    popupClassName: undefined,
+    emojis: [
+      '😀', '😁', '😂', '😃', '😉', '😋', '😎', '😍', '😗', '🤗', '🤔', '😣', '😫', '😴', '😌', '🤓',
+      '😛', '😜', '😠', '😇', '😷', '😈', '👻', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '🙈',
+      '🙉', '🙊', '👼', '👮', '🕵', '💂', '👳', '🎅', '👸', '👰', '👲', '🙍', '🙇', '🚶', '🏃', '💃',
+      '⛷', '🏂', '🏌', '🏄', '🚣', '🏊', '⛹', '🏋', '🚴', '👫', '💪', '👈', '👉', '👉', '👆', '🖕',
+      '👇', '🖖', '🤘', '🖐', '👌', '👍', '👎', '✊', '👊', '👏', '🙌', '🙏', '🐵', '🐶', '🐇', '🐥',
+      '🐸', '🐌', '🐛', '🐜', '🐝', '🍉', '🍄', '🍔', '🍤', '🍨', '🍪', '🎂', '🍰', '🍾', '🍷', '🍸',
+      '🍺', '🌍', '🚑', '⏰', '🌙', '🌝', '🌞', '⭐', '🌟', '🌠', '🌨', '🌩', '⛄', '🔥', '🎄', '🎈',
+      '🎉', '🎊', '🎁', '🎗', '🏀', '🏈', '🎲', '🔇', '🔈', '📣', '🔔', '🎵', '🎷', '💰', '🖊', '📅',
+      '✅', '❎', '💯',
+    ],
+  },
+  embedded: {
+    icon: "embedded",
+    className: undefined,
+    component: undefined,
+    popupClassName: undefined,
+    embedCallback: undefined,
+    defaultSize: {
+      height: 'auto',
+      width: 'auto',
+    },
+  },
+  image: {
+    icon: "image",
+    className: undefined,
+    component: undefined,
+    popupClassName: undefined,
+    urlEnabled: true,
+    uploadEnabled: true,
+    alignmentEnabled: true,
+    uploadCallback: undefined,
+    previewImage: false,
+    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+    alt: { present: false, mandatory: false },
+    defaultSize: {
+      height: 'auto',
+      width: 'auto',
+    },
+  },
+  remove: { icon: "eraser", className: undefined, component: undefined },
+  history: {
+    inDropdown: false,
+    className: undefined,
+    component: undefined,
+    dropdownClassName: undefined,
+    options: ['undo', 'redo'],
+    undo: { icon: "undo", className: undefined },
+    redo: { icon: "redo", className: undefined },
+  },
+                        }}
+              />
+
+
+
           </div>
-          <div className="flex items-end justify-end">
-            <button className="mt-3 bg-[#197b30] py-2.5  px-6 shadow-md rounded-md text-[#fff]">
-              Post Blog
+          <div className="flex items-end justify-end mt-14">
+            <button   disabled={isDisabled} type="submit" className="mt-3 bg-[#197b30] py-2.5 text-center px-6 shadow-md rounded-md text-[#fff] disabled:bg-[#9eb6a3]">
+            {isLoading ? <LuLoader className="animate-spin"/> : "Post Blog"}
             </button>
           </div>
         </form>

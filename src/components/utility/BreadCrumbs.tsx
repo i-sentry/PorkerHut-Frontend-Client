@@ -6,10 +6,13 @@ type itemsType = {
 };
 type BreadCrumbType = {
   items: Array<itemsType>;
+  className?: string;
 };
-const BreadCrumb = ({ items }: BreadCrumbType) => {
+const BreadCrumb = ({ items, className }: BreadCrumbType) => {
   return (
-    <div className="flex py-1 flex-1 items-center text-sm text-secondary gap-x-2 flex-wrap rounded-none text-gray-400 relative">
+    <div
+      className={`text-secondary relative flex flex-1 flex-wrap items-center gap-x-2 rounded-none py-1 text-sm text-gray-400 ${className}`}
+    >
       {items.map((item, index) =>
         index !== items.length - 1 ? (
           <div
@@ -21,7 +24,7 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
               className="flex items-center gap-x-2 rounded-none  text-base"
             >
               <Link to={item.link}>
-                <button className="capitalize rounded-none text-white font-light py-2">
+                <button className="rounded-none py-2 font-light capitalize text-white">
                   {item.name}
                 </button>
               </Link>
@@ -31,11 +34,11 @@ const BreadCrumb = ({ items }: BreadCrumbType) => {
         ) : (
           <button
             key={index}
-            className="text-primary  py-2 rounded-md capitalize text-base xxs:text-[] font-light "
+            className="text-primary  rounded-md py-2 text-base font-light capitalize xxs:text-[] "
           >
             {item.name}
           </button>
-        )
+        ),
       )}
     </div>
   );

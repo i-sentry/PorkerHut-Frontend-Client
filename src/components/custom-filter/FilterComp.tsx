@@ -29,7 +29,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, label]);
     } else {
       setSelectedItems((prevSelectedItems) =>
-        prevSelectedItems.filter((item) => item !== label)
+        prevSelectedItems.filter((item) => item !== label),
       );
     }
   };
@@ -44,7 +44,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
     }
 
     const uniquePrices = Array.from(
-      new Set(products?.map((product) => product.pricing.productPrice))
+      new Set(products?.map((product) => product.pricing.productPrice)),
     );
 
     const highestPrice = Math.max(...uniquePrices);
@@ -62,7 +62,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
 
   //   console.log(data);
   const cityData = data?.map((item) =>
-    item?.vendor?.businessInformation?.city.toLowerCase()
+    item?.vendor?.businessInformation?.city.toLowerCase(),
   );
 
   const UniqueCity: any[] = Array.from(new Set(cityData));
@@ -70,7 +70,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   //   console.log(UniqueCity, "lii");
 
   return (
-    <div className=" p-4">
+    <div className="p-4">
       <div className="hidden lg:block">
         <h1>Filters</h1>
       </div>
@@ -85,7 +85,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
                     label={_.startCase(subCategory.name)}
                     onCheckboxChange={handleCheckboxChange}
                   />
-                )
+                ),
               )}
             </AccordionItem>
           )),
@@ -110,15 +110,15 @@ const Filtercomp: React.FC<FiltercompProps> = ({
           </AccordionItem>,
         ]}
       />
-      <div className="hidden lg:flex items-center justify-between ">
+      <div className="hidden items-center justify-between lg:flex ">
         <button
-          className="border border-[#a10] text-[#a10] rounded  px-4 py-2 mt-4"
+          className="mt-4 rounded border border-[#a10]  px-4 py-2 text-[#a10]"
           onClick={handleClear}
         >
           Cancel
         </button>
         <button
-          className="bg-[#197B30] border border-[#197B30] rounded text-white px-4 py-2 mt-4 text-right"
+          className="mt-4 rounded border border-[#197B30] bg-[#197B30] px-4 py-2 text-right text-white"
           onClick={handleApplyClick}
         >
           Apply

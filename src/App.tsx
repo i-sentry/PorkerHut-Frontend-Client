@@ -25,7 +25,7 @@ import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
 import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
 import MyOrder from "./pages/MyOrder";
-import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
+
 import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
 // import EmptyCartPage from "./pages/EmptyCartPage";
@@ -49,12 +49,12 @@ import Payment from "./pages/admin-dashboard/Payment";
 import ProductCreated from "./pages/admin-dashboard/ProductCreated";
 import ProductDetail from "./pages/admin-dashboard/ProductDetail";
 import Messages from "./pages/admin-dashboard/Messages";
-import Settings from "./pages/admin-dashboard/Settings";
+
 import SellerLayout from "./layout/SellerLayout";
 import PayOption from "./pages/PayOption";
 import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
 import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
-import ProductCategory from "./pages/product-category/ProductCategory";
+
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
 
 import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
@@ -81,9 +81,13 @@ import ForgetPassword from "./pages/Authentication/ForgetPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
 import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
 import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
-import AdminLogin from "./pages/Authentication/AdminLogin";
 import RateReview from "./pages/RateReview";
-
+import AdminLogin from "./pages/Authentication/AdminLogin";
+import Settings from "./pages/admin-dashboard/Settings";
+import ProductCategory from "./pages/product-category/ProductCategory";
+import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
+import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
+import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -100,7 +104,7 @@ const router = createBrowserRouter(
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/forgot_password" element={<ForgetPassword />} />
       <Route path="/rate_review/:id" element={<RateReview />} />
-      {/* <Route path="/rate_success" element={<RatingSuccess />} /> */}
+      <Route path="/admin/registration" element={<CreateAdminAcct />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         path="/vendors/forgot_password"
@@ -174,6 +178,10 @@ const router = createBrowserRouter(
         <Route path="/vendor/products" element={<SellersProductPage />} />
 
         <Route path="/vendor/create-product" element={<StepperComponent />} />
+        <Route
+          path="/vendor/product/create-product"
+          element={<SellerStepperComponent />}
+        />
         <Route path="/vendor/create" element={<ProductAccordion />} />
         <Route path="/vendor/account+statement" element={<SellersAccount />} />
         <Route
@@ -207,8 +215,8 @@ const router = createBrowserRouter(
         <Route path="/admin/messages" element={<Messages />} />
         <Route path="/admin/settings" element={<Settings />} />
       </Route>
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 function App() {
