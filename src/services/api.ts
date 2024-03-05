@@ -16,6 +16,7 @@ console.log(process.env.NODE_ENV);
 
 export const api = {
   Users: {
+    allUser: "/api/user",
     userSignup: "/api/user/signup",
     userLogin: "/api/user/login",
     recoverPassword: "/api/user/request-reset-password",
