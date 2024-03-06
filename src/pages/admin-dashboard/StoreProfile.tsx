@@ -6,6 +6,7 @@ import { chunkArray } from "../../helper/chunck";
 import { BsSearch } from "react-icons/bs";
 import StoreCard from "../../components/admin-dashboard-components/StoreCard";
 import { useGetVendors } from "../../services/hooks/Vendor";
+import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 const itemsPerPage = 12;
 const StoreProfile = () => {
   const [data, setData] = useState(storeData);
@@ -14,6 +15,8 @@ const StoreProfile = () => {
   const { data: stores, isLoading } = useGetVendors();
   const [searchValue, setSearchValue] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleChange = (value: any) => {
     setSearchValue(value);
     setData(
@@ -30,7 +33,7 @@ const StoreProfile = () => {
   console.log(stores?.data, isLoading, "stores");
   useEffect(() => setData(stores?.data), [stores?.data]);
   return (
-    <div className="px-4 py-10">
+    <div className="relative px-4 py-10">
       <div className="flex items-center justify-between">
         <div className="mb-5">
           <h1 className="text-2xl font-medium ">Store Profile</h1>
@@ -62,7 +65,9 @@ const StoreProfile = () => {
       {data?.length ? (
         <div className="grid gap-5 py-5 lg:grid-cols-2 xl:grid-cols-3">
           {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-            (item, index) => <StoreCard item={item} key={index} />,
+            (item, index) => (
+              <StoreCard item={item} key={index} setIsOpen={setIsOpen} />
+            ),
           )}
         </div>
       ) : (
@@ -116,6 +121,8 @@ const StoreProfile = () => {
           <RxCaretRight size={16} />
         </button>
       </div>
+
+      <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
