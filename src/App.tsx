@@ -107,7 +107,7 @@ const router = createBrowserRouter(
       <Route path="/rate_review/:id" element={<RateReview />} />
       <Route path="/admin/registration" element={<CreateAdminAcct />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
-      <Route path="/coming-soon" element={<ComingSoon />} />
+      <Route path="/coming-soon/:id" element={<ComingSoon />} />
       <Route
         path="/vendors/forgot_password"
         element={<VendorForgetPassword />}

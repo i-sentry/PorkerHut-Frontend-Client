@@ -30,7 +30,6 @@ const SideBarLabel = styled.span`
   line-height: normal;
 `;
 
-
 const Submenu = ({ item }: { item: any }) => {
   const location = useLocation();
   const [subnav, setSubnav] = useState(false);
@@ -39,18 +38,28 @@ const Submenu = ({ item }: { item: any }) => {
   const activeLink = `text-[#197B30] rounded-tl-lg rounded-bl-lg border-r-4 border-[#197B30] font-bold bg-[#e3f9e985]`;
 
   const showSubnav = () => setSubnav(!subnav);
+  // Vet Partner
+  // console.log(item, "link item");
 
   return (
     <>
       <IconContext.Provider value={{ size: "20" }}>
         <SideBarLink
-          to={item.url}
+          to={
+            item.name === "Vet Partner" || item.name === "Logistic Service"
+              ? `/coming-soon/${item.id}`
+              : item.url
+          }
           className={`border- ${
             location.pathname === item.url
               ? activeLink
-              : "text-[#A2A2A2] font-light hover:cursor-pointer"
+              : "font-light text-[#A2A2A2] hover:cursor-pointer"
           }`}
-          onClick={() => (item.subNav ? showSubnav() : toggleSideBar(false))}
+          onClick={() => {
+            console.log(item, item.subNav, "link item");
+
+            item.subNav ? showSubnav() : toggleSideBar(false);
+          }}
         >
           <div>{item.icon}</div>
           <SideBarLabel>{item.name}</SideBarLabel>
@@ -58,8 +67,8 @@ const Submenu = ({ item }: { item: any }) => {
             {item.subNav && subnav
               ? item.iconOpen
               : item.subNav
-              ? item.iconClosed
-              : null}
+                ? item.iconClosed
+                : null}
           </div>
         </SideBarLink>
         {subnav &&
@@ -68,7 +77,7 @@ const Submenu = ({ item }: { item: any }) => {
               <NavLink
                 to={item.url}
                 // activeClassName="active-link"
-                className={` h-16 pl-1 pb-5 flex items-center hover:cursor-pointer ${
+                className={` flex h-16 items-center pl-1 pb-5 hover:cursor-pointer ${
                   location.pathname === item.url ? activeLink : "text-[#A2A2A2]"
                 }`}
                 key={index.id}
