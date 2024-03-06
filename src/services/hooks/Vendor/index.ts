@@ -5,6 +5,7 @@ import {
   makePostRequest,
   api,
   makeGetRequestWithCustomHeader,
+  makeGetRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -26,6 +27,13 @@ export const useGetVendorById = (id: string | undefined) => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.Vendors.vendorById(id)),
     queryKey: ["vendor"],
+  });
+};
+
+export const useGetVendors = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Vendors.allVendors),
+    queryKey: ["vendors"],
   });
 };
 
