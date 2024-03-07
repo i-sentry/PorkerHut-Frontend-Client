@@ -4,6 +4,7 @@ import logo from "../../assets/images/porkerlogo.png";
 import VetCard from "../../components/admin-dashboard-components/VetCard";
 import { chunkArray } from "../../helper/chunck";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import ComingSoon from "../../components/ComingSoon";
 
 let currentPage = 1;
 const itemsPerPage = 4;
@@ -21,7 +22,7 @@ const VetPartner = () => {
   console.log(vets, "All vet");
 
   return (
-    <div className="px-5 py-10">
+    <div className="relative px-5 py-10">
       <div className="mb-5">
         <h1 className="text-2xl font-medium ">Vets</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
@@ -110,6 +111,9 @@ const VetPartner = () => {
       ) : (
         "No Vet partners yet"
       )}
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Veterinary Services"} />
+      </div>
     </div>
   );
 };

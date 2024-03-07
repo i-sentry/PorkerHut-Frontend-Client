@@ -6,6 +6,7 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/porkerlogo.png";
+import ComingSoon from "../../components/ComingSoon";
 
 const Tabcolumns: readonly Column<object>[] = [
   {
@@ -156,6 +157,10 @@ const NewVetPartners = () => {
         ) : (
           "No Vet Partners Yet"
         )}
+      </div>
+
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Veterinary Services"} />
       </div>
     </div>
   );
