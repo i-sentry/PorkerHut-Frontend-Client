@@ -7,7 +7,8 @@ import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
-// import _ from "lodash";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
   const admin = JSON.parse(localStorage.getItem("admin") as string);
@@ -21,6 +22,7 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
   };
   return (
     <div className="fixed top-0 z-50 flex  h-16 w-full items-center justify-between border border-[#D9D9D9]  bg-white px-4">
+      <ToastContainer/>
       <div className="flex items-center justify-center xxs:gap-3 md:gap-2 ">
         <FaBars
           size={30}

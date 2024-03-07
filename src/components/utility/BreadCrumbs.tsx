@@ -7,8 +7,9 @@ type itemsType = {
 type BreadCrumbType = {
   items: Array<itemsType>;
   className?: string;
+  linkColor?: string;
 };
-const BreadCrumb = ({ items, className }: BreadCrumbType) => {
+const BreadCrumb = ({ items, className, linkColor }: BreadCrumbType) => {
   return (
     <div
       className={`text-secondary relative flex flex-1 flex-wrap items-center gap-x-2 rounded-none py-1 text-sm text-gray-400 ${className}`}
@@ -24,7 +25,9 @@ const BreadCrumb = ({ items, className }: BreadCrumbType) => {
               className="flex items-center gap-x-2 rounded-none  text-base"
             >
               <Link to={item.link}>
-                <button className="rounded-none py-2 font-light capitalize text-white">
+                <button
+                  className={`rounded-none py-2 font-light capitalize ${linkColor || "text-white"}`}
+                >
                   {item.name}
                 </button>
               </Link>
