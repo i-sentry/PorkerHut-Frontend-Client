@@ -6,8 +6,8 @@ import { useCategoryModal, useImageOverlay } from "../store/overlay";
 import CustomCatModal from "../components/admin-dashboard-components/CustomCatModal";
 import logo from "../assets/images/porkerlogo.png";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const AdminLayout = () => {
 
   return (
     <>
-    <ToastContainer/>
+      {/* <ToastContainer/> */}
       {loading ? (
         <div className="flex h-screen flex-col items-center justify-center">
           <div className="flex flex-col items-center">

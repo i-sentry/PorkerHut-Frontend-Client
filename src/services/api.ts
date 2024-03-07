@@ -104,6 +104,7 @@ export const api = {
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
+    adminAccess: (id: string) => `/api/user/update-access/${id}`,
   },
 };
 

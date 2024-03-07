@@ -1,6 +1,11 @@
 import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeGetRequestWithCustomHeader, makePostRequest } from "../../../api";
+import {
+  api,
+  makeGetRequestWithCustomHeader,
+  makePostRequest,
+  makePutRequest,
+} from "../../../api";
 
 export const useInviteAdmin = () => {
   return useQueryMutation({
@@ -26,5 +31,12 @@ export const useGetAllAdmin = () => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.admin.getAdmin),
     queryKey: ["getAdmin"],
+  });
+};
+
+export const useUpdateAdminAccess = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { isAccessRevoked: boolean; isAdmin: boolean }) =>
+      makePutRequest(data, api.admin.adminAccess(id)),
   });
 };
