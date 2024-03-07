@@ -38,18 +38,12 @@ const Submenu = ({ item }: { item: any }) => {
   const activeLink = `text-[#197B30] rounded-tl-lg rounded-bl-lg border-r-4 border-[#197B30] font-bold bg-[#e3f9e985]`;
 
   const showSubnav = () => setSubnav(!subnav);
-  // Vet Partner
-  // console.log(item, "link item");
 
   return (
     <>
       <IconContext.Provider value={{ size: "20" }}>
         <SideBarLink
-          to={
-            item.name === "Vet Partner" || item.name === "Logistic Service"
-              ? `/coming-soon/${item.id}`
-              : item.url
-          }
+          to={item.url}
           className={`border- ${
             location.pathname === item.url
               ? activeLink

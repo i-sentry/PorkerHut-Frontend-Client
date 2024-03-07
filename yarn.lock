@@ -1199,6 +1199,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.1.1.tgz#c9c61d9fe5ca5ac664e1153bb0aa0eba1c6d6308"
   integrity sha512-jwx+WCqszn53YHOfvFMJJRd/B2GqkCBt+1MJSG6o5/s8+ytHMvDZXsJgUEWLk12UnLd7HYKac4BYU5i/Ron1Cw==
 
+"@emailjs/browser@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@emailjs/browser/-/browser-4.3.1.tgz#6496ccc970efcac04e74f42d5f7c6dfdd0a86868"
+  integrity sha512-Pb9KL6rsEGMhzFEeCr5No+VazPyBJFRLu59tAEgKmjPPA7z7gOGIJuyDLEZG5sUp0NN9WF0407govvrQ+vKvVw==
+
 "@emotion/babel-plugin@^11.10.6":
   version "11.10.6"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.10.6.tgz#a68ee4b019d661d6f37dec4b8903255766925ead"

@@ -88,7 +88,7 @@ import ProductCategory from "./pages/product-category/ProductCategory";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
 import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
-import ComingSoon from "./pages/ComingSoon";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -107,7 +107,6 @@ const router = createBrowserRouter(
       <Route path="/rate_review/:id" element={<RateReview />} />
       <Route path="/admin/registration" element={<CreateAdminAcct />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
-      <Route path="/coming-soon/:id" element={<ComingSoon />} />
       <Route
         path="/vendors/forgot_password"
         element={<VendorForgetPassword />}
