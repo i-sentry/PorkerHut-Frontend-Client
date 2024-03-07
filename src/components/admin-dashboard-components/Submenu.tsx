@@ -30,7 +30,6 @@ const SideBarLabel = styled.span`
   line-height: normal;
 `;
 
-
 const Submenu = ({ item }: { item: any }) => {
   const location = useLocation();
   const [subnav, setSubnav] = useState(false);
@@ -48,7 +47,7 @@ const Submenu = ({ item }: { item: any }) => {
           className={`border- ${
             location.pathname === item.url
               ? activeLink
-              : "text-[#A2A2A2] font-light hover:cursor-pointer"
+              : "font-light text-[#A2A2A2] hover:cursor-pointer"
           }`}
           onClick={() => (item.subNav ? showSubnav() : toggleSideBar(false))}
         >
@@ -58,8 +57,8 @@ const Submenu = ({ item }: { item: any }) => {
             {item.subNav && subnav
               ? item.iconOpen
               : item.subNav
-              ? item.iconClosed
-              : null}
+                ? item.iconClosed
+                : null}
           </div>
         </SideBarLink>
         {subnav &&
@@ -68,7 +67,7 @@ const Submenu = ({ item }: { item: any }) => {
               <NavLink
                 to={item.url}
                 // activeClassName="active-link"
-                className={` h-16 pl-1 pb-5 flex items-center hover:cursor-pointer ${
+                className={` flex h-16 items-center pl-1 pb-5 hover:cursor-pointer ${
                   location.pathname === item.url ? activeLink : "text-[#A2A2A2]"
                 }`}
                 key={index.id}

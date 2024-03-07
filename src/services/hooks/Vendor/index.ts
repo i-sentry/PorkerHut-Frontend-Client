@@ -6,6 +6,8 @@ import {
   api,
   makeGetRequestWithCustomHeader,
   makeGetRequest,
+  makePutRequest,
+  makePatchRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -48,5 +50,12 @@ export const useVendorRestPassword = (token: string | undefined) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
       makePostRequest(data, api.Vendors.resetPassword(token)),
+  });
+};
+
+export const useVendorStatusUpdate = (id: string | number) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePatchRequest(data, api.Vendors.vendorStatus(id)),
   });
 };

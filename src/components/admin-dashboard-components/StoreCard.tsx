@@ -1,9 +1,11 @@
-import React, { useState } from "react";
 import { Tooltip } from "../utility/ToolTip";
 import { TbDots } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
 import Popover from "../utility/PopOver";
-import StoreProfileOverlay from "./StoreProfileOverlay";
+import {
+  useGetVendorById,
+  useVendorStatusUpdate,
+} from "../../services/hooks/Vendor";
 
 // interface IStoreCardProps {
 //   store_name: any;
@@ -19,7 +21,31 @@ import StoreProfileOverlay from "./StoreProfileOverlay";
 
 const StoreCard = ({ item, setIsOpen }: any) => {
   const { storeStatus } = item;
-  console.log(item, "storee items");
+  const updateStatus = useVendorStatusUpdate(item?._id);
+  const { data } = useGetVendorById(item?._id);
+  console.log(data, "storee items");
+
+  const handleActivateVendor = async () => {
+    try {
+      const response = await updateStatus.mutateAsync({
+        storeStatus: "approved",
+      });
+      console.log({ response });
+    } catch (error: any) {
+      console.log(error, "error");
+    }
+  };
+
+  const handleDeactivateVendor = async () => {
+    try {
+      const response = await updateStatus.mutateAsync({
+        storeStatus: "deactivated",
+      });
+      console.log({ response });
+    } catch (error: any) {
+      console.log(error, "error");
+    }
+  };
 
   return (
     <>
@@ -54,10 +80,16 @@ const StoreCard = ({ item, setIsOpen }: any) => {
               >
                 Store Information
               </button>
-              <button className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]">
+              <button
+                onClick={handleActivateVendor}
+                className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+              >
                 Activate
               </button>
-              <button className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]">
+              <button
+                onClick={handleDeactivateVendor}
+                className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+              >
                 Deactivate
               </button>
               <button className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]">
@@ -80,7 +112,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
 
         <ul className="mt-2 space-y-3">
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               ID:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -90,7 +122,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Email:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -98,7 +130,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Company Address:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -110,7 +142,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Phone:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -118,7 +150,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Total Orders:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -126,7 +158,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Total Failed Orders:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
@@ -134,7 +166,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
             </span>
           </li>
           <li>
-            <span className="inline-block text-sm font-medium text-[#A2A2A2] xl:text-base">
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
               Joined:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
