@@ -50,8 +50,6 @@ const Submenu = ({ item }: { item: any }) => {
               : "font-light text-[#A2A2A2] hover:cursor-pointer"
           }`}
           onClick={() => {
-            console.log(item, item.subNav, "link item");
-
             item.subNav ? showSubnav() : toggleSideBar(false);
           }}
         >

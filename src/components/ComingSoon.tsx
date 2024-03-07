@@ -11,12 +11,10 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
 
   console.log(email, "email");
 
-  const message = `I hope this email finds you well. I wanted to express my interest in the PorkerHut service mentioned on your website. Specifically, I am interested in the ${pendingPage} service. 
-`;
+  const message = `I hope this email finds you well. I wanted to express my interest in the PorkerHut service mentioned on your website. Specifically, I am interested in the ${pendingPage} service.`;
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     // info@porkerhut.com
     // !porkerhut123
     if (form.current)
@@ -29,7 +27,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
         )
         .then(
           (result: any) => {
-            toast("Successful, You will be notified");
+            toast("Email sent! You will be notified soon");
             console.log(result.text, "Successufull", result);
           },
           (error: any) => {
@@ -41,6 +39,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
 
   return (
     <>
+      <ToastContainer />
       <div className="w-full px-4 pt-[70px] pb-16">
         {/* <BreadCrumb
           linkColor="text-gray-700"
@@ -87,6 +86,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
                   value={email}
                   required
                   onChange={(e) => setEmail(e.target.value)}
+                  aria-label="Email"
                   id="email"
                   placeholder="Please enter your email address"
                   className="form-input mb-5 inline-block w-full flex-grow rounded-md border placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:outline-0 focus:ring-green-700"
@@ -94,6 +94,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
                 <textarea
                   name="message"
                   id="message"
+                  aria-label="message"
                   defaultValue={message}
                   className="pointer-events-none invisible absolute top-0 left-0"
                 ></textarea>
@@ -101,7 +102,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
                   <button className="inline-block rounded-sm px-6 py-2 text-sm font-medium text-green-700 ring-1 ring-[#197B30]">
                     Back
                   </button>
-                  <button className="inline-block rounded-sm bg-[#197B30] px-6 py-2 text-sm font-medium text-white ring-1 ring-[#197B30]">
+                  <button className="inline-flex items-center justify-center rounded-sm bg-[#197B30] px-6 py-2 text-sm font-medium text-white ring-1 ring-[#197B30]">
                     Submit
                   </button>
                 </div>
