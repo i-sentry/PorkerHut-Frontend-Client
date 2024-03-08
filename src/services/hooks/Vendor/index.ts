@@ -56,6 +56,6 @@ export const useVendorRestPassword = (token: string | undefined) => {
 export const useVendorStatusUpdate = (id: string | number) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makePatchRequest(data, api.Vendors.vendorStatus(id)),
+      makePutRequest(data, api.Vendors.vendorStatus(id)),
   });
 };

@@ -26,14 +26,25 @@ const StoreCard = ({ item, setIsOpen }: any) => {
   console.log(data, "storee items");
 
   const handleActivateVendor = async () => {
-    try {
-      const response = await updateStatus.mutateAsync({
+    updateStatus
+      .mutateAsync({
         storeStatus: "approved",
+      })
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((err: any) => {
+        console.log(err);
       });
-      console.log({ response });
-    } catch (error: any) {
-      console.log(error, "error");
-    }
+
+    // try {
+    //   const response = await updateStatus.mutateAsync({
+    //     storeStatus: "approved",
+    //   });
+    //   console.log({ response });
+    // } catch (error: any) {
+    //   console.log(error, "error");
+    // }
   };
 
   const handleDeactivateVendor = async () => {
