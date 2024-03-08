@@ -71,6 +71,7 @@ export const api = {
   },
   Vets: {
     createVet: "/api/vets",
+    allVets: "/api/vets",
   },
   Banks: {
     getBanks: "/api/pay/banks",

@@ -55,7 +55,7 @@ const AdminLayout = () => {
                 <Sidebar />
               </div>
               <div className="flex-1 overflow-y-scroll">
-                <main>{<Outlet />}</main>
+                <main className="relative">{<Outlet />}</main>
               </div>
             </div>
           </div>

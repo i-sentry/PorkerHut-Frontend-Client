@@ -1,127 +1,166 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
+import { useGetAllVets } from "../../services/hooks/service/vet";
 import { BsSearch } from "react-icons/bs";
-import VetCard from "../../components/admin-dashboard-components/VetCard";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import { chunkArray } from "../../helper/chunck";
-import vetData from "../../utils/json/vetData.json";
-const itemsPerPage = 12;
-const NewVetPartners = () => {
-  const [data, setData] = useState(vetData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { Column } from "react-table";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/images/porkerlogo.png";
+import ComingSoon from "../../components/ComingSoon";
 
+const Tabcolumns: readonly Column<object>[] = [
+  {
+    Header: "Account Name",
+    accessor: "accountName",
+    // Cell: (props: any) => <ProductNameColumn data={props} />,
+  },
+  {
+    Header: "Business Name",
+    accessor: "businessName",
+  },
+  {
+    Header: "Email Address",
+    accessor: "email",
+  },
+  {
+    Header: "Phone Number",
+    accessor: "phone",
+  },
+  {
+    Header: "Type of Vet",
+    accessor: "vetType",
+  },
+  {
+    Header: "State of Operation",
+    accessor: "state",
+  },
+  {
+    Header: "Status",
+    accessor: "status",
+    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+  },
+];
+
+export const StatusColumn = ({ data }: { data: string }) => {
+  switch (data?.toLowerCase()) {
+    case "approved":
+      return <span className="text-[#22C55E]">Approved</span>;
+
+    case "rejected":
+      return <span className=" text-[#F91919]">Rejected</span>;
+    case "pending":
+      return <span className=" text-[#F29339]">Pending</span>;
+    // case "returned":
+    //   return <span className=" text-[#198df9]">Returned</span>;
+    // case "returned Failed":
+    //   return <span className=" text-[#F91919]">Returned Failed</span>;
+    default:
+      return (
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
+      );
+  }
+};
+
+const NewVetPartners = () => {
+  const [vets, setVets] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const { data, isLoading } = useGetAllVets();
+  const allVets = data?.data?.data;
+  useEffect(() => {
+    if (!isLoading) setVets(allVets);
+  }, [allVets, isLoading]);
+
   const handleChange = (value: any) => {
     setSearchValue(value);
-    setData(
-      vetData.filter(
-        (item) =>
-          item.accountName.toLowerCase().includes(value.toLowerCase()) ||
-          item.businessName.toLowerCase().includes(value.toLowerCase()) ||
-          item.status.toLowerCase().includes(value.toLowerCase())
-      )
+    setVets(
+      vets
+        .slice()
+        .filter(
+          (item: any) =>
+            item.accountName.toLowerCase().includes(value.toLowerCase()) ||
+            item.businessName.toLowerCase().includes(value.toLowerCase()) ||
+            item.status.toLowerCase().includes(value.toLowerCase()),
+        ),
     );
-    setCurrentPage(1);
   };
-  useEffect(() => setData(vetData), []);
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
-  }, []);
+  const optionalColumn = {
+    id: "expand",
+    // The header can use the table's getToggleAllRowsSelectedProps method
+    // to render a checkbox
+    Header: (
+      <div>
+        {/* <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} /> */}
+      </div>
+    ),
+    // The cell can use the individual row's getToggleRowSelectedProps method
+    // to the render a checkbox
+    Cell: ({ row }: any) => {
+      const navigate = useNavigate();
+
+      const handleView = (id: any) => {
+        navigate(`/admin/admin-order/${id}`, {
+          replace: true,
+        });
+      };
+      return (
+        <div>
+          <span
+            onClick={() => handleView(row?.original?._id)}
+            className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
+          >
+            View
+          </span>
+        </div>
+      );
+    },
+  };
 
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="pl-10 pt-10 pr-5 pb-10">
       <div className="mb-5">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start justify-between">
           <div className="mb-2">
             <h1 className="text-2xl font-medium ">New Vets</h1>
-            <span className="text-[#A2A2A2] font-light text-sm">
-              All new vet partner can be approved and rejected.
+            <span className="text-sm font-light text-[#A2A2A2]">
+              New vets All new vet partner can be approved and rejected.
             </span>
-          </div>
-          <div>
-            <div className="flex w-full items-center justify-between gap-4 relative ">
-              <input
-                type="search"
-                value={searchValue}
-                placeholder={
-                  "Search store name, company address or ID number...."
-                }
-                className="xxs:w-full md:w-[500px] bg-[#F4F4F4] focus:outline-none active:outline-none rounded-md px-3 py-2 placeholder:text-xs placeholder:font-light text-base text-[#333333] font-normal"
-                onChange={(e) => handleChange(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-              />
-              {!isSearchFocused && (
-                <div className="absolute right-3">
-                  <BsSearch />
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>
-      {data.length ? (
-        <div className="grid grid-cols-4 gap-5 py-5">
-          {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-            (item, index) => (
-              <div key={index}>
-                <VetCard item={item} />
-              </div>
-            )
-          )}
-        </div>
-      ) : (
-        <div>Fetching Store Data...</div>
-      )}
-      <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
-        <button
-          onClick={() =>
-            currentPageIndex !== 1
-              ? setCurrentPageIndex(currentPageIndex - 1)
-              : null
-          }
-          className={
-            (currentPageIndex === 1 ? "no-item" : "") +
-            " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
-          }
-        >
-          <RxCaretLeft size={16} />
-        </button>
-        <div className="pagination flex gap-1 items-center">
-          {chunkArray(data, itemsPerPage).map((_, index) => {
-            return (
-              <button
-                key={index}
-                onClick={() => setCurrentPageIndex(index + 1)}
-                className={` border-2   border-[#A2A2A2]  ${
-                  currentPageIndex === index + 1
-                    ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                    : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
-                }`}
-              >
-                {index + 1}
-              </button>
-            );
-          })}
-        </div>
 
-        <button
-          onClick={() =>
-            currentPageIndex !== chunkArray(data, itemsPerPage).length
-              ? setCurrentPageIndex(currentPageIndex + 1)
-              : null
-          }
-          className={
-            (currentPageIndex === chunkArray(data, itemsPerPage).length
-              ? "no-items"
-              : "") +
-            " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
-          }
-        >
-          <RxCaretRight size={16} />
-        </button>
+      <div>
+        {isLoading && (
+          <div className="flex h-screen flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
+              <img
+                src={logo}
+                alt="loaderLogo"
+                className="h-20 w-20 animate-pulse"
+              />
+              <p className="text-[14px] leading-[24px] text-[#333333]">
+                Fetching Data...
+              </p>
+            </div>
+          </div>
+        )}
+        {!isLoading ? (
+          <AdminTable
+            // @ts-ignore
+            optionalColumn={optionalColumn}
+            tabs={["All", "Approved", "Pending", "Rejected"]}
+            Tcolumns={Tabcolumns}
+            TData={vets}
+            placeholder={"Search account owner, email address, store name.... "}
+          />
+        ) : (
+          "No Vet Partners Yet"
+        )}
+      </div>
+
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Veterinary Services"} />
       </div>
     </div>
   );
