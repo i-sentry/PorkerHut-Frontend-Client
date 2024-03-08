@@ -19,6 +19,8 @@ import {
   useUpdateAdminAccess,
 } from "../../services/hooks/admin/Auth";
 import ReactLoading from "react-loading";
+import { useBillingInfo, useMyBillingInfo } from "../../services/hooks/payment";
+import PhoneInput from "react-phone-input-2";
 
 type FormData = {
   fullName: string;
@@ -30,7 +32,7 @@ type FormData = {
 };
 
 const Settings = () => {
-  const [admin, setAdmin] = useState<any>();
+  // const [admin, setAdmin] = useState<any>();
   const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [overlayVisibility, setOverlayVisibility] = useState(false);
@@ -60,20 +62,27 @@ const Settings = () => {
   const adminDetails = getAllAdmin?.find(
     (admin: any) => admin?._id === adminUser,
   );
-  useEffect(() => {
-    if (!isLoading) setAdmin(adminDetails);
-  }, [adminDetails, isLoading]);
+  const { data: BillingInfos } = useMyBillingInfo(adminUser);
 
-  console.log("fi", admin?.firstName);
+  const myInfo = BillingInfos?.data?.billing.reduce(
+    (prev: any, current: any) => {
+      const prevDate = new Date(prev.updatedAt);
+      const currentDate = new Date(current.updatedAt);
+
+      console.log(prev, "prev", current, "current");
+      return prevDate > currentDate ? prev : current;
+    },
+  );
+
+  console.log(myInfo, "infos");
 
   const [form, setForm] = useState<FormData>({
-    // fullName: `${admin?.firstName} ${admin?.lastName}`,
-    fullName: admin?.firstName,
-    email: admin?.email,
-    id: admin?._id,
-    address: "",
-    location: "",
-    phoneNumber: "",
+    fullName: `${adminDetails?.firstName} ${adminDetails?.lastName}`,
+    email: adminDetails?.email,
+    id: adminDetails?._id,
+    address: myInfo?.address,
+    location: myInfo?.city,
+    phoneNumber: myInfo?.phoneNumber,
   });
   const [items, setItems] = useState([
     {
@@ -109,6 +118,7 @@ const Settings = () => {
 
   const onHandleFormChange = (e: any) => {
     const [name, value] = e.target;
+    console.log(name, value, "imputrs");
 
     setForm((form) => {
       return { ...form, [name]: value };
@@ -398,7 +408,7 @@ const Settings = () => {
                 </label>
               </div>
               <div className="flex w-full  gap-5">
-                <div className="flex-1">
+                <div className="w-1/2s">
                   <div className="mt-4 flex  flex-col  text-sm">
                     <p className=" text-[#344054]">Full Name</p>
                     <div className="flex-[2]">
@@ -407,6 +417,7 @@ const Settings = () => {
                         type="text"
                         name="fullName"
                         value={form.fullName}
+                        inputClass="capitalize"
                         onChange={(e: any) => onHandleFormChange(e)}
                       />
                     </div>
@@ -425,27 +436,37 @@ const Settings = () => {
                     </div>
                   </div>
                   <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Street Address</p>
+                    <p className=" text-[#344054]">Location</p>
                     <div className="flex-[2]">
                       <InputComponent
-                        placeholder="Address"
+                        placeholder="Location"
                         type="text"
-                        name="address"
-                        value={form.address}
+                        name="location"
+                        value={form.location}
                         onChange={(e: any) => onHandleFormChange(e)}
                       />
                     </div>
                   </div>
-
                   <div className="mt-4 flex  flex-col  text-sm">
                     <p className=" text-[#344054]">Phone number</p>
                     <div className="flex-[2]">
-                      <InputComponent
+                      {/* <InputComponent
                         placeholder="Phonenumber"
                         type="number"
                         name="phoneNumber"
                         value={form.phoneNumber}
                         onChange={(e: any) => onHandleFormChange(e)}
+                      /> */}
+                      <PhoneInput
+                        disabled
+                        country={"ng"}
+                        value={form.phoneNumber}
+                        onChange={(e) => onHandleFormChange(e)}
+                        inputProps={{
+                          name: "phoneNumber",
+                          id: "phoneNumber",
+                          className: `form-input w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:ring-[#197b30] focus:ring-1 focus:border-[#197b30]`,
+                        }}
                       />
                     </div>
                   </div>
@@ -458,7 +479,7 @@ const Settings = () => {
                     </button>
                   </div>
                 </div>
-                <div className="flex-1 ">
+                {/* <div className="flex-1 ">
                   <div className="mt-4 flex  flex-col  text-sm">
                     <p className=" text-[#344054]">Store Name</p>
                     <div className="flex-[2]">
@@ -494,7 +515,7 @@ const Settings = () => {
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </TabPanel>
