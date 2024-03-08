@@ -1,0 +1,34 @@
+name: Deploy React App to GCP VM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.20.2' # Updated to match your project's Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build React app
+      run: npm run build
+
+    - name: Deploy to GCP VM
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PORKERHUT_BACKEND_DEPLOY_KEY }}
+        SOURCE: "build/"
+        REMOTE_HOST: ${{ secrets.PORKERHUT_GCP_HOST }}
+        REMOTE_USER: ${{ secrets.PORKERHUT_GCP_USERNAME }}
+        TARGET: "~/PorkerHut-Frontend-Client"
