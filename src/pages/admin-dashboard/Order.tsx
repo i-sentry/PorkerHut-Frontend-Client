@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import { Column } from "react-table";
@@ -12,6 +12,9 @@ import product8 from "../../assets/products/prod8.png";
 import product9 from "../../assets/products/prod9.png";
 import product from "../../assets/products/product.png";
 import prod from "../../assets/products/prod.png";
+import { useGetOrders } from "../../services/hooks/orders";
+import { Tooltip } from "../../components/utility/ToolTip";
+import moment from "moment";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -28,26 +31,66 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className=" text-[#F91919]">Returned Failed</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
 
+const DateColumn = ({ d }: any) => {
+  // console.log(d.orderDate, "datafhshs");
+  const createdAt = d.orderDate;
+
+  // console.log(createdAt, "createdat");
+
+  const formattedDate = moment(createdAt).format("DD MMMM YYYY");
+  const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
+  return (
+    <div className="flex flex-col items-start">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+        {formattedDate}
+      </span>
+      <span className="mt-1 text-sm font-light capitalize text-neutral-400">
+        {formattedTime}
+      </span>
+    </div>
+  );
+};
+
+const StoreNameColumn = ({ d }: any) => {
+  // const { vendor } = d;
+  // console.log(d, "store-colum");
+
+  const storeName =
+    d?.productDetails[0]?.vendor?.sellerAccountInformation?.shopName || "";
+  const storeCity =
+    d?.productDetails[0]?.vendor?.businessInformation?.city || "";
+  return (
+    <div className="flex flex-col items-start">
+      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+        {storeName}
+      </span>
+      <span className="mt-1 text-sm font-light capitalize text-neutral-400">
+        {storeCity}
+      </span>
+    </div>
+  );
+};
+
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.value;
   const lowerData = adata?.toLowerCase();
   const productName = _.startCase(lowerData);
+  // console.log(data?.row?.original, "data", data.cell);
   return (
     <div className="flex items-center gap-2">
       <figure className="h-9 w-9 rounded-full border">
         <img
           src={data?.row?.original?.img}
           alt="product"
-          className="rounded-full object-cover w-full h-full"
+          className="h-full w-full rounded-full object-cover"
         />
       </figure>
-      <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
+      <span className="whitespace-nowrap text-sm font-light  text-[#333333]">
         {productName}
       </span>
     </div>
@@ -204,36 +247,78 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Store Name",
-    accessor: "store_name",
+    accessor: (row) =>
+      // @ts-ignore
+      row.status,
+    // row.productDetails[0]?.vendor?.sellerAccountInformation?.shopName,
+    Cell: (data: any) => {
+      const d = data.row.original;
+      return <StoreNameColumn d={d} />;
+    },
   },
   {
     Header: "Order Date",
-    accessor: "order_date",
+    accessor: "orderDate",
+    Cell: (data) => {
+      const d = data?.row.original;
+
+      return <DateColumn d={d} />;
+    },
   },
   {
     Header: "Order ID",
-    accessor: "order_id",
+    accessor: (row: any) => (
+      <Tooltip message={row?._id}>
+        <span className="cursor-pointer">{row?._id.slice(0, 10)}...</span>
+      </Tooltip>
+    ),
   },
   {
     Header: "Prices",
-    accessor: "price",
+    accessor: (row) =>
+      // @ts-ignore
+      `₦${row.productDetails[0]?.price.toLocaleString()}`,
   },
   {
     Header: "Quantity",
-    accessor: "quantity",
+    accessor: (row: any) => row?.productDetails?.length,
   },
   {
     Header: "Order Total",
-    accessor: "order_total",
+    accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
   },
   {
     Header: "Status",
-    accessor: "order_status",
-    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+    accessor: (row: any) => {
+      switch (row?.status?.toLowerCase()) {
+        case "completed":
+          return <span className="text-[#22C55E]">Completed</span>;
+        case "failed":
+          return <span className=" text-[#F91919]">Failed</span>;
+        case "pending":
+          return <span className=" text-[#F29339]">Pending</span>;
+        case "returned":
+          return <span className=" text-[#198df9]">Returned</span>;
+        case "returned Failed":
+          return <span className=" text-[#F91919]">Returned Failed</span>;
+        default:
+          return (
+            <span className="text-sm font-normal text-[#202223] ">
+              {row?.status}
+            </span>
+          );
+      }
+    },
   },
 ];
 
 const Order = () => {
+  const [orders, setOrders] = useState<any[]>([]);
+  const { data: ordersList, isLoading } = useGetOrders();
+  useEffect(() => {
+    if (!isLoading) setOrders(ordersList?.data.data);
+  }, [ordersList?.data.data, isLoading]);
+
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method
@@ -262,7 +347,7 @@ const Order = () => {
         <div>
           <span
             onClick={() => handleView(row?.original?.id)}
-            className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
+            className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
           >
             View
           </span>
@@ -275,7 +360,7 @@ const Order = () => {
     <div className="pl-10 pt-10 pr-5">
       <div className="mb-5">
         <h1 className="text-2xl font-medium ">Orders</h1>
-        <span className="text-[#A2A2A2] font-normal text-sm">
+        <span className="text-sm font-normal text-[#A2A2A2]">
           All Information available
         </span>
       </div>
@@ -285,7 +370,7 @@ const Order = () => {
           // @ts-ignore
           optionalColumn={optionalColumn}
           tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-          TData={OrderData}
+          TData={orders}
           placeholder={"Search product name, store names, category.... "}
         />
       </div>

@@ -23,7 +23,7 @@ const AdminLayout = () => {
       (!accessToken || accessToken === "undefined" || accessToken === null) &&
       !admin?.isAdmin
     ) {
-      // navigate("/admin-login");
+      navigate("/admin-login");
     }
     setLoading(false);
   }, [accessToken, admin?.isAdmin, navigate]);
@@ -55,7 +55,7 @@ const AdminLayout = () => {
                 <Sidebar />
               </div>
               <div className="flex-1 overflow-y-scroll">
-                <main>{<Outlet />}</main>
+                <main className="relative">{<Outlet />}</main>
               </div>
             </div>
           </div>

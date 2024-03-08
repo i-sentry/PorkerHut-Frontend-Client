@@ -1,6 +1,6 @@
 import React from "react";
 
-function TextField({ errors, data, register }: any) {
+function TextField({ errors, data, register, infoColor }: any) {
   return (
     <div className="mb-[2px] w-full">
       <label
@@ -23,7 +23,9 @@ function TextField({ errors, data, register }: any) {
           minLength: 1,
         })}
       />
-      <span className="mb-1 text-[10px] leading-normal text-[#797979]">
+      <span
+        className={`mb-1 text-[10px] leading-normal ${`text-[${infoColor}]` || "text-[#797979]"}`}
+      >
         {data.info}
       </span>
       <p className="mt-1 text-xs text-[#a10]">

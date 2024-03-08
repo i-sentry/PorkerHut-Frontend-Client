@@ -32,7 +32,7 @@ import { useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
 import MainSideNav from "./MainSideNav";
 
-const NavBar = () => {
+const NavBar = ({ border }: { border?: any }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [toggle, setToggle] = useState(false);
   const [temp, setTemp] = useState(false);
@@ -146,16 +146,18 @@ const NavBar = () => {
   console.log(user?.firstName, "isLogin");
   return (
     <>
-      <header className="bg-white fixed top-0 py-2 w-full z-[999]">
-        <nav className="lg:flex h-full bg-white w-full px-4 items-center justify-between">
+      <header
+        className={`fixed top-0 z-[999] w-full bg-white py-2 ${border || ""}`}
+      >
+        <nav className="h-full w-full items-center justify-between bg-white px-4 lg:flex">
           {/* Menu Btn */}
 
-          <div className="z-50 h-full  lg:w-auto w-full flex items-center gap-7 xl:gap-12">
+          <div className="z-50 flex  h-full w-full items-center gap-7 lg:w-auto xl:gap-12">
             <div className="flex items-center justify-start gap-5">
               <div className="flex gap-2">
                 <button
                   onClick={() => toggleSidebar(!showSideBar)}
-                  className="text-3xl lg:hidden flex justify-center items-center"
+                  className="flex items-center justify-center text-3xl lg:hidden"
                 >
                   {showSideBar ? (
                     <IoMdClose size={24} />
@@ -165,37 +167,37 @@ const NavBar = () => {
                 </button>
                 <div
                   onClick={() => navigate("/")}
-                  className="flex items-center gap-2 cursor-pointer select-none"
+                  className="flex cursor-pointer select-none items-center gap-2"
                 >
                   <img
                     src={PorkerLogo}
                     alt=""
-                    className="lg:cursor-pointer h-9"
+                    className="h-9 lg:cursor-pointer"
                   />
-                  <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                  <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-xl">
                     Porker Hut
                   </h1>
                 </div>
               </div>
-              <ul className="lg:flex font-normal hidden items-center text-sm  ">
+              <ul className="hidden items-center text-sm font-normal lg:flex  ">
                 <NavLink setToggle={setToggle} toggle={toggle} />
               </ul>
             </div>
 
-            <div className="action-btns flex items-center  ml-auto  lg:hidden">
+            <div className="action-btns ml-auto flex  items-center  lg:hidden">
               <div
                 onClick={() => setShowSearch((prev: any) => !prev)}
-                className=" py-[6px] rounded w-10 flex items-end justify-end text-slate-800"
+                className=" flex w-10 items-end justify-end rounded py-[6px] text-slate-800"
               >
                 <AiOutlineSearch size={28} />
               </div>
               <div
-                className="  py-[6px] rounded w-10 flex items-end justify-end text-slate-800 lg:hidden"
+                className="  flex w-10 items-end justify-end rounded py-[6px] text-slate-800 lg:hidden"
                 onClick={() => navigate("/my-cart")}
               >
                 <MdOutlineShoppingCart size={28} />
                 {Object.values(cart).length >= 1 && (
-                  <span className="flex justify-center items-center xxs:w-[18px] xxs:h-[18px] md:w-[20px] md:h-[20px] bg-emerald-500 text-white absolute top-5 xxs:right-2 md:right-6 rounded-full text-xs">
+                  <span className="absolute top-5 flex items-center justify-center rounded-full bg-emerald-500 text-xs text-white xxs:right-2 xxs:h-[18px] xxs:w-[18px] md:right-6 md:h-[20px] md:w-[20px]">
                     {Object.values(cart).length}
                   </span>
                 )}
@@ -204,7 +206,7 @@ const NavBar = () => {
           </div>
 
           <div>
-            <div className="lg:flex lg:items-center  hidden gap-2 relative z-[2] bg-white">
+            <div className="relative z-[2]  hidden gap-2 bg-white lg:flex lg:items-center">
               {/* <div className="
               -btns bg-white flex gap-3  mr-4 relative">
                 <div
@@ -257,30 +259,30 @@ const NavBar = () => {
               </div> */}
               <div
                 onClick={() => setShowSearch((prev: any) => !prev)}
-                className=" py-[6px] rounded w-10 items-end justify-end text-slate-800 hidden lg:flex xl:hidden"
+                className=" hidden w-10 items-end justify-end rounded py-[6px] text-slate-800 lg:flex xl:hidden"
               >
                 <AiOutlineSearch size={28} />
               </div>
 
-              <div className="relative w-fit h-fit hidden xl:inline-block overflow-hidden">
+              <div className="relative hidden h-fit w-fit overflow-hidden xl:inline-block">
                 <button
-                  className={`w-[35px] h-[35px] flex justify-center items-center absolute right-0 z-[1] border-l-2 border-white box-border ${
+                  className={`absolute right-0 z-[1] box-border flex h-[35px] w-[35px] items-center justify-center border-l-2 border-white ${
                     showSearch
-                      ? "bg-[#e8e8e8] rounded-tr-lg rounded-br-lg"
+                      ? "rounded-tr-lg rounded-br-lg bg-[#e8e8e8]"
                       : "bg-white"
                   }`}
                 >
                   <AiOutlineSearch
                     onClick={() => setShowSearch(true)}
                     className={`absolute left-1/2 -translate-x-1/2 duration-300 ${
-                      showSearch ? "opacity-0" : "opacity-100 z-[1]"
+                      showSearch ? "opacity-0" : "z-[1] opacity-100"
                     }`}
                     size={22}
                   />
                   <AiOutlineClose
                     onClick={() => setShowSearch(false)}
                     className={`absolute left-1/2 -translate-x-1/2 duration-300 ${
-                      showSearch ? "opacity-100 z-[1]" : "opacity-0"
+                      showSearch ? "z-[1] opacity-100" : "opacity-0"
                     }`}
                     size={22}
                   />
@@ -291,12 +293,12 @@ const NavBar = () => {
                 />
               </div>
               <button
-                className={`p-[6px] rounded w-8 relative bg-white`}
+                className={`relative w-8 rounded bg-white p-[6px]`}
                 onClick={() => navigate("/my-cart")}
               >
                 <img className="w-6" src={CartLogo} alt="" />
                 {Object.values(cart).length >= 0 && (
-                  <span className="flex justify-center items-center w-[15px] h-[15px] bg-emerald-500 text-white absolute top-0 right-0 rounded-full text-xs">
+                  <span className="absolute top-0 right-0 flex h-[15px] w-[15px] items-center justify-center rounded-full bg-emerald-500 text-xs text-white">
                     {Object.values(cart).length}
                   </span>
                 )}
@@ -320,7 +322,7 @@ const NavBar = () => {
                     <Menu as="div" className="relative">
                       <Menu.Button className="flex items-center">
                         <HiOutlineUserCircle size={22} />
-                        <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-medium whitespace-nowrap">
+                        <p className="whitespace-nowrap pl-1 text-[14px] font-medium leading-[16px] text-[#333333]">
                           {/* @ts-ignore */}
                           Hi,{" "}
                           {user?.firstName
@@ -342,17 +344,17 @@ const NavBar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-sm bg-white p-1 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <Menu.Item>
                             {({ active }) => (
                               <div
                                 onClick={() => navigate("/profile")}
                                 className={classNames(
                                   active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                                  "cursor-pointer rounded-sm px-4 py-2  focus:bg-gray-200 active:bg-gray-200",
                                 )}
                               >
-                                <h1 className="text-[14px] leading-[16px] font-normal  text-[#333333] flex items-center gap-3">
+                                <h1 className="flex items-center gap-3  text-[14px] font-normal leading-[16px] text-[#333333]">
                                   <HiOutlineUserCircle size={24} />
                                   My Account
                                 </h1>
@@ -365,10 +367,10 @@ const NavBar = () => {
                                 onClick={() => navigate("/my__orders")}
                                 className={classNames(
                                   active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                  "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                                 )}
                               >
-                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                                   <ImDownload size={24} />
                                   My Order
                                 </h1>
@@ -381,10 +383,10 @@ const NavBar = () => {
                                 onClick={() => navigate("/favorite+products")}
                                 className={classNames(
                                   active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                  "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                                 )}
                               >
-                                <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                                   <IoMdHeartEmpty size={24} />
                                   My Favorites
                                 </h1>
@@ -396,12 +398,12 @@ const NavBar = () => {
                               <div
                                 className={classNames(
                                   active && "bg-gray-100",
-                                  "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-[#197B30] focus:text-[#fff] border-[#197B30] border-t flex w-full"
+                                  "flex w-full cursor-pointer rounded-sm border-t border-[#197B30] px-4 py-2 focus:bg-[#197B30] focus:text-[#fff] active:bg-gray-200",
                                 )}
                               >
                                 <h1
                                   onClick={handleLogout}
-                                  className="text-[14px] leading-[16px] font-normal text-[#197B30] flex justify-center w-full"
+                                  className="flex w-full justify-center text-[14px] font-normal leading-[16px] text-[#197B30]"
                                 >
                                   Logout
                                 </h1>
@@ -416,7 +418,7 @@ const NavBar = () => {
                       <Menu as="div" className="relative">
                         <Menu.Button className="flex items-center">
                           <IoMdHelpCircleOutline size={22} />
-                          <p className="pl-1 text-[#333333] text-[14px] leading-[16px] font-semibold">
+                          <p className="pl-1 text-[14px] font-semibold leading-[16px] text-[#333333]">
                             Help
                           </p>
                           <span className="rotate-180">
@@ -432,17 +434,17 @@ const NavBar = () => {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="origin-top-right z-10 absolute right-0 mt-2 w-48 rounded-sm shadow-md p-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-sm bg-white p-1 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                               {({ active }) => (
                                 <div
                                   onClick={() => navigate("/contact-us")}
                                   className={classNames(
                                     active && "bg-gray-100",
-                                    "active:bg-gray-200 rounded-sm px-4 py-2  cursor-pointer focus:bg-gray-200"
+                                    "cursor-pointer rounded-sm px-4 py-2  focus:bg-gray-200 active:bg-gray-200",
                                   )}
                                 >
-                                  <h1 className="text-[14px] leading-[16px] text-[#333333] font-normal flex items-center gap-3">
+                                  <h1 className="flex items-center gap-3 text-[14px] font-normal leading-[16px] text-[#333333]">
                                     <FaHandsHelping size={23} />
                                     Help Center
                                   </h1>
@@ -455,10 +457,10 @@ const NavBar = () => {
                                   onClick={() => navigate("/tracking+order")}
                                   className={classNames(
                                     active && "bg-gray-100",
-                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                    "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                                   )}
                                 >
-                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                                     <MdSendAndArchive size={23} />
                                     Tracking Orders
                                   </h1>
@@ -471,10 +473,10 @@ const NavBar = () => {
                                   onClick={() => navigate("/return+order")}
                                   className={classNames(
                                     active && "bg-gray-100",
-                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200"
+                                    "cursor-pointer rounded-sm px-4 py-2 focus:bg-gray-200 active:bg-gray-200",
                                   )}
                                 >
-                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#333333]  flex items-center gap-3">
+                                  <h1 className="flex items-center gap-3 text-[14px]  font-normal leading-[16px] text-[#333333]">
                                     <TbTruckReturn size={23} />
                                     Return Order
                                   </h1>
@@ -487,10 +489,10 @@ const NavBar = () => {
                                   onClick={() => navigate("/order+cancel")}
                                   className={classNames(
                                     active && "bg-gray-100",
-                                    "active:bg-gray-200 rounded-sm px-4 py-2 cursor-pointer focus:bg-gray-200  flex w-full"
+                                    "flex w-full cursor-pointer rounded-sm px-4 py-2  focus:bg-gray-200 active:bg-gray-200",
                                   )}
                                 >
-                                  <h1 className="text-[14px] leading-[16px] font-normal text-[#197B30]  text-center flex gap-3">
+                                  <h1 className="flex gap-3 text-center text-[14px]  font-normal leading-[16px] text-[#197B30]">
                                     <MdCancelScheduleSend size={23} />
                                     <span className="m-auto">
                                       Order Cancellation
@@ -510,7 +512,7 @@ const NavBar = () => {
           </div>
 
           {/* Mobile */}
-          <div className="lg:hidden relative">
+          <div className="relative lg:hidden">
             <MainSideNav />
           </div>
         </nav>
@@ -547,17 +549,17 @@ const SearchBar = ({
 
   return (
     <div
-      className={`duration-500 h-8 justify-between overflow-hidden items-center pl-3 flex ${
+      className={`flex h-8 items-center justify-between overflow-hidden pl-3 duration-500 ${
         showSearch ? "w-[320px]" : "w-[35px]"
       }`}
     >
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
-        <div className="flex items-center min-w-full">
-          <label className="relative block my-8 w-[100%] lg:mx-1 ">
+        <div className="flex min-w-full items-center">
+          <label className="relative my-8 block w-[100%] lg:mx-1 ">
             <input
               autoFocus
               autoComplete="off"
-              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-72 border-0  py-2  pl-5 shadow-sm  sm:text-sm disabled:opacity-10 h-full focus:ring-0 placeholder:text-xs placeholder:font-light rounded-tl-lg outline-none rounded-bl-lg`}
+              className={`block h-full w-72 rounded-tl-lg rounded-bl-lg  border-0  bg-[#F4F4F4] py-2  pl-5 shadow-sm outline-none placeholder:text-xs placeholder:font-light placeholder:text-slate-400 focus:ring-0 disabled:opacity-10 sm:text-sm`}
               placeholder="Search here"
               type="text"
               name="search"

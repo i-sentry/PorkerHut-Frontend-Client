@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Popover from "../../components/utility/PopOver";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import customerMockData from "../../utils/json/customerMockData.json";
 import { Column } from "react-table";
+import { useGetAllUsers } from "../../services/hooks/users";
+import logo from "../../assets/images/porkerlogo.png";
+import { Tooltip } from "../../components/utility/ToolTip";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -11,19 +13,23 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className="  text-[#22C55E] ">Active</span>;
 
     case "inactive":
-      return <span className=" text-[#F91919]  capitalize">inactive</span>;
+      return <span className=" capitalize  text-[#F91919]">inactive</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
 
-
 const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Name",
-    accessor: "name",
+    // accessor: "name",
+    accessor: (row: any) => (
+      <p className="capitalize">
+        {row.firstName.toLowerCase()} {row.lastName.toLowerCase()}
+      </p>
+    ),
   },
   {
     Header: "Email",
@@ -43,7 +49,11 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Account ID",
-    accessor: "account_id",
+    accessor: (row: any) => (
+      <Tooltip message={row?._id}>
+        <span className="cursor-pointer">{row?._id.slice(0, 10)}...</span>
+      </Tooltip>
+    ),
   },
   {
     Header: "Status",
@@ -53,7 +63,20 @@ const Tcolumns: readonly Column<object>[] = [
 ];
 
 const Customers = () => {
+  const [users, setUsers] = useState<any[]>([]);
 
+  const { data: allUser, isLoading } = useGetAllUsers();
+
+  const filterUserRole = allUser?.data?.filter(
+    (user: any) => user.role === "user",
+  );
+
+  useEffect(() => {
+    if (!isLoading && filterUserRole.length > 0) setUsers(filterUserRole);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  console.log(filterUserRole);
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -73,9 +96,9 @@ const Customers = () => {
           placementOrder={"auto"}
           closeOnClick={true}
         >
-          <div className="w-[150px] py-2">
+          <div className="flex w-[150px] flex-col py-2">
             <button
-              className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+              className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               onClick={() => {
                 //  router.push(
                 //    `/assets/corporate-assets/${props.row.original.id}`
@@ -86,7 +109,7 @@ const Customers = () => {
             </button>
             {/* {permissions.canEdit && ( */}
             <button
-              className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
+              className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               onClick={() => {
                 //  setEditAsset(true);
                 //  setAssetId(props.row.original.id);
@@ -113,20 +136,35 @@ const Customers = () => {
     <div className="pl-10 pt-10 pr-5 ">
       <div className="mb-5">
         <h1 className="text-2xl font-medium text-[#333333]">Customers</h1>
-        <span className="text-[#A2A2A2] font-normal text-sm">
+        <span className="text-sm font-normal text-[#A2A2A2]">
           All Information available
         </span>
       </div>
 
       <div>
-        <AdminTable
-          Tcolumns={Tcolumns}
-          // @ts-ignore
-          optionalColumn={optionalColumn}
-          tabs={["All", "Active", "Inactive"]}
-          TData={customerMockData}
-          placeholder={"Search name, email, account ID....  "}
-        />
+        {isLoading ? (
+          <div className="flex h-screen flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
+              <img
+                src={logo}
+                alt="loaderLogo"
+                className="h-20 w-20 animate-pulse"
+              />
+              <p className="text-[14px] leading-[24px] text-[#333333]">
+                Fetching Data...
+              </p>
+            </div>
+          </div>
+        ) : (
+          <AdminTable
+            Tcolumns={Tcolumns}
+            // @ts-ignore
+            optionalColumn={optionalColumn}
+            tabs={["All", "Active", "Inactive"]}
+            TData={users}
+            placeholder={"Search name, email, account ID....  "}
+          />
+        )}
       </div>
     </div>
   );
