@@ -2,6 +2,7 @@ import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
+  makeCustomPutRequest,
   makeGetRequestWithCustomHeader,
   makePostRequest,
   makePutRequest,
@@ -36,7 +37,7 @@ export const useGetAllAdmin = () => {
 
 export const useUpdateAdminAccess = (id: string) => {
   return useQueryMutation({
-    mutationFn: (data: { isAccessRevoked: boolean; isAdmin: boolean }) =>
-      makePutRequest(data, api.admin.adminAccess(id)),
+    mutationFn: (data: { isAccessRevoked: boolean }) =>
+      makeCustomPutRequest(data, api.admin.adminAccess(id)),
   });
 };

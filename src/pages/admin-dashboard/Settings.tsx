@@ -21,6 +21,8 @@ import {
 import ReactLoading from "react-loading";
 import { useBillingInfo, useMyBillingInfo } from "../../services/hooks/payment";
 import PhoneInput from "react-phone-input-2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 type FormData = {
   fullName: string;
@@ -50,6 +52,7 @@ const Settings = () => {
   const inviteAdmin = useInviteAdmin();
   const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
+  const [accessStatus, setAccessStatus] = useState("Access Granted");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [adminID, setAdminID] = useState<string>("");
   const { data: getAllAdmin, isLoading } = useGetAllAdmin();
@@ -177,11 +180,11 @@ const Settings = () => {
       updateAdminAccess
         .mutateAsync({
           isAccessRevoked: false,
-          isAdmin: true,
         })
         .then((res: any) => {
           console.log(res);
           setShowConfirmationModal(false);
+          toast.success("Admin Access has been granted");
         })
         .catch((err: any) => {
           console.log(err);
@@ -192,11 +195,11 @@ const Settings = () => {
       updateAdminAccess
         .mutateAsync({
           isAccessRevoked: true,
-          isAdmin: false,
         })
         .then((res: any) => {
           console.log(res);
           setShowConfirmationModal(false);
+          toast.warn("Admin Access has been revoked");
         })
         .catch((err: any) => {
           console.log(err);
@@ -249,6 +252,7 @@ const Settings = () => {
 
   return (
     <div className="pl-10 pt-10 pr-5">
+      <ToastContainer />
       <div className="mb-5">
         <div className="">
           <h1 className="text-2xl font-medium ">Settings</h1>
@@ -256,6 +260,7 @@ const Settings = () => {
             All information available.
           </span>
         </div>
+        T
       </div>
       <div className="w-ful flex">
         <nav className=" flex w-64 flex-col space-y-3 border-r-2 border-[#E8E9EB] bg-[#F4F4F4]   py-3 pl-4">
