@@ -410,7 +410,7 @@ const Settings = () => {
                         placeholder="Full Name"
                         type="text"
                         name="fullName"
-                        value={form.fullName}
+                        value={form.fullName ?? ""}
                         inputClass="capitalize"
                         onChange={(e: any) => onHandleFormChange(e)}
                       />
@@ -423,7 +423,7 @@ const Settings = () => {
                         placeholder="Email"
                         type="email"
                         name="email"
-                        value={form.email}
+                        value={form.email || ""}
                         // value={number}
                         onChange={(e: any) => onHandleFormChange(e)}
                       />
@@ -436,7 +436,7 @@ const Settings = () => {
                         placeholder="Location"
                         type="text"
                         name="location"
-                        value={form.location}
+                        value={form.location || ""}
                         onChange={(e: any) => onHandleFormChange(e)}
                       />
                     </div>
@@ -454,7 +454,7 @@ const Settings = () => {
                       <PhoneInput
                         disabled
                         country={"ng"}
-                        value={form.phoneNumber}
+                        value={form.phoneNumber || ""}
                         onChange={(e) => onHandleFormChange(e)}
                         inputProps={{
                           name: "phoneNumber",
