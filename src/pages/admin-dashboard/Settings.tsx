@@ -64,14 +64,8 @@ const Settings = () => {
   );
   const { data: BillingInfos } = useMyBillingInfo(adminUser);
 
-  const myInfo = BillingInfos?.data?.billing.reduce(
-    (prev: any, current: any) => {
-      const prevDate = new Date(prev.updatedAt);
-      const currentDate = new Date(current.updatedAt);
-
-      console.log(prev, "prev", current, "current");
-      return prevDate > currentDate ? prev : current;
-    },
+  const myInfo = BillingInfos?.data?.billing.find(
+    (info: any) => info?.isDefault,
   );
 
   console.log(myInfo, "infos");
@@ -664,24 +658,24 @@ const Settings = () => {
                 </thead>
                 <tbody>
                   {items.map((item, index) => (
-                    <tr key={index} className="bg-white">
-                      <td className="py-3 px-4 text-sm font-light ">
+                    <tr key={index} className="border-t bg-white">
+                      <td className="border-r py-3 px-4 text-sm font-light ">
                         {item.name}
                       </td>
-                      <td className="py-3 px-4 text-sm font-light ">
+                      <td className="border-r py-3 px-4 text-sm font-light ">
                         {item.description}
                       </td>
-                      <td className="py-3 px-1 ">
+                      <td className="border-r py-3  px-4">
                         <input
                           type="number"
                           value={item.value}
                           onChange={(e) =>
                             handleValueChange(index, e.target.value)
                           }
-                          className=" w-24 rounded-md border border-gray-400 py-0.5 px-1 text-sm font-light "
+                          className=" w-16 rounded-md border border-gray-400 py-0.5 px-1 text-sm font-light "
                         />
                       </td>
-                      <td className="py-3 px-4 text-sm font-light underline active:scale-95">
+                      <td className="cursor-pointer py-3 px-4 text-sm font-light underline active:scale-95">
                         {item.action}
                       </td>
                     </tr>
