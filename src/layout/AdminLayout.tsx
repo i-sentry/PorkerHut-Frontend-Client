@@ -23,7 +23,7 @@ const AdminLayout = () => {
       (!accessToken || accessToken === "undefined" || accessToken === null) &&
       !admin?.isAdmin
     ) {
-      // navigate("/admin-login");
+      navigate("/admin-login");
     }
     setLoading(false);
   }, [accessToken, admin?.isAdmin, navigate]);
