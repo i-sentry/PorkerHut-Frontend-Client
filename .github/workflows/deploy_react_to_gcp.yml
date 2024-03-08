@@ -22,7 +22,7 @@ jobs:
       run: yarn install
 
     - name: Build React app
-      run: yarn build
+      run: NODE_OPTIONS=--max-old-space-size=16384 yarn build
 
     - name: Deploy to GCP VM
       uses: easingthemes/ssh-deploy@v2.1.5
