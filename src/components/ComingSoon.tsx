@@ -1,14 +1,24 @@
-import React, { useRef, useState } from "react";
-import ComingSoonImg from "../assets/coming-soon.svg";
+import React, { useEffect, useRef, useState } from "react";
+import ComingSoonImg from "../assets/coming-soon.png";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
+import BreadCrumb from "./utility/BreadCrumbs";
 
-// import BreadCrumb from "./utility/BreadCrumbs";
-
-const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
+const ComingSoon = ({
+  pendingPage,
+  items,
+  className,
+}: {
+  pendingPage: string;
+  items?: any;
+  className?: string;
+}) => {
   const [email, setEmail] = useState<string>("");
   const form = useRef<HTMLFormElement | null>(null);
 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   console.log(email, "email");
 
   const message = `I hope this email finds you well. I wanted to express my interest in the PorkerHut service mentioned on your website. Specifically, I am interested in the ${pendingPage} service.`;
@@ -40,22 +50,12 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full px-4 pt-[70px] pb-16">
-        {/* <BreadCrumb
-          linkColor="text-gray-700"
-          items={[
-            {
-              name: "Home",
-              link: ``,
-            },
-            // ...crumbs,
-
-            // {
-            //   name: "Blogs",
-            //   link: "/blog",
-            // },
-          ]}
-        /> */}
+      <div className={`w-full px-4  pb-16 ${className || "pt-[70px]"}`}>
+        {items.length && (
+          <div className="mb-8">
+            <BreadCrumb linkColor="text-gray-700" items={items} />
+          </div>
+        )}
 
         <div className="flex flex-col items-center">
           <img
@@ -68,7 +68,7 @@ const ComingSoon = ({ pendingPage }: { pendingPage: string }) => {
               <p className="font-medium text-[#197B30]">
                 We're working hard to bring you something awesome. Stay tuned!
               </p>
-              <p className="font-medium text-[#FE6600]">
+              <p className="w-[80vw] text-center font-medium text-[#FE6600] sm:w-full">
                 **Notify me when PorkerHut {pendingPage} is available**
               </p>
             </div>
