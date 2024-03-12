@@ -19,8 +19,8 @@ const PendingApproval: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
             <img
               src={Opps}
               alt="sad illustration"
-              width={284}
-              height={183}
+              width={204}
+              height={103}
               className="mx-auto mb-3 inline-block scale-90"
             />
             <h2 className="mb-2 text-2xl font-semibold">

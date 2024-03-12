@@ -51,17 +51,17 @@ const ComingSoon = ({
     <>
       <ToastContainer />
       <div className={`w-full px-4  pb-16 ${className || "pt-[70px]"}`}>
-        {items.length && (
+        {items?.length && (
           <div className="mb-8">
             <BreadCrumb linkColor="text-gray-700" items={items} />
           </div>
         )}
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center pb-5">
           <img
             src={ComingSoonImg}
             alt="Coming Soon"
-            width={250} 
+            width={250}
             height={250}
             className="mb-7 w-[250px]"
           />
