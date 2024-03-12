@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Opps from "../../assets/opps.svg";
+import Opps from "../assets/opps.svg";
 
 interface LoginModalProps {
   isOpen: boolean;

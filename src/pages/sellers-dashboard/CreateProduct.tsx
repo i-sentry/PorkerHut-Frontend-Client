@@ -7,7 +7,7 @@ import {
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 import { useNavigate } from "react-router-dom";
 import { useProtectedInfo } from "../../store";
-import PendingApproval from "../../components/sellers-onboarding/PendingApproval";
+import PendingApproval from "../../components/PendingApproval";
 
 function CreateProduct() {
   const navigate = useNavigate();
