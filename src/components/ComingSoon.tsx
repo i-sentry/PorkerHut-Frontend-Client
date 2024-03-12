@@ -61,7 +61,7 @@ const ComingSoon = ({
           <img
             src={ComingSoonImg}
             alt="Coming Soon"
-            width={250}
+            width={250} 
             height={250}
             className="mb-7 w-[250px]"
           />
