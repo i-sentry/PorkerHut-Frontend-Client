@@ -21,14 +21,14 @@ export default function ProductAccordion() {
   // };
 
   return (
-    <div className=" xxs:px-4 md:px-0">
+    <div className="px-4 pt-6 md:pt-4 lg:pt-[60px]">
       <div className="md:flex md:items-center md:justify-between ">
         <div className="">
           <div className="mb-10">
-            <h1 className="md:text-[36px] md:leading-normal md:font-medium  xxs:font-normal  mb-3 xxs:text-[20px] xxs:leading-[23px] text-[#1F1F1F]">
+            <h1 className="mb-3 text-[#1F1F1F] xxs:text-[20px]  xxs:font-normal  xxs:leading-[23px] md:text-[36px] md:font-medium md:leading-normal">
               Create Products
             </h1>
-            <span className="text-[#A2A2A2] md:text-[16px] md:leading-[18.75px] font-normal xxs:text-[13px] xxs:leading-[15px] mt-1">
+            <span className="mt-1 font-normal text-[#A2A2A2] xxs:text-[13px] xxs:leading-[15px] md:text-[16px] md:leading-[18.75px]">
               Please select a primary category for your product
             </span>
           </div>
@@ -36,9 +36,9 @@ export default function ProductAccordion() {
           <div className="mb-8 flex gap-10 xxs:hidden md:flex">
             <button
               onClick={handleCategory}
-              className={` text-[16px] leading-[19px] font-normal ${
+              className={` text-[16px] font-normal leading-[19px] ${
                 category
-                  ? "border-[1px] rounded-md border-[#197B30] px-3 text-[#197b30] py-2 "
+                  ? "rounded-md border-[1px] border-[#197B30] px-3 py-2 text-[#197b30] "
                   : "underline"
               } `}
             >
@@ -46,9 +46,9 @@ export default function ProductAccordion() {
             </button>
             <button
               onClick={handleRecent}
-              className={`text-[16px] leading-[19px] font-normal ${
+              className={`text-[16px] font-normal leading-[19px] ${
                 recent
-                  ? "border-[1px] rounded-md border-[#197B30] px-3 py-2 text-[#197b30]"
+                  ? "rounded-md border-[1px] border-[#197B30] px-3 py-2 text-[#197b30]"
                   : "underline"
               } `}
             >

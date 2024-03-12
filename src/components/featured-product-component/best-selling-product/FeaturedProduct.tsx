@@ -7,7 +7,7 @@ import { SkeletonLoader } from "../../category-component/Category";
 
 const FeaturedProduct = () => {
   const [, setData] = useState(productData);
-  let itemsPerPage = 12;
+  let itemsPerPage = 8;
   let currentPage = 1;
   const [currentPageIndex] = useState(currentPage);
   useEffect(() => setData(productData), []);
@@ -52,7 +52,8 @@ const FeaturedProduct = () => {
             getAllProducts?.data.filter(
               (product: any) =>
                 product?.images.length > 0 &&
-                product?.approvalStatus === "approved",
+                product?.approvalStatus === "approved" &&
+                product?.visibilityStatus === "active",
             ),
             itemsPerPage,
           )[currentPageIndex - 1]?.map((item: any, index: number) => {

@@ -3,6 +3,7 @@ import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
   makeGetRequest,
+  makePatchRequest,
   makePostRequest,
   makePutRequest,
 } from "../../../api";
@@ -31,6 +32,13 @@ export const useGetSingleProduct = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Products.getSingleProduct(id)),
     queryKey: ["product +"],
+  });
+};
+
+export const useUpdateProductVisibility = (id: string | number) => {
+  return useQueryMutation({
+    mutationFn: (data: { visibilityStatus: string }) =>
+      makePutRequest(data, api.Products.visibilityStatus(id)),
   });
 };
 
