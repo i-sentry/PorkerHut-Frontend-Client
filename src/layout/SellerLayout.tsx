@@ -76,7 +76,7 @@ const Layout = () => {
                     valued, and we thank you for your understanding. If you have
                     any urgent inquiries or require further clarification,
                     please do not hesitate to reach out to us at
-                    <span className="text-green-700"> porkerhut@gmail.com</span>
+                    <span className="text-green-700">info@porkerhut.com</span>
                     . We are here to assist you and provide any necessary
                     information.
                   </p>
