@@ -24,6 +24,8 @@ export const api = {
       `/api/user/reset-password/${token}`,
   },
   Vendors: {
+    allVendors: "/api/vendors/",
+    vendorStatus: (id: string | number) => `/api/vendors/${id}/status`,
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
@@ -52,6 +54,8 @@ export const api = {
     ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
     isFavProduct: (userId: string | undefined, productId: string | undefined) =>
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
+    visibilityStatus: (id: string | number) =>
+      `/api/products/${id}/visibilityStatus `,
   },
   Ratings: {
     createRating: "/api/ratings/create",

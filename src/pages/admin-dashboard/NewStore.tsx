@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import newStoreData from "../../utils/json/newStoreData.json";
+import { useGetVendors } from "../../services/hooks/Vendor";
+import { Tooltip } from "../../components/utility/ToolTip";
 
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
+export const StatusColumn = ({ data }: { data: any }) => {
+  switch (data?.storeStatus?.toLowerCase()) {
     case "approved":
       return <span className="  text-[#22C55E] ">Approved</span>;
 
     case "rejected":
-      return <span className=" text-[#F91919]  capitalize">Rejected</span>;
+      return <span className=" capitalize  text-[#F91919]">Rejected</span>;
+
+    case "deactivated":
+      return <span className=" capitalize  text-[#F91919]">Deactivated</span>;
 
     case "pending":
-      return <span className=" text-[#F29339]  capitalize">Pending</span>;
+      return <span className=" capitalize  text-[#F29339]">Pending</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
@@ -24,33 +29,59 @@ export const StatusColumn = ({ data }: { data: string }) => {
 const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Account Owner",
-    accessor: "account_owner",
-    Cell: ({ value }) => (
-      <div className="flex gap-2 items-center">
-        <img
-          src={value?.image}
-          alt={value?.name}
-          className="h-8 w-8 object-cover rounded-full"
-        />
-        <span className="whitespace-normal">{value?.name}</span>
-      </div>
-    ),
+    accessor: (row: any) => {
+      return row?.businessInformation?.businessOwnerName;
+    },
+    // accessor: "account_owner",
+    // Cell: ({ value }) => (
+    //   <div className="flex items-center gap-2">
+    //     <img
+    //       src={value?.image}
+    //       alt={value?.name}
+    //       className="h-8 w-8 rounded-full object-cover"
+    //     />
+    //     <span className="whitespace-normal">{value?.name}</span>
+    //   </div>
+    // ),
   },
   {
     Header: "Email Address",
-    accessor: "email",
+    accessor: (row: any) => row?.sellerAccountInformation?.email,
   },
   {
     Header: "Company Address",
-    accessor: "company_address",
+    accessor: (row: any) => {
+      return (
+        <Tooltip
+          className="items-start"
+          message={row?.businessInformation?.address1}
+        >
+          <span className="text-left capitalize">
+            {row?.businessInformation?.address1.slice(0, 20)}
+          </span>
+        </Tooltip>
+      );
+    },
   },
   {
     Header: "Phone",
-    accessor: "phone",
+    accessor: (row: any) => row?.sellerAccountInformation?.phoneNumber,
   },
   {
     Header: "Store Name",
-    accessor: "store_name",
+    accessor: (row: any) => {
+      console.log(row.sellerAccountInformation.shopName, "jsjjjsjs");
+      return (
+        <Tooltip
+          className="items-start"
+          message={row?.sellerAccountInformation?.shopName}
+        >
+          <span className="text-left capitalize">
+            {row?.sellerAccountInformation?.shopName.slice(0, 10)}
+          </span>
+        </Tooltip>
+      );
+    },
   },
   {
     Header: "Created",
@@ -59,16 +90,27 @@ const Tcolumns: readonly Column<object>[] = [
 
   {
     Header: "Status",
-    accessor: "status",
-    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+    accessor: (row: any) => {
+      return <StatusColumn data={row} />;
+    },
+    // Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
   },
 ];
 
 const NewStore = () => {
+  const { data: allStores, isLoading } = useGetVendors();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setData(allStores?.data);
+    }
+  }, [isLoading, allStores?.data]);
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
+  console.log(data);
 
   const optionalColumn = {
     id: "expand",
@@ -89,7 +131,7 @@ const NewStore = () => {
         <div>
           <span
             onClick={() => handleView(row?.original?.id)}
-            className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer"
+            className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out active:scale-90"
           >
             View
           </span>
@@ -101,8 +143,8 @@ const NewStore = () => {
   return (
     <div className="pl-10 pt-10 pr-5 ">
       <div className="mb-5">
-        <h1 className="text-2xl font-medium text-[#333333]">New Stores</h1>
-        <span className="text-[#A2A2A2] font-light text-sm">
+        <h1 className="text-2xl font-medium text-[#333333]">New Stores hi</h1>
+        <span className="text-sm font-light text-[#A2A2A2]">
           All new stores can be approved and rejected.
         </span>
       </div>
@@ -112,7 +154,7 @@ const NewStore = () => {
           // @ts-ignore
           optionalColumn={optionalColumn}
           tabs={["All", "Pending", "Approved", "Rejected"]}
-          TData={newStoreData}
+          TData={data}
           placeholder={"Search account owner, email address, vet name.... "}
         />
       </div>

@@ -5,6 +5,9 @@ import {
   makePostRequest,
   api,
   makeGetRequestWithCustomHeader,
+  makeGetRequest,
+  makePutRequest,
+  makePatchRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -29,6 +32,13 @@ export const useGetVendorById = (id: string | undefined) => {
   });
 };
 
+export const useGetVendors = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Vendors.allVendors),
+    queryKey: ["vendors"],
+  });
+};
+
 export const useVendorRecoverPassword = () => {
   return useQueryMutation({
     mutationFn: (data: IEmail) =>
@@ -40,5 +50,12 @@ export const useVendorRestPassword = (token: string | undefined) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
       makePostRequest(data, api.Vendors.resetPassword(token)),
+  });
+};
+
+export const useVendorStatusUpdate = (id: string | number) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePutRequest(data, api.Vendors.vendorStatus(id)),
   });
 };
