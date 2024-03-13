@@ -24,6 +24,8 @@ export const api = {
       `/api/user/reset-password/${token}`,
   },
   Vendors: {
+    allVendors: "/api/vendors/",
+    vendorStatus: (id: string | number) => `/api/vendors/${id}/status`,
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",

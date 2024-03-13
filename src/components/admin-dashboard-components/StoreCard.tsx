@@ -1,108 +1,192 @@
-import React from "react";
 import { Tooltip } from "../utility/ToolTip";
 import { TbDots } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
+import Popover from "../utility/PopOver";
+import {
+  useGetVendorById,
+  useVendorStatusUpdate,
+} from "../../services/hooks/Vendor";
 
-interface IStoreCardProps {
-  store_name: any;
-  id: number;
-  email: string;
-  company_address: string;
-  phone: string;
-  total_orders: number;
-  total_failed_orders: number;
-  data_joined: string;
-  status: string;
-}
+// interface IStoreCardProps {
+//   store_name: any;
+//   id: number;
+//   email: string;
+//   company_address: string;
+//   phone: string;
+//   total_orders: number;
+//   total_failed_orders: number;
+//   data_joined: string;
+//   status: string;
+// }
 
-const StoreCard = (item: IStoreCardProps) => {
-  const { status } = item;
+const StoreCard = ({ item, setIsOpen }: any) => {
+  const { storeStatus } = item;
+  const updateStatus = useVendorStatusUpdate(item?._id);
+  const { data } = useGetVendorById(item?._id);
+  console.log(data, "storee items");
+
+  const handleActivateVendor = async () => {
+    updateStatus
+      .mutateAsync({
+        storeStatus: "approved",
+      })
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+
+    // try {
+    //   const response = await updateStatus.mutateAsync({
+    //     storeStatus: "approved",
+    //   });
+    //   console.log({ response });
+    // } catch (error: any) {
+    //   console.log(error, "error");
+    // }
+  };
+
+  const handleDeactivateVendor = async () => {
+    try {
+      const response = await updateStatus.mutateAsync({
+        storeStatus: "deactivated",
+      });
+      console.log({ response });
+    } catch (error: any) {
+      console.log(error, "error");
+    }
+  };
 
   return (
-    <div
-      className={`border border-[#D9D9D9] rounded-md w-full h-[380px]  px-2 relative ${
-        status === "deactivated" ? "" : ""
-      }`}
-    >
-      {status === "deactivated" && (
-        <div className="absolute inset-0 rounded-md  bg-[#181717c7] ">
-          <div className="flex items-center justify-center h-full">
-            <p
-              className="text-[#F91919] flex items-center justify-center font-normal text-xl z-10 select-none
+    <>
+      <div
+        className={`relative h-auto w-full rounded-md border border-[#D9D9D9]  p-5 ${
+          storeStatus === "deactivated" ? "" : ""
+        }`}
+      >
+        {storeStatus === "deactivated" && (
+          <div className="absolute inset-0 rounded-md  bg-[#181717c7] ">
+            <div className="flex h-full items-center justify-center">
+              <p
+                className="z-10 flex select-none items-center justify-center text-xl font-normal text-[#F91919]
          "
-            >
-              Deactivated
-            </p>
+              >
+                Deactivated
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div>
-        <div className="grid justify-items-stretch cursor-pointer mt-1">
-          <TbDots size={24} className=" justify-self-end" />
+        <div className="absolute top-3 right-6 mt-1 cursor-pointer">
+          <Popover
+            buttonContent={<TbDots size={24} className="  cursor-pointer" />}
+            placementOrder={"left"}
+            closeOnClick={true}
+          >
+            <div className="w-[150px] py-2">
+              <button
+                className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                onClick={() => setIsOpen(true)}
+              >
+                Store Information
+              </button>
+              <button
+                onClick={handleActivateVendor}
+                className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+              >
+                Activate
+              </button>
+              <button
+                onClick={handleDeactivateVendor}
+                className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+              >
+                Deactivate
+              </button>
+              <button className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]">
+                Delete
+              </button>
+            </div>
+          </Popover>
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <div
-            className="rounded-full bg-cover bg-no-repeat bg-center flex h-14 w-14"
-            style={{
-              backgroundImage: 'url("https://source.unsplash.com/80x80?face")',
-            }}
-          ></div>
-          <div className="mt-2 text-center">
-            <span className=" text-xl font-normal text-[#333333] ">
-              {item?.store_name}
+          <div className="flex h-14 w-14 items-center justify-center rounded-full">
+            <FaUserCircle size={42} color="#A2A2A2" />
+          </div>
+          <div className="mb-3 text-center">
+            <span className=" text-xl font-semibold capitalize text-[#333333] ">
+              {item?.sellerAccountInformation?.shopName}
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 mt-7">
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
-            <span>ID: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.id}
+        <ul className="mt-2 space-y-3">
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              ID:&nbsp;
             </span>
-          </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
-            <span>Email: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.email}
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              <Tooltip message={item?._id}>
+                {item?._id?.slice(0, 10)}...
+              </Tooltip>
             </span>
-          </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
-            <span>Company Address:</span> {""}
-            <Tooltip message={item.company_address}>
-              <span className="text-[#333333] font-normal whitespace-nowrap text-xs truncate w-28">
-                {item.company_address}
-              </span>
-            </Tooltip>
-          </div>
-          <div className="text-[#A2A2A2]  text-xs font-light flex items-center gap-1">
-            <span>Phone: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.phone}
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Email:&nbsp;
             </span>
-          </div>
-          <div className="text-[#A2A2A2]  text-xs font-light flex items-center gap-1">
-            <span>Total Orders:</span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.total_orders}
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              {item?.sellerAccountInformation?.email}
             </span>
-          </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
-            <span>Total Failed Orders: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.total_failed_orders}
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Company Address:&nbsp;
             </span>
-          </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
-            <span>Joined: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
-              {item.data_joined}
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              <Tooltip message={item?.businessInformation?.address1}>
+                <span className="w-28 truncate whitespace-nowrap">
+                  {item?.businessInformation?.address1}
+                </span>
+              </Tooltip>
             </span>
-          </div>
-        </div>
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Phone:&nbsp;
+            </span>
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              {item?.sellerAccountInformation?.phoneNumber}
+            </span>
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Total Orders:&nbsp;
+            </span>
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+            </span>
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Total Failed Orders:&nbsp;
+            </span>
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+            </span>
+          </li>
+          <li>
+            <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
+              Joined:&nbsp;
+            </span>
+            <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
+              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+            </span>
+          </li>
+        </ul>
       </div>
-    </div>
+    </>
   );
 };
 
