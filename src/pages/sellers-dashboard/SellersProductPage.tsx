@@ -168,7 +168,7 @@ const SellersProductPage = () => {
   }, [refresh]);
 
   useEffect(() => {
-    refresh && refetch();
+    if (refresh === true) refetch();
   }, [refresh]);
 
   if (isLoading || !vendorProducts?.data) {
@@ -263,7 +263,7 @@ const SellersProductPage = () => {
         console.log(row, "row row");
         return (
           <div>
-            <ToggleVisibility id={row?._id} row={row} />
+            <ToggleVisibility id={row?._id} row={row} refetch={refetch} />
           </div>
         );
       },
@@ -319,7 +319,15 @@ const SellersProductPage = () => {
 
 export default SellersProductPage;
 
-const ToggleVisibility = ({ id, row }: { id: string | number; row: any }) => {
+const ToggleVisibility = ({
+  id,
+  row,
+  refetch,
+}: {
+  id: string | number;
+  row: any;
+  refetch?: any;
+}) => {
   const [toggle, setToggle] = useState<"active" | "inactive">(
     row?.visibilityStatus,
   );

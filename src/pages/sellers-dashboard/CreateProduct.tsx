@@ -6,18 +6,11 @@ import {
 } from "@material-tailwind/react";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 import { useNavigate } from "react-router-dom";
-import { useProtectedInfo } from "../../store";
-import PendingApproval from "../../components/PendingApproval";
 
 function CreateProduct() {
   const navigate = useNavigate();
   const allCategories = useGetAllCategories();
   const [open, setOpen] = useState(0);
-  const showModal = useProtectedInfo((state) => state.isAuthenticated);
-  const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
-  const { vendor } = JSON.parse(localStorage.getItem("vendor") as string);
-
-  console.log(vendor, "vendors", vendor?.storeStatus);
 
   const handleNavigation = (category: any, subcategory: any) => {
     navigate(
@@ -29,11 +22,7 @@ function CreateProduct() {
   const { data: catagories, isLoading } = allCategories;
 
   const handleOpen = (value: any) => {
-    if (vendor?.storeStatus === "pending") {
-      setShowModal(true);
-    } else {
-      setOpen(open === value ? 0 : value);
-    }
+    setOpen(open === value ? 0 : value);
   };
   const cap = (arg: string) => {
     return arg
@@ -47,10 +36,8 @@ function CreateProduct() {
   }
   return (
     <>
-      <PendingApproval isOpen={showModal} onClose={() => setShowModal(false)} />
       <div className="rounded-[8px]  bg-[#F4F4F4] xxs:px-0 md:px-0">
         {catagories?.data.map((item: any, index: any) => {
-          console.log(item, "kk");
           return (
             <Accordion key={index} open={open === index + 1}>
               <AccordionHeader
