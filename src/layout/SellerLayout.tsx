@@ -42,10 +42,10 @@ const Layout = () => {
             <div className="sticky top-0 left-0 right-0 z-50">
               <VendorsNav />
             </div>
-            <div className="hide-scroll-bar h-full w-full overflow-x-hidden md:flex">
+            <div className="hide-scroll-bar w-full overflow-x-hidden md:flex lg:h-screen">
               <SellerSideNav />
 
-              <div className="hide-scroll-bar flex-1 overflow-y-auto pt-6 md:px-4 md:pt-4 lg:pt-[40px]">
+              <div className="hide-scroll-bar relative flex-1 overflow-y-auto">
                 <Outlet />
               </div>
             </div>

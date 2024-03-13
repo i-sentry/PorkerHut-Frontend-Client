@@ -52,6 +52,8 @@ export const api = {
     ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
     isFavProduct: (userId: string | undefined, productId: string | undefined) =>
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
+    visibilityStatus: (id: string | number) =>
+      `/api/products/${id}/visibilityStatus `,
   },
   Ratings: {
     createRating: "/api/ratings/create",

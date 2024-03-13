@@ -40,3 +40,13 @@ export const useProtectedInfo = create<IAuthLogin>((set) => ({
   setIsAuthenticated: (open: any) =>
     set((state: any) => ({ isAuthenticated: open })),
 }));
+
+interface IRefresh {
+  isRefresh: boolean;
+  setIsRefresh: (data: boolean) => void;
+}
+
+export const useRefresh = create<IRefresh>((set) => ({
+  isRefresh: false,
+  setIsRefresh: (open: any) => set((state: any) => ({ isRefresh: open })),
+}));
