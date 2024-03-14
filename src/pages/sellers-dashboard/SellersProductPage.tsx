@@ -1,13 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Column } from "react-table";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { useNavigate } from "react-router-dom";
 // import _ from "lodash";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { useGetProductByVendor } from "../../services/hooks/Vendor/products";
+import {
+  useGetProductByVendor,
+  useUpdateProductVisibility,
+} from "../../services/hooks/Vendor/products";
 import moment from "moment";
 import { ImSpinner6 } from "react-icons/im";
 import { Tooltip } from "../../components/utility/ToolTip";
+import { right } from "@popperjs/core";
+import { ToastContainer, toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
+import { useRefresh } from "../../store";
 
 const StatusColumn = ({ d }: any) => {
   const { approvalStatus } = d;
@@ -77,7 +84,7 @@ const ProductNameColumn = ({ d }: any) => {
 
   return (
     <div className="group relative flex cursor-pointer items-center gap-2">
-      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal capitalize leading-[normal] text-[#333333]">
         {information?.productName}
       </span>
 
@@ -108,7 +115,7 @@ const DateColumn = ({ d }: any) => {
 const ProductIDColumn = ({ d }: any) => {
   const { _id: productId } = d;
 
-  console.log(productId, d, "pppppp");
+  // console.log(productId, d, "pppppp");
 
   return (
     <div className="cursor-pointer">
@@ -130,12 +137,20 @@ const ProductIDColumn = ({ d }: any) => {
 // };
 
 const SellersProductPage = () => {
+  const refresh = useRefresh((state) => state.isRefresh);
+  const setRefresh = useRefresh((state) => state.setIsRefresh);
   const navigate = useNavigate();
   //@ts-ignore
   const store = JSON.parse(localStorage.getItem("vendor"));
 
   const id = store.vendor._id;
-  const { data: vendorProducts, isLoading } = useGetProductByVendor(id);
+  const {
+    data: vendorProducts,
+    isLoading,
+    refetch,
+  } = useGetProductByVendor(id);
+
+  console.log("vendorProducts:", vendorProducts, refresh);
 
   const productData = useMemo(() => {
     if (!vendorProducts?.data) {
@@ -148,9 +163,13 @@ const SellersProductPage = () => {
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
-
+    console.log("Refresh now", refresh);
     return dataCopy;
-  }, [vendorProducts?.data]);
+  }, [refresh]);
+
+  useEffect(() => {
+    if (refresh === true) refetch();
+  }, [refresh]);
 
   if (isLoading || !vendorProducts?.data) {
     return (
@@ -233,15 +252,18 @@ const SellersProductPage = () => {
     },
     {
       Header: "Visibility Status",
-      accessor: "visibilityStatus",
+      accessor: (row: any) => {
+        console.log("visibility", row?.visibilityStatus);
+        return <div className="capitalize">{row?.visibilityStatus}</div>;
+      },
     },
     {
       Header: "Active",
-      accessor: "active",
-      Cell: ({ row }: any) => {
+      accessor: (row: any) => {
+        console.log(row, "row row");
         return (
           <div>
-            <ToggleSwitch />
+            <ToggleVisibility id={row?._id} row={row} refetch={refetch} />
           </div>
         );
       },
@@ -269,6 +291,7 @@ const SellersProductPage = () => {
 
   return (
     <div className="pb-10 xxs:px-4 md:px-0">
+      <ToastContainer />
       <div className="mb-5">
         <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
           Manage Products
@@ -295,3 +318,99 @@ const SellersProductPage = () => {
 };
 
 export default SellersProductPage;
+
+const ToggleVisibility = ({
+  id,
+  row,
+  refetch,
+}: {
+  id: string | number;
+  row: any;
+  refetch?: any;
+}) => {
+  const [toggle, setToggle] = useState<"active" | "inactive">(
+    row?.visibilityStatus,
+  );
+  const refresh = useRefresh((state) => state.isRefresh);
+  const setRefresh = useRefresh((state) => state.setIsRefresh);
+
+  const [loading, setLoading] = useState(false);
+  const update = useUpdateProductVisibility(id);
+  const productName = row?.information?.productName
+    .split(" ")
+    .map((arr: any) => `${arr.slice(0, 1).toUpperCase() + arr.slice(1)}`)
+    .join(" ");
+
+  useEffect(() => {
+    if (loading) {
+      setToggle((toggle: any) => (toggle === "active" ? "inactive" : "active"));
+    }
+  }, []);
+
+  const toggleVisibility = async () => {
+    setLoading(true);
+
+    if (toggle === "active") {
+      update
+        .mutateAsync({
+          visibilityStatus: "inactive",
+        })
+        .then((res: any) => {
+          setLoading(false);
+          toast.success(`${productName} is currently set to inactive.`);
+          setToggle("inactive");
+          setRefresh(true);
+          console.log(res, "successful");
+        })
+        .catch((err: any) => {
+          console.log(err, "Error");
+          toast.error(
+            `${productName} visibility status is not updated. Try again!`,
+          );
+        });
+    }
+
+    if (toggle === "inactive") {
+      update
+        .mutateAsync({
+          visibilityStatus: "active",
+        })
+        .then((res: any) => {
+          setLoading(false);
+          toast.success(`${productName} is currently set to active.`);
+          setToggle("active");
+          setRefresh(true);
+          console.log(res, "successful");
+        })
+        .catch((err: any) => {
+          console.log(err, "Error");
+          toast.error(
+            `${productName} visibility status is not updated. Try again!`,
+          );
+        });
+    }
+  };
+
+  return (
+    <div className="r">
+      {/* Switch Container */}
+
+      <div
+        className={`relative w-[100px] rounded-lg  p-2 ${toggle === "active" ? "bg-[#22c55e]" : "bg-[#F91919]"}`}
+        onClick={toggleVisibility}
+      >
+        <div
+          className={`absolute top-1/2 h-[1.5rem] w-[40px] -translate-y-1/2 rounded bg-white ${toggle === "active" ? "right-2" : "left-2"}`}
+        ></div>
+        <div className="flex items-center justify-between gap-5 px-1">
+          <span className="font-medium uppercase text-white">
+            {loading ? <CgSpinner size={18} className="animate-spin" /> : "On"}
+          </span>
+          <span className="font-medium uppercase text-white">
+            {loading ? <CgSpinner size={18} className="animate-spin" /> : "Off"}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};

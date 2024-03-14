@@ -24,6 +24,8 @@ export const api = {
       `/api/user/reset-password/${token}`,
   },
   Vendors: {
+    allVendors: "/api/vendors/",
+    vendorStatus: (id: string | number) => `/api/vendors/${id}/status`,
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
@@ -52,6 +54,8 @@ export const api = {
     ) => `/api/favorite-product/delete?userId=${userId}&productId=${productId}`,
     isFavProduct: (userId: string | undefined, productId: string | undefined) =>
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
+    visibilityStatus: (id: string | number) =>
+      `/api/products/${id}/visibilityStatus `,
   },
   Ratings: {
     createRating: "/api/ratings/create",
@@ -275,4 +279,17 @@ export const makePostRequestCustom = async (
     console.error("Error making POST request:", error);
     throw error;
   }
+};
+
+export const makeCustomPatchRequest = async (
+  data: any,
+  url: string,
+  includeAuthHeader: boolean = true,
+) => {
+  return await axios.patch(`${BASEURL}${url}`, data, {
+    headers: {
+      "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
+    },
+  });
 };

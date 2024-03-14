@@ -45,7 +45,8 @@ const OrderCart = ({
     );
   }, 0);
   const vat = cartTotal + (cartTotal / 100) * 7.5;
-  const sumTotal = cartTotal + vat + dFee;
+  // const sumTotal = cartTotal + vat + dFee;
+  const sumTotal = cartTotal;
   console.log(cart, "cart");
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,

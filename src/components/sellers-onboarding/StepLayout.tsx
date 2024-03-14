@@ -19,6 +19,23 @@ export const sellersStep = [
   "Summary",
 ];
 
+/* 
+
+
+  const sellerInfocheck =
+    userData.sellerAccountInformation.accountOwnersName === "" ||
+    userData.sellerAccountInformation.email === "" ||
+    userData.sellerAccountInformation.entityType === "" ||
+    userData.sellerAccountInformation.password === "" ||
+    userData.sellerAccountInformation.phoneNumber === "" ||
+    userData.sellerAccountInformation.shopName === "";
+
+  const bizCheck =
+    userData.businessInformation.city === "" ||
+    userData.businessInformation.address1 === "";
+
+*/
+
 const StepLayout = () => {
   const { state: userData, setState: setUserData } = useAppState();
   const [finalData, setFinalData] = useState([]);
@@ -57,7 +74,7 @@ const StepLayout = () => {
   function isFormFilled() {
     return console.log(
       Object.values(userData).every((value) => value !== ""),
-      "filled?"
+      "filled?",
     );
   }
 
@@ -108,27 +125,27 @@ const StepLayout = () => {
   //   }));
   // };
 
-  if (isOpen) {
-    return (
-      <SuccessScreen
-        title={"Account Created Successfully"}
-        msg={"Please proceed to login to access your dashboard"}
-        url={"/sign-in?q=vendor"}
-      />
-    );
-  }
+  // if (isOpen) {
+  //   return (
+  //     <SuccessScreen
+  //       title={"Account Created Successfully"}
+  //       msg={"Please proceed to login to access your dashboard"}
+  //       url={"/sign-in?q=vendor"}
+  //     />
+  //   );
+  // }
 
   return (
     <>
       <TopNav />
       <div className="main-div mb-24 mt-24 ">
         <div>
-          <div className="flex justify-center items-center  mt-4">
-            <h1 className="font-medium text-[20px] leading-[27px] md:leading-[] text-[#333333] lg:text-[40px] lg:leading-[47px]">
+          <div className="mt-4 flex items-center  justify-center">
+            <h1 className="text-[20px] font-medium leading-[27px] text-[#333333] md:leading-[] lg:text-[40px] lg:leading-[47px]">
               Create your seller account
             </h1>
           </div>
-          <div className="flex items-center justify-center ">
+          <div className="mb-3 flex items-center justify-center">
             <div className=" block h-1.5 w-20 bg-[#197B30]"></div>
           </div>
         </div>
@@ -138,8 +155,8 @@ const StepLayout = () => {
             currentStep={currentStep}
           />
         </div>
-        <div className="flex items-center gap-5 sm:hidden mx-3">
-          <div className="w-20 my-6">
+        <div className="mx-3 flex items-center gap-5 sm:hidden">
+          <div className="my-6 w-20">
             <CircularProgressbar
               value={progress}
               text={`${currentStep} of 4`}
@@ -180,7 +197,7 @@ const StepLayout = () => {
             />
           </div>
           <div>
-            <h1 className="text-[#333333] font-semibold text-base">
+            <h1 className="text-base font-semibold text-[#333333]">
               Step {currentStep}
             </h1>
             <p className="text-base font-light">
@@ -206,6 +223,14 @@ const StepLayout = () => {
             {displayStep(currentStep)}
           </SellersStepsContext.Provider>
         </div>
+
+        {isOpen && (
+          <SuccessScreen
+            title={"Account Created Successfully"}
+            msg={"Please proceed to login to access your dashboard"}
+            url={"/sign-in?q=vendor"}
+          />
+        )}
       </div>
       <Footer />
     </>

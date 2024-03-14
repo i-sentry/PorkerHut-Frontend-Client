@@ -37,7 +37,9 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
     () =>
       setData(
         getAllProducts?.data?.filter(
-          (product: any) => product?.approvalStatus === "approved",
+          (product: any) =>
+            product?.approvalStatus === "approved" &&
+            product?.visibilityStatus === "active",
         ),
       ),
     [getAllProducts?.data],

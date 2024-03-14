@@ -2,16 +2,20 @@ import { ReactNode } from "react";
 export const Tooltip = ({
   message,
   children,
+  className,
 }: {
   message: string;
   children: ReactNode;
+  className?: string;
 }) => {
   return (
-    <div className="relative flex flex-col items-center group">
+    <div
+      className={`group relative flex flex-col  ${className || "items-center"}`}
+    >
       {children}
-      <div className="absolute top-0  flex-col items-center hidden mt-6 group-hover:flex">
-        <div className="w-3 h-3 mt-[2px] rotate-45 bg-gray-600"></div>
-        <span className="relative z-10 p-2 top-[-6px] text-xs leading-none text-white whitespace-nowrap bg-gray-600 shadow-lg rounded-md">
+      <div className="absolute top-0  mt-6 hidden flex-col items-center group-hover:flex">
+        <div className="mt-[2px] h-3 w-3 rotate-45 bg-gray-600"></div>
+        <span className="relative top-[-6px] z-10 whitespace-nowrap rounded-md bg-gray-600 p-2 text-xs leading-none text-white shadow-lg">
           {message}
         </span>
       </div>

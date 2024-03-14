@@ -29,20 +29,20 @@ const AccordionSection = ({
   //  const bankData = useBankStore((state) => state.bankData);
   //@ts-ignore
 
-    useContext(SellersStepsContext);
+  useContext(SellersStepsContext);
 
   // console.log(bankData, "pp");
   // console.log({ userData });
   return (
-    <div className="border-b pb-5 mt-3">
+    <div className="mt-3 border-b pb-5">
       <div className="flex items-center gap-2">
         <button
           onClick={onToggle}
-          className="text-[#2B2B2B] text-xs font-medium py-0.5 transition duration-500 active:scale-90"
+          className="py-0.5 text-xs font-medium text-[#2B2B2B] transition duration-500 active:scale-90"
         >
           {isExpanded ? <IoChevronDown size={20} /> : <IoChevronUp size={20} />}
         </button>
-        <div className="text-[#333333] font-normal text-[20px] leading-[24px]">
+        <div className="text-[20px] font-normal leading-[24px] text-[#333333]">
           {title}
         </div>
       </div>
@@ -58,14 +58,14 @@ const AccordionSection = ({
   );
 };
 
-const Accordion = () => {
+const Accordion = ({ height }: { height?: string }) => {
   const [isBusinessInfoExpanded, setIsBusinessInfoExpanded] =
     React.useState(false);
   const [isAccountInfoExpanded, setIsAccountInfoExpanded] =
     React.useState(false);
   const [isBankInfoExpanded, setIsBankInfoExpanded] = React.useState(false);
   const bankData = useBankStore((state) => state.bankData);
-  const { state,  } = useAppState();
+  const { state } = useAppState();
   const {
     formState: { errors },
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
@@ -96,18 +96,17 @@ const Accordion = () => {
   //   }));
   // };
 
- const getNestedValue = (object: any, path: string): any => {
-   const keys = path.split(".");
-   let value = object;
-   for (const key of keys) {
-     value = value?.[key];
-     if (value === undefined) {
-       return undefined;
-     }
-   }
-   return value;
- };
-
+  const getNestedValue = (object: any, path: string): any => {
+    const keys = path.split(".");
+    let value = object;
+    for (const key of keys) {
+      value = value?.[key];
+      if (value === undefined) {
+        return undefined;
+      }
+    }
+    return value;
+  };
 
   React.useEffect(() => {
     console.log({ userData });
@@ -115,8 +114,10 @@ const Accordion = () => {
   }, [userData]);
 
   return (
-    <div className="rounded-md w-full md:max-w-2xl h-fit px-0 lg:px-5 py-3 flex flex-col mb-4">
-      <h1 className=" sm:text-xl mb-8 font-medium text-[#333333] text-[24px] leading-[28px] ">
+    <div
+      className={`mb-4 flex ${height || "h-fit"} w-full flex-col rounded-md px-0 py-3 md:max-w-2xl lg:px-5`}
+    >
+      <h1 className=" mb-8 text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
         Summary
       </h1>
       <AccordionSection
@@ -131,9 +132,9 @@ const Accordion = () => {
               <div className="my-2 w-full " key={index}>
                 <label
                   htmlFor={data.name}
-                  className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
+                  className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                     data.required &&
-                    "after:content-['*'] after:ml-0.5 after:text-red-500"
+                    "after:ml-0.5 after:text-red-500 after:content-['*']"
                   } }`}
                 >
                   {data?.label}
@@ -146,14 +147,14 @@ const Accordion = () => {
                   placeholder={data.place_holder}
                   onChange={handleChange}
                   // defaultValue={userData[data?.name]}
-                  className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                  className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                     errors[data.name] && "border-ErrorBorder"
                   }`}
                 />
-                <span className="text-[#797979] text-[12px] leading-none">
+                <span className="text-[12px] leading-none text-[#797979]">
                   {data.info}
                 </span>
-                <p className="my-2 text-[red] text-xs">
+                <p className="my-2 text-xs text-[red]">
                   {/* {errors[data.name] && errors[data.name].message} */}
                 </p>
               </div>
@@ -164,13 +165,17 @@ const Accordion = () => {
             <div className="my-2 w-full">
               <label
                 htmlFor={"asset"}
-                className="block leading-[16px] text-[14px] mb-[6px] text-[#333333]"
+                className="mb-[6px] block text-[14px] leading-[16px] text-[#333333] after:ml-0.5 after:text-red-500 after:content-['*']"
               >
                 Are you an individual or Business Entity/Company
               </label>
               {/* Custom Field */}
               <CustomSelect
                 selectedOption={dropOption}
+                defaultValue={{
+                  label: `${userData?.sellerAccountInformation?.entityType}`,
+                  value: `${userData?.sellerAccountInformation?.entityType?.toLowerCase()}`,
+                }}
                 // selectedOption={dropOption || userData.entitytype}
                 setSelectOption={setDropOption}
                 placeholder={"-Choose an option-"}
@@ -183,9 +188,9 @@ const Accordion = () => {
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
-                className={`block leading-[16px] text-[14px] mb-[6px] text-[#333333] ${
+                className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                   data.required &&
-                  "after:content-['*'] after:ml-0.5 after:text-red-500"
+                  "after:ml-0.5 after:text-red-500 after:content-['*']"
                 } }`}
               >
                 {data?.label}
@@ -197,14 +202,14 @@ const Accordion = () => {
                 name={data.name}
                 onChange={handleChange}
                 defaultValue={getNestedValue(userData, data.name) || ""}
-                className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
               />
-              <span className="text-[#797979] text-[12px] leading-none">
+              <span className="text-[12px] leading-none text-[#797979]">
                 {data.info}
               </span>
-              <p className="my-2 text-[red] text-xs">
+              <p className="my-2 text-xs text-[red]">
                 {/* {errors[data.name] && errors[data.name].message} */}
               </p>
             </div>
@@ -221,9 +226,9 @@ const Accordion = () => {
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
-                className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                className={`text-HeadingColor mb-[6px] block text-[16px] ${
                   data.required &&
-                  "after:content-['*'] after:ml-0.5 after:text-red-500"
+                  "after:ml-0.5 after:text-red-500 after:content-['*']"
                 } }`}
               >
                 {data?.label}
@@ -235,14 +240,14 @@ const Accordion = () => {
                 defaultValue={getNestedValue(userData, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
-                className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
               />
-              <span className="text-[#797979] text-[12px] leading-none">
+              <span className="text-[12px] leading-none text-[#797979]">
                 {data.info}
               </span>
-              <p className="my-2 text-[red] text-xs">
+              <p className="my-2 text-xs text-[red]">
                 {/* {errors[data.name] && errors[data.name].message} */}
               </p>
             </div>
@@ -259,7 +264,7 @@ const Accordion = () => {
             <div className="my-2 w-full">
               <label
                 htmlFor={"asset"}
-                className="block text-[16px] mb-[6px] text-HeadingColor"
+                className="text-HeadingColor mb-[6px] block text-[16px] after:ml-0.5 after:text-red-500 after:content-['*']"
               >
                 Select Bank
               </label>
@@ -270,6 +275,10 @@ const Accordion = () => {
                 setSelectOption={setDropOption}
                 placeholder={"Select bank"}
                 options={bankData || []}
+                defaultValue={{
+                  label: `${userData?.vendorBankAccount?.bankName}`,
+                  value: `${userData?.vendorBankAccount?.bankName?.toLowerCase()}`,
+                }}
               />
             </div>
           </>
@@ -277,9 +286,9 @@ const Accordion = () => {
             <div className="my-2 w-full " key={index}>
               <label
                 htmlFor={data.name}
-                className={`block text-[16px] mb-[6px] text-HeadingColor ${
+                className={`text-HeadingColor mb-[6px] block text-[16px] ${
                   data.required &&
-                  "after:content-['*'] after:ml-0.5 after:text-red-500"
+                  "after:ml-0.5 after:text-red-500 after:content-['*']"
                 } }`}
               >
                 {data.label}
@@ -291,14 +300,14 @@ const Accordion = () => {
                 defaultValue={getNestedValue(userData, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
-                className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
               />
-              <span className="text-[#797979] text-[12px] leading-none">
+              <span className="text-[12px] leading-none text-[#797979]">
                 {data.info}
               </span>
-              <p className="my-2 text-[red] text-xs">
+              <p className="my-2 text-xs text-[red]">
                 {/* {errors[data.name] && errors[data.name].message} */}
               </p>
             </div>
