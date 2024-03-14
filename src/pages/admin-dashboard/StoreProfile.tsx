@@ -101,8 +101,11 @@ const StoreProfile = () => {
         </div>
       )}
 
-      {!isLoading && data?.length > 0 ? (
+      {!isLoading && data?.length ? (
         <div>
+          {/* {data?.map((item: any, index: number) => (
+            <StoreCard item={item} key={index} setIsOpen={setIsOpen} />
+          ))} */}
           <div className="grid gap-5 py-5 lg:grid-cols-2 xl:grid-cols-3">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
               (item, index) => (

@@ -169,7 +169,7 @@ export const businessTIN = [
     place_holder: "Enter TIN number",
     error_message: "TIN Number is Required",
     type: "text",
-    required: true,
+    required: false,
   },
 ];
 
@@ -204,7 +204,6 @@ export const productInfo = [
     info: "Name of the product. For better listing, the name should match actual product.",
     required: "true",
   },
-
 ];
 
 export const productDetails = [

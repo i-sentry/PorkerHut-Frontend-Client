@@ -150,6 +150,8 @@ const NewStore = () => {
       </div>
       <div>
         <AdminTable
+          showDropDown={true}
+          showCheckbox={true}
           Tcolumns={Tcolumns}
           // @ts-ignore
           optionalColumn={optionalColumn}

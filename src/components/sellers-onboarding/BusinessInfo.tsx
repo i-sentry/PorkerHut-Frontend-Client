@@ -13,6 +13,7 @@ import StepperController from "./StepperController";
 import { ISellerInfo } from "../../context/SellerInfoContext";
 import { FileContext } from "../../context/FileContext";
 import { RiCloseLine } from "react-icons/ri";
+import { toast, ToastContainer } from "react-toastify";
 
 interface IFlagsSelectProps {
   selected: string;
@@ -186,9 +187,10 @@ const BusinessInfo = () => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
   return (
     <div>
-      {" "}
+      <ToastContainer />{" "}
       <div>
         <div className="m-auto min-h-[600px] max-w-[600px] rounded-md   bg-[#F4F4F4] p-5">
           <div className=" mb-8">
@@ -238,7 +240,7 @@ const BusinessInfo = () => {
                 );
               })}
               <>
-                <span className="text-[14px] leading-[16px] text-[#333333]">
+                <span className="text-[14px] leading-[16px] text-[#333333] after:text-red-500 after:content-['*']">
                   Choose country of operation
                 </span>
                 <ReactFlagsSelect className="bg-white" {...flagsSelectProps} />
@@ -248,7 +250,7 @@ const BusinessInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="mb-[6px] block text-[14px] leading-[16px] text-[#333333]"
+                    className="mb-[6px] block text-[14px] leading-[16px] text-[#333333]  after:text-red-500 after:content-['*']"
                   >
                     Business owner or legal representative ID type
                   </label>
@@ -262,7 +264,7 @@ const BusinessInfo = () => {
                 </div>
               </>
               <>
-                <span className="text-[14px] leading-[16px] text-[#333333]">
+                <span className="text-[14px] leading-[16px] text-[#333333] after:text-red-500 after:content-['*']">
                   Upload a copy of the ID
                 </span>
                 <div className="mt-2">
@@ -362,7 +364,7 @@ const BusinessInfo = () => {
               })}
 
               <>
-                <span className="text-[14px] leading-[16px] text-[#333333]">
+                <span className="text-[14px] leading-[16px] text-[#333333] after:text-red-500 after:content-['*']">
                   Upload a copy of your CAC Certificate
                 </span>
                 <div className="mt-2">
@@ -425,7 +427,7 @@ const BusinessInfo = () => {
               </>
 
               <>
-                <span className="text-[14px] leading-[16px] text-[#333333]">
+                <span className="text-[14px] leading-[16px] text-[#333333] after:text-red-500 after:content-['*']">
                   Upload a copy of your Tax Identification Number(TIN)
                   certificate
                 </span>
@@ -535,7 +537,7 @@ const BusinessInfo = () => {
                 </div>
               </>
 
-              <div className="">
+              <div>
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController formFiles={files} />
                 )}

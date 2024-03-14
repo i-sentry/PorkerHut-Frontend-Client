@@ -4,6 +4,7 @@ import { TabSelector } from "../../components/utility/TabSelector";
 import { useLocation } from "react-router-dom";
 import {
   useGetSingleProduct,
+  useProductStatus,
   // useProductStatus,
 } from "../../services/hooks/Vendor/products";
 import { useForm } from "react-hook-form";
@@ -49,7 +50,7 @@ const ProductDetails = () => {
 
   const { data: question } = useGetCategoryQuestion(catId);
 
-  // const updateProductStatus = useProductStatus(id);
+  const updateProductStatus = useProductStatus(id);
   const currentProductData = singleProduct?.data?.data;
 
   const [selectedTab, setSelectedTab] = useTabs([
@@ -59,7 +60,6 @@ const ProductDetails = () => {
     "Images",
   ]);
   console.log(singleProduct?.data?.data, "singleProduct");
-
   const { text, amount, richText, date } = InputTypes;
 
   const {
@@ -224,9 +224,9 @@ const ProductDetails = () => {
       setButtonDisabled(true);
       setLoading(true);
 
-      // const res = await updateProductStatus.mutateAsync({
-      //   approvalStatus: status,
-      // });
+      const res = await updateProductStatus.mutateAsync({
+        approvalStatus: status,
+      });
 
       // Extract success message based on the status
       const successMessage =

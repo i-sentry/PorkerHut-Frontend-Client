@@ -165,13 +165,17 @@ const Accordion = ({ height }: { height?: string }) => {
             <div className="my-2 w-full">
               <label
                 htmlFor={"asset"}
-                className="mb-[6px] block text-[14px] leading-[16px] text-[#333333]"
+                className="mb-[6px] block text-[14px] leading-[16px] text-[#333333] after:ml-0.5 after:text-red-500 after:content-['*']"
               >
                 Are you an individual or Business Entity/Company
               </label>
               {/* Custom Field */}
               <CustomSelect
                 selectedOption={dropOption}
+                defaultValue={{
+                  label: `${userData?.sellerAccountInformation?.entityType}`,
+                  value: `${userData?.sellerAccountInformation?.entityType?.toLowerCase()}`,
+                }}
                 // selectedOption={dropOption || userData.entitytype}
                 setSelectOption={setDropOption}
                 placeholder={"-Choose an option-"}
@@ -260,7 +264,7 @@ const Accordion = ({ height }: { height?: string }) => {
             <div className="my-2 w-full">
               <label
                 htmlFor={"asset"}
-                className="text-HeadingColor mb-[6px] block text-[16px]"
+                className="text-HeadingColor mb-[6px] block text-[16px] after:ml-0.5 after:text-red-500 after:content-['*']"
               >
                 Select Bank
               </label>
@@ -271,6 +275,10 @@ const Accordion = ({ height }: { height?: string }) => {
                 setSelectOption={setDropOption}
                 placeholder={"Select bank"}
                 options={bankData || []}
+                defaultValue={{
+                  label: `${userData?.vendorBankAccount?.bankName}`,
+                  value: `${userData?.vendorBankAccount?.bankName?.toLowerCase()}`,
+                }}
               />
             </div>
           </>
