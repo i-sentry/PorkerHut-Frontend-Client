@@ -4,12 +4,9 @@ import CustomSelect from "../utility/CustomSelect";
 import { SelectOptionType } from "./SellersAccountInfo";
 import { useForm } from "react-hook-form";
 
-
 import StepperController from "./StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
-import {
-  useGetBankList
-} from "../../services/hooks/users/banks";
+import { useGetBankList } from "../../services/hooks/users/banks";
 import { IBankData } from "../../services/serviceType";
 import useSWR from "swr";
 import { BASEURL } from "../../services/api";
@@ -26,7 +23,7 @@ const BankAccountInfo = () => {
   const {
     checkoutSteps,
     currentStep,
-    
+
     userData,
     setUserData,
     handleChange,
@@ -34,25 +31,22 @@ const BankAccountInfo = () => {
 
   // const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
-  const [fetch, setFetch] = useState(false)
+  const [fetch, setFetch] = useState(false);
   const [, setAccountName] = useState("");
-  
-  
+
   const [accName, setAccName] = useState("");
 
   const bankAccount = userData.vendorBankAccount.accountNumber;
   const bankCode = dropOption?.value;
-  console.log(bankAccount && bankCode,"hhh");
-const url =
- `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
-        bankAccount
-      )}&bank_code=${ (bankCode)}`
+  console.log(bankAccount && bankCode, "hhh");
+  const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
+    bankAccount,
+  )}&bank_code=${bankCode}`;
 
-
-  const {
-    data: resolveBankNameResult,
-    isLoading,
-  } = useSWR( fetch ? url : null, fetchResolveBankName);
+  const { data: resolveBankNameResult, isLoading } = useSWR(
+    fetch ? url : null,
+    fetchResolveBankName,
+  );
 
   const {
     // register,
@@ -73,14 +67,13 @@ const url =
   }, [dropOption?.label, setUserData]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.length
-    console.log(value,"value")
+    const value = e.target.value.length;
+    console.log(value, "value");
     if (value === 10) {
-
-      console.log("feting.ddedeedeedeeeeedeeded.")
-     setFetch(true)
-   }
-    handleChange(e)
+      console.log("feting.ddedeedeedeeeeedeeded.");
+      setFetch(true);
+    }
+    handleChange(e);
   };
   useEffect(() => {
     setAccName(resolveBankNameResult?.data?.account_name);
@@ -94,7 +87,7 @@ const url =
     }));
   }, [resolveBankNameResult, accName, setUserData]);
 
-  const [, ] = useState<{
+  const [,] = useState<{
     label?: string;
     value?: string;
 
@@ -108,7 +101,7 @@ const url =
         value: bank.code,
         bank,
       })),
-    [bankList?.data]
+    [bankList?.data],
   );
   console.log(bankOptions, "bankList");
   // console.log(resolveBankNameResult, "userData");
@@ -123,19 +116,19 @@ const url =
     <div>
       {" "}
       <div>
-        <div className="max-w-[600px] m-auto min-h-[400px] p-5   bg-[#F4F4F4] rounded-md">
+        <div className="m-auto min-h-[400px] max-w-[600px] rounded-md   bg-[#F4F4F4] p-5">
           {isBankLoading && (
-            <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-[#cccc] bg-opacity-75 z-50">
-              <FaSpinner className="animate-spin w-8 h-8 text-gray-600" />
+            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-2 bg-[#cccc] bg-opacity-75">
+              <FaSpinner className="h-8 w-8 animate-spin text-gray-600" />
               <span>fetching bank...</span>
             </div>
           )}
 
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
               Bank Account
             </h1>
-            <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+            <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
               Please fill in the necessary information.{" "}
             </p>
           </div>
@@ -145,7 +138,7 @@ const url =
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[14px] leading-[16px] mb-[6px] text-[#333333]"
+                    className="mb-[6px] block text-[14px] leading-[16px] text-[#333333] after:ml-0.5 after:text-red-500 after:content-['*']"
                   >
                     Select Bank
                   </label>
@@ -160,12 +153,12 @@ const url =
               </>
               {sellersBankInfo?.map((data, index) => (
                 <>
-                  <div className="my-2 w-full " key={index}>
+                  <div className="my-2 w-full" key={index + 1}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required &&
-                        "after:content-['*'] after:ml-0.5 after:text-red-500"
+                        "after:ml-0.5 after:text-red-500 after:content-['*']"
                       } }`}
                     >
                       {data.label}
@@ -178,30 +171,30 @@ const url =
                       placeholder={data.place_holder}
                       onChange={onChange}
                       maxLength={10} // Add maxLength attribute to limit input to 10 characters
-                      className={`appearance-none  relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] && "border-ErrorBorder"
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
-                    <p className="my-2 text-[#F91919] text-xs">
+                    <p className="my-2 text-xs text-[#F91919]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
                 </>
               ))}
-              <div className="my-2 w-full relative">
+              <div className="relative my-2 w-full">
                 {isLoading && (
                   <div className="absolute top-[-5%] right-4 bottom-0 flex items-center justify-center bg-transparent">
-                    <ImSpinner2 className="animate-spin w-5 h-5 text-[#197b30]" />
+                    <ImSpinner2 className="h-5 w-5 animate-spin text-[#197b30]" />
                   </div>
                 )}
                 <label
                   htmlFor={"account_name"}
-                  className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333]
-                    "after:content-['*'] after:ml-0.5 after:text-red-500"
-                   }`}
+                  className={`"after:content-['*'] after:text-red-500" } mb-[6px] block
+                    text-[14px] leading-[16px] text-[#333333]
+                   after:ml-0.5`}
                 >
                   Account Name
                 </label>
@@ -216,7 +209,7 @@ const url =
                   //     : "Account name will be auto generated"
                   // }`}
                   disabled
-                  className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm`}
+                  className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm`}
                 />
                 {/* {resolveErr && (
                   <p className="my-2 text-[#F91919] text-xs">

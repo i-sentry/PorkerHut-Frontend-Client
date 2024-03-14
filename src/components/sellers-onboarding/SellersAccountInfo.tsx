@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import StepperController from "./StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 export type SelectOptionType = {
   label: string | number;
   value: string;
@@ -46,28 +47,40 @@ const SellersAccountInfo = () => {
   }, [dropOption?.value, setUserData]);
 
   const { state } = useAppState();
+  const sellerInfocheck =
+    userData.sellerAccountInformation.accountOwnersName === "" ||
+    userData.sellerAccountInformation.email === "" ||
+    userData.sellerAccountInformation.entityType === "" ||
+    userData.sellerAccountInformation.password === "" ||
+    userData.sellerAccountInformation.phoneNumber === "" ||
+    userData.sellerAccountInformation.shopName === "";
 
   const {
     formState: { errors },
     setValue,
     register,
-  } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
+  } = useForm<any>({
+    // resolver: yupResolver(schema),
+    defaultValues: state,
+    mode: "onSubmit",
+  });
   const [val, setVal] = useState(false);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  console.log({ userData });
+  console.log({ userData }, sellerInfocheck, "ifo chec");
   console.log(dropOption?.value);
+
   return (
     <div>
       {" "}
       <div>
-        <div className="max-w-[600px] m-auto min-h-[600px] p-5   bg-[#F4F4F4] rounded-md">
+        <div className="m-auto min-h-[600px] max-w-[600px] rounded-md   bg-[#F4F4F4] p-5">
           <div className=" mb-8">
-            <h1 className="sm:text-xl font-medium text-[#333333] text-[24px] leading-[28px] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
               Seller Account Information
             </h1>
-            <p className="text-[#797979] text-[14px] leading-[24px] mt-3">
+            <p className="mt-3 text-[14px] leading-[24px] text-[#797979]">
               Please fill in the necessary information.{" "}
             </p>
           </div>
@@ -81,9 +94,9 @@ const SellersAccountInfo = () => {
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -96,14 +109,14 @@ const SellersAccountInfo = () => {
                       name={data.name}
                       onChange={handleChange}
                       value={value || ""}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
@@ -114,7 +127,7 @@ const SellersAccountInfo = () => {
                 <div className="my-2 w-full">
                   <label
                     htmlFor={"asset"}
-                    className="block text-[14px] leading-[16px] text-[#333333] mb-[6px] whitespace-nowrap"
+                    className="mb-[6px] block whitespace-nowrap text-[14px] leading-[16px] text-[#333333] after:ml-0.5 after:text-red-500 after:content-['*']"
                   >
                     Are you an individual or Business Entity/Company
                   </label>
@@ -136,9 +149,9 @@ const SellersAccountInfo = () => {
                   <div className="my-2 w-full" key={index}>
                     <label
                       htmlFor={data.name}
-                      className={`block text-[14px] leading-[16px] text-[#333333] mb-[6px] ${
+                      className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                         data.required
-                          ? 'after:content-["*"] after:ml-0.5 after:text-red-500'
+                          ? 'after:ml-0.5 after:text-red-500 after:content-["*"]'
                           : ""
                       }`}
                     >
@@ -151,14 +164,14 @@ const SellersAccountInfo = () => {
                       name={data.name}
                       onChange={handleChange}
                       value={value || ""}
-                      className={`appearance-none relative block w-full px-[14px] py-[15px] border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${
+                      className={`focus:ring-primaryDark focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                         errors[data.name] ? "border-ErrorBorder" : ""
                       }`}
                     />
-                    <span className="text-[#797979] text-[12px] leading-none">
+                    <span className="text-[12px] leading-none text-[#797979]">
                       {data.info}
                     </span>
-                    <p className="my-2 text-[red] text-xs">
+                    <p className="my-2 text-xs text-[red]">
                       {/* {errors[data.name] && errors[data.name].message} */}
                     </p>
                   </div>
@@ -175,7 +188,7 @@ const SellersAccountInfo = () => {
                       setVal(!val);
                     }}
                     checked={val}
-                    className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                    className="h-4 w-4 cursor-pointer rounded  accent-[#197B30] checked:bg-[#197B30]"
                   />
                   <label htmlFor="" className="ml-2 text-sm text-slate-500">
                     I have read and accepted{" "}
@@ -186,7 +199,33 @@ const SellersAccountInfo = () => {
                 </div>
               </>
               <div className="">
-                {currentStep !== checkoutSteps?.length && <StepperController  />}
+                {currentStep !== checkoutSteps?.length && sellerInfocheck ? (
+                  <StepperController />
+                ) : (
+                  <div className="parent-class my-5 flex w-full justify-center gap-3 lg:justify-end">
+                    {/* {error && (
+                    <p className="text-red-500">
+                      Please Fill all required fields with asterisk(*)
+                    </p>
+                  )} */}
+                    <button
+                      disabled={currentStep === 1}
+                      className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out hover:opacity-50 disabled:bg-[#ddddddfd] ${
+                        currentStep === 1 ? "cursor-not-allowed" : ""
+                      }`}
+                    >
+                      Back nn
+                    </button>
+                    <button
+                      title="Fill all required fields"
+                      className="text-button  rounded border border-[#197b30] bg-[#197b30] px-10 py-2.5 text-white shadow-lg   duration-100 ease-in-out hover:opacity-50 disabled:bg-[#197b30ac]"
+                    >
+                      {currentStep === checkoutSteps?.length
+                        ? "Get Started"
+                        : "Next"}
+                    </button>
+                  </div>
+                )}
               </div>
             </form>
           </div>

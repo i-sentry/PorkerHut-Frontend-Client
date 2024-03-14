@@ -187,12 +187,12 @@ const NavBar = ({ border }: { border?: any }) => {
             <div className="action-btns ml-auto flex  items-center  lg:hidden">
               <div
                 onClick={() => setShowSearch((prev: any) => !prev)}
-                className=" flex w-10 items-end justify-end rounded py-[6px] text-slate-800"
+                className=" flex w-10 cursor-pointer items-end justify-end rounded py-[6px] text-slate-800"
               >
                 <AiOutlineSearch size={28} />
               </div>
               <div
-                className="  flex w-10 items-end justify-end rounded py-[6px] text-slate-800 lg:hidden"
+                className="  flex w-10 cursor-pointer items-end justify-end rounded py-[6px] text-slate-800 lg:hidden"
                 onClick={() => navigate("/my-cart")}
               >
                 <MdOutlineShoppingCart size={28} />
@@ -259,14 +259,14 @@ const NavBar = ({ border }: { border?: any }) => {
               </div> */}
               <div
                 onClick={() => setShowSearch((prev: any) => !prev)}
-                className=" hidden w-10 items-end justify-end rounded py-[6px] text-slate-800 lg:flex xl:hidden"
+                className=" hidden w-10 cursor-pointer items-end justify-end rounded py-[6px] text-slate-800 lg:flex xl:hidden"
               >
                 <AiOutlineSearch size={28} />
               </div>
 
               <div className="relative hidden h-fit w-fit overflow-hidden xl:inline-block">
                 <button
-                  className={`absolute right-0 z-[1] box-border flex h-[35px] w-[35px] items-center justify-center border-l-2 border-white ${
+                  className={`absolute right-0 z-[1] box-border flex h-[35px] w-[35px] cursor-pointer items-center justify-center border-l-2 border-white ${
                     showSearch
                       ? "rounded-tr-lg rounded-br-lg bg-[#e8e8e8]"
                       : "bg-white"
@@ -293,7 +293,7 @@ const NavBar = ({ border }: { border?: any }) => {
                 />
               </div>
               <button
-                className={`relative w-8 rounded bg-white p-[6px]`}
+                className={`relative w-8 cursor-pointer rounded bg-white p-[6px]`}
                 onClick={() => navigate("/my-cart")}
               >
                 <img className="w-6" src={CartLogo} alt="" />
