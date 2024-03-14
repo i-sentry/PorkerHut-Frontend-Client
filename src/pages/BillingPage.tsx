@@ -154,6 +154,9 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setLoading(false);
     }
   };
+
+
+  
   const handleCreateBilling = (data: any) => {
     if (user) {
       setLoading(true);
@@ -879,7 +882,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
             />
           </div>
         </div>
-        <div className="flex-1 flex-col gap-3 rounded-lg text-center xxs:hidden xxs:pb-10 lg:hidden lg:flex-row lg:justify-end lg:rounded-t-none lg:bg-white lg:py-4 ">
+        {/* <div className="flex-1 flex-col gap-3 rounded-lg text-center xxs:hidden xxs:pb-10 lg:hidden lg:flex-row lg:justify-end lg:rounded-t-none lg:bg-white lg:py-4 ">
           <div>
             <button
               onClick={() => handleSubmit(onSubmit)}
@@ -910,7 +913,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               </button>
             </Ripples>
           </div>
-        </div>
+        </div> */}
       </div>
     </AppLayout>
   );

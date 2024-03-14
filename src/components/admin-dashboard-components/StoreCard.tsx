@@ -27,9 +27,7 @@ const StoreCard = ({ item, setIsOpen }: any) => {
 
   const handleActivateVendor = async () => {
     updateStatus
-      .mutateAsync({
-        storeStatus: "approved",
-      })
+      .mutateAsync({ storeStatus: "approved" })
       .then((res: any) => {
         console.log(res);
       })

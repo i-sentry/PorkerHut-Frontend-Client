@@ -280,3 +280,16 @@ export const makePostRequestCustom = async (
     throw error;
   }
 };
+
+export const makeCustomPatchRequest = async (
+  data: any,
+  url: string,
+  includeAuthHeader: boolean = true,
+) => {
+  return await axios.patch(`${BASEURL}${url}`, data, {
+    headers: {
+      "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
+    },
+  });
+};
