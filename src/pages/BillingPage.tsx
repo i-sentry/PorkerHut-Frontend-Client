@@ -102,10 +102,12 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const myBillingInfo = useMyBillingInfo(storedUser?._id);
   const showModay = useProtectedInfo((state) => state.isAuthenticated);
   const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
+  const tempBilling = JSON.parse(localStorage.getItem("tempBilling") as string);
 
-  console.log(storedUser, "mmmmmmmmmmmmmmm");
+  console.log(storedUser, "mmmmmmmmmmmmmmm", tempBilling);
+  const myBillings = myBillingInfo?.data?.data?.billing;
 
-  console.log(myBillingInfo?.data?.data?.billing, "myBillingInfo");
+  console.log(myBillingInfo?.data?.data?.billing, "myBillingInfo", myBillings);
 
   const defaultBillingInfo = myBillingInfo?.data?.data?.billing.find(
     (info: { isDefault: any }) => info.isDefault === true,
@@ -138,9 +140,21 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setValueForm2("city", "");
       setValueForm2("isDefault", "");
     }
+
+    if (tempBilling && defaultBillingInfo === undefined) {
+      setValueForm2("firstName", tempBilling?.firstName);
+      setValueForm2("lastName", tempBilling?.lastName);
+      setValueForm2("email", tempBilling?.email);
+      setValueForm2("phoneNumber", tempBilling?.phoneNumber);
+      setValueForm2("address", tempBilling?.address || "");
+      setValueForm2("country", tempBilling?.country);
+      setValueForm2("state", tempBilling?.state);
+      setValueForm2("city", tempBilling?.city);
+      setValueForm2("isDefault", tempBilling?.isDefault);
+    }
   }, [defaultBillingInfo, setValue, isMyBilling, setValueForm2]);
 
-  console.log(isMyBilling, "isMyBilling");
+  console.log(isMyBilling, "isMyBilling", getValuesForm2(), defaultBillingInfo);
 
   const onSubmit = (data: any) => {
     if (user) {
@@ -148,20 +162,21 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       if (defaultBillingInfo) {
         setTemp(true);
         setBillingId(defaultBillingInfo?._id);
+        localStorage.removeItem("tempBilling");
       }
     } else {
       setShowModal(true);
       setLoading(false);
+      localStorage.setItem("tempBilling", JSON.stringify(getValuesForm2()));
     }
   };
 
-
-  
   const handleCreateBilling = (data: any) => {
     if (user) {
       setLoading(true);
       if (data.isDefault === true && defaultBillingInfo) {
         handleUpdateInfo(data);
+        localStorage.removeItem("tempBilling");
       }
       createBilling
         .mutateAsync(data)
@@ -176,6 +191,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     } else {
       setShowModal(true);
       setLoading(false);
+      localStorage.setItem("tempBilling", JSON.stringify(getValuesForm2()));
     }
   };
 
@@ -256,7 +272,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
             <div className="tabs relative mb-4 flex">
               <Link
                 to={"/billing/me"}
-                className={`flex flex-1 items-center justify-center p-4 text-sm font-semibold md:text-lg ${
+                className={`${defaultBillingInfo === undefined ? "hidden" : "flex"} flex-1 items-center justify-center p-4 text-sm font-semibold md:text-lg ${
                   !isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
@@ -264,14 +280,14 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
               </Link>
               <Link
                 to={"/billing"}
-                className={`flex flex-1 items-center justify-center  p-1 text-sm font-semibold md:p-4 md:text-lg ${
+                className={`${defaultBillingInfo === undefined ? "justify-start after:absolute after:bottom-0 after:left-0 after:inline-block after:h-1 after:w-[230px] after:bg-green-700" : "justify-center "} relative flex flex-1 items-center  p-1 text-sm font-semibold md:p-4 md:text-lg ${
                   isMyBilling ? "text-[#333333]" : "text-[#197B30]"
                 }`}
               >
                 Enter New Information
               </Link>
               <div
-                className={`indicator absolute bottom-0 h-[2px] w-1/2 bg-[#197B30] transition-all duration-500 ${
+                className={`indicator ${defaultBillingInfo === undefined && "hidden"} absolute bottom-0 h-[2px] w-1/2 bg-[#197B30] transition-all duration-500 ${
                   isMyBilling ? "left-0" : "left-[50%]"
                 } rounded-xl`}
               ></div>
