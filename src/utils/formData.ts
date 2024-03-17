@@ -1,7 +1,7 @@
 export const formData = [
   {
     label: "Full Name",
-    name: "full_name",
+    name: "fullName",
     place_holder: "Enter Full Name",
     error_message: "Full Name is Required",
     type: "text",
@@ -9,7 +9,7 @@ export const formData = [
   },
   {
     label: "Email Address",
-    name: "email_address",
+    name: "email",
     place_holder: "Enter Email Address",
     error_message: "Email Address is Required",
     type: "text",
@@ -17,7 +17,7 @@ export const formData = [
   },
   {
     label: "Phone Number",
-    name: "phone_number",
+    name: "phoneNumber",
     place_holder: "Enter Phone Number",
     error_message: "Phone Number is Required",
     type: "text",

@@ -160,7 +160,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   };
 
   return (
-    <div className="mb-20">
+    <div className="mb-20 px-4">
       <div className="relative">
         <div className=" h-[320px] w-full  ">
           {dataSlider.map((obj, index) => {

@@ -401,7 +401,7 @@ const SellersOrderPage = () => {
   return (
     <>
       {openModal && <OrderSideModal orderInfo={orderInfo} />}
-      <div className="mt-2 pb-10 xxs:px-4 md:px-0">
+      <div className="mt-2 px-4 pb-10">
         {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
           Orders
         </h1> */}

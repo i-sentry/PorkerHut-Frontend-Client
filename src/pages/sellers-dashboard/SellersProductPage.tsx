@@ -290,7 +290,7 @@ const SellersProductPage = () => {
   ];
 
   return (
-    <div className="pb-10 xxs:px-4 md:px-0">
+    <div className="px-4 pb-10">
       <ToastContainer />
       <div className="mb-5">
         <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
@@ -304,14 +304,18 @@ const SellersProductPage = () => {
       </div>
 
       <div className="mt-2">
-        <AdminTable
-          showDropDown={true}
-          showCheckbox={true}
-          Tcolumns={Tcolumns}
-          tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
-          TData={productData}
-          placeholder={"Search product name, store names, category.... "}
-        />
+        {productData.length ? (
+          <AdminTable
+            showDropDown={true}
+            showCheckbox={true}
+            Tcolumns={Tcolumns}
+            tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
+            TData={productData}
+            placeholder={"Search product name, store names, category.... "}
+          />
+        ) : (
+          "No Product"
+        )}
       </div>
     </div>
   );

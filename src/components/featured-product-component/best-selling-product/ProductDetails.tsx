@@ -112,6 +112,7 @@ const ProductDetails = () => {
   };
 
   const handleNavigate = () => {
+    dispatch(addProductToCart({ id: singleProduct?.data?._id }));
     navigate("/my-cart");
   };
 

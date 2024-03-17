@@ -38,3 +38,15 @@ export const useGetAllUsers = () => {
     queryKey: ["User +"],
   });
 };
+
+export const useContactForm = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makePostRequest(data, api.forms.contactForm),
+  });
+};
+
+export const useAgroForm = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makePostRequest(data, api.forms.agroservice),
+  });
+};

@@ -67,22 +67,22 @@ const CreateAccount: any = () => {
         <NavBar />
       </div>
       <div className="bg-[#F5F5F5] md:py-6">
-        <div className="mt-3 md:hidden xxs:flex w-72 xxs:justify-end xxs:ml-auto py-5 px-3">
+        <div className="mt-3 w-72 py-5 px-3 xxs:ml-auto xxs:flex xxs:justify-end md:hidden">
           <Link
             to={"/create-account"}
-            className="rounded border border-[#197b30] py-3 px-4 w-full text-[#197b30] bg-[#fff] tracking-wider font-medium select-none hover:bg-[#197b39] hover:text-[#fff] "
+            className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 font-medium tracking-wider text-[#197b30] hover:bg-[#197b39] hover:text-[#fff] "
           >
             Create a Sellers Account
           </Link>
         </div>
 
-        <div className=" bg-[#F5F5F5] flex flex-col justify-center items-center xxs:p-3 mb-5">
-          <div className="max-w-xl w-full max-auto  bg-[#fff] sm:p-8 p-4 shadow-md">
+        <div className=" mb-5 flex flex-col items-center justify-center bg-[#F5F5F5] xxs:p-3">
+          <div className="max-auto w-full max-w-xl  bg-[#fff] p-4 shadow-md sm:p-8">
             <div>
-              <h1 className="text-left   text-[#333333] font-semibold text-lg  ">
+              <h1 className="text-left   text-lg font-semibold text-[#333333]  ">
                 Create an account
               </h1>
-              <p className="text-left text-[#797979] text-base mt-1 font-light">
+              <p className="mt-1 text-left text-base font-light text-[#797979]">
                 Register your account by filling the form below
               </p>
             </div>
@@ -98,7 +98,7 @@ const CreateAccount: any = () => {
                   name="firstName"
                   placeholder="Enter your firstName"
                   id="firstName"
-                  className={`rounded w-full p-3 pl-4  border border-[##EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`mt-1 w-full appearance-none rounded  border border-[##EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                     errors.firstName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -115,7 +115,7 @@ const CreateAccount: any = () => {
                   name="lastName"
                   placeholder="Enter your Lastname"
                   id="lastName"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                     errors.lastName
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
@@ -132,14 +132,14 @@ const CreateAccount: any = () => {
                   name="email"
                   placeholder="Enter your email "
                   id="email"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                     errors.email
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
                   }`}
                 />
               </div>
-              <div className="mt-2 relative">
+              <div className="relative mt-2">
                 <label htmlFor="" className="text-base font-normal">
                   Password
                 </label>
@@ -150,20 +150,20 @@ const CreateAccount: any = () => {
                   name="password"
                   placeholder="**********"
                   id="password"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
                     errors.password
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
                   }`}
                 />
                 <button
-                  className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                  className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                   onClick={toggleConfirmEye}
                 >
                   {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                 </button>
               </div>
-              <div className="mt-2 relative">
+              <div className="relative mt-2">
                 <label htmlFor="" className="text-base font-normal">
                   Confirm Password
                 </label>
@@ -179,14 +179,14 @@ const CreateAccount: any = () => {
                   autoComplete="on"
                   placeholder="**********"
                   id="confirmPassword"
-                  className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
                     errors.confirmPassword
                       ? "border-[#e10] focus-within:border-[#e10]"
                       : "border-[##EEEEEE] "
                   }`}
                 />
                 <button
-                  className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                  className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                   onClick={toggleEye}
                 >
                   {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
@@ -196,7 +196,7 @@ const CreateAccount: any = () => {
               <div className="mt-12">
                 <button
                   // disabled={true}
-                  className="rounded bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed font-normal "
+                  className="w-full select-none rounded bg-[#197b30] py-3 px-4 font-normal tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62] "
                 >
                   {loading ? (
                     <div className="mx-auto flex items-center justify-center">
@@ -212,15 +212,15 @@ const CreateAccount: any = () => {
                   )}
                 </button>
               </div>
-              <div className="text-center mt-3">
-                <p className="text-[#A2A2A2] font-normal text-sm">
+              <div className="mt-3 text-center">
+                <p className="text-sm font-normal text-[#A2A2A2]">
                   Already have an account?{" "}
-                  <a
-                    href="/login  "
-                    className="font-normal hover:underline cursor-pointer text-[#197b30]"
+                  <Link
+                    to="/login"
+                    className="cursor-pointer font-normal text-[#197b30] hover:underline"
                   >
                     Sign in
-                  </a>
+                  </Link>
                 </p>
               </div>
             </form>
@@ -228,7 +228,7 @@ const CreateAccount: any = () => {
             <div className="mt-3 hidden md:block">
               <button
                 onClick={() => navigate("/create-account")}
-                className="rounded bg-[#fff] py-3 px-4 w-full text-[#197b30] border border-[#197b30] tracking-wider select-none  disabled:cursor-not-allowed font-normal "
+                className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 font-normal tracking-wider  text-[#197b30] disabled:cursor-not-allowed "
               >
                 {loading ? (
                   <div className="mx-auto flex items-center justify-center">

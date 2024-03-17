@@ -41,12 +41,12 @@ const StepperController: React.FC<fileProps> = ({
     }
   };
 
-  const bizCheck =
-    userData.businessInformation.companyRegisteredName === "" ||
-    userData.businessInformation.address1 === "" ||
-    userData.businessInformation.dateOfBirth === "" ||
-    userData.businessInformation.city === "" ||
-    userData.businessInformation.address1 === "";
+  // const bizCheck =
+  //   userData?.businessInformation?.companyRegisteredName === "" ||
+  //   userData?.businessInformation?.address1 === "" ||
+  //   userData?.businessInformation?.dateOfBirth === "" ||
+  //   userData?.businessInformation?.city === "" ||
+  //   userData?.businessInformation?.address1 === "";
 
   // checkEmptyValues(userData);
   const submitDetails = (e: { preventDefault: () => void }) => {
