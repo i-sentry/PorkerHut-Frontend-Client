@@ -3,6 +3,9 @@ import headerImg from "../assets/images/contactBanner.png";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
 import ServiceForm from "../components/services-component/ServiceForm";
 import AppLayout from "../components/utility/AppLayout";
+import { BsEnvelope, BsMap } from "react-icons/bs";
+import { BiSolidMapAlt } from "react-icons/bi";
+import { IoLocationSharp, IoMail } from "react-icons/io5";
 
 const Contact_Page = () => {
   // const notify = () => toast.success("Here is your toast.");
@@ -16,17 +19,16 @@ const Contact_Page = () => {
       <div className="overflow-x-hidden">
         <div className="  max-w-screen-xl ">
           <div
-            className="  flex   items-center md:justify-start xxs:justify-center w-full md:h-[300px] xxs:h-[300px] bg-cover bg-center  md:px-14"
+            className=" relative flex w-full flex-col items-start   bg-cover bg-center px-4 xxs:h-[300px] xxs:justify-center md:h-[300px] md:flex-row md:items-center md:justify-start  md:px-14"
             style={{
-              backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${headerImg}')`,
-         
+              backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${headerImg}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100vw",
             }}
           >
             <div className="">
-              <h1 className="mb-2 font-normal tracking-tight md:text-[32px] md:leading-[47px] xxs:text-[32px] xxs:leading-[38px]  text-[#fff]">
+              <h1 className="mb-2 font-normal tracking-tight text-[#fff] xxs:text-[32px] xxs:leading-[38px] md:text-[32px]  md:leading-[47px]">
                 Contact Us
               </h1>
 
@@ -43,11 +45,29 @@ const Contact_Page = () => {
                 ]}
               />
             </div>
+
+            <div className="right-10 top-1/2 mt-3 w-[450px] space-y-2 md:absolute md:-translate-y-1/2">
+              <div className="flex items-center justify-start gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
+                  <IoMail size={20} />
+                </span>
+                <p className="text-white">info@porkerhut.com</p>
+              </div>
+              <div className="flex items-center justify-start gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
+                  <IoLocationSharp size={20} />
+                </span>
+                <p className="max-w-[300px] flex-grow text-white">
+                  Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa
+                  State, Nigeria
+                </p>
+              </div>
+            </div>
           </div>
-          </div>
+        </div>
 
         {/* <button onClick={notify}></button> */}
-        <section className="w-full h-full md:p-14 xxs:mt-16 md:mt-0">
+        <section className="h-full w-full md:mt-0 md:p-14">
           <ServiceForm
             text="How can we help? Please contact us and we will get back to you as soon as possible. If you have an inquiry about your order, you can respond directly to the order confirmation email or contact us via chat."
             title="Send us a Message"

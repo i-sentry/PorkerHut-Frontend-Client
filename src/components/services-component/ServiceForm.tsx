@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 import { formData } from "../../utils/formData";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useContactForm } from "../../services/hooks/users";
+import { toast, ToastContainer } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 interface contactProps {
   text: string;
   title: string;
 }
 const ServiceForm = ({ text, title }: contactProps) => {
+  const [loading, setLoading] = useState(false);
   const validationSchema = Yup.object().shape({
-    full_name: Yup.string().required("Full Name is required"),
-    email_address: Yup.string()
-      .required("Email is required")
-      .email("Email is invalid"),
-    phone_number: Yup.string()
+    fullName: Yup.string().required("Full Name is required"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    phoneNumber: Yup.string()
       .required("Valid Phone Number is required")
       .min(6, "Valid Phone Number must be at least 6 characters")
       .max(12, "Valid Phone Number must not exceed 12 characters"),
@@ -28,13 +30,26 @@ const ServiceForm = ({ text, title }: contactProps) => {
     reset,
     formState: { errors },
   } = useForm<any>({ resolver: yupResolver(validationSchema) });
+  const contact = useContactForm();
   // const [userData, setUserData] = useState<{
   //   [name: string]: string | boolean;
   // }>();
 
   const submitData = (data: any) => {
-    console.log(JSON.stringify(data, null, 2));
-    reset();
+    setLoading(true);
+    contact
+      .mutateAsync(data)
+      .then((res: any) => {
+        toast.success(
+          "Form Submitted Successfully. PorkerHut will get back to you soon",
+        );
+        setLoading(false);
+        reset();
+      })
+      .catch((err: any) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
   };
 
   const textData = [
@@ -55,21 +70,22 @@ const ServiceForm = ({ text, title }: contactProps) => {
     },
     {
       icon: <IoMail />,
-      text: "support@porkerhut.com",
+      text: "info@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
-      text: "No.1, Victoria Island Lagos off, Kosofe close, Nigeria",
+      text: "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria",
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center md:p-4 h-full">
-      <div className="md:max-w-[500px] xxs:w-full ">
-        <div className="md:max-w-[700px] xxs:w-full bg-[#F4F4F4] md:p-8 xxs:px-5 xxs:py-10  rounded ">
-          <h1 className="md:text-[24px] md:leading-[28px] text-[#333333] xxs:text-[20px] xxs:leading-[23px] font-medium ">
+    <div className="flex h-full flex-col items-center justify-center md:p-4">
+      {/* <ToastContainer /> */}
+      <div className="xxs:w-full md:max-w-[500px] ">
+        <div className="rounded bg-[#F4F4F4] xxs:w-full xxs:px-5 xxs:py-10 md:max-w-[700px]  md:p-8 ">
+          <h1 className="font-medium text-[#333333] xxs:text-[20px] xxs:leading-[23px] md:text-[24px] md:leading-[28px] ">
             {title}
           </h1>
-          <p className="text-[16px] leading-[24px] xxs:text-[14px] xxs:leading-[20px] justify-end  text-[#797979] mt-3 mb-6 font-normal ">
+          <p className="mt-3 mb-6 justify-end text-[16px] font-normal  leading-[24px] text-[#797979] xxs:text-[14px] xxs:leading-[20px] ">
             {text}
           </p>
           <form onSubmit={handleSubmit(submitData)}>
@@ -77,9 +93,9 @@ const ServiceForm = ({ text, title }: contactProps) => {
               <div className="my-2 mb-5 w-full" key={index}>
                 <label
                   htmlFor={data.name}
-                  className={`block text-[14px] leading-[16px] font-normal mb-[6px] text-[#333333] ${
+                  className={`mb-[6px] block text-[14px] font-normal leading-[16px] text-[#333333] ${
                     data.required &&
-                    "after:content-['*'] after:ml-0.5 after:text-red-500"
+                    "after:ml-0.5 after:text-red-500 after:content-['*']"
                   } }`}
                 >
                   {data.label}
@@ -88,13 +104,13 @@ const ServiceForm = ({ text, title }: contactProps) => {
                   id={data.name}
                   type={data.type}
                   // required={(required === "Yes" || required === true) ? true : false}
-                  className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 ${
+                  className={`relative  block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:border-green-700 focus:outline-none focus:ring-green-700 sm:text-sm ${
                     errors[data.name] ? "border-[#dd1313]" : ""
                   }`}
                   placeholder={data.place_holder}
                   {...register(data.name)}
                 />
-                <p className="my-2 text-[#dd1313] text-xs">
+                <p className="my-2 text-xs text-[#dd1313]">
                   {" "}
                   {errors[data.name] ? data?.error_message : ""}
                 </p>
@@ -104,15 +120,15 @@ const ServiceForm = ({ text, title }: contactProps) => {
               <div className="my-2 mb-2 w-full">
                 <label
                   htmlFor={data.name}
-                  className={`block text-[14px] leading-[16px] mb-[6px] text-[#333333] ${
+                  className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
                     data.required &&
-                    "after:content-['*'] after:ml-0.5 after:text-red-500"
+                    "after:ml-0.5 after:text-red-500 after:content-['*']"
                   } }`}
                 >
                   {data.label}
                 </label>
                 <textarea
-                  className={`appearance-none  relative block w-full px-[14px] py-[10px] border-2 border-[#D9D9D9] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] text-[#333333] rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm  ${
+                  className={`relative  block w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:border-green-700 focus:outline-none focus:ring-green-700 sm:text-sm  ${
                     errors[data.name] ? "border-[#dd1313]" : ""
                   }`}
                   placeholder={data.place_holder}
@@ -121,54 +137,65 @@ const ServiceForm = ({ text, title }: contactProps) => {
                   cols={73.4}
                   name={data.name}
                 ></textarea>
-                <p className="my-2 text-[#dd1313] text-xs">
+                <p className="my-2 text-xs text-[#dd1313]">
                   {" "}
                   {errors[data.name] ? data?.error_message : ""}
                 </p>
               </div>
             ))}
             <button
+              disabled={loading}
               type="submit"
-              className="bg-[#197B30] md:mt-6 text-[#fff] p-3  rounded-sm px-10 active:scale-90  text-[14px] leading-[24px] duration-300 transition-all ease-in-out xxs:mt-4"
+              className={`${loading && "opacity-50"} inline-flex items-center justify-center rounded-sm bg-[#197B30] p-3 px-10  text-[14px] leading-[24px] text-[#fff]  transition-all duration-300 ease-in-out active:scale-90 xxs:mt-4 md:mt-6`}
             >
-              Submit
+              {loading ? (
+                <span className="inline-flex items-center gap-2">
+                  <CgSpinner size={20} className="animate-spin" />
+                  Sending...
+                </span>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>
         <div>
-          <div className="hidden md:grid md:grid-cols-3 md:gap-2">
+          <div className="hidden md:flex md:flex-wrap md:items-center md:justify-between md:gap-y-3.5">
             {contactInfo.map((data, index) => (
-              <div className="bg-[#f4f4f4] flex flex-col h-36 w-full  items-center justify-center mt-8 p-3">
-                <figure className="text-center h-8 w-8 bg-[#fff] flex items-center justify-center rounded-full border border-[#D9D9D9]">
+              <div
+                key={index}
+                className={`flex h-36 w-full flex-col items-center  justify-center bg-[#f4f4f4] p-3 md:w-[calc(50%_-_5px)] ${index === 2 && "flex-grow"}`}
+              >
+                <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                   {data?.icon}
                 </figure>
-                <p className="text-sm font-medium text-center mt-4 text-[#333333]">
+                <p className="mt-4 text-center text-sm font-medium text-[#333333]">
                   {data?.text}
                 </p>
               </div>
             ))}
           </div>
           <div>
-            <p className="hidden md:block text-center font-medium text-[16px] leading-[24px] mt-7 text-[#797979]">
+            <p className="mt-7 hidden text-center text-[16px] font-medium leading-[24px] text-[#797979] md:block">
               Line is open between 8:00AM WAT & 4:00PM WAT
             </p>
           </div>
         </div>
         <div className="mx-5 mb-10">
-          <div className="md:hidden grid  grid-rows-3 gap-6 mt-16">
+          <div className="mt-16 grid  grid-rows-3 gap-6 md:hidden">
             {contactInfo.map((data, index) => (
-              <div className="bg-[#f4f4f4] flex flex-col h-36 w-full  items-center justify-center  p-3">
-                <figure className="text-center h-8 w-8 bg-[#fff] flex items-center justify-center rounded-full border border-[#D9D9D9]">
+              <div className="flex h-36 w-full flex-col items-center  justify-center bg-[#f4f4f4]  p-3">
+                <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                   {data?.icon}
                 </figure>
-                <p className="text-sm font-medium  text-center mt-4 text-[#333333]">
+                <p className="mt-4 text-center  text-sm font-medium text-[#333333]">
                   {data?.text}
                 </p>
               </div>
             ))}
           </div>
           <div className="my-8">
-            <p className="md:hidden  block font-medium text-center text-[16px] leading-[24px] text-[#797979] whitespace-nowrap">
+            <p className="block  whitespace-nowrap text-center text-[16px] font-medium leading-[24px] text-[#797979] md:hidden">
               Line is open between 8:00AM - 4:00PM WAT
             </p>
           </div>

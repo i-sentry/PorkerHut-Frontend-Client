@@ -55,3 +55,10 @@ export const useGetApprovedProductByVendor = (id: string | undefined) => {
     queryKey: ["productByVendorApproved"],
   });
 };
+
+export const useUpdateProduct = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePatchRequest(data, api.Products.updateProduct(id)),
+  });
+};

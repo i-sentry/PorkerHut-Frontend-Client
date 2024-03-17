@@ -40,7 +40,7 @@ const OrderSideModal = ({ orderInfo }: any) => {
             className="relative flex max-h-full  w-full max-w-sm cursor-auto flex-col overflow-auto  bg-white p-5 xxs:rounded-md md:h-full  md:max-w-sm md:rounded-l-md md:px-7 "
           >
             <>
-              <div className="fixed top-5 right-5 flex items-end justify-end pb-3">
+              <div className="fixed top-16 right-5 flex items-end justify-end pb-3">
                 <Tooltip message="close">
                   <div
                     onClick={closeModal}
@@ -54,7 +54,7 @@ const OrderSideModal = ({ orderInfo }: any) => {
                 </Tooltip>
               </div>
 
-              <div className="mt-6 flex flex-col gap-8">
+              <div className="mt-16 flex flex-col gap-8">
                 <h3 className="text-xl font-bold uppercase text-green-700">
                   Order Details
                 </h3>

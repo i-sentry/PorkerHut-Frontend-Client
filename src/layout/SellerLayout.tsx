@@ -48,8 +48,8 @@ const Layout = () => {
               <VendorsNav />
             </div>
             {vendor?.storeStatus === "pending" && (
-              <div className="absolute top-0 left-0 z-[60] h-full w-full overflow-auto bg-black  bg-opacity-70 px-4 md:flex md:h-screen md:items-center md:justify-center lg:fixed">
-                <div className="relative z-[65] mt-20 mb-8 h-auto rounded-t-lg bg-white p-5 md:mt-0 md:w-[700px] md:p-8">
+              <div className="absolute top-0 left-0 z-[60] h-full w-full overflow-auto bg-black bg-opacity-70  px-4 pt-24 md:flex md:h-screen md:items-center md:justify-center lg:fixed">
+                <div className="relative z-[65] mb-8 h-auto rounded-t-lg bg-white p-5 md:mt-0 md:w-[700px] md:p-8">
                   <h3 className="mb-4 text-2xl font-semibold md:text-center">
                     Welcome to Porker Hut
                   </h3>

@@ -29,7 +29,10 @@ import { useSuccessOverlay } from "../../store/overlay";
 // import ProductPricing from "../step/ProductPricing";
 // import ProductImage from "../step/ProductImage";
 import Stepper from "../step/Steppers";
-import { useGetSingleProduct } from "../../services/hooks/Vendor/products";
+import {
+  useGetSingleProduct,
+  useUpdateProduct,
+} from "../../services/hooks/Vendor/products";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -72,9 +75,9 @@ const SellerStepperComponent = () => {
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("catId");
   const productId = queryParams.get("id");
-  const showOverlay = useSuccessOverlay(
-    (state: { showOverlay: any }) => state.showOverlay,
-  );
+  // const showOverlay = useSuccessOverlay(
+  //   (state: { showOverlay: any }) => state.showOverlay,
+  // );
   const { data, isLoading } = useGetSingleProduct(productId as string);
   const currentProductData = data?.data;
   const subcategory = currentProductData?.information?.subcategory?._id;
@@ -82,6 +85,8 @@ const SellerStepperComponent = () => {
   const Tcategory = useGetOneCategory(category);
   const { data: question, isLoading: Loading } =
     useGetCategoryQuestion(category);
+
+  const updateProduct = useUpdateProduct(currentProductData?._id);
 
   const {
     register,
@@ -531,15 +536,15 @@ const SellerStepperComponent = () => {
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
 
-  if (showOverlay) {
-    return (
-      <SuccessScreen
-        title={"Product created successfully"}
-        msg={"We’re on it! Please be patient for Poker Hut Approval."}
-        url={"/vendor/create"}
-      />
-    );
-  }
+  // if (showOverlay) {
+  //   return (
+  //     <SuccessScreen
+  //       title={"Product created successfully"}
+  //       msg={"We’re on it! Please be patient for Poker Hut Approval."}
+  //       url={"/vendor/create"}
+  //     />
+  //   );
+  // }
 
   const productInfo = [
     {
@@ -554,7 +559,7 @@ const SellerStepperComponent = () => {
     ...questions,
   ];
 
-  console.log(productInfo, productInfo);
+  // console.log(productInfo, productInfo);
 
   const productDetails = [
     {
@@ -668,7 +673,27 @@ const SellerStepperComponent = () => {
     const formData = getValues();
     const data = new FormData();
 
-    console.log(data, formData, "Product Update");
+    // data.append("pricing", formData?.pricing);
+    const newData = {
+      // ...currentProductData,
+      details: { ...formData.productDetails },
+      pricing: { ...formData.pricing },
+      information: { ...formData.productInformation },
+    };
+
+    data.append("user.name", "chris");
+    data.append("name", "chris");
+
+    updateProduct
+      .mutateAsync(newData)
+      .then((res: any) => {
+        console.log(res, "res");
+      })
+      .catch((err: any) => {
+        console.log("err", err);
+      });
+
+    console.log(data, formData, "Product Update", newData, "newDtat");
   };
 
   return (
@@ -764,7 +789,7 @@ const SellerStepperComponent = () => {
         {/* </div> */}
         {/* <button type="submit">Submit</button> */}
       </form>
-      {showOverlay && <SuccessScreen title={""} msg={""} url={""} />}
+      {/* {showOverlay && <SuccessScreen title={""} msg={""} url={""} />} */}
     </div>
   );
 };

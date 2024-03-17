@@ -56,6 +56,7 @@ export const api = {
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
     visibilityStatus: (id: string | number) =>
       `/api/products/${id}/visibilityStatus `,
+    updateProduct: (id: string) => `api/products/${id}`,
   },
   Ratings: {
     createRating: "/api/ratings/create",
@@ -106,10 +107,18 @@ export const api = {
     orderbyId: (id: string) => `/api/orders/${id}`,
     vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
+    aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,
+    aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
+    adminOverView: (startDate: any, endDate: any) =>
+      `/api/orders/admin/overview/${startDate}/${endDate}`,
+  },
+  forms: {
+    contactForm: `/api/enquiry/create`,
+    agroservice: `/api/agroservice`,
   },
 };
 

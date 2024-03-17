@@ -32,12 +32,12 @@ const Home: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className="relative bg-slate-400 h-[100%]">
-        <div className="banner block w-full px-4 lg:pl-[80px] lg:pr-[40px] py-5 sm:w-10/12 lg:py-[40px] md:py-10 lg:w-7/12 absolute left-0 z-10 top-1/2 -translate-y-1/2 bg-zinc-100 bg-opacity-10 rounded backdrop-blur-3xl">
-          <h1 className="relative text-white text-2xl md:text-[40px] mb-4 sm:mb-8 font-bold after:w-20 after:h-1 after:bg-green-700 after:absolute after:left-0 after:-bottom-1 md:after:-bottom-4 after:block">
+      <div className="relative h-[100%] bg-slate-400">
+        <div className="banner absolute left-0 top-1/2 z-10 block w-full -translate-y-1/2 rounded bg-zinc-100 bg-opacity-10 px-4 py-5 backdrop-blur-3xl sm:w-10/12 md:py-10 lg:w-7/12 lg:py-[40px] lg:pl-[80px] lg:pr-[40px]">
+          <h1 className="relative mb-4 text-2xl font-bold text-white after:absolute after:left-0 after:-bottom-1 after:block after:h-1 after:w-20 after:bg-green-700 sm:mb-8 md:text-[40px] md:after:-bottom-4">
             Porker Hut Naija
           </h1>
-          <p className="text-white text-xs sm:text-sm font-normal leading-[150%]">
+          <p className="text-xs font-normal leading-[150%] text-white sm:text-sm">
             Porker Hut is dedicated to ethical and responsible animal rearing,
             sourcing only the freshest, high-quality pigs from local farms. Our
             selection of premium pork products includes succulent chops, savory
@@ -48,14 +48,14 @@ const Home: React.FC = () => {
           </p>
           <Link
             to="/products"
-            className="px-9 py-3 mt-6 inline-block bg-green-700 rounded text-white text-sm font-semibold"
+            className="mt-6 inline-block rounded bg-green-700 px-9 py-3 text-sm font-semibold text-white"
           >
             Shop now
           </Link>
         </div>
         <Slider sliderImages={[]} />
       </div>
-      <div className="lg:mt-24 xxs:mt-16 ">
+      <div className="xxs:mt-16 lg:mt-24 ">
         <Category data-aos="fade-up" />
         <Services />
         <Header />
