@@ -78,8 +78,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     );
   }).length;
 
-  // console.log(vendorOrders, "vendor");
-
   const ratings = vendorOrders?.flatMap((order: any) =>
     order?.productDetails?.map((item: any) => item?.productID?.avgRating),
   );
@@ -89,8 +87,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   );
 
   const averageRating = sumOfRatings / ratings?.length;
-
-  console.log(averageRating, "averageRating");
 
   // Rating thresholds
   const poorThreshold = 2.5;
@@ -160,14 +156,14 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   };
 
   return (
-    <div className="mb-20 px-4">
+    <div className="mb-20">
       <div className="relative">
         <div className=" h-[320px] w-full  ">
           {dataSlider.map((obj, index) => {
             return (
               <div
                 key={index}
-                className={`duration-400 absolute h-full w-full opacity-0 transition-opacity xxs:px-5 md:px-0 ${
+                className={`duration-400 absolute h-full w-full px-0 opacity-0 transition-opacity ${
                   slideIndex === index + 1 ? "active-anim opacity-100" : ""
                 }`}
               >
@@ -194,7 +190,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           ))}
         </div>
       </div>
-      <div className="no-scrollbar hide-scrollbar my-8 overflow-y-scroll">
+      <div className="no-scrollbar hide-scrollbar my-8 mx-4 overflow-y-scroll">
         <p className="marquee hide-scroll-bar w-full whitespace-nowrap text-center ">
           jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj
         </p>

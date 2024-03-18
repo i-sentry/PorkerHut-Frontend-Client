@@ -15,6 +15,7 @@ import { right } from "@popperjs/core";
 import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
 import { useRefresh } from "../../store";
+import logo from "../../assets/images/porkerlogo.png";
 
 const StatusColumn = ({ d }: any) => {
   const { approvalStatus } = d;
@@ -80,7 +81,7 @@ const PriceColumn = ({ d }: any) => {
 
 const ProductNameColumn = ({ d }: any) => {
   const { information, images } = d;
-  console.log(images);
+  // console.log(images);
 
   return (
     <div className="group relative flex cursor-pointer items-center gap-2">
@@ -142,6 +143,7 @@ const SellersProductPage = () => {
   const navigate = useNavigate();
   //@ts-ignore
   const store = JSON.parse(localStorage.getItem("vendor"));
+  const [products, setProducts] = useState<any[]>([]);
 
   const id = store.vendor._id;
   const {
@@ -152,20 +154,34 @@ const SellersProductPage = () => {
 
   console.log("vendorProducts:", vendorProducts, refresh);
 
-  const productData = useMemo(() => {
-    if (!vendorProducts?.data) {
-      return [];
+  useEffect(() => {
+    setRefresh(true);
+    if (!isLoading && vendorProducts?.data) {
+      const dataCopy = [...vendorProducts?.data];
+      dataCopy.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      setProducts(dataCopy);
+    } else {
+      setProducts([]);
     }
+  }, [vendorProducts, refresh]);
 
-    const dataCopy = [...vendorProducts.data];
+  // const productData = useMemo(() => {
+  //   if (!vendorProducts?.data) {
+  //     return [];
+  //   }
 
-    dataCopy.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
-    console.log("Refresh now", refresh);
-    return dataCopy;
-  }, [refresh]);
+  //   const dataCopy = [...vendorProducts.data];
+
+  //   dataCopy.sort(
+  //     (a, b) =>
+  //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  //   );
+  //   console.log("Refresh now", refresh);
+  //   return dataCopy;
+  // }, [refresh]);
 
   useEffect(() => {
     if (refresh === true) refetch();
@@ -182,7 +198,7 @@ const SellersProductPage = () => {
     );
   }
 
-  console.log(store.vendor._id, productData, "store");
+  // console.log(store.vendor._id, productData, "store");
 
   const handleView = (id: any, catId: any) => {
     // navigate(
@@ -253,14 +269,14 @@ const SellersProductPage = () => {
     {
       Header: "Visibility Status",
       accessor: (row: any) => {
-        console.log("visibility", row?.visibilityStatus);
+        // console.log("visibility", row?.visibilityStatus);
         return <div className="capitalize">{row?.visibilityStatus}</div>;
       },
     },
     {
       Header: "Active",
       accessor: (row: any) => {
-        console.log(row, "row row");
+        // console.log(row, "row row");
         return (
           <div>
             <ToggleVisibility id={row?._id} row={row} refetch={refetch} />
@@ -273,7 +289,7 @@ const SellersProductPage = () => {
       Cell: ({ row }: any) => {
         const id = row?.original?._id;
         const catId = row?.original?.information?.category?._id;
-        console.log(row?.original, "osjdbhdhdhhd");
+        // console.log(row?.original, "osjdbhdhdhhd");
 
         return (
           <div>
@@ -290,7 +306,7 @@ const SellersProductPage = () => {
   ];
 
   return (
-    <div className="px-4 pb-10">
+    <div className="px-4 pb-10 pt-10">
       <ToastContainer />
       <div className="mb-5">
         <h1 className="mb-3 font-medium xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px] ">
@@ -304,18 +320,16 @@ const SellersProductPage = () => {
       </div>
 
       <div className="mt-2">
-        {productData.length ? (
-          <AdminTable
-            showDropDown={true}
-            showCheckbox={true}
-            Tcolumns={Tcolumns}
-            tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
-            TData={productData}
-            placeholder={"Search product name, store names, category.... "}
-          />
-        ) : (
-          "No Product"
-        )}
+        {/* {!isLoading && productData.length > 0 && ( */}
+        <AdminTable
+          showDropDown={true}
+          showCheckbox={true}
+          Tcolumns={Tcolumns}
+          tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
+          TData={products}
+          placeholder={"Search product name, store names, category.... "}
+        />
+        {/* )} */}
       </div>
     </div>
   );
@@ -363,11 +377,10 @@ const ToggleVisibility = ({
           setLoading(false);
           toast.success(`${productName} is currently set to inactive.`);
           setToggle("inactive");
+          refetch();
           setRefresh(true);
-          console.log(res, "successful");
         })
         .catch((err: any) => {
-          console.log(err, "Error");
           toast.error(
             `${productName} visibility status is not updated. Try again!`,
           );
@@ -383,11 +396,10 @@ const ToggleVisibility = ({
           setLoading(false);
           toast.success(`${productName} is currently set to active.`);
           setToggle("active");
+          refetch();
           setRefresh(true);
-          console.log(res, "successful");
         })
         .catch((err: any) => {
-          console.log(err, "Error");
           toast.error(
             `${productName} visibility status is not updated. Try again!`,
           );

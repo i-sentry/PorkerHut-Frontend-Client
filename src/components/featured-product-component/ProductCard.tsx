@@ -13,9 +13,11 @@ import RatingStars from "../RatingStars";
 
 interface ProductLocationState {
   item: any;
+  related?: boolean;
+  refetch?: any;
 }
 
-const ProductCard = ({ item }: ProductLocationState) => {
+const ProductCard = ({ item, related, refetch }: ProductLocationState) => {
   // console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
@@ -35,6 +37,7 @@ const ProductCard = ({ item }: ProductLocationState) => {
   const handleCardClick = () => {
     navigate(`/product/${item?._id}`, { state: { item: true } });
     window.scrollTo({ top: 0, behavior: "smooth" });
+    if (related) refetch();
   };
 
   const handleLoading = () => {

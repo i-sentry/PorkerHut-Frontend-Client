@@ -512,6 +512,20 @@ const SellersOrderPage = () => {
 
 export default SellersOrderPage;
 
+const monthList = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const MonthSelector: React.FC<{
   data: any[];
   loading: boolean;
@@ -556,7 +570,12 @@ const MonthSelector: React.FC<{
           onChange={handleChange}
           className="w-[200px] cursor-pointer border-none bg-transparent text-2xl focus:ring-0 md:w-[140px] md:text-base"
         >
-          <option value={1}>January</option>
+          {monthList.map((mon: string, index: any) => (
+            <option key={index + 1} value={index + 1}>
+              {mon}
+            </option>
+          ))}
+          {/* <option value={1}>January</option>
           <option value={2}>February</option>
           <option value={3}>March</option>
           <option value={4}>April</option>
@@ -567,7 +586,7 @@ const MonthSelector: React.FC<{
           <option value={9}>September</option>
           <option value={10}>October</option>
           <option value={11}>November</option>
-          <option value={12}>December</option>
+          <option value={12}>December</option> */}
         </select>
       </label>
     </div>

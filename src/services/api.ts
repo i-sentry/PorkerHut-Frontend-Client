@@ -28,6 +28,7 @@ export const api = {
     vendorStatus: (id: string | number) => `/api/vendors/${id}/status`,
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
+    updateVendor: (id: string) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
     recoverPassword: "/api/vendors/request-reset-password",
     resetPassword: (token: string | undefined) =>
@@ -56,7 +57,7 @@ export const api = {
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
     visibilityStatus: (id: string | number) =>
       `/api/products/${id}/visibilityStatus `,
-    updateProduct: (id: string) => `api/products/${id}`,
+    updateProduct: (id: string) => `/api/products/${id}`,
   },
   Ratings: {
     createRating: "/api/ratings/create",

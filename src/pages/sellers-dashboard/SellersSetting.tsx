@@ -18,6 +18,9 @@ import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { useUpdateVendor } from "../../services/hooks/Vendor";
+import { toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 type FormData = {
   fullName: string;
@@ -81,6 +84,17 @@ function SettingssTab() {
   const [eyeState, setEyeState] = useState(false);
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    //@ts-ignore
+    const storedVendor = JSON.parse(localStorage.getItem("vendor"));
+
+    if (storedVendor !== null) {
+      setVendor(storedVendor);
+    }
+  }, []);
+  console.log(vendor?.vendor?._id, "vendor", vendor);
+  const updateVendor = useUpdateVendor(vendor?.vendor?._id);
 
   // const [, setImage] = useState("");
   // const [imageUrl, setImageUrl] = useState("");
@@ -124,16 +138,8 @@ function SettingssTab() {
 
   // const [email] = useState("");
   // const [storeName] = useState("");
-  useEffect(() => {
-    //@ts-ignore
-    const storedVendor = JSON.parse(localStorage.getItem("vendor"));
 
-    if (storedVendor !== null) {
-      setVendor(storedVendor);
-    }
-  }, []);
-
-  console.log(vendor);
+  // console.log(vendor);
   const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
   // const accountOwnersName =
   //   vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
@@ -190,18 +196,36 @@ function SettingssTab() {
   // console.log({ errors });
 
   const onSubmit = (data: FormData) => {
+    setLoading(true);
+    updateVendor
+      .mutateAsync(data)
+      .then((res: any) => {
+        setLoading(false);
+        console.log(res);
+        toast.success(
+          "Your Account Information has been updated successfully!!!",
+        );
+        reset();
+      })
+      .catch((err: any) => {
+        setLoading(false);
+        console.log(err);
+      });
     // data.phoneNumber = phoneNumber;
 
     // data.email = email;
     // data.storeName = storeName;
     console.log(data.storeName);
     console.log(JSON.stringify(data, null, 2));
-    reset();
   };
+
+  const handleChangePassword = () => {
+    
+  }
 
   return (
     <>
-      <div className=" mb-20 flex flex-col justify-center xxs:hidden md:block ">
+      <div className=" mb-20 flex flex-col justify-center px-4 pt-10 xxs:hidden md:block">
         <div className="mb-8  flex flex-col gap-2">
           <h1 className="font-medium text-[#1F1F1F] xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px]">
             Settings
@@ -212,7 +236,7 @@ function SettingssTab() {
         </div>
         <section className=" space-y-1 rounded-[4px]  bg-[#F4F4F4]">
           <div className=" relative flex w-full flex-row flex-wrap items-stretch justify-center xl:items-stretch xl:justify-between">
-            <div className=" overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-200">
+            <div className=" overflow-clip-margin overflow-hidden px-8 lg:px-0 xl:h-screen  xl:w-1/4 xl:overflow-visible xl:px-4 xl:after:absolute xl:after:top-0 xl:after:left-[23%] xl:after:inline-block xl:after:h-full xl:after:w-[2px] xl:after:bg-gray-200">
               <div className="hide-scroll-bar flex justify-start  gap-4 overflow-x-auto  py-4 md:w-full md:flex-row md:items-center  lg:items-start xl:h-full  xl:flex-col xl:space-y-2 xl:overflow-visible">
                 <button
                   onClick={() => handleClick("account")}
@@ -340,13 +364,13 @@ function SettingssTab() {
                         className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor="fullName"
                       >
-                        FullName
+                        Full Name
                       </label>
                       <input
                         type="text"
                         {...register("fullName")}
                         placeholder="Enter Your Full Name"
-                        className={`h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30]  ${
+                        className={`form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30]  ${
                           errors.fullName ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -366,7 +390,7 @@ function SettingssTab() {
                         type="text"
                         {...register("storeName")}
                         placeholder="Enter Your Store Name"
-                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:outline-1 focus:outline-[#197b30] ${
+                        className={` form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30] ${
                           errors.storeName ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -387,7 +411,7 @@ function SettingssTab() {
                         type="email"
                         {...register("email")}
                         placeholder="Enter Your Email Address"
-                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                        className={`form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30] ${
                           errors.email ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -408,7 +432,7 @@ function SettingssTab() {
                         disabled
                         {...register("storeId")}
                         placeholder="Enter Store ID"
-                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                        className={` form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30] ${
                           errors.storeId ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -429,7 +453,7 @@ function SettingssTab() {
                         type="text"
                         {...register("streetAddress")}
                         placeholder="Enter Street Address"
-                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 capitalize text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 capitalize text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:border-[#197b30] focus:ring-[#197b30] ${
                           errors.streetAddress ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -449,7 +473,7 @@ function SettingssTab() {
                         type="text"
                         {...register("location")}
                         placeholder="Enter Location"
-                        className={` h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                        className={` placeholder:text-[#A2A2A2]focus:border-[#197b30] h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] focus:ring-[#197b30] ${
                           errors.location ? "border-[#dd1313]" : ""
                         }`}
                       />
@@ -475,7 +499,7 @@ function SettingssTab() {
                           name: "phonenumber",
 
                           id: "phonenumber",
-                          className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
+                          className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:border-[#197b30] focus:ring-[#197b30] ${
                             errors.phoneNumber ? "border-[#dd1313]" : ""
                           }`,
                         }}
@@ -489,15 +513,24 @@ function SettingssTab() {
                   <div className="flex gap-6 pt-3 pb-8">
                     <button
                       type="submit"
+                      // disabled={loading}
                       className="h-12 rounded  border border-[#F91919] px-[16px] text-[14px] font-semibold leading-[16px] text-[#F91919]"
                     >
                       Delete Account{" "}
                     </button>
                     <button
                       type="submit"
-                      className="h-12 rounded bg-[#197B30] px-[16px] text-[14px] font-semibold leading-[16px]  text-white"
+                      disabled={loading}
+                      className="inline-flex h-12 items-center justify-center gap-2 rounded bg-[#197B30] px-[16px] text-[14px] font-semibold leading-[16px]  text-white"
                     >
-                      Save Changes{" "}
+                      {loading ? (
+                        <>
+                          <CgSpinner size={20} className="animate-spin" /> Save
+                          Changes
+                        </>
+                      ) : (
+                        "Save Changes"
+                      )}
                     </button>
                   </div>
                 </div>
@@ -682,7 +715,7 @@ function SettingssTab() {
                     </p>
                   </div>
                   <div className="mt-5 flex justify-start">
-                    <button className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white">
+                    <button onClick={handleChangePassword} className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white">
                       Save Changes
                     </button>
                   </div>

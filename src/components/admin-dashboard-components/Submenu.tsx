@@ -72,7 +72,7 @@ const Submenu = ({ item }: { item: any }) => {
                 className={` flex h-16 items-center pl-1 pb-5 hover:cursor-pointer ${
                   location.pathname === item.url ? activeLink : "text-[#A2A2A2]"
                 }`}
-                key={index.id}
+                key={index}
                 onClick={() => toggleSideBar(false)}
               >
                 <p className="ml-14 ">{item.icon}</p>

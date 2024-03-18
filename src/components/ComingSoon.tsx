@@ -70,7 +70,7 @@ const ComingSoon = ({
               <p className="font-medium text-[#197B30]">
                 We're working hard to bring you something awesome. Stay tuned!
               </p>
-              <p className="w-[80vw] text-center font-medium text-[#FE6600] sm:w-full">
+              <p className="mx-auto w-[80vw] text-center font-medium text-[#FE6600] sm:w-full">
                 **Notify me when PorkerHut {pendingPage} is available**
               </p>
             </div>

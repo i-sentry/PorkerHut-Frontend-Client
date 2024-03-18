@@ -41,9 +41,11 @@ const ProductDetails = () => {
   const [ratingCard, setRatingCard] = useState<any>([]);
   useEffect(() => setProductID(id), [id]);
 
-  const { data: singleProduct, isLoading: loading } = useGetSingleProduct(
-    productID as string,
-  );
+  const {
+    data: singleProduct,
+    isLoading: loading,
+    refetch,
+  } = useGetSingleProduct(productID as string);
   const { data: allProducts } = useGetAllProducts();
   const { data: ratingDetails } = useGetRatingDetails(id as string);
   const allProductRatings = ratingDetails?.data?.ratingStatistics[0];
@@ -394,7 +396,12 @@ const ProductDetails = () => {
             {relatedProducts?.length >= 1 &&
               chunkArray(relatedProducts, 8)[1 - 1]?.map(
                 (item: any, index: number) => (
-                  <ProductCard item={item} key={index} />
+                  <ProductCard
+                    item={item}
+                    key={index}
+                    related={true}
+                    refetch={refetch}
+                  />
                 ),
               )}
 

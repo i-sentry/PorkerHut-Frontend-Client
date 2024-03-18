@@ -15,6 +15,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import { FaUserCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useUpdateVendor } from "../../services/hooks/Vendor";
+import { CgSpinner } from "react-icons/cg";
 
 type FormData = {
   fullName: string;
@@ -34,6 +37,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
   // const [, setImage] = useState("");
   // const [imageUrl, setImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const handleImage = (e: any) => {
   //   const file = e.target.files && e.target.files[0];
 
@@ -57,6 +61,8 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
       setVendor(storedVendor);
     }
   }, []);
+
+  const updateVendor = useUpdateVendor(vendor?.vendor?._id);
 
   console.log(vendor);
   const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
@@ -132,6 +138,21 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
   }, [reset, vendor]);
 
   const onSubmit = (data: FormData) => {
+    setLoading(true);
+    updateVendor
+      .mutateAsync(data)
+      .then((res: any) => {
+        setLoading(false);
+        console.log(res);
+        toast.success(
+          "Your Account Information has been updated successfully!!!",
+        );
+        reset();
+      })
+      .catch((err: any) => {
+        setLoading(false);
+        console.log(err);
+      });
     console.log(data.storeName);
 
     console.log(JSON.stringify(data, null, 2));
@@ -375,9 +396,16 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
             </div>
             <button
               type="submit"
-              className="w-full rounded border border-[#197B30] bg-[#197B30] px-8 py-4 text-[14px] font-semibold leading-[16px] text-white  xs:w-auto"
+              disabled={loading}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded bg-[#197B30] px-[16px] text-[14px] font-semibold leading-[16px]  text-white"
             >
-              Save Changes{" "}
+              {loading ? (
+                <>
+                  <CgSpinner size={20} className="animate-spin" /> Save Changes
+                </>
+              ) : (
+                "Save Changes"
+              )}
             </button>
           </div>
         </div>
