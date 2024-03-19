@@ -215,7 +215,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
             <RiMessage2Line size={26} className="text-[#F91919]" />
           </div>
           {loading && (
-            <div className="flex flex-col items-center justify-center border border-[#A2A2A2] px-4 py-10">
+            <div className="flex flex-col items-center justify-center border border-t-0 border-[#A2A2A2] px-4 py-10">
               <span>
                 Loading<span className="animate-pulse">...</span>
               </span>
@@ -245,7 +245,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
             </>
           )}
           {!loading && announcement?.length < 1 && (
-            <div className="flex flex-col items-center justify-center border border-[#A2A2A2] px-4 py-10">
+            <div className="flex flex-col  items-center justify-center border border-t-0 border-[#A2A2A2] px-4 py-10">
               <MdOutlineAnnouncement size={32} className="text-neutral-600" />
               <span className="mt-2 text-center">
                 No Announcement yet.
