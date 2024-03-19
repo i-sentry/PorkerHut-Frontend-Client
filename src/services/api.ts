@@ -121,6 +121,9 @@ export const api = {
     contactForm: `/api/enquiry/create`,
     agroservice: `/api/agroservice`,
   },
+  annoucement: {
+    allAnnoucement: `/api/announcement`,
+  },
 };
 
 export const makePostRequest = async (

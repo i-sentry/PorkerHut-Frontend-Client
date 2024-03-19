@@ -10,46 +10,56 @@ import banner1 from "../../assets/images/SellerHomeBanner.png";
 import { RiMessage2Line } from "react-icons/ri";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
+import { useGetAllAnnoucement } from "../../services/hooks/Vendor";
+import { MdOutlineAnnouncement } from "react-icons/md";
 // import { useGetVendorById } from "../../services/hooks/Vendor";
 
 interface SliderProps {
   sliderImages: never[];
 }
 
-const items = [
-  {
-    date: "Dec 3",
-    title: "December Sales!!!",
-    description:
-      "Prepare for the December sales and stock up your products because we will be experiencing high traffic on our site. It...",
-  },
-  {
-    date: "April 3",
-    title: "April Offer!",
-    description:
-      "Check out our latest collection of products. We have added exciting new items that you do not want to miss.",
-  },
-  {
-    date: "May 04",
-    title: "May Offer!",
-    description:
-      "Don't miss our special limited-time offer. Grab your favorite products at discounted prices before it ends!",
-  },
-  {
-    date: "June 1",
-    title: "Upcoming Event Announcement",
-    description:
-      "Mark your calendars! We have an exciting event coming up. Stay tuned for more details and join us for a memorable experience.",
-  },
-];
+// const items = [
+//   {
+//     date: "Dec 3",
+//     title: "December Sales!!!",
+//     description:
+//       "Prepare for the December sales and stock up your products because we will be experiencing high traffic on our site. It...",
+//   },
+//   {
+//     date: "April 3",
+//     title: "April Offer!",
+//     description:
+//       "Check out our latest collection of products. We have added exciting new items that you do not want to miss.",
+//   },
+//   {
+//     date: "May 04",
+//     title: "May Offer!",
+//     description:
+//       "Don't miss our special limited-time offer. Grab your favorite products at discounted prices before it ends!",
+//   },
+//   {
+//     date: "June 1",
+//     title: "Upcoming Event Announcement",
+//     description:
+//       "Mark your calendars! We have an exciting event coming up. Stay tuned for more details and join us for a memorable experience.",
+//   },
+// ];
 
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const [announcement, setAnnouncement] = useState<any[]>([]);
+  const { data: annouce, isLoading: loading } = useGetAllAnnoucement();
 
   const { data, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
+
+  useEffect(() => {
+    if (annouce?.data?.data) setAnnouncement(annouce?.data?.data);
+  }, []);
+
+  console.log(announcement, "Annoucements", annouce?.data?.data);
 
   const vendorOrders = data?.data?.orders;
   const todayOrder = vendorOrders?.filter((order: any) => {
@@ -190,11 +200,11 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           ))}
         </div>
       </div>
-      <div className="no-scrollbar hide-scrollbar my-8 mx-4 overflow-y-scroll">
+      {/* <div className="no-scrollbar hide-scrollbar my-8 mx-4 overflow-y-scroll">
         <p className="marquee hide-scroll-bar w-full whitespace-nowrap text-center ">
           jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj
         </p>
-      </div>
+      </div> */}
 
       <div className="mt-28 grid xxs:grid-rows-1 xxs:gap-14 xxs:px-4 md:grid-cols-2 md:gap-10">
         <div className="">
@@ -204,26 +214,45 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
             </span>
             <RiMessage2Line size={26} className="text-[#F91919]" />
           </div>
-
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="flex border border-t-0 border-[#A2A2A2] px-4 py-10 xxs:flex-col xxs:gap-8 md:flex-row md:gap-10"
-            >
-              <span className="whitespace-nowrap text-[16px] font-normal leading-[24px]">
-                {item.date}
+          {loading && (
+            <div className="flex flex-col items-center justify-center border border-[#A2A2A2] px-4 py-10">
+              <span>
+                Loading<span className="animate-pulse">...</span>
               </span>
-
-              <div className="flex flex-col gap-2">
-                <span className=" text-[18px] font-medium leading-[24px]">
-                  {item.title}
-                </span>
-                <span className="text-[16px] font-normal leading-[24px] text-[#333333]">
-                  {item.description}
-                </span>
-              </div>
             </div>
-          ))}
+          )}
+          {announcement?.length > 0 && (
+            <>
+              {announcement?.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex border border-t-0 border-[#A2A2A2] px-4 py-10 xxs:flex-col xxs:gap-8 md:flex-row md:gap-10"
+                >
+                  <span className="whitespace-nowrap text-[16px] font-normal leading-[24px]">
+                    {item?.date}
+                  </span>
+
+                  <div className="flex flex-col gap-2">
+                    <span className=" text-[18px] font-medium leading-[24px]">
+                      {item?.title}
+                    </span>
+                    <span className="text-[16px] font-normal leading-[24px] text-[#333333]">
+                      {item?.description}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          {!loading && announcement?.length < 1 && (
+            <div className="flex flex-col items-center justify-center border border-[#A2A2A2] px-4 py-10">
+              <MdOutlineAnnouncement size={32} className="text-neutral-600" />
+              <span className="mt-2 text-center">
+                No Announcement yet.
+                <br /> Stay tuned!!!
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-10">

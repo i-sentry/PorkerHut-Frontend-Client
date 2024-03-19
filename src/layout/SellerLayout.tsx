@@ -13,7 +13,6 @@ const Layout = () => {
   );
 
   // const accessToken = localStorage.getItem("vendorAccessToken");
-  console.log(vendor, "vendor", accessToken);
 
   useEffect(() => {
     const path = window.location.pathname;

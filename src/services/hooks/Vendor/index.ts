@@ -68,3 +68,10 @@ export const useUpdateVendor = (id: string) => {
       makeCustomPutRequest(data, api.Vendors.updateVendor(id)),
   });
 };
+
+export const useGetAllAnnoucement = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.annoucement.allAnnoucement),
+    queryKey: ["annoucement"],
+  });
+};

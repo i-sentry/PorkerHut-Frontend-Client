@@ -1,8 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Column } from "react-table";
-import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { useNavigate } from "react-router-dom";
-// import _ from "lodash";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import {
   useGetProductByVendor,
@@ -11,11 +9,9 @@ import {
 import moment from "moment";
 import { ImSpinner6 } from "react-icons/im";
 import { Tooltip } from "../../components/utility/ToolTip";
-import { right } from "@popperjs/core";
 import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
 import { useRefresh } from "../../store";
-import logo from "../../assets/images/porkerlogo.png";
 
 const StatusColumn = ({ d }: any) => {
   const { approvalStatus } = d;
@@ -116,26 +112,12 @@ const DateColumn = ({ d }: any) => {
 const ProductIDColumn = ({ d }: any) => {
   const { _id: productId } = d;
 
-  // console.log(productId, d, "pppppp");
-
   return (
     <div className="cursor-pointer">
       <Tooltip message={productId}>{productId.slice(0, 7)}...</Tooltip>
     </div>
   );
 };
-
-// const ActionColumn = ({ d }: any) => {
-//   const { _id: productId } = d;
-//   console.log(d, "ddddddddddddd");
-//   // const catId = row?.original?.information?.category?._id;
-
-//   return (
-//     <div onClick={handleView(productId)} className="underline">
-//       Edit
-//     </div>
-//   );
-// };
 
 const SellersProductPage = () => {
   const refresh = useRefresh((state) => state.isRefresh);
@@ -152,8 +134,6 @@ const SellersProductPage = () => {
     refetch,
   } = useGetProductByVendor(id);
 
-  console.log("vendorProducts:", vendorProducts, refresh);
-
   useEffect(() => {
     setRefresh(true);
     if (!isLoading && vendorProducts?.data) {
@@ -167,21 +147,6 @@ const SellersProductPage = () => {
       setProducts([]);
     }
   }, [vendorProducts, refresh]);
-
-  // const productData = useMemo(() => {
-  //   if (!vendorProducts?.data) {
-  //     return [];
-  //   }
-
-  //   const dataCopy = [...vendorProducts.data];
-
-  //   dataCopy.sort(
-  //     (a, b) =>
-  //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  //   );
-  //   console.log("Refresh now", refresh);
-  //   return dataCopy;
-  // }, [refresh]);
 
   useEffect(() => {
     if (refresh === true) refetch();
@@ -198,18 +163,7 @@ const SellersProductPage = () => {
     );
   }
 
-  // console.log(store.vendor._id, productData, "store");
-
   const handleView = (id: any, catId: any) => {
-    // navigate(
-    //   `/vendor/create-product?id=${encodeURIComponent(
-    //     id,
-    //   )}&cate=${encodeURIComponent(catId)}`,
-    //   {
-    //     replace: true,
-    //   },
-    // );
-
     navigate(
       `/vendor/product/create-product?id=${encodeURIComponent(id)}&catId=${encodeURIComponent(catId)}`,
     );
@@ -269,14 +223,12 @@ const SellersProductPage = () => {
     {
       Header: "Visibility Status",
       accessor: (row: any) => {
-        // console.log("visibility", row?.visibilityStatus);
         return <div className="capitalize">{row?.visibilityStatus}</div>;
       },
     },
     {
       Header: "Active",
       accessor: (row: any) => {
-        // console.log(row, "row row");
         return (
           <div>
             <ToggleVisibility id={row?._id} row={row} refetch={refetch} />
@@ -286,11 +238,9 @@ const SellersProductPage = () => {
     },
     {
       Header: "Action",
-      Cell: ({ row }: any) => {
-        const id = row?.original?._id;
-        const catId = row?.original?.information?.category?._id;
-        // console.log(row?.original, "osjdbhdhdhhd");
-
+      accessor: (row: any) => {
+        const id = row?._id;
+        const catId = row?.information?.category?._id;
         return (
           <div>
             <span
@@ -328,6 +278,7 @@ const SellersProductPage = () => {
           tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
           TData={products}
           placeholder={"Search product name, store names, category.... "}
+          statusType={"product"}
         />
         {/* )} */}
       </div>
@@ -384,6 +335,7 @@ const ToggleVisibility = ({
           toast.error(
             `${productName} visibility status is not updated. Try again!`,
           );
+          setLoading(false);
         });
     }
 
@@ -403,6 +355,7 @@ const ToggleVisibility = ({
           toast.error(
             `${productName} visibility status is not updated. Try again!`,
           );
+          setLoading(false);
         });
     }
   };

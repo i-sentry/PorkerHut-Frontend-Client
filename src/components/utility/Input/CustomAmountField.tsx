@@ -1,12 +1,10 @@
-import React from 'react'
+import React from "react";
 import { camelCase } from "lodash";
 import { Controller } from "react-hook-form";
-import AmountField from './AmountField';
-
+import AmountField from "./AmountField";
 
 function CustomAmountField({ data, control, errors }: any) {
-    const { defaultValue, name } = data;
-    console.log(defaultValue, name, "tsk");
+  const { defaultValue, name } = data;
   return (
     <Controller
       control={control}
@@ -17,4 +15,4 @@ function CustomAmountField({ data, control, errors }: any) {
   );
 }
 
-export default CustomAmountField
+export default CustomAmountField;
