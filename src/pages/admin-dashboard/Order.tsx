@@ -58,7 +58,7 @@ const DateColumn = ({ d }: any) => {
 
 const StoreNameColumn = ({ d }: any) => {
   // const { vendor } = d;
-  // console.log(d, "store-colum");
+  console.log(d, "store-colum");
 
   const storeName =
     d?.productDetails[0]?.vendor?.sellerAccountInformation?.shopName || "";
@@ -247,14 +247,17 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Store Name",
-    accessor: (row) =>
-      // @ts-ignore
-      row.status,
-    // row.productDetails[0]?.vendor?.sellerAccountInformation?.shopName,
-    Cell: (data: any) => {
-      const d = data.row.original;
+    accessor: (row) => {
+      const d = row;
       return <StoreNameColumn d={d} />;
     },
+    // @ts-ignore
+
+    // row.productDetails[0]?.vendor?.sellerAccountInformation?.shopName,
+    // Cell: (data: any) => {
+    //   const d = data.row.original;
+    //   return <StoreNameColumn d={d} />;
+    // },
   },
   {
     Header: "Order Date",
