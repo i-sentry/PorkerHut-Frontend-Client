@@ -1,7 +1,12 @@
 import useQueryAction from "../../../lib/useQueryAction";
 import useQueryMutation from "../../../lib/useQueryMutation";
 import { IEmail } from "../../../pages/Authentication/ForgetPassword";
-import { makePostRequest, api, makeGetRequest } from "../../api";
+import {
+  makePostRequest,
+  api,
+  makeGetRequest,
+  makeGetRequestWithCustomHeader,
+} from "../../api";
 import { ILoginUser, ISignUpUser } from "../../serviceType";
 
 export const useUserSignUp = () => {
@@ -34,7 +39,7 @@ export const useRestPassword = (token: string | undefined) => {
 
 export const useGetAllUsers = () => {
   return useQueryAction({
-    queryFn: () => makeGetRequest(api.Users.allUser),
+    queryFn: () => makeGetRequestWithCustomHeader(api.Users.allUser),
     queryKey: ["User +"],
   });
 };

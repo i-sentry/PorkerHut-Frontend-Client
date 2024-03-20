@@ -33,8 +33,6 @@ import { ImBlog } from "react-icons/im";
 // import { TbMeat } from "react-icons/tb";
 import { RiHandHeartLine, RiContactsLine, RiBook3Line } from "react-icons/ri";
 
-
-
 export const vendorsSideBarLink = [
   {
     id: 0,
@@ -112,6 +110,22 @@ export const AdminSideBarLink = [
     name: "Customers",
     url: "/admin/customers",
     icon: <HiOutlineUserGroup width={"20px"} height={"20px"} />,
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Customer Orders",
+        url: "/admin/stores",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Customer Completed Orders",
+        url: "/admin/stores/new",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
   },
   {
     id: 3,
@@ -137,7 +151,7 @@ export const AdminSideBarLink = [
       },
       {
         id: 1,
-        name: "New Stores",
+        name: "All Stores",
         url: "/admin/stores/new",
         // icon: <WalletIcon width={"20px"} height={"20px"} />,
       },
@@ -171,14 +185,9 @@ export const AdminSideBarLink = [
     url: "/admin/logistic",
     icon: <FaShuttleVan width={"20px"} height={"20px"} />,
   },
+
   {
     id: 7,
-    name: "Calendar",
-    url: "/admin/calender",
-    icon: <RiCalendar2Line width={"20px"} height={"20px"} />,
-  },
-  {
-    id: 8,
     name: "Blog",
     url: "/admin/blog",
     icon: <MdOutlineArticle width={"20px"} height={"20px"} />,
@@ -200,13 +209,13 @@ export const AdminSideBarLink = [
     ],
   },
   {
-    id: 9,
+    id: 8,
     name: "Announcement",
     url: "/admin/announcement",
     icon: <AiOutlineSound width={"20px"} height={"20px"} />,
   },
   {
-    id: 10,
+    id: 9,
     name: "Payments",
     url: "/admin/payment/invoice",
     icon: <TfiCreditCard width={"20px"} height={"20px"} />,
@@ -228,14 +237,13 @@ export const AdminSideBarLink = [
     ],
   },
   {
-    id: 11,
+    id: 10,
     name: "Manage Category",
     url: "/admin/manage+category",
     icon: <MdOutlineDns width={"20px"} height={"20px"} />,
-
   },
   {
-    id: 12,
+    id: 11,
     name: "Services",
     url: "/admin/service/agro_service",
     icon: <MdShare width={"20px"} height={"20px"} />,
@@ -263,19 +271,13 @@ export const AdminSideBarLink = [
     ],
   },
   {
-    id: 13,
+    id: 12,
     name: "Product Created",
     url: "/admin/products",
     icon: <GoTag width={"20px"} height={"20px"} />,
   },
   {
-    id: 14,
-    name: "Messages",
-    url: "/dashboard/settings",
-    icon: <MdOutlineMessage width={"20px"} height={"20px"} />,
-  },
-  {
-    id: 15,
+    id: 13,
     name: "Settings",
     url: "/admin/settings",
     icon: <IoSettingsOutline width={"20px"} height={"20px"} />,

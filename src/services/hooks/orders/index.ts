@@ -49,6 +49,13 @@ export const useGetAggregateVendorOrders = (id: string) => {
   });
 };
 
+export const useGetAggregateUserOrders = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.aggregateUserOrders(id)),
+    queryKey: ["aggregate+user+order"],
+  });
+};
+
 export const useGetAdminOverview = (startDate: any, endDate: any) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.admin.adminOverView(startDate, endDate)),

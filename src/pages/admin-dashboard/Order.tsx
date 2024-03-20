@@ -20,7 +20,6 @@ export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
     case "completed":
       return <span className="text-[#22C55E]">Completed</span>;
-
     case "failed":
       return <span className=" text-[#F91919]">Failed</span>;
     case "pending":
@@ -77,7 +76,8 @@ const StoreNameColumn = ({ d }: any) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  const adata = data?.cell?.value;
+  console.log(data, "datat attat");
+  const adata = data?.productDetails[0]?.productID?.information?.productName;
   const lowerData = adata?.toLowerCase();
   const productName = _.startCase(lowerData);
   // console.log(data?.row?.original, "data", data.cell);
@@ -85,7 +85,7 @@ export const ProductNameColumn = ({ data }: any) => {
     <div className="flex items-center gap-2">
       <figure className="h-9 w-9 rounded-full border">
         <img
-          src={data?.row?.original?.img}
+          src={data?.productDetails[0]?.productID?.images[0]}
           alt="product"
           className="h-full w-full rounded-full object-cover"
         />
@@ -242,8 +242,9 @@ export const OrderData = [
 const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Product Name",
-    accessor: "product_name",
-    Cell: (props: any) => <ProductNameColumn data={props} />,
+    accessor: (row: any) => {
+      return <ProductNameColumn data={row} />;
+    },
   },
   {
     Header: "Store Name",
@@ -321,6 +322,7 @@ const Order = () => {
   useEffect(() => {
     if (!isLoading) setOrders(ordersList?.data.data);
   }, [ordersList?.data.data, isLoading]);
+  const navigate = useNavigate();
 
   const optionalColumn = {
     id: "expand",
@@ -333,23 +335,21 @@ const Order = () => {
     ),
     // The cell can use the individual row's getToggleRowSelectedProps method
     // to the render a checkbox
-    Cell: ({ row }: any) => {
-      const navigate = useNavigate();
-
+    accessor: (row: any) => {
       const handleView = (id: any) => {
         navigate(`/admin/order/${id}`, {
           replace: true,
         });
+        window.scrollTo(0, 0);
+        console.log(id, "isisiisgososo");
       };
 
-      React.useEffect(() => {
-        window.scrollTo(0, 0);
-      }, []);
+      console.log(row, "shshshshshshsh");
 
       return (
         <div>
           <span
-            onClick={() => handleView(row?.original?.id)}
+            onClick={() => handleView(row?._id)}
             className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
           >
             View

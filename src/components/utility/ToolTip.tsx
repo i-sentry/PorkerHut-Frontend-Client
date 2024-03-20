@@ -10,7 +10,7 @@ export const Tooltip = ({
 }) => {
   return (
     <div
-      className={`group relative flex flex-col  ${className || "items-center"}`}
+      className={`group relative flex flex-col ${className ? className : "items-center"}`}
     >
       {children}
       <div className="absolute top-0  mt-6 hidden flex-col items-center group-hover:flex">
