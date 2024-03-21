@@ -22,10 +22,11 @@ export const StatusColumn = ({ data }: { data: string }) => {
   }
 };
 
-const OrderColumn = ({ data }: any) => {
-  const { data: orders } = useGetAggregateUserOrders(data?._id);
-  console.log(orders, "no of orders");
-  return <div>Hellp</div>;
+export const OrderColumn = ({ row }: any) => {
+  const id = row?._id;
+  const { data: orders } = useGetAggregateUserOrders(id);
+  console.log(orders, "no of orders", id);
+  return <div>{orders?.data?.totalOrders}</div>;
 };
 
 const Tcolumns: readonly Column<object>[] = [
@@ -55,7 +56,7 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Order",
     accessor: (row: any) => {
-      return <OrderColumn data={row} />;
+      return <OrderColumn row={row} />;
     },
   },
   {
