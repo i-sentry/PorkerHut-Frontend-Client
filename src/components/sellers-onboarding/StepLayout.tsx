@@ -138,7 +138,7 @@ const StepLayout = () => {
   return (
     <>
       <TopNav />
-      <div className="main-div mb-24 mt-24 ">
+      <div className="main-div relative mb-24 mt-24">
         <div>
           <div className="mt-4 flex items-center  justify-center">
             <h1 className="text-[20px] font-medium leading-[27px] text-[#333333] md:leading-[] lg:text-[40px] lg:leading-[47px]">

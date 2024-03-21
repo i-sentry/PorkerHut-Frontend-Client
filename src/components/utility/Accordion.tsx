@@ -117,9 +117,12 @@ const Accordion = ({ height }: { height?: string }) => {
     <div
       className={`mb-4 flex ${height || "h-fit"} w-full flex-col rounded-md px-0 py-3 md:max-w-2xl lg:px-5`}
     >
-      <h1 className=" mb-8 text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
+      <h1 className=" text-[24px] font-medium leading-[28px] text-[#333333] sm:text-xl ">
         Summary
       </h1>
+      <p className="mb-8 text-[#333333]">
+        Please kindly review your filled information
+      </p>
       <AccordionSection
         title="Seller Account Information"
         isExpanded={isAccountInfoExpanded}
@@ -173,8 +176,9 @@ const Accordion = ({ height }: { height?: string }) => {
               <CustomSelect
                 selectedOption={dropOption}
                 defaultValue={{
-                  label: `${userData?.sellerAccountInformation?.entityType}`,
-                  value: `${userData?.sellerAccountInformation?.entityType?.toLowerCase()}`,
+                  label: userData?.sellerAccountInformation?.entityType,
+                  value:
+                    userData?.sellerAccountInformation?.entityType?.toLowerCase(),
                 }}
                 // selectedOption={dropOption || userData.entitytype}
                 setSelectOption={setDropOption}
@@ -276,8 +280,8 @@ const Accordion = ({ height }: { height?: string }) => {
                 placeholder={"Select bank"}
                 options={bankData || []}
                 defaultValue={{
-                  label: `${userData?.vendorBankAccount?.bankName}`,
-                  value: `${userData?.vendorBankAccount?.bankName?.toLowerCase()}`,
+                  label: userData?.vendorBankAccount?.bankName,
+                  value: userData?.vendorBankAccount?.bankName?.toLowerCase(),
                 }}
               />
             </div>

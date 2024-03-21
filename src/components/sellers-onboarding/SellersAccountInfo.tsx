@@ -150,6 +150,10 @@ const SellersAccountInfo = () => {
                     setSelectOption={setDropOption}
                     placeholder={"-Choose an option-"}
                     options={vendorType}
+                    // defaultValue={{
+                    //   value: userData.sellerAccountInformation.entityType,
+                    //   label: userData.sellerAccountInformation.entityType,
+                    // }}
                   />
                 </div>
               </>
@@ -214,11 +218,9 @@ const SellersAccountInfo = () => {
                               "specialChar",
                               "number",
                               "capital",
-                              // "match",
                             ]}
                             minLength={8}
                             value={value}
-                            // valueAgain={confirmPassword}
                             invalidTextColor={"#e10"}
                             onChange={(isValid) => {}}
                           />
@@ -272,7 +274,7 @@ const SellersAccountInfo = () => {
                       setVal(!val);
                     }}
                     checked={val}
-                    className="h-4 w-4 cursor-pointer rounded  accent-[#197B30] checked:bg-[#197B30]"
+                    className="hover:bg-green-[#197B30] form-checkbox h-4 w-4 cursor-pointer rounded text-[#197B30]  accent-[#197B30] checked:bg-[#197B30] focus:ring-[#197B30] "
                   />
                   <label htmlFor="" className="ml-2 text-sm text-slate-500">
                     I have read and accepted{" "}
@@ -295,9 +297,9 @@ const SellersAccountInfo = () => {
                     )}
 
                     <button
-                      disabled={currentStep < 1}
-                      className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out hover:opacity-50 disabled:bg-[#ddddddfd] ${
-                        currentStep < 1 ? "cursor-not-allowed" : ""
+                      disabled={currentStep === 1}
+                      className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out  disabled:bg-[#ddddddfd] ${
+                        currentStep === 1 ? "cursor-not-allowed opacity-50" : ""
                       }`}
                     >
                       Back nn
