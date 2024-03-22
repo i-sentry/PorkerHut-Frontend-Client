@@ -8,11 +8,10 @@ const Layout = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  const { vendor, token: accessToken } = JSON.parse(
-    localStorage.getItem("vendor") as string,
-  );
+  const vendors = JSON.parse(localStorage.getItem("vendor") as string);
+  const vendor = vendors?.vendor;
 
-  // const accessToken = localStorage.getItem("vendorAccessToken");
+  const accessToken = localStorage.getItem("vendorAccessToken");
 
   useEffect(() => {
     const path = window.location.pathname;

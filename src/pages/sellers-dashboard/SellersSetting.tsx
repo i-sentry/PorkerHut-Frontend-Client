@@ -18,7 +18,10 @@ import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { useUpdateVendor } from "../../services/hooks/Vendor";
+import {
+  useUpdateVendor,
+  useVendorRestPassword,
+} from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
 
@@ -219,9 +222,22 @@ function SettingssTab() {
     console.log(JSON.stringify(data, null, 2));
   };
 
-  const handleChangePassword = () => {
-    
-  }
+  const updatePassWord = useVendorRestPassword(vendor.token);
+
+  const handleChangePassword = (e: any) => {
+    e.preventDefault();
+
+    updatePassWord
+      .mutateAsync({
+        password: "",
+      })
+      .then((res: any) => {
+        console.log(res, "suceessfull");
+      })
+      .catch((err: any) => {
+        console.log(err, "Error");
+      });
+  };
 
   return (
     <>
@@ -715,7 +731,10 @@ function SettingssTab() {
                     </p>
                   </div>
                   <div className="mt-5 flex justify-start">
-                    <button onClick={handleChangePassword} className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white">
+                    <button
+                      onClick={handleChangePassword}
+                      className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white"
+                    >
                       Save Changes
                     </button>
                   </div>
