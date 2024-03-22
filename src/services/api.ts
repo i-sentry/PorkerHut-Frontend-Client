@@ -116,6 +116,7 @@ export const api = {
     getAdmin: "/api/user/admin",
     adminOverView: (startDate: any, endDate: any) =>
       `/api/orders/admin/overview/${startDate}/${endDate}`,
+    adminAccess: (id: string) => `/api/user/update-access/${id}`,
   },
   forms: {
     contactForm: `/api/enquiry/create`,
