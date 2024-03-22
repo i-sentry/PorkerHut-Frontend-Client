@@ -14,7 +14,7 @@ function CustomTextArea({ data, control, register, errors }: any) {
       <textarea
         id={data.name}
         type={data.type}
-        className={`appearance-none  relative block w-full px-[14px] py-[10px] border border-gray-300 placeholder-gray-500 text-[#333] rounded-md focus:outline-none focus:ring-green-300  focus:border-green-300  focus:z-10 text-[13px] leading-normal ${
+        className={`appearance-none capitalize relative block w-full px-[14px] py-[10px] border border-gray-300 placeholder-gray-500 text-[#333] rounded-md focus:outline-none focus:ring-green-300  focus:border-green-300  focus:z-10 text-[13px] leading-normal ${
           errors[data.name] && "border-[#a10]"
         }`}
         placeholder={data.place_holder}

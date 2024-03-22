@@ -43,6 +43,8 @@ const StepLayout = () => {
   const checkoutSteps = sellersStep;
   const numSteps = 4;
   const isOpen = useSignUpState((state) => state.isOpen);
+  const setIsOpen = useSignUpState((state) => state.setIsOpen);
+
   const [progress, setProgress] = useState(25);
 
   const displayStep = (sellersStep: any) => {
@@ -59,6 +61,7 @@ const StepLayout = () => {
     }
   };
 
+  useEffect(() => setIsOpen(false), []);
   const handleClick = (direction: string) => {
     let newStep = currentStep;
 
@@ -138,7 +141,7 @@ const StepLayout = () => {
   return (
     <>
       <TopNav />
-      <div className="main-div mb-24 mt-24 ">
+      <div className="main-div relative mb-24 mt-24">
         <div>
           <div className="mt-4 flex items-center  justify-center">
             <h1 className="text-[20px] font-medium leading-[27px] text-[#333333] md:leading-[] lg:text-[40px] lg:leading-[47px]">
@@ -225,11 +228,13 @@ const StepLayout = () => {
         </div>
 
         {isOpen && (
-          <SuccessScreen
-            title={"Account Created Successfully"}
-            msg={"Please proceed to login to access your dashboard"}
-            url={"/sign-in?q=vendor"}
-          />
+          <div className="fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white">
+            <SuccessScreen
+              title={"Account Created Successfully"}
+              msg={"Please proceed to login to access your dashboard"}
+              url={"/sign-in?q=vendor"}
+            />
+          </div>
         )}
       </div>
       <Footer />

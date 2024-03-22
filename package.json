@@ -53,6 +53,7 @@
     "react-loading": "^2.0.3",
     "react-multi-carousel": "^2.8.2",
     "react-paginate": "7.0.0",
+    "react-password-checklist": "^1.5.1",
     "react-phone-input-2": "^2.15.1",
     "react-phone-number-input": "^3.2.20",
     "react-query": "^3.39.2",

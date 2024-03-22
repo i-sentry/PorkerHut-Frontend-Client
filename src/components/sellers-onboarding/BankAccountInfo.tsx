@@ -35,6 +35,7 @@ const BankAccountInfo = () => {
   const [, setAccountName] = useState("");
 
   const [accName, setAccName] = useState("");
+  const [error, setError] = useState(false);
 
   const bankAccount = userData.vendorBankAccount.accountNumber;
   const bankCode = dropOption?.value;
@@ -112,6 +113,11 @@ const BankAccountInfo = () => {
   React.useEffect(() => {
     setBankData(bankOptions);
   }, [bankOptions, setBankData]);
+
+  const bankCheck =
+    userData.vendorBankAccount.bankName === "" ||
+    userData.vendorBankAccount.accountName === "" ||
+    userData.vendorBankAccount.accountNumber === "";
   return (
     <div>
       {" "}
@@ -219,7 +225,40 @@ const BankAccountInfo = () => {
               </div>
 
               <div className="">
-                {currentStep !== checkoutSteps?.length && <StepperController />}
+                {currentStep !== checkoutSteps?.length &&
+                bankCheck === false ? (
+                  <StepperController />
+                ) : (
+                  <div className="parent-class my-5 flex  w-full flex-wrap justify-center gap-3 lg:justify-end">
+                    {error && (
+                      <p className="w-full text-red-500">
+                        Please Fill all required fields with asterisk(*)
+                      </p>
+                    )}
+
+                    <button
+                      disabled={currentStep === 1}
+                      className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out  disabled:bg-[#ddddddfd] ${
+                        currentStep === 1 ? "cursor-not-allowed opacity-50" : ""
+                      }`}
+                    >
+                      Back nn
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={error}
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        setError(true);
+                      }}
+                      className="text-button  rounded border border-[#197b30] bg-[#197b30] px-10 py-2.5 text-white shadow-lg   duration-100 ease-in-out hover:opacity-50 disabled:bg-[#197b30ac]"
+                    >
+                      {currentStep === checkoutSteps?.length
+                        ? "Get Started"
+                        : "Next"}
+                    </button>
+                  </div>
+                )}
               </div>
             </form>
           </div>

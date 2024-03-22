@@ -11,7 +11,7 @@ interface Props {
   required?: boolean;
   isDisabled?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  defaultValue?:string;
+  defaultValue?: string;
 }
 const InputComponent = ({
   label,
@@ -28,14 +28,14 @@ const InputComponent = ({
 }: Props) => {
   return (
     <div>
-      {label && <p className="text-xm mb-2 text-HeadingColor">{label}</p>}
+      {label && <p className="text-xm text-HeadingColor mb-2">{label}</p>}
       {/* <div
         className={`flex border-[1px] border-black border-opacity-20 rounded-lg items-center h-12 ${containerClass}`}
       > */}
       <input
         type={type}
         placeholder={placeholder}
-        className={`appearance-none  relative block w-full px-[14px] py-[12px] border border-gray-300 placeholder-slate-300 text-gray-900 rounded-md focus:outline-none focus:ring-[#197b30] focus:border-[#197b30] focus:z-10 sm:text-sm`}
+        className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
         value={value}
         name={name}
         required={required ? required : false}

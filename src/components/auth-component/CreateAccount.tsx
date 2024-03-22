@@ -5,8 +5,29 @@ import { useForm } from "react-hook-form";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import ReactLoading from "react-loading";
-import { useUserSignUp } from "../../services/hooks/users";
+import { useUserLogin, useUserSignUp } from "../../services/hooks/users";
 import AccountCreationModal from "../modal-component/AccountCreationModal";
+import PasswordChecklist from "react-password-checklist";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-toastify";
+
+interface ISignUpProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  // checkbox?: string;
+}
+
+const schema = yup.object().shape({
+  firstName: yup.string().required("Enter your first name"),
+  lastName: yup.string().required("Enter your last name"),
+  email: yup.string().required("Enter your email"),
+  password: yup.string().required(),
+  confirmPassword: yup.string().required(),
+});
 
 const CreateAccount: any = () => {
   const navigate = useNavigate();
@@ -15,12 +36,18 @@ const CreateAccount: any = () => {
   const [eyeState2, setEyeState2] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const login = useUserLogin();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-  } = useForm();
+    // watch,
+  } = useForm<ISignUpProps>({
+    resolver: yupResolver(schema),
+  });
   const onSubmit = handleSubmit((data, e) => {
     setLoading(true);
     const { firstName, lastName, email, password } = data;
@@ -37,6 +64,13 @@ const CreateAccount: any = () => {
         setIsOpen(true);
         setLoading(false);
         console.log(res);
+
+        // login.mutateAsync({
+        //   email: res?.data?.others?.email.toLowerCase(),
+        //   password: password,
+        // }).then((res: any) => {
+        //   toast.success("")
+        // });
       })
       .catch((e) => {
         setLoading(false);
@@ -55,12 +89,13 @@ const CreateAccount: any = () => {
 
   // const handleCreateUserAcc = () => {};
 
-  const passwordref = useRef({});
-  passwordref.current = watch("password", "");
+  // const passwordref = useRef({});
+  // passwordref.current = watch("password", "");
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" }); // scrolls to top-left corner of the page
   }, []);
+
   return (
     <>
       <div className="mb-20">
@@ -93,67 +128,84 @@ const CreateAccount: any = () => {
                   First Name
                 </label>
                 <input
-                  {...register("firstName", { required: true })}
+                  {...register("firstName")}
                   type="text"
                   name="firstName"
                   placeholder="Enter your firstName"
                   id="firstName"
-                  className={`mt-1 w-full appearance-none rounded  border border-[##EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
                     errors.firstName
-                      ? "border-[#e10] focus-within:border-[#e10]"
-                      : "border-[##EEEEEE] "
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
                   }`}
                 />
+                {errors.firstName && (
+                  <p className="mt-2 text-[#e10]">
+                    {errors?.firstName?.message}
+                  </p>
+                )}
               </div>
               <div className="mt-2">
                 <label htmlFor="" className="text-base font-normal">
                   Last Name
                 </label>
                 <input
-                  {...register("lastName", { required: true })}
+                  {...register("lastName")}
                   type="text"
                   name="lastName"
                   placeholder="Enter your Lastname"
                   id="lastName"
-                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
                     errors.lastName
-                      ? "border-[#e10] focus-within:border-[#e10]"
-                      : "border-[##EEEEEE] "
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
                   }`}
                 />
+                {errors.lastName && (
+                  <p className="mt-2 text-[#e10]">
+                    {errors?.firstName?.message}
+                  </p>
+                )}
               </div>
               <div className="mt-2">
                 <label htmlFor="" className="text-base font-normal">
                   Email Address
                 </label>
                 <input
-                  {...register("email", { required: true })}
+                  {...register("email")}
                   type="email"
                   name="email"
                   placeholder="Enter your email "
                   id="email"
-                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
                     errors.email
-                      ? "border-[#e10] focus-within:border-[#e10]"
-                      : "border-[##EEEEEE] "
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
                   }`}
                 />
+                {errors.email && (
+                  <p className="mt-2 text-[#e10]">
+                    {errors?.firstName?.message}
+                  </p>
+                )}
               </div>
               <div className="relative mt-2">
                 <label htmlFor="" className="text-base font-normal">
                   Password
                 </label>
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password")}
                   autoComplete="on"
                   type={eyeState2 ? "text" : "password"}
-                  name="password"
+                  // name="password"
                   placeholder="**********"
+                  value={password}
+                  onChange={(e: any) => setPassword(e.target.value)}
                   id="password"
-                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
                     errors.password
-                      ? "border-[#e10] focus-within:border-[#e10]"
-                      : "border-[##EEEEEE] "
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
                   }`}
                 />
                 <button
@@ -168,21 +220,24 @@ const CreateAccount: any = () => {
                   Confirm Password
                 </label>
                 <input
-                  {...register("confirmPassword", {
-                    required: true,
-                    validate: (value) =>
-                      value === passwordref.current ||
-                      "The passwords do not match",
-                  })}
+                  {...register("confirmPassword")}
+                  // {...register("confirmPassword", {
+                  //   required: true,
+                  //   validate: (value) =>
+                  //     value === passwordref.current ||
+                  //     "The passwords do not match",
+                  // })}
                   type={eyeState ? "text" : "password"}
-                  name="confirmPassword"
+                  // name="confirmPassword"
                   autoComplete="on"
                   placeholder="**********"
                   id="confirmPassword"
-                  className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
+                  value={confirmPassword}
+                  onChange={(e: any) => setConfirmPassword(e.target.value)}
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
                     errors.confirmPassword
-                      ? "border-[#e10] focus-within:border-[#e10]"
-                      : "border-[##EEEEEE] "
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
                   }`}
                 />
                 <button
@@ -191,6 +246,24 @@ const CreateAccount: any = () => {
                 >
                   {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                 </button>
+              </div>
+              <div className="mt-3">
+                {password !== "" && (
+                  <PasswordChecklist
+                    rules={[
+                      "minLength",
+                      "specialChar",
+                      "number",
+                      "capital",
+                      "match",
+                    ]}
+                    minLength={8}
+                    value={password}
+                    valueAgain={confirmPassword}
+                    invalidTextColor={"#e10"}
+                    onChange={(isValid) => {}}
+                  />
+                )}
               </div>
 
               <div className="mt-12">

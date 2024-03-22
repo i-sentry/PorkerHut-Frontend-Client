@@ -55,6 +55,7 @@ const BusinessInfo = () => {
   const [selectedFile] = useState<any>(null);
   const [selecFile] = useState<any>(null);
   const [seFile] = useState<any>(null);
+  const [error, setError] = useState(false);
   // const [documentType, setDocumentType] = useState("Incorporation Document");
   const [,] = useState({
     selected1: "",
@@ -161,7 +162,7 @@ const BusinessInfo = () => {
   //   formData.append("documentType", documentType);
   //   setDocsUrl(formData);
   // };
-  console.log(files, "gyguygyg");
+  // console.log(selecFile, selectedFile, "gyguygyg");
   const updateUserData = (property: string, value: string) => {
     setUserData((prevUserData: ISellerInfo) => ({
       ...prevUserData,
@@ -187,6 +188,15 @@ const BusinessInfo = () => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  const bizCheck =
+    userData.businessInformation.city === "" ||
+    userData.businessInformation.address1 === "" ||
+    userData.businessInformation.companyRegisteredName === "" ||
+    userData.businessInformation.businessOwnerName === "" ||
+    userData.businessInformation.dateOfBirth === "" ||
+    userData.businessInformation.IDType === "" ||
+    userData.businessInformation.CACRegistrationNumber === "";
 
   return (
     <div>
@@ -260,6 +270,7 @@ const BusinessInfo = () => {
                     setSelectOption={setIDType}
                     placeholder={"-Choose an option-"}
                     options={documents || []}
+                    // defaultValue={userData.sellerAccountInformation.entityType}
                   />
                 </div>
               </>
@@ -537,9 +548,49 @@ const BusinessInfo = () => {
                 </div>
               </>
 
-              <div>
+              {/* <div>
                 {currentStep !== checkoutSteps?.length && (
                   <StepperController formFiles={files} />
+                )}
+              </div> */}
+
+              <div className="">
+                {currentStep !== checkoutSteps?.length &&
+                bizCheck === false &&
+                seFiles?.length &&
+                selecFiles?.length &&
+                selectedFiles?.length ? (
+                  <StepperController formFiles={files} />
+                ) : (
+                  <div className="parent-class my-5 flex  w-full flex-wrap justify-center gap-3 lg:justify-end">
+                    {error && (
+                      <p className="w-full text-red-500">
+                        Please Fill all required fields with asterisk(*)
+                      </p>
+                    )}
+
+                    <button
+                      disabled={currentStep < 1}
+                      className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out hover:opacity-50 disabled:bg-[#ddddddfd] ${
+                        currentStep < 1 ? "cursor-not-allowed" : ""
+                      }`}
+                    >
+                      Back nn
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={error}
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        setError(true);
+                      }}
+                      className="text-button  rounded border border-[#197b30] bg-[#197b30] px-10 py-2.5 text-white shadow-lg   duration-100 ease-in-out hover:opacity-50 disabled:bg-[#197b30ac]"
+                    >
+                      {currentStep === checkoutSteps?.length
+                        ? "Get Started"
+                        : "Next"}
+                    </button>
+                  </div>
                 )}
               </div>
             </form>

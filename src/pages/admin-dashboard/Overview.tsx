@@ -16,19 +16,8 @@ const Overview = () => {
     start,
     end,
   );
-  const {
-    totalSales,
-    totalOrders,
-    averageDailyRevenues,
-    totalItemsSold,
-    averageOrderValue,
-    totalPendingOrders,
-    totalFulfilledOrders,
-    totalFailedOrders,
-    totalReturnedOrders,
-    averageDailyOrders,
-  } = overview?.data;
-  console.log("Current month:", totalSales);
+  const adminOverview = overview?.data;
+  // console.log("Current month:", totalSales);
 
   // console.log("First day of the month:", firstDay);
   // console.log("Last day of the month:", lastDay);
@@ -96,7 +85,13 @@ const Overview = () => {
         return (
           <>
             <h1 className="text-xs font-light text-[#A2A2A2]">{val?.title}</h1>
-            <span className="text-xl font-medium">{val?.figure}</span>
+            <span className="text-xl font-medium">
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
+            </span>
           </>
         );
     }
@@ -132,27 +127,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Total Sales",
-      figure: `₦${totalSales.toLocaleString()}`,
+      figure: `₦${adminOverview?.totalSales.toLocaleString()}`,
     },
     {
       id: "2",
       title: "Daily Revenues",
-      figure: `₦${Math.trunc(averageDailyRevenues).toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageDailyRevenues).toLocaleString()}`,
     },
     {
       id: "3",
       title: "Items Sold",
-      figure: `${totalItemsSold}`,
+      figure: `${adminOverview?.totalItemsSold}`,
     },
     {
       id: "4",
       title: "Average Order Value",
-      figure: `₦${Math.trunc(averageOrderValue).toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageOrderValue).toLocaleString()}`,
     },
     {
       id: "5",
       title: "Total Orders",
-      figure: `${totalOrders}`,
+      figure: `${adminOverview?.totalOrders}`,
     },
   ];
 
@@ -160,27 +155,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Average Daily Order",
-      figure: `${Math.trunc(averageDailyOrders)}`,
+      figure: `${Math.trunc(adminOverview?.averageDailyOrders)}`,
     },
     {
       id: "2",
       title: "Pending Orders",
-      figure: `${totalPendingOrders}`,
+      figure: `${adminOverview?.totalPendingOrders}`,
     },
     {
       id: "3",
       title: "Fulfilled Orders",
-      figure: `${totalFulfilledOrders}`,
+      figure: `${adminOverview?.totalFulfilledOrders}`,
     },
     {
       id: "4",
       title: "Failed Orders",
-      figure: `${totalFailedOrders}`,
+      figure: `${adminOverview?.totalFailedOrders}`,
     },
     {
       id: "5",
       title: "Returned Order",
-      figure: `${totalReturnedOrders}`,
+      figure: `${adminOverview?.totalReturnedOrders}`,
     },
   ];
 

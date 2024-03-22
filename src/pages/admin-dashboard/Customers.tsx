@@ -6,6 +6,7 @@ import { Column } from "react-table";
 import { useGetAllUsers } from "../../services/hooks/users";
 import logo from "../../assets/images/porkerlogo.png";
 import { Tooltip } from "../../components/utility/ToolTip";
+import { useGetAggregateUserOrders } from "../../services/hooks/orders";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -19,6 +20,13 @@ export const StatusColumn = ({ data }: { data: string }) => {
         <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
+};
+
+export const OrderColumn = ({ row }: any) => {
+  const id = row?._id;
+  const { data: orders } = useGetAggregateUserOrders(id);
+  console.log(orders, "no of orders", id);
+  return <div>{orders?.data?.totalOrders}</div>;
 };
 
 const Tcolumns: readonly Column<object>[] = [
@@ -37,11 +45,19 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Phone Number",
-    accessor: "phone_number",
+    accessor: (row: any) => {
+      const info = row?.billingInfo?.find((info: any) => info?.isDefault);
+      console.log(info);
+
+      // return `${info?.phoneNumber || ""}`;
+      return `${info ? info?.phoneNumber : ""}`;
+    },
   },
   {
     Header: "Order",
-    accessor: "order",
+    accessor: (row: any) => {
+      return <OrderColumn row={row} />;
+    },
   },
   {
     Header: "Amount Spent",
@@ -64,19 +80,15 @@ const Tcolumns: readonly Column<object>[] = [
 
 const Customers = () => {
   const [users, setUsers] = useState<any[]>([]);
-
   const { data: allUser, isLoading } = useGetAllUsers();
 
-  const filterUserRole = allUser?.data?.filter(
-    (user: any) => user.role === "user",
-  );
+  console.log(allUser, "allUser");
 
   useEffect(() => {
-    if (!isLoading && filterUserRole.length > 0) setUsers(filterUserRole);
+    if (!isLoading && allUser?.length > 0)
+      setUsers(allUser?.filter((user: any) => user.role === "user"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
-
-  console.log(filterUserRole);
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -159,6 +171,8 @@ const Customers = () => {
           <AdminTable
             Tcolumns={Tcolumns}
             // @ts-ignore
+            showCheckbox={true}
+            showDropDown={true}
             optionalColumn={optionalColumn}
             tabs={["All", "Active", "Inactive"]}
             TData={users}

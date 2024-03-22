@@ -61,3 +61,17 @@ export const useVendorStatusUpdate = (id: string | number) => {
       makeCustomPutRequest(data, api.Vendors.vendorStatus(id)),
   });
 };
+
+export const useUpdateVendor = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.Vendors.updateVendor(id)),
+  });
+};
+
+export const useGetAllAnnoucement = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.annoucement.allAnnoucement),
+    queryKey: ["annoucement"],
+  });
+};
