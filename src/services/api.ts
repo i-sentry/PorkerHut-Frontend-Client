@@ -22,6 +22,7 @@ export const api = {
     recoverPassword: "/api/user/request-reset-password",
     resetPassword: (token: string | undefined) =>
       `/api/user/reset-password/${token}`,
+    singleUser: (id: string) => `/api/user/${id}`,
   },
   Vendors: {
     allVendors: "/api/vendors/",

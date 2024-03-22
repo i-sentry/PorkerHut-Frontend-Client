@@ -172,7 +172,7 @@ const OrderTableDetail = () => {
                   backgroundPosition: "center",
                 }}
               ></div>
-              <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-neutral-200 bg-neutral-50 p-4 lg:w-[calc(75%_-_20px)] xl:w-[calc(75%_/_2_-_20px)]">
+              <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-neutral-200 bg-neutral-50 p-4 lg:w-[calc(75%_-_20px)] xxl:w-[calc(75%_/_2_-_20px)]">
                 <div className="relative grid grid-cols-2 justify-between">
                   <div className="flex items-start gap-1">
                     <MdPersonOutline size={20} className="mt-1" />
@@ -222,7 +222,7 @@ const OrderTableDetail = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col justify-between rounded-lg border border-neutral-200 bg-neutral-50  p-4 lg:min-h-[100px] lg:w-full xl:min-h-[200px] xl:w-[calc(75%_/_2_-_20px)]">
+              <div className="flex flex-col justify-between rounded-lg border border-neutral-200 bg-neutral-50  p-4 lg:min-h-[100px] lg:w-full xxl:min-h-[200px] xxl:w-[calc(75%_/_2_-_20px)]">
                 <div className="">
                   <span className="text-sm text-neutral-400">Order Note</span>
                   <p>
@@ -268,7 +268,7 @@ const OrderTableDetail = () => {
               <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-neutral-200 bg-neutral-50 p-4 lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)]">
                 <div className="flex justify-between">
                   <IoBasketOutline size={20} />
-                  <span className={`text-sm ${statusOrder}`}>
+                  <span className={`text-sm capitalize ${statusOrder}`}>
                     {order?.status}
                   </span>
                 </div>
@@ -298,32 +298,32 @@ const OrderTableDetail = () => {
               <h3 className="mb-6 font-['Roboto'] text-2xl font-semibold tracking-wide text-zinc-800">
                 Other Items In Your Order
               </h3>
-              <div className="w-full">
-                <table className="w-full border-collapse rounded-2xl border border-zinc-300">
+              <div className="hide-scroll-bar w-full overflow-auto">
+                <table className="w-[1000px] border-collapse rounded-2xl border border-zinc-300">
                   <thead>
                     <tr className="bg-neutral-50">
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Product Name
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Store Name
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Order Date
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Order ID
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Prices
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         No of items
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left">
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
                         Status
                       </th>
-                      <th className="border border-zinc-300 py-4 px-8 text-left"></th>
+                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -336,16 +336,16 @@ const OrderTableDetail = () => {
                               className="h-10 w-10 rounded-full object-cover"
                               alt="product thumbnail"
                             />
-                            <span>
+                            <span className="capitalize">
                               {item?.productID.information.productName}
                             </span>
                           </div>
                         </td>
                         <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          <span>
+                          <span className="capitalize">
                             {item?.vendor.sellerAccountInformation.shopName}
                           </span>
-                          <span className="block text-neutral-300">
+                          <span className="block capitalize text-neutral-300">
                             {item?.vendor.businessInformation.city}
                           </span>
                         </td>
@@ -367,7 +367,7 @@ const OrderTableDetail = () => {
                           {item?.quantity}
                         </td>
                         <td
-                          className={`border border-zinc-300 p-3 px-5 text-sm ${statusOrder}`}
+                          className={`border border-zinc-300 p-3 px-5 text-sm capitalize ${statusOrder}`}
                         >
                           {item?.status || "-"}
                         </td>

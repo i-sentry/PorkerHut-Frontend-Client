@@ -6,6 +6,7 @@ import {
   api,
   makeGetRequest,
   makeGetRequestWithCustomHeader,
+  makeCustomPutRequest,
 } from "../../api";
 import { ILoginUser, ISignUpUser } from "../../serviceType";
 
@@ -41,6 +42,20 @@ export const useGetAllUsers = () => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.Users.allUser),
     queryKey: ["User +"],
+  });
+};
+
+export const useGetSingleUser = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequestWithCustomHeader(api.Users.singleUser(id)),
+    queryKey: ["User"],
+  });
+};
+
+export const useUpdateUserInfo = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.Users.singleUser(id)),
   });
 };
 

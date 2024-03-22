@@ -6,6 +6,8 @@ import { BsSearch } from "react-icons/bs";
 import StoreCard from "../../components/admin-dashboard-components/StoreCard";
 import { useGetVendors } from "../../services/hooks/Vendor";
 import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
+// import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
+
 const itemsPerPage = 8;
 const currentPage = 1;
 const StoreProfile = () => {

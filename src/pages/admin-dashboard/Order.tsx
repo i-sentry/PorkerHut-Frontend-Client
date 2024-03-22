@@ -15,6 +15,7 @@ import prod from "../../assets/products/prod.png";
 import { useGetOrders } from "../../services/hooks/orders";
 import { Tooltip } from "../../components/utility/ToolTip";
 import moment from "moment";
+import logo from "../../assets/images/porkerlogo.png";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -368,14 +369,31 @@ const Order = () => {
         </span>
       </div>
       <div>
-        <AdminTable
-          Tcolumns={Tcolumns}
-          // @ts-ignore
-          optionalColumn={optionalColumn}
-          tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
-          TData={orders}
-          placeholder={"Search product name, store names, category.... "}
-        />
+        {isLoading && (
+          <div className="flex h-[80vh] w-full flex-col items-center justify-center">
+            <img
+              src={logo}
+              alt="loaderLogo"
+              className="h-20 w-20 animate-pulse"
+            />
+            <p className="text-[14px] leading-[24px] text-[#333333]">
+              Fetching Data...
+            </p>
+          </div>
+        )}
+
+        {!isLoading && orders?.length ? (
+          <AdminTable
+            Tcolumns={Tcolumns}
+            // @ts-ignore
+            optionalColumn={optionalColumn}
+            tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
+            TData={orders}
+            placeholder={"Search product name, store names, category.... "}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
