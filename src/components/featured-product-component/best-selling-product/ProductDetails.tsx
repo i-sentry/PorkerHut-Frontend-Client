@@ -92,7 +92,7 @@ const ProductDetails = () => {
 
   const relatedProducts = filteredApprovedProduct?.filter(
     (product: any) =>
-      product?.information?.subcategory.name ===
+      product?.information?.subcategory?.name ===
       singleProduct?.data?.information?.subcategory?.name,
   );
 
