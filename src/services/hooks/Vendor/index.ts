@@ -10,6 +10,7 @@ import {
   makePatchRequest,
   makeCustomPutRequest,
   makeCustomPatchRequest,
+  makeDeleteRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -73,5 +74,29 @@ export const useGetAllAnnoucement = () => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.annoucement.allAnnoucement),
     queryKey: ["annoucement"],
+  });
+};
+
+export const useCreateAnnoucement = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      subject: string;
+      content: string;
+      startDate: Date;
+      endDate: Date;
+    }) => makePostRequest(data, api.annoucement.allAnnoucement),
+  });
+};
+
+export const useUpdateAnnoucement = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { subject: string; content: string; endDate: string }) =>
+      makePutRequest(data, api.annoucement.updateAnnouncement(id)),
+  });
+};
+
+export const useDeleteAnnoucement = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeDeleteRequest(api.annoucement.updateAnnouncement(id)),
   });
 };

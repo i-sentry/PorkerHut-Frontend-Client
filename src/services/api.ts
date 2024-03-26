@@ -125,6 +125,7 @@ export const api = {
   },
   annoucement: {
     allAnnoucement: `/api/announcement`,
+    updateAnnouncement: (id: string) => `/api/announcement/${id}`,
   },
 };
 

@@ -47,10 +47,10 @@ const Tcolumns: readonly Column<object>[] = [
     Header: "Phone Number",
     accessor: (row: any) => {
       const info = row?.billingInfo?.find((info: any) => info?.isDefault);
-      console.log(info);
+      // console.log(info, info?.phoneNumber || "Not Applicable");
 
       // return `${info?.phoneNumber || ""}`;
-      return `${info ? info?.phoneNumber : ""}`;
+      return <div>{info?.phoneNumber || "Not Applicable"}</div>;
     },
   },
   {
@@ -174,6 +174,16 @@ const Customers = () => {
             showCheckbox={true}
             showDropDown={true}
             optionalColumn={optionalColumn}
+            dropDownOption={[
+              {
+                value: "inactive",
+                label: "Inactive",
+              },
+              {
+                value: "active",
+                label: "Active",
+              },
+            ]}
             tabs={["All", "Active", "Inactive"]}
             TData={users}
             placeholder={"Search name, email, account ID....  "}
