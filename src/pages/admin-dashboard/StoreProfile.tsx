@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import StoreCard from "../../components/admin-dashboard-components/StoreCard";
 import { useGetVendors } from "../../services/hooks/Vendor";
 import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
+import { ToastContainer } from "react-toastify";
 // import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 
 const itemsPerPage = 8;
@@ -15,7 +16,7 @@ const StoreProfile = () => {
   const [filterSearch, setFilterSearch] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  const { data: stores, isLoading } = useGetVendors();
+  const { data: stores, isLoading, refetch } = useGetVendors();
   const [searchValue, setSearchValue] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -61,6 +62,7 @@ const StoreProfile = () => {
   console.log("stores", fil);
   return (
     <div className="relative px-4 py-10">
+      <ToastContainer />
       <div className="flex items-center justify-between">
         <div className="mb-5">
           <h1 className="text-2xl font-medium ">Store Profile</h1>
@@ -111,7 +113,12 @@ const StoreProfile = () => {
           <div className="grid gap-5 py-5 lg:grid-cols-2 xl:grid-cols-3">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
               (item, index) => (
-                <StoreCard item={item} key={index} setIsOpen={setIsOpen} />
+                <StoreCard
+                  item={item}
+                  key={index}
+                  setIsOpen={setIsOpen}
+                  refetch={refetch}
+                />
               ),
             )}
           </div>
