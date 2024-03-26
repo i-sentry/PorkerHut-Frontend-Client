@@ -3,7 +3,7 @@ import { HiOutlineTrendingDown, HiOutlineTrendingUp } from "react-icons/hi";
 import CustomerReview from "./CustomerReview";
 import DoughnutChart from "./DoughnutChart";
 import { AreaChart } from "./AreaChart";
-import { useGetOrders } from "../../services/hooks/orders";
+import { useGetAdminOverview, useGetOrders } from "../../services/hooks/orders";
 
 // function filterWeekly(array: any, referenceDate: any) {
 //   const oneWeek = 7 * (24 * 60 * 60 * 1000); // Number of milliseconds in one week
@@ -16,9 +16,20 @@ import { useGetOrders } from "../../services/hooks/orders";
 //   return filtered;
 // }
 
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const start = `${year}-${month}-01`;
+const end = `${year}-${month}-${new Date(year, +month, 0).getDate()}`;
+
 const Analytics = () => {
   // const [orders, setOrders] = useState([])
   const { data, isLoading } = useGetOrders();
+  const { data: overview, isLoading: loading } = useGetAdminOverview(
+    start,
+    end,
+  );
+  const adminOverview = overview?.data;
   const orders = data?.data?.data;
 
   React.useEffect(() => {
@@ -38,7 +49,9 @@ const Analytics = () => {
         <div className="flex h-full flex-1 flex-col justify-center  gap-2 rounded  bg-[#F4F4F4] px-6">
           <h1 className="font-normal text-[#A2A2A2]">Revenue</h1>
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">N400</span>
+            <span className="text-lg font-medium">
+              ₦{adminOverview?.totalSales.toLocaleString()}
+            </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingUp size={20} className="text-[#22C55E]" />
               <span className="text-[#22C55E]">+10%</span>
@@ -48,7 +61,9 @@ const Analytics = () => {
         <div className="flex h-full flex-1 flex-col justify-center  gap-2 rounded  bg-[#F4F4F4] px-6">
           <h1 className="font-normal text-[#A2A2A2]">Orders</h1>
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">912</span>
+            <span className="text-lg font-medium">
+              {adminOverview?.totalOrders}
+            </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingDown size={20} className="text-[#F91919]" />
               <span className="text-[#F91919]">-5%</span>
@@ -78,7 +93,7 @@ const Analytics = () => {
       </div>
 
       <div className="mt-4 flex items-center gap-4">
-        <DoughnutChart />
+        <DoughnutChart admin={adminOverview} />
         <CustomerReview rating={0} />
       </div>
 
