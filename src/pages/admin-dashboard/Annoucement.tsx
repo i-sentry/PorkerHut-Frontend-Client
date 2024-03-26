@@ -21,6 +21,7 @@ import {
   useCreateAnnoucement,
   useGetAllAnnoucement,
 } from "../../services/hooks/Vendor";
+import { ToastContainer } from "react-toastify";
 
 interface SelectOption {
   value: string;
@@ -216,6 +217,7 @@ const Announcement = () => {
   return (
     <div className="pl-10 pr-5 pt-10">
       <div className="mt-5">
+        <ToastContainer />
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
           This is where send out special announcement to all affiliate.

@@ -3,6 +3,7 @@ import { HiMinusSm, HiX } from "react-icons/hi";
 import { MdOutlineAccessAlarm } from "react-icons/md";
 import { useCreateAnnoucement } from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 type ModalProps = {
   isVisible: boolean;
@@ -17,6 +18,7 @@ type FormProps = {
 };
 
 const Modal = ({ isVisible, onClose }: ModalProps) => {
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     subject: "",
     content: "",
@@ -41,7 +43,7 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
 
   const createNewAnnouncement = (e: any) => {
     e.preventDefault();
-
+    setLoading(true);
     createAnnouncement
       .mutateAsync({
         ...form,
@@ -50,19 +52,21 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
       })
       .then((res: any) => {
         toast.success("New Accouncement Created!!!");
-        // onClose();
-        console.log(res, "res ann");
         setForm({
           subject: "",
           content: "",
           startDate: "",
           endDate: "",
         });
+        onClose();
+        console.log(res, "res ann");
+        setLoading(false);
       })
       .catch((err: any) => {
         toast.error("Error Ocurred. Try again!!!");
         onClose();
         console.log(err, "res ann");
+        setLoading(false);
       });
     console.log(form, "form");
   };
@@ -96,10 +100,10 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
                 value={form.subject}
                 onChange={(e: any) => handleChange(e)}
                 placeholder="Subject"
-                className="h-10 w-full border-b-2 px-4 font-medium outline-none placeholder:text-sm placeholder:font-normal"
+                className="h-10 w-full border px-4 font-medium outline-none placeholder:text-sm placeholder:font-normal focus:border-green-700 focus:ring-green-700"
               />
 
-              <div className="">
+              <div className="mt-3">
                 <div className="h-80 overflow-hidden rounded bg-white">
                   <textarea
                     placeholder="Type message here...."
@@ -107,16 +111,24 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
                     id="content"
                     value={form.content}
                     onChange={(e: any) => handleChange(e)}
-                    className="h-80 w-full appearance-none border-none py-2 px-4  outline-none placeholder:text-sm focus:outline-none"
+                    className="h-80 w-full border py-2 px-4 outline-none ring-1 placeholder:text-sm focus:border-green-700 focus:outline-none focus:ring-green-700"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="rounded bg-[#197B30] py-2 px-6 text-white hover:bg-[#197B39]"
+                disabled={loading}
+                className="mt-6 rounded bg-[#197B30] py-2 px-6 text-white hover:bg-[#197B39]"
               >
-                Send
+                {loading ? (
+                  <span className="flex items-center">
+                    <CgSpinner size={16} className="animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  "Send"
+                )}
               </button>
             </form>
           </div>
