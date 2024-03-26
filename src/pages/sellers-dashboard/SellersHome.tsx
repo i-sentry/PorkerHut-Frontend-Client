@@ -12,6 +12,8 @@ import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
 import { useGetAllAnnoucement } from "../../services/hooks/Vendor";
 import { MdOutlineAnnouncement } from "react-icons/md";
+import moment from "moment";
+import { Tooltip } from "../../components/utility/ToolTip";
 // import { useGetVendorById } from "../../services/hooks/Vendor";
 
 interface SliderProps {
@@ -56,8 +58,8 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   }, []);
 
   useEffect(() => {
-    if (annouce?.data?.data) setAnnouncement(annouce?.data?.data);
-  }, []);
+    if (annouce?.data?.data?.length > 0) setAnnouncement(annouce?.data?.data);
+  }, [annouce?.data?.data]);
 
   console.log(announcement, "Annoucements", annouce?.data?.data);
 
@@ -229,15 +231,15 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                   className="flex border border-t-0 border-[#A2A2A2] px-4 py-10 xxs:flex-col xxs:gap-8 md:flex-row md:gap-10"
                 >
                   <span className="whitespace-nowrap text-[16px] font-normal leading-[24px]">
-                    {item?.date}
+                    {moment(item?.startDate).format("DD MMM")}
                   </span>
 
                   <div className="flex flex-col gap-2">
                     <span className=" text-[18px] font-medium leading-[24px]">
-                      {item?.title}
+                      {item?.subject}
                     </span>
                     <span className="text-[16px] font-normal leading-[24px] text-[#333333]">
-                      {item?.description}
+                      {item?.content}
                     </span>
                   </div>
                 </div>

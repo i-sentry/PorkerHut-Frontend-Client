@@ -35,6 +35,12 @@ export const useGetVendorById = (id: string | undefined) => {
   });
 };
 
+export const useDeleteVendorById = (id: string | undefined) => {
+  return useQueryMutation({
+    mutationFn: () => makeDeleteRequest(api.Vendors.vendorById(id)),
+  });
+};
+
 export const useGetVendors = () => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Vendors.allVendors),
