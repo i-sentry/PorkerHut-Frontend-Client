@@ -22,6 +22,7 @@ import {
   useGetAllAnnoucement,
 } from "../../services/hooks/Vendor";
 import { ToastContainer } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 interface SelectOption {
   value: string;
@@ -266,110 +267,118 @@ const Announcement = () => {
               </div>
             </div>
           </div>
-          <div className="  mb-8 flex flex-col bg-white">
+          <div className="mb-8 flex flex-col bg-white">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="overflow-x-auto">
-                  <table
-                    {...getTableProps()}
-                    className="mb-6 min-w-full appearance-none  bg-white "
-                    id="my-table"
-                  >
-                    <thead className="appearance-none bg-[#F4F4F4] ">
-                      {headerGroups.map(
-                        (headerGroup: {
-                          getHeaderGroupProps: () => {
-                            [x: string]: any;
-                            key: any;
-                          };
-                          headers: any[];
-                        }) => {
-                          const { key, ...restHeaderProps } =
-                            headerGroup.getHeaderGroupProps();
-                          return (
-                            <tr key={key} {...restHeaderProps}>
-                              {headerGroup.headers.map((column) => (
-                                <th
-                                  className="text-primary whitespace-nowrap py-4 px-4 text-left text-sm font-normal "
-                                  {...column.getHeaderProps(
-                                    column.getSortByToggleProps(),
-                                  )}
-                                  key={column.id}
-                                >
-                                  <div className="flex items-center">
-                                    {column.render("Header")}
-                                  </div>
-                                </th>
-                              ))}
-                            </tr>
-                          );
-                        },
-                      )}
-                    </thead>
-                    <tbody
-                      {...getTableBodyProps()}
-                      className="mt-3 w-full space-y-8 pt-3 "
+                {isLoading && (
+                  <div className="flex w-full flex-col items-center justify-center gap-4 py-6">
+                    <CgSpinner size={50} className="animate-spin" />
+                    <span>Loading...</span>
+                  </div>
+                )}
+                {!isLoading && (
+                  <div className="overflow-x-auto">
+                    <table
+                      {...getTableProps()}
+                      className="mb-6 min-w-full appearance-none  bg-white "
+                      id="my-table"
                     >
-                      {page.map(
-                        (
-                          row: {
-                            subRows: any;
-                            getRowProps: () => JSX.IntrinsicAttributes &
-                              React.ClassAttributes<HTMLTableRowElement> &
-                              React.HTMLAttributes<HTMLTableRowElement>;
-                            cells: any[];
-                          },
-                          index: number,
-                        ) => {
-                          prepareRow(row);
-
-                          return (
-                            <>
-                              <tr
-                                key={index}
-                                {...row.getRowProps()}
-                                className="my-4 appearance-none border "
-                              >
-                                {row.cells.map((cell, cellIndex) => {
-                                  return (
-                                    <td
-                                      key={cellIndex}
-                                      {...cell.getCellProps()}
-                                      className=" py-4 px-4 text-sm text-[#202223] "
-                                    >
-                                      {cell.render("Cell")}
-                                    </td>
-                                  );
-                                })}
+                      <thead className="appearance-none bg-[#F4F4F4] ">
+                        {headerGroups.map(
+                          (headerGroup: {
+                            getHeaderGroupProps: () => {
+                              [x: string]: any;
+                              key: any;
+                            };
+                            headers: any[];
+                          }) => {
+                            const { key, ...restHeaderProps } =
+                              headerGroup.getHeaderGroupProps();
+                            return (
+                              <tr key={key} {...restHeaderProps}>
+                                {headerGroup.headers.map((column) => (
+                                  <th
+                                    className="text-primary whitespace-nowrap py-4 px-4 text-left text-sm font-normal "
+                                    {...column.getHeaderProps(
+                                      column.getSortByToggleProps(),
+                                    )}
+                                    key={column.id}
+                                  >
+                                    <div className="flex items-center">
+                                      {column.render("Header")}
+                                    </div>
+                                  </th>
+                                ))}
                               </tr>
-                            </>
-                          );
-                        },
-                      )}
-                    </tbody>
-                  </table>
-                  {selectedRow && (
-                    <RowModal
-                      id={selectedRow.id}
-                      subject={selectedRow.subject}
-                      content={selectedRow.content}
-                      date={selectedRow.date}
-                      isVisib={showRowModal}
-                      CloseModal={() => setShowRowModal(false)}
-                      show={false}
-                    />
-                  )}
+                            );
+                          },
+                        )}
+                      </thead>
+                      <tbody
+                        {...getTableBodyProps()}
+                        className="mt-3 w-full space-y-8 pt-3 "
+                      >
+                        {page.map(
+                          (
+                            row: {
+                              subRows: any;
+                              getRowProps: () => JSX.IntrinsicAttributes &
+                                React.ClassAttributes<HTMLTableRowElement> &
+                                React.HTMLAttributes<HTMLTableRowElement>;
+                              cells: any[];
+                            },
+                            index: number,
+                          ) => {
+                            prepareRow(row);
 
-                  <CustomPagination
-                    gotoPage={gotoPage}
-                    length={data.length}
-                    pageSize={pageSize}
-                    pageOptions={pageOptions}
-                    pageIndex={pageIndex}
-                    pageCount={pageCount}
-                    setPageSize={setPageSize}
-                  />
-                </div>
+                            return (
+                              <>
+                                <tr
+                                  key={index}
+                                  {...row.getRowProps()}
+                                  className="my-4 appearance-none border "
+                                >
+                                  {row.cells.map((cell, cellIndex) => {
+                                    return (
+                                      <td
+                                        key={cellIndex}
+                                        {...cell.getCellProps()}
+                                        className=" py-4 px-4 text-sm text-[#202223] "
+                                      >
+                                        {cell.render("Cell")}
+                                      </td>
+                                    );
+                                  })}
+                                </tr>
+                              </>
+                            );
+                          },
+                        )}
+                      </tbody>
+                    </table>
+                    {selectedRow && (
+                      <RowModal
+                        id={selectedRow.id}
+                        subject={selectedRow.subject}
+                        content={selectedRow.content}
+                        date={selectedRow.date}
+                        isVisib={showRowModal}
+                        CloseModal={() => setShowRowModal(false)}
+                        show={false}
+                      />
+                    )}
+
+                    <CustomPagination
+                      gotoPage={gotoPage}
+                      length={data.length}
+                      pageSize={pageSize}
+                      pageOptions={pageOptions}
+                      pageIndex={pageIndex}
+                      pageCount={pageCount}
+                      setPageSize={setPageSize}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
