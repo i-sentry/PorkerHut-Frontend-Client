@@ -26,6 +26,7 @@ import { useMyBillingInfo } from "../../services/hooks/payment";
 import PhoneInput from "react-phone-input-2";
 
 const Settings = () => {
+  const [admin, setAdmin] = useState<any>(null);
   const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [overlayVisibility, setOverlayVisibility] = useState(false);
@@ -72,9 +73,11 @@ const Settings = () => {
     (info: any) => info.isDefault,
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
+
   console.log(adminBilling, "Admin", getAllAdmin);
+
   const [formData, setFormData] = useState({
-    fullName: `${adminBilling?.firstName} ${adminBilling?.lastName}`,
+    fullName: `${adminBilling?.firstName} ${adminBilling?.lastName}` || "",
     email: adminBilling?.email || "",
     phoneNumber: adminBilling?.phoneNumber || "",
     location: adminBilling?.city || "",

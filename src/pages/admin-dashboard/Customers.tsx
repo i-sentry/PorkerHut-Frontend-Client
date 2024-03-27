@@ -25,7 +25,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
 export const OrderColumn = ({ row }: any) => {
   const id = row?._id;
   const { data: orders } = useGetAggregateUserOrders(id);
-  console.log(orders, "no of orders", id);
+  console.log(orders, "no of orders", id, row);
   return <div>{orders?.data?.totalOrders}</div>;
 };
 

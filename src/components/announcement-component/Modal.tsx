@@ -4,6 +4,7 @@ import { MdOutlineAccessAlarm } from "react-icons/md";
 import { useCreateAnnoucement } from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import Timer from "./Timer";
 
 type ModalProps = {
   isVisible: boolean;
@@ -19,6 +20,7 @@ type FormProps = {
 
 const Modal = ({ isVisible, onClose }: ModalProps) => {
   const [loading, setLoading] = useState(false);
+  const [openTimer, setOpenTimer] = useState(false);
   const [form, setForm] = useState({
     subject: "",
     content: "",
@@ -83,7 +85,10 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
             <h1>New Annoucement</h1>
             <div className="flex items-center gap-3">
               <HiMinusSm className="hover:cursor-pointer" />
-              <MdOutlineAccessAlarm className="hover:cursor-pointer" />
+              <MdOutlineAccessAlarm
+                className="hover:cursor-pointer"
+                onClick={() => setOpenTimer(true)}
+              />
               <HiX onClick={() => onClose()} className="hover:cursor-pointer" />
             </div>
           </div>
@@ -134,6 +139,8 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
           </div>
         </div>
       </div>
+
+      {openTimer && <Timer setOpenTimer={setOpenTimer} />}
     </div>
   );
 };

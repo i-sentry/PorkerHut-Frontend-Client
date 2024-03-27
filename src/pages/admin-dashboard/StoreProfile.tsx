@@ -37,8 +37,8 @@ const StoreProfile = () => {
     if (searchValue) {
       setFilterSearch(
         storesList
-          .slice()
-          .filter(
+          ?.slice()
+          ?.filter(
             (item: any) =>
               item?.sellerAccountInformation?.shopName
                 .toLowerCase()
@@ -53,7 +53,7 @@ const StoreProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
-  const fil = data.filter((a: any) => {
+  const fil = data?.filter((a: any) => {
     const b = [];
     b.push(a.storeStatus);
     return b;
