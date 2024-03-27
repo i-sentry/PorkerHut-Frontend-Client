@@ -16,6 +16,7 @@ import { useGetOrders } from "../../services/hooks/orders";
 import { Tooltip } from "../../components/utility/ToolTip";
 import moment from "moment";
 import logo from "../../assets/images/porkerlogo.png";
+import { useGetVendorById } from "../../services/hooks/Vendor";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -58,12 +59,11 @@ const DateColumn = ({ d }: any) => {
 
 const StoreNameColumn = ({ d }: any) => {
   // const { vendor } = d;
-  console.log(d, "store-colum");
+  const { data: vendor } = useGetVendorById(d?.productDetails[0]?.vendor?._id);
+  console.log(vendor, "vendor store-colum", d?.productDetails[0]?.vendor?._id);
 
-  const storeName =
-    d?.productDetails[0]?.vendor?.sellerAccountInformation?.shopName || "";
-  const storeCity =
-    d?.productDetails[0]?.vendor?.businessInformation?.city || "";
+  const storeName = vendor?.sellerAccountInformation?.shopName || "";
+  const storeCity = vendor?.businessInformation?.city || "";
   return (
     <div className="flex flex-col items-start">
       <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
@@ -77,7 +77,7 @@ const StoreNameColumn = ({ d }: any) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data, "datat attat");
+  // console.log(data, "datat attat");
   const adata = data?.productDetails[0]?.productID?.information?.productName;
   const lowerData = adata?.toLowerCase();
   const productName = _.startCase(lowerData);
@@ -342,10 +342,10 @@ const Order = () => {
           replace: true,
         });
         window.scrollTo(0, 0);
-        console.log(id, "isisiisgososo");
+        // console.log(id, "isisiisgososo");
       };
 
-      console.log(row, "shshshshshshsh");
+      // console.log(row, "shshshshshshsh");
 
       return (
         <div>
