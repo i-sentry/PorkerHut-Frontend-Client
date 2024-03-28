@@ -45,7 +45,7 @@ const Analytics = () => {
         </span>
       </div>
 
-      <div className="h-28 items-center justify-center gap-4 md:grid md:grid-cols-4 ">
+      <div className="h-28 items-center justify-center gap-4 md:grid md:grid-cols-[1.5fr_1fr_1fr_1fr] ">
         <div className="flex h-full flex-1 flex-col justify-center  gap-2 rounded  bg-[#F4F4F4] px-6">
           <h1 className="font-normal text-[#A2A2A2]">Revenue</h1>
           <div className="flex items-center justify-between">

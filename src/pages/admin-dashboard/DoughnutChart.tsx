@@ -47,7 +47,7 @@ function DoughnutChart({ admin }: any) {
           </Doughnut>
         </div>
 
-        <div className="flex flex-col gap-4">
+        {/* <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <div className="h-3 w-3 bg-[#22C55E]"></div>
             <span className="text-sm text-[#A2A2A2]">Completed</span>
@@ -63,6 +63,27 @@ function DoughnutChart({ admin }: any) {
             <span className="text-sm text-[#A2A2A2]">Declined</span>
             <span>{percentage(admin?.totalFailedOrders) || 0}%</span>
           </div>
+        </div> */}
+
+        <div className="grid grid-cols-[2fr_1fr] gap-5 gap-y-3">
+          {/* Completed */}
+          <div className="inline-flex items-center gap-2 text-sm text-[#A2A2A2]">
+            <span className="inline-block h-3 w-3 bg-[#22C55E]"></span>{" "}
+            Completed
+          </div>
+          <div>{percentage(admin?.totalCompletedOrders) || 0}%</div>
+
+          {/* Pending */}
+          <div className="inline-flex items-center gap-2 text-sm text-[#A2A2A2]">
+            <span className="inline-block h-3 w-3 bg-[#F29339]"></span> Pending
+          </div>
+          <div>{percentage(admin?.totalPendingOrders) || 0}%</div>
+
+          {/* Declined */}
+          <div className="inline-flex items-center gap-2 text-sm text-[#A2A2A2]">
+            <span className="inline-block h-3 w-3 bg-[#F91919]"></span> Declined
+          </div>
+          <div>{percentage(admin?.totalFailedOrders) || 0}%</div>
         </div>
       </div>
     </div>

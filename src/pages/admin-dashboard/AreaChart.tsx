@@ -18,7 +18,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Filler
+  Filler,
 );
 
 export const options = {
@@ -65,19 +65,18 @@ export const data = {
   ],
 };
 
-
 export function AreaChart() {
   return (
-    <div style={{ height: "380px" }} className="bg-[#F4F4F4]">
-      <form className="flex items-center justify-between mt-4">
+    <div className="bg-[#F4F4F4]">
+      <form className="mt-4 flex items-center justify-between">
         <div>
-          <span className=" font-medium px-3">Sales Overview</span>
+          <span className=" px-3 font-medium">Sales Overview</span>
         </div>
-        <div className="flex gap-4 items-center px-4 mt-4">
+        <div className="mt-4 flex items-center gap-4 px-4">
           <label className="" htmlFor="week"></label>
           <input
             type="week"
-            className="focus:outline-none border h-10 w-42 px-2 rounded "
+            className="w-42 h-10 rounded border px-2 focus:outline-none "
           />
         </div>
       </form>
