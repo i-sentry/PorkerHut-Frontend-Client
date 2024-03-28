@@ -370,7 +370,7 @@ const Order = () => {
       </div>
       <div>
         {isLoading && (
-          <div className="flex h-[80vh] w-full flex-col items-center justify-center">
+          <div className="flex h-[50vh] w-full flex-col items-center justify-center">
             <img
               src={logo}
               alt="loaderLogo"
@@ -390,6 +390,16 @@ const Order = () => {
             tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
             TData={orders}
             placeholder={"Search product name, store names, category.... "}
+            showDropDown={true}
+            dropDownOption={[
+              {
+                value: "please_select_an_action",
+                label: "Please select an action",
+              },
+              { label: "Push Order", value: "push_order" },
+              { label: "Decline Order", value: "decline_order" },
+              { label: "Delete Order", value: "delete_order" },
+            ]}
           />
         ) : (
           ""

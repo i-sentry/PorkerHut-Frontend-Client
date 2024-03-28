@@ -12,6 +12,8 @@ import { Tooltip } from "../../components/utility/ToolTip";
 import { OrderData } from "./Order";
 import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { Column } from "react-table";
 
 export interface IOrderData {
   id: string;
@@ -41,8 +43,6 @@ const OrderTableDetail = () => {
   console.log(order, "new order table");
   const selectedProduct = order?.productDetails[selectedProductIndex];
   console.log(selectedProduct, "selectedProduct");
-
-  // ssusuuss
 
   const [orderData, setOrderData] = useState<IOrderData>({
     id: "",
@@ -140,6 +140,97 @@ const OrderTableDetail = () => {
 
   console.log(otherItems, "otherItems");
 
+  const Tcolumns: readonly Column<object>[] = [
+    {
+      Header: "Product Name",
+      accessor: (row: any) => {
+        console.log(row, "atims row");
+        return (
+          <div className="justify-left flex flex-wrap items-center gap-2">
+            <img
+              src={row?.productID?.images[0]}
+              className="h-10 w-10 rounded-full object-cover"
+              alt="product thumbnail"
+            />
+            <span className="capitalize">
+              {row?.productID?.information?.productName}
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      Header: "Store Name",
+      accessor: (row: any) => {
+        console.log(row, "atims row");
+        return (
+          <div className="justify-left flex flex-col items-start gap-2">
+            <span className="capitalize">
+              {row?.vendor?.sellerAccountInformation?.shopName}
+            </span>
+            <span className="block capitalize text-neutral-300">
+              {row?.vendor.businessInformation?.city}
+            </span>
+          </div>
+        );
+      },
+    },
+
+    {
+      Header: "Order Date",
+      accessor: (row: any) => {
+        console.log(row, "atims row");
+        return (
+          <div className="justify-left flex flex-col items-start gap-2">
+            {moment(row?.orderDate).format("DD MMMM YYYY")}
+            <span className="block text-neutral-300">
+              {moment(row?.orderDate).format("h:mmA").toLowerCase()}
+            </span>
+          </div>
+        );
+      },
+    },
+
+    {
+      Header: "Order ID",
+      accessor: (row: any) => <span>{row?._id}</span>,
+    },
+    {
+      Header: "Price",
+      accessor: (row: any) => <span>₦{row?.price.toLocaleString()}</span>,
+    },
+    {
+      Header: "Quantity",
+      accessor: (row: any) => <span>{row?.quantity}</span>,
+    },
+
+    {
+      Header: "Order Total",
+      accessor: (row: any) => <span>₦{row?.totalPrice.toLocaleString()}</span>,
+    },
+    {
+      Header: "Status",
+      accessor: (row: any) => (
+        <span className={`text-sm capitalize ${statusOrder}`}>
+          {row?.status}
+        </span>
+      ),
+    },
+    {
+      Header: " ",
+      accessor: (row: any) => (
+        <span
+          onClick={() => {
+            navigate(`/admin/order`);
+          }}
+          className="cursor-pointer text-sm font-normal text-zinc-800 underline"
+        >
+          Cancel
+        </span>
+      ),
+    },
+  ];
+
   return (
     <>
       <div className="py-10 px-9">
@@ -161,7 +252,9 @@ const OrderTableDetail = () => {
           </div>
         </div>
 
-        {data && (
+        {isLoading && <Loader />}
+
+        {order && (
           <>
             <div className="hidden flex-wrap justify-between gap-5 lg:flex">
               <div
@@ -295,98 +388,28 @@ const OrderTableDetail = () => {
               </div>
             </div>
             <div className="mt-8 hidden lg:block">
-              <h3 className="mb-6 font-['Roboto'] text-2xl font-semibold tracking-wide text-zinc-800">
+              {/* <h3 className="mb-6 font-['Roboto'] text-2xl font-semibold tracking-wide text-zinc-800">
                 Other Items In Your Order
-              </h3>
+              </h3> */}
               <div className="hide-scroll-bar w-full overflow-auto">
-                <table className="w-[1000px] border-collapse rounded-2xl border border-zinc-300">
-                  <thead>
-                    <tr className="bg-neutral-50">
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Product Name
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Store Name
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Order Date
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Order ID
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Prices
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        No of items
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left">
-                        Status
-                      </th>
-                      <th className="whitespace-nowrap border border-zinc-300 py-4 px-8 text-left"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {otherItems?.map((item: any, index: any) => (
-                      <tr key={index}>
-                        <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          <div className="justify-left flex flex-wrap items-center gap-2">
-                            <img
-                              src={item?.productID.images[0]}
-                              className="h-10 w-10 rounded-full object-cover"
-                              alt="product thumbnail"
-                            />
-                            <span className="capitalize">
-                              {item?.productID.information.productName}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          <span className="capitalize">
-                            {item?.vendor.sellerAccountInformation.shopName}
-                          </span>
-                          <span className="block capitalize text-neutral-300">
-                            {item?.vendor.businessInformation.city}
-                          </span>
-                        </td>
-                        <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          {moment(item?.orderDate).format("DD MMMM YYYY")}
-                          <span className="block text-neutral-300">
-                            {moment(item?.orderDate)
-                              .format("h:mmA")
-                              .toLowerCase()}
-                          </span>
-                        </td>
-                        <td className="border border-zinc-300 p-3  px-5 text-sm">
-                          {item?._id || "-"}
-                        </td>
-                        <td className="border border-zinc-300 p-3  text-sm">
-                          ₦{item?.price.toLocaleString()}
-                        </td>
-                        <td className="border border-zinc-300 p-3 px-5 text-sm">
-                          {item?.quantity}
-                        </td>
-                        <td
-                          className={`border border-zinc-300 p-3 px-5 text-sm capitalize ${statusOrder}`}
-                        >
-                          {item?.status || "-"}
-                        </td>
-                        <td
-                          className={`border border-zinc-300 p-3 px-5 text-sm`}
-                        >
-                          <span
-                            onClick={() => {
-                              handleViewOrder(index);
-                            }}
-                            className="cursor-pointer text-sm font-normal text-zinc-800 underline"
-                          >
-                            View
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <AdminTable
+                  tabs={[]}
+                  placeholder={
+                    "Search product name, store names, category.... "
+                  }
+                  showDropDown={true}
+                  showCheckbox={true}
+                  Tcolumns={Tcolumns}
+                  TData={otherItems}
+                  dropDownOption={[
+                    {
+                      value: "please_select_an_action",
+                      label: "Please select an action",
+                    },
+                    { value: "active", label: "Activate" },
+                    { value: "deactivate", label: "Deactivate" },
+                  ]}
+                />
               </div>
             </div>
           </>
@@ -398,3 +421,19 @@ const OrderTableDetail = () => {
 };
 
 export default OrderTableDetail;
+
+const Loader = () => {
+  return (
+    <div>
+      <div className="grid grid-cols-[1fr_2fr_2fr] gap-5">
+        <div className="skeleton-loader h-[200px]"></div>
+        <div className="skeleton-loader h-[200px]"></div>
+        <div className="skeleton-loader h-[200px]"></div>
+      </div>
+      <div className="mt-5 grid grid-cols-[1fr_1fr] gap-5">
+        <div className="skeleton-loader h-[200px]"></div>
+        <div className="skeleton-loader h-[200px]"></div>
+      </div>
+    </div>
+  );
+};

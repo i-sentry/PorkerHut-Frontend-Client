@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -24,6 +24,16 @@ import {
 } from "../../services/hooks/users";
 import { useMyBillingInfo } from "../../services/hooks/payment";
 import PhoneInput from "react-phone-input-2";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  fullName: yup.string().required("Full name is required"),
+  email: yup.string().required("Email is required"),
+  location: yup.string().required("Location is required"),
+  phoneNumber: yup.string().required("Phone number is required"),
+});
 
 const Settings = () => {
   const [admin, setAdmin] = useState<any>(null);
@@ -74,14 +84,56 @@ const Settings = () => {
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
 
-  console.log(adminBilling, "Admin", getAllAdmin);
+  useEffect(() => {
+    !isLoading && setAdmin({ ...adminBilling });
+  }, [isLoading]);
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+      email: admin?.email || "",
+      phoneNumber: admin?.phoneNumber || "",
+      location: admin?.city || "",
+    },
+  });
+
+  useEffect(() => {
+    if (admin?._id) {
+      reset({
+        fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+        email: admin?.email || "",
+        phoneNumber: admin?.phoneNumber || "",
+        location: admin?.city || "",
+      });
+    }
+  }, []);
+
+  console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
 
   const [formData, setFormData] = useState({
-    fullName: `${adminBilling?.firstName} ${adminBilling?.lastName}` || "",
-    email: adminBilling?.email || "",
-    phoneNumber: adminBilling?.phoneNumber || "",
-    location: adminBilling?.city || "",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    location: "",
   });
+
+  // useEffect(() => {
+  //   if (admin?._id) {
+  //     setFormData({
+  //       fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+  //       email: admin?.email || "",
+  //       phoneNumber: admin?.phoneNumber || "",
+  //       location: admin?.city || "",
+  //     });
+  //   }
+  // }, [admin?._id]);
 
   const handleValueChange = (index: number, value: string | number) => {
     setItems((prevState) => {
@@ -92,15 +144,15 @@ const Settings = () => {
     });
   };
 
-  console.log(email, "emailemail");
+  // console.log(email, "emailemail");
 
-  const handleImage = (e: any) => {
-    setOverlayVisibility(false);
-    setImage(e.target.files[0]);
-    // var image = document.getElementById("output");
-    setCurrentImage(URL.createObjectURL(e.target.files[0]));
-    //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
-  };
+  // const handleImage = (e: any) => {
+  //   setOverlayVisibility(false);
+  //   setImage(e.target.files[0]);
+  //   // var image = document.getElementById("output");
+  //   setCurrentImage(URL.createObjectURL(e.target.files[0]));
+  //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
+  // };
 
   const data = [
     {
@@ -193,7 +245,7 @@ const Settings = () => {
   const handleSave = (e: any) => {
     const data = new FormData();
     e.preventDefault();
-    console.log(data, "form data");
+    console.log(data, "form data", formData);
     // userUpdate
     //   .mutateAsync(data)
     //   .then((res: any) => {
@@ -310,131 +362,159 @@ const Settings = () => {
         </nav>
         <div className=" w-full bg-[#F4F4F4]  py-4 px-8 ">
           <TabPanel hidden={selectedTab !== "Information"}>
-            <div>
-              <div className="my-3 ">
-                <div className="relative mx-auto ">
-                  <img
-                    className=" h-16 w-16 rounded-full bg-slate-300 object-cover"
-                    src={avatar}
-                    alt="profile"
-                  />
-                  <h3 className="mt-3 text-xl font-bold">
-                    {adminInfo?.firstName} {adminInfo?.lastName}
-                  </h3>
-                </div>
+            <div className="my-3">
+              <div className="relative mx-auto ">
+                <img
+                  className=" h-16 w-16 rounded-full bg-slate-300 object-cover"
+                  src={avatar}
+                  alt="profile"
+                />
+                <h3 className="mt-3 text-xl font-bold">
+                  {adminInfo?.firstName} {adminInfo?.lastName}
+                </h3>
               </div>
-              <div className="flex w-full  gap-5">
-                <div className="w-full xl:w-[50%]">
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Full Name</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Full Name"
-                        type="tel"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={(e: any) => handleChange(e)}
-                      />
-                    </div>
+            </div>
+            <div className="flex w-full  gap-5">
+              <form
+                className="w-full xl:w-[50%]"
+                onSubmit={handleSubmit(handleSave)}
+              >
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Full Name</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="Full Name"
+                      type="text"
+                      // name="fullName"
+                      {...register("fullName")}
+                      // value={formData.fullName}
+                      onChange={(e: any) => handleChange(e)}
+                    />
                   </div>
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Email</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Email"
-                        type="text"
-                        name="email"
-                        value={formData.email}
-                        onChange={(e: any) => handleChange(e)}
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
+                </div>
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Email</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={(e: any) => handleChange(e)}
+                      // value={number}
+                      // onChange={(e) => setNumber(e.target.value)}
+                    />
                   </div>
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Location</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="location"
-                        type="text"
-                        value={formData.location}
-                        onChange={(e: any) => handleChange(e)}
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
+                </div>
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Location</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="location"
+                      type="text"
+                      value={formData.location}
+                      onChange={(e: any) => handleChange(e)}
+                      // value={number}
+                      // onChange={(e) => setNumber(e.target.value)}
+                    />
                   </div>
+                </div>
 
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Phone number</p>
-                    <div className="flex-[2]">
-                      {/* <InputComponent
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Phone number</p>
+                  <div className="flex-[2]">
+                    {/* <InputComponent
                         placeholder="Phonenumber"
                         type="tel"
                         defaultValue={adminBilling?.phoneNumber}
                         // value={number}
                         // onChange={(e) => setNumber(e.target.value)}
                       /> */}
-                      <PhoneInput
-                        // disabled
-                        enableSearch={true}
-                        autoFormat={true}
-                        countryCodeEditable={false}
-                        country={"ng"}
-                        value={formData?.phoneNumber.slice(-10)}
-                        onChange={(e: any) => handleChange(e)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-start py-5">
-                    <button className="mr-2 rounded border border-[#f91919] bg-[#fff] px-6 py-2 text-sm font-light text-[#f91919] hover:bg-[#f91919] hover:text-[#fff]">
-                      Delete Account
-                    </button>
-                    <button
-                      onClick={handleSave}
-                      className="rounded bg-[#197B30] px-6 py-2 text-sm font-light text-white"
-                    >
-                      Save Changes
-                    </button>
+                    <PhoneInput
+                      // disabled
+                      enableSearch={true}
+                      autoFormat={true}
+                      countryCodeEditable={false}
+                      country={"ng"}
+                      // value={formData?.phoneNumber.slice(-10)}
+                      // onChange={(e: any) => handleChange(e)}
+                      inputClass={"w-[100%_!important] h-[45px_!important]"}
+                    />
                   </div>
                 </div>
-                {/* <div className="flex-1 ">
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Store Name</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Store name"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Store ID</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Store id"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4 flex  flex-col  text-sm">
-                    <p className=" text-[#344054]">Location</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Location"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div> */}
-              </div>
+                <div className="flex justify-start py-5">
+                  <button className="mr-2 rounded border border-[#f91919] bg-[#fff] px-6 py-2 text-sm font-light text-[#f91919] hover:bg-[#f91919] hover:text-[#fff]">
+                    Delete Account
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    className="rounded bg-[#197B30] px-6 py-2 text-sm font-light text-white"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
             </div>
+            <form className="hidden w-3/4 space-y-3">
+              <label htmlFor="fullName" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Full Name
+                </span>
+                <input
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  placeholder="John Doe"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="email" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="johndoe@gmail.com"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="location" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Location
+                </span>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="Abuja"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="phoneNumber" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Phone Number
+                </span>
+                {/* <input
+                  type="text"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  placeholder="819921254"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                /> */}
+                <PhoneInput
+                  inputClass="w-100"
+                  // disabled
+                  enableSearch={true}
+                  autoFormat={true}
+                  countryCodeEditable={false}
+                  country={"ng"}
+                  value={formData?.phoneNumber.slice(-10)}
+                  onChange={(e: any) => handleChange(e)}
+                />
+              </label>
+            </form>
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Members"}>
             <div>

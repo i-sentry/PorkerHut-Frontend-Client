@@ -4,6 +4,7 @@ import CustomerReview from "./CustomerReview";
 import DoughnutChart from "./DoughnutChart";
 import { AreaChart } from "./AreaChart";
 import { useGetAdminOverview, useGetOrders } from "../../services/hooks/orders";
+import { CgSpinner } from "react-icons/cg";
 
 // function filterWeekly(array: any, referenceDate: any) {
 //   const oneWeek = 7 * (24 * 60 * 60 * 1000); // Number of milliseconds in one week
@@ -50,7 +51,11 @@ const Analytics = () => {
           <h1 className="font-normal text-[#A2A2A2]">Revenue</h1>
           <div className="flex items-center justify-between">
             <span className="text-lg font-medium">
-              ₦{adminOverview?.totalSales.toLocaleString()}
+              {loading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                `₦${adminOverview?.totalSales.toLocaleString()}`
+              )}
             </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingUp size={20} className="text-[#22C55E]" />
@@ -62,7 +67,11 @@ const Analytics = () => {
           <h1 className="font-normal text-[#A2A2A2]">Orders</h1>
           <div className="flex items-center justify-between">
             <span className="text-lg font-medium">
-              {adminOverview?.totalOrders}
+              {loading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                `${adminOverview?.totalOrders}`
+              )}
             </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingDown size={20} className="text-[#F91919]" />
@@ -73,7 +82,13 @@ const Analytics = () => {
         <div className="flex h-full flex-1 flex-col justify-center  gap-2 rounded  bg-[#F4F4F4] px-6">
           <h1 className="font-normal text-[#A2A2A2]">Visitors</h1>
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">12.5K</span>
+            <span className="text-lg font-medium">
+              {loading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                `12.5K`
+              )}
+            </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingUp size={20} className="text-[#22C55E]" />
               <span className="text-[#22C55E]">+10%</span>
@@ -83,7 +98,13 @@ const Analytics = () => {
         <div className="flex h-full flex-1 flex-col justify-center  gap-2 rounded  bg-[#F4F4F4] px-6">
           <h1 className="font-normal text-[#A2A2A2]">Conversion</h1>
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">52%</span>
+            <span className="text-lg font-medium">
+              {loading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                `52%`
+              )}
+            </span>
             <span className="flex items-center gap-2">
               <HiOutlineTrendingUp size={20} className="text-[#22C55E]" />
               <span className="text-[#22C55E]">+10%</span>
