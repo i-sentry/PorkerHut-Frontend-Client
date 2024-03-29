@@ -9,6 +9,7 @@ import {
 } from "../../services/hooks/Vendor";
 import { useGetAggregateVendorOrders } from "../../services/hooks/orders";
 import { toast } from "react-toastify";
+import StatusModal from "./StatusModal";
 
 // interface IStoreCardProps {
 //   store_name: any;
@@ -22,7 +23,14 @@ import { toast } from "react-toastify";
 //   status: string;
 // }
 
-const StoreCard = ({ item, setIsOpen, refetch }: any) => {
+const StoreCard = ({
+  item,
+  setIsOpen,
+  refetch,
+  setAction,
+  setShop,
+  setShowConfirm,
+}: any) => {
   const { storeStatus } = item;
   const updateStatus = useVendorStatusUpdate(item?._id);
   const { data } = useGetVendorById(item?._id);
@@ -31,65 +39,65 @@ const StoreCard = ({ item, setIsOpen, refetch }: any) => {
   console.log(data, "storee items", item);
   console.log(vendorAggr, "vendorAggr");
 
-  const handleActivateVendor = async () => {
-    if (item?.storeStatus === "approved") {
-      toast.info(
-        `${item?.sellerAccountInformation?.shopName} is already approved`,
-      );
-      return;
-    }
-    updateStatus
-      .mutateAsync({ storeStatus: "approved" })
-      .then((res: any) => {
-        console.log(res);
-        refetch();
-        toast.success(
-          `${item?.sellerAccountInformation?.shopName} is now approved `,
-        );
-      })
-      .catch((err: any) => {
-        console.log(err);
-        toast.error("Error Occurred, try again!!!");
-      });
-  };
+  // const handleActivateVendor = async () => {
+  //   if (item?.storeStatus === "approved") {
+  //     toast.info(
+  //       `${item?.sellerAccountInformation?.shopName} is already approved`,
+  //     );
+  //     return;
+  //   }
+  //   updateStatus
+  //     .mutateAsync({ storeStatus: "approved" })
+  //     .then((res: any) => {
+  //       console.log(res);
+  //       refetch();
+  //       toast.success(
+  //         `${item?.sellerAccountInformation?.shopName} is now approved `,
+  //       );
+  //     })
+  //     .catch((err: any) => {
+  //       console.log(err);
+  //       toast.error("Error Occurred, try again!!!");
+  //     });
+  // };
 
-  const handleDeactivateVendor = async () => {
-    if (item?.storeStatus === "deactivated") {
-      toast.info(
-        `${item?.sellerAccountInformation?.shopName} is already deactivated`,
-      );
-      return;
-    }
-    try {
-      const response = await updateStatus.mutateAsync({
-        storeStatus: "deactivated",
-      });
-      console.log({ response });
-      toast.success(
-        `${item?.sellerAccountInformation?.shopName} is now deactivated `,
-      );
-      refetch();
-    } catch (error: any) {
-      console.log(error, "error");
-      toast.error("Error Occurred, try again!!!");
-    }
-  };
+  // const handleDeactivateVendor = async () => {
+  //   if (item?.storeStatus === "deactivated") {
+  //     toast.info(
+  //       `${item?.sellerAccountInformation?.shopName} is already deactivated`,
+  //     );
+  //     return;
+  //   }
+  //   try {
+  //     const response = await updateStatus.mutateAsync({
+  //       storeStatus: "deactivated",
+  //     });
+  //     console.log({ response });
+  //     toast.success(
+  //       `${item?.sellerAccountInformation?.shopName} is now deactivated `,
+  //     );
+  //     refetch();
+  //   } catch (error: any) {
+  //     console.log(error, "error");
+  //     toast.error("Error Occurred, try again!!!");
+  //   }
+  // };
 
-  const handleDeleteVendor = () => {
-    deleteVendor
-      .mutateAsync(deleteVendor)
-      .then((res: any) => {
-        toast.success(
-          `${item?.sellerAccountInformation?.shopName} is now deleted `,
-        );
-        refetch();
-        console.log(res, "delete ResP");
-      })
-      .catch((err: any) => {
-        console.log(err, "delete err");
-        toast.error("Error Occurred, try again!!!");
-      });
-  };
+  // const handleDeleteVendor = () => {
+  //   deleteVendor
+  //     .mutateAsync(deleteVendor)
+  //     .then((res: any) => {
+  //       toast.success(
+  //         `${item?.sellerAccountInformation?.shopName} is now deleted `,
+  //       );
+  //       refetch();
+  //       console.log(res, "delete ResP");
+  //     })
+  //     .catch((err: any) => {
+  //       console.log(err, "delete err");
+  //       toast.error("Error Occurred, try again!!!");
+  //     });
+  // };
 
   return (
     <>
@@ -101,10 +109,7 @@ const StoreCard = ({ item, setIsOpen, refetch }: any) => {
         {storeStatus === "deactivated" && (
           <div className="absolute inset-0 rounded-md  bg-[#181717c7] ">
             <div className="flex h-full items-center justify-center">
-              <p
-                className="flex select-none items-center justify-center text-xl font-normal text-[#F91919]
-         "
-              >
+              <p className="flex select-none items-center justify-center text-xl font-normal text-[#F91919]">
                 Deactivated
               </p>
             </div>
@@ -129,19 +134,31 @@ const StoreCard = ({ item, setIsOpen, refetch }: any) => {
                 Store Information
               </button>
               <button
-                onClick={handleActivateVendor}
+                onClick={() => {
+                  setShowConfirm(true);
+                  setAction("activate");
+                  setShop(item);
+                }}
                 className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               >
                 Activate
               </button>
               <button
-                onClick={handleDeactivateVendor}
+                onClick={() => {
+                  setShowConfirm(true);
+                  setAction("deactivate");
+                  setShop(item);
+                }}
                 className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               >
                 Deactivate
               </button>
               <button
-                onClick={handleDeleteVendor}
+                onClick={() => {
+                  setShowConfirm(true);
+                  setAction("delete");
+                  setShop(item);
+                }}
                 className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               >
                 Delete
@@ -226,6 +243,8 @@ const StoreCard = ({ item, setIsOpen, refetch }: any) => {
           </li>
         </ul>
       </div>
+
+      {/* MODAL */}
     </>
   );
 };

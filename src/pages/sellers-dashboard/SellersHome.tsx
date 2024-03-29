@@ -10,7 +10,10 @@ import banner1 from "../../assets/images/SellerHomeBanner.png";
 import { RiMessage2Line } from "react-icons/ri";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
-import { useGetAllAnnoucement } from "../../services/hooks/Vendor";
+import {
+  useGetAllAnnoucement,
+  useGetVendorById,
+} from "../../services/hooks/Vendor";
 import { MdOutlineAnnouncement } from "react-icons/md";
 import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { AreaChart } from "./AreaChart";
 import { useGetAdminOverview, useGetOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
+import TopStoresRating from "./TopStoresRating";
+import AdminOverviewTopProduct from "./AdminOverviewTopProduct";
+import AdminOverviewRating from "./AdminOverviewRating";
 
 const today = new Date();
 const year = today.getFullYear();
@@ -155,27 +158,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Average Daily Order",
-      figure: `${Math.trunc(adminOverview?.averageDailyOrders)}`,
+      figure: `${Math.trunc(adminOverview?.averageDailyOrders)}` || 0,
     },
     {
       id: "2",
       title: "Pending Orders",
-      figure: `${adminOverview?.totalPendingOrders}`,
+      figure: `${adminOverview?.totalPendingOrders}` || 0,
     },
     {
       id: "3",
       title: "Fulfilled Orders",
-      figure: `${adminOverview?.totalFulfilledOrders}`,
+      figure: `${adminOverview?.totalFulfilledOrders}` || 0,
     },
     {
       id: "4",
       title: "Failed Orders",
-      figure: `${adminOverview?.totalFailedOrders}`,
+      figure: `${adminOverview?.totalFailedOrders}` || 0,
     },
     {
       id: "5",
       title: "Returned Order",
-      figure: `${adminOverview?.totalReturnedOrders}`,
+      figure: `${adminOverview?.totalReturnedOrders}` || 0,
     },
   ];
 
@@ -221,11 +224,11 @@ const Overview = () => {
         <AreaChart />
       </div>
 
-      {/* <div className="grid grid-cols-3 items-center mt-8 gap-4">
+      <div className="mt-8 grid grid-cols-3 items-center gap-4">
         <TopStoresRating />
         <AdminOverviewTopProduct />
         <AdminOverviewRating />
-      </div> */}
+      </div>
     </div>
   );
 };

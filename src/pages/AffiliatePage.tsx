@@ -14,7 +14,6 @@ const AffiliatePage = () => {
   return (
     <>
       <NavBar />
-
       <nav className="mb-20">
         <NavBar />
       </nav>
@@ -38,54 +37,162 @@ const AffiliatePage = () => {
             Terms of Services
             <div className=" m-auto h-1  bg-[#197B30] xxs:w-20 md:w-24"></div>
           </h1>
-          <p className="text-[16px] font-normal leading-[150%] text-[#333333] ">
-            The Terms of Service (ToS) outlines the obligations and
-            responsibilities of affiliates, such as promoting the agro
-            e-commerce platform, adhering to advertising guidelines, and
-            maintaining accurate and up-to-date information.
+          <p className="text-[16px] font-medium leading-[150%] text-[#333333] ">
+            Welcome to Porker Hut! These Terms of Service outline the rules and
+            regulations governing your use of our website and the services we
+            provide. By accessing or using Porker Hut's website and services,
+            you agree to comply with these Terms of Service. Please read them
+            carefully.
           </p>
-          <ul className="mt-3 list-disc space-y-3 pl-5">
+          <ol className="mt-3 list-decimal space-y-3 pl-5">
             <li className="text-base text-[#333]">
-              <strong>Commission Structure:</strong> Details regarding the
-              commission structure, including the percentage or fixed amount of
-              commission, payment schedule for earning commissions are typically
-              included.
-            </li>
-
-            <li className="text-base text-[#333]">
-              <strong>Prohibited Activities:</strong> The ToS explicitly state
-              activities that are strictly prohibited, such as engaging in
-              fraudulent or deceptive practices, misrepresenting the e-commerce
-              platform, or using unauthorized marketing tactics.
-            </li>
-            <li className="text-base text-[#333]">
-              <strong>Intellectual Property:</strong> Affiliate agreements
-              usually mention the protection of intellectual property rights of
-              the agro e-commerce platform, including trademarks, copyrights,
-              and patents. Affiliates are generally prohibited from using these
-              intellectual properties without explicit permission.
+              <strong>Account Registration and Eligibility:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  To use certain features of our website and place orders, you
+                  may need to create an account with Porker Hut. You must be at
+                  least 18 years old to create an account.
+                </li>
+                <li>
+                  When creating an account, you agree to provide accurate,
+                  current, and complete information. You are solely responsible
+                  for maintaining the confidentiality of your account
+                  information and are liable for any activities that occur under
+                  your account.
+                </li>
+              </ul>
             </li>
             <li className="text-base text-[#333]">
-              <strong>Termination:</strong> The process and circumstances under
-              which an affiliate's participation may be terminated are outlined
-              in the ToS. It may include termination for violation of the terms,
-              fraudulent activities, or at the discretion of the agro e-commerce
-              platform.
+              <strong>Product Information and Pricing:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  Porker Hut strives to provide accurate product descriptions,
+                  images, and pricing information. However, we do not warrant
+                  the accuracy, completeness, or reliability of any information
+                  on our website.
+                </li>
+                <li>
+                  Prices for our pork products are subject to change without
+                  prior notice. We reserve the right to modify or discontinue
+                  any product without liability.
+                </li>
+              </ul>
             </li>
             <li className="text-base text-[#333]">
-              <strong>Modifications:</strong> There may be a clause stating that
-              the agro e-commerce platform has the right to modify the ToS at
-              any time, with or without prior notice to affiliates.
+              <strong>Ordering and Payment:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  When placing an order on our website, you agree to provide
+                  accurate and complete information about yourself and the
+                  delivery address.
+                </li>
+                <li>
+                  All payments must be made through the available payment
+                  methods on our website. By making a purchase, you authorize us
+                  to charge the provided payment method for the total order
+                  amount.
+                </li>
+              </ul>
             </li>
             <li className="text-base text-[#333]">
-              <strong>Limitation of Liability:</strong> The platform typically
-              includes a disclaimer of liability, indicating that they are not
-              responsible for any losses incurred by affiliates and that
-              affiliates assume their own risks.
+              <strong>Shipping and Delivery:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  We strive to process and deliver orders promptly. However,
+                  delivery times may vary depending on factors beyond our
+                  control.
+                </li>
+                <li>
+                  Porker Hut is not responsible for any delays, loss, or damage
+                  that may occur during the shipping process. Risk of loss and
+                  title for products purchased from our website pass to you upon
+                  delivery.
+                </li>
+              </ul>
             </li>
-          </ul>
-        </div>{" "}
-        <div className="w-full grid-cols-2 justify-center py-5 xxs:block lg:grid lg:gap-7">
+            <li className="text-base text-[#333]">
+              <strong>Returns and Refunds:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  We take pride in providing high-quality pork products. If you
+                  are not satisfied with your purchase, please contact our
+                  customer support within 48 hours of delivery to initiate a
+                  return or refund.
+                </li>
+                <li>
+                  Returned products must be in their original condition,
+                  unopened, and unused. We reserve the right to refuse returns
+                  or refunds if the products are not in compliance with our
+                  return policy.
+                </li>
+              </ul>
+            </li>
+            <li className="text-base text-[#333]">
+              <strong>Intellectual Property:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  All content on the Porker Hut website, including text, images,
+                  graphics, logos, and software, is the property of Porker Hut
+                  and protected by intellectual property laws.
+                </li>
+                <li>
+                  You may not reproduce, distribute, modify, or exploit any
+                  content from our website without prior written permission from
+                  Porker Hut.
+                </li>
+              </ul>
+            </li>
+            <li className="text-base text-[#333]">
+              <strong>Governing Law and Jurisdiction:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  These Terms of Service shall be governed by and construed in
+                  accordance with the laws of Nigeria.
+                </li>
+                <li>
+                  Any disputes arising from or related to these Terms of Service
+                  shall be subject to the exclusive jurisdiction of the courts
+                  in Nigeria.
+                </li>
+              </ul>
+            </li>
+            <li className="text-base text-[#333]">
+              <strong>Modifications to the Terms of Service:</strong>
+              <ul className="list-[lower-alpha] pl-5">
+                <li>
+                  Porker Hut reserves the right to modify or update these Terms
+                  of Service at any time without prior notice.
+                </li>
+                <li>
+                  By continuing to use our website and services after the
+                  changes have been made, you agree to be bound by the revised
+                  Terms of Service.
+                </li>
+              </ul>
+            </li>
+            <li className="text-base text-[#333]">
+              <strong>Contact Information:</strong>
+              <p>
+                If you have any questions or concerns about these Terms of
+                Service, please contact us at{" "}
+                <a
+                  href="mailto:info@porkerhut.com"
+                  className="font-medium text-green-700"
+                >
+                  info@porkerhut.com
+                </a>
+              </p>
+              <p className="mt-2">
+                Please note that this sample Terms of Service is for reference
+                purposes only and may need to be customised to fit the specific
+                needs and legal requirements of your company. It is recommended
+                to consult with a legal professional to ensure compliance with
+                applicable laws and regulations
+              </p>
+            </li>
+          </ol>
+        </div>
+        <div className="mt-5 w-full grid-cols-2 justify-center py-5 xxs:block lg:grid lg:gap-7">
           <div className="xxs:w-full">
             <h1 className="text-[ #333333] mb-8 text-left text-2xl font-medium xxs:block  lg:hidden">
               About Marketplace

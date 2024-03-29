@@ -3,6 +3,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
 import logo from "../assets/images/porkerlogo.png";
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { useGetVendorById } from "../services/hooks/Vendor";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -12,6 +14,13 @@ const Layout = () => {
   const vendor = vendors?.vendor;
 
   const accessToken = localStorage.getItem("vendorAccessToken");
+
+  const [vendorStatus, setVendorStatus] = useState<string>(vendor?.storeStatus);
+  const { data: vInfo } = useGetVendorById(vendor?._id);
+
+  console.log(vInfo, "viddd");
+
+  useEffect(() => setVendorStatus(vInfo?.storeStatus), [vInfo]);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -81,6 +90,30 @@ const Layout = () => {
                 </div>
               </div>
             )}
+
+            {vendorStatus === "deactivated" && (
+              <div className="absolute top-0 left-0 z-[60] flex h-screen w-full items-center justify-center  overflow-auto bg-black bg-opacity-50 px-4 pt-24 backdrop-blur-md lg:fixed">
+                <div className="relative z-[65] mx-auto mb-8 flex h-auto flex-col items-center rounded-t-lg bg-white p-5 text-center sm:w-[500px] md:mt-0 md:w-[700px] md:p-8">
+                  <span className="inline-flex h-20 w-20 items-center justify-center rounded-full text-red-600 ring-2  ring-red-600">
+                    <IoCloseCircleSharp size={72} />
+                  </span>
+                  <h2 className="mb-1 mt-5 text-xl font-semibold sm:text-2xl md:text-center">
+                    Your account has been deactivated
+                  </h2>
+                  <p className="leading-[150%]">
+                    Please contact Porkerhut at{" "}
+                    <a
+                      href="mailto:info@porkerhut.com"
+                      className="font-medium text-green-700"
+                    >
+                      info@porkerhut.com
+                    </a>{" "}
+                    for further assistance.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <div className="hide-scroll-bar w-full overflow-x-hidden md:flex lg:h-screen">
               <SellerSideNav />
 

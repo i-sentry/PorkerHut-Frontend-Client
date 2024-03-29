@@ -7,6 +7,7 @@ import StoreCard from "../../components/admin-dashboard-components/StoreCard";
 import { useGetVendors } from "../../services/hooks/Vendor";
 import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 import { ToastContainer } from "react-toastify";
+import StatusModal from "../../components/admin-dashboard-components/StatusModal";
 // import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 
 const itemsPerPage = 8;
@@ -20,6 +21,9 @@ const StoreProfile = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [action, setAction] = useState("");
+  const [shop, setShop] = useState<any>();
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -117,7 +121,10 @@ const StoreProfile = () => {
                   item={item}
                   key={index}
                   setIsOpen={setIsOpen}
+                  setAction={setAction}
+                  setShop={setShop}
                   refetch={refetch}
+                  setShowConfirm={setShowConfirm}
                 />
               ),
             )}
@@ -183,6 +190,13 @@ const StoreProfile = () => {
       )} */}
 
       <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
+      <StatusModal
+        action={action}
+        shop={shop}
+        showConfirm={showConfirm}
+        refetch={refetch}
+        setShowConfirm={setShowConfirm}
+      />
     </div>
   );
 };
