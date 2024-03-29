@@ -5,6 +5,7 @@ import { Column } from "react-table";
 import newStoreData from "../../utils/json/newStoreData.json";
 import { useGetVendors } from "../../services/hooks/Vendor";
 import { Tooltip } from "../../components/utility/ToolTip";
+import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 
 export const StatusColumn = ({ data }: { data: any }) => {
   switch (data?.storeStatus?.toLowerCase()) {
@@ -100,6 +101,7 @@ const Tcolumns: readonly Column<object>[] = [
 const NewStore = () => {
   const { data: allStores, isLoading } = useGetVendors();
   const [data, setData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -130,7 +132,7 @@ const NewStore = () => {
       return (
         <div>
           <span
-            onClick={() => handleView(row?.original?.id)}
+            onClick={() => setIsOpen(true)}
             className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out active:scale-90"
           >
             View
@@ -141,26 +143,29 @@ const NewStore = () => {
   };
 
   return (
-    <div className="pl-10 pt-10 pr-5 ">
-      <div className="mb-5">
-        <h1 className="text-2xl font-medium text-[#333333]">New Stores</h1>
-        <span className="text-sm font-light text-[#A2A2A2]">
-          All new stores can be approved and rejected.
-        </span>
+    <>
+      <div className="pl-10 pt-10 pr-5 ">
+        <div className="mb-5">
+          <h1 className="text-2xl font-medium text-[#333333]">New Stores</h1>
+          <span className="text-sm font-light text-[#A2A2A2]">
+            All new stores can be approved and rejected.
+          </span>
+        </div>
+        <div>
+          <AdminTable
+            showDropDown={true}
+            showCheckbox={true}
+            Tcolumns={Tcolumns}
+            // @ts-ignore
+            optionalColumn={optionalColumn}
+            tabs={["All", "Pending", "Approved", "Rejected"]}
+            TData={data}
+            placeholder={"Search account owner, email address, vet name.... "}
+          />
+        </div>
       </div>
-      <div>
-        <AdminTable
-          showDropDown={true}
-          showCheckbox={true}
-          Tcolumns={Tcolumns}
-          // @ts-ignore
-          optionalColumn={optionalColumn}
-          tabs={["All", "Pending", "Approved", "Rejected"]}
-          TData={data}
-          placeholder={"Search account owner, email address, vet name.... "}
-        />
-      </div>
-    </div>
+      <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 };
 

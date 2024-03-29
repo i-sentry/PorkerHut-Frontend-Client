@@ -26,13 +26,14 @@ const StatusModal = ({
   const deleteVendor = useDeleteVendorById(item?._id);
 
   const handleActivateVendor = async () => {
-    setLoading(true);
     if (item?.storeStatus === "approved") {
       toast.info(
         `${item?.sellerAccountInformation?.shopName} is already approved`,
       );
+      setShowConfirm(false);
       return;
     }
+    setLoading(true);
     updateStatus
       .mutateAsync({ storeStatus: "approved" })
       .then((res: any) => {
@@ -53,13 +54,14 @@ const StatusModal = ({
   };
 
   const handleDeactivateVendor = async () => {
-    setLoading(true);
     if (item?.storeStatus === "deactivated") {
       toast.info(
         `${item?.sellerAccountInformation?.shopName} is already deactivated`,
       );
+      setShowConfirm(false);
       return;
     }
+    setLoading(true);
     try {
       const response = await updateStatus.mutateAsync({
         storeStatus: "deactivated",
@@ -136,7 +138,7 @@ const StatusModal = ({
           <div className="flex justify-center gap-3">
             <button
               disabled={loading}
-              onClick={() => handleConfirm}
+              onClick={handleConfirm}
               className={`rounded-lg bg-green-700 px-7 py-3  capitalize text-white ${loading ? "bg-opacity-50" : ""}`}
             >
               {loading ? (
