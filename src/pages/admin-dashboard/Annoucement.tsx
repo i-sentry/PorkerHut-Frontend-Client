@@ -17,6 +17,12 @@ import { announcementData } from "../../utils/announcementData";
 import IndeterminateCheckbox from "../../components/Table/IndeterminateCheckBox";
 import RowModal from "../../components/announcement-component/RowModal";
 import CustomPagination from "../../components/Table/CustomPagination";
+import {
+  useCreateAnnoucement,
+  useGetAllAnnoucement,
+} from "../../services/hooks/Vendor";
+import { ToastContainer } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 interface SelectOption {
   value: string;
@@ -37,6 +43,9 @@ const Announcement = () => {
 
   const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
   const [showRowModal, setShowRowModal] = useState(false);
+
+  const { data: annouce, isLoading } = useGetAllAnnoucement();
+  console.log(annouce, "announce");
 
   // const handleRowClick = (rowData: RowData) => {
   //   setSelectedRow(rowData);
@@ -113,12 +122,12 @@ const Announcement = () => {
               {value?.length > 40 ? (
                 <span
                   onClick={() => handleClick(row)}
-                  className="hover:cursor-pointer hover:underline text-[#197b30]"
+                  className="text-[#197b30] hover:cursor-pointer hover:underline"
                 >
                   {value.substring(0, 150) + " ..."}
                 </span>
               ) : (
-                <span className="hover:cursor-pointer text-[#197B30] hover:underline">
+                <span className="text-[#197B30] hover:cursor-pointer hover:underline">
                   {value}
                 </span>
               )}
@@ -131,8 +140,8 @@ const Announcement = () => {
         accessor: "date",
       },
     ],
-    []
-  ); 
+    [],
+  );
 
   const options: SelectOption[] = [
     {
@@ -146,7 +155,10 @@ const Announcement = () => {
 
   // const columns = useMemo(() => column, [column]);
 
-  const data = useMemo(() => announcementData, []);
+  const data = useMemo(
+    () => (isLoading ? [] : annouce?.data?.data),
+    [isLoading, annouce?.data?.data],
+  );
   const table = useTable(
     {
       columns,
@@ -183,7 +195,7 @@ const Announcement = () => {
 
         ...columns,
       ]);
-    }
+    },
   ) as any;
   const {
     getTableBodyProps,
@@ -206,8 +218,9 @@ const Announcement = () => {
   return (
     <div className="pl-10 pr-5 pt-10">
       <div className="mt-5">
+        <ToastContainer />
         <h1 className="text-2xl font-medium ">Announcement</h1>
-        <span className="text-[#A2A2A2] font-light text-sm">
+        <span className="text-sm font-light text-[#A2A2A2]">
           This is where send out special announcement to all affiliate.
         </span>
       </div>
@@ -216,12 +229,12 @@ const Announcement = () => {
 
       <div>
         <>
-          <div className="flex items-center justify-between  my-5 w-full ">
-            <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
-              <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+          <div className="my-5 flex w-full  items-center justify-between ">
+            <div className="ml-4 items-center gap-3 xxs:hidden md:flex">
+              <div className="flex h-full items-center border-r-[1px] border-r-[#D0D5DD] pl-4">
                 <input
                   type="checkbox"
-                  className="text-primary  accent-[#197B30] text-xs md:text-sm"
+                  className="text-primary  text-xs accent-[#197B30] md:text-sm"
                   readOnly
                   checked={numOfSelectedRow > 0 ? true : false}
                 />
@@ -235,18 +248,18 @@ const Announcement = () => {
                 <Select<SelectOption>
                   defaultValue={options?.[0]}
                   options={options}
-                  className="w-full text-sm font-light bg-amber-600 rounded-md"
+                  className="w-full rounded-md bg-amber-600 text-sm font-light"
                 />
               </div>
-              <div className="bg-[#197B30] shadow-inner text-[#fff] px-4 py-[0.4rem] rounded-sm cursor-pointer active:scale-90 active:transition-all ease-in-out">
+              <div className="cursor-pointer rounded-sm bg-[#197B30] px-4 py-[0.4rem] text-[#fff] shadow-inner ease-in-out active:scale-90 active:transition-all">
                 Go
               </div>
             </div>
-            <div className=" flex md:justify-end xxs:justify-center">
+            <div className=" flex xxs:justify-center md:justify-end">
               <div className="flex items-center justify-between">
                 <div
                   onClick={() => setShowModal(true)}
-                  className="py-1.5 px-3 flex items-center justify-center gap-2 border border-[#197B30]  rounded-md text-[#197b30] cursor-pointer shadow-md "
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-[#197B30]  py-1.5 px-3 text-[#197b30] shadow-md "
                 >
                   <AiOutlineSound />
                   <span>Create</span>
@@ -254,105 +267,118 @@ const Announcement = () => {
               </div>
             </div>
           </div>
-          <div className="  flex flex-col bg-white mb-8">
+          <div className="mb-8 flex flex-col bg-white">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="overflow-x-auto">
-                  <table
-                    {...getTableProps()}
-                    className="appearance-none bg-white min-w-full  mb-6 "
-                    id="my-table"
-                  >
-                    <thead className="bg-[#F4F4F4] appearance-none ">
-                      {headerGroups.map(
-                        (headerGroup: {
-                          getHeaderGroupProps: () => {
-                            [x: string]: any;
-                            key: any;
-                          };
-                          headers: any[];
-                        }) => {
-                          const { key, ...restHeaderProps } =
-                            headerGroup.getHeaderGroupProps();
-                          return (
-                            <tr key={key} {...restHeaderProps}>
-                              {headerGroup.headers.map((column) => (
-                                <th
-                                  className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-4 "
-                                  {...column.getHeaderProps(
-                                    column.getSortByToggleProps()
-                                  )}
-                                  key={column.id}
-                                >
-                                  <div className="flex items-center">
-                                    {column.render("Header")}
-                                  </div>
-                                </th>
-                              ))}
-                            </tr>
-                          );
-                        }
-                      )}
-                    </thead>
-                    <tbody
-                      {...getTableBodyProps()}
-                      className="mt-3 pt-3 w-full space-y-8 "
+                {isLoading && (
+                  <div className="flex w-full flex-col items-center justify-center gap-4 py-6">
+                    <CgSpinner size={50} className="animate-spin" />
+                    <span>Loading...</span>
+                  </div>
+                )}
+                {!isLoading && (
+                  <div className="overflow-x-auto">
+                    <table
+                      {...getTableProps()}
+                      className="mb-6 min-w-full appearance-none  bg-white "
+                      id="my-table"
                     >
-                      {page.map(
-                        (row: {
-                          subRows: any;
-                          getRowProps: () => JSX.IntrinsicAttributes &
-                            React.ClassAttributes<HTMLTableRowElement> &
-                            React.HTMLAttributes<HTMLTableRowElement>;
-                          cells: any[];
-                        }) => {
-                          prepareRow(row);
-
-                          return (
-                            <>
-                              <tr
-                                {...row.getRowProps()}
-                                className="appearance-none my-4 border "
-                              >
-                                {row.cells.map((cell) => {
-                                  return (
-                                    <td
-                                      {...cell.getCellProps()}
-                                      className=" text-sm text-[#202223] py-4 px-4 "
-                                    >
-                                      {cell.render("Cell")}
-                                    </td>
-                                  );
-                                })}
+                      <thead className="appearance-none bg-[#F4F4F4] ">
+                        {headerGroups.map(
+                          (headerGroup: {
+                            getHeaderGroupProps: () => {
+                              [x: string]: any;
+                              key: any;
+                            };
+                            headers: any[];
+                          }) => {
+                            const { key, ...restHeaderProps } =
+                              headerGroup.getHeaderGroupProps();
+                            return (
+                              <tr key={key} {...restHeaderProps}>
+                                {headerGroup.headers.map((column) => (
+                                  <th
+                                    className="text-primary whitespace-nowrap py-4 px-4 text-left text-sm font-normal "
+                                    {...column.getHeaderProps(
+                                      column.getSortByToggleProps(),
+                                    )}
+                                    key={column.id}
+                                  >
+                                    <div className="flex items-center">
+                                      {column.render("Header")}
+                                    </div>
+                                  </th>
+                                ))}
                               </tr>
-                            </>
-                          );
-                        }
-                      )}
-                    </tbody>
-                  </table>
-                  {selectedRow && (
-                    <RowModal
-                      id={selectedRow.id}
-                      subject={selectedRow.subject}
-                      content={selectedRow.content}
-                      date={selectedRow.date}
-                      isVisib={showRowModal}
-                      CloseModal={() => setShowRowModal(false)}
-                      show={false}
-                    />
-                  )}
+                            );
+                          },
+                        )}
+                      </thead>
+                      <tbody
+                        {...getTableBodyProps()}
+                        className="mt-3 w-full space-y-8 pt-3 "
+                      >
+                        {page.map(
+                          (
+                            row: {
+                              subRows: any;
+                              getRowProps: () => JSX.IntrinsicAttributes &
+                                React.ClassAttributes<HTMLTableRowElement> &
+                                React.HTMLAttributes<HTMLTableRowElement>;
+                              cells: any[];
+                            },
+                            index: number,
+                          ) => {
+                            prepareRow(row);
 
-                  <CustomPagination
-                    gotoPage={gotoPage}
-                    length={data.length}
-                    pageSize={pageSize}
-                    pageOptions={pageOptions}
-                    pageIndex={pageIndex}
-                    pageCount={pageCount}
-                    setPageSize={setPageSize}
-                  />
-                </div>
+                            return (
+                              <>
+                                <tr
+                                  key={index}
+                                  {...row.getRowProps()}
+                                  className="my-4 appearance-none border "
+                                >
+                                  {row.cells.map((cell, cellIndex) => {
+                                    return (
+                                      <td
+                                        key={cellIndex}
+                                        {...cell.getCellProps()}
+                                        className=" py-4 px-4 text-sm text-[#202223] "
+                                      >
+                                        {cell.render("Cell")}
+                                      </td>
+                                    );
+                                  })}
+                                </tr>
+                              </>
+                            );
+                          },
+                        )}
+                      </tbody>
+                    </table>
+                    {selectedRow && (
+                      <RowModal
+                        id={selectedRow.id}
+                        subject={selectedRow.subject}
+                        content={selectedRow.content}
+                        date={selectedRow.date}
+                        isVisib={showRowModal}
+                        CloseModal={() => setShowRowModal(false)}
+                        show={false}
+                      />
+                    )}
+
+                    <CustomPagination
+                      gotoPage={gotoPage}
+                      length={data.length}
+                      pageSize={pageSize}
+                      pageOptions={pageOptions}
+                      pageIndex={pageIndex}
+                      pageCount={pageCount}
+                      setPageSize={setPageSize}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,31 +1,28 @@
-import React from 'react'
+import React from "react";
 
 const Header = () => {
-    return (
+  return (
+    <div className="px-4 py-8 md:p-10">
+      <h1 className="flex items-center justify-center pb-4 text-[20px] font-medium leading-[23px] text-[#FFFFFF] md:text-[40px] md:leading-[47px]">
+        Join our Vet Team
+      </h1>
+      <p className="flex items-center justify-center text-[14px]   text-[#FFFFFF] md:text-[16px] md:leading-[150%] ">
+        At Porker Hut, we believe in forging strong partnerships to deliver the
+        highest level of care for our beloved pigs. We are excited to introduce
+        our Vet Partner program designed to collaborate with veterinary
+        professionals who share our commitment to responsible pig rearing and
+        exceptional animal welfare.
+      </p>
+      <p className="mt-3 text-[14px]   text-[#FFFFFF] md:text-[16px] md:leading-[150%]">
+        By becoming a Vet Partner with Porker Hut, you’ll join a network of
+        dedicated experts in the field of veterinary medicine. As a Vet Partner,
+        you will have the opportunity to work closely with our team of
+        experienced pig farmers, nutritionists, and animal care specialists to
+        ensure the health and well-being of our pigs throughout their journey
+        from farm to table.
+      </p>
+    </div>
+  );
+};
 
-        <div className="p-10">
-            <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
-                Join our Vet Team
-            </h1>
-            <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
-                Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
-                morbi nulla scelerisque enim. Fringilla fringilla felis non magna
-                erat at facilisi. Ligula elementum praesent interdum adipiscing eu
-                convallis tellus augue. Et tempor mauris donec mattis enim sapien a
-                nibh. Pretium felis maecenas suspendisse eros nibh arcu quis. Tellus
-                quam ultricies sodales at ac odio diam risus. Facilisis aliquet
-                tempus tristique donec integer pretium cursus mi a. Integer laoreet
-                commodo diam erat erat amet. Tellus congue sapien convallis maecenas
-                tortor auctor. Morbi tincidunt a libero interdum. Enim enim turpis
-                rutrum egestas malesuada turpis amet tempor potenti. Nulla tincidunt
-                sit amet at enim sit commodo condimentum curabitur. Nisl netus sed
-                arcu eros hendrerit ut. Dui lorem at ligula et diam pellentesque mi
-                maecenas. Aliquet congue nunc porta risus morbi et. Ac habitant
-                metus sem malesuada ac faucibus. Dapibus natoque mi sed ipsum
-                facilisis felis aliquet sit.{" "}
-            </p>
-        </div>
-    )
-}
-
-export default Header
+export default Header;

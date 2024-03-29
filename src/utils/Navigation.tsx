@@ -110,22 +110,22 @@ export const AdminSideBarLink = [
     name: "Customers",
     url: "/admin/customers",
     icon: <HiOutlineUserGroup width={"20px"} height={"20px"} />,
-    // iconClosed: <BiChevronDown />,
-    // iconOpen: <BiChevronUp />,
-    // subNav: [
-    //   {
-    //     id: 0,
-    //     name: "Customer Orders",
-    //     url: "/admin/stores",
-    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
-    //   },
-    //   {
-    //     id: 1,
-    //     name: "Customer Completed Orders",
-    //     url: "/admin/stores/new",
-    //     // icon: <WalletIcon width={"20px"} height={"20px"} />,
-    //   },
-    // ],
+    iconClosed: <BiChevronDown />,
+    iconOpen: <BiChevronUp />,
+    subNav: [
+      {
+        id: 0,
+        name: "Customer Orders",
+        url: "/admin/stores",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+      {
+        id: 1,
+        name: "Customer Completed Orders",
+        url: "/admin/stores/new",
+        // icon: <WalletIcon width={"20px"} height={"20px"} />,
+      },
+    ],
   },
   {
     id: 3,

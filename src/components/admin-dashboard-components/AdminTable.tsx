@@ -24,8 +24,8 @@ export type ITable = {
   showIcon?: boolean;
   showCheckbox?: boolean;
   showDropDown?: boolean;
+  dropDownOption?: any[];
   statusType?: string;
-  // productStatus?: boolean;
 };
 
 //@ts-ignore
@@ -39,13 +39,15 @@ const AdminTable = ({
   showIcon,
   showCheckbox,
   showDropDown,
-  statusType,
+  dropDownOption,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [chosenTab, setChosenTab] = useState(tabs[0]);
+
+  console.log(tabs[0], selectedTab);
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -109,21 +111,12 @@ const AdminTable = ({
     if (chosenTab === tabs[0]) {
       setTdata(TData);
     } else {
-      if (statusType === "product") {
-        setTdata(
-          TData.filter(
-            (d: { approvalStatus: string }) =>
-              d?.approvalStatus?.toLowerCase() === chosenTab.toLowerCase(),
-          ),
-        );
-      } else {
-        setTdata(
-          TData.filter(
-            (d: { status: string }) =>
-              d?.status?.toLowerCase() === chosenTab.toLowerCase(),
-          ),
-        );
-      }
+      setTdata(
+        TData.filter(
+          (d: { status: string }) =>
+            d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+        ),
+      );
     }
   }, [chosenTab, TData, tabs]);
 
@@ -170,7 +163,7 @@ const AdminTable = ({
               )}
             </div>
             <div className="max-w-xl ">
-              <OrderDropDown />
+              <OrderDropDown options={dropDownOption} />
             </div>
             <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]">
               Go
