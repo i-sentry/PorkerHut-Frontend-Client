@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -16,6 +16,7 @@ import { BiCaretDown } from "react-icons/bi";
 import {
   useGetAllAdmin,
   useInviteAdmin,
+  useUpdateAdminAccess,
 } from "../../services/hooks/admin/Auth";
 import ReactLoading from "react-loading";
 import {
@@ -53,10 +54,17 @@ const Settings = () => {
     "Password",
   ]);
   const inviteAdmin = useInviteAdmin();
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const getAllAdmin = useGetAllAdmin();
+  const { data: getAllAdmin, refetch } = useGetAllAdmin();
+  const [selectedAdmin, setSelectedAdmin] = useState<string>("");
+  const updateAccess = useUpdateAdminAccess(selectedAdmin);
+  const allAdmin = useMemo(
+    () => getAllAdmin?.length > 0 && getAllAdmin,
+    [getAllAdmin],
+  );
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -177,7 +185,7 @@ const Settings = () => {
     inviteAdmin
       .mutateAsync({
         email,
-        role,
+        role: role.toLowerCase(),
       })
       .then((res: any) => {})
       .catch((err: any) => {});
@@ -206,7 +214,37 @@ const Settings = () => {
   };
 
   const handleConfirm = () => {
-    setShowConfirmationModal(false);
+    setLoading(true);
+    if (action.toLowerCase() === "grant access") {
+      updateAccess
+        .mutateAsync({ isAccessRevoked: false })
+        .then((res: any) => {
+          console.log(res);
+          refetch();
+          setShowConfirmationModal(false);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+          setLoading(false);
+        });
+      return;
+    }
+    if (action.toLowerCase() === "deny access") {
+      updateAccess
+        .mutateAsync({ isAccessRevoked: true })
+        .then((res: any) => {
+          console.log(res);
+          refetch();
+          setShowConfirmationModal(false);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+          setLoading(false);
+        });
+      return;
+    }
   };
 
   const handleCancel = () => {
@@ -552,57 +590,86 @@ const Settings = () => {
                     </button>
                   </div>
                 </div> */}
-                <div className="container mx-auto pt-8">
+                <div className="container mx-auto pt-5">
                   <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
-                {}
-                <div className="mt-10 flex items-center justify-between">
-                  <div className="mt-3 flex items-center gap-2">
-                    <img
-                      src={currentImage ? currentImage : avatar}
-                      alt="avatar"
-                      className="h-10 w-10 object-contain"
-                    />
-                    <div className="space-y-2">
-                      <h1 className="text-xs font-normal text-[#333333]">
-                        Jeremiah steller
-                      </h1>
-                      <p className="text-xs text-[#797979]">test22@gmail.com</p>
-                    </div>
-                  </div>
+                <div className="mt-7 space-y-2">
+                  {allAdmin
+                    ?.filter((admin: any) => admin?._id !== adminInfo?._id)
+                    ?.map((admin: any, index: number) => (
+                      <div
+                        className="flex items-center justify-between"
+                        key={index}
+                      >
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={avatar}
+                            alt="avatar"
+                            className="h-8 w-8 object-contain"
+                          />
+                          <div className="space-y-0.5">
+                            <h1 className="text-xs font-medium capitalize text-[#333333]">
+                              {admin?.firstName} {admin?.lastName}
+                            </h1>
+                            <p className="text-xs text-[#797979]">
+                              {admin?.email}
+                            </p>
+                          </div>
+                        </div>
 
-                  <>
-                    <Popover
-                      buttonContent={component(action)}
-                      placementOrder={"auto"}
-                      closeOnClick={true}
-                    >
-                      <div className="w-[150px] py-2">
-                        <button
-                          className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                          onClick={() => handleButtonClick("Grant Access")}
-                        >
-                          Grant Access
-                        </button>
-                        {/* {permissions.canEdit && ( */}
-                        <button
-                          className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                          onClick={() => handleButtonClick("Deny Access")}
-                        >
-                          Deny Access
-                        </button>
-                        {/* )}  */}
-                        {/* {permissions.canDelete && ( */}
-                        <button
-                          className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                          onClick={() => handleButtonClick("Delete Account")}
-                        >
-                          Delete Account
-                        </button>
-                        {/* )} */}
+                        <>
+                          <Popover
+                            buttonContent={
+                              admin?.isAccessRevoked ? (
+                                <span className="inline-flex items-center gap-2">
+                                  Access Denied <RxCaretDown size={20} />
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-2">
+                                  Access Granted <RxCaretDown size={20} />
+                                </span>
+                              )
+                            }
+                            placementOrder={"auto"}
+                            closeOnClick={true}
+                          >
+                            <div className="w-[150px] py-2">
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Grant Access");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Grant Access
+                              </button>
+                              {/* {permissions.canEdit && ( */}
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Deny Access");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Deny Access
+                              </button>
+                              {/* )}  */}
+                              {/* {permissions.canDelete && ( */}
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Delete Account");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Delete Account
+                              </button>
+                              {/* )} */}
+                            </div>
+                          </Popover>
+                        </>
                       </div>
-                    </Popover>
-                  </>
+                    ))}
                 </div>
               </div>
             </div>
@@ -791,10 +858,11 @@ const Settings = () => {
           </h2>
           <div className="flex space-x-4 text-center">
             <button
-              className="rounded bg-[#197B30] px-4 py-2 text-white"
+              disabled={loading}
+              className={`rounded bg-[#197B30] px-4 py-2 text-white ${loading ? "bg-opacity-50" : ""}`}
               onClick={handleConfirm}
             >
-              Yes, Continue
+              {loading ? "Processing..." : "Yes, Continue"}
             </button>
             <button
               className="rounded border border-[#e10] bg-[#fff] px-4  py-2 text-[#e10] focus-within:border-[#e10]"
@@ -832,34 +900,32 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
     }
   };
 
-  const roles = ["user", "admin", "Superadmin"]; // Example roles
+  const roles = ["User", "Admin", "Superadmin"]; // Example roles
 
   return (
     <div className=" flex items-center ">
-      <div className="relative w-full">
+      <div className="relative grid w-full grid-cols-[2fr_1fr] border bg-white  focus-within:border-[#197b30] focus-within:ring-[#197b30]">
         <input
           type="email"
-          className="w-full appearance-none border border-gray-200 px-4   py-2 placeholder:text-sm focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] "
+          className="w-full appearance-none border-0 border-gray-200 px-1 py-2 pl-1.5 placeholder:text-sm  focus:border-0 focus:outline-none focus:ring-0"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="absolute inset-y-0 right-1 flex items-center">
-          <select
-            className="focus:ring-none appearance-none border-hidden px-2 py-1 text-sm font-light text-gray-600 focus:border-none focus:outline-none"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option className="pr-4 text-sm text-gray-600" value="">
-              Select Role
+        <select
+          className="form-select border-0 border-l border-l-gray-300 px-2 py-1 text-sm font-medium text-gray-600 focus:border-0 focus:border-l focus:border-l-gray-300 focus:outline-none focus:ring-0"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option className="pr-4 text-sm text-gray-600" value="">
+            Select Role
+          </option>
+          {roles.map((role, index) => (
+            <option key={index} value={role} className="capitalize">
+              {role}
             </option>
-            {roles.map((role, index) => (
-              <option key={index} value={role}>
-                {role}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
       <button
         className="disabled:cursor-pointed ml-4 whitespace-nowrap border border-[#197b30]  bg-[#197b30] px-4 py-2.5 text-white shadow-inner hover:bg-[#197b30] focus:outline-none disabled:bg-[#568a62]"
