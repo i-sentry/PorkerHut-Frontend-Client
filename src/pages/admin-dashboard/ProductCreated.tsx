@@ -6,13 +6,14 @@ import { useGetAllProducts } from "../../services/hooks/Vendor/products";
 import moment from "moment";
 import { capitalizeFirstLetter } from "./ProductDetail";
 import { ImSpinner6 } from "react-icons/im";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const ProductNameColumn = ({ d }: any) => {
   const { information } = d;
 
   return (
     <div className="flex items-center gap-2">
-      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {information?.productName}
       </span>
     </div>
@@ -23,7 +24,7 @@ const StoreNameColumn = ({ d }: any) => {
   const storeName = vendor?.sellerAccountInformation?.shopName;
   return (
     <div className="flex items-center gap-2">
-      <span className=" text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {storeName}
       </span>
     </div>
@@ -36,7 +37,7 @@ const CategoryColumn = ({ d }: any) => {
 
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {capitalizeFirstLetter(category) || ""}
       </span>
     </div>
@@ -48,7 +49,7 @@ const DateColumn = ({ d }: any) => {
   const formattedDate = moment(createdAt).format("Do MMMM YYYY");
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {formattedDate}
       </span>
     </div>
@@ -59,7 +60,7 @@ const QuantityColumn = ({ d }: any) => {
 
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         {pricing?.quantity}
       </span>
     </div>
@@ -72,7 +73,7 @@ const PriceColumn = ({ d }: any) => {
 
   return (
     <div>
-      <span className="text-[14px] font-normal leading-[normal] whitespace-nowrap text-[#333333]">
+      <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
         ₦ {formattedPrice}
       </span>
     </div>
@@ -106,7 +107,7 @@ const StatusColumn = ({ d }: any) => {
   return (
     <div>
       <span
-        className={`text-[14px] font-normal leading-[normal] whitespace-nowrap ${statusClassName}`}
+        className={`whitespace-nowrap text-[14px] font-normal leading-[normal] ${statusClassName}`}
       >
         {formattedStatus}
       </span>
@@ -128,7 +129,7 @@ const ProductCreated = () => {
 
     dataCopy.sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     return dataCopy;
@@ -136,7 +137,7 @@ const ProductCreated = () => {
 
   if (isLoading || !products?.data) {
     return (
-      <div className="flex flex-col  items-center justify-center h-screen bg-[#A2A2A2] ">
+      <div className="flex h-screen  flex-col items-center justify-center bg-[#A2A2A2] ">
         <span className="animate-spin">
           <ImSpinner6 size={30} />
         </span>
@@ -150,11 +151,11 @@ const ProductCreated = () => {
   const handleView = (id: any, catId: any) => {
     navigate(
       `/admin/products__details?id=${encodeURIComponent(
-        id
+        id,
       )}&catId=${encodeURIComponent(catId)}`,
       {
         replace: true,
-      }
+      },
     );
   };
 
@@ -238,7 +239,7 @@ const ProductCreated = () => {
         <div>
           <span
             onClick={() => handleView(id, catId)}
-            className="flex items-center gap-3 text-sm underline text-[#333333] active:scale-90 transition-all ease-in-out cursor-pointer hover:text-[#0eb683] "
+            className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
           >
             View
           </span>
@@ -253,7 +254,7 @@ const ProductCreated = () => {
         <h1 className="text-[36px] font-semibold leading-normal ">
           Product Created
         </h1>
-        <span className="text-[#A2A2A2] font-normal text-sm">
+        <span className="text-sm font-normal text-[#A2A2A2]">
           Find all created product here for approval.
         </span>
       </div>

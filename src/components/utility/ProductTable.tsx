@@ -1,8 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-
+import { Tooltip } from "./ToolTip";
 
 const ProductTable = ({ data }: any) => {
   const navigate = useNavigate();
@@ -10,9 +9,9 @@ const ProductTable = ({ data }: any) => {
     navigate("/admin/products");
   };
 
-  console.log(data, 'dataing')
+  console.log(data, "dataing");
 
-  const date = moment(data?.createdAt).format("Do MMMM YYYY");
+  const date = moment(data?.createdAt).format("Do MMM YYYY");
 
   let statusClassName = "";
   let formattedStatus = "";
@@ -40,66 +39,66 @@ const ProductTable = ({ data }: any) => {
     <table className="min-w-full divide-y divide-gray-400 rounded-sm">
       <thead>
         <tr>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Product Name
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Store Name
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Category
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Product ID
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Created
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Quantity
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Price
           </th>
-          <th className="px-6 py-4 bg-[#F4F4F4] text-left text-[11px]  leading-normal border font-medium text-[#333] uppercase tracking-wider">
+          <th className="border bg-[#F4F4F4] px-6 py-4 text-left  text-[11px] font-medium uppercase leading-normal tracking-wider text-[#333]">
             Status
           </th>
-          <th className="px-6 border py-4 bg-[#F4F4F4]"></th>{" "}
+          <th className="hidden border bg-[#F4F4F4] px-6 py-4"></th>{" "}
           {/* Empty header */}
         </tr>
       </thead>
-      <tbody className="bg-white divide-y divide-gray-400">
+      <tbody className="divide-y divide-gray-400 bg-white">
         <tr className="hover:bg-green-100">
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] capitalize leading-normal text-[#333]">
             {data?.information?.productName}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
-            {data?.storeName}
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] capitalize leading-normal text-[#333]">
+            {data?.sellerAccountInformation?.shopName}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal text-[#333]">
             {data?.information?.category?.name}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border w-32 truncate">
-            {data?._id}
+          <td className="whitespace-no-wrap w-32 truncate border px-6 py-3 text-[13px] leading-normal text-[#333]">
+            <Tooltip message={data?._id}>{data?._id.slice(0, 10)}</Tooltip>
           </td>
 
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal text-[#333]">
             {date}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal text-[#333]">
             {data?.pricing?.quantity}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
-            NGN {data?.pricing?.productPrice}
+          <td className="whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal text-[#333]">
+            NGN {data?.pricing?.productPrice.toLocaleString()}
           </td>
           <td
-            className={`px-6 py-3 text-[13px] leading-normal whitespace-no-wrap border ${statusClassName}`}
+            className={`whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal ${statusClassName}`}
           >
             {formattedStatus}
           </td>
-          <td className="px-6 py-3 text-[13px] leading-normal text-[#333] whitespace-no-wrap border">
+          <td className="whitespace-no-wrap hidden border px-6 py-3 text-[13px] leading-normal text-[#333]">
             <button
-              className=" text-[#333] py-1 underline hover:text-[#a10] rounded"
+              className=" rounded py-1 text-[#333] underline hover:text-[#a10]"
               onClick={handleCancel}
             >
               Cancel
