@@ -564,7 +564,7 @@ const Settings = () => {
                   Anyone granted access has access to porker Hut admin
                 </span>
               </div>
-              <div className=" mt-4 w-[60%]  text-sm">
+              <div className=" mt-4 w-[90%] text-sm xl:w-[70%]">
                 {/* <div className="flex gap-4">
                   <div className="flex-1 ">
                     <div className="flex flex-col    text-sm">
@@ -852,7 +852,7 @@ const Settings = () => {
         ></div>
       )}
       {showConfirmationModal && (
-        <div className="fixed inset-1/3  z-50 flex flex-col items-center justify-center rounded-md bg-white p-4">
+        <div className="fixed inset-1/3 z-50 flex h-min flex-col items-center justify-center rounded-md bg-white p-4 py-10">
           <h2 className="mb-4 text-center text-lg font-semibold">
             Are you sure you want to {action}?
           </h2>
