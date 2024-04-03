@@ -63,7 +63,7 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
               <div>
                 <Menu.Button className="  flex items-center justify-between md:gap-2">
                   <div
-                    className="flex h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat"
+                    className="flex h-8 w-8 rounded-full bg-cover bg-center bg-no-repeat"
                     style={{
                       backgroundImage: `url(${avata})`,
                     }}

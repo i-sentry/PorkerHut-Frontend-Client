@@ -130,27 +130,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Total Sales",
-      figure: `₦${adminOverview?.totalSales.toLocaleString()}`,
+      figure: `₦${adminOverview?.totalSales.toLocaleString() ?? 0}`,
     },
     {
       id: "2",
       title: "Daily Revenues",
-      figure: `₦${Math.trunc(adminOverview?.averageDailyRevenues).toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageDailyRevenues ?? 0).toLocaleString()}`,
     },
     {
       id: "3",
       title: "Items Sold",
-      figure: `${adminOverview?.totalItemsSold}`,
+      figure: `${adminOverview?.totalItemsSold ?? 0}`,
     },
     {
       id: "4",
       title: "Average Order Value",
-      figure: `₦${Math.trunc(adminOverview?.averageOrderValue).toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageOrderValue ?? 0).toLocaleString()}`,
     },
     {
       id: "5",
       title: "Total Orders",
-      figure: `${adminOverview?.totalOrders}`,
+      figure: `${adminOverview?.totalOrders ?? 0}`,
     },
   ];
 
@@ -158,37 +158,42 @@ const Overview = () => {
     {
       id: "1",
       title: "Average Daily Order",
-      figure: `${Math.trunc(adminOverview?.averageDailyOrders)}` || 0,
+      figure: `${Math.trunc(adminOverview?.averageDailyOrders ?? 0)}`,
     },
     {
       id: "2",
       title: "Pending Orders",
-      figure: `${adminOverview?.totalPendingOrders}` || 0,
+      figure: `${adminOverview?.totalPendingOrders ?? 0}`,
     },
     {
       id: "3",
       title: "Fulfilled Orders",
-      figure: `${adminOverview?.totalFulfilledOrders}` || 0,
+      figure: `${adminOverview?.totalFulfilledOrders ?? 0}`,
     },
     {
       id: "4",
       title: "Failed Orders",
-      figure: `${adminOverview?.totalFailedOrders}` || 0,
+      figure: `${adminOverview?.totalFailedOrders ?? 0}`,
     },
     {
       id: "5",
       title: "Returned Order",
-      figure: `${adminOverview?.totalReturnedOrders}` || 0,
+      figure: `${adminOverview?.totalReturnedOrders ?? 0}`,
     },
   ];
 
   return (
     <div className="pl-10 pt-10 pr-5">
-      <div className="mb-5">
-        <h1 className="text-2xl font-medium ">Overview</h1>
-        <span className="text-sm font-normal text-[#A2A2A2]">
-          This is an overview of Porker Hut.
-        </span>
+      <div className="mb-5 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-medium ">Overview</h1>
+          <span className="text-sm font-normal text-[#A2A2A2]">
+            This is an overview of Porker Hut.
+          </span>
+        </div>
+        <select>
+          <option value="">ALL</option>
+        </select>
       </div>
       <div className="flex items-center justify-items-stretch">
         {data.map((val) => (
@@ -203,7 +208,7 @@ const Overview = () => {
               {isLoading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                val?.figure
+                val?.figure || 0
               )}
             </span>
           </div>
