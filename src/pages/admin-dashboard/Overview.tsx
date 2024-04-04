@@ -11,7 +11,20 @@ const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, "0");
 const start = `${year}-${month}-01`;
 const end = `${year}-${month}-${new Date(year, +month, 0).getDate()}`;
-
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const Overview = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const { data: ordersList, isLoading } = useGetOrders();
@@ -183,16 +196,21 @@ const Overview = () => {
   ];
 
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="py-6 pl-8 pr-5">
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-medium ">Overview</h1>
+          <h1 className="text-2xl font-semibold">Overview</h1>
           <span className="text-sm font-normal text-[#A2A2A2]">
             This is an overview of Porker Hut.
           </span>
         </div>
-        <select>
-          <option value="">ALL</option>
+        <select className="rounded-sm border border-neutral-200 focus:border-green-700 focus:ring-green-700">
+          <option value="all">Overall</option>
+          {months?.map((month: any, index: any) => (
+            <option key={index}>
+              {month} {new Date().getFullYear()}
+            </option>
+          ))}
         </select>
       </div>
       <div className="flex items-center justify-items-stretch">

@@ -59,11 +59,11 @@ const DateColumn = ({ d }: any) => {
 
 const StoreNameColumn = ({ d }: any) => {
   // const { vendor } = d;
-  const { data: vendor } = useGetVendorById(d?.productDetails[0]?.vendor?._id);
-  console.log(vendor, "vendor store-colum", d?.productDetails[0]?.vendor?._id);
+  // const { data: vendor } = useGetVendorById(d?.productDetails[0]?.vendor?._id);
+  console.log("vendor store-colum", d);
 
-  const storeName = vendor?.sellerAccountInformation?.shopName || "";
-  const storeCity = vendor?.businessInformation?.city || "";
+  const storeName = d?.sellerAccountInformation?.shopName || "";
+  const storeCity = d?.businessInformation?.city || "";
   return (
     <div className="flex flex-col items-start">
       <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
@@ -250,8 +250,17 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Store Name",
     accessor: (row) => {
-      const d = row;
-      return <StoreNameColumn d={d} />;
+      console.log(row, "my atims row");
+      return (
+        <div className="flex flex-col items-start">
+          <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+            {/* {"storeName"} */}
+          </span>
+          <span className="mt-1 text-sm font-light capitalize text-neutral-400">
+            {/* {"storeCity"} */}
+          </span>
+        </div>
+      );
     },
     // @ts-ignore
 
@@ -325,6 +334,8 @@ const Order = () => {
   }, [ordersList?.data.data, isLoading]);
   const navigate = useNavigate();
 
+  console.log(orders, "orders", ordersList);
+
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method
@@ -361,7 +372,7 @@ const Order = () => {
   };
 
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="py-6 pl-8 pr-5">
       <div className="mb-5">
         <h1 className="text-2xl font-medium ">Orders</h1>
         <span className="text-sm font-normal text-[#A2A2A2]">

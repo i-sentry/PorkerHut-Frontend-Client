@@ -111,6 +111,8 @@ export const api = {
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
     aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,
     aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
+    allVendorsAggregate: `/api/orders/aggregate/vendors`,
+    allUsersAggregate: `/api/orders/aggregate/users`,
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
@@ -126,6 +128,10 @@ export const api = {
   annoucement: {
     allAnnoucement: `/api/announcement`,
     updateAnnouncement: (id: string) => `/api/announcement/${id}`,
+  },
+  services: {
+    allVetService: "/api/vetservice",
+    weekendkills: "/api/weekendkills",
   },
 };
 

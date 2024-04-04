@@ -216,7 +216,7 @@ const Announcement = () => {
   }, []);
 
   return (
-    <div className="pl-10 pr-5 pt-10">
+    <div className="py-6 pl-8 pr-5">
       <div className="mt-5">
         <ToastContainer />
         <h1 className="text-2xl font-medium ">Announcement</h1>

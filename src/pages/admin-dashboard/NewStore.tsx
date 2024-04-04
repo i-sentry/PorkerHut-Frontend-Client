@@ -144,7 +144,7 @@ const NewStore = () => {
 
   return (
     <>
-      <div className="pl-10 pt-10 pr-5 ">
+      <div className="py-6 pl-8 pr-5 ">
         <div className="mb-5">
           <h1 className="text-2xl font-medium text-[#333333]">New Stores</h1>
           <span className="text-sm font-light text-[#A2A2A2]">

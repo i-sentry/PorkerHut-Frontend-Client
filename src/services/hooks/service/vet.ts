@@ -14,3 +14,24 @@ export const useGetAllVets = () => {
     queryKey: ["vets+"],
   });
 };
+
+export const useCreateVetService = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      fullName: string;
+      email: string;
+      phoneNumber: string;
+      location: string;
+      appointmentPurpose: string;
+      breedOfPig: string;
+      message: string;
+    }) => makePostRequest(data, api.services.allVetService),
+  });
+};
+
+export const useGetAllVetServices = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.services.allVetService),
+    queryKey: ["vetservices"],
+  });
+};
