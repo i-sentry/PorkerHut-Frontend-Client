@@ -27,21 +27,24 @@ type UserData = {
   email: string;
   phone: string;
   companyRcNumber: string;
-}
+};
 
 type UserBillingInfo = UserData & {
   updateFields: (fields: Partial<UserData>) => void;
 };
 
-const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, email, phone, companyRcNumber, updateFields }: UserBillingInfo) => {
-
-
+const VetPartnerMobileFormA = ({
+  accountName,
+  businessName,
+  businessAddress,
+  email,
+  phone,
+  companyRcNumber,
+  updateFields,
+}: UserBillingInfo) => {
   const {
     formState: { errors },
-  } = useForm({
-
-  });
-
+  } = useForm({});
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -49,19 +52,19 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
 
   return (
     <div className="">
-      <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
+      <div className="mt-0 mb-8 bg-[#197B30] md:mx-20 md:mb-[80px]">
         <Header />
       </div>
 
       <div>
         {" "}
         <div>
-          <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
+          <div className="mx-[16px] min-h-[600px] max-w-[680px] rounded-md bg-[#F4F4F4] py-[20px] px-[16px] md:mx-auto md:px-[40px]">
             <div className=" mb-8">
-              <h1 className="sm:text-xl  text-[#333333] md:text-[24px] leading-[28px] font-medium mb-4">
+              <h1 className="mb-4  font-medium leading-[28px] text-[#333333] sm:text-xl md:text-[24px]">
                 Vet Partner Information
               </h1>
-              <p className="text-[#797979] text-[14px] leading-[24px] font-normal">
+              <p className="text-[14px] font-normal leading-[24px] text-[#797979]">
                 Please fill in the necessary information.{" "}
               </p>
             </div>
@@ -70,7 +73,7 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                 <div className="my-2 w-full ">
                   <label
                     htmlFor="name"
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Name
                   </label>
@@ -79,26 +82,27 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     autoFocus
                     type="text"
                     value={accountName}
-                    onChange={(e) => updateFields({ accountName: e.target.value })}
+                    onChange={(e) =>
+                      updateFields({ accountName: e.target.value })
+                    }
                     placeholder="Enter your name"
-                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.name ? " border-[1px] border-[#dd1313]" : ""
-                      }`}
+                    className={`relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.name ? " border-[1px] border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
-
-                  </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <div className="text-sm text-[#dd1313]"></div>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     This is the name of the person managing this account. This
                     is the contact name we will <br /> primarily address you
                     with.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Business Name
                   </label>
@@ -106,26 +110,29 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     required
                     type="text"
                     value={businessName}
-                    onChange={(e) => updateFields({ businessName: e.target.value })}
+                    onChange={(e) =>
+                      updateFields({ businessName: e.target.value })
+                    }
                     // {...register("businessName")}
                     placeholder="Enter your business name"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessName ? " border-[#dd1313]" : ""
-                      }`}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.businessName ? " border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.businessName?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     This is the name that will appear on porker hut! Please do
                     not use a trademark name without brand authorisation.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Business Address
                   </label>
@@ -134,26 +141,26 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     type="text"
                     // {...register("businessAddress")}
                     value={businessAddress}
-                    onChange={(e) => updateFields({ businessAddress: e.target.value })}
-
+                    onChange={(e) =>
+                      updateFields({ businessAddress: e.target.value })
+                    }
                     placeholder="Enter business address"
-                    className={`  relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.businessAddress ? "border-[#dd1313]" : ""
-                      }`}
+                    className={`  relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.businessAddress ? "border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
-
-                  </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <div className="text-sm text-[#dd1313]"></div>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     Please indicate the official address of the entity. If you
                     are an individual indicate your address.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Official Email Address
                   </label>
@@ -163,25 +170,25 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     // {...register("email")}
                     value={email}
                     onChange={(e) => updateFields({ email: e.target.value })}
-
                     placeholder="Enter email address"
-                    className={`relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.email ? "border-[#dd1313]" : ""
-                      }`}
+                    className={`relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.email ? "border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.email?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     This is will be one of the means we can use to reach out to
                     you or pass important information.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Phone Number
                   </label>
@@ -192,23 +199,24 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     value={phone}
                     onChange={(e) => updateFields({ phone: e.target.value })}
                     placeholder="Enter your phone number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${errors.phone ? "border-[#dd1313] border" : ""
-                      }`}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}  ${
+                      errors.phone ? "border border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.phone?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     When we need to contact you urgently, this is the number we
                     will reach out to.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor `}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] `}
                   >
                     Company Rc Number
                   </label>
@@ -217,32 +225,32 @@ const VetPartnerMobileFormA = ({ accountName, businessName, businessAddress, ema
                     type="number"
                     // {...register("companyRc")}
                     value={companyRcNumber}
-                    onChange={(e) => updateFields({ companyRcNumber: e.target.value })}
+                    onChange={(e) =>
+                      updateFields({ companyRcNumber: e.target.value })
+                    }
                     placeholder="Enter your rc number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.companyRc ? "border-[#dd1313]" : ""
-                      }`}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.companyRc ? "border-[#dd1313]" : ""
+                    }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.companyRc?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     We need your company registration number.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
               </div>
 
-
-              <div className="flex items-center justify-center mt-8 gap-4">
+              <div className="mt-8 flex items-center justify-center gap-4">
                 <button
-
-                  className={`h-3 w-3 rounded-full focus:outline-none bg-gray-300`}
+                  className={`h-3 w-3 rounded-full bg-gray-300 focus:outline-none`}
                 ></button>
 
                 <button
-
-                  className={`h-3 w-3 rounded-full  focus:outline-none  bg-[#197b30]`}
+                  className={`h-3 w-3 rounded-full  bg-[#197b30]  focus:outline-none`}
                 ></button>
               </div>
             </div>

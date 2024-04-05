@@ -1,174 +1,70 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Img from "../../assets/images/Pig.png";
+import { BiSolidUserCircle } from "react-icons/bi";
+import {
+  useGetAllUsersAggregate,
+  useGetAllVendorsAggregate,
+} from "../../services/hooks/orders";
 
 const TopStoresRating = () => {
+  const { data, isLoading } = useGetAllVendorsAggregate();
+  const { data: user } = useGetAllUsersAggregate();
+  const vendorAggregate = useMemo(
+    () => (data?.data?.length ? data?.data : []),
+    [data?.data],
+  );
+  const sortedByAmount = vendorAggregate?.toSorted(
+    (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
+  );
+
+  console.log(vendorAggregate, "sorted", sortedByAmount);
+
   return (
-    <div className="bg-[#D9D9D9] rounded py-3 px-3 h-64 overflow-hidden overflow-y-scroll hide-scroll-bar">
-      <div className="flex justify-between items-center ">
-        <h4 className="font-bold text-slate-700 text-sm ">Top Stores</h4>
-        <form>
-          <div className="flex gap-4 items-center">
+    <div
+      style={{ overflowClipMargin: "10px" }}
+      className="hide-scroll-bar h-64 overflow-auto rounded border border-[#D9D9D9] bg-[#F4F4F4] py-3 px-3 pt-0"
+    >
+      <div className="sticky top-0 left-0 flex w-full items-center justify-between bg-[#F4F4F4] py-3">
+        <h4 className="text-base font-bold text-slate-700 ">Top Stores</h4>
+        {/* <form >
+          <div className="flex items-center gap-4">
             <label className="" htmlFor="week"></label>
             <input
               type="week"
-              className="focus:outline-none border h-10 w-36 px-2 rounded "
+              className="rounded border p-2 focus:outline-none "
             />
           </div>
-        </form>
+        </form> */}
       </div>
-      <div className="flex flex-col w-full pt-2 gap-4">
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
 
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
+      <div className="mt-4 space-y-3">
+        {vendorAggregate
+          ?.toSorted(
+            (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
+          )
+          ?.map((vendor: any, index: any) => (
+            <div className="flex items-center justify-between" key={index}>
+              <div className="grid grid-cols-[54px_1fr] items-center gap-1.5">
+                <span>
+                  <BiSolidUserCircle size={54} className="text-neutral-500" />
+                </span>
+                <div>
+                  <h3 className="text-[#333]">
+                    {vendor?.vendorDetails?.sellerAccountInformation?.shopName}
+                  </h3>
+                  <span className="col-[2] text-[#a2a2a2]">Abuja</span>
+                </div>
+              </div>
+              <div className="inline-grid grid-cols-1 text-right">
+                <span className="font-semibold text-[#333]">
+                  ₦{vendor?.totalSalesAmount.toLocaleString()}
+                </span>
+                <span className="text-[#a2a2a2]">
+                  {vendor?.totalOrders} Sales
+                </span>
+              </div>
             </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="w-full flex items-center gap-2">
-            <img
-              src="https://source.unsplash.com/80x80?face"
-              alt=""
-              className="h-10 w-10 border  rounded-full bg-white inline"
-            />
-
-            <div className="inline">
-              <span className="text-sm whitespace-nowrap">Porker Hut</span>
-              <span className="text-sm block text-[#A2A2A2]">Abuja</span>
-            </div>
-          </div>
-
-          <div>
-            <span className="text-sm font-medium">₦120,000</span>
-            <span className="block text-[#A2A2A2] text-sm">200 Sales</span>
-          </div>
-        </div>
+          ))}
       </div>
     </div>
   );

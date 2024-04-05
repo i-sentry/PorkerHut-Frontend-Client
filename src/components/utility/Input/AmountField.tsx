@@ -1,6 +1,5 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef } from "react";
 import Select, { components } from "react-select";
-
 
 export enum InputTypes {
   amount = "amount",
@@ -56,17 +55,18 @@ const customStyles = {
 function AmountField({ errors, data, onChange, onBlur, value }: any, ref: any) {
   const currencyValue =
     currencies.find((item) => item.value === value?.currency) || currencies[0];
+  console.log("value val", value);
   return (
     <div className="mb-1 w-full ">
       <label
         htmlFor={data.name}
-        className={`block text-[16px] mb-[6px] text-HeadingColor ${
-          data.required && "after:content-['*'] after:ml-0.5 after:text-red-500"
+        className={`text-HeadingColor mb-[6px] block text-[16px] ${
+          data.required && "after:ml-0.5 after:text-red-500 after:content-['*']"
         } }`}
       >
         {data.label}
       </label>
-      <div className="flex border border-gray-300 rounded-md z-50">
+      <div className="z-50 flex rounded-md border border-gray-300">
         <Select
           options={currencies}
           value={currencyValue}
@@ -87,19 +87,18 @@ function AmountField({ errors, data, onChange, onBlur, value }: any, ref: any) {
           id={data.name}
           type={data.type}
           onBlur={onBlur}
-          className={`appearance-none  relative  w-full px-[14px] py-[10px] border-l rounded-r-md border-gray-300 focus:border focus:border-primary-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm h-12 ${
+          className={`focus:border-primary-300  focus:ring-primaryDark  focus:border-primaryDark relative h-12 w-full appearance-none rounded-r-md border-l border-gray-300 px-[14px] py-[10px] text-gray-900 placeholder-gray-500 focus:z-10 focus:border focus:outline-none sm:text-sm ${
             errors[data.name] && "border-ErrorBorder"
           }`}
           placeholder={data.place_holder}
           value={value?.amount}
-                  onChange={({ target }: any) =>
-
+          onChange={({ target }: any) =>
             onChange({ ...value, amount: target.value })
           }
         />
       </div>
 
-      <p className="mt-1 text-ErrorColor text-xs">
+      <p className="text-ErrorColor mt-1 text-xs">
         {errors[data.name] && (errors[data.name]?.amount?.message as string)}
       </p>
     </div>

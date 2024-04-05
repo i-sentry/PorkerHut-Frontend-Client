@@ -401,7 +401,7 @@ const SellersOrderPage = () => {
   return (
     <>
       {openModal && <OrderSideModal orderInfo={orderInfo} />}
-      <div className="mt-2 pb-10 xxs:px-4 md:px-0">
+      <div className="mt-2 px-4 pb-10">
         {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
           Orders
         </h1> */}
@@ -512,6 +512,20 @@ const SellersOrderPage = () => {
 
 export default SellersOrderPage;
 
+const monthList = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const MonthSelector: React.FC<{
   data: any[];
   loading: boolean;
@@ -556,18 +570,11 @@ const MonthSelector: React.FC<{
           onChange={handleChange}
           className="w-[200px] cursor-pointer border-none bg-transparent text-2xl focus:ring-0 md:w-[140px] md:text-base"
         >
-          <option value={1}>January</option>
-          <option value={2}>February</option>
-          <option value={3}>March</option>
-          <option value={4}>April</option>
-          <option value={5}>May</option>
-          <option value={6}>June</option>
-          <option value={7}>July</option>
-          <option value={8}>August</option>
-          <option value={9}>September</option>
-          <option value={10}>October</option>
-          <option value={11}>November</option>
-          <option value={12}>December</option>
+          {monthList.map((mon: string, index: any) => (
+            <option key={index + 1} value={index + 1}>
+              {mon}
+            </option>
+          ))}
         </select>
       </label>
     </div>

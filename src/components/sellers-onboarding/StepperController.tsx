@@ -5,6 +5,8 @@ import { FileContext, FileData } from "../../context/FileContext";
 import { useSignUpState } from "../../store/overlay";
 import ReactLoading from "react-loading";
 import { CgSpinner } from "react-icons/cg";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export interface IFormFiles {
   selectedFile: any;
@@ -27,6 +29,7 @@ const StepperController: React.FC<fileProps> = ({
   const [error, setError] = useState(false);
   const isOpen = useSignUpState((state) => state.isOpen);
   const setIsOpen = useSignUpState((state) => state.setIsOpen);
+  const navigate = useNavigate();
 
   const appendFilesToFormData = (
     fieldName: string,
@@ -41,12 +44,12 @@ const StepperController: React.FC<fileProps> = ({
     }
   };
 
-  const bizCheck =
-    userData.businessInformation.companyRegisteredName === "" ||
-    userData.businessInformation.address1 === "" ||
-    userData.businessInformation.dateOfBirth === "" ||
-    userData.businessInformation.city === "" ||
-    userData.businessInformation.address1 === "";
+  // const bizCheck =
+  //   userData?.businessInformation?.companyRegisteredName === "" ||
+  //   userData?.businessInformation?.address1 === "" ||
+  //   userData?.businessInformation?.dateOfBirth === "" ||
+  //   userData?.businessInformation?.city === "" ||
+  //   userData?.businessInformation?.address1 === "";
 
   // checkEmptyValues(userData);
   const submitDetails = (e: { preventDefault: () => void }) => {
@@ -154,10 +157,13 @@ const StepperController: React.FC<fileProps> = ({
         .mutateAsync(data)
         .then((res) => {
           setIsLoading(false);
-          setIsOpen(!isOpen);
+          setIsOpen(true);
+          toast.success("Account Created Successfully");
+          // navigate("/sign-in?q=vendor");
         })
         .catch((err) => {
           setIsLoading(false);
+          toast.error(err.message);
         });
     }
   };
@@ -176,8 +182,8 @@ const StepperController: React.FC<fileProps> = ({
         onClick={() => {
           handleClick("");
         }}
-        className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out hover:opacity-50 disabled:bg-[#ddddddfd] ${
-          currentStep === 1 ? "cursor-not-allowed" : ""
+        className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out  disabled:bg-[#ddddddfd] ${
+          currentStep === 1 ? "cursor-not-allowed opacity-50" : ""
         }`}
       >
         Back

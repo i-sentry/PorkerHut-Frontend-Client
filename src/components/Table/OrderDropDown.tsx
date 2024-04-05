@@ -6,7 +6,7 @@ interface SelectOption {
   label: string;
 }
 
-const options: SelectOption[] = [
+const data: SelectOption[] = [
   {
     value: "Print_selected_order_details",
     label: "Print selected order details",
@@ -16,10 +16,12 @@ const options: SelectOption[] = [
   { value: "Decline_order", label: "Decline order" },
 ];
 
-export const OrderDropDown: React.FC = () => (
+export const OrderDropDown: React.FC<{ options?: SelectOption[] }> = ({
+  options,
+}) => (
   <Select<SelectOption>
-    defaultValue={options?.[0]}
-    options={options}
-    className="w-full text-[16px] leading-[19px] font-normal bg-amber-600 rounded-md"
+    defaultValue={options?.[0] || data?.[0]}
+    options={options || data}
+    className="w-full rounded-md bg-amber-600 text-[16px] font-normal leading-[19px]"
   />
 );

@@ -22,12 +22,14 @@ export const api = {
     recoverPassword: "/api/user/request-reset-password",
     resetPassword: (token: string | undefined) =>
       `/api/user/reset-password/${token}`,
+    singleUser: (id: string) => `/api/user/${id}`,
   },
   Vendors: {
     allVendors: "/api/vendors/",
     vendorStatus: (id: string | number) => `/api/vendors/${id}/status`,
     vendorSignup: "/api/vendors/",
     vendorById: (id: string | undefined) => `/api/vendors/${id}`,
+    updateVendor: (id: string) => `/api/vendors/${id}`,
     vendorLogin: "/api/vendors/login",
     recoverPassword: "/api/vendors/request-reset-password",
     resetPassword: (token: string | undefined) =>
@@ -56,6 +58,7 @@ export const api = {
       `/api/favorite-product/check-favorite/${userId}/${productId}`,
     visibilityStatus: (id: string | number) =>
       `/api/products/${id}/visibilityStatus `,
+    updateProduct: (id: string) => `/api/products/${id}`,
   },
   Ratings: {
     createRating: "/api/ratings/create",
@@ -106,10 +109,31 @@ export const api = {
     orderbyId: (id: string) => `/api/orders/${id}`,
     vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
+    aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,
+    aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
+    allVendorsAggregate: `/api/orders/aggregate/vendors`,
+    allUsersAggregate: `/api/orders/aggregate/users`,
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
+    adminOverView: (startDate: any, endDate: any) =>
+      `/api/orders/admin/overview/${startDate}/${endDate}`,
+    adminGraph: (startDate: any, endDate: any) =>
+      `/api/orders/admin/weekly-sales/${startDate}/${endDate}`,
+    adminAccess: (id: string) => `/api/user/update-access/${id}`,
+  },
+  forms: {
+    contactForm: `/api/enquiry/create`,
+    agroservice: `/api/agroservice`,
+  },
+  annoucement: {
+    allAnnoucement: `/api/announcement`,
+    singleAnnouncement: (id: string) => `/api/announcement/${id}`,
+  },
+  services: {
+    allVetService: "/api/vetservice",
+    weekendkills: "/api/weekendkills",
   },
 };
 

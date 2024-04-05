@@ -70,7 +70,7 @@ const MobileTabs = () => {
     //do somthing
   };
   return (
-    <div className="px-4">
+    <div className="px-4 pt-6">
       <>
         {!showTab ? (
           <>

@@ -1,11 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { AreaChart } from "./AreaChart";
-import { useGetOrders } from "../../services/hooks/orders";
+import { useGetAdminOverview, useGetOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
+import TopStoresRating from "./TopStoresRating";
+import AdminOverviewTopProduct from "./AdminOverviewTopProduct";
+import AdminOverviewRating from "./AdminOverviewRating";
 
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const start = `${year}-${month}-01`;
+const end = `${year}-${month}-${new Date(year, +month, 0).getDate()}`;
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const Overview = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const { data: ordersList, isLoading } = useGetOrders();
+  const { data: overview, isLoading: loading } = useGetAdminOverview(
+    start,
+    end,
+  );
+  const adminOverview = overview?.data;
+  // console.log("Current month:", totalSales);
+
+  // console.log("First day of the month:", firstDay);
+  // console.log("Last day of the month:", lastDay);
+
   const color = (val: {
     title:
       | string
@@ -69,7 +101,13 @@ const Overview = () => {
         return (
           <>
             <h1 className="text-xs font-light text-[#A2A2A2]">{val?.title}</h1>
-            <span className="text-xl font-medium">{val?.figure}</span>
+            <span className="text-xl font-medium">
+              {isLoading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                val?.figure
+              )}
+            </span>
           </>
         );
     }
@@ -84,22 +122,10 @@ const Overview = () => {
   }, []);
 
   // OVERVIEW STATS
-  const totalSales = orders.reduce(
-    (acc: any, order: any, index: number) => acc + order?.subtotal,
-    0,
-  );
-
-  const dailyRevenue = orders
-    ?.filter((order: any) => {
-      const currentDate = new Date();
-      const orderDate = new Date(order?.orderDate);
-      return (
-        orderDate.getFullYear() === currentDate.getFullYear() &&
-        orderDate.getMonth() === currentDate.getMonth() &&
-        orderDate.getDate() === currentDate.getDate()
-      );
-    })
-    .reduce((acc: any, cur: any) => acc + cur?.subtotal, 0);
+  // const totalSales = orders.reduce(
+  //   (acc: any, order: any, index: number) => acc + order?.subtotal,
+  //   0,
+  // );
 
   const itemsSold = orders
     ?.map((order: any) => order?.productDetails.length)
@@ -117,27 +143,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Total Sales",
-      figure: `₦${totalSales.toLocaleString()}`,
+      figure: `₦${adminOverview?.totalSales.toLocaleString() ?? 0}`,
     },
     {
       id: "2",
       title: "Daily Revenues",
-      figure: `₦${dailyRevenue.toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageDailyRevenues ?? 0).toLocaleString()}`,
     },
     {
       id: "3",
       title: "Items Sold",
-      figure: `${itemsSold}`,
+      figure: `${adminOverview?.totalItemsSold ?? 0}`,
     },
     {
       id: "4",
       title: "Average Order Value",
-      figure: `${Math.trunc(totalSales / orders?.length).toLocaleString()}`,
+      figure: `₦${Math.trunc(adminOverview?.averageOrderValue ?? 0).toLocaleString()}`,
     },
     {
       id: "5",
       title: "Total Orders",
-      figure: `${orders?.length}`,
+      figure: `${adminOverview?.totalOrders ?? 0}`,
     },
   ];
 
@@ -145,37 +171,47 @@ const Overview = () => {
     {
       id: "1",
       title: "Average Daily Order",
-      figure: "200",
+      figure: `${Math.trunc(adminOverview?.averageDailyOrders ?? 0)}`,
     },
     {
       id: "2",
       title: "Pending Orders",
-      figure: `${getOrderStatusLength(orders, "pending")}`,
+      figure: `${adminOverview?.totalPendingOrders ?? 0}`,
     },
     {
       id: "3",
       title: "Fulfilled Orders",
-      figure: `${getOrderStatusLength(orders, "completed")}`,
+      figure: `${adminOverview?.totalFulfilledOrders ?? 0}`,
     },
     {
       id: "4",
       title: "Failed Orders",
-      figure: `${getOrderStatusLength(orders, "failed")}`,
+      figure: `${adminOverview?.totalFailedOrders ?? 0}`,
     },
     {
       id: "5",
       title: "Returned Order",
-      figure: `${getOrderStatusLength(orders, "returned")}`,
+      figure: `${adminOverview?.totalReturnedOrders ?? 0}`,
     },
   ];
 
   return (
-    <div className="pl-10 pt-10 pr-5">
-      <div className="mb-5">
-        <h1 className="text-2xl font-medium ">Overview</h1>
-        <span className="text-sm font-normal text-[#A2A2A2]">
-          This is an overview of Porker Hut.
-        </span>
+    <div className="py-6 pl-8 pr-5">
+      <div className="mb-5 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">Overview</h1>
+          <span className="text-sm font-normal text-[#A2A2A2]">
+            This is an overview of Porker Hut.
+          </span>
+        </div>
+        <select className="rounded-sm border border-neutral-200 focus:border-green-700 focus:ring-green-700">
+          <option value="all">Overall</option>
+          {months?.map((month: any, index: any) => (
+            <option key={index}>
+              {month} {new Date().getFullYear()}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="flex items-center justify-items-stretch">
         {data.map((val) => (
@@ -190,7 +226,7 @@ const Overview = () => {
               {isLoading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                val?.figure
+                val?.figure || 0
               )}
             </span>
           </div>
@@ -211,11 +247,11 @@ const Overview = () => {
         <AreaChart />
       </div>
 
-      {/* <div className="grid grid-cols-3 items-center mt-8 gap-4">
+      <div className="mt-8 grid grid-cols-3 items-center gap-4">
         <TopStoresRating />
         <AdminOverviewTopProduct />
         <AdminOverviewRating />
-      </div> */}
+      </div>
     </div>
   );
 };

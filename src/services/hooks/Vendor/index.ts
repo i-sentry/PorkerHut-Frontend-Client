@@ -10,6 +10,7 @@ import {
   makePatchRequest,
   makeCustomPutRequest,
   makeCustomPatchRequest,
+  makeDeleteRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -31,6 +32,12 @@ export const useGetVendorById = (id: string | undefined) => {
   return useQueryAction({
     queryFn: () => makeGetRequestWithCustomHeader(api.Vendors.vendorById(id)),
     queryKey: ["vendor"],
+  });
+};
+
+export const useDeleteVendorById = (id: string | undefined) => {
+  return useQueryMutation({
+    mutationFn: () => makeDeleteRequest(api.Vendors.vendorById(id)),
   });
 };
 
@@ -58,6 +65,44 @@ export const useVendorRestPassword = (token: string | undefined) => {
 export const useVendorStatusUpdate = (id: string | number) => {
   return useQueryMutation({
     mutationFn: (data: { storeStatus: string }) =>
-      makeCustomPatchRequest(data, api.Vendors.vendorStatus(id)),
+      makeCustomPutRequest(data, api.Vendors.vendorStatus(id)),
+  });
+};
+
+export const useUpdateVendor = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.Vendors.updateVendor(id)),
+  });
+};
+
+export const useGetAllAnnoucement = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.annoucement.allAnnoucement),
+    queryKey: ["annoucement"],
+  });
+};
+
+export const useCreateAnnoucement = () => {
+  return useQueryMutation({
+    mutationFn: (data: {
+      subject: string;
+      content: string;
+      startDate: Date;
+      endDate: Date;
+    }) => makePostRequest(data, api.annoucement.allAnnoucement),
+  });
+};
+
+export const useUpdateAnnoucement = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { subject: string; content: string; endDate: string }) =>
+      makePutRequest(data, api.annoucement.singleAnnouncement(id)),
+  });
+};
+
+export const useDeleteAnnoucement = (id: string) => {
+  return useQueryMutation({
+    mutationFn: () => makeDeleteRequest(api.annoucement.singleAnnouncement(id)),
   });
 };

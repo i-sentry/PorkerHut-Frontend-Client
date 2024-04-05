@@ -45,7 +45,7 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
           href="https://wa.me/+234804589322"
           target="_blank"
           aria-label="Whatsapp"
-          className="group fixed bottom-6 right-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-700"
+          className="group fixed bottom-6 right-6 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-700"
         >
           <BsWhatsapp
             size={28}

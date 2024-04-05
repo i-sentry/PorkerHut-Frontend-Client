@@ -1,11 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 
-
 export interface IChildren {
   children: React.ReactNode;
 }
-
-
 
 export interface ISellerInfo {
   sellerAccountInformation: {
@@ -69,7 +66,6 @@ export function AppProvider({ children }: IChildren) {
       IDType: "",
       CACRegistrationNumber: "",
       VATRegistered: "",
-
     },
     vendorBankAccount: {
       bankName: "",

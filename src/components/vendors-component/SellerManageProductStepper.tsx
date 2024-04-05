@@ -8,7 +8,7 @@ import ReactLoading from "react-loading";
 // import ProductPricing from "./ProductPricing";
 // import Stepper from "./Steppers";
 import { AiOutlineLine } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { GoChevronRight } from "react-icons/go";
 import {
@@ -29,7 +29,10 @@ import { useSuccessOverlay } from "../../store/overlay";
 // import ProductPricing from "../step/ProductPricing";
 // import ProductImage from "../step/ProductImage";
 import Stepper from "../step/Steppers";
-import { useGetSingleProduct } from "../../services/hooks/Vendor/products";
+import {
+  useGetSingleProduct,
+  useUpdateProduct,
+} from "../../services/hooks/Vendor/products";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -38,6 +41,7 @@ import { InputTypes } from "../utility/Input/AmountField";
 import CustomInput from "../utility/Input/CustomInput";
 import StepperControl from "../step/StepperControl";
 import CurrencyInput from "../utility/CurrencyInput";
+import { toast } from "react-toastify";
 
 export const steps = [
   "Product Information",
@@ -72,9 +76,9 @@ const SellerStepperComponent = () => {
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get("catId");
   const productId = queryParams.get("id");
-  const showOverlay = useSuccessOverlay(
-    (state: { showOverlay: any }) => state.showOverlay,
-  );
+  // const showOverlay = useSuccessOverlay(
+  //   (state: { showOverlay: any }) => state.showOverlay,
+  // );
   const { data, isLoading } = useGetSingleProduct(productId as string);
   const currentProductData = data?.data;
   const subcategory = currentProductData?.information?.subcategory?._id;
@@ -83,6 +87,8 @@ const SellerStepperComponent = () => {
   const { data: question, isLoading: Loading } =
     useGetCategoryQuestion(category);
 
+  const updateProduct = useUpdateProduct(currentProductData?._id);
+  const navigate = useNavigate();
   const {
     register,
     control,
@@ -223,7 +229,6 @@ const SellerStepperComponent = () => {
               ) : (
                 <>
                   {productInfo.map((data, index) => {
-                    console.log(data, "data data fsfaya");
                     return (
                       <div key={index + data?.name}>
                         <CustomInput
@@ -353,20 +358,35 @@ const SellerStepperComponent = () => {
                     return (
                       <div className="text-xs" key={index}>
                         <label
-                          htmlFor="productPrice"
+                          htmlFor={data.name}
                           className={`mb-[6px] block text-[14px] leading-normal text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
                         >
-                          Product Price
+                          <span>Product Price</span>
                         </label>
-                        <CurrencyInput
+                        <div className="relative">
+                          <span className="absolute left-0 top-0 z-30 inline-flex h-full w-9 items-center justify-center rounded-md text-sm text-[#333333]">
+                            ₦
+                          </span>
+                          <input
+                            {...register(`pricing.productPrice`)}
+                            name={data.name}
+                            id={data.name}
+                            type="number"
+                            className={`relative block h-12 w-full appearance-none rounded-md border border-[#D9D9D9] px-[14px] py-[10px] pl-6 text-sm leading-normal text-[#333333] placeholder-[#A2A2A2] focus:z-10 focus:border-green-500  focus:outline-none focus:ring-green-500`}
+                            placeholder="Enter price"
+                          />
+                        </div>
+
+                        {/* <CurrencyInput
                           price={currentProductData?.pricing?.productPrice}
+                          // onChange={(e: any) => handleChange(e)}
                           onChange={(value) =>
                             //@ts-ignore
                             handleChange({
                               target: { name: "pricing.productPrice", value },
                             } as React.ChangeEvent<HTMLInputElement>)
                           }
-                        />
+                        /> */}
                       </div>
                     );
                   }
@@ -471,7 +491,7 @@ const SellerStepperComponent = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // console.log(name, value);
+    console.log(name, value, "named target");
 
     // Split the name into nested properties
     const [section, field] = name.split(".");
@@ -506,7 +526,7 @@ const SellerStepperComponent = () => {
   }, []);
 
   const questions = useMemo(() => {
-    if (!loading && productQuestions) {
+    if (!Loading && productQuestions) {
       const updatedQuestions = productQuestions?.map((obj: any) => {
         const camelCaseQuestion = convertToCamelCase(obj.question);
         const placeHolder = `Enter ${obj.question?.toLowerCase()}`;
@@ -523,7 +543,7 @@ const SellerStepperComponent = () => {
       return updatedQuestions;
     }
     return [];
-  }, [loading, productQuestions, convertToCamelCase, text]);
+  }, [Loading, productQuestions, convertToCamelCase, text]);
   // console.log("question", questions);
 
   useEffect(() => {
@@ -531,15 +551,15 @@ const SellerStepperComponent = () => {
     setProgress(stepProgress);
   }, [currentStep, numSteps]);
 
-  if (showOverlay) {
-    return (
-      <SuccessScreen
-        title={"Product created successfully"}
-        msg={"We’re on it! Please be patient for Poker Hut Approval."}
-        url={"/vendor/create"}
-      />
-    );
-  }
+  // if (showOverlay) {
+  //   return (
+  //     <SuccessScreen
+  //       title={"Product created successfully"}
+  //       msg={"We’re on it! Please be patient for Poker Hut Approval."}
+  //       url={"/vendor/create"}
+  //     />
+  //   );
+  // }
 
   const productInfo = [
     {
@@ -554,7 +574,7 @@ const SellerStepperComponent = () => {
     ...questions,
   ];
 
-  console.log(productInfo, productInfo);
+  // console.log(productInfo, productInfo);
 
   const productDetails = [
     {
@@ -667,12 +687,40 @@ const SellerStepperComponent = () => {
   const handleProductUpdate = () => {
     const formData = getValues();
     const data = new FormData();
+    setIsLoading(true);
 
-    console.log(data, formData, "Product Update");
+    // data.append("pricing", formData?.pricing);
+    const newData = {
+      // ...currentProductData,
+      details: { ...formData.productDetails },
+      pricing: { ...formData.pricing },
+      information: { ...formData.productInformation },
+    };
+
+    data.append("user.name", "chris");
+    data.append("name", "chris");
+
+    updateProduct
+      .mutateAsync(newData)
+      .then((res: any) => {
+        setIsLoading(false);
+
+        toast.success(
+          `${res?.data?.information?.productName} has been updated successfully!!!`,
+        );
+        navigate("/vendor/products");
+      })
+      .catch((err: any) => {
+        setIsLoading(false);
+        // console.log("err", err);
+        toast.error(`Product not update. Try again!!!`);
+      });
+
+    console.log(data, formData, "Product Update", newData, "newDtat");
   };
 
   return (
-    <div className="">
+    <div className="px-4 pt-6">
       <div className="hidden items-center gap-2 py-5 md:hidden lg:flex">
         <h1 className="mb-3 text-[#1F1F1F] xxs:text-[20px]  xxs:font-normal  xxs:leading-[23px] md:text-[36px] md:font-medium md:leading-[42px]">
           {"Create Products"}
@@ -764,7 +812,7 @@ const SellerStepperComponent = () => {
         {/* </div> */}
         {/* <button type="submit">Submit</button> */}
       </form>
-      {showOverlay && <SuccessScreen title={""} msg={""} url={""} />}
+      {/* {showOverlay && <SuccessScreen title={""} msg={""} url={""} />} */}
     </div>
   );
 };

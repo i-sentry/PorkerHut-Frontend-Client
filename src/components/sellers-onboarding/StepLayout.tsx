@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SellerStepper from "./SellerStepper";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
@@ -11,6 +11,7 @@ import BankAccountInfo from "./BankAccountInfo";
 import SummaryInfo from "./SummaryInfo";
 import { useSignUpState } from "../../store/overlay";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
+import ProductsBreadCrumbs from "../story-components/ProductsBreadCrumbs";
 
 export const sellersStep = [
   "Seller Account",
@@ -43,6 +44,9 @@ const StepLayout = () => {
   const checkoutSteps = sellersStep;
   const numSteps = 4;
   const isOpen = useSignUpState((state) => state.isOpen);
+  const setIsOpen = useSignUpState((state) => state.setIsOpen);
+  // const {  handleClick } =
+  //   useContext(SellersStepsContext);
   const [progress, setProgress] = useState(25);
 
   const displayStep = (sellersStep: any) => {
@@ -59,6 +63,7 @@ const StepLayout = () => {
     }
   };
 
+  useEffect(() => setIsOpen(false), []);
   const handleClick = (direction: string) => {
     let newStep = currentStep;
 
@@ -138,7 +143,25 @@ const StepLayout = () => {
   return (
     <>
       <TopNav />
-      <div className="main-div mb-24 mt-24 ">
+      <div className=" bg-[#eee] px-[4%] py-3 pt-[74px] lg:px-[4%]">
+        <ProductsBreadCrumbs
+          items={[
+            {
+              name: "Home",
+              link: "/",
+            },
+            {
+              name: "Affiliate",
+              link: "/affiliate",
+            },
+            {
+              name: "Seller Account",
+              link: "/create-account",
+            },
+          ]}
+        />
+      </div>
+      <div className="main-div relative mb-24 mt-24">
         <div>
           <div className="mt-4 flex items-center  justify-center">
             <h1 className="text-[20px] font-medium leading-[27px] text-[#333333] md:leading-[] lg:text-[40px] lg:leading-[47px]">
@@ -225,11 +248,13 @@ const StepLayout = () => {
         </div>
 
         {isOpen && (
-          <SuccessScreen
-            title={"Account Created Successfully"}
-            msg={"Please proceed to login to access your dashboard"}
-            url={"/sign-in?q=vendor"}
-          />
+          <div className="fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white">
+            <SuccessScreen
+              title={"Account Created Successfully"}
+              msg={"Please proceed to login to access your dashboard"}
+              url={"/sign-in?q=vendor"}
+            />
+          </div>
         )}
       </div>
       <Footer />

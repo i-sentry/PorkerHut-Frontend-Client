@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -13,10 +13,31 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import Popover from "../../components/utility/PopOver";
 import { BiCaretDown } from "react-icons/bi";
-import { useGetAllAdmin, useInviteAdmin } from "../../services/hooks/admin/Auth";
+import {
+  useGetAllAdmin,
+  useInviteAdmin,
+  useUpdateAdminAccess,
+} from "../../services/hooks/admin/Auth";
 import ReactLoading from "react-loading";
+import {
+  useGetSingleUser,
+  useUpdateUserInfo,
+} from "../../services/hooks/users";
+import { useMyBillingInfo } from "../../services/hooks/payment";
+import PhoneInput from "react-phone-input-2";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  fullName: yup.string().required("Full name is required"),
+  email: yup.string().required("Email is required"),
+  location: yup.string().required("Location is required"),
+  phoneNumber: yup.string().required("Phone number is required"),
+});
 
 const Settings = () => {
+  const [admin, setAdmin] = useState<any>(null);
   const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [overlayVisibility, setOverlayVisibility] = useState(false);
@@ -33,10 +54,17 @@ const Settings = () => {
     "Password",
   ]);
   const inviteAdmin = useInviteAdmin();
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-const getAllAdmin = useGetAllAdmin()
+  const { data: getAllAdmin, refetch } = useGetAllAdmin();
+  const [selectedAdmin, setSelectedAdmin] = useState<string>("");
+  const updateAccess = useUpdateAdminAccess(selectedAdmin);
+  const allAdmin = useMemo(
+    () => getAllAdmin?.length > 0 && getAllAdmin,
+    [getAllAdmin],
+  );
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -57,8 +85,63 @@ const getAllAdmin = useGetAllAdmin()
       action: "Apply",
     },
   ]);
+  const adminInfo = JSON.parse(localStorage.getItem("admin") as string);
+  const { data: billings, isLoading } = useMyBillingInfo(adminInfo?._id);
+  const adminBilling = billings?.data?.billing?.find(
+    (info: any) => info.isDefault,
+  );
+  const userUpdate = useUpdateUserInfo(adminInfo?._id);
 
-  console.log(getAllAdmin,"getAllAdmin")
+  useEffect(() => {
+    !isLoading && setAdmin({ ...adminBilling });
+  }, [isLoading]);
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+      email: admin?.email || "",
+      phoneNumber: admin?.phoneNumber || "",
+      location: admin?.city || "",
+    },
+  });
+
+  useEffect(() => {
+    if (admin?._id) {
+      reset({
+        fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+        email: admin?.email || "",
+        phoneNumber: admin?.phoneNumber || "",
+        location: admin?.city || "",
+      });
+    }
+  }, []);
+
+  console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    location: "",
+  });
+
+  // useEffect(() => {
+  //   if (admin?._id) {
+  //     setFormData({
+  //       fullName: `${admin?.firstName} ${admin?.lastName}` || "",
+  //       email: admin?.email || "",
+  //       phoneNumber: admin?.phoneNumber || "",
+  //       location: admin?.city || "",
+  //     });
+  //   }
+  // }, [admin?._id]);
 
   const handleValueChange = (index: number, value: string | number) => {
     setItems((prevState) => {
@@ -69,15 +152,15 @@ const getAllAdmin = useGetAllAdmin()
     });
   };
 
-  console.log(email, "emailemail");
+  // console.log(email, "emailemail");
 
-  const handleImage = (e: any) => {
-    setOverlayVisibility(false);
-    setImage(e.target.files[0]);
-    // var image = document.getElementById("output");
-    setCurrentImage(URL.createObjectURL(e.target.files[0]));
-    //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
-  };
+  // const handleImage = (e: any) => {
+  //   setOverlayVisibility(false);
+  //   setImage(e.target.files[0]);
+  //   // var image = document.getElementById("output");
+  //   setCurrentImage(URL.createObjectURL(e.target.files[0]));
+  //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
+  // };
 
   const data = [
     {
@@ -102,10 +185,19 @@ const getAllAdmin = useGetAllAdmin()
     inviteAdmin
       .mutateAsync({
         email,
-        role,
+        role: role.toLowerCase(),
       })
       .then((res: any) => {})
       .catch((err: any) => {});
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    // Append the form field and its value to the FormData object
+
+    setFormData((form: any) => {
+      return { ...form, [name]: value };
+    }); // Update the state with the new FormData object
   };
 
   const toggleEye = (e: any) => {
@@ -122,7 +214,37 @@ const getAllAdmin = useGetAllAdmin()
   };
 
   const handleConfirm = () => {
-    setShowConfirmationModal(false);
+    setLoading(true);
+    if (action.toLowerCase() === "grant access") {
+      updateAccess
+        .mutateAsync({ isAccessRevoked: false })
+        .then((res: any) => {
+          console.log(res);
+          refetch();
+          setShowConfirmationModal(false);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+          setLoading(false);
+        });
+      return;
+    }
+    if (action.toLowerCase() === "deny access") {
+      updateAccess
+        .mutateAsync({ isAccessRevoked: true })
+        .then((res: any) => {
+          console.log(res);
+          refetch();
+          setShowConfirmationModal(false);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+          setLoading(false);
+        });
+      return;
+    }
   };
 
   const handleCancel = () => {
@@ -152,28 +274,42 @@ const getAllAdmin = useGetAllAdmin()
 
   const component = (action: string) => {
     return (
-      <div className="flex gap-4 items--center">
+      <div className="items--center flex gap-4">
         <p>{`${action}`}</p> <RxCaretDown size={20} />
       </div>
     );
   };
 
+  const handleSave = (e: any) => {
+    const data = new FormData();
+    e.preventDefault();
+    console.log(data, "form data", formData);
+    // userUpdate
+    //   .mutateAsync(data)
+    //   .then((res: any) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err: any) => {
+    //     console.log(err);
+    //   });
+  };
+
   return (
     <div className="pl-10 pt-10 pr-5">
-   <div className="mb-5">
+      <div className="mb-5">
         <div className="">
           <h1 className="text-2xl font-medium ">Settings</h1>
-          <span className="text-[#A2A2A2] font-normal text-sm">
+          <span className="text-sm font-normal text-[#A2A2A2]">
             All information available.
           </span>
         </div>
       </div>
-      <div className="flex w-ful">
-        <nav className=" border-r-2 border-[#E8E9EB] flex flex-col space-y-3 py-3 bg-[#F4F4F4]   pl-4 w-64">
+      <div className="w-ful flex">
+        <nav className=" flex w-64 flex-col space-y-3 border-r-2 border-[#E8E9EB] bg-[#F4F4F4]   py-3 pl-4">
           <TabSelector
-            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
+            className={` relative flex cursor-pointer items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Information"
-                ? " block  font-normal rounded-md text-[#197B30] p-1.5"
+                ? " block  rounded-md p-1.5 font-normal text-[#197B30]"
                 : "font-light"
             } `}
             isActive={selectedTab === "Information"}
@@ -190,9 +326,9 @@ const getAllAdmin = useGetAllAdmin()
           </TabSelector>
 
           <TabSelector
-            className={` cursor-pointer relative bg-transparent font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
+            className={` relative flex cursor-pointer items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Members"
-                ? "block  font-normal rounded-md text-[#197B30] p-1.5"
+                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
                 : "font-light"
             } `}
             isActive={selectedTab === "Members"}
@@ -208,9 +344,9 @@ const getAllAdmin = useGetAllAdmin()
             Members
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  font-light text-sm p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
+            className={` relative flex cursor-pointer  items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Notification"
-                ? "block  font-normal  rounded-md text-[#197B30] p-1.5"
+                ? "block  rounded-md  p-1.5 font-normal text-[#197B30]"
                 : "font-light"
             } `}
             isActive={selectedTab === "Notification"}
@@ -226,9 +362,9 @@ const getAllAdmin = useGetAllAdmin()
             Notification
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
+            className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Commissions"
-                ? "block  font-normal rounded-md text-[#197B30] p-1.5"
+                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
                 : "font-light"
             } `}
             isActive={selectedTab === "Commissions"}
@@ -244,9 +380,9 @@ const getAllAdmin = useGetAllAdmin()
             Commissions & Fees
           </TabSelector>
           <TabSelector
-            className={` cursor-pointer relative bg-transparent  text-sm  p-1.5 transition-all duration-300 flex items-center gap-1 hover:text-[#197B30] ${
+            className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Password"
-                ? "block  font-normal rounded-md text-[#197B30] p-1.5"
+                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
                 : "font-light"
             } `}
             isActive={selectedTab === "Password"}
@@ -262,149 +398,161 @@ const getAllAdmin = useGetAllAdmin()
             Change Password
           </TabSelector>
         </nav>
-        <div className=" py-4 px-8  bg-[#F4F4F4] w-full ">
+        <div className=" w-full bg-[#F4F4F4]  py-4 px-8 ">
           <TabPanel hidden={selectedTab !== "Information"}>
-            <div>
-              <div className="my-3 ">
-                <div className="shrink-0 mx-auto text-center relative ">
-                  {currentImage ? (
-                    <>
-                      <img
-                        // width={100}
-                        // height={100}
-                        className={`${
-                          overlayVisibility ? "grayscale" : ""
-                        }  'grayscale object-cover rounded-full bg-slate-300 relative w-16 h-16`}
-                        src={currentImage}
-                        // src={currentImage ? currentImage : user.picture}
-                        // unoptimized={true}
-                        alt="profile"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        className=" object-cover rounded-full bg-slate-300 w-16 h-16"
-                        src={avatar}
-                        alt="profile"
-                      />
-                    </>
-                  )}
-                </div>
-                <label className="block cursor-pointer mt-3">
-                  <div className="text-xs underline text-[#197b30] flex items-center gap-1">
-                    <span>
-                      <BsCamera />
-                    </span>
-                    <span>Change profile picture</span>
-                  </div>
-                  <input
-                    ref={inputRef}
-                    type="file"
-                    onChange={(e) => handleImage(e)}
-                    className="hidden  w-full text-sm text-slate-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-full file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-violet-50 file:text-primaryDark
-                            hover:file:bg-violet-100
-                            "
-                  />
-                </label>
-              </div>
-              <div className="flex w-full  gap-5">
-                <div className="flex-1">
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Full Name</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Full Name"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Email</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Email"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Street Address</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Address"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Phone number</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Phonenumber"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-start py-5">
-                    <button className="mr-2 px-6 py-2 bg-[#fff] border border-[#f91919] text-[#f91919] rounded text-sm font-light hover:bg-[#f91919] hover:text-[#fff]">
-                      Delete Account
-                    </button>
-                    <button className="px-6 py-2 text-sm font-light bg-[#197B30] text-white rounded">
-                      Save Changes
-                    </button>
-                  </div>
-                </div>
-                <div className="flex-1 ">
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Store Name</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Store name"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Store ID</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Store id"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col  mt-4  text-sm">
-                    <p className=" text-[#344054]">Location</p>
-                    <div className="flex-[2]">
-                      <InputComponent
-                        placeholder="Location"
-                        type="tel"
-                        // value={number}
-                        // onChange={(e) => setNumber(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
+            <div className="my-3">
+              <div className="relative mx-auto ">
+                <img
+                  className=" h-16 w-16 rounded-full bg-slate-300 object-cover"
+                  src={avatar}
+                  alt="profile"
+                />
+                <h3 className="mt-3 text-xl font-bold">
+                  {adminInfo?.firstName} {adminInfo?.lastName}
+                </h3>
               </div>
             </div>
+            <div className="flex w-full  gap-5">
+              <form
+                className="w-full xl:w-[50%]"
+                onSubmit={handleSubmit(handleSave)}
+              >
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Full Name</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="Full Name"
+                      type="text"
+                      // name="fullName"
+                      {...register("fullName")}
+                      // value={formData.fullName}
+                      onChange={(e: any) => handleChange(e)}
+                    />
+                  </div>
+                </div>
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Email</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={(e: any) => handleChange(e)}
+                      // value={number}
+                      // onChange={(e) => setNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Location</p>
+                  <div className="flex-[2]">
+                    <InputComponent
+                      placeholder="location"
+                      type="text"
+                      value={formData.location}
+                      onChange={(e: any) => handleChange(e)}
+                      // value={number}
+                      // onChange={(e) => setNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4 flex  flex-col  text-sm">
+                  <p className=" text-[#344054]">Phone number</p>
+                  <div className="flex-[2]">
+                    {/* <InputComponent
+                        placeholder="Phonenumber"
+                        type="tel"
+                        defaultValue={adminBilling?.phoneNumber}
+                        // value={number}
+                        // onChange={(e) => setNumber(e.target.value)}
+                      /> */}
+                    <PhoneInput
+                      // disabled
+                      enableSearch={true}
+                      autoFormat={true}
+                      countryCodeEditable={false}
+                      country={"ng"}
+                      // value={formData?.phoneNumber.slice(-10)}
+                      // onChange={(e: any) => handleChange(e)}
+                      inputClass={"w-[100%_!important] h-[45px_!important]"}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-start py-5">
+                  <button className="mr-2 rounded border border-[#f91919] bg-[#fff] px-6 py-2 text-sm font-light text-[#f91919] hover:bg-[#f91919] hover:text-[#fff]">
+                    Delete Account
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    className="rounded bg-[#197B30] px-6 py-2 text-sm font-light text-white"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+            <form className="hidden w-3/4 space-y-3">
+              <label htmlFor="fullName" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Full Name
+                </span>
+                <input
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  placeholder="John Doe"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="email" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="johndoe@gmail.com"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="location" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Location
+                </span>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="Abuja"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                />
+              </label>
+              <label htmlFor="phoneNumber" className="block">
+                <span className="mb-2 block font-medium text-[#333333]">
+                  Phone Number
+                </span>
+                {/* <input
+                  type="text"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  placeholder="819921254"
+                  className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
+                /> */}
+                <PhoneInput
+                  inputClass="w-100"
+                  // disabled
+                  enableSearch={true}
+                  autoFormat={true}
+                  countryCodeEditable={false}
+                  country={"ng"}
+                  value={formData?.phoneNumber.slice(-10)}
+                  onChange={(e: any) => handleChange(e)}
+                />
+              </label>
+            </form>
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Members"}>
             <div>
@@ -412,11 +560,11 @@ const getAllAdmin = useGetAllAdmin()
                 <h1 className="text-lg font-normal text-[#333333]">
                   Team Members
                 </h1>
-                <span className="text-[#A2A2A2] text-sm font-light">
+                <span className="text-sm font-light text-[#A2A2A2]">
                   Anyone granted access has access to porker Hut admin
                 </span>
               </div>
-              <div className=" mt-4 text-sm  w-[60%]">
+              <div className=" mt-4 w-[90%] text-sm xl:w-[70%]">
                 {/* <div className="flex gap-4">
                   <div className="flex-1 ">
                     <div className="flex flex-col    text-sm">
@@ -442,72 +590,101 @@ const getAllAdmin = useGetAllAdmin()
                     </button>
                   </div>
                 </div> */}
-                <div className="container mx-auto pt-8">
+                <div className="container mx-auto pt-5">
                   <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
-                {}
-                <div className="flex items-center justify-between mt-10">
-                  <div className="flex gap-2 mt-3 items-center">
-                    <img
-                      src={currentImage ? currentImage : avatar}
-                      alt="avatar"
-                      className="object-contain w-10 h-10"
-                    />
-                    <div className="space-y-2">
-                      <h1 className="text-xs font-normal text-[#333333]">
-                        Jeremiah steller
-                      </h1>
-                      <p className="text-xs text-[#797979]">test22@gmail.com</p>
-                    </div>
-                  </div>
+                <div className="mt-7 space-y-2">
+                  {allAdmin
+                    ?.filter((admin: any) => admin?._id !== adminInfo?._id)
+                    ?.map((admin: any, index: number) => (
+                      <div
+                        className="flex items-center justify-between"
+                        key={index}
+                      >
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={avatar}
+                            alt="avatar"
+                            className="h-8 w-8 object-contain"
+                          />
+                          <div className="space-y-0.5">
+                            <h1 className="text-xs font-medium capitalize text-[#333333]">
+                              {admin?.firstName} {admin?.lastName}
+                            </h1>
+                            <p className="text-xs text-[#797979]">
+                              {admin?.email}
+                            </p>
+                          </div>
+                        </div>
 
-                  <>
-                    <Popover
-                      buttonContent={component(action)}
-                      placementOrder={"auto"}
-                      closeOnClick={true}
-                    >
-                      <div className="w-[150px] py-2">
-                        <button
-                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
-                          onClick={() => handleButtonClick("Grant Access")}
-                        >
-                          Grant Access
-                        </button>
-                        {/* {permissions.canEdit && ( */}
-                        <button
-                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
-                          onClick={() => handleButtonClick("Deny Access")}
-                        >
-                          Deny Access
-                        </button>
-                        {/* )}  */}
-                        {/* {permissions.canDelete && ( */}
-                        <button
-                          className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
-                          onClick={() => handleButtonClick("Delete Account")}
-                        >
-                          Delete Account
-                        </button>
-                        {/* )} */}
+                        <>
+                          <Popover
+                            buttonContent={
+                              admin?.isAccessRevoked ? (
+                                <span className="inline-flex items-center gap-2">
+                                  Access Denied <RxCaretDown size={20} />
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-2">
+                                  Access Granted <RxCaretDown size={20} />
+                                </span>
+                              )
+                            }
+                            placementOrder={"auto"}
+                            closeOnClick={true}
+                          >
+                            <div className="w-[150px] py-2">
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Grant Access");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Grant Access
+                              </button>
+                              {/* {permissions.canEdit && ( */}
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Deny Access");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Deny Access
+                              </button>
+                              {/* )}  */}
+                              {/* {permissions.canDelete && ( */}
+                              <button
+                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                onClick={() => {
+                                  handleButtonClick("Delete Account");
+                                  setSelectedAdmin(admin?._id);
+                                }}
+                              >
+                                Delete Account
+                              </button>
+                              {/* )} */}
+                            </div>
+                          </Popover>
+                        </>
                       </div>
-                    </Popover>
-                  </>
+                    ))}
                 </div>
               </div>
             </div>
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Notification"}>
             <div>
-              <div className="w-full mt-3">
-                <div className=" px-4 py-3 bg-[#fff] rounded-t flex justify-between items-center">
-                  <div className="w-3/4 font-light text-sm">Type</div>
-                  <div className="w-1/4 font-light text-sm pl-5">Status</div>
+              <div className="mt-3 w-full">
+                <div className=" flex items-center justify-between rounded-t bg-[#fff] px-4 py-3">
+                  <div className="w-3/4 text-sm font-light">Type</div>
+                  <div className="w-1/4 pl-5 text-sm font-light">Status</div>
                 </div>
                 {data.map((d) => (
                   <div
                     key={d?.id}
-                    className="bg-white px-4 py-2 flex justify-between items-center border border-1 border-slate-100"
+                    className="border-1 flex items-center justify-between border border-slate-100 bg-white px-4 py-2"
                   >
                     <div className="w-3/4 text-sm font-light">{d?.type}</div>
                     <div className="w-1/4 border-l border-slate-100 pl-5">
@@ -521,19 +698,19 @@ const getAllAdmin = useGetAllAdmin()
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Commissions"}>
             <div className="w-full overflow-x-auto">
-              <table className="table-auto w-full rounded-t-md bg-[#fff]">
+              <table className="w-full table-auto rounded-t-md bg-[#fff]">
                 <thead>
                   <tr className="">
-                    <th className="py-3 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 text-left text-sm font-light">
                       Name
                     </th>
-                    <th className="py-3 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 text-left text-sm font-light">
                       Description
                     </th>
-                    <th className="py-3 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 text-left text-sm font-light">
                       Value
                     </th>
-                    <th className="py-3 px-4 font-light text-sm text-left">
+                    <th className="py-3 px-4 text-left text-sm font-light">
                       Actions
                     </th>
                   </tr>
@@ -541,10 +718,10 @@ const getAllAdmin = useGetAllAdmin()
                 <tbody>
                   {items.map((item, index) => (
                     <tr key={index} className="bg-white">
-                      <td className="py-3 px-4 font-light text-sm ">
+                      <td className="py-3 px-4 text-sm font-light ">
                         {item.name}
                       </td>
-                      <td className="py-3 px-4 font-light text-sm ">
+                      <td className="py-3 px-4 text-sm font-light ">
                         {item.description}
                       </td>
                       <td className="py-3 px-1 ">
@@ -554,10 +731,10 @@ const getAllAdmin = useGetAllAdmin()
                           onChange={(e) =>
                             handleValueChange(index, e.target.value)
                           }
-                          className=" py-0.5 px-1 border border-gray-400 rounded-md font-light text-sm w-24 "
+                          className=" w-24 rounded-md border border-gray-400 py-0.5 px-1 text-sm font-light "
                         />
                       </td>
-                      <td className="py-3 px-4 font-light text-sm underline active:scale-95">
+                      <td className="py-3 px-4 text-sm font-light underline active:scale-95">
                         {item.action}
                       </td>
                     </tr>
@@ -575,9 +752,9 @@ const getAllAdmin = useGetAllAdmin()
                 All information available.
               </span> */}
             </div>
-            <div className="w-[60%] my-4">
+            <div className="my-4 w-[60%]">
               <div className="w-full ">
-                <div className="mt-2 relative">
+                <div className="relative mt-2">
                   <label htmlFor="" className="text-sm font-normal">
                     Old password
                   </label>
@@ -587,18 +764,18 @@ const getAllAdmin = useGetAllAdmin()
                     name="password"
                     placeholder="**********"
                     id="password"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]
+                    className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]
 
                     `}
                   />
                   <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                     onClick={toggleConfirmEye}
                   >
                     {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                   </button>
                 </div>
-                <div className="mt-2 relative">
+                <div className="relative mt-2">
                   <label htmlFor="" className="text-sm font-normal">
                     New Password
                   </label>
@@ -614,16 +791,16 @@ const getAllAdmin = useGetAllAdmin()
                     autoComplete="on"
                     placeholder="**********"
                     id="confirmPassword"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                    className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
                   />
                   <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                     onClick={toggleEye}
                   >
                     {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                   </button>
                 </div>
-                <div className="mt-2 relative">
+                <div className="relative mt-2">
                   <label htmlFor="" className="text-sm font-normal">
                     Repeat Password
                   </label>
@@ -639,17 +816,17 @@ const getAllAdmin = useGetAllAdmin()
                     autoComplete="on"
                     placeholder="**********"
                     id="confirmPassword"
-                    className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#EEEEEE] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]`}
+                    className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
                   />
                   <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                     onClick={toggleEye}
                   >
                     {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
                   </button>
                 </div>
               </div>
-              <div className="text-sm text-[#A2A2A2] py-2  text-justify">
+              <div className="py-2 text-justify text-sm  text-[#A2A2A2]">
                 <p className="text-justify font-light">
                   {" "}
                   The password should be at least 8 characters long. it must{" "}
@@ -659,7 +836,7 @@ const getAllAdmin = useGetAllAdmin()
                 </p>
               </div>
               <div className="flex justify-start ">
-                <button className="px-6 py-3 text-sm font-light bg-[#197B30] text-white rounded">
+                <button className="rounded bg-[#197B30] px-6 py-3 text-sm font-light text-white">
                   Save Changes
                 </button>
               </div>
@@ -671,23 +848,24 @@ const getAllAdmin = useGetAllAdmin()
       {showConfirmationModal && (
         <div
           onClick={() => setShowConfirmationModal(false)}
-          className="fixed inset-0 bg-black opacity-50 z-50"
+          className="fixed inset-0 z-50 bg-black opacity-50"
         ></div>
       )}
       {showConfirmationModal && (
-        <div className="fixed inset-1/3  bg-white p-4 z-50 rounded-md flex items-center justify-center flex-col">
-          <h2 className="text-lg font-semibold mb-4 text-center">
+        <div className="fixed inset-1/3 z-50 flex h-min flex-col items-center justify-center rounded-md bg-white p-4 py-10">
+          <h2 className="mb-4 text-center text-lg font-semibold">
             Are you sure you want to {action}?
           </h2>
           <div className="flex space-x-4 text-center">
             <button
-              className="bg-[#197B30] text-white px-4 py-2 rounded"
+              disabled={loading}
+              className={`rounded bg-[#197B30] px-4 py-2 text-white ${loading ? "bg-opacity-50" : ""}`}
               onClick={handleConfirm}
             >
-              Yes, Continue
+              {loading ? "Processing..." : "Yes, Continue"}
             </button>
             <button
-              className="bg-[#fff] border-[#e10] border focus-within:border-[#e10] text-[#e10]  px-4 py-2 rounded"
+              className="rounded border border-[#e10] bg-[#fff] px-4  py-2 text-[#e10] focus-within:border-[#e10]"
               onClick={handleCancel}
             >
               Cancel
@@ -716,50 +894,44 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
     // setLoading(true)
     if (email && role) {
       onGrantAccess(email, role);
-          setLoading(false);
+      setLoading(false);
     } else {
       alert("Please enter email address and select role.");
     }
   };
 
-  const roles = ["user", "admin", "Superadmin"]; // Example roles
+  const roles = ["User", "Admin", "Superadmin"]; // Example roles
 
   return (
     <div className=" flex items-center ">
-      <div className="relative w-full">
+      <div className="relative grid w-full grid-cols-[2fr_1fr] border bg-white  focus-within:border-[#197b30] focus-within:ring-[#197b30]">
         <input
           type="email"
-          className="w-full px-4 py-2 border border-gray-200   placeholder:text-sm focus:outline-none focus:ring-[#197b30] focus:border-[#197b30] appearance-none "
+          className="w-full appearance-none border-0 border-gray-200 px-1 py-2 pl-1.5 placeholder:text-sm  focus:border-0 focus:outline-none focus:ring-0"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="absolute inset-y-0 right-1 flex items-center">
-          <select
-            className="px-2 py-1 text-sm text-gray-600 font-light border-hidden focus:outline-none focus:ring-none focus:border-none appearance-none"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option className="text-sm text-gray-600 pr-4" value="">
-              Select Role
+        <select
+          className="form-select border-0 border-l border-l-gray-300 px-2 py-1 text-sm font-medium text-gray-600 focus:border-0 focus:border-l focus:border-l-gray-300 focus:outline-none focus:ring-0"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option className="pr-4 text-sm text-gray-600" value="">
+            Select Role
+          </option>
+          {roles.map((role, index) => (
+            <option key={index} value={role} className="capitalize">
+              {role}
             </option>
-            {roles.map((role, index) => (
-              <option key={index} value={role}>
-                {role}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
       <button
-        className="px-4 py-2.5 ml-4 bg-[#197b30] text-white  hover:bg-[#197b30] focus:outline-none whitespace-nowrap border border-[#197b30] shadow-inner disabled:bg-[#568a62] disabled:cursor-pointed"
+        className="disabled:cursor-pointed ml-4 whitespace-nowrap border border-[#197b30]  bg-[#197b30] px-4 py-2.5 text-white shadow-inner hover:bg-[#197b30] focus:outline-none disabled:bg-[#568a62]"
         onClick={handleGrantAccess}
       >
-        {loading ? (
-         "Loading.."
-        ) : (
-          "Grant Access"
-        )}
+        {loading ? "Loading.." : "Grant Access"}
       </button>
     </div>
   );

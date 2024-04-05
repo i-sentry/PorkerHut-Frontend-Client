@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 interface CurrencyInputProps {
+  // onChange: any;
   onChange: (value: number) => void;
   price?: number;
 }

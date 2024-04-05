@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PerformanceWidget from "../../components/performanceComp/PerformanceWidget";
 import { ScriptableContext } from "chart.js";
 import { Line } from "react-chartjs-2";
@@ -129,6 +129,7 @@ export const options = {
 };
 
 const SellersPerformance = () => {
+  const [week, setWeek] = useState<any>();
   const vendor = JSON.parse(localStorage.getItem("vendor") as string);
   const { data: vo, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   const vendorOrders = vo?.data?.orders;
@@ -271,8 +272,10 @@ const SellersPerformance = () => {
     </div>
   ));
 
+  console.log(week, "week");
+
   return (
-    <div className="overflow-hidden xxs:px-4 md:px-0">
+    <div className="overflow-hidden px-4 pt-6 ">
       <h1 className="font-bold text-[#333333] xxs:text-[20px] xxs:leading-[23px] md:text-[32px] md:leading-[46px]">
         Performance
       </h1>
@@ -338,7 +341,7 @@ const SellersPerformance = () => {
             throw new Error("Function not implemented.");
           }}
           percentage={10}
-          value={"300k"}
+          value={"0"}
           type={"Page views"}
           borderColor={"#d9d9d9"}
           textColor={"red"}
@@ -352,12 +355,16 @@ const SellersPerformance = () => {
       <div className="mt-8 xxs:block md:hidden">
         <Carousel cards={card} />
       </div>
-      <div className="hide-scroll-bar relative mt-10 h-full overflow-y-scroll md:mb-20">
+      <div className="hide-scroll-bar relative mt-10 hidden h-full overflow-y-scroll md:mb-20 md:block ">
         <div className="absolute right-8 top-10 mt-4 hidden items-center gap-4 px-4 md:flex">
-          <label className="" htmlFor="week"></label>
+          <label className="" htmlFor="week">
+            {/* {week} */}
+          </label>
           <input
             type="week"
+            value={week}
             className="w-42 h-10 rounded border px-2 focus:outline-none "
+            onChange={(e: any) => setWeek(e.target.value)}
           />
         </div>
         <ChartLayout

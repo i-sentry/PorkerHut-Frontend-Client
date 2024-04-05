@@ -9,13 +9,13 @@ import {
   MdKeyboardArrowUp,
 } from "react-icons/md";
 import { useState } from "react";
-
+import logo from "../../assets/images/porkerlogo.png";
 
 const SellerProductImageTable = () => {
   const store = JSON.parse(localStorage.getItem("vendor") as string);
   const id = store.vendor._id;
   const { data: vendorProducts, isLoading } = useGetProductByVendor(id);
- const [imgMap, setImgMap] = useState<{ [key: string]: string }>({});
+  const [imgMap, setImgMap] = useState<{ [key: string]: string }>({});
   const [img, setImg] = useState<{ [key: string]: string }>({});
   const [imageToRemove, setImageToRemove] = useState<string | null>(null);
 
@@ -30,60 +30,73 @@ const SellerProductImageTable = () => {
     }
   };
 
-//   const handleImage = (e: any, productId: string) => {
-//   const file = e.target.files && e.target.files[0];
-//   if (file) {
-//     const imageUrl = URL.createObjectURL(file);
-//     setImgMap((prevImgMap) => ({
-//       ...prevImgMap,
-//       [productId]: [...(prevImgMap[productId] || []), imageUrl], // Append new image URL to existing array
-//     }));
-//   }
-// };
+  //   const handleImage = (e: any, productId: string) => {
+  //   const file = e.target.files && e.target.files[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setImgMap((prevImgMap) => ({
+  //       ...prevImgMap,
+  //       [productId]: [...(prevImgMap[productId] || []), imageUrl], // Append new image URL to existing array
+  //     }));
+  //   }
+  // };
 
- const handleAddImage = (productId: string) => {
-  setImg(imgMap);
-   // Trigger click event on file input to open file browser
-   const fileInput = document.getElementById(`file-${productId}`);
-   if (fileInput) {
-     (fileInput as HTMLInputElement).click();
-   }
- };
+  const handleAddImage = (productId: string) => {
+    setImg(imgMap);
+    // Trigger click event on file input to open file browser
+    const fileInput = document.getElementById(`file-${productId}`);
+    if (fileInput) {
+      (fileInput as HTMLInputElement).click();
+    }
+  };
 
- const handleRemoveImage = (productId: string) => {
-   setImageToRemove(productId);
- };
+  const handleRemoveImage = (productId: string) => {
+    setImageToRemove(productId);
+  };
 
- const confirmRemoveImage = () => {
-   if (imageToRemove) {
+  const confirmRemoveImage = () => {
+    if (imageToRemove) {
+      setImg((prevImgMap) => {
+        const updatedImgMap = { ...prevImgMap };
+        delete updatedImgMap[imageToRemove];
+        return updatedImgMap;
+      });
+      setImageToRemove(null);
+    }
+  };
 
-     setImg((prevImgMap) => {
-       const updatedImgMap = { ...prevImgMap };
-       delete updatedImgMap[imageToRemove];
-       return updatedImgMap;
-     });
-     setImageToRemove(null);
-   }
- };
+  const cancelRemoveImage = () => {
+    setImageToRemove(null);
+  };
 
- const cancelRemoveImage = () => {
-   setImageToRemove(null);
- };
+  const handleUpdateProductImage = () => {};
   const productsVendor = vendorProducts?.data;
-
 
   console.log(productsVendor, "venddhdhdhd");
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className="flex h-screen flex-col items-center justify-center">
+          <div className="flex flex-col items-center">
+            <img
+              src={logo}
+              alt="loaderLogo"
+              className="h-20 w-20 animate-pulse"
+            />
+            <p className="text-[14px] leading-[24px] text-[#333333]">
+              Fetching Data...
+            </p>
+          </div>
+        </div>
+      )}
 
       {productsVendor && (
-        <div className="w-full overflow-x-auto hide-scroll-bar">
-          <table className="border-collapse w-full">
+        <div className="hide-scroll-bar w-full overflow-x-auto">
+          <table className="w-[1000px] border-collapse">
             <thead>
               <tr>
-                <td className="border px-5 text-left py-2 bg-neutral-200 rounded-tl-md w-[200px]">
+                <td className="w-[200px] rounded-tl-md border bg-neutral-200 px-5 py-2 text-left">
                   <div className="inline-flex items-center gap-2">
                     <span>Name</span>
                     <div>
@@ -96,7 +109,7 @@ const SellerProductImageTable = () => {
                     </div>
                   </div>
                 </td>
-                <td className="border px-5 text-left py-2 bg-neutral-200">
+                <td className="border bg-neutral-200 px-5 py-2 text-left">
                   <div className="inline-flex items-center gap-2">
                     <span>Created</span>
                     <div>
@@ -109,7 +122,7 @@ const SellerProductImageTable = () => {
                     </div>
                   </div>
                 </td>
-                <td className="border px-5 text-left py-2 bg-neutral-200 whitespace-nowrap">
+                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-left">
                   <div className="inline-flex items-center gap-2">
                     <span>Product ID</span>
                     <div>
@@ -122,7 +135,7 @@ const SellerProductImageTable = () => {
                     </div>
                   </div>
                 </td>
-                <td className="border px-5 text-left py-2 bg-neutral-200 whitespace-nowrap">
+                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-left">
                   <div className="inline-flex items-center gap-2">
                     <span>All Images</span>
                     <div>
@@ -135,12 +148,15 @@ const SellerProductImageTable = () => {
                     </div>
                   </div>
                 </td>
-                <td className="border px-5 text-left py-2 bg-neutral-200 rounded-tr-md">
-                  <div className="w-full flex justify-end">
-                    <button className="py-2 px-5 border border-red-500 text-red-500 font-medium rounded-md">
+                <td className="rounded-tr-md border bg-neutral-200 px-5 py-2 text-left">
+                  <div className="flex w-full justify-end">
+                    <button className="rounded-md border border-red-500 py-2 px-5 font-medium text-red-500">
                       Cancel
                     </button>
-                    <button className="py-2 px-8 ml-3 bg-[#197b30] text-white font-medium rounded-md">
+                    <button
+                      onClick={handleUpdateProductImage}
+                      className="ml-3 rounded-md bg-[#197b30] py-2 px-8 font-medium text-white"
+                    >
                       Save
                     </button>
                   </div>
@@ -150,36 +166,36 @@ const SellerProductImageTable = () => {
             <tbody>
               {productsVendor?.map((item: any, index: number) => (
                 <tr key={index}>
-                  <td className="border p-5 capitalize align-top">
+                  <td className="border p-5 align-top capitalize">
                     {item?.information?.productName}
                   </td>
-                  <td className="border p-5 align-top">
+                  <td className="whitespace-nowrap border p-5 align-top">
                     {moment(item?.createdAt).format("DD MMM YYYY")}
                   </td>
-                  <td className="border p-5 align-top cursor-pointer text-left">
+                  <td className="cursor-pointer border p-5 text-left align-top">
                     <Tooltip message={item?._id}>
-                      {item?._id.slice(-7)}...
+                      {item?._id.slice(0, 7)}...
                     </Tooltip>
                   </td>
-                  <td className="border p-5 grid grid-cols-2 gap-3 align-top">
+                  <td className="grid grid-cols-2 gap-3 border p-5 align-top">
                     {item?.images?.map((img: any, index: number) => (
                       <div
                         className={`relative  ${
                           item.images.length === 4
-                            ? "w-full h-[80px]"
-                            : "w-[100%] h-[80px]"
+                            ? "h-[80px] w-full"
+                            : "h-[80px] w-[100%]"
                         } overflow-hidden`}
                         key={index}
                       >
                         <img
                           src={img}
                           alt="product-pic"
-                          className="w-full h-full object-cover"
+                          className="h-full w-full object-cover"
                           style={{ objectFit: "cover" }}
                         />
                         <span
                           onClick={() => handleRemoveImage(item._id)}
-                          className="absolute p-[2px] cursor-pointer top-2 right-2 bg-[#197b30] inline-flex justify-center items-center"
+                          className="absolute top-2 right-2 inline-flex cursor-pointer items-center justify-center bg-[#197b30] p-[2px]"
                         >
                           <LuTrash size={10} className="text-white" />
                         </span>
@@ -190,19 +206,19 @@ const SellerProductImageTable = () => {
                       <div
                         className={`relative ${
                           item.images.length === 4
-                            ? "w-full h-[80px]"
-                            : "w-[100%] h-[80px]"
+                            ? "h-[80px] w-full"
+                            : "h-[80px] w-[100%]"
                         } overflow-hidden`}
                       >
                         <img
                           src={img[item._id]}
                           alt="product-pic"
-                          className="w-full h-full object-cover"
+                          className="h-full w-full object-cover"
                           style={{ objectFit: "cover" }}
                         />
                         <span
                           onClick={() => handleRemoveImage(item._id)}
-                          className="absolute p-[2px] cursor-pointer top-2 right-2 bg-[#197b30] inline-flex justify-center items-center"
+                          className="absolute top-2 right-2 inline-flex cursor-pointer items-center justify-center bg-[#197b30] p-[2px]"
                         >
                           <LuTrash size={10} className="text-white" />
                         </span>
@@ -211,17 +227,17 @@ const SellerProductImageTable = () => {
                   </td>
 
                   <td className="border p-5 align-top ">
-                    <div className="flex justify-center items-center h-full">
-                      <div className="flex justify-center items-center border-2 border-gray-200 border-dashed w-full md:h-[170px] relative hover:border-[#197B30]">
+                    <div className="flex h-full items-center justify-center">
+                      <div className="relative flex h-[170px] w-full items-center justify-center border-2 border-dashed border-gray-200 hover:border-[#197B30]">
                         {imgMap[item._id] ? (
-                          <div className="w-full h-full relative">
+                          <div className="relative h-full w-full">
                             <img
                               src={imgMap[item._id]}
                               alt="productImage"
-                              className="w-full h-full object-cover"
+                              className="h-full w-full object-cover"
                             />
                             <span
-                              className="bg-[#fff] py-2 px-4 rounded-md absolute top-2 right-2 cursor-pointer text-[#a10] border-[#a10] border hover:bg-[#a10] hover:text-[#fff] transition-all ease-in-out"
+                              className="absolute top-2 right-2 cursor-pointer rounded-md border border-[#a10] bg-[#fff] py-2 px-4 text-[#a10] transition-all ease-in-out hover:bg-[#a10] hover:text-[#fff]"
                               onClick={() =>
                                 setImgMap((prevImgMap) => {
                                   const updatedImgMap = { ...prevImgMap };
@@ -236,7 +252,7 @@ const SellerProductImageTable = () => {
                             </span>
                             <span
                               onClick={() => handleAddImage(item._id)}
-                              className="py-2 px-4 border border-[#197b30] text-[#197b30] font-medium rounded-md cursor-pointer absolute top-2 left-2 bg-[#fff] hover:text-[#fff] hover:bg-[#197b30] transition-all ease-in-out"
+                              className="absolute top-2 left-2 cursor-pointer rounded-md border border-[#197b30] bg-[#fff] py-2 px-4 font-medium text-[#197b30] transition-all ease-in-out hover:bg-[#197b30] hover:text-[#fff]"
                             >
                               <Tooltip message={"Add Image"}>
                                 <MdAdd size={20} />
@@ -247,9 +263,9 @@ const SellerProductImageTable = () => {
                           <>
                             <label
                               htmlFor={`file-${item._id}`}
-                              className="text-sm h-full flex text-right"
+                              className="flex h-full text-right text-sm"
                             >
-                              <span className="cursor-pointer my-auto border border-[#197B30] text-[#197B30] py-2 px-8 text-[14px] leading-[24px] rounded-md active:scale-90 duration-300 ease-in-out">
+                              <span className="my-auto cursor-pointer rounded-md border border-[#197B30] py-2 px-8 text-[14px] leading-[24px] text-[#197B30] duration-300 ease-in-out active:scale-90">
                                 Browse
                               </span>
                             </label>
@@ -258,7 +274,7 @@ const SellerProductImageTable = () => {
                               name={`file-${item._id}`}
                               id={`file-${item._id}`}
                               onChange={(e) => handleImage(e, item._id)}
-                              className="hidden appearance-none outline-none text-sm"
+                              className="hidden appearance-none text-sm outline-none"
                             />
                           </>
                         )}
@@ -274,17 +290,17 @@ const SellerProductImageTable = () => {
 
       {imageToRemove && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-          <div className="bg-white p-8 rounded-lg">
+          <div className="rounded-lg bg-white p-8">
             <p>Are you sure you want to remove this image?</p>
-            <div className="flex justify-end mt-4">
+            <div className="mt-4 flex justify-end">
               <button
-                className="px-4 py-2 bg-red-500 text-white rounded mr-4"
+                className="mr-4 rounded bg-red-500 px-4 py-2 text-white"
                 onClick={confirmRemoveImage}
               >
                 Yes
               </button>
               <button
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded"
+                className="rounded bg-gray-300 px-4 py-2 text-gray-800"
                 onClick={cancelRemoveImage}
               >
                 Cancel

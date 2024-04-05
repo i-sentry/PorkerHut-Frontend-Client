@@ -24,6 +24,8 @@ export type ITable = {
   showIcon?: boolean;
   showCheckbox?: boolean;
   showDropDown?: boolean;
+  dropDownOption?: any[];
+  statusType?: string;
 };
 
 //@ts-ignore
@@ -37,6 +39,7 @@ const AdminTable = ({
   showIcon,
   showCheckbox,
   showDropDown,
+  dropDownOption,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
@@ -160,7 +163,7 @@ const AdminTable = ({
               )}
             </div>
             <div className="max-w-xl ">
-              <OrderDropDown />
+              <OrderDropDown options={dropDownOption} />
             </div>
             <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]">
               Go
@@ -176,7 +179,7 @@ const AdminTable = ({
         </div>
       </div>
       <div className="mb-8 flex flex-col bg-white ">
-        <div className="overflow-x-auto">
+        <div className="hide-scroll-bar overflow-x-auto">
           <div className="block w-full">
             <div className="">
               <table
@@ -308,16 +311,15 @@ const AdminTable = ({
                   )}
                 </tbody>
               </table>
-
-              <Pagination
-                gotoPage={gotoPage}
-                length={data.length}
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-              />
             </div>
           </div>
         </div>
+        <Pagination
+          gotoPage={gotoPage}
+          length={data.length}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
       </div>
     </>
   );

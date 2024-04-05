@@ -14,7 +14,7 @@ function TextField({ errors, data, register, infoColor }: any) {
       <input
         id={data.name}
         type={data.type}
-        className={`relative  block h-12 w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[10px] text-sm leading-normal text-[#333] placeholder-gray-500 focus:z-10 focus:border-green-500 focus:outline-none focus:ring-green-500 ${
+        className={`relative block h-12 w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[10px] text-sm capitalize leading-normal text-[#333] placeholder-gray-500 focus:z-10 focus:border-green-500 focus:outline-none focus:ring-green-500 ${
           errors[data.name] && "border-[#a10]"
         }`}
         placeholder={data.place_holder}
