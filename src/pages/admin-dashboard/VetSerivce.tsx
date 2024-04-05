@@ -13,6 +13,8 @@ const VetSerivce = () => {
   }, [data?.data]);
 
   console.log(data, "vet service", isLoading, VetSerivce);
+
+  
   return (
     <div className="py-6 px-5">
       <div>
@@ -48,9 +50,9 @@ const VetSerivce = () => {
         /> */}
       </div>
       {!isLoading && VetSerivce.length === 0 && (
-        <div className="text-center">
-          <MdOutlinePets size={64} />
-          <p>No Vet Services yet</p>
+        <div className="flex h-[400px] flex-col items-center justify-center py-10 text-center">
+          <MdOutlinePets size={44} className="text-[#a2a2a2]" />
+          <p className="mt-2 text-[#a2a2a2]">No Veterinary Service yet</p>
         </div>
       )}
     </div>

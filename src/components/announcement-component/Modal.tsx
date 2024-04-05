@@ -129,7 +129,7 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
                 className="mt-6 rounded bg-[#197B30] py-2 px-6 text-white hover:bg-[#197B39]"
               >
                 {loading ? (
-                  <span className="flex items-center">
+                  <span className="flex items-center gap-2">
                     <CgSpinner size={16} className="animate-spin" />
                     Processing...
                   </span>
