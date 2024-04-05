@@ -1,0 +1,44 @@
+name: Deploy React App to GCP VM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.20.2' # Updated to match your project's Node.js version
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Build React app
+      run: NODE_OPTIONS=--max-old-space-size=16384 yarn build
+
+    - name: Install rsync
+      run: sudo apt-get update && sudo apt-get install -y rsync
+    
+    - name: Deploy to GCP VM
+      env:
+        DEPLOY_KEY: ${{ secrets.PORKERHUT_BACKEND_DEPLOY_KEY }}
+        HOST: ${{ secrets.PORKERHUT_GCP_HOST }}
+        USERNAME: ${{ secrets.PORKERHUT_GCP_USERNAME }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+        # Ensure the target directory exists or create it
+        ssh -i ~/.ssh/deploy_key $USERNAME@$HOST "mkdir -p /home/obedehoneah/PorkerHut-Frontend-Client"
+        # Rsync to transfer the build directory to the target
+        rsync -avz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./build/ $USERNAME@$HOST:~/PorkerHut-Frontend-Client
+    
