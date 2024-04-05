@@ -9,6 +9,7 @@ import Timer from "./Timer";
 type ModalProps = {
   isVisible: boolean;
   onClose: any;
+  refetch: any;
 };
 
 type FormProps = {
@@ -18,7 +19,7 @@ type FormProps = {
   endDate: Date;
 };
 
-const Modal = ({ isVisible, onClose }: ModalProps) => {
+const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
   const [loading, setLoading] = useState(false);
   const [openTimer, setOpenTimer] = useState(false);
   const [form, setForm] = useState({
@@ -50,7 +51,7 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
       .mutateAsync({
         ...form,
         startDate: new Date(),
-        endDate: new Date(2024, 4, 13),
+        endDate: new Date(2024, 4, 30),
       })
       .then((res: any) => {
         toast.success("New Accouncement Created!!!");
@@ -61,6 +62,7 @@ const Modal = ({ isVisible, onClose }: ModalProps) => {
           endDate: "",
         });
         onClose();
+        refetch();
         console.log(res, "res ann");
         setLoading(false);
       })

@@ -97,12 +97,12 @@ export const useCreateAnnoucement = () => {
 export const useUpdateAnnoucement = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: { subject: string; content: string; endDate: string }) =>
-      makePutRequest(data, api.annoucement.updateAnnouncement(id)),
+      makePutRequest(data, api.annoucement.singleAnnouncement(id)),
   });
 };
 
 export const useDeleteAnnoucement = (id: string) => {
-  return useQueryAction({
-    queryFn: () => makeDeleteRequest(api.annoucement.updateAnnouncement(id)),
+  return useQueryMutation({
+    mutationFn: () => makeDeleteRequest(api.annoucement.singleAnnouncement(id)),
   });
 };

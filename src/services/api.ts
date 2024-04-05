@@ -129,7 +129,7 @@ export const api = {
   },
   annoucement: {
     allAnnoucement: `/api/announcement`,
-    updateAnnouncement: (id: string) => `/api/announcement/${id}`,
+    singleAnnouncement: (id: string) => `/api/announcement/${id}`,
   },
   services: {
     allVetService: "/api/vetservice",
