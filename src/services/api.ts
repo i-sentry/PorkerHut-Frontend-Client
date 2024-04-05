@@ -119,6 +119,8 @@ export const api = {
     getAdmin: "/api/user/admin",
     adminOverView: (startDate: any, endDate: any) =>
       `/api/orders/admin/overview/${startDate}/${endDate}`,
+    adminGraph: (startDate: any, endDate: any) =>
+      `/api/orders/admin/weekly-sales/${startDate}/${endDate}`,
     adminAccess: (id: string) => `/api/user/update-access/${id}`,
   },
   forms: {

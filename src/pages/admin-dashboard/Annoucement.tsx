@@ -22,7 +22,7 @@ import {
   useGetAllAnnoucement,
 } from "../../services/hooks/Vendor";
 import { ToastContainer } from "react-toastify";
-import { CgSpinner } from "react-icons/cg";
+import logo from "../../assets/images/porkerlogo.png";
 
 interface SelectOption {
   value: string;
@@ -271,10 +271,20 @@ const Announcement = () => {
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full sm:px-6 lg:px-8">
                 {isLoading && (
-                  <div className="flex w-full flex-col items-center justify-center gap-4 py-6">
-                    <CgSpinner size={50} className="animate-spin" />
-                    <span>Loading...</span>
-                  </div>
+                  <>
+                    <div className="flex h-[50vh] w-full flex-col items-center justify-center bg-white py-10">
+                      <div className="flex flex-col items-center">
+                        <img
+                          src={logo}
+                          alt="loaderLogo"
+                          className="h-20 w-20 animate-pulse"
+                        />
+                        <p className="text-[14px] leading-[24px] text-[#333333]">
+                          Fetching Data...
+                        </p>
+                      </div>
+                    </div>
+                  </>
                 )}
                 {!isLoading && (
                   <div className="overflow-x-auto">

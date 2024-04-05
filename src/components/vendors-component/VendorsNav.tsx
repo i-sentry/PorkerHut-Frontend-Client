@@ -131,12 +131,12 @@ const VendorsNav = () => {
                     <span className="inline-block">
                       <FaUserCircle size={32} className="text-neutral-300" />
                     </span>
-                    <div className="hidden items-center md:hidden lg:flex lg:flex-col lg:gap-1">
-                      <span className="text-base font-bold leading-4">
+                    <div className="hidden items-start md:hidden lg:flex lg:flex-col lg:gap-1">
+                      <span className="text-sm font-bold leading-4">
                         {accountOwnersName}
                       </span>
-                      <div className="flex gap-1 text-center">
-                        <span className="ml-2 text-xs font-light">Seller</span>
+                      <div className="flex gap-1">
+                        <span className="text-xs font-light">Seller</span>
                         <span
                           className={`h-[8px] w-[8px] ${
                             storeStatus === "pending"

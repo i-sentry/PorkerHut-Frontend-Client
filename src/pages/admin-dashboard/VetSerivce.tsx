@@ -4,6 +4,7 @@ import {
   useGetAllVetServices,
 } from "../../services/hooks/service/vet";
 import logo from "../../assets/images/porkerlogo.png";
+import { MdOutlinePets } from "react-icons/md";
 
 const VetSerivce = () => {
   const { data, isLoading } = useGetAllVetServices();
@@ -46,7 +47,12 @@ const VetSerivce = () => {
           TData={[]}
         /> */}
       </div>
-      {!isLoading && VetSerivce.length === 0 && <div>No Vet Services yet</div>}
+      {!isLoading && VetSerivce.length === 0 && (
+        <div className="text-center">
+          <MdOutlinePets size={64} />
+          <p>No Vet Services yet</p>
+        </div>
+      )}
     </div>
   );
 };
