@@ -65,7 +65,7 @@ const StoreProfile = () => {
 
   console.log("stores", fil);
   return (
-    <div className="relative px-4 py-10">
+    <div className="relative py-6 pl-8 pr-5">
       <ToastContainer />
       <div className="flex items-center justify-between">
         <div className="mb-5">

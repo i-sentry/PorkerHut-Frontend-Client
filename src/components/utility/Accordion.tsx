@@ -176,7 +176,7 @@ const Accordion = ({ height }: { height?: string }) => {
               <CustomSelect
                 selectedOption={dropOption}
                 defaultValue={{
-                  label: userData?.sellerAccountInformation?.entityType,
+                  label: `${userData?.sellerAccountInformation?.entityType.slice(0, 1).toUpperCase() + userData?.sellerAccountInformation?.entityType}`,
                   value:
                     userData?.sellerAccountInformation?.entityType?.toLowerCase(),
                 }}

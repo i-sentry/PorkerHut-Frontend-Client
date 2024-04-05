@@ -302,7 +302,7 @@ const SellersAccountInfo = () => {
                         currentStep === 1 ? "cursor-not-allowed opacity-50" : ""
                       }`}
                     >
-                      Back nn
+                      Back
                     </button>
                     <button
                       type="submit"

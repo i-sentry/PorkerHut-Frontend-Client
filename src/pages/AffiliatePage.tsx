@@ -211,7 +211,7 @@ const AffiliatePage = () => {
               About Marketplace
             </h1>
             <div className="w-full">
-              <p className="text-[16px] font-normal leading-[150%] tracking-normal text-[#797979]">
+              <p className="mt-3 text-[16px] font-normal leading-[150%] tracking-normal text-[#797979] lg:mt-0">
                 The marketplace is going first to our farmer’s whitelist. In
                 order to guarantee sales/distribution for farmers, not all
                 registered accounts will be activated immediately. However,
@@ -251,14 +251,14 @@ const AffiliatePage = () => {
         </div>
         <div className="pt-10 pb-20">
           <div className=" lg:my-4">
-            <h1 className="text-center text-xl font-bold  leading-[68px] tracking-wider  lg:text-[58px]">
+            <h1 className="text-center text-2xl font-bold  leading-[68px] tracking-wider  lg:text-[58px]">
               Become Our Partner Today
             </h1>
           </div>
-          <div className=" mt-10 grid xxs:gap-8 lg:grid-cols-3">
+          <div className=" mt-6 grid xxs:gap-8 lg:grid-cols-3">
             <div className=" text-center  ">
-              <span className=" text-[40px] font-bold leading-[47px]">1</span>
-              <h1 className=" my-2 font-medium leading-[38px] text-[#333] xxs:text-lg lg:text-[32px] ">
+              <span className=" text-[40px] font-black leading-[47px]">1</span>
+              <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px] ">
                 Sell on Porker Hut
               </h1>
               <p className=" text-[16px] font-semibold leading-[19px] text-[#333] xxs:text-lg">
@@ -274,7 +274,7 @@ const AffiliatePage = () => {
             </div>
             <div className=" text-center  ">
               <span className="text-[40px] font-bold leading-[47px]">2</span>
-              <h1 className=" my-2 text-lg font-medium leading-[38px] text-[#333] lg:text-[32px]">
+              <h1 className=" my-2 text-lg font-bold leading-[38px] text-[#333] lg:text-[32px]">
                 Become a Vet Partner
               </h1>
               <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">
@@ -290,7 +290,7 @@ const AffiliatePage = () => {
             </div>
             <div className=" text-center  ">
               <span className="text-[40px] font-bold leading-[47px] ">3</span>
-              <h1 className=" my-2 font-medium leading-[38px] text-[#333] xxs:text-lg lg:text-[32px]">
+              <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px]">
                 Become Logistics Service Partner
               </h1>
               <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">

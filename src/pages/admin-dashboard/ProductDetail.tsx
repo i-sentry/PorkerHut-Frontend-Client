@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   useGetSingleProduct,
   useProductStatus,
@@ -18,6 +18,7 @@ import ProductTable from "../../components/utility/ProductTable";
 import Gallery from "../../components/utility/Input/Gallery";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BsArrowLeft } from "react-icons/bs";
 
 const productInfoSchema = yup.object().shape({
   "productInformation.productName": yup
@@ -30,6 +31,7 @@ const productInfoSchema = yup.object().shape({
 });
 
 const ProductDetails = () => {
+  const navigate = useNavigate();
   // const setShowOverlay = useImageOverlay((state) => state.setShowOverlays);
   // const setImage = useImageOverlay((state) => state.setImage);
 
@@ -388,7 +390,13 @@ const ProductDetails = () => {
 
   return (
     <div className="pl-10 pt-10 pr-5">
-      <div className="mb-5">
+      <div className="mb-5 inline-grid grid-cols-[24px_2fr] gap-5">
+        <span
+          className="mt-2 inline-block cursor-pointer hover:text-green-500"
+          onClick={() => navigate("/admin/products")}
+        >
+          <BsArrowLeft size={32} />
+        </span>
         <div className="">
           <h1 className="text-[36px] font-semibold leading-normal">
             Product Created

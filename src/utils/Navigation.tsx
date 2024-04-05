@@ -115,14 +115,14 @@ export const AdminSideBarLink = [
     subNav: [
       {
         id: 0,
-        name: "Customer Orders",
-        url: "/admin/stores",
+        name: "All Orders",
+        url: "/admin/customers",
         // icon: <WalletIcon width={"20px"} height={"20px"} />,
       },
       {
         id: 1,
-        name: "Customer Completed Orders",
-        url: "/admin/stores/new",
+        name: "Completed Orders",
+        url: "/admin/customers/completed-orders",
         // icon: <WalletIcon width={"20px"} height={"20px"} />,
       },
     ],
@@ -259,7 +259,7 @@ export const AdminSideBarLink = [
       {
         id: 1,
         name: "Vet Services",
-        url: "/admin/service/vet",
+        url: "/admin/service/vet_service",
         // icon: <WalletIcon width={"20px"} height={"20px"} />,
       },
       {

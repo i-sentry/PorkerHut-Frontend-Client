@@ -22,7 +22,8 @@ import {
   useGetAllAnnoucement,
 } from "../../services/hooks/Vendor";
 import { ToastContainer } from "react-toastify";
-import { CgSpinner } from "react-icons/cg";
+import logo from "../../assets/images/porkerlogo.png";
+import moment from "moment";
 
 interface SelectOption {
   value: string;
@@ -30,10 +31,11 @@ interface SelectOption {
 }
 
 interface RowData {
-  id: number;
+  startDate: string;
+  _id: string;
   subject: string;
   content: string;
-  date: string;
+  // date: string;
 }
 
 const Announcement = () => {
@@ -44,7 +46,7 @@ const Announcement = () => {
   const [selectedRow, setSelectedRow] = useState<RowData | null>(null);
   const [showRowModal, setShowRowModal] = useState(false);
 
-  const { data: annouce, isLoading } = useGetAllAnnoucement();
+  const { data: annouce, isLoading, refetch } = useGetAllAnnoucement();
   console.log(annouce, "announce");
 
   // const handleRowClick = (rowData: RowData) => {
@@ -105,30 +107,40 @@ const Announcement = () => {
     () => [
       {
         Header: "Subject",
-        accessor: "subject",
+        accessor: (row: any) => {
+          return (
+            <span className="whitespace-nowrap font-medium text-[#333]">
+              {row?.subject}
+            </span>
+          );
+        },
       },
       {
         Header: "Content",
-        accessor: "content",
-        Cell: ({ value, row }: any) => {
-          const handleClick = (row: any) => {
-            setSelectedRow(row.original);
+        // accessor: "content",
+        accessor: (row: any) => {
+          const handleClick = (a: any) => {
+            setSelectedRow(a);
             setShowRowModal(true);
-            console.log("do something");
+            console.log("do something", a);
+            // console.log(row, "aabbbshshs");
           };
 
           return (
             <div>
-              {value?.length > 40 ? (
+              {row?.content?.length > 40 ? (
                 <span
                   onClick={() => handleClick(row)}
-                  className="text-[#197b30] hover:cursor-pointer hover:underline"
+                  className="text-balance text-[#333] hover:cursor-pointer hover:underline"
                 >
-                  {value.substring(0, 150) + " ..."}
+                  {row?.content?.substring(0, 150) + " ..."}
                 </span>
               ) : (
-                <span className="text-[#197B30] hover:cursor-pointer hover:underline">
-                  {value}
+                <span
+                  onClick={() => handleClick(row)}
+                  className="text-[#333] hover:cursor-pointer hover:underline"
+                >
+                  {row?.content}
                 </span>
               )}
             </div>
@@ -137,7 +149,13 @@ const Announcement = () => {
       },
       {
         Header: "Date",
-        accessor: "date",
+        accessor: (row: any) => {
+          return (
+            <span className="whitespace-nowrap">
+              {moment(row?.startDate).format("DD/MM/YYYY")}
+            </span>
+          );
+        },
       },
     ],
     [],
@@ -155,7 +173,7 @@ const Announcement = () => {
 
   // const columns = useMemo(() => column, [column]);
 
-  const data = useMemo(
+  const data: any = useMemo(
     () => (isLoading ? [] : annouce?.data?.data),
     [isLoading, annouce?.data?.data],
   );
@@ -216,8 +234,8 @@ const Announcement = () => {
   }, []);
 
   return (
-    <div className="pl-10 pr-5 pt-10">
-      <div className="mt-5">
+    <div className="py-6 pl-8 pr-5">
+      <div className="">
         <ToastContainer />
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
@@ -225,7 +243,11 @@ const Announcement = () => {
         </span>
       </div>
 
-      <Modal isVisible={showModal} onClose={() => setShowModal(false)} />
+      <Modal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        refetch={refetch}
+      />
 
       <div>
         <>
@@ -268,19 +290,29 @@ const Announcement = () => {
             </div>
           </div>
           <div className="mb-8 flex flex-col bg-white">
-            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="overflow-x-auto">
+              <div className="inline-block min-w-full">
                 {isLoading && (
-                  <div className="flex w-full flex-col items-center justify-center gap-4 py-6">
-                    <CgSpinner size={50} className="animate-spin" />
-                    <span>Loading...</span>
-                  </div>
+                  <>
+                    <div className="flex h-[50vh] w-full flex-col items-center justify-center bg-white py-10">
+                      <div className="flex flex-col items-center">
+                        <img
+                          src={logo}
+                          alt="loaderLogo"
+                          className="h-20 w-20 animate-pulse"
+                        />
+                        <p className="text-[14px] leading-[24px] text-[#333333]">
+                          Fetching Data...
+                        </p>
+                      </div>
+                    </div>
+                  </>
                 )}
                 {!isLoading && (
                   <div className="overflow-x-auto">
                     <table
                       {...getTableProps()}
-                      className="mb-6 min-w-full appearance-none  bg-white "
+                      className="mb-6 w-full appearance-none bg-white"
                       id="my-table"
                     >
                       <thead className="appearance-none bg-[#F4F4F4] ">
@@ -358,10 +390,11 @@ const Announcement = () => {
                     </table>
                     {selectedRow && (
                       <RowModal
-                        id={selectedRow.id}
+                        refetch={refetch}
+                        id={selectedRow._id}
                         subject={selectedRow.subject}
                         content={selectedRow.content}
-                        date={selectedRow.date}
+                        startDate={selectedRow.startDate}
                         isVisib={showRowModal}
                         CloseModal={() => setShowRowModal(false)}
                         show={false}

@@ -23,7 +23,7 @@ const BankAccountInfo = () => {
   const {
     checkoutSteps,
     currentStep,
-
+    handleClick,
     userData,
     setUserData,
     handleChange,
@@ -237,12 +237,16 @@ const BankAccountInfo = () => {
                     )}
 
                     <button
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        handleClick("");
+                      }}
                       disabled={currentStep === 1}
                       className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out  disabled:bg-[#ddddddfd] ${
                         currentStep === 1 ? "cursor-not-allowed opacity-50" : ""
                       }`}
                     >
-                      Back nn
+                      Back
                     </button>
                     <button
                       type="submit"

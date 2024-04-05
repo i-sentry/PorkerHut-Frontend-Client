@@ -179,7 +179,7 @@ const AdminTable = ({
         </div>
       </div>
       <div className="mb-8 flex flex-col bg-white ">
-        <div className="overflow-x-auto">
+        <div className="hide-scroll-bar overflow-x-auto">
           <div className="block w-full">
             <div className="">
               <table
@@ -311,16 +311,15 @@ const AdminTable = ({
                   )}
                 </tbody>
               </table>
-
-              <Pagination
-                gotoPage={gotoPage}
-                length={data.length}
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-              />
             </div>
           </div>
         </div>
+        <Pagination
+          gotoPage={gotoPage}
+          length={data.length}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
       </div>
     </>
   );

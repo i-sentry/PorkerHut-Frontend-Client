@@ -1,36 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
+import { useGetAllUsersAggregate } from "../../services/hooks/orders";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import Popover from "../../components/utility/PopOver";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { Column } from "react-table";
-import { useGetAllUsers } from "../../services/hooks/users";
-import logo from "../../assets/images/porkerlogo.png";
+import { StatusColumn } from "./Customers";
 import { Tooltip } from "../../components/utility/ToolTip";
-import {
-  useGetAggregateUserOrders,
-  useGetAllUsersAggregate,
-} from "../../services/hooks/orders";
-
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
-    case "active":
-      return <span className="  text-[#22C55E] ">Active</span>;
-
-    case "inactive":
-      return <span className=" capitalize  text-[#F91919]">inactive</span>;
-    default:
-      return (
-        <span className="text-sm font-normal text-[#202223] ">{data}</span>
-      );
-  }
-};
-
-export const OrderColumn = ({ row }: any) => {
-  const id = row?._id;
-  const { data: orders } = useGetAggregateUserOrders(id);
-  console.log(orders, "no of orders", id, row);
-  return <div>{orders?.data?.totalOrders}</div>;
-};
+import { Column } from "react-table";
 
 const Tcolumns: readonly Column<object>[] = [
   {
@@ -85,26 +60,18 @@ const Tcolumns: readonly Column<object>[] = [
   },
 ];
 
-const Customers = () => {
-  const [users, setUsers] = useState<any[]>([]);
-  const { data: allUser, isLoading } = useGetAllUsers();
+const CustomerCompletedOrders = () => {
   const { data: user } = useGetAllUsersAggregate();
   const userAggregate = useMemo(
     () => (user?.data?.length ? user?.data : []),
     [user?.data],
   );
 
-  // console.log(allUser, "allUser", userAggregate);
+  const completedOrders = userAggregate.filter((item: any) =>
+    item.ordersByStatus.some((order: any) => order.status === "completed"),
+  );
 
-  useEffect(() => {
-    if (!isLoading && allUser?.length > 0)
-      setUsers(allUser?.filter((user: any) => user.role === "user"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner of the page
-  }, []);
+  console.log(completedOrders, "cusssuss");
 
   const optionalColumn = {
     id: "view",
@@ -155,55 +122,41 @@ const Customers = () => {
       </>
     ),
   };
-
   return (
-    <div className="py-6 pl-8 pr-5 ">
+    <div className="py-6 pl-5 pr-5 ">
       <div className="mb-5">
-        <h1 className="text-2xl font-medium text-[#333333]">Customers</h1>
+        <h1 className="text-2xl font-medium text-[#333333]">
+          Customers with Completed Orders
+        </h1>
         <span className="text-sm font-normal text-[#A2A2A2]">
-          All Information available
+          All Information available for customers with complete order
         </span>
       </div>
 
       <div>
-        {isLoading ? (
-          <div className="flex h-screen flex-col items-center justify-center">
-            <div className="flex flex-col items-center">
-              <img
-                src={logo}
-                alt="loaderLogo"
-                className="h-20 w-20 animate-pulse"
-              />
-              <p className="text-[14px] leading-[24px] text-[#333333]">
-                Fetching Data...
-              </p>
-            </div>
-          </div>
-        ) : (
-          <AdminTable
-            Tcolumns={Tcolumns}
-            // @ts-ignore
-            showCheckbox={true}
-            showDropDown={true}
-            optionalColumn={optionalColumn}
-            dropDownOption={[
-              {
-                value: "inactive",
-                label: "Inactive",
-              },
-              {
-                value: "active",
-                label: "Active",
-              },
-            ]}
-            tabs={["All", "Active", "Inactive"]}
-            TData={userAggregate}
-            placeholder={"Search name, email, account ID....  "}
-          />
-        )}
+        <AdminTable
+          Tcolumns={Tcolumns}
+          // @ts-ignore
+          showCheckbox={true}
+          showDropDown={true}
+          optionalColumn={optionalColumn}
+          dropDownOption={[
+            {
+              value: "inactive",
+              label: "Inactive",
+            },
+            {
+              value: "active",
+              label: "Active",
+            },
+          ]}
+          tabs={["All", "Active", "Inactive"]}
+          TData={completedOrders}
+          placeholder={"Search name, email, account ID....  "}
+        />
       </div>
     </div>
   );
 };
 
-export default Customers;
+export default CustomerCompletedOrders;

@@ -90,8 +90,11 @@ import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdmin
 import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
 import AgroService from "./pages/admin-dashboard/AgroService";
 import WeekendKill from "./pages/admin-dashboard/WeekendKill";
+import VetService from "./pages/admin-dashboard/VetSerivce";
 import PaymentInvoice from "./pages/admin-dashboard/PaymentInvoice";
 import PaymentTracker from "./pages/admin-dashboard/PaymentTracker";
+import CustomerCompletedOrders from "./pages/admin-dashboard/CustomerCompletedOrders";
+import NotFound from "./components/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -111,6 +114,7 @@ const router = createBrowserRouter(
       <Route path="/rate_review/:id" element={<RateReview />} />
       <Route path="/admin/registration" element={<CreateAdminAcct />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="*" element={<NotFound />} />
       <Route
         path="/vendors/forgot_password"
         element={<VendorForgetPassword />}
@@ -201,6 +205,10 @@ const router = createBrowserRouter(
         <Route path="/admin/order" element={<Order />} />
         <Route path="/admin/order/:id" element={<OrderTableDetail />} />
         <Route path="/admin/customers" element={<Customers />} />
+        <Route
+          path="/admin/customers/completed-orders"
+          element={<CustomerCompletedOrders />}
+        />
         <Route path="/admin/analytics" element={<Analytics />} />
         <Route path="/admin/stores" element={<StoreProfile />} />
         <Route path="/admin/stores/new" element={<NewStore />} />
@@ -222,7 +230,7 @@ const router = createBrowserRouter(
         <Route path="/admin/settings" element={<Settings />} />
         <Route path="/admin/service/agro_service" element={<AgroService />} />
         <Route path="/admin/service/weekend_kill" element={<WeekendKill />} />
-        <Route path="/admin/service/vet_service" element={<WeekendKill />} />
+        <Route path="/admin/service/vet_service" element={<VetService />} />
       </Route>
     </Route>,
   ),

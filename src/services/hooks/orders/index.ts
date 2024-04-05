@@ -62,3 +62,24 @@ export const useGetAdminOverview = (startDate: any, endDate: any) => {
     queryKey: ["admin+overview"],
   });
 };
+
+export const useGetAdminGraph = (startDate: any, endDate: any) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.admin.adminGraph(startDate, endDate)),
+    queryKey: ["admin+graph"],
+  });
+};
+
+export const useGetAllUsersAggregate = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.allUsersAggregate),
+    queryKey: ["all+users+aggregate"],
+  });
+};
+
+export const useGetAllVendorsAggregate = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.allVendorsAggregate),
+    queryKey: ["all+vendors+aggregate"],
+  });
+};

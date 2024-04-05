@@ -70,3 +70,10 @@ export const useAgroForm = () => {
     mutationFn: (data: any) => makePostRequest(data, api.forms.agroservice),
   });
 };
+
+export const useGetAllAgroServices = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequestWithCustomHeader(api.forms.agroservice),
+    queryKey: ["all+agroservices"],
+  });
+};

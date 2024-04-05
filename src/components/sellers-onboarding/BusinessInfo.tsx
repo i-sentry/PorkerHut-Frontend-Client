@@ -55,6 +55,7 @@ const BusinessInfo = () => {
   const [selectedFile] = useState<any>(null);
   const [selecFile] = useState<any>(null);
   const [seFile] = useState<any>(null);
+  const { handleClick } = useContext(SellersStepsContext);
   const [error, setError] = useState(false);
   // const [documentType, setDocumentType] = useState("Incorporation Document");
   const [,] = useState({
@@ -570,12 +571,16 @@ const BusinessInfo = () => {
                     )}
 
                     <button
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        handleClick("");
+                      }}
                       disabled={currentStep < 1}
                       className={`rounded border border-[#197B30] bg-[#fff] px-8 py-2.5 text-[#197B30]  shadow-lg duration-100 ease-in-out hover:opacity-50 disabled:bg-[#ddddddfd] ${
                         currentStep < 1 ? "cursor-not-allowed" : ""
                       }`}
                     >
-                      Back nn
+                      Back
                     </button>
                     <button
                       type="submit"

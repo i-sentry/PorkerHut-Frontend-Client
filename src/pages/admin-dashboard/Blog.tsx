@@ -115,7 +115,7 @@ const Blog = () => {
   const isDisabled = !currentImage || !subject || !blogContent;
 
   return (
-    <div className="h-screen pl-10 pt-10  pr-5">
+    <div className="h-screen py-6 pl-8  pr-5">
       <div className="">
         <div className="flex items-center justify-between">
           <div className="mb-2">

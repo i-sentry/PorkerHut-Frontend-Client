@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SellerStepper from "./SellerStepper";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import TopNav from "./TopNav";
@@ -11,6 +11,7 @@ import BankAccountInfo from "./BankAccountInfo";
 import SummaryInfo from "./SummaryInfo";
 import { useSignUpState } from "../../store/overlay";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
+import ProductsBreadCrumbs from "../story-components/ProductsBreadCrumbs";
 
 export const sellersStep = [
   "Seller Account",
@@ -44,7 +45,8 @@ const StepLayout = () => {
   const numSteps = 4;
   const isOpen = useSignUpState((state) => state.isOpen);
   const setIsOpen = useSignUpState((state) => state.setIsOpen);
-
+  // const {  handleClick } =
+  //   useContext(SellersStepsContext);
   const [progress, setProgress] = useState(25);
 
   const displayStep = (sellersStep: any) => {
@@ -141,6 +143,24 @@ const StepLayout = () => {
   return (
     <>
       <TopNav />
+      <div className=" bg-[#eee] px-[4%] py-3 pt-[74px] lg:px-[4%]">
+        <ProductsBreadCrumbs
+          items={[
+            {
+              name: "Home",
+              link: "/",
+            },
+            {
+              name: "Affiliate",
+              link: "/affiliate",
+            },
+            {
+              name: "Seller Account",
+              link: "/create-account",
+            },
+          ]}
+        />
+      </div>
       <div className="main-div relative mb-24 mt-24">
         <div>
           <div className="mt-4 flex items-center  justify-center">

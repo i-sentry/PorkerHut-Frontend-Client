@@ -111,12 +111,16 @@ export const api = {
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
     aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,
     aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
+    allVendorsAggregate: `/api/orders/aggregate/vendors`,
+    allUsersAggregate: `/api/orders/aggregate/users`,
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
     adminOverView: (startDate: any, endDate: any) =>
       `/api/orders/admin/overview/${startDate}/${endDate}`,
+    adminGraph: (startDate: any, endDate: any) =>
+      `/api/orders/admin/weekly-sales/${startDate}/${endDate}`,
     adminAccess: (id: string) => `/api/user/update-access/${id}`,
   },
   forms: {
@@ -125,7 +129,11 @@ export const api = {
   },
   annoucement: {
     allAnnoucement: `/api/announcement`,
-    updateAnnouncement: (id: string) => `/api/announcement/${id}`,
+    singleAnnouncement: (id: string) => `/api/announcement/${id}`,
+  },
+  services: {
+    allVetService: "/api/vetservice",
+    weekendkills: "/api/weekendkills",
   },
 };
 

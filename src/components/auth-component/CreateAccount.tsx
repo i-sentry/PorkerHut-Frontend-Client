@@ -300,7 +300,7 @@ const CreateAccount: any = () => {
 
             <div className="mt-3 hidden md:block">
               <button
-                onClick={() => navigate("/create-account")}
+                onClick={() => navigate("/affiliate")}
                 className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 font-normal tracking-wider  text-[#197b30] disabled:cursor-not-allowed "
               >
                 {loading ? (
