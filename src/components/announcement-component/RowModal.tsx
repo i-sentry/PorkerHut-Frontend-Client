@@ -42,7 +42,7 @@ const RowModal = ({
       .catch((err: any) => {
         console.log("res", err);
         setLoading(false);
-        toast(err?.data?.message);
+        toast(err?.message);
       });
   };
 
