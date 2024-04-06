@@ -61,10 +61,7 @@ const Settings = () => {
   const { data: getAllAdmin, refetch } = useGetAllAdmin();
   const [selectedAdmin, setSelectedAdmin] = useState<string>("");
   const updateAccess = useUpdateAdminAccess(selectedAdmin);
-  const allAdmin = useMemo(
-    () => getAllAdmin?.length > 0 && getAllAdmin,
-    [getAllAdmin],
-  );
+
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -594,7 +591,7 @@ const Settings = () => {
                   <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
                 <div className="mt-7 space-y-2">
-                  {allAdmin
+                  {getAllAdmin?.length > 0 && getAllAdmin
                     ?.filter((admin: any) => admin?._id !== adminInfo?._id)
                     ?.map((admin: any, index: number) => (
                       <div
