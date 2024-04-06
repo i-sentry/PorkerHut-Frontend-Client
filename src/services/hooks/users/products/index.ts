@@ -2,12 +2,10 @@ import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
-  makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
   makePatchRequest,
   makePostRequest,
-  makePutRequest,
 } from "../../../api";
 
 export const useGetAllProducts = () => {

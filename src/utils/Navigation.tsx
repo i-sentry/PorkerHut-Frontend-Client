@@ -1,8 +1,6 @@
 import React from "react";
 import { BsShopWindow, BsTag } from "react-icons/bs";
 import {
-  // RiArrowDownSLine,
-  RiCalendar2Line,
   RiFileDownloadLine,
 } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
@@ -15,22 +13,16 @@ import {
   MdOutlineArticle,
   MdOutlineDashboard,
   MdOutlineDns,
-  MdOutlineMessage,
   MdShare,
   MdStorefront,
 } from "react-icons/md";
 import { FaPaw, FaShuttleVan } from "react-icons/fa";
-// import { CgLoadbarDoc } from "react-icons/cg";
 import { GoTag } from "react-icons/go";
 import { AiOutlineSound, AiOutlineQuestionCircle } from "react-icons/ai";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-
 import { BsBoxSeam } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { ImBlog } from "react-icons/im";
-// import { GiPig } from "react-icons/gi";
-// import { BiHealth } from "react-icons/bi";
-// import { TbMeat } from "react-icons/tb";
 import { RiHandHeartLine, RiContactsLine, RiBook3Line } from "react-icons/ri";
 
 export const vendorsSideBarLink = [

@@ -1,18 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiLockPasswordLine, RiSecurePaymentFill } from "react-icons/ri";
-import { BsCamera } from "react-icons/bs";
 import avatar from "../../assets/account.png";
 import InputComponent from "../../components/admin-dashboard-components/InputComponent";
 import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import Popover from "../../components/utility/PopOver";
-import { BiCaretDown } from "react-icons/bi";
 import {
   useGetAllAdmin,
   useInviteAdmin,
@@ -55,7 +52,6 @@ const Settings = () => {
   ]);
   const inviteAdmin = useInviteAdmin();
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef(null);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { data: getAllAdmin, refetch } = useGetAllAdmin();

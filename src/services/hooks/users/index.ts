@@ -4,7 +4,6 @@ import { IEmail } from "../../../pages/Authentication/ForgetPassword";
 import {
   makePostRequest,
   api,
-  makeGetRequest,
   makeGetRequestWithCustomHeader,
   makeCustomPutRequest,
 } from "../../api";

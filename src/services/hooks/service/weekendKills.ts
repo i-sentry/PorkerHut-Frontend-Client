@@ -1,9 +1,7 @@
 import { useMutation } from "react-query";
 import useQueryAction from "../../../lib/useQueryAction";
-import useQueryMutation from "../../../lib/useQueryMutation";
 import {
   api,
-  makeGetRequest,
   makeGetRequestWithCustomHeader,
   makePostRequest,
 } from "../../api";

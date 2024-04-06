@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { BsXLg } from "react-icons/bs";
-import PorkerLogo from "../../assets/porker hut 1 1.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Admin from "../../assets/Admin.png";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import ReactLoading from "react-loading";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import ReactLoading from "react-loading";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import Admin from "../../assets/Admin.png";
+import PorkerLogo from "../../assets/porker hut 1 1.png";
 import CustomSelect, { SelectOptionType } from "../utility/CustomSelect";
 
 import { toast } from "react-toastify";

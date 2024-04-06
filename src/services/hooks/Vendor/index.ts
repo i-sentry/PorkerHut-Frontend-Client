@@ -7,9 +7,7 @@ import {
   makeGetRequestWithCustomHeader,
   makeGetRequest,
   makePutRequest,
-  makePatchRequest,
   makeCustomPutRequest,
-  makeCustomPatchRequest,
   makeDeleteRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";

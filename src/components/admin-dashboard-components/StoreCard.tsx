@@ -1,15 +1,13 @@
-import { Tooltip } from "../utility/ToolTip";
-import { TbDots } from "react-icons/tb";
 import { FaUserCircle } from "react-icons/fa";
-import Popover from "../utility/PopOver";
+import { TbDots } from "react-icons/tb";
 import {
   useDeleteVendorById,
   useGetVendorById,
   useVendorStatusUpdate,
 } from "../../services/hooks/Vendor";
 import { useGetAggregateVendorOrders } from "../../services/hooks/orders";
-import { toast } from "react-toastify";
-import StatusModal from "./StatusModal";
+import Popover from "../utility/PopOver";
+import { Tooltip } from "../utility/ToolTip";
 
 // interface IStoreCardProps {
 //   store_name: any;
@@ -26,16 +24,16 @@ import StatusModal from "./StatusModal";
 const StoreCard = ({
   item,
   setIsOpen,
-  refetch,
+  // refetch,
   setAction,
   setShop,
   setShowConfirm,
 }: any) => {
   const { storeStatus } = item;
-  const updateStatus = useVendorStatusUpdate(item?._id);
+  // const updateStatus = useVendorStatusUpdate(item?._id);
   const { data } = useGetVendorById(item?._id);
   const { data: vendorAggr } = useGetAggregateVendorOrders(item?._id);
-  const deleteVendor = useDeleteVendorById(item?._id);
+  // const deleteVendor = useDeleteVendorById(item?._id);
   console.log(data, "storee items", item);
   console.log(vendorAggr, "vendorAggr");
 

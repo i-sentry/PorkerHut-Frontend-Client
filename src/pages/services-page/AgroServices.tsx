@@ -1,24 +1,18 @@
-// import NavBar from "../../components/nav-component/NavBar";
-// import Footer from "../../components/footer-component/Footer";
-import BreadCrumbs from "../../components/utility/BreadCrumbs";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { CgSpinner } from "react-icons/cg";
+import { IoLocationSharp, IoMail } from "react-icons/io5";
+import { MdPhoneEnabled } from "react-icons/md";
+import { toast } from "react-toastify";
 import AgroservImg from "../../../src/assets/images/AgroservImg.png";
 import FarmingImg from "../../../src/assets/images/FarmingImg.png";
 import FeedImg from "../../../src/assets/images/FeedImg.png";
-import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import PigFarmingImg from "../../../src/assets/images/PigFarmingImg.png";
-// import { useLocation } from "react-router-dom";
+import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import AppLayout from "../../components/utility/AppLayout";
-// import ServiceForm from "../../components/services-component/ServiceForm";
-// import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { MdPhoneEnabled } from "react-icons/md";
-import { IoMail, IoLocationSharp } from "react-icons/io5";
-import { toast } from "react-toastify";
+import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import { useAgroForm } from "../../services/hooks/users";
-import { useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { CgSpinner } from "react-icons/cg";
 
 interface AgroServicesProps {
   fullName: string;
@@ -29,17 +23,6 @@ interface AgroServicesProps {
   subject: string;
 }
 
-const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required("Full Name is required"),
-  email: Yup.string().required("Email is required").email("Email is invalid"),
-  phoneNumber: Yup.string()
-    .required("Valid Phone Number is required")
-    .min(6, "Valid Phone Number must be at least 6 characters")
-    .max(12, "Valid Phone Number must not exceed 12 characters"),
-  subject: Yup.string().required("Subject is required"),
-  message: Yup.string().required("Message is required"),
-  location: Yup.string().required("Location is required"),
-});
 
 const AgroServices = () => {
   const [loading, setLoading] = useState(false);

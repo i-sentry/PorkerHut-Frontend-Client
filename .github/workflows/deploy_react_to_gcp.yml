@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16.20.2' # Updated to match your project's Node.js version
+        node-version: '20.11.1' # Updated to match your project's Node.js version
 
     - name: Install dependencies
       run: yarn install
@@ -26,7 +26,7 @@ jobs:
 
     - name: Install rsync
       run: sudo apt-get update && sudo apt-get install -y rsync
-    
+
     - name: Deploy to GCP VM
       env:
         DEPLOY_KEY: ${{ secrets.PORKERHUT_BACKEND_DEPLOY_KEY }}
@@ -41,4 +41,3 @@ jobs:
         ssh -i ~/.ssh/deploy_key $USERNAME@$HOST "mkdir -p /home/obedehoneah/PorkerHut-Frontend-Client"
         # Rsync to transfer the build directory to the target
         rsync -avz -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./build/ $USERNAME@$HOST:~/PorkerHut-Frontend-Client
-    

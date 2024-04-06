@@ -1,15 +1,15 @@
-import React, { useState, useContext } from "react";
-import CustomSelect from "../utility/CustomSelect";
-import { useForm } from "react-hook-form";
-import { sellersShopInfo, sellersformData } from "../../utils/formData";
-import { Link } from "react-router-dom";
-import StepperController from "./StepperController";
-import { SellersStepsContext } from "../../context/SellersStepsContext";
-import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ReactPasswordChecklist from "react-password-checklist";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import ReactPasswordChecklist from "react-password-checklist";
+import { Link } from "react-router-dom";
+import * as yup from "yup";
+import { ISellerInfo, useAppState } from "../../context/SellerInfoContext";
+import { SellersStepsContext } from "../../context/SellersStepsContext";
+import { sellersShopInfo, sellersformData } from "../../utils/formData";
+import CustomSelect from "../utility/CustomSelect";
+import StepperController from "./StepperController";
 export type SelectOptionType = {
   label: string | number;
   value: string;

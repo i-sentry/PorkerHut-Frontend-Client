@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
-import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { Column } from "react-table";
 import moment from "moment";
+import { useMemo, useState } from "react";
 import { BsStar, BsX } from "react-icons/bs";
-import { useGetWeekendKills } from "../../services/hooks/service/weekendKills";
-import logo from "../../assets/images/porkerlogo.png";
 import { useNavigate } from "react-router-dom";
+import { Column } from "react-table";
+import logo from "../../assets/images/porkerlogo.png";
+import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { useGetWeekendKills } from "../../services/hooks/service/weekendKills";
 
 const Tcolumns: readonly Column<object>[] = [
   {

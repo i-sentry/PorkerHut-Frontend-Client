@@ -1,100 +1,99 @@
 import {
   createBrowserRouter,
-  Route,
   createRoutesFromElements,
+  Route,
   RouterProvider,
 } from "react-router-dom";
+import SignUp from "../src/pages/Authentication/SignUp";
 import Home from "../src/pages/Home";
 import About from "./pages/AboutUs";
 import AuthPage from "./pages/Authentication/AuthPage";
-import SignUp from "../src/pages/Authentication/SignUp";
-import BlogPage from "./pages/BlogPage";
-import ContactPage from "./pages/Contact_Page";
-import AgroServices from "./pages/services-page/AgroServices";
-import WeekendKills from "./pages/services-page/WeekendKills";
-import ProductPage from "./pages/ProductPage";
-import PaymentSuccessPage from "./pages/PaymentSuccessPage";
-import CartPage from "./pages/CartPage";
 import BillingPage from "./pages/BillingPage";
+import BlogPage from "./pages/BlogPage";
+import CartPage from "./pages/CartPage";
+import ContactPage from "./pages/Contact_Page";
 import OrderCancel from "./pages/OrderCancel";
 import PaymentFailPage from "./pages/PaymentFailPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import ProductPage from "./pages/ProductPage";
+import AgroServices from "./pages/services-page/AgroServices";
+import WeekendKills from "./pages/services-page/WeekendKills";
 
-import SellersHome from "./pages/sellers-dashboard/SellersHome";
-import SellersProductPage from "./pages/sellers-dashboard/SellersProductPage";
-import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
-import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
-import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
 import MyOrder from "./pages/MyOrder";
+import SellersHome from "./pages/sellers-dashboard/SellersHome";
+import SellersOrderPage from "./pages/sellers-dashboard/SellersOrderPage";
+import SellersPerformance from "./pages/sellers-dashboard/SellersPerformance";
+import SellersProductPage from "./pages/sellers-dashboard/SellersProductPage";
+import SellersSetting from "./pages/sellers-dashboard/SellersSetting";
 
-import FavouriteProductPage from "./pages/FavouriteProductPage";
 import BlogContent from "./pages/BlogContent";
+import FavouriteProductPage from "./pages/FavouriteProductPage";
 // import EmptyCartPage from "./pages/EmptyCartPage";
 import StepperComponent from "./components/step/StepperComponent";
+import { AppProvider } from "./context/SellerInfoContext";
+import AdminLayout from "./layout/AdminLayout";
 import AffiliatePage from "./pages/AffiliatePage";
 import CreateSellersAcc from "./pages/Authentication/CreateSellersAcc";
-import { AppProvider } from "./context/SellerInfoContext";
 import StorePage from "./pages/StorePage";
-import AdminLayout from "./layout/AdminLayout";
-import Overview from "./pages/admin-dashboard/Overview";
-import Order from "./pages/admin-dashboard/Order";
-import Customers from "./pages/admin-dashboard/Customers";
 import Analytics from "./pages/admin-dashboard/Analytics";
-import VetPartner from "./pages/admin-dashboard/VetPartner";
-import LogisticService from "./pages/admin-dashboard/LogisticService";
-import Calender from "./pages/admin-dashboard/Calender";
-import Blog from "./pages/admin-dashboard/Blog";
 import Announcement from "./pages/admin-dashboard/Annoucement";
-import Payment from "./pages/admin-dashboard/Payment";
+import Blog from "./pages/admin-dashboard/Blog";
+import Calender from "./pages/admin-dashboard/Calender";
+import Customers from "./pages/admin-dashboard/Customers";
+import LogisticService from "./pages/admin-dashboard/LogisticService";
+import Order from "./pages/admin-dashboard/Order";
+import Overview from "./pages/admin-dashboard/Overview";
+import VetPartner from "./pages/admin-dashboard/VetPartner";
 
+import Messages from "./pages/admin-dashboard/Messages";
 import ProductCreated from "./pages/admin-dashboard/ProductCreated";
 import ProductDetail from "./pages/admin-dashboard/ProductDetail";
-import Messages from "./pages/admin-dashboard/Messages";
 
+import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
+import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
 import SellerLayout from "./layout/SellerLayout";
 import PayOption from "./pages/PayOption";
-import ProductDetails from "./components/featured-product-component/best-selling-product/ProductDetails";
-import CustomerRating from "./components/featured-product-component/best-selling-product/CustomerRating";
 
 import OrderTableDetail from "./pages/admin-dashboard/OrderTableDetail";
 
-import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
-import StoreProfile from "./pages/admin-dashboard/StoreProfile";
+import Search from "./Search";
+import NotFound from "./components/NotFound";
+import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
+import VendorLogin from "./components/auth-component/VendorLogin";
+import VetPartnerCreationModal from "./components/modal-component/VetPartnerCreationModal";
+import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
+import { ProductProvider } from "./context/ProductInfoContext";
+import AdminLogin from "./pages/Authentication/AdminLogin";
+import ForgetPassword from "./pages/Authentication/ForgetPassword";
+import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
+import ResetPassword from "./pages/Authentication/ResetPassword";
+import ReturnRequest from "./pages/Authentication/ReturnRequest";
+import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
+import MyAccount from "./pages/MyAccount";
+import OrderTracking from "./pages/OrderTracking";
+import RateReview from "./pages/RateReview";
+import ReturnOrder from "./pages/ReturnOrder";
+import VetPartnerAccount from "./pages/VetPartnerAccount";
+import AgroService from "./pages/admin-dashboard/AgroService";
+import BlogPost from "./pages/admin-dashboard/BlogPost";
+import Category from "./pages/admin-dashboard/Category";
+import CustomerCompletedOrders from "./pages/admin-dashboard/CustomerCompletedOrders";
+import EditBlog from "./pages/admin-dashboard/EditBlog";
 import NewStore from "./pages/admin-dashboard/NewStore";
 import NewVetPartners from "./pages/admin-dashboard/NewVetPartners";
-import BlogPost from "./pages/admin-dashboard/BlogPost";
-import EditBlog from "./pages/admin-dashboard/EditBlog";
-import VetServices from "./pages/services-page/VetServices";
-import OrderTracking from "./pages/OrderTracking";
-import Search from "./Search";
-import MyAccount from "./pages/MyAccount";
-import ReturnOrder from "./pages/ReturnOrder";
-import ReturnRequest from "./pages/Authentication/ReturnRequest";
-import Category from "./pages/admin-dashboard/Category";
-import VetPartnerAccount from "./pages/VetPartnerAccount";
-import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
-import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
-import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
-import VendorLogin from "./components/auth-component/VendorLogin";
-import { ProductProvider } from "./context/ProductInfoContext";
-import VetPartnerCreationModal from "./components/modal-component/VetPartnerCreationModal";
-import ForgetPassword from "./pages/Authentication/ForgetPassword";
-import ResetPassword from "./pages/Authentication/ResetPassword";
-import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
-import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
-import RateReview from "./pages/RateReview";
-import AdminLogin from "./pages/Authentication/AdminLogin";
-import Settings from "./pages/admin-dashboard/Settings";
-import ProductCategory from "./pages/product-category/ProductCategory";
-import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
-import CreateAdminAcct from "./components/admin-dashboard-components/CreateAdminAcct";
-import SellerStepperComponent from "./components/vendors-component/SellerManageProductStepper";
-import AgroService from "./pages/admin-dashboard/AgroService";
-import WeekendKill from "./pages/admin-dashboard/WeekendKill";
-import VetService from "./pages/admin-dashboard/VetSerivce";
 import PaymentInvoice from "./pages/admin-dashboard/PaymentInvoice";
 import PaymentTracker from "./pages/admin-dashboard/PaymentTracker";
-import CustomerCompletedOrders from "./pages/admin-dashboard/CustomerCompletedOrders";
-import NotFound from "./components/NotFound";
+import Settings from "./pages/admin-dashboard/Settings";
+import StoreProfile from "./pages/admin-dashboard/StoreProfile";
+import VetService from "./pages/admin-dashboard/VetSerivce";
+import WeekendKill from "./pages/admin-dashboard/WeekendKill";
+import ProductCategory from "./pages/product-category/ProductCategory";
+import ProductAccordion from "./pages/sellers-dashboard/ProductAccordion";
+import SellersAccount from "./pages/sellers-dashboard/SellersAccount";
+import SellersManageProductImage from "./pages/sellers-dashboard/SellersManageProductImage";
+import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
+import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
+import VetServices from "./pages/services-page/VetServices";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   businessCac,
   businessTIN,
   sellersBusinessformData,
 } from "../../utils/formData";
 import CustomSelect from "../utility/CustomSelect";
-import { useForm } from "react-hook-form";
 // import CustomDND, { IFile } from "../utility/CustomDND";
 import ReactFlagsSelect from "react-flags-select";
+import { RiCloseLine } from "react-icons/ri";
+import { ToastContainer } from "react-toastify";
+import { FileContext } from "../../context/FileContext";
+import { ISellerInfo } from "../../context/SellerInfoContext";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
 import StepperController from "./StepperController";
-import { ISellerInfo } from "../../context/SellerInfoContext";
-import { FileContext } from "../../context/FileContext";
-import { RiCloseLine } from "react-icons/ri";
-import { toast, ToastContainer } from "react-toastify";
 
 interface IFlagsSelectProps {
   selected: string;

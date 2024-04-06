@@ -1,16 +1,15 @@
-import React, { useState, useRef } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import NavBar from "../nav-component/NavBar";
-import Footer from "../footer-component/Footer";
-import ReactLoading from "react-loading";
-import { useUserLogin, useUserSignUp } from "../../services/hooks/users";
-import AccountCreationModal from "../modal-component/AccountCreationModal";
-import PasswordChecklist from "react-password-checklist";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import ReactLoading from "react-loading";
+import PasswordChecklist from "react-password-checklist";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { toast } from "react-toastify";
+import { useUserLogin, useUserSignUp } from "../../services/hooks/users";
+import Footer from "../footer-component/Footer";
+import AccountCreationModal from "../modal-component/AccountCreationModal";
+import NavBar from "../nav-component/NavBar";
 
 interface ISignUpProps {
   firstName: string;

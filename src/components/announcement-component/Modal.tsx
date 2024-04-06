@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 import { HiMinusSm, HiX } from "react-icons/hi";
 import { MdOutlineAccessAlarm } from "react-icons/md";
-import { useCreateAnnoucement } from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
-import { CgSpinner } from "react-icons/cg";
+import { useCreateAnnoucement } from "../../services/hooks/Vendor";
 import Timer from "./Timer";
 
 type ModalProps = {
@@ -12,12 +12,6 @@ type ModalProps = {
   refetch: any;
 };
 
-type FormProps = {
-  subject: string;
-  content: string;
-  startDate: Date;
-  endDate: Date;
-};
 
 const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
   const [loading, setLoading] = useState(false);

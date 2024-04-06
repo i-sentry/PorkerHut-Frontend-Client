@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import Img from "../../assets/images/Pig.png";
+import { useMemo } from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import {
   useGetAllUsersAggregate,

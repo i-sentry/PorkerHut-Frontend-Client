@@ -1,16 +1,16 @@
+import moment from "moment";
 import { useEffect, useState } from "react";
-import { Column } from "react-table";
+import { CgSpinner } from "react-icons/cg";
+import { ImSpinner6 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import { Column } from "react-table";
+import { ToastContainer, toast } from "react-toastify";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { Tooltip } from "../../components/utility/ToolTip";
 import {
   useGetProductByVendor,
   useUpdateProductVisibility,
 } from "../../services/hooks/Vendor/products";
-import moment from "moment";
-import { ImSpinner6 } from "react-icons/im";
-import { Tooltip } from "../../components/utility/ToolTip";
-import { ToastContainer, toast } from "react-toastify";
-import { CgSpinner } from "react-icons/cg";
 import { useRefresh } from "../../store";
 
 const StatusColumn = ({ d }: any) => {
@@ -146,7 +146,7 @@ const SellersProductPage = () => {
     } else {
       setProducts([]);
     }
-  }, [vendorProducts, refresh]);
+  }, [vendorProducts, refresh, isLoading,]);
 
   useEffect(() => {
     if (refresh === true) refetch();
@@ -300,7 +300,7 @@ const ToggleVisibility = ({
   const [toggle, setToggle] = useState<"active" | "inactive">(
     row?.visibilityStatus,
   );
-  const refresh = useRefresh((state) => state.isRefresh);
+  // const refresh = useRefresh((state) => state.isRefresh);
   const setRefresh = useRefresh((state) => state.setIsRefresh);
 
   const [loading, setLoading] = useState(false);
