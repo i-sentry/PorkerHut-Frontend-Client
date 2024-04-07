@@ -90,14 +90,14 @@ const Customers = () => {
   const { data: allUser, isLoading } = useGetAllUsers();
   const { data: user } = useGetAllUsersAggregate();
   const userAggregate = useMemo(
-    () => (user?.data?.length ? user?.data : []),
+    () => (user?.data ? user?.data : []),
     [user?.data],
   );
 
   // console.log(allUser, "allUser", userAggregate);
 
   useEffect(() => {
-    if (!isLoading && allUser?.length > 0)
+    if (!isLoading && allUser)
       setUsers(allUser?.filter((user: any) => user.role === "user"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
