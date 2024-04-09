@@ -12,6 +12,8 @@ import SummaryInfo from "./SummaryInfo";
 import { useSignUpState } from "../../store/overlay";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
 import ProductsBreadCrumbs from "../story-components/ProductsBreadCrumbs";
+import { BsArrowLeft } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export const sellersStep = [
   "Seller Account",
@@ -144,7 +146,11 @@ const StepLayout = () => {
     <>
       <TopNav />
       <div className=" bg-[#eee] px-[4%] py-3 pt-[74px] lg:px-[4%]">
-        <ProductsBreadCrumbs
+        <Link to={"/affiliate"} className="inline-flex items-center gap-2">
+          <BsArrowLeft />
+          <span>Back to Affiliate</span>
+        </Link>
+        {/* <ProductsBreadCrumbs
           items={[
             {
               name: "Home",
@@ -159,7 +165,7 @@ const StepLayout = () => {
               link: "/create-account",
             },
           ]}
-        />
+        /> */}
       </div>
       <div className="main-div relative mb-24 mt-24">
         <div>

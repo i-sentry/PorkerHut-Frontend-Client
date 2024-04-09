@@ -141,7 +141,7 @@ const PaymentInvoice = () => {
   return (
     <div className="py-6 pl-8 pr-5">
       <div className="mb-5">
-        <h2 className="text-2xl font-bold text-[#333333]">Payments</h2>
+        <h2 className="text-2xl font-bold text-[#333333]">Payments Invoice</h2>
         <p className="text-[#A2A2A2]">Vendor account details</p>
       </div>
 

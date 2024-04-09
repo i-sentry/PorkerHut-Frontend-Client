@@ -12,6 +12,18 @@ import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import AppLayout from "../../components/utility/AppLayout";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import { useAgroForm } from "../../services/hooks/users";
+// import * as yup from "yup";
+// import { yupResolver } from "@hookform/resolvers/yup";
+
+// const schema = yup.object().shape({
+//   fullName: yup.string().required("Enter your full name"),
+//   email: yup.string().required("Enter your email"),
+//   message: yup.string().required("Enter your message"),
+//   subject: yup.string().required("Enter your subject"),
+//   address: yup.string().required("Enter your address"),
+//   city: yup.string().required("Enter your city/town"),
+//   phoneNumber: yup.string().required("Enter your phone number"),
+// });
 
 interface AgroServicesProps {
   fullName: string;
@@ -37,7 +49,7 @@ const AgroServices = () => {
     // getValues,
     // control,
     reset,
-    // formState,
+    formState: { errors },
   } = useForm<AgroServicesProps>();
 
   const submitData = (data: any) => {
@@ -46,7 +58,7 @@ const AgroServices = () => {
       .mutateAsync(data)
       .then((res: any) => {
         toast.success(
-          "Form Submitted Successfully. PorkerHut will get back to you soon",
+          "Thank you for submitting the form! PorkerHut team will get back to you soon",
         );
         setLoading(false);
         reset();
@@ -250,7 +262,7 @@ const AgroServices = () => {
               <form onSubmit={handleSubmit(submitData)}>
                 <div className="my-2 mb-5 w-full">
                   <label
-                    htmlFor=""
+                    htmlFor="fullName"
                     className={`mb-[6px] block text-[14px] font-normal
                         leading-[16px] text-[#333333] after:ml-0.5
                         after:text-red-500 after:content-['*']`}
@@ -258,14 +270,20 @@ const AgroServices = () => {
                     Full Name
                   </label>
                   <input
+                    {...register("fullName")}
                     id="fullName"
                     type="text"
+                    required
                     // required={(required === "Yes" || required === true) ? true : false}
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Enter your full name"
-                    {...register("fullName")}
                   />
+                  {/* {errors?.fullName?.message && (
+                    <p className="mt-1.5 text-red-600">
+                      {errors?.fullName?.message}
+                    </p>
+                  )} */}
                 </div>
                 <div className="my-2 mb-5 w-full">
                   <label
@@ -279,6 +297,7 @@ const AgroServices = () => {
                   <input
                     id="fullName"
                     type="email"
+                    required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Enter email address"
@@ -297,6 +316,7 @@ const AgroServices = () => {
                   <input
                     id="phone"
                     type="number"
+                    required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Enter your phone number"
@@ -333,6 +353,7 @@ const AgroServices = () => {
                   <input
                     id="city"
                     type="text"
+                    required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Where are you located?"
@@ -350,6 +371,7 @@ const AgroServices = () => {
                   <input
                     id="subject"
                     type="text"
+                    required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Enter subject here"
@@ -367,6 +389,7 @@ const AgroServices = () => {
                     Message
                   </label>
                   <textarea
+                    required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Type message here"

@@ -50,7 +50,7 @@ const AdminLayout = () => {
               <Navbar />
             </div>
             <div className="flex h-full w-full overflow-x-hidden">
-              <div className="hide-scroll-bar overflow-y-scroll">
+              <div className="hide-scroll-bar overflow-y-scroll md:border-r">
                 <Sidebar />
               </div>
               <div className="flex-1 overflow-y-scroll">

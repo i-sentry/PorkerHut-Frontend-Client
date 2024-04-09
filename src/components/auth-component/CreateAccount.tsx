@@ -107,7 +107,7 @@ const CreateAccount: any = () => {
       <div className="bg-[#F5F5F5] md:py-6">
         <div className="mt-3 w-72 py-5 px-3 xxs:ml-auto xxs:flex xxs:justify-end md:hidden">
           <Link
-            to={"/create-account"}
+            to={"/affiliate"}
             className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 font-medium tracking-wider text-[#197b30] hover:bg-[#197b39] hover:text-[#fff] "
           >
             Create a Sellers Account
