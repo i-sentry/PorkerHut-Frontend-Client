@@ -16,13 +16,13 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
   const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
 
-  const toggleBodyScrolling = useCallback(() => {
-    document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
-  }, [sideBarOpen]);
+  // const toggleBodyScrolling = useCallback(() => {
+  //   document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
+  // }, [sideBarOpen]);
 
-  React.useEffect(() => {
-    toggleBodyScrolling();
-  }, [sideBarOpen, toggleBodyScrolling]);
+  // React.useEffect(() => {
+  //   toggleBodyScrolling();
+  // }, [sideBarOpen, toggleBodyScrolling]);
   return (
     <div>
       <NavBar />

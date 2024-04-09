@@ -55,7 +55,7 @@ const Aside = () => {
 
   return (
     <div
-      className={`fixed left-0 z-40 h-screen w-[284px] flex-col overflow-auto border-r bg-[#EEEEEE]  pt-5 transition-all duration-500  md:top-16 lg:relative  lg:top-0 lg:flex lg:bg-white ${
+      className={`hide-scroll-bar fixed top-0 left-0 z-40 h-screen w-[284px] flex-col overflow-auto border-r bg-[#EEEEEE]  py-[64px] transition-all duration-500  md:top-0 lg:relative  lg:top-0 lg:flex lg:bg-white ${
         !sideBarOpen ? "-translate-x-full lg:translate-x-0" : ""
       }`}
     >
@@ -150,12 +150,12 @@ const Aside = () => {
                     <div
                       className={classNames(
                         active && "bg-gray-100",
-                        "flex w-full cursor-pointer rounded-sm border-t border-[#197B30] px-4 py-2 focus:bg-[#197B30] focus:text-[#fff] active:bg-gray-200",
+                        "group flex w-full cursor-pointer rounded-sm border-t border-[#197B30] px-4 py-2 hover:bg-[#197B30]  active:bg-gray-200",
                       )}
                     >
                       <h1
                         onClick={handleLogout}
-                        className="flex w-full justify-center text-[14px] font-normal leading-[16px] text-[#197B30]"
+                        className="flex w-full justify-center text-[14px] font-normal leading-[16px] text-[#197B30] group-hover:text-[#fff]"
                       >
                         Logout
                       </h1>

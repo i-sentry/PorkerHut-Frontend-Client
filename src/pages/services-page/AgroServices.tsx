@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CgSpinner } from "react-icons/cg";
@@ -19,10 +18,10 @@ interface AgroServicesProps {
   email: string;
   message: string;
   phoneNumber: number;
-  location: string;
+  address: string;
+  city: string;
   subject: string;
 }
-
 
 const AgroServices = () => {
   const [loading, setLoading] = useState(false);
@@ -288,7 +287,7 @@ const AgroServices = () => {
                 </div>
                 <div className="my-2 mb-5 w-full">
                   <label
-                    htmlFor=""
+                    htmlFor="phoneNumber"
                     className={`mb-[6px] block text-[14px] font-normal
                         leading-[16px] text-[#333333] after:ml-0.5
                         after:text-red-500 after:content-['*']`}
@@ -311,21 +310,39 @@ const AgroServices = () => {
                         leading-[16px] text-[#333333] after:ml-0.5
                         after:text-red-500 after:content-['*']`}
                   >
-                    Location
+                    Address
                   </label>
                   <input
-                    id="location"
+                    id="address"
                     type="text"
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
                     placeholder="Where are you located?"
-                    {...register("location")}
+                    {...register("address")}
                   />
                 </div>
                 <div className="my-2 mb-5 w-full">
                   <label
-                    htmlFor=""
-                    className={`mb-[6px] block text-[14px] font-normal leading-[16px] text-[#333333]
+                    htmlFor="city"
+                    className={`mb-[6px] block text-[14px] font-normal
+                        leading-[16px] text-[#333333] after:ml-0.5
+                        after:text-red-500 after:content-['*']`}
+                  >
+                    City/Town
+                  </label>
+                  <input
+                    id="city"
+                    type="text"
+                    className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
+                        sm:text-sm`}
+                    placeholder="Where are you located?"
+                    {...register("city")}
+                  />
+                </div>
+                <div className="my-2 mb-5 w-full">
+                  <label
+                    htmlFor="subject"
+                    className={`mb-[6px] block text-[14px] font-normal leading-[16px] text-[#333333] after:text-red-500 after:content-['*']
                         `}
                   >
                     Subject
@@ -342,7 +359,7 @@ const AgroServices = () => {
 
                 <div className="my-2 mb-2 w-full">
                   <label
-                    htmlFor=""
+                    htmlFor="message"
                     className={`mb-[6px] block text-[14px] font-normal
                         leading-[16px] text-[#333333] after:ml-0.5
                         after:text-red-500 after:content-['*']`}

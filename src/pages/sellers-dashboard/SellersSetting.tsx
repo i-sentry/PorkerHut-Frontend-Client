@@ -561,7 +561,7 @@ function SettingssTab() {
                   className="flex items-center justify-center text-[24px] font-medium leading-[28px]"
                   style={{ transition: "opacity 0.5s ease-in" }}
                 >
-                  Vendor Quality Assurance Guidelines
+                  What is Quality Check?
                 </h3>
                 <div className="mt-2 flex items-center justify-center">
                   <div className=" block h-1 w-20 bg-[#197B30]"></div>
@@ -576,23 +576,26 @@ function SettingssTab() {
                     on our platform meets the highest standards. Here's what you
                     need to know about our quality assurance process:
                   </p>
-                  <div className="mt-3 space-y-4">
+                  <ol className="mt-3 list-[numeric] space-y-4 pl-4">
                     {standards.map((policy: any) => (
-                      <div className="font-bold">
+                      <li className="font-normal">
                         <span>{policy.title}:</span>
-                        <div className="font-normal">
+                        <ul
+                          role="list"
+                          className="list-outside list-disc pl-2 font-normal"
+                        >
                           {policy.points.map((point: any) => (
-                            <div className=" flex items-start gap-2 font-normal">
-                              <span className="mt-1">
-                                <IoIosCheckmarkCircle className="text-green-700" />
-                              </span>
+                            <li className="font-normal">
+                              {/* <span className="mt-1">
+                        <IoIosCheckmarkCircle className="text-green-700" />
+                      </span> */}
                               {point}
-                            </div>
+                            </li>
                           ))}
-                        </div>
-                      </div>
+                        </ul>
+                      </li>
                     ))}
-                  </div>
+                  </ol>
                   <p className="mt-5">
                     Thank you for choosing to partner with Porker-Hut. By
                     upholding the highest standards of quality and excellence,
