@@ -22,8 +22,14 @@ jobs:
       run: yarn install
 
     - name: Build React app
+      env:
+        NODE_OPTIONS: --max-old-space-size=16384
+        PORT: 7008
+        REACT_APP_BASE_URL: https://porkerhut.com
+        REACT_APP_API_ENDPOINT_PRODUCTION: ""
+        PAY_STACK_TEST_SECRET_KEY: ${{ secrets.PAY_STACK_TEST_SECRET_KEY }}
+        REACT_APP_IMAGE_BASE_URL: https://raw.githubusercontent.com/ehoneahobed/pockerhut/main/uploads
       run: NODE_OPTIONS=--max-old-space-size=16384 yarn build
-
     - name: Install rsync
       run: sudo apt-get update && sudo apt-get install -y rsync
 
@@ -32,6 +38,9 @@ jobs:
         DEPLOY_KEY: ${{ secrets.PORKERHUT_BACKEND_DEPLOY_KEY }}
         HOST: ${{ secrets.PORKERHUT_GCP_HOST }}
         USERNAME: ${{ secrets.PORKERHUT_GCP_USERNAME }}
+        PORT: 7008
+        REACT_APP_BASE_URL: https://porkerhut.com
+        REACT_APP_API_ENDPOINT_PRODUCTION: ""
       run: |
         mkdir -p ~/.ssh
         echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
