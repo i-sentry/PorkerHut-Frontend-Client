@@ -48,6 +48,6 @@ jobs:
         chmod 600 ~/.ssh/deploy_key
         ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
         # Ensure the target directory exists or create it
-        ssh -i ~/.ssh/deploy_key $USERNAME@$HOST "mkdir -p /home/obedehoneah/PorkerHut-Frontend-Client/"
+        ssh -i ~/.ssh/deploy_key $USERNAME@$HOST "mkdir -p /home/obedehoneah/PorkerHut-Frontend-Client/build"
         # Rsync to transfer the build directory to the target
-        rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./build/ $USERNAME@$HOST:~/PorkerHut-Frontend-Client/
+        rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" ./build/ $USERNAME@$HOST:~/PorkerHut-Frontend-Client/build
