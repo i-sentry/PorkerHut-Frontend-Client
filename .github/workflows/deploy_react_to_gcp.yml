@@ -24,6 +24,7 @@ jobs:
     - name: Build React app
       env:
         NODE_OPTIONS: --max-old-space-size=16384
+        CI: false
         PORT: 7008
         REACT_APP_BASE_URL: https://porkerhut.com
         REACT_APP_API_ENDPOINT_PRODUCTION: ""
