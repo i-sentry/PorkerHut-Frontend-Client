@@ -5,9 +5,9 @@ import { IoAdd } from "react-icons/io5";
 import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
-import { all } from "axios";
 import ManageCategories from "./ManageCategories";
 import logo from "../../assets/images/porkerlogo.png";
+import CustomCatModal from "../../components/admin-dashboard-components/CustomCatModal";
 
 interface BlueDiv {
   id: number;
@@ -97,16 +97,17 @@ const Category = () => {
   const [category, setCategory] = useState<any[]>([]);
   const [editIndex, setEditIndex] = useState(-1);
   const [, setCategoryName] = useState("");
+  const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const location = useLocation();
   const navigate = useNavigate();
   const { data: allcat, isLoading } = useGetAllCategories();
-  console.log(allcat?.data, isLoading, "all cats", category);
+  // console.log(allcat?.data, isLoading, "all cats", category);
 
   const queryParams = new URLSearchParams(location.search);
   const initialCateInfo = queryParams.get("cateInfo");
 
-  console.log(queryParams.get("cateInfo"), "params", initialCateInfo);
+  // console.log(queryParams.get("cateInfo"), "params", initialCateInfo);
 
   const [cateInfo, setCateInfo] = useState(false);
 
@@ -159,6 +160,8 @@ const Category = () => {
   // };
 
   const handleSubCat = (index: any) => {
+    // console.log(index, "cat index");
+    // console.log(showModal, "showModal");
     setShowModal(true);
     setSelectedCategoryId(index);
   };
@@ -169,9 +172,9 @@ const Category = () => {
 
   return (
     <>
-      <div className="pl-10 pr-5 pt-5">
+      <div className="py-6 pl-8 pr-5 pb-10">
         <div className="flex items-center justify-between">
-          <div className="mt-5">
+          <div className="">
             <h1 className="text-2xl font-bold text-[#333333]">
               Manage Categories
             </h1>
@@ -179,8 +182,12 @@ const Category = () => {
               Create categories for sold items.
             </span>
           </div>
-          <div
-            onClick={() => setCateInfo((prev) => !prev)}
+          <button
+            disabled={isLoading}
+            onClick={() => {
+              setCateInfo((prev) => !prev);
+              cateInfo && navigate("/admin/manage+category");
+            }}
             className={`${
               cateInfo
                 ? "border-[#BB0101] text-[#BB0101]"
@@ -195,7 +202,7 @@ const Category = () => {
                 <span>Add Category</span>
               </>
             )}
-          </div>
+          </button>
         </div>
 
         {isLoading && (
@@ -216,7 +223,7 @@ const Category = () => {
         )}
 
         {!cateInfo && (
-          <div className="mt-10">
+          <div className="mt-6">
             {!isLoading && category?.length > 0 && (
               <div className="rounded-md border-0 bg-[#F4F4F4]">
                 <div className=" border-1  flex items-center justify-between rounded-t-md border border-[#D9D9D9] px-4">
@@ -233,7 +240,7 @@ const Category = () => {
                   </div>
                 </div>
                 {category.map((cat, index) => (
-                  <div key={index} className="rounded-b-md">
+                  <div key={cat?.name} className="rounded-b-md">
                     <div className=" border-1  flex items-center justify-between border border-t-0 border-[#D9D9D9] px-4">
                       <div className="text-md w-10 font-bold">
                         {" "}
@@ -297,7 +304,7 @@ const Category = () => {
                                 Edit
                               </button>
                               <button
-                                onClick={() => handleSubCat(cat?.id)}
+                                onClick={() => handleSubCat(cat?._id)}
                                 className=" w-36 rounded-sm  border border-[#D9D9D9] py-1 text-[16px]  font-normal leading-[19px] text-[#333333]"
                               >
                                 Add subcategory
@@ -313,8 +320,8 @@ const Category = () => {
                         " h-full w-full bg-[#333333] p-5 transition-all duration-700 ease-in-out"
                       }
                     >
-                      {cat?.subcategories.map((sub: any) => (
-                        <ul key={sub?.id}>
+                      {cat?.subcategories.map((sub: any, index: number) => (
+                        <ul key={`${sub?.id}-${index}`}>
                           <li className="ml-10 cursor-pointer py-1.5 capitalize text-[#fff]">
                             {sub?.name}
                           </li>
@@ -328,8 +335,15 @@ const Category = () => {
           </div>
         )}
 
-        <>{cateInfo && <ManageCategories />}</>
+        {cateInfo && <ManageCategories handleSubCat={handleSubCat} />}
       </div>
+      {showModal && (
+        <CustomCatModal
+          category={category}
+          setCateInfo={setCateInfo}
+          cateInfo={cateInfo}
+        />
+      )}
     </>
   );
 };
