@@ -1,21 +1,47 @@
 import { useEffect, useState } from "react";
 import { BiTrashAlt } from "react-icons/bi";
 import { BsPlus, BsX } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
+import {
+  useCreateCategories,
+  useUpdateSingleCategory,
+} from "../../services/hooks/Vendor/category";
 
 const ManageCategories = ({ handleSubCat }: any) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const [categoryName, setCategoryName] = useState("");
+  const [subcategory, setSubcategory] = useState<any[]>([]);
+  const createCategory = useCreateCategories();
+
   const [questions, setQuestions] = useState<any[]>([
-    { id: 1, question: "", required: false },
+    { id: 1, question: "", required: true },
   ]);
   const [image, setImage] = useState<any>(null);
   const handleAddQuestion = () => {
     setQuestions((prev: any) => {
       return [
         ...prev,
-        { id: crypto.randomUUID(), questions: "", required: true },
+        { id: crypto.randomUUID(), question: "", required: true },
       ];
     });
   };
+  const cateInfo = queryParams.get("cateInfo");
+  const categoryInfo = queryParams.get("cat");
+  const subInfo = queryParams.get("sub");
+  console.log(categoryInfo, subInfo, "categoryInfo");
+
+  useEffect(() => {
+    if (cateInfo && categoryInfo) {
+      setCategoryName(categoryInfo);
+      setSubcategory((prev: any) => {
+        return [...prev, { name: subInfo }];
+      });
+    } else {
+      setCategoryName(categoryName);
+      setSubcategory(subcategory);
+    }
+  }, [cateInfo, categoryInfo, subInfo]);
 
   // const handleCancelBlueDiv = (id: number) => {
   //   const updatedQuestion = questions.filter((question) => question.id !== id);
@@ -24,7 +50,41 @@ const ManageCategories = ({ handleSubCat }: any) => {
 
   const handleCreateCategory = (e: any) => {
     e.preventDefault();
+    if (image) {
+      const data = new FormData();
+      data.append("name", categoryName);
+      data.append("featuredImage", image);
+      createCategory
+        .mutateAsync(data)
+        .then((res: any) => {
+          console.log(res, "cat cretae");
+        })
+        .catch((err: any) => {
+          console.log(err, "catErr");
+        });
+    }
+    // const data = {
+    //   name: categoryName,
+    //   description: "",
+    //   subcategories: [
+    //     {
+    //       name: "",
+    //     },
+    //   ],
+    //   categoryQuestions: [
+    //     {
+    //       category: categoryName,
+    //       question: "Main Colour",
+    //       required: true,
+    //       questionHint:
+    //         "Main colour of the product, can be also a certain shade of a colour. Example: Black, Brown, White, Pink.",
+    //       __v: 0,
+    //     },
+    //   ],
+    // };
   };
+
+  const updateCateName = () => {};
 
   const handleFileChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
@@ -37,22 +97,25 @@ const ManageCategories = ({ handleSubCat }: any) => {
     }
     // console.log(file, e.target.name);
   };
-  // console.log("file uploaded", image);
+  console.log("file uploaded", image);
 
-  const handleQuestionChange = (e: any, i: number) => {
-    const { name, value } = e.target;
-    console.log(name, value, "mwsss", i);
-
-    // setQuestions((prev: any) => {
-    //   return [...prev, { id: prev?.length + 1, questions: "", required: true }];
-    // });
+  const handleQuestionChange = (e: any, id: number) => {
+    const { value } = e.target;
+    setQuestions((prevQuestions) => {
+      return prevQuestions.map((q) => {
+        if (q.id === id) {
+          return { ...q, question: value };
+        }
+        return q;
+      });
+    });
   };
 
-  const deleteQuestion = (index: any) => {
+  const deleteQuestion = (id: any) => {
     const updatedQuestion = questions.filter(
-      (question: any) => question.id !== index,
+      (question: any) => question.id !== id,
     );
-    console.log(index, "index", updatedQuestion);
+    console.log(id, "id", updatedQuestion);
 
     setQuestions(updatedQuestion);
   };
@@ -71,20 +134,34 @@ const ManageCategories = ({ handleSubCat }: any) => {
         <div className="bg-[#F4F4F4] p-4">
           <h3 className="mb-2 text-xl font-medium text-[#333]">Category</h3>
           <form onSubmit={handleCreateCategory} className="space-y-3">
-            <label htmlFor="categoryName" className="block">
-              <span className="text-sm text-[#333] after:text-red-600 after:content-['*']">
-                Category Name
-              </span>
-              <input
-                type="text"
-                name="categoryName"
-                value={categoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
-                id="categoryName"
-                placeholder="Enter category name"
-                className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
-              />
-            </label>
+            <div>
+              <label htmlFor="categoryName" className="block">
+                <span className="text-sm text-[#333] after:text-red-600 after:content-['*']">
+                  Category Name
+                </span>
+                <input
+                  type="text"
+                  name="categoryName"
+                  value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
+                  id="categoryName"
+                  placeholder="Enter category name"
+                  className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                />
+              </label>
+              <div>
+                {subcategory?.length > 0 &&
+                  subcategory.map((sub: any, index: number) => {
+                    return (
+                      <label htmlFor={sub.name} key={index}>
+                        <input type="radio" name={sub.name} id={sub.name} />{" "}
+                        <span className="text-sm capitalize">{sub.name}</span>
+                      </label>
+                    );
+                  })}
+              </div>
+            </div>
+
             <label htmlFor="" className="block">
               <span className="text-sm text-[#333] after:text-red-600 after:content-['*']">
                 Upload an image that represent the category
@@ -120,7 +197,7 @@ const ManageCategories = ({ handleSubCat }: any) => {
 
             <div className="mt-10 flex items-center justify-end gap-3">
               <button
-                onClick={handleSubCat("disi92")}
+                // onClick={handleSubCat("disi92")}
                 className="inline-flex h-[48px] items-center justify-center gap-2 rounded bg-transparent px-7 py-2.5 font-medium text-green-700 ring-1 ring-green-700"
               >
                 <BsPlus size={28} /> <span>Add Subcategory</span>
@@ -149,7 +226,7 @@ const ManageCategories = ({ handleSubCat }: any) => {
                     name={`question${i}`}
                     id={`question${i}`}
                     value={question?.question}
-                    onChange={(e: any) => handleQuestionChange(e, i)}
+                    onChange={(e: any) => handleQuestionChange(e, question.id)}
                     className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
                   />
                   <div className="inline-flex flex-col items-center">
@@ -167,7 +244,7 @@ const ManageCategories = ({ handleSubCat }: any) => {
                   className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
                 >
                   <button
-                    onClick={() => deleteQuestion(i)}
+                    onClick={() => deleteQuestion(question.id)}
                     disabled={questions?.length === 1}
                     className="text-[#333]"
                   >

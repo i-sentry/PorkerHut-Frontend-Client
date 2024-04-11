@@ -95,6 +95,8 @@ export const api = {
     categoryQuestion: (id: string | null) =>
       `/api/categoryquestions/category/${id}`,
     getOneCategory: (id: string | null) => `/api/categories/${id}`,
+    subcategories: "/api/subcategories/",
+    singleSubcategory: (id: string | null) => `/api/subcategories/${id}`,
   },
   Payment: {
     pay: "/api/pay/",
@@ -117,6 +119,7 @@ export const api = {
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
+    allOverview: "/api/orders/admin/overview/",
     adminOverView: (startDate: any, endDate: any) =>
       `/api/orders/admin/overview/${startDate}/${endDate}`,
     adminGraph: (startDate: any, endDate: any) =>

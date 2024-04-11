@@ -4,104 +4,112 @@ import { IoMdAdd } from "react-icons/io";
 import { IoAdd } from "react-icons/io5";
 import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGetAllCategories } from "../../services/hooks/Vendor/category";
+import {
+  useGetAllCategories,
+  useUpdateSingleCategory,
+} from "../../services/hooks/Vendor/category";
 import ManageCategories from "./ManageCategories";
 import logo from "../../assets/images/porkerlogo.png";
 import CustomCatModal from "../../components/admin-dashboard-components/CustomCatModal";
+import { ToastContainer, toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 interface BlueDiv {
   id: number;
 }
-export const categories = [
-  {
-    id: "1",
-    name: "Pork",
-    subCategories: [
-      {
-        id: "1",
-        name: "Head",
-      },
-      {
-        id: "2",
-        name: "Intestine",
-      },
-      {
-        id: "3",
-        name: "Lap",
-      },
-      {
-        id: "4",
-        name: "Spare Ribs",
-      },
-      {
-        id: "5",
-        name: "Other Body Parts",
-      },
-    ],
-  },
-  {
-    id: "2",
-    name: "Livestock",
-    subCategories: [
-      {
-        id: "1",
-        name: "Duroc",
-      },
-      {
-        id: "2",
-        name: "Landrace",
-      },
-      {
-        id: "3",
-        name: "Large White",
-      },
-      {
-        id: "4",
-        name: "Hampshire",
-      },
-    ],
-  },
-  {
-    id: "3",
-    name: "Animal Feed",
-    subCategories: [
-      {
-        id: "1",
-        name: "Creep Feed",
-      },
-      {
-        id: "2",
-        name: "Weaner Feed",
-      },
-      {
-        id: "3",
-        name: "Growers Feed",
-      },
-      {
-        id: "4",
-        name: "Sow Feed",
-      },
-      {
-        id: "5",
-        name: "Lactating Feed",
-      },
-      {
-        id: "6",
-        name: "Finisher Feed",
-      },
-    ],
-  },
-];
+// export const categories = [
+//   {
+//     id: "1",
+//     name: "Pork",
+//     subCategories: [
+//       {
+//         id: "1",
+//         name: "Head",
+//       },
+//       {
+//         id: "2",
+//         name: "Intestine",
+//       },
+//       {
+//         id: "3",
+//         name: "Lap",
+//       },
+//       {
+//         id: "4",
+//         name: "Spare Ribs",
+//       },
+//       {
+//         id: "5",
+//         name: "Other Body Parts",
+//       },
+//     ],
+//   },
+//   {
+//     id: "2",
+//     name: "Livestock",
+//     subCategories: [
+//       {
+//         id: "1",
+//         name: "Duroc",
+//       },
+//       {
+//         id: "2",
+//         name: "Landrace",
+//       },
+//       {
+//         id: "3",
+//         name: "Large White",
+//       },
+//       {
+//         id: "4",
+//         name: "Hampshire",
+//       },
+//     ],
+//   },
+//   {
+//     id: "3",
+//     name: "Animal Feed",
+//     subCategories: [
+//       {
+//         id: "1",
+//         name: "Creep Feed",
+//       },
+//       {
+//         id: "2",
+//         name: "Weaner Feed",
+//       },
+//       {
+//         id: "3",
+//         name: "Growers Feed",
+//       },
+//       {
+//         id: "4",
+//         name: "Sow Feed",
+//       },
+//       {
+//         id: "5",
+//         name: "Lactating Feed",
+//       },
+//       {
+//         id: "6",
+//         name: "Finisher Feed",
+//       },
+//     ],
+//   },
+// ];
 const Category = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const [category, setCategory] = useState<any[]>([]);
   const [editIndex, setEditIndex] = useState(-1);
-  const [, setCategoryName] = useState("");
+  const [currentEdit, setCurrentEdit] = useState<string>("");
+  const updateCategoryName = useUpdateSingleCategory(currentEdit);
+  const [categoryName, setCategoryName] = useState("");
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const location = useLocation();
   const navigate = useNavigate();
-  const { data: allcat, isLoading } = useGetAllCategories();
+  const { data: allcat, isLoading, refetch } = useGetAllCategories();
+  const [loading, setLoading] = useState(false);
   // console.log(allcat?.data, isLoading, "all cats", category);
 
   const queryParams = new URLSearchParams(location.search);
@@ -148,16 +156,29 @@ const Category = () => {
     }
   };
 
-  const handleEdit = (index: any) => {
+  const handleEdit = (index: any, id: any) => {
     setEditIndex(index);
-    setCategoryName(categories[index]?.name);
+    setCategoryName(category[index]?.name);
+    setCurrentEdit(id);
   };
 
-  // const handleSave = (index: any) => {
-  //   // Perform save/update logic here
-  //   console.log("Saved category:", categoryName);
-  //   setEditIndex(-1);
-  // };
+  const handleSave = () => {
+    setLoading(true);
+    updateCategoryName
+      .mutateAsync({ name: categoryName })
+      .then((res: any) => {
+        toast.success("Category name updated successfully");
+        console.log(res, "res fro upodae");
+        refetch();
+        setLoading(false);
+        setEditIndex(-1);
+      })
+      .catch((err: any) => {
+        toast.error("Error occurred, try again!!!");
+        console.log(err, "err fro upodae");
+        setLoading(false);
+      });
+  };
 
   const handleSubCat = (index: any) => {
     // console.log(index, "cat index");
@@ -173,6 +194,7 @@ const Category = () => {
   return (
     <>
       <div className="py-6 pl-8 pr-5 pb-10">
+        <ToastContainer />
         <div className="flex items-center justify-between">
           <div className="">
             <h1 className="text-2xl font-bold text-[#333333]">
@@ -240,7 +262,7 @@ const Category = () => {
                   </div>
                 </div>
                 {category.map((cat, index) => (
-                  <div key={cat?.name} className="rounded-b-md">
+                  <div key={cat?.name + index} className="rounded-b-md">
                     <div className=" border-1  flex items-center justify-between border border-t-0 border-[#D9D9D9] px-4">
                       <div className="text-md w-10 font-bold">
                         {" "}
@@ -266,8 +288,12 @@ const Category = () => {
                           <div className=" w-full py-2">
                             <input
                               type="text"
+                              value={categoryName}
+                              onChange={(e: any) =>
+                                setCategoryName(e.target.value)
+                              }
                               className="w-[80%] rounded-md border border-[#D9D9D9] py-1.5 px-2 capitalize "
-                              defaultValue={cat?.name}
+                              // defaultValue={cat?.name}
                             />
                           </div>
                         ) : (
@@ -283,10 +309,21 @@ const Category = () => {
                           {editIndex === index ? (
                             <div className="flex justify-start gap-3 ">
                               <button
-                                type="submit"
-                                className=" w-28 rounded  bg-[#197B30] py-2 text-[14px] font-normal leading-[24px] text-white"
+                                onClick={handleSave}
+                                disabled={loading}
+                                className={`flex w-28 items-center justify-center rounded bg-[#197B30] py-2 text-[14px] font-normal leading-[24px] text-white ${loading ? "bg-opacity-50" : "bg-opacity-100"}`}
                               >
-                                Save
+                                {loading ? (
+                                  <span className="inline-flex items-center justify-center gap-2">
+                                    <CgSpinner
+                                      className="animate-spin"
+                                      size={20}
+                                    />
+                                    Saving...
+                                  </span>
+                                ) : (
+                                  "Save"
+                                )}
                               </button>
                               <button
                                 onClick={() => handleCancel(index)}
@@ -298,7 +335,7 @@ const Category = () => {
                           ) : (
                             <div className="flex justify-start gap-3 ">
                               <button
-                                onClick={() => handleEdit(index)}
+                                onClick={() => handleEdit(index, cat?._id)}
                                 className=" rounded-sm  border border-[#D9D9D9] p-1  text-[16px] font-normal leading-[19px]  text-[#333333]"
                               >
                                 Edit

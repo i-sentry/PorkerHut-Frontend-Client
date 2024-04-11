@@ -63,6 +63,13 @@ export const useGetAdminOverview = (startDate: any, endDate: any) => {
   });
 };
 
+export const useGetAllAdminOverview = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.admin.allOverview),
+    queryKey: ["admin+all+overview"],
+  });
+};
+
 export const useGetAdminGraph = (startDate: any, endDate: any) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.admin.adminGraph(startDate, endDate)),

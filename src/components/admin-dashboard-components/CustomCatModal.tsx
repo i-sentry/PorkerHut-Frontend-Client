@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import PorkerLogo from "../../assets/images/porker.png";
 import { useCategoryModal } from "../../store/overlay";
-import { categories } from "../../pages/admin-dashboard/Category";
+// import { categories } from "../../pages/admin-dashboard/Category";
 import { useNavigate } from "react-router-dom";
 
 interface ISubcategory {
