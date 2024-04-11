@@ -372,7 +372,13 @@ const Category = () => {
           </div>
         )}
 
-        {cateInfo && <ManageCategories handleSubCat={handleSubCat} />}
+        {cateInfo && (
+          <ManageCategories
+            setCateInfo={setCateInfo}
+            catInfo={cateInfo}
+            refetch={refetch}
+          />
+        )}
       </div>
       {showModal && (
         <CustomCatModal

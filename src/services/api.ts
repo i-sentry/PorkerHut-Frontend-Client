@@ -138,6 +138,10 @@ export const api = {
     allVetService: "/api/vetservice",
     weekendkills: "/api/weekendkills",
   },
+  notification: {
+    allNotification: "/api/notification",
+    singleNotification: (id: string) => `/api/notification/${id}`,
+  },
 };
 
 export const makePostRequest = async (

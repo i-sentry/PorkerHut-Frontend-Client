@@ -52,10 +52,10 @@ export const useUpdateSingleCategory = (id: string) => {
   });
 };
 
-export const useCreateSubcategory = (id: string) => {
+export const useCreateSubcategory = () => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makePostRequestCustom(data, api.ProductsCategory.singleSubcategory(id)),
+      makePostRequestCustom(data, api.ProductsCategory.subcategories),
   });
 };
 

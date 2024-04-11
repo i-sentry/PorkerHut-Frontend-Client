@@ -12,9 +12,10 @@ type ModalProps = {
   refetch: any;
 };
 
-
 const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
   const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(false);
+  const [timestamp, setTimestamp] = useState<number>(0);
   const [openTimer, setOpenTimer] = useState(false);
   const [form, setForm] = useState({
     subject: "",
@@ -40,33 +41,38 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
 
   const createNewAnnouncement = (e: any) => {
     e.preventDefault();
-    setLoading(true);
-    createAnnouncement
-      .mutateAsync({
-        ...form,
-        startDate: new Date(),
-        endDate: new Date(2024, 4, 30),
-      })
-      .then((res: any) => {
-        toast.success("New Accouncement Created!!!");
-        setForm({
-          subject: "",
-          content: "",
-          startDate: "",
-          endDate: "",
+    // setLoading(true);
+
+    if (timestamp > 0) {
+      createAnnouncement
+        .mutateAsync({
+          ...form,
+          startDate: new Date(),
+          endDate: new Date(timestamp),
+        })
+        .then((res: any) => {
+          toast.success("New Accouncement Created!!!");
+          setForm({
+            subject: "",
+            content: "",
+            startDate: "",
+            endDate: "",
+          });
+          onClose();
+          refetch();
+          console.log(res, "res ann");
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          toast.error("Error Ocurred. Try again!!!");
+          onClose();
+          console.log(err, "res ann");
+          setLoading(false);
         });
-        onClose();
-        refetch();
-        console.log(res, "res ann");
-        setLoading(false);
-      })
-      .catch((err: any) => {
-        toast.error("Error Ocurred. Try again!!!");
-        onClose();
-        console.log(err, "res ann");
-        setLoading(false);
-      });
-    console.log(form, "form");
+    } else {
+      setErr(timestamp === 0);
+    }
+    console.log(form, "form", timestamp);
   };
 
   return (
@@ -101,7 +107,8 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
                 value={form.subject}
                 onChange={(e: any) => handleChange(e)}
                 placeholder="Subject"
-                className="h-10 w-full border px-4 font-medium outline-none placeholder:text-sm placeholder:font-normal focus:border-green-700 focus:ring-green-700"
+                required
+                className="form-input h-10 w-full border px-4 font-medium outline-none placeholder:text-sm placeholder:font-normal focus:border-green-700 focus:ring-green-700"
               />
 
               <div className="mt-3">
@@ -110,13 +117,16 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
                     placeholder="Type message here...."
                     name="content"
                     id="content"
+                    required
                     value={form.content}
                     onChange={(e: any) => handleChange(e)}
-                    className="h-80 w-full border py-2 px-4 outline-none ring-1 placeholder:text-sm focus:border-green-700 focus:outline-none focus:ring-green-700"
+                    className="form-textarea h-80 w-full resize-none appearance-none border px-4 font-medium outline-none placeholder:text-sm placeholder:font-normal focus:border-[3px] focus:border-green-700 focus:ring-green-700"
                   />
                 </div>
               </div>
-
+              <p className="mt-2 text-red-600">
+                {timestamp < 0 && "You need to set a timer for the annoucement"}
+              </p>
               <button
                 type="submit"
                 disabled={loading}
@@ -136,7 +146,9 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
         </div>
       </div>
 
-      {openTimer && <Timer setOpenTimer={setOpenTimer} />}
+      {openTimer && (
+        <Timer setOpenTimer={setOpenTimer} setTimestamp={setTimestamp} />
+      )}
     </div>
   );
 };

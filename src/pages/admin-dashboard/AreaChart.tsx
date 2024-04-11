@@ -26,6 +26,7 @@ export const options = {
   plugins: {
     legend: {
       position: "top" as const,
+      display: false,
     },
     title: {
       display: false,

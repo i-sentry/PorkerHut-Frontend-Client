@@ -27,6 +27,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CgSpinner } from "react-icons/cg";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  useGetAllNotification,
+  useGetSingleNotification,
+} from "../../services/hooks/notifications";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Full name is required"),
@@ -35,7 +39,36 @@ const schema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
 });
 
+const data = [
+  {
+    id: 1,
+    label: "Notification about new orders",
+    type: "new orders",
+    // email: "test@gmail.com",
+    status: false,
+  },
+  {
+    id: 2,
+    label: "New Stores",
+    type: "new stores",
+    status: true,
+  },
+  {
+    id: 3,
+    label: "New Product",
+    type: "new products",
+    status: true,
+  },
+  {
+    id: 4,
+    label: "Messages",
+    type: "new messages",
+    status: true,
+  },
+];
+
 const Settings = () => {
+  const [notification, setNotification] = useState(data);
   const [admin, setAdmin] = useState<any>(null);
   const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
@@ -90,6 +123,11 @@ const Settings = () => {
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
 
+  const { data: allNot, isLoading: notLoad } = useGetSingleNotification(
+    adminInfo?._id,
+  );
+  console.log("notification", allNot);
+
   useEffect(() => {
     !isLoading && setAdmin({ ...adminBilling });
   }, [isLoading]);
@@ -121,7 +159,7 @@ const Settings = () => {
     }
   }, []);
 
-  console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
+  // console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -159,25 +197,6 @@ const Settings = () => {
   //   setCurrentImage(URL.createObjectURL(e.target.files[0]));
   //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
   // };
-
-  const data = [
-    {
-      id: 1,
-      type: "Notification about new orders",
-    },
-    {
-      id: 2,
-      type: "New Stores",
-    },
-    {
-      id: 3,
-      type: "New Product",
-    },
-    {
-      id: 4,
-      type: "Messages",
-    },
-  ];
 
   const handleInvite = (email: string, role: string) => {
     inviteAdmin
@@ -295,6 +314,8 @@ const Settings = () => {
     //     console.log(err);
     //   });
   };
+
+  console.log(admin?.email);
 
   return (
     <div className="pl-10 pt-10 pr-5">
@@ -429,6 +450,7 @@ const Settings = () => {
                       // name="fullName"
                       {...register("fullName")}
                       // value={formData.fullName}
+                      defaultValue={`${adminInfo?.firstName} ${adminInfo?.lastName}`}
                       onChange={(e: any) => handleChange(e)}
                     />
                   </div>
@@ -436,12 +458,14 @@ const Settings = () => {
                 <div className="mt-4 flex  flex-col  text-sm">
                   <p className=" text-[#344054]">Email</p>
                   <div className="flex-[2]">
-                    <InputComponent
+                    <input
                       placeholder="Email"
                       type="email"
                       name="email"
-                      value={formData.email}
+                      className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
+                      // value={formData.email}
                       onChange={(e: any) => handleChange(e)}
+                      defaultValue={adminInfo?.email}
                       // value={number}
                       // onChange={(e) => setNumber(e.target.value)}
                     />
@@ -450,10 +474,13 @@ const Settings = () => {
                 <div className="mt-4 flex  flex-col  text-sm">
                   <p className=" text-[#344054]">Location</p>
                   <div className="flex-[2]">
-                    <InputComponent
+                    <input
                       placeholder="location"
                       type="text"
-                      value={formData.location}
+                      name="location"
+                      className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
+                      // value={formData.location}
+                      defaultValue={admin?.city}
                       onChange={(e: any) => handleChange(e)}
                       // value={number}
                       // onChange={(e) => setNumber(e.target.value)}
@@ -477,8 +504,8 @@ const Settings = () => {
                       autoFormat={true}
                       countryCodeEditable={false}
                       country={"ng"}
-                      // value={formData?.phoneNumber.slice(-10)}
-                      // onChange={(e: any) => handleChange(e)}
+                      value={`${admin?.phoneNumber?.slice(-10)}`}
+                      onChange={(e: any) => handleChange(e)}
                       inputClass={"w-[100%_!important] h-[45px_!important]"}
                     />
                   </div>
@@ -697,10 +724,15 @@ const Settings = () => {
                     key={d?.id}
                     className="border-1 flex items-center justify-between border border-slate-100 bg-white px-4 py-2"
                   >
-                    <div className="w-3/4 text-sm font-light">{d?.type}</div>
+                    <div className="w-3/4 text-sm font-light">{d?.label}</div>
                     <div className="w-1/4 border-l border-slate-100 pl-5">
                       {" "}
-                      <ToggleSwitch />
+                      <ToggleSwitch
+                        type={d?.type}
+                        status={d?.status}
+                        notification={notification}
+                        email={adminInfo?.email}
+                      />
                     </div>
                   </div>
                 ))}

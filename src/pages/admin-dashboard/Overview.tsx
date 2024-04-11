@@ -98,7 +98,7 @@ const Overview = () => {
           <>
             <h1 className="text-xs font-light text-[#F29339]">{val?.title}</h1>
             <span className="text-xl font-medium text-[#F29339]">
-              {isLoading ? (
+              {loading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
                 val?.figure
@@ -237,6 +237,13 @@ const Overview = () => {
     },
   ];
 
+  const filterOrders = orders?.filter((order: any) => {
+    const orderY = new Date(order?.orderDate).getFullYear();
+    const orderD = new Date(order?.orderDate).getMonth() + 1;
+    console.log("filter", orderD, selectedMonth);
+    return orderY === year && orderD === selectedMonth;
+  });
+
   return (
     <div className="py-6 pl-8 pr-5">
       <div className="mb-5 flex items-center justify-between">
@@ -251,8 +258,6 @@ const Overview = () => {
           value={selectedMonth}
           className="rounded-sm border border-neutral-200 focus:border-green-700 focus:ring-green-700"
         >
-          <option value="all">Overall {currentYear}</option>
-          <option value="past">Past {currentYear - 1}</option>
           {months?.map((month: any, index: any) => {
             const disabled = index + 1 > currentMonth;
 
@@ -289,13 +294,7 @@ const Overview = () => {
             key={val.id}
             className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3"
           >
-            <div>
-              {loading ? (
-                <CgSpinner size={20} className="animate-spin" />
-              ) : (
-                color(val) || 0
-              )}
-            </div>
+            <div>{color(val) || 0}</div>
           </div>
         ))}
       </div>
