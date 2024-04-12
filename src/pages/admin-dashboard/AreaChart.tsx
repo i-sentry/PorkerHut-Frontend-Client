@@ -106,11 +106,11 @@ export function AreaChart({ values }: { values?: any }) {
 
   return (
     <div className="bg-[#F4F4F4]">
-      <form className="mt-4 hidden items-center justify-between">
-        <div>
-          <span className=" px-3 font-medium">Sales Overview</span>
+      <form className="flex items-center justify-between pt-8">
+        <div className="mb-3">
+          <span className=" px-3 pb-4 font-medium">Sales Overview</span>
         </div>
-        <div className="mt-4 flex items-center gap-4 px-4">
+        <div className="mt-4 hidden items-center gap-4 px-4">
           <label className="" htmlFor="week"></label>
           <input
             type="week"
