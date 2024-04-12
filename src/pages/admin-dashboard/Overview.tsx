@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AreaChart } from "./AreaChart";
 import {
+  useGetAdminGraph,
   useGetAdminOverview,
   useGetAllAdminOverview,
   useGetOrders,
@@ -37,14 +38,14 @@ const Overview = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const currentMonth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
-
+  const { data: graph } = useGetAdminGraph(start, end);
   const {
     data: overview,
     isLoading: loading,
     refetch,
   } = useGetAllAdminOverview();
   const [adminOverview, setAdminOverview] = useState<any>({});
-  const filteredData = overview?.data?.filter((data: any) => {
+  const filteredData = overview?.data?.find((data: any) => {
     const date = new Date(data?.overViewDate);
     const month = `${date.getFullYear()}-${(date.getMonth() + 1).toLocaleString().padStart(2, "0")}`;
     console.log(
@@ -59,15 +60,17 @@ const Overview = () => {
     );
   });
 
+  const chartData = graph?.data?.weeklySalesOverview;
+
   useEffect(() => {
     !loading &&
       setAdminOverview((prev: any) => {
-        const [data] = filteredData;
+        const data = filteredData;
         console.log(data);
         return { ...prev, ...data };
       });
   }, [selectedMonth]);
-  // console.log("Current month:", totalSales);
+  console.log("Current graph:", graph?.data?.weeklySalesOverview);
 
   // console.log("First day of the month:", firstDay);
   console.log("Last day of the month:", selectedMonth, adminOverview);
@@ -213,27 +216,27 @@ const Overview = () => {
     {
       id: "1",
       title: "Average Daily Order",
-      figure: `${Math.trunc(adminOverview?.averageDailyOrders ?? 0)}` || 0,
+      figure: `${Math.trunc(filteredData?.averageDailyOrders ?? 0)}` || 0,
     },
     {
       id: "2",
       title: "Pending Orders",
-      figure: `${adminOverview?.totalPendingOrders ?? 0}` || 0,
+      figure: `${filteredData?.totalPendingOrders ?? 0}` || 0,
     },
     {
       id: "3",
       title: "Fulfilled Orders",
-      figure: `${adminOverview?.totalFulfilledOrders ?? 0}` || 0,
+      figure: `${filteredData?.totalCompletedOrders ?? 0}` || 0,
     },
     {
       id: "4",
       title: "Failed Orders",
-      figure: `${adminOverview?.totalFailedOrders ?? 0}` || 0,
+      figure: `${filteredData?.totalFailedOrders ?? 0}` || 0,
     },
     {
       id: "5",
       title: "Returned Order",
-      figure: `${adminOverview?.totalReturnedOrders ?? 0}` || 0,
+      figure: `${filteredData?.totalReturnedOrders ?? 0}` || 0,
     },
   ];
 
@@ -270,23 +273,60 @@ const Overview = () => {
         </select>
       </div>
       <div className="flex items-center justify-items-stretch">
-        {data.map((val) => (
-          <div
-            key={val.id}
-            className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3"
-          >
-            <h1 className="text-xs font-normal  text-[#A2A2A2]">
-              {val?.title}
-            </h1>
-            <span className="text-xl font-medium">
-              {loading ? (
-                <CgSpinner size={20} className="animate-spin" />
-              ) : (
-                val?.figure || 0
-              )}
-            </span>
-          </div>
-        ))}
+        <div className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3">
+          <h1 className="text-xs font-normal  text-[#A2A2A2]">Total Sales</h1>
+          <span className="text-xl font-medium">
+            {loading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              `₦${filteredData?.totalSales?.toLocaleString()}`
+            )}
+          </span>
+        </div>
+        <div className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3">
+          <h1 className="text-xs font-normal  text-[#A2A2A2]">
+            Daily Revenues
+          </h1>
+          <span className="text-xl font-medium">
+            {loading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              `₦${Math.trunc(filteredData?.averageDailyRevenues ?? 0)?.toLocaleString()}`
+            )}
+          </span>
+        </div>
+        <div className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3">
+          <h1 className="text-xs font-normal  text-[#A2A2A2]">Items Sold</h1>
+          <span className="text-xl font-medium">
+            {loading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              `${filteredData?.totalItemsSold ?? 0}`
+            )}
+          </span>
+        </div>
+        <div className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3">
+          <h1 className="text-xs font-normal  text-[#A2A2A2]">
+            Average Order Value
+          </h1>
+          <span className="text-xl font-medium">
+            {loading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              `${Math.trunc(filteredData?.averageOrderValue ?? 0)?.toLocaleString()}`
+            )}
+          </span>
+        </div>
+        <div className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3">
+          <h1 className="text-xs font-normal  text-[#A2A2A2]">Total Orders</h1>
+          <span className="text-xl font-medium">
+            {loading ? (
+              <CgSpinner size={20} className="animate-spin" />
+            ) : (
+              `${filteredData?.totalOrders ?? 0}`
+            )}
+          </span>
+        </div>
       </div>
       <div className="mt-4 flex items-center justify-items-stretch">
         {orderData.map((val) => (
@@ -294,13 +334,13 @@ const Overview = () => {
             key={val.id}
             className="flex h-full flex-1 flex-col items-start justify-center gap-2 rounded-l-sm border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] px-6 py-3"
           >
-            <div>{color(val) || 0}</div>
+            <div>{color(val)}</div>
           </div>
         ))}
       </div>
 
       <div className="my-4">
-        <AreaChart />
+        <AreaChart values={chartData} />
       </div>
 
       <div className="mt-8 grid grid-cols-3 items-center gap-4">
@@ -313,3 +353,4 @@ const Overview = () => {
 };
 
 export default Overview;
+
