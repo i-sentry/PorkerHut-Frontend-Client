@@ -106,29 +106,29 @@ const Category = () => {
   const [categoryName, setCategoryName] = useState("");
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   const { data: allcat, isLoading, refetch } = useGetAllCategories();
   const [loading, setLoading] = useState(false);
   // console.log(allcat?.data, isLoading, "all cats", category);
 
-  const queryParams = new URLSearchParams(location.search);
-  const initialCateInfo = queryParams.get("cateInfo");
+  // const queryParams = new URLSearchParams(location.search);
+  // const initialCateInfo = queryParams.get("cateInfo");
 
   // console.log(queryParams.get("cateInfo"), "params", initialCateInfo);
 
-  const [cateInfo, setCateInfo] = useState(false);
+  // const [cateInfo, setCateInfo] = useState(false);
 
   useEffect(() => {
     !isLoading ? setCategory(allcat?.data) : setCategory([]);
   }, [allcat?.data]);
 
-  useEffect(() => {
-    // Update the URL query parameter whenever the state changes
-    const newSearchParams = new URLSearchParams(location.search);
-    newSearchParams.set("cateInfo", cateInfo.toString());
-    navigate("?" + newSearchParams.toString(), { replace: true });
-  }, [location.search, navigate, cateInfo]);
+  // useEffect(() => {
+  //   // Update the URL query parameter whenever the state changes
+  //   const newSearchParams = new URLSearchParams(location.search);
+  //   newSearchParams.set("cateInfo", cateInfo.toString());
+  //   navigate("?" + newSearchParams.toString(), { replace: true });
+  // }, [location.search, navigate, cateInfo]);
 
   const setSelectedCategoryId = useCategoryModal(
     (state) => state.setSelectedCategoryId,
@@ -206,24 +206,13 @@ const Category = () => {
           </div>
           <button
             disabled={isLoading}
-            onClick={() => {
-              setCateInfo((prev) => !prev);
-              cateInfo && navigate("/admin/manage+category");
-            }}
-            className={`${
-              cateInfo
-                ? "border-[#BB0101] text-[#BB0101]"
-                : "border-[#197B30] text-[#197B30]"
-            }  flex  cursor-pointer items-center gap-3 rounded-md  border bg-[#fff] px-3 py-2.5 shadow-md`}
+            onClick={() => navigate("/admin/manage+category/new")}
+            className={`flex cursor-pointer items-center gap-3 rounded-md border border-[#197B30]  bg-[#fff] px-3 py-2.5 text-[#197B30] shadow-md`}
           >
-            {cateInfo ? (
-              <span className="px-10">Cancel</span>
-            ) : (
-              <>
-                <IoMdAdd size={20} />
-                <span>Add Category</span>
-              </>
-            )}
+            <>
+              <IoMdAdd size={20} />
+              <span>Add Category</span>
+            </>
           </button>
         </div>
 
@@ -244,7 +233,7 @@ const Category = () => {
           </>
         )}
 
-        {!cateInfo && (
+        {!isLoading && (
           <div className="mt-6">
             {!isLoading && category?.length > 0 && (
               <div className="rounded-md border-0 bg-[#F4F4F4]">
@@ -371,22 +360,9 @@ const Category = () => {
             )}
           </div>
         )}
-
-        {cateInfo && (
-          <ManageCategories
-            setCateInfo={setCateInfo}
-            catInfo={cateInfo}
-            refetch={refetch}
-          />
-        )}
+        
       </div>
-      {showModal && (
-        <CustomCatModal
-          category={category}
-          setCateInfo={setCateInfo}
-          cateInfo={cateInfo}
-        />
-      )}
+      {showModal && <CustomCatModal category={category} />}
     </>
   );
 };

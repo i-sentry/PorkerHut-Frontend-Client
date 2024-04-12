@@ -94,6 +94,7 @@ import SellersManageProductImage from "./pages/sellers-dashboard/SellersManagePr
 import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword";
 import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 import VetServices from "./pages/services-page/VetServices";
+import ManageCategories from "./pages/admin-dashboard/ManageCategories";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -221,6 +222,10 @@ const router = createBrowserRouter(
         <Route path="/admin/blog" element={<BlogPost />} />
         <Route path="/admin/announcement" element={<Announcement />} />
         <Route path="/admin/manage+category" element={<Category />} />
+        <Route
+          path="/admin/manage+category/:id"
+          element={<ManageCategories />}
+        />
         <Route path="/admin/payment/invoice" element={<PaymentInvoice />} />
         <Route path="/admin/payment/tracker" element={<PaymentTracker />} />
         <Route path="/admin/products" element={<ProductCreated />} />

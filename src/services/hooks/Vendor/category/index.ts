@@ -62,7 +62,7 @@ export const useCreateSubcategory = () => {
 export const useUpdateSingleSubcategory = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makePutRequest(data, api.ProductsCategory.singleSubcategory(id)),
+      makeCustomPutRequest(data, api.ProductsCategory.singleSubcategory(id)),
   });
 };
 
