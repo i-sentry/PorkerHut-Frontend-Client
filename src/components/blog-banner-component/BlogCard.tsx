@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useReadingTime } from "react-hook-reading-time";
 import { imageUrl } from "../../services/api";
 import moment from "moment";
 import Image from "../../assets/defaultBlogImg.png";
+import { convertFromRaw, EditorState } from "draft-js";
 
 const Loader = () => (
   <div className="relative w-full overflow-hidden">
@@ -28,6 +29,20 @@ const BlogCard = ({ blog }: { blog: any }) => {
   const imgUrl = `${imageUrl}/${featuredImage}`;
   const truncatedString = content?.slice(0, 250) + "...";
   const formattedDate = moment(createdAt).format("MMMM Do YYYY");
+  const [contentText, setContentText] = useState("");
+
+  useEffect(() => {
+    try {
+      const parsedContent = JSON.parse(content);
+      const editorState = EditorState.createWithContent(
+        convertFromRaw(parsedContent),
+      );
+      const conText = editorState.getCurrentContent().getPlainText();
+      setContentText(conText);
+    } catch (error) {
+      setContentText(content);
+    }
+  }, []);
 
   return (
     <div className="group max-w-[500px] overflow-hidden rounded-md bg-white hover:shadow-md">
@@ -37,7 +52,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
             <img
               className="h-[300px] w-full overflow-hidden rounded-t object-cover"
               // src={imgUrl}
-              src={Image}
+              src={featuredImage}
               alt=""
             />
           </Link>
@@ -50,7 +65,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
               <span className="block">({minutes} min read)</span>
             </h1>
             <p className="my-3 mb-3 text-left text-[16px] font-normal leading-[19px] tracking-[0.04em] text-[#797979] xxs:text-[14px] xxs:leading-[16px]">
-              {truncatedString}
+              {contentText}
             </p>
             <Link
               to={`/blog/${_id}`}
