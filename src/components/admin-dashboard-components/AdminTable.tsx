@@ -26,6 +26,8 @@ export type ITable = {
   showDropDown?: boolean;
   dropDownOption?: any[];
   statusType?: string;
+  nextpage?: () => void;
+  prevPage?: () => void;
 };
 
 //@ts-ignore
@@ -40,6 +42,8 @@ const AdminTable = ({
   showCheckbox,
   showDropDown,
   dropDownOption,
+  nextpage,
+  prevPage,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
@@ -319,6 +323,8 @@ const AdminTable = ({
           length={data.length}
           pageSize={pageSize}
           setPageSize={setPageSize}
+          nextpage={nextpage}
+          prevPage={prevPage}
         />
       </div>
     </>

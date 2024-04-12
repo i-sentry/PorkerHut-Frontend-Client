@@ -4,8 +4,6 @@ import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useCreateBlog } from "../../services/hooks/users/blog";
-import { Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
 import { IoMdCloudUpload } from "react-icons/io";
 import draftToHtml from "draftjs-to-html";
 import { LuLoader } from "react-icons/lu";
@@ -14,12 +12,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Blog = () => {
   const createBlog = useCreateBlog();
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [currentImage, setCurrentImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [subject, setSubject] = useState<string>("");
   const [blogContent, setBlogContent] = useState<string>("");
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );
+  const contentState = editorState.getCurrentContent();
+  const contentRaw = convertToRaw(contentState);
+  const contentJson = JSON.stringify(contentRaw);
   const [isLoading, setIsLoading] = useState(false);
 
   const onEditorStateChange = (newEditorState: EditorState) => {
@@ -56,50 +58,73 @@ const Blog = () => {
     return false;
   };
 
-  // Function to handle drop
-  const handleDrop = (evt: any) => {
-    cancelDefaultBehavior(evt);
-
-    const acceptedFileTypes = ["image/png", "image/jpg", "image/jpeg"];
-
-    if (acceptedFileTypes.includes(evt.dataTransfer.files[0].type)) {
-      setCurrentImage(URL.createObjectURL(evt.target.files[0]));
-    } else {
-      throw new Error("Invalid File Type. This file cannot be accepted.");
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      setCurrentImage(file);
+      setImagePreview(URL.createObjectURL(file));
     }
-
-    return false;
   };
 
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) {
+      setCurrentImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  // Function to handle drop
+  // const handleDrop = (evt: any) => {
+  //   cancelDefaultBehavior(evt);
+
+  //   const droppedFile = evt.dataTransfer.files[0];
+
+  //   if (droppedFile) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setCurrentImage(droppedFile);
+  //     };
+  //     reader.readAsDataURL(droppedFile);
+  //   } else {
+  //     toast.error("No file uploaded");
+  //   }
+
+  //   return false;
+  // };
+
   const handleUpload = (e: any) => {
-    setCurrentImage(URL.createObjectURL(e.target.files[0]));
+    // setCurrentImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     // Validate form data
-    if (!currentImage || !subject || !blogContent) {
+
+
+    if (!currentImage || !subject) {
       alert("Please fill in all fields");
       return;
     }
     const formData = new FormData();
-    formData.append("Title", subject);
-    formData.append("Content", blogContent);
-    formData.append("featuredImage", currentImage);
+    formData.append("title", subject);
+    formData.append("slug", subject.toLowerCase().replace(/ /g, "_"));
+    formData.append("content", contentJson);
+    if (currentImage) {
+      formData.append("featuredImage", currentImage);
+    }
     console.log(formData);
     createBlog
       .mutateAsync(formData)
       .then((res) => {
         setIsLoading(false);
-        console.log(res);
-        setCurrentImage(null);
+      toast.success("Blog added successfully");
+        setImagePreview(null);
         setSubject("");
-        setBlogContent("");
-        toast.success("Blog added successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-        });
+        setEditorState(EditorState.createEmpty());
+
       })
       .catch((err) => {
         setIsLoading(false);
@@ -112,7 +137,7 @@ const Blog = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const isDisabled = !currentImage || !subject || !blogContent;
+  const isDisabled = !currentImage || !subject
 
   return (
     <div className="h-screen py-6 pl-8  pr-5">
@@ -144,10 +169,10 @@ const Blog = () => {
               onDragOver={handleDragOver}
               onDrop={handleDrop}
             >
-              {currentImage ? (
+              {imagePreview ? (
                 <>
                   <img
-                    src={currentImage}
+                    src={imagePreview}
                     alt="blogImg"
                     className="max-h-full w-full"
                   />
@@ -168,7 +193,7 @@ const Blog = () => {
                     </div>{" "}
                   </label>
                   <input
-                    onChange={(e) => handleUpload(e)}
+                    onChange={(e) => handleFileChange(e)}
                     className="hidden"
                     accept="image/*"
                     type="file"
@@ -188,6 +213,7 @@ const Blog = () => {
               placeholder="Enter blog title"
               name="subject"
               id="subject"
+              value={subject}
               onChange={(e) => setSubject(e.target.value)}
               className="rounded-sm border border-gray-300 px-4 py-2 font-bold placeholder:text-sm placeholder:font-light focus:border-[#197B30] focus:outline-none focus:ring focus:ring-[#197b30]"
             />
@@ -538,7 +564,7 @@ const Blog = () => {
               }}
             />
           </div>
-          <div className="mt-14 flex items-end justify-end">
+          <div className="mt-16 flex items-end justify-end">
             <button
               disabled={isDisabled}
               type="submit"
@@ -554,3 +580,45 @@ const Blog = () => {
 };
 
 export default Blog;
+
+
+
+
+
+interface DeleteConfirmationProps {
+  name: string;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+export const DeleteConfirmation: React.FC<DeleteConfirmationProps> = ({
+  name,
+  onCancel,
+  onConfirm,
+}) => {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-gray-900 opacity-50"></div>
+      <div className="relative bg-white w-96 p-6 rounded-lg">
+        <div className="text-xl font-semibold mb-4">Confirm Deletion</div>
+        <div className="mb-4">Are you sure you want to delete {name}?</div>
+        <div className="flex justify-end">
+          <button
+            onClick={onCancel}
+            className="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// export default DeleteConfirmation;

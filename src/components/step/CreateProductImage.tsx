@@ -31,6 +31,8 @@ const CreateProductImage: React.FC<CreateProductImageProps> = ({
     // setImg([], img)
   };
 
+  
+
   return (
     <div>
       <div className="m-auto">
