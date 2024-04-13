@@ -440,6 +440,14 @@ const MyOrder = () => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
+  const filteredOrder = (tab: string) => {
+    if (
+      selectedTab.toLowerCase() === tab.toLowerCase() &&
+      tab.toLowerCase() === "pending"
+    ) {
+    }
+  };
+
   return (
     // <h1>Hello</h1>
     <AppLayout>
@@ -455,10 +463,11 @@ const MyOrder = () => {
               //@ts-ignore
               Tcolumns={Tcolumns}
               optionalColumn={optionalColumn}
-              tabs={["All", "Pending", "Approved", "Rejected"]}
+              tabs={["All", "Pending", "Completed", "Rejected"]}
               TData={allOrders}
               placeholder={"Search product name, store names.... "}
               // showFilter={true}
+              statusType=""
             />
           ) : (
             <div className="mt-40 flex flex-col items-center justify-center">
@@ -510,7 +519,6 @@ const MyOrder = () => {
                 isActive={selectedTab === tab}
                 onClick={() => {
                   setSelectedTab(tab);
-
                   setChosenTab(tab);
                 }}
               >

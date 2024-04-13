@@ -274,6 +274,7 @@ const ProductCreated = () => {
           showIcon={true}
           showCheckbox={true}
           showDropDown={true}
+          statusType="product"
         />
       </div>
     </div>

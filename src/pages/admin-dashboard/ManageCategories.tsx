@@ -49,16 +49,26 @@ const ManageCategories = ({}: {}) => {
     useGetAllCategoriesQuestions();
 
   useEffect(() => {
-    if (!catQuesLoad && id !== "new") {
+    if (!catQuesLoad && id !== "new" && catQues?.data?.length > 0) {
       const selectedCategoryQuestion = catQues?.data?.filter(
         (ques: any) => ques?.category === id,
       );
       console.log(selectedCategoryQuestion, "selectedCategoryQuestion");
       setQuestions([...selectedCategoryQuestion]);
+
+      // if (catQues?.data?.length < 1)
+      //   setQuestions([
+      //     {
+      //       id: 1,
+      //       question: "",
+      //       required: true,
+      //       questionHint: "",
+      //     },
+      //   ]);
     } else {
-      setQuestions((q: any) => q);
+      setQuestions(questions);
     }
-  }, [id, catQues?.data]);
+  }, [id]);
 
   const selectedCategory = data?.data;
   const category = useMemo(() => {
@@ -89,6 +99,7 @@ const ManageCategories = ({}: {}) => {
     window.history.replaceState({}, "", newUrl); // Replace the URL without query parameters
   };
   useEffect(() => {
+    console.log(selectedCategory, "selectedCategory");
     if (id !== "new" && !isLoading) {
       setCategoryName(category?.name);
       setSubcategory([...subcategory, { name: subInfo }]);
@@ -418,13 +429,6 @@ const ManageCategories = ({}: {}) => {
                   Maximum of 4.
                 </p>
               </div>
-              {id !== "new" && (
-                <button
-                  className={`w-fit justify-self-end rounded bg-green-700 px-3 py-2.5 text-sm text-white`}
-                >
-                  Update Questions
-                </button>
-              )}
             </div>
             <div className="space-y-8">
               {questions.map((question: any, i: any) => {
