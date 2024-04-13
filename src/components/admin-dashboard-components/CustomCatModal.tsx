@@ -76,7 +76,13 @@ const CustomCatModal = ({
   };
 
   const handleAdd2 = () => {
-    setSubcate({ name: subcategory });
+    setSubcate((prev: any) => {
+      if (prev.some((item: any) => item.name === subcategory)) {
+        return prev;
+      } else {
+        return [...prev, { name: subcategory }];
+      }
+    });
     setShowModal(false);
   };
 

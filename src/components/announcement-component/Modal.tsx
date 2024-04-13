@@ -62,10 +62,10 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           refetch();
           console.log(res, "res ann");
           setLoading(false);
+          // localStorage.setItem("expirationTimestamp", timestamp.toString());
         })
         .catch((err: any) => {
           toast.error("Error Ocurred. Try again!!!");
-          onClose();
           console.log(err, "res ann");
           setLoading(false);
         });
@@ -91,7 +91,13 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
                 className="hover:cursor-pointer"
                 onClick={() => setOpenTimer(true)}
               />
-              <HiX onClick={() => onClose()} className="hover:cursor-pointer" />
+              <HiX
+                onClick={() => {
+                  onClose();
+                  localStorage.removeItem("timer");
+                }}
+                className="hover:cursor-pointer"
+              />
             </div>
           </div>
           <div>

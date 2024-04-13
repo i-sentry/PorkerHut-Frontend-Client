@@ -87,13 +87,17 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
 
   useEffect(() => {
     // Check if expiration timestamp is stored in localStorage
-    const expirationTimestamp = localStorage.getItem("expirationTimestamp");
+    const timer = JSON.parse(localStorage.getItem("timer") as string);
 
-    if (!expirationTimestamp) {
-      // Calculate expiration timestamp if not found
-      const currentDate = new Date();
-      currentDate.setDate(currentDate.getDate() + 4); // Add 4 days
-      // localStorage.setItem("expirationTimestamp", "0");
+    if (timer) {
+      // // Calculate expiration timestamp if not found
+      // const currentDate = new Date();
+      // currentDate.setDate(currentDate.getDate() + 4); // Add 4 days
+      // // localStorage.setItem("expirationTimestamp", "0");
+      setDays(timer?.days);
+      setHours(timer?.hours);
+      setMinutes(timer?.minutes);
+      setSeconds(timer?.seconds);
     }
 
     // Update countdown every second
@@ -130,7 +134,12 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
 
   const handleSetTimer = (e: any) => {
     e.preventDefault();
-
+    const timer = {
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    };
     // Convert days, hours, minutes, and seconds to seconds
     const daysToSeconds = days * 24 * 60 * 60;
     const hoursToSeconds = hours * 60 * 60;
@@ -144,7 +153,7 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
     setTimestamp(futureTimestamp);
     toast.success("Timer set successfully!!!");
     setOpenTimer(false);
-    localStorage.setItem("expirationTimestamp", futureTimestamp.toString());
+    localStorage.setItem("timer", JSON.stringify(timer));
   };
 
   const handleReset = () => {
@@ -164,7 +173,9 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
         <div className="relative w-[500px] bg-neutral-50 py-10 px-8">
           <span
             className="absolute top-3 right-3 cursor-pointer text-[#333]"
-            onClick={() => setOpenTimer(false)}
+            onClick={() => {
+              setOpenTimer(false);
+            }}
           >
             <BsX size={32} />
           </span>

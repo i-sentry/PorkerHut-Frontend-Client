@@ -4,8 +4,11 @@ import { BsPlus, BsX } from "react-icons/bs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useCreateCategories,
+  useCreateCategoriesQuestions,
+  useCreateCategoriesWithSubcategories,
   useCreateSubcategory,
   useGetAllCategories,
+  useGetAllCategoriesQuestions,
   useGetOneCategory,
   useUpdateSingleCategory,
   useUpdateSingleSubcategory,
@@ -23,34 +26,52 @@ const ManageCategories = ({}: {}) => {
   const queryParams = new URLSearchParams(location.search);
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subcategory, setSubcategory] = useState<any>();
+  const [subcategory, setSubcategory] = useState<any[]>([]);
   const [confirm, setConfirm] = useState(false);
   const [cateId, setCateId] = useState("");
-  const createCategory = useCreateCategories();
+  const createCategory = useCreateCategoriesWithSubcategories();
   const createSubCategory = useCreateSubcategory();
+  const createCatQuestions = useCreateCategoriesQuestions();
   const updateSub = useUpdateSingleSubcategory(cateId);
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
+  const [image, setImage] = useState<any>(null);
+  const [questions, setQuestions] = useState<any[]>([
+    {
+      id: 1,
+      question: "",
+      required: true,
+      questionHint: "",
+    },
+  ]);
   const { data, isLoading, refetch } = useGetAllCategories();
+  const { data: catQues, isLoading: catQuesLoad } =
+    useGetAllCategoriesQuestions();
+
+  useEffect(() => {
+    if (!catQuesLoad && id !== "new") {
+      const selectedCategoryQuestion = catQues?.data?.filter(
+        (ques: any) => ques?.category === id,
+      );
+      console.log(selectedCategoryQuestion, "selectedCategoryQuestion");
+      setQuestions([...selectedCategoryQuestion]);
+    } else {
+      setQuestions((q: any) => q);
+    }
+  }, [id, catQues?.data]);
+
   const selectedCategory = data?.data;
   const category = useMemo(() => {
     if (!isLoading && selectedCategory) {
       const [data] = selectedCategory?.filter((cat: any) => cat?._id === id);
       setCateId(data?._id);
+      setCategoryName(data?.name);
       return data;
     } else {
       return {};
     }
-  }, [id]);
+  }, [id, selectedCategory, isLoading]);
 
-  console.log("ididididididi", category);
-
-  useEffect(() => setShowModal(false), []);
-
-  const [questions, setQuestions] = useState<any[]>([
-    { id: 1, question: "", required: true },
-  ]);
-  const [image, setImage] = useState<any>(null);
   const handleAddQuestion = () => {
     setQuestions((prev: any) => {
       return [
@@ -61,7 +82,6 @@ const ManageCategories = ({}: {}) => {
   };
 
   const subInfo = queryParams.get("sub");
-  // console.log(subInfo, "categoryInfo");
   const removeQueryParams = () => {
     const { pathname } = location;
     const newPathname = pathname.split("?")[0]; // Remove query parameters from the pathname
@@ -71,13 +91,15 @@ const ManageCategories = ({}: {}) => {
   useEffect(() => {
     if (id !== "new" && !isLoading) {
       setCategoryName(category?.name);
-      setSubcategory({ name: subInfo });
+      setSubcategory([...subcategory, { name: subInfo }]);
       removeQueryParams();
     } else {
       setCategoryName(categoryName);
       setSubcategory(subcategory);
     }
   }, [id]);
+
+  useEffect(() => setShowModal(false), [setShowModal]);
 
   // const handleCancelBlueDiv = (id: number) => {
   //   const updatedQuestion = questions.filter((question) => question.id !== id);
@@ -92,28 +114,44 @@ const ManageCategories = ({}: {}) => {
       const data = new FormData();
       data.append("name", categoryName);
       data.append("featuredImage", image);
-      // subcategory.forEach((value: any, index: any) => {
-      //   data.append(`subcategories[${index}]`, value);
-      // });
+      subcategory.forEach((value: any, index: any) => {
+        data.append(`subcategories[${index}]`, value);
+      });
+
+      const catQuestions = questions.map((q: any) => {
+        return {
+          question: q.question,
+          questionHint: q.questionHint,
+          required: q.required,
+        };
+      });
+      const d = {
+        name: categoryName,
+        featuredImage: image,
+        subcategories: subcategory,
+        questions: catQuestions,
+      };
+      console.log(d);
 
       createCategory
         .mutateAsync(data)
         .then((res: any) => {
           console.log(res, "cat cretae");
-          toast.success("category created successufully");
-          setCateId((prev: any) => res._id);
-          console.log(cateId, "cateIDDDDD");
-          createSubCategory
-            .mutateAsync({ ...subcategory, category: res?._id })
-            .then((res: any) => {
-              console.log(res, "upafte sub cta");
-              toast.success(`${res?.name} subcategories updated!`);
+          toast.success(`${res?.name} category created!`);
+          createCatQuestions
+            .mutateAsync({ categoryId: res?._id, questions: catQuestions })
+            .then((resQ: any) => {
+              console.log(resQ, "question cta");
+              toast.success(`${res?.name} category questions created!`);
               navigate(`/admin/manage+category`);
               setLoading(false);
             })
             .catch((err: any) => {
-              console.log(err, "upafte err sub cta");
-              toast.error(`Subcategories not updated, try again!`);
+              console.log(err, "err ques cta");
+              navigate(`/admin/manage+category`);
+              toast.error(
+                `${res.name} category questions not created, try again!`,
+              );
               setLoading(false);
             });
         })
@@ -148,10 +186,17 @@ const ManageCategories = ({}: {}) => {
   const handleUpdateSubcategory = (e: any) => {
     e.preventDefault();
     setLoading(true);
+    const newSub = subcategory.map((sub: any) => {
+      return {
+        name: sub.name,
+        description: "",
+      };
+    });
+
     createSubCategory
       .mutateAsync({
-        category: cateId,
-        ...subcategory,
+        categoryId: cateId,
+        subcategories: newSub,
       })
       .then((res: any) => {
         console.log(res, "upafte sub cta");
@@ -166,8 +211,6 @@ const ManageCategories = ({}: {}) => {
       });
   };
 
-  const updateCateName = () => {};
-
   const handleFileChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
     // const name = e.target.name;
@@ -179,11 +222,14 @@ const ManageCategories = ({}: {}) => {
   };
 
   const handleQuestionChange = (e: any, id: number) => {
-    const { value } = e.target;
+    const { name, value } = e.target;
+    const newName = name.split("-")[0];
+    console.log(newName, "new name");
+
     setQuestions((prevQuestions) => {
       return prevQuestions.map((q) => {
         if (q.id === id) {
-          return { ...q, question: value };
+          return { ...q, [newName]: value };
         }
         return q;
       });
@@ -199,6 +245,13 @@ const ManageCategories = ({}: {}) => {
 
       setQuestions(updatedQuestion);
     }
+  };
+
+  const handleRemoveSub = (name: string, index: number) => {
+    const updatedsub = subcategory.filter(
+      (sub: any, subindex: any) => sub.name !== name && subindex !== index,
+    );
+    setSubcategory(updatedsub);
   };
 
   const handleSubCat = (e: any) => {
@@ -259,16 +312,28 @@ const ManageCategories = ({}: {}) => {
                     className={`form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700 ${id !== "new" ? "bg-neutral-200 bg-opacity-70 text-neutral-500" : "bg-white bg-opacity-100 text-black"}`}
                   />
                 </label>
-                <div className="mt-2 flex flex-wrap items-center justify-start gap-3">
-                  {subcategory?.name && (
-                    <div className="ml-3 inline-flex items-center">
-                      <span className="mr-1 inline-block h-3 w-3 rounded-full border border-[#333]"></span>
-                      <span className="text-sm capitalize">
-                        {subcategory.name}
-                      </span>
-                    </div>
-                  )}
-                </div>
+                {subcategory?.length > 0 && (
+                  <div className="mt-2 flex flex-wrap items-center justify-start gap-1.5">
+                    {subcategory?.map((sub: any, index: number) => {
+                      return (
+                        <div
+                          key={index}
+                          className="inline-flex items-center gap-1 rounded bg-green-700 p-1.5"
+                        >
+                          <span className="text-xs capitalize text-white">
+                            {sub?.name}
+                          </span>
+                          <span
+                            onClick={() => handleRemoveSub(sub.name, index)}
+                            className="cursor-pointer text-white"
+                          >
+                            <BsX />
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               <label htmlFor="" className="block">
@@ -341,9 +406,11 @@ const ManageCategories = ({}: {}) => {
             </form>
           </div>
           <div className="bg-[#F4F4F4] p-4">
-            <div>
-              <div>
-                <h3 className="mb-1 text-xl font-medium text-[#333]">
+            <div
+              className={`mb-2 ${id !== "new" ? "grid grid-cols-[1fr_0.5fr] items-center gap-1" : "block"}`}
+            >
+              <div className="">
+                <h3 className="text-xl font-medium text-[#333] after:text-red-600 after:content-['*']">
                   Product Information
                 </h3>
                 <p className="text-[#A2A2A2]">
@@ -351,57 +418,73 @@ const ManageCategories = ({}: {}) => {
                   Maximum of 4.
                 </p>
               </div>
-              <button className="rounded-md bg-green-700 px-4 py-2 text-white">
-                Save Question
-              </button>
+              {id !== "new" && (
+                <button
+                  className={`w-fit justify-self-end rounded bg-green-700 px-3 py-2.5 text-sm text-white`}
+                >
+                  Update Questions
+                </button>
+              )}
             </div>
             <div className="space-y-8">
-              {questions.map((question: any, i: any) => (
-                <div key={i}>
-                  <div className="flex items-center gap-2">
+              {questions.map((question: any, i: any) => {
+                return (
+                  <div key={i}>
+                    <div className="flex items-center gap-2">
+                      <input
+                        aria-label={`question${i}`}
+                        type="text"
+                        name={`question-${i}`}
+                        id={`question-${i}`}
+                        value={question?.question}
+                        onChange={(e: any) =>
+                          handleQuestionChange(e, question.id)
+                        }
+                        className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                      />
+                      <div className="inline-flex flex-col items-center">
+                        <span className="text-sm text-[#333]">Required</span>
+                        <ToggleSwitch
+                          question={question}
+                          setQuestions={setQuestions}
+                        />
+                      </div>
+                    </div>
                     <input
-                      aria-label={`question${i}`}
                       type="text"
-                      name={`question${i}`}
-                      id={`question${i}`}
-                      value={question?.question}
+                      aria-label={`questionHint${i}`}
+                      name={`questionHint-${i}`}
+                      id={`questionHint-${i}`}
                       onChange={(e: any) =>
                         handleQuestionChange(e, question.id)
                       }
-                      className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                      value={question?.questionHint}
+                      placeholder="Question guide for easy response?"
+                      className="form-input h-[50px] w-full border-spacing-2 border-0 border-b-[2px] border-dashed border-[#D9D9D9] bg-transparent placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-b-[2px] focus:border-b-green-700 focus:ring-0"
                     />
-                    <div className="inline-flex flex-col items-center">
-                      <span className="text-sm text-[#333]">Required</span>
-                      <ToggleSwitch
-                        question={question}
-                        setQuestions={setQuestions}
-                      />
+
+                    <div
+                      className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
+                    >
+                      <button
+                        onClick={() => deleteQuestion(question.id)}
+                        disabled={questions?.length === 1}
+                        className="text-[#333]"
+                      >
+                        <BiTrashAlt size={24} />
+                      </button>
+                      <button
+                        onClick={handleAddQuestion}
+                        disabled={questions?.length === 4}
+                        className={`inline-flex h-[48px] items-center justify-center gap-2 rounded bg-transparent px-5 py-2.5 font-medium text-green-700 ring-1 ring-green-700 ${questions?.length === 4 ? "opacity-50" : "opacity-100"}`}
+                      >
+                        <BsPlus size={28} />
+                        <span>Add Question</span>
+                      </button>
                     </div>
                   </div>
-                  <div className="mt-4 border-b border-dashed border-[#A2A2A2] pb-2 text-sm font-light tracking-wide text-[#A2A2A2]">
-                    Question guide for easy response?
-                  </div>
-                  <div
-                    className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
-                  >
-                    <button
-                      onClick={() => deleteQuestion(question.id)}
-                      disabled={questions?.length === 1}
-                      className="text-[#333]"
-                    >
-                      <BiTrashAlt size={24} />
-                    </button>
-                    <button
-                      onClick={handleAddQuestion}
-                      disabled={questions?.length === 4}
-                      className={`inline-flex h-[48px] items-center justify-center gap-2 rounded bg-transparent px-5 py-2.5 font-medium text-green-700 ring-1 ring-green-700 ${questions?.length === 4 ? "opacity-50" : "opacity-100"}`}
-                    >
-                      <BsPlus size={28} />
-                      <span>Add Question</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

@@ -7,13 +7,15 @@ import moment from "moment";
 import { capitalizeFirstLetter } from "./ProductDetail";
 import { ImSpinner6 } from "react-icons/im";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { divide } from "lodash";
+import { Tooltip } from "../../components/utility/ToolTip";
 
 const ProductNameColumn = ({ d }: any) => {
   const { information } = d;
 
   return (
     <div className="flex items-center gap-2">
-      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal capitalize leading-[normal] text-[#333333]">
         {information?.productName}
       </span>
     </div>
@@ -24,7 +26,7 @@ const StoreNameColumn = ({ d }: any) => {
   const storeName = vendor?.sellerAccountInformation?.shopName;
   return (
     <div className="flex items-center gap-2">
-      <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
+      <span className=" whitespace-nowrap text-[14px] font-normal capitalize leading-[normal] text-[#333333]">
         {storeName}
       </span>
     </div>
@@ -38,7 +40,7 @@ const CategoryColumn = ({ d }: any) => {
   return (
     <div>
       <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
-        {capitalizeFirstLetter(category) || ""}
+        {capitalizeFirstLetter(category) || "Not applicable"}
       </span>
     </div>
   );
@@ -46,7 +48,7 @@ const CategoryColumn = ({ d }: any) => {
 const DateColumn = ({ d }: any) => {
   const { createdAt } = d;
 
-  const formattedDate = moment(createdAt).format("Do MMMM YYYY");
+  const formattedDate = moment(createdAt).format("Do MMM YYYY");
   return (
     <div>
       <span className="whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
@@ -185,7 +187,13 @@ const ProductCreated = () => {
     },
     {
       Header: "Product ID",
-      accessor: "_id",
+      accessor: (row: any) => {
+        return (
+          <div>
+            <Tooltip message={row?._id}>{row?._id.slice(0, 10)}...</Tooltip>
+          </div>
+        );
+      },
     },
     {
       Header: "Created",
@@ -196,7 +204,7 @@ const ProductCreated = () => {
       },
     },
     {
-      Header: "Quantity",
+      Header: "Qnty",
 
       Cell: (data) => {
         const d = data?.row.original;
@@ -249,11 +257,9 @@ const ProductCreated = () => {
   };
 
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="py-6 pl-8 pr-5">
       <div className="mb-10">
-        <h1 className="text-[36px] font-semibold leading-normal ">
-          Product Created
-        </h1>
+        <h1 className="text-2xl font-bold">Product Created</h1>
         <span className="text-sm font-normal text-[#A2A2A2]">
           Find all created product here for approval.
         </span>

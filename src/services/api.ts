@@ -95,8 +95,10 @@ export const api = {
     categoryQuestion: (id: string | null) =>
       `/api/categoryquestions/category/${id}`,
     getOneCategory: (id: string | null) => `/api/categories/${id}`,
-    subcategories: "/api/subcategories/",
+    subcategories: "/api/subcategories/batch",
     singleSubcategory: (id: string | null) => `/api/subcategories/${id}`,
+    categoryWithMultipleSub: `/api/categories/batch`,
+    categoryQuestionsBatch: "/api/categoryquestions/batch",
   },
   Payment: {
     pay: "/api/pay/",

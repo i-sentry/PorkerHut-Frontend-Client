@@ -133,18 +133,18 @@ const Category = () => {
   const setSelectedCategoryId = useCategoryModal(
     (state) => state.setSelectedCategoryId,
   );
-  const [blueDivs, setBlueDivs] = useState<BlueDiv[]>([]);
-  const handleAddBlueDiv = () => {
-    const newBlueDiv: BlueDiv = {
-      id: blueDivs.length + 1,
-    };
-    setBlueDivs([...blueDivs, newBlueDiv]);
-  };
+  // const [blueDivs, setBlueDivs] = useState<BlueDiv[]>([]);
+  // const handleAddBlueDiv = () => {
+  //   const newBlueDiv: BlueDiv = {
+  //     id: blueDivs.length + 1,
+  //   };
+  //   setBlueDivs([...blueDivs, newBlueDiv]);
+  // };
 
-  const handleCancelBlueDiv = (id: number) => {
-    const updatedBlueDivs = blueDivs.filter((blueDiv) => blueDiv.id !== id);
-    setBlueDivs(updatedBlueDivs);
-  };
+  // const handleCancelBlueDiv = (id: number) => {
+  //   const updatedBlueDivs = blueDivs.filter((blueDiv) => blueDiv.id !== id);
+  //   setBlueDivs(updatedBlueDivs);
+  // };
 
   // const validationSchema = Yup.object().shape({});
 
