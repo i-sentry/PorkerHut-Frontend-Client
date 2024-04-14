@@ -12,6 +12,7 @@ import { fetchProduct } from "../redux/features/product/productSlice";
 import { Link } from "react-router-dom";
 //@ts-ignore
 import ScrollReveal from "scrollreveal";
+import { convertFromRaw, EditorState } from "draft-js";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +30,8 @@ const Home: React.FC = () => {
       delay: 500,
     });
   }, []);
+
+
 
   return (
     <AppLayout>

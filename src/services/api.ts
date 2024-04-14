@@ -36,8 +36,10 @@ export const api = {
       `/api/vendors/reset-password/${token}`,
   },
   Blogs: {
-    allBlogs: "/api/blogs",
+    allBlogs: `/api/blogs`,
+    createBlogs:  `/api/blogs`,
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`,
+    // modifyBlog
   },
   Products: {
     allProducts: "/api/products/",
@@ -170,6 +172,7 @@ export const makeDeleteRequest = async <T = any>(
   return await axios.delete<T>(`${BASEURL}${url}`, {
     headers: {
       "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
     },
   });
 };
