@@ -1,5 +1,5 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ICategory, SkeletonLoader } from "../category-component/Category";
 
 export interface CardProps {
@@ -13,8 +13,6 @@ export const cap = (arg?: string) => {
     .join(" ");
 };
 
-
-
 const Card: React.FC<CardProps> = ({ item }) => {
   console.log(item, "title");
   if (!item) {
@@ -25,15 +23,15 @@ const Card: React.FC<CardProps> = ({ item }) => {
   return (
     <NavLink
       to={`/category/${item._id}?q=${item?.name}`}
-      className="overflow-hidden relative flex-1 max-h-[420px] flex items-center justify-center"
+      className="relative flex max-h-[420px] w-80 flex-1 items-center justify-center overflow-hidden"
     >
       <img
         src={item?.featuredImage}
         alt=""
-        className="object-cover rounded-sm transition duration-1000 ease-in hover:transform hover:scale-125 w-full h-full opacity-95"
+        className="h-full w-full rounded-sm object-cover opacity-95 transition duration-1000 ease-in hover:scale-125 hover:transform"
       />
       <div className="absolute">
-        <span className="text-white font-medium text-[24px] leading-normal">
+        <span className="text-[24px] font-medium leading-normal text-white">
           {cap(item?.name)}
         </span>
       </div>

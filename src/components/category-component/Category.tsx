@@ -33,20 +33,20 @@ const Category = () => {
   return (
     <div>
       <div>
-        <div className="flex justify-center items-center ">
-          <h1 className="font-medium md:text-[40px]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal text-[#333333]">
+        <div className="flex items-center justify-center ">
+          <h1 className="font-medium text-[#333333]   xxs:text-[20px] xxs:leading-[23px]  sm:text-[40px] sm:leading-normal md:text-[40px]">
             Shop by Categories
           </h1>
         </div>
-        <div className="flex items-center justify-center  mt-2">
+        <div className="mt-2 flex items-center  justify-center">
           <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="  mx-auto lg:overflow-x-scroll px-[4%]">
-        <div className="lg:flex gap-10 p-14 px-0 xxs:hidden md:flex justify-between">
+      <div className="hide-scroll-bar mx-auto flex overflow-x-scroll px-[4%]">
+        <div className="flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex">
           {isLoading
             ? // Render skeleton loaders when loading
-            Array.from({ length: 3 }).map((_, index) => (
+              Array.from({ length: 3 }).map((_, index) => (
                 //@ts-ignore
                 <Card key={index} item={null} />
               ))
@@ -68,7 +68,7 @@ const Category = () => {
             ))}
           </div>
         </div> */}
-        <div className="w-full flex  gap-4  whitespace-no wrap max-w-full  overflow-x-scroll py-10 lg:mt-4 -z-50 md:hidden ">
+        <div className="-z-50 flex space-x-4 py-10 md:hidden lg:mt-4 ">
           {allCategories?.data.map((item: ICategory, index: number) => (
             <MobileCard key={index} item={item} />
           ))}
@@ -127,9 +127,9 @@ export default Category;
 export const SkeletonLoader = () => {
   return (
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
-    <div className="overflow-hidden relative w-full">
+    <div className="relative w-full overflow-hidden">
       <div className="skeleton-loader"></div>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex w-full items-center justify-between">
         <div className="w-full">
           <div className="text-loader"></div>
           <div className="text-loader"></div>
