@@ -334,7 +334,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <img
                 src={selectedImage}
                 alt="Selected"
-                className="h-auto max-h-[400px] w-full"
+                className="h-auto max-h-[500px] w-full"
               />
               <div className="absolute top-2 right-2">
                 <button
@@ -364,8 +364,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="flex justify-end">
           <button
+          disabled={!selectedImage}
             onClick={handleAddToTable}
-            className="rounded-md bg-green-500 py-2 px-4 text-white transition-colors duration-200 hover:bg-green-600"
+            className="rounded-md bg-[#197B30] py-2 px-4 text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-slate-600"
           >
             Add to Table
           </button>
