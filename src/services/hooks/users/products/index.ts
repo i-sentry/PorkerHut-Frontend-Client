@@ -116,3 +116,10 @@ export const useGetRatedProduct = (userId: string, productId: string) => {
     queryKey: ["userRating +"],
   });
 };
+
+export const useUpdateProduct = (id: string) => {
+    return useQueryMutation({
+    mutationFn: (data) =>
+      makePatchRequest(data, api.Blogs.singleBlog(id)),
+  });
+}

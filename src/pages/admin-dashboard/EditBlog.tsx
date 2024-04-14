@@ -30,24 +30,17 @@ const EditBlog = () => {
   console.log(getSingleBlog && getSingleBlog.data, "juj");
   useEffect(() => {
     if (getSingleBlog) {
-      // const parsedContent = convertFromRaw(
-      //   JSON.parse(),
-      //   );
-      //   const editorState = EditorState.createWithContent(parsedContent);
-      //   setBlogContent(editorState);
-
       try {
         const parsedContent = JSON.parse(getSingleBlog.data.content);
         const editorState = EditorState.createWithContent(
           convertFromRaw(parsedContent),
         );
-      const contentText = editorState.getCurrentContent().getPlainText();
         setBlogContent(editorState);
       } catch (error) {
+        setBlogContent(EditorState.createEmpty()); // Set default value as empty editor state
         setBlog(getSingleBlog.data.content);
       }
       setImagePreview(getSingleBlog.data.featuredImage);
-
       setSubject(getSingleBlog.data.title);
     }
   }, [getSingleBlog]);

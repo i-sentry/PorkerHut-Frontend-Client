@@ -7,6 +7,9 @@ import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import moment from "moment";
 import { convertFromRaw, EditorState } from "draft-js";
 import { DeleteConfirmation } from "./Blog";
+import { orderBy } from "lodash";
+import { toast } from "react-toastify";
+
 
 const BlogContent = ({ data }: any) => {
   let contentText = null;
@@ -46,9 +49,9 @@ const BlogPost = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showConfirmation, setShowConfirmation] = useState(false);
   // const {data: getAllBlogs, refetch, isRefetching,} = useGetAllBlogs();
-  const getAllBlogs = useGetAllBlogs();
+  const {data: getAllBlogs, refetch, isRefetching} = useGetAllBlogs();
   const [itemToDelete, setItemToDelete] = useState("");
-  const blogData = getAllBlogs?.data?.data.blogs;
+const blogData = orderBy(getAllBlogs?.data, "createdAt", "desc");
   const [blogContent, setBlogContent] = useState(EditorState.createEmpty());
   const [selectedId, setSlectedId] = useState("");
   console.log(blogData);
@@ -128,14 +131,18 @@ const BlogPost = () => {
   };
 
   const handleConfirm = () => {
+
     initiateDelete
       .mutateAsync({})
       .then((res) => {
-        // refetch()
+        toast("Post deleted successfully")
+        refetch()
         setShowConfirmation(false);
       })
       .catch((err) => {});
   };
+
+  console.log(blogData)
 
   return (
     <div className="py-6 pl-8 pr-5">
