@@ -117,6 +117,31 @@ const ManageCategories = ({}: {}) => {
   //   setQuestions(updatedQuestion);
   // };
 
+  const handleCreateQuestions = (res: any) => {
+    const catQuestions = questions.map((q: any) => {
+      return {
+        question: q.question,
+        questionHint: q.questionHint,
+        required: q.required,
+      };
+    });
+
+    createCatQuestions
+      .mutateAsync({ categoryId: res?._id, questions: catQuestions })
+      .then((resQ: any) => {
+        console.log(resQ, "question cta");
+        toast.success(`${res?.name} category questions created!`);
+        navigate(`/admin/manage+category`);
+        setLoading(false);
+      })
+      .catch((err: any) => {
+        console.log(err, "err ques cta");
+        navigate(`/admin/manage+category`);
+        toast.error(`${res.name} category questions not created, try again!`);
+        setLoading(false);
+      });
+  };
+
   const handleCreateCategory = (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -129,18 +154,11 @@ const ManageCategories = ({}: {}) => {
         data.append(`subcategories[${index}]`, value);
       });
 
-      const catQuestions = questions.map((q: any) => {
-        return {
-          question: q.question,
-          questionHint: q.questionHint,
-          required: q.required,
-        };
-      });
       const d = {
         name: categoryName,
         featuredImage: image,
         subcategories: subcategory,
-        questions: catQuestions,
+        questions: questions,
       };
       console.log(d);
 
@@ -149,22 +167,9 @@ const ManageCategories = ({}: {}) => {
         .then((res: any) => {
           console.log(res, "cat cretae");
           toast.success(`${res?.name} category created!`);
-          createCatQuestions
-            .mutateAsync({ categoryId: res?._id, questions: catQuestions })
-            .then((resQ: any) => {
-              console.log(resQ, "question cta");
-              toast.success(`${res?.name} category questions created!`);
-              navigate(`/admin/manage+category`);
-              setLoading(false);
-            })
-            .catch((err: any) => {
-              console.log(err, "err ques cta");
-              navigate(`/admin/manage+category`);
-              toast.error(
-                `${res.name} category questions not created, try again!`,
-              );
-              setLoading(false);
-            });
+
+          // Category Questions Creation
+          handleCreateQuestions(res);
         })
         .catch((err: any) => {
           console.log(err, "catErr");

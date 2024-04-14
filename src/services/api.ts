@@ -117,6 +117,10 @@ export const api = {
     aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
     allVendorsAggregate: `/api/orders/aggregate/vendors`,
     allUsersAggregate: `/api/orders/aggregate/users`,
+    tracking: `/api/tracking`,
+    userTracking: (userId: string) => `/api/tracking/${userId}`,
+    trackingInfoByOrder: (userId: string) => `/api/tracking/${userId}`,
+    // /order/:orderId
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
