@@ -1,9 +1,14 @@
-// import ManageProductImageTable from "../../components/vendors-component/ManageProductImageTable";
 
 import { BsSearch } from "react-icons/bs";
-import SellerProductImageTable from "./SellerProductImageTable";
+import SellerProductImageTable, { Modal } from "./SellerProductImageTable";
+import { useState } from "react";
 
 const SellersManageProductImage = () => {
+  const [showModal, setShowModal] = useState(false)
+
+   const toggleModal = () => {
+     setShowModal(!showModal);
+   };
   return (
     <div className="mb-10 px-4 pt-6 ">
       <div className="">
@@ -33,10 +38,9 @@ const SellersManageProductImage = () => {
       </div>
 
       <div className="mt-3">
-        {/* <ManageProductImageTable /> */}
-
-        <SellerProductImageTable />
+        <SellerProductImageTable toggleModal={toggleModal} />
       </div>
+      <Modal onClose={toggleModal} isOpen={showModal} />
     </div>
   );
 };

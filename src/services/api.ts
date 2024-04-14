@@ -36,8 +36,10 @@ export const api = {
       `/api/vendors/reset-password/${token}`,
   },
   Blogs: {
-    allBlogs: "/api/blogs",
+    allBlogs: `/api/blogs`,
+    createBlogs:  `/api/blogs`,
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`,
+    // modifyBlog
   },
   Products: {
     allProducts: "/api/products/",
@@ -95,6 +97,10 @@ export const api = {
     categoryQuestion: (id: string | null) =>
       `/api/categoryquestions/category/${id}`,
     getOneCategory: (id: string | null) => `/api/categories/${id}`,
+    subcategories: "/api/subcategories/batch",
+    singleSubcategory: (id: string | null) => `/api/subcategories/${id}`,
+    categoryWithMultipleSub: `/api/categories/batch`,
+    categoryQuestionsBatch: "/api/categoryquestions/batch",
   },
   Payment: {
     pay: "/api/pay/",
@@ -113,10 +119,15 @@ export const api = {
     aggregateUserOrders: (id: string) => `/api/orders/aggregate/user/${id}`,
     allVendorsAggregate: `/api/orders/aggregate/vendors`,
     allUsersAggregate: `/api/orders/aggregate/users`,
+    tracking: `/api/tracking`,
+    userTracking: (userId: string) => `/api/tracking/${userId}`,
+    trackingInfoByOrder: (userId: string) => `/api/tracking/${userId}`,
+    // /order/:orderId
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
     getAdmin: "/api/user/admin",
+    allOverview: "/api/orders/admin/overview/",
     adminOverView: (startDate: any, endDate: any) =>
       `/api/orders/admin/overview/${startDate}/${endDate}`,
     adminGraph: (startDate: any, endDate: any) =>
@@ -134,6 +145,10 @@ export const api = {
   services: {
     allVetService: "/api/vetservice",
     weekendkills: "/api/weekendkills",
+  },
+  notification: {
+    allNotification: "/api/notification",
+    singleNotification: (id: string) => `/api/notification/${id}`,
   },
 };
 
@@ -157,6 +172,7 @@ export const makeDeleteRequest = async <T = any>(
   return await axios.delete<T>(`${BASEURL}${url}`, {
     headers: {
       "x-access-token": localStorage.getItem("accessToken") as string,
+      Token: `Bearer ${localStorage.getItem("accessToken") as string}`,
     },
   });
 };

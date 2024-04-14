@@ -1,4 +1,3 @@
-
 import { useSidebarState } from "../../store/overlay";
 import Aside from "./Aside";
 
@@ -8,17 +7,15 @@ const MainSideNav = () => {
   return (
     <div className="">
       <div
-        className={`fixed bg-[#020101a6] w-full h-[100%]   top-20  left-0 z-10 lg:hidden overflow-y-hidden border-r  ${
-          !sideBarOpen ? "hidden" : ""
+        className={`fixed top-0 left-0 z-10   h-[100%]  w-full overflow-y-hidden border-r bg-[#020101a6] lg:hidden  ${
+          !sideBarOpen ? "-translate-x-full lg:translate-x-0" : "translate-x-0"
         }`}
         onClick={() => toggleSideBarOpen()}
       ></div>
 
       <Aside />
-
     </div>
   );
 };
 
 export default MainSideNav;
-

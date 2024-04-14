@@ -26,6 +26,8 @@ export type ITable = {
   showDropDown?: boolean;
   dropDownOption?: any[];
   statusType?: string;
+  nextpage?: () => void;
+  prevPage?: () => void;
 };
 
 //@ts-ignore
@@ -40,6 +42,9 @@ const AdminTable = ({
   showCheckbox,
   showDropDown,
   dropDownOption,
+  statusType,
+  nextpage,
+  prevPage,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
@@ -111,12 +116,28 @@ const AdminTable = ({
     if (chosenTab === tabs[0]) {
       setTdata(TData);
     } else {
-      setTdata(
-        TData.filter(
-          (d: { status: string }) =>
-            d?.status?.toLowerCase() === chosenTab.toLowerCase(),
-        ),
-      );
+      if (statusType === "product") {
+        setTdata(
+          TData.filter(
+            (d: { approvalStatus: string }) =>
+              d?.approvalStatus?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      } else if (statusType === "store") {
+        setTdata(
+          TData.filter(
+            (d: { storeStatus: string }) =>
+              d?.storeStatus?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      } else {
+        setTdata(
+          TData.filter(
+            (d: { status: string }) =>
+              d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      }
     }
   }, [chosenTab, TData, tabs]);
 
@@ -319,6 +340,8 @@ const AdminTable = ({
           length={data.length}
           pageSize={pageSize}
           setPageSize={setPageSize}
+          nextpage={nextpage}
+          prevPage={prevPage}
         />
       </div>
     </>

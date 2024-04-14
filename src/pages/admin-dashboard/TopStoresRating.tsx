@@ -16,7 +16,7 @@ const TopStoresRating = () => {
     (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
   );
 
-  console.log(vendorAggregate, "sorted", sortedByAmount);
+  // console.log(vendorAggregate, "sorted", sortedByAmount);
 
   return (
     <div

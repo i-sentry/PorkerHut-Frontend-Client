@@ -7,6 +7,7 @@ export interface ISignUpUser {
   firstName: string;
   lastName: string;
   password: string;
+  phoneNumber: string;
   email: string | null;
   role?: string;
 }

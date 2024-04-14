@@ -121,7 +121,7 @@ const CartPage = () => {
         onClose={() => setShowModal(false)}
       />
 
-      <div className=" flex flex-col pt-4 xxs:mt-8 md:mt-0 md:bg-[#F5F5F5] md:pb-[4%] md:pt-5 lg:px-4 lg:pt-7">
+      <div className=" flex flex-col px-4 py-5 xxs:mt-8 md:mt-0 md:bg-[#F5F5F5] md:pb-[4%] md:pt-5 lg:px-4 lg:pt-7">
         {Object.values(cart).length > 0 ? (
           <>
             <div className="block px-4 lg:px-0">

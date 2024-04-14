@@ -1,6 +1,6 @@
 import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeGetRequest, makePostRequest } from "../../../api";
+import { api, makeCustomPutRequest, makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from "../../../api";
 
 export const useGetAllBlogs = () => {
   return useQueryAction({
@@ -14,10 +14,22 @@ export const useGetBlog = (id: string | undefined) => {
     queryKey: ["blogs", id],
   });
 };
-
-export const useCreateBlog = ()=> {
+export const useEditBlog = (id: string | undefined) => {
   return useQueryMutation({
-    mutationFn: (data: any) =>
-      makePostRequest(data, api.Blogs.allBlogs),
+    mutationFn: (data: any) => makeCustomPutRequest(data, api.Blogs.singleBlog(id)),
+
   });
-}
+};
+
+export const useDeleteBlog = (id: string | undefined) => {
+  return useQueryMutation({
+    mutationFn: () =>
+      makeDeleteRequest( api.Blogs.singleBlog(id)),
+  });
+};
+
+export const useCreateBlog = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makePostRequest(data, api.Blogs.createBlogs),
+  });
+};

@@ -116,7 +116,7 @@ const VetServices = () => {
           <div>
             <ComingSoon
               className="pt-5"
-              pendingPage="Weekend Kills"
+              pendingPage="Veterinary Service"
               items={[
                 {
                   name: "Home",

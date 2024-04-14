@@ -474,7 +474,10 @@ const MyOrderDetails = () => {
               <div className="flex min-h-[200px] flex-col justify-between rounded-lg border  border-[#D9D9D9] bg-[#F4F4F4] p-4 lg:w-[calc(50%_-_10px)] xl:w-[calc(50%_-_10px)]">
                 <div className="flex justify-between">
                   <MdOutlinePersonPinCircle size={20} />
-                  <button className="cursor-pointer text-base font-semibold text-zinc-800 underline hover:text-green-600">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="cursor-pointer text-base font-semibold text-zinc-800 underline hover:text-green-600"
+                  >
                     Track Order
                   </button>
                 </div>

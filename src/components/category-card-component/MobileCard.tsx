@@ -6,23 +6,23 @@ const MobileCard: React.FC<CardProps> = ({ item }) => {
   // const { data: allCategories, error, isLoading } = useGetAllCategories();
   return (
     <NavLink
-    to={`/category/${item?._id}?q=${item?.name}`}
-      className="flex flex-auto justify-between flex-col h-[264px] w-[65%] rounded-lg shadow-md xxs:flex-shrink-0 md:flex-shrink relative md:hidden"
+      to={`/category/${item?._id}?q=${item?.name}`}
+      className="relative flex h-[264px] w-full flex-col justify-between rounded-lg shadow-md xxs:flex-shrink-0 sm:w-1/2 md:hidden md:w-[65%] md:flex-shrink"
     >
       <div className="relative h-[264px]">
         <img
           src={item.featuredImage}
           alt=""
-          className="object-cover w-full h-[264px]"
+          className="h-[264px] w-full object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+        <div className="absolute top-0 left-0 h-full w-full bg-black opacity-30"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center">
           <div className="flex flex-col items-center">
-            <span className="text-white font-medium text-[20px] leading-[24px]">
+            <span className="text-[20px] font-medium leading-[24px] text-white">
               {cap(item.name)}
             </span>
-            <span className="bg-[#fff] w-14 h-[1px]"></span>
-            <p className="font-light text-[12px] leading-[14px] mt-1 text-[#fff]">
+            <span className="h-[1px] w-14 bg-[#fff]"></span>
+            <p className="mt-1 text-[12px] font-light leading-[14px] text-[#fff]">
               Click to shop
             </p>
           </div>

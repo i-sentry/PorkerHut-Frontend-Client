@@ -3,6 +3,7 @@ import BlogCard from "./BlogCard";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { chunkArray } from "../../helper/chunck";
 import { useGetAllBlogs } from "../../services/hooks/users/blog";
+import { orderBy } from "lodash";
 
 export interface IBlog {
   _id: string;
@@ -17,20 +18,26 @@ export interface IBlog {
 
 const BlogArticles = () => {
   const getAllBlogs = useGetAllBlogs();
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  const itemsPerPage = 8;
 
-  const [data, setData] = useState(getAllBlogs?.data?.data?.blogs);
-  let itemsPerPage = 8;
-  let currentPage = 1;
-  const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
-  useEffect(
-    () => setData(getAllBlogs?.data?.data?.blogs),
-    [getAllBlogs?.data?.data?.blogs]
-  );
-  console.log({ getAllBlogs });
+  useEffect(() => {
+    if (getAllBlogs?.data?.data) {
+    
+      const sortedData = orderBy(
+        getAllBlogs.data.data,
+        ["createdAt"],
+        ["desc"],
+      );
+      setData(sortedData);
+    }
+  }, [getAllBlogs?.data?.data]);
+
+  const [data, setData] = useState<IBlog[]>([]);
 
   if (getAllBlogs?.status === "loading") {
     return (
-      <div className="h-full justify-center flex flex-col mt-16">
+      <div className="mt-16 flex h-full flex-col justify-center">
         <Spinner />
       </div>
     );
@@ -38,16 +45,16 @@ const BlogArticles = () => {
 
   return (
     <>
-      {getAllBlogs?.data?.data?.blogs?.length ? (
+      {getAllBlogs?.data?.data?.length ? (
         <>
-          <div className="p-1 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-2 items-center justify-center lg:gap-10 xxs:gap-6">
+          <div className="grid items-center justify-center p-1 xxs:grid-cols-1 xxs:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
               (blog: any, index: any) => {
                 return <BlogCard blog={blog} key={index} />;
-              }
+              },
             )}
           </div>
-          <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 mt-10">
+          <div className="mt-10 flex items-center justify-center    gap-1 bg-white px-4 py-3 sm:px-6">
             <button
               onClick={() =>
                 currentPageIndex !== 1
@@ -56,12 +63,12 @@ const BlogArticles = () => {
               }
               className={
                 (currentPageIndex === 1 ? "no-item" : "") +
-                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
+                " rounded-l-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white "
               }
             >
               <RxCaretLeft size={22} />
             </button>
-            <div className="pagination flex gap-1 items-center">
+            <div className="pagination flex items-center gap-1">
               {chunkArray(data, itemsPerPage).map((_, index) => {
                 return (
                   <button
@@ -69,11 +76,11 @@ const BlogArticles = () => {
                     onClick={() => setCurrentPageIndex(index + 1)}
                     className={` border   border-[#A2A2A2]  ${
                       currentPageIndex === index + 1
-                        ? "active-page-index    rounded-lg text-[#197B30] border-[#197B30] bg-[#3b554115]"
-                        : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
+                        ? "active-page-index    rounded-lg border-[#197B30] bg-[#3b554115] text-[#197B30]"
+                        : "rounded-lg border-[#A2A2A2]  text-[#A2A2A2] hover:bg-slate-100"
                     }`}
                   >
-                    <span className="text-sm px-1.5">{index + 1}</span>
+                    <span className="px-1.5 text-sm">{index + 1}</span>
                   </button>
                 );
               })}
@@ -89,7 +96,7 @@ const BlogArticles = () => {
                 (currentPageIndex === chunkArray(data, itemsPerPage).length
                   ? "no-items"
                   : "") +
-                " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
+                " rounded-r-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white"
               }
             >
               <span className="">
@@ -111,7 +118,7 @@ function Spinner() {
   return (
     <div className="flex items-center justify-center">
       <svg
-        className="animate-spin h-16 w-16 mr-3 text-white"
+        className="mr-3 h-16 w-16 animate-spin text-white"
         width="24px"
         height="24px"
         viewBox="0 0 24 24"

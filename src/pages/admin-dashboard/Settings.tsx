@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -25,6 +25,12 @@ import PhoneInput from "react-phone-input-2";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CgSpinner } from "react-icons/cg";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  useGetAllNotification,
+  useGetSingleNotification,
+} from "../../services/hooks/notifications";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Full name is required"),
@@ -33,7 +39,36 @@ const schema = yup.object().shape({
   phoneNumber: yup.string().required("Phone number is required"),
 });
 
+const data = [
+  {
+    id: 1,
+    label: "Notification about new orders",
+    type: "new orders",
+    // email: "test@gmail.com",
+    status: false,
+  },
+  {
+    id: 2,
+    label: "New Stores",
+    type: "new stores",
+    status: true,
+  },
+  {
+    id: 3,
+    label: "New Product",
+    type: "new products",
+    status: true,
+  },
+  {
+    id: 4,
+    label: "Messages",
+    type: "new messages",
+    status: true,
+  },
+];
+
 const Settings = () => {
+  const [notification, setNotification] = useState(data);
   const [admin, setAdmin] = useState<any>(null);
   const [, setImage] = useState(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
@@ -54,10 +89,13 @@ const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const { data: getAllAdmin, refetch } = useGetAllAdmin();
+  const { data: getAllAdmin, refetch, isLoading: loadAdmin } = useGetAllAdmin();
   const [selectedAdmin, setSelectedAdmin] = useState<string>("");
   const updateAccess = useUpdateAdminAccess(selectedAdmin);
-
+  const allAdmin = useMemo(
+    () => (!loadAdmin ? getAllAdmin : []),
+    [getAllAdmin],
+  );
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -84,6 +122,11 @@ const Settings = () => {
     (info: any) => info.isDefault,
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
+
+  const { data: allNot, isLoading: notLoad } = useGetSingleNotification(
+    adminInfo?._id,
+  );
+  console.log("notification", allNot);
 
   useEffect(() => {
     !isLoading && setAdmin({ ...adminBilling });
@@ -116,7 +159,7 @@ const Settings = () => {
     }
   }, []);
 
-  console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
+  // console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -154,25 +197,6 @@ const Settings = () => {
   //   setCurrentImage(URL.createObjectURL(e.target.files[0]));
   //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
   // };
-
-  const data = [
-    {
-      id: 1,
-      type: "Notification about new orders",
-    },
-    {
-      id: 2,
-      type: "New Stores",
-    },
-    {
-      id: 3,
-      type: "New Product",
-    },
-    {
-      id: 4,
-      type: "Messages",
-    },
-  ];
 
   const handleInvite = (email: string, role: string) => {
     inviteAdmin
@@ -216,10 +240,12 @@ const Settings = () => {
           refetch();
           setShowConfirmationModal(false);
           setLoading(false);
+          toast.success("Admin Access Granted");
         })
         .catch((err: any) => {
           console.log(err);
           setLoading(false);
+          toast.error("Error Ocurred, try again!!!");
         });
       return;
     }
@@ -231,10 +257,12 @@ const Settings = () => {
           refetch();
           setShowConfirmationModal(false);
           setLoading(false);
+          toast.success("Admin Access Denied");
         })
         .catch((err: any) => {
           console.log(err);
           setLoading(false);
+          toast.error("Error Ocurred, try again!!!");
         });
       return;
     }
@@ -287,8 +315,11 @@ const Settings = () => {
     //   });
   };
 
+  console.log(admin?.email);
+
   return (
     <div className="pl-10 pt-10 pr-5">
+      <ToastContainer />
       <div className="mb-5">
         <div className="">
           <h1 className="text-2xl font-medium ">Settings</h1>
@@ -297,7 +328,7 @@ const Settings = () => {
           </span>
         </div>
       </div>
-      <div className="w-ful flex">
+      <div className="flex w-full">
         <nav className=" flex w-64 flex-col space-y-3 border-r-2 border-[#E8E9EB] bg-[#F4F4F4]   py-3 pl-4">
           <TabSelector
             className={` relative flex cursor-pointer items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
@@ -419,6 +450,7 @@ const Settings = () => {
                       // name="fullName"
                       {...register("fullName")}
                       // value={formData.fullName}
+                      defaultValue={`${adminInfo?.firstName} ${adminInfo?.lastName}`}
                       onChange={(e: any) => handleChange(e)}
                     />
                   </div>
@@ -426,12 +458,14 @@ const Settings = () => {
                 <div className="mt-4 flex  flex-col  text-sm">
                   <p className=" text-[#344054]">Email</p>
                   <div className="flex-[2]">
-                    <InputComponent
+                    <input
                       placeholder="Email"
                       type="email"
                       name="email"
-                      value={formData.email}
+                      className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
+                      // value={formData.email}
                       onChange={(e: any) => handleChange(e)}
+                      defaultValue={adminInfo?.email}
                       // value={number}
                       // onChange={(e) => setNumber(e.target.value)}
                     />
@@ -440,10 +474,13 @@ const Settings = () => {
                 <div className="mt-4 flex  flex-col  text-sm">
                   <p className=" text-[#344054]">Location</p>
                   <div className="flex-[2]">
-                    <InputComponent
+                    <input
                       placeholder="location"
                       type="text"
-                      value={formData.location}
+                      name="location"
+                      className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
+                      // value={formData.location}
+                      defaultValue={admin?.city}
                       onChange={(e: any) => handleChange(e)}
                       // value={number}
                       // onChange={(e) => setNumber(e.target.value)}
@@ -467,8 +504,8 @@ const Settings = () => {
                       autoFormat={true}
                       countryCodeEditable={false}
                       country={"ng"}
-                      // value={formData?.phoneNumber.slice(-10)}
-                      // onChange={(e: any) => handleChange(e)}
+                      value={`${admin?.phoneNumber?.slice(-10)}`}
+                      onChange={(e: any) => handleChange(e)}
                       inputClass={"w-[100%_!important] h-[45px_!important]"}
                     />
                   </div>
@@ -586,84 +623,92 @@ const Settings = () => {
                 <div className="container mx-auto pt-5">
                   <EmailInputComponent onGrantAccess={handleInvite} />
                 </div>
-                <div className="mt-7 space-y-2">
-                  {getAllAdmin?.length > 0 && getAllAdmin
-                    ?.filter((admin: any) => admin?._id !== adminInfo?._id)
-                    ?.map((admin: any, index: number) => (
-                      <div
-                        className="flex items-center justify-between"
-                        key={index}
-                      >
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={avatar}
-                            alt="avatar"
-                            className="h-8 w-8 object-contain"
-                          />
-                          <div className="space-y-0.5">
-                            <h1 className="text-xs font-medium capitalize text-[#333333]">
-                              {admin?.firstName} {admin?.lastName}
-                            </h1>
-                            <p className="text-xs text-[#797979]">
-                              {admin?.email}
-                            </p>
-                          </div>
-                        </div>
-
-                        <>
-                          <Popover
-                            buttonContent={
-                              admin?.isAccessRevoked ? (
-                                <span className="inline-flex items-center gap-2">
-                                  Access Denied <RxCaretDown size={20} />
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center gap-2">
-                                  Access Granted <RxCaretDown size={20} />
-                                </span>
-                              )
-                            }
-                            placementOrder={"auto"}
-                            closeOnClick={true}
-                          >
-                            <div className="w-[150px] py-2">
-                              <button
-                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                                onClick={() => {
-                                  handleButtonClick("Grant Access");
-                                  setSelectedAdmin(admin?._id);
-                                }}
-                              >
-                                Grant Access
-                              </button>
-                              {/* {permissions.canEdit && ( */}
-                              <button
-                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                                onClick={() => {
-                                  handleButtonClick("Deny Access");
-                                  setSelectedAdmin(admin?._id);
-                                }}
-                              >
-                                Deny Access
-                              </button>
-                              {/* )}  */}
-                              {/* {permissions.canDelete && ( */}
-                              <button
-                                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                                onClick={() => {
-                                  handleButtonClick("Delete Account");
-                                  setSelectedAdmin(admin?._id);
-                                }}
-                              >
-                                Delete Account
-                              </button>
-                              {/* )} */}
+                {loadAdmin && (
+                  <span className="flex items-center gap-2">
+                    <CgSpinner size={24} />
+                    Loading...
+                  </span>
+                )}
+                {!loadAdmin && (
+                  <div className="mt-7 space-y-2">
+                    {allAdmin
+                      ?.filter((admin: any) => admin?._id !== adminInfo?._id)
+                      ?.map((admin: any, index: number) => (
+                        <div
+                          className="flex items-center justify-between"
+                          key={index}
+                        >
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={avatar}
+                              alt="avatar"
+                              className="h-8 w-8 object-contain"
+                            />
+                            <div className="space-y-0.5">
+                              <h1 className="text-xs font-medium capitalize text-[#333333]">
+                                {admin?.firstName} {admin?.lastName}
+                              </h1>
+                              <p className="text-xs text-[#797979]">
+                                {admin?.email}
+                              </p>
                             </div>
-                          </Popover>
-                        </>
-                      </div>
-                    ))}
-                </div>
+                          </div>
+
+                          <>
+                            <Popover
+                              buttonContent={
+                                admin?.isAccessRevoked ? (
+                                  <span className="inline-flex items-center gap-2">
+                                    Access Denied <RxCaretDown size={20} />
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-2">
+                                    Access Granted <RxCaretDown size={20} />
+                                  </span>
+                                )
+                              }
+                              placementOrder={"auto"}
+                              closeOnClick={true}
+                            >
+                              <div className="w-[150px] py-2">
+                                <button
+                                  className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                  onClick={() => {
+                                    handleButtonClick("Grant Access");
+                                    setSelectedAdmin(admin?._id);
+                                  }}
+                                >
+                                  Grant Access
+                                </button>
+                                {/* {permissions.canEdit && ( */}
+                                <button
+                                  className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                  onClick={() => {
+                                    handleButtonClick("Deny Access");
+                                    setSelectedAdmin(admin?._id);
+                                  }}
+                                >
+                                  Deny Access
+                                </button>
+                                {/* )}  */}
+                                {/* {permissions.canDelete && ( */}
+                                <button
+                                  className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                                  onClick={() => {
+                                    handleButtonClick("Delete Account");
+                                    setSelectedAdmin(admin?._id);
+                                  }}
+                                >
+                                  Delete Account
+                                </button>
+                                {/* )} */}
+                              </div>
+                            </Popover>
+                          </>
+                        </div>
+                      ))}
+                  </div>
+                )}
               </div>
             </div>
           </TabPanel>
@@ -679,10 +724,15 @@ const Settings = () => {
                     key={d?.id}
                     className="border-1 flex items-center justify-between border border-slate-100 bg-white px-4 py-2"
                   >
-                    <div className="w-3/4 text-sm font-light">{d?.type}</div>
+                    <div className="w-3/4 text-sm font-light">{d?.label}</div>
                     <div className="w-1/4 border-l border-slate-100 pl-5">
                       {" "}
-                      <ToggleSwitch />
+                      <ToggleSwitch
+                        type={d?.type}
+                        status={d?.status}
+                        notification={notification}
+                        email={adminInfo?.email}
+                      />
                     </div>
                   </div>
                 ))}

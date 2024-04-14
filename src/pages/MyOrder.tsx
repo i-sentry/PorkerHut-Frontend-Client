@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 // import MyOrderTable from "../components/order-component/MyOrderTable";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -364,10 +364,16 @@ const MyOrder = () => {
   // const [open, setOpen] = useState<number | null>(null);
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const user = JSON.parse(localStorage.getItem("user") as string);
-  const getAllOrders = useGetCustomersOrder(user._id as string);
+  const { data: getAllOrders, isLoading } = useGetCustomersOrder(
+    user._id as string,
+  );
   console.log(getAllOrders, "Get All orders");
 
-  const allOrders = getAllOrders?.data?.orders;
+  // const allOrders = getAllOrders?.orders;
+  const allOrders = useMemo(
+    () => (isLoading ? [] : getAllOrders?.orders),
+    [getAllOrders?.orders],
+  );
   const navigate = useNavigate();
 
   const handleViewOrder = (id: any) => {
@@ -378,7 +384,7 @@ const MyOrder = () => {
   };
 
   // console.log(user, user._id, typeof user._id, "User");
-  console.log(allOrders, "All orders now");
+  console.log(allOrders, "All orders now", isLoading);
 
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
@@ -434,6 +440,14 @@ const MyOrder = () => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
 
+  const filteredOrder = (tab: string) => {
+    if (
+      selectedTab.toLowerCase() === tab.toLowerCase() &&
+      tab.toLowerCase() === "pending"
+    ) {
+    }
+  };
+
   return (
     // <h1>Hello</h1>
     <AppLayout>
@@ -449,10 +463,11 @@ const MyOrder = () => {
               //@ts-ignore
               Tcolumns={Tcolumns}
               optionalColumn={optionalColumn}
-              tabs={["All", "Pending", "Approved", "Rejected"]}
+              tabs={["All", "Pending", "Completed", "Rejected"]}
               TData={allOrders}
               placeholder={"Search product name, store names.... "}
               // showFilter={true}
+              statusType=""
             />
           ) : (
             <div className="mt-40 flex flex-col items-center justify-center">
@@ -504,7 +519,6 @@ const MyOrder = () => {
                 isActive={selectedTab === tab}
                 onClick={() => {
                   setSelectedTab(tab);
-
                   setChosenTab(tab);
                 }}
               >

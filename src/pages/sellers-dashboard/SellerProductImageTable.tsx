@@ -9,9 +9,10 @@ import {
   MdKeyboardArrowUp,
 } from "react-icons/md";
 import { useState } from "react";
+import { CiCircleRemove } from "react-icons/ci";
 import logo from "../../assets/images/porkerlogo.png";
 
-const SellerProductImageTable = () => {
+const SellerProductImageTable = (props: any) => {
   const store = JSON.parse(localStorage.getItem("vendor") as string);
   const id = store.vendor._id;
   const { data: vendorProducts, isLoading } = useGetProductByVendor(id);
@@ -19,15 +20,16 @@ const SellerProductImageTable = () => {
   const [img, setImg] = useState<{ [key: string]: string }>({});
   const [imageToRemove, setImageToRemove] = useState<string | null>(null);
 
-  const handleImage = (e: any, productId: string) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImgMap((prevImgMap) => ({
-        ...prevImgMap,
-        [productId]: imageUrl,
-      }));
-    }
+  const handleImage = (productId: string) => {
+    props.toggleModal();
+    // const file = e.target.files && e.target.files[0];
+    // if (file) {
+    //   const imageUrl = URL.createObjectURL(file);
+    //   setImgMap((prevImgMap) => ({
+    //     ...prevImgMap,
+    //     [productId]: imageUrl,
+    //   }));
+    // }
   };
 
   //   const handleImage = (e: any, productId: string) => {
@@ -96,69 +98,29 @@ const SellerProductImageTable = () => {
           <table className="w-[1000px] border-collapse">
             <thead>
               <tr>
-                <td className="w-[200px] rounded-tl-md border bg-neutral-200 px-5 py-2 text-left">
+                <td className="w-[200px] rounded-tl-md border bg-neutral-200 px-5 py-2 text-center">
                   <div className="inline-flex items-center gap-2">
                     <span>Name</span>
-                    <div>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowUp />
-                      </span>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowDown />
-                      </span>
-                    </div>
                   </div>
                 </td>
-                <td className="border bg-neutral-200 px-5 py-2 text-left">
+                <td className="border bg-neutral-200 px-5 py-2 text-center">
                   <div className="inline-flex items-center gap-2">
                     <span>Created</span>
-                    <div>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowUp />
-                      </span>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowDown />
-                      </span>
-                    </div>
                   </div>
                 </td>
-                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-left">
+                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-center">
                   <div className="inline-flex items-center gap-2">
                     <span>Product ID</span>
-                    <div>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowUp />
-                      </span>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowDown />
-                      </span>
-                    </div>
                   </div>
                 </td>
-                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-left">
+                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-center">
                   <div className="inline-flex items-center gap-2">
                     <span>All Images</span>
-                    <div>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowUp />
-                      </span>
-                      <span className="cursor-pointer hover:text-[#197b30]">
-                        <MdKeyboardArrowDown />
-                      </span>
-                    </div>
                   </div>
                 </td>
-                <td className="rounded-tr-md border bg-neutral-200 px-5 py-2 text-left">
-                  <div className="flex w-full justify-end">
-                    <button className="rounded-md border border-red-500 py-2 px-5 font-medium text-red-500">
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleUpdateProductImage}
-                      className="ml-3 rounded-md bg-[#197b30] py-2 px-8 font-medium text-white"
-                    >
-                      Save
-                    </button>
+                <td className="whitespace-nowrap border bg-neutral-200 px-5 py-2 text-center">
+                  <div className="inline-flex items-center gap-2">
+                    <span>Actions</span>
                   </div>
                 </td>
               </tr>
@@ -261,21 +223,21 @@ const SellerProductImageTable = () => {
                           </div>
                         ) : (
                           <>
-                            <label
-                              htmlFor={`file-${item._id}`}
+                            <span
+                              onClick={() => handleImage(item._id)}
                               className="flex h-full text-right text-sm"
                             >
                               <span className="my-auto cursor-pointer rounded-md border border-[#197B30] py-2 px-8 text-[14px] leading-[24px] text-[#197B30] duration-300 ease-in-out active:scale-90">
-                                Browse
+                                Add Image
                               </span>
-                            </label>
-                            <input
+                            </span>
+                            {/* <input
                               type="file"
                               name={`file-${item._id}`}
                               id={`file-${item._id}`}
                               onChange={(e) => handleImage(e, item._id)}
                               className="hidden appearance-none text-sm outline-none"
-                            />
+                            /> */}
                           </>
                         )}
                       </div>
@@ -314,3 +276,102 @@ const SellerProductImageTable = () => {
 };
 
 export default SellerProductImageTable;
+type OnCloseFunction = () => void;
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: OnCloseFunction;
+}
+
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageUpload = (e: any) => {
+    const file = e.target.files[0];
+    //@ts-ignore
+    setSelectedImage(URL.createObjectURL(file));
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+  };
+
+  const handleAddToTable = () => {
+    // Logic to add the selected image to the table
+    // You can pass the selectedImage state to the parent component or perform the necessary actions here
+  };
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm ${
+        isOpen ? "" : "hidden"
+      }`}
+    >
+      <div className="w-[80%] max-w-lg rounded-lg bg-white p-6 shadow-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-bold">Add Image</h2>
+          <button
+            onClick={onClose}
+            className="p-4 text-gray-500 transition-colors duration-200 hover:text-gray-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 1a9 9 0 100 18 9 9 0 000-18zm1 11.586l3.293 3.293a1 1 0 11-1.414 1.414L10 13.414l-3.293 3.293a1 1 0 11-1.414-1.414L8.586 12l-3.293-3.293a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414L11.414 12z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="mb-4 flex justify-center">
+          {selectedImage ? (
+            <div className="relative w-full">
+              <img
+                src={selectedImage}
+                alt="Selected"
+                className="h-auto max-h-[500px] w-full"
+              />
+              <div className="absolute top-2 right-2">
+                <button
+                  onClick={handleRemoveImage}
+                  className="rounded-full bg-red-500 p-1 text-white transition-colors duration-200 hover:bg-red-600"
+                >
+                  <CiCircleRemove />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-64 w-full items-center justify-center border border-dashed border-gray-300">
+              <label
+                htmlFor="image-upload"
+                className="cursor-pointer text-sm text-gray-500"
+              >
+                Click to browse or drag and drop an image here
+              </label>
+              <input
+                type="file"
+                id="image-upload"
+                className="hidden"
+                onChange={handleImageUpload}
+              />
+            </div>
+          )}
+        </div>
+        <div className="flex justify-end">
+          <button
+          disabled={!selectedImage}
+            onClick={handleAddToTable}
+            className="rounded-md bg-[#197B30] py-2 px-4 text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-slate-600"
+          >
+            Add to Table
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

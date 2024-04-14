@@ -9,7 +9,7 @@ const AdminOverviewTopProduct = () => {
     () => (data?.data?.length ? data?.data : []),
     [data?.data],
   );
-  console.log(vendorAggregate, "aggress");
+  // console.log(vendorAggregate, "aggress");
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -33,7 +33,7 @@ const AdminOverviewTopProduct = () => {
         {vendorAggregate
           ?.toSorted((a: any, b: any) => b?.totalOrders - a?.totalOrders)
           ?.map((product: any, index: number) => {
-            console.log(product, "prodcuxt silsis");
+            // console.log(product, "prodcuxt silsis");
             return (
               <div
                 className="flex w-full items-center justify-between"
