@@ -38,7 +38,7 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   const prevSlide = () => {
     setSlideIndex(
-      ((slideIndex - 2 + dataSlider.length) % dataSlider.length) + 1
+      ((slideIndex - 2 + dataSlider.length) % dataSlider.length) + 1,
     );
   };
 
@@ -66,15 +66,15 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   return (
     <div className="relative">
-      <div className="w-full xxs:h-[80vh] md:h-[90vh] overflow-hidden">
+      <div className="w-full overflow-hidden xxs:h-[46vh] md:h-[60vh] lg:h-[90vh]">
         {dataSlider.map((obj, index) => (
           <div
             key={obj.id}
-            className={`w-full h-full absolute opacity-0 transition-opacity duration-400 ${
+            className={`duration-400 absolute h-full w-full opacity-0 transition-opacity ${
               slideIndex === index + 1 ? "active-anim opacity-100" : ""
             }`}
           >
-            <img src={obj.src} alt="" className="w-full h-full object-cover" />
+            <img src={obj.src} alt="" className="h-full w-full object-cover" />
           </div>
         ))}
         <BtnSlider
@@ -89,15 +89,15 @@ const Slider: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
         />
       </div>
 
-      <div className="absolute mx-auto left-[50%] -bottom-5 transform -translate-x-1/2 flex mt-4">
+      <div className="absolute left-[50%] -bottom-5 mx-auto mt-4 flex -translate-x-1/2 transform">
         {dataSlider.map((obj, index) => (
           <div
             key={obj.id}
             onClick={() => moveDot(index + 1)}
-            className={`w-[6px] h-[6px]  border-3 rounded-full mr-2 ${
+            className={`border-3 mr-2  h-[6px] w-[6px] rounded-full ${
               slideIndex === index + 1
-                ? "bg-[#197B30] border-[#197B30]"
-                : "bg-gray-300 border-gray-300"
+                ? "border-[#197B30] bg-[#197B30]"
+                : "border-gray-300 bg-gray-300"
             }`}
           ></div>
         ))}
@@ -135,13 +135,13 @@ export const SearchBar = ({
   }
 
   return (
-    <div className="h-8 flex justify-between items-center bg-red-400 ">
+    <div className="flex h-8 items-center justify-between bg-red-400 ">
       <form className="min-w-full" onSubmit={(e) => onSubmit(e)}>
-        <div className="flex items-center min-w-full ">
-          <label className="flex relative">
+        <div className="flex min-w-full items-center ">
+          <label className="relative flex">
             <input
               autoFocus
-              className={`placeholder:text-slate-400 block bg-[#F4F4F4] w-[366px] md:w-[700px] border-0  py-4  pl-5 shadow-sm  sm:text-sm disabled:opacity-10 h-full placeholder:text-[12px] placeholder:leading-[14px] placeholder:font-normal rounded outline-none `}
+              className={`block h-full w-[366px] rounded border-0 bg-[#F4F4F4]  py-4  pl-5 shadow-sm  outline-none placeholder:text-[12px] placeholder:font-normal placeholder:leading-[14px] placeholder:text-slate-400 disabled:opacity-10 sm:text-sm md:w-[700px] `}
               placeholder="Search here"
               type="text"
               name="search"
@@ -150,7 +150,7 @@ export const SearchBar = ({
               onBlur={handleBlur}
             />
             <button
-              className="absolute font-bold right-1 top-[25%] text-[#A2A2A2]"
+              className="absolute right-1 top-[25%] font-bold text-[#A2A2A2]"
               onClick={() => setShowSearch(false)}
             >
               <IoClose size={22} />

@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import ReactLoading from "react-loading";
@@ -15,6 +15,7 @@ interface ISignUpProps {
   firstName: string;
   lastName: string;
   email: string;
+  phoneNumber: string;
   password: string;
   confirmPassword: string;
   // checkbox?: string;
@@ -24,6 +25,7 @@ const schema = yup.object().shape({
   firstName: yup.string().required("Enter your first name"),
   lastName: yup.string().required("Enter your last name"),
   email: yup.string().required("Enter your email"),
+  phoneNumber: yup.string().required("Enter your phone number"),
   password: yup.string().required(),
   confirmPassword: yup.string().required(),
 });
@@ -42,6 +44,7 @@ const CreateAccount: any = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
     // watch,
   } = useForm<ISignUpProps>({
@@ -49,13 +52,14 @@ const CreateAccount: any = () => {
   });
   const onSubmit = handleSubmit((data, e) => {
     setLoading(true);
-    const { firstName, lastName, email, password } = data;
+    const { firstName, lastName, email, password, phoneNumber } = data;
     createUserAcc
       //@ts-ignore
       .mutateAsync({
         firstName: firstName,
         lastName: lastName,
         email: email.toLowerCase(),
+        phoneNumber: phoneNumber,
         password: password,
       })
       .then((res) => {
@@ -103,8 +107,8 @@ const CreateAccount: any = () => {
       <div className="bg-[#F5F5F5] md:py-6">
         <div className="mt-3 w-72 py-5 px-3 xxs:ml-auto xxs:flex xxs:justify-end md:hidden">
           <Link
-            to={"/create-account"}
-            className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 font-medium tracking-wider text-[#197b30] hover:bg-[#197b39] hover:text-[#fff] "
+            to={"/affiliate"}
+            className="w-full select-none rounded border border-[#197b30] bg-[#fff] py-3 px-4 text-center font-medium tracking-wider text-[#197b30] hover:bg-[#197b39] hover:text-[#fff] "
           >
             Create a Sellers Account
           </Link>
@@ -185,6 +189,28 @@ const CreateAccount: any = () => {
                 {errors.email && (
                   <p className="mt-2 text-[#e10]">
                     {errors?.firstName?.message}
+                  </p>
+                )}
+              </div>
+              <div className="mt-2">
+                <label htmlFor="phoneNumber" className="text-base font-normal">
+                  Phone Number
+                </label>
+                <input
+                  {...register("phoneNumber")}
+                  type="tel"
+                  name="phoneNumber"
+                  placeholder="Enter your phone number "
+                  id="phoneNumber"
+                  className={`form-input mt-1 w-full rounded  border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] ${
+                    errors.phoneNumber
+                      ? "border-[#e10] focus:border-[#e10] focus:ring-[#e10]"
+                      : "border-[#EEEEEE] focus:border-[#197B30] focus:outline-none focus:ring-[#197b30]"
+                  }`}
+                />
+                {errors.phoneNumber && (
+                  <p className="mt-2 text-[#e10]">
+                    {errors?.phoneNumber?.message}
                   </p>
                 )}
               </div>

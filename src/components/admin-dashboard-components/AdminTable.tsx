@@ -42,6 +42,7 @@ const AdminTable = ({
   showCheckbox,
   showDropDown,
   dropDownOption,
+  statusType,
   nextpage,
   prevPage,
 }: ITable) => {
@@ -115,12 +116,28 @@ const AdminTable = ({
     if (chosenTab === tabs[0]) {
       setTdata(TData);
     } else {
-      setTdata(
-        TData.filter(
-          (d: { status: string }) =>
-            d?.status?.toLowerCase() === chosenTab.toLowerCase(),
-        ),
-      );
+      if (statusType === "product") {
+        setTdata(
+          TData.filter(
+            (d: { approvalStatus: string }) =>
+              d?.approvalStatus?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      } else if (statusType === "store") {
+        setTdata(
+          TData.filter(
+            (d: { storeStatus: string }) =>
+              d?.storeStatus?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      } else {
+        setTdata(
+          TData.filter(
+            (d: { status: string }) =>
+              d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
+      }
     }
   }, [chosenTab, TData, tabs]);
 

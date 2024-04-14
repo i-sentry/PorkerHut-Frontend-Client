@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import PorkerLogo from "../../assets/images/porker.png";
 import { useCategoryModal } from "../../store/overlay";
-import { categories } from "../../pages/admin-dashboard/Category";
+// import { categories } from "../../pages/admin-dashboard/Category";
 import { useNavigate } from "react-router-dom";
 
 interface ISubcategory {
@@ -15,28 +15,38 @@ const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
 };
-const CustomCatModal = () => {
+const CustomCatModal = ({
+  category,
+  setCateInfo,
+  cateInfo,
+  catName,
+  setSubcate,
+  setConfirm,
+}: any) => {
+  // console.log(catName, "catName");
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const selectedCategoryId = useCategoryModal(
-    (state) => state.selectedCategoryId
+    (state) => state.selectedCategoryId,
   );
   const navigate = useNavigate();
+  const [subcategory, setSubcategory] = useState("");
 
-  const getCategory = (
-    arr: ISubcategory[],
-    id: string
-  ): ISubcategory | null => {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].id === id) {
-        return arr[i];
-      }
-    }
-    return null; // Return null if no matching object is found
-  };
+  // const getCategory = (arr: any[], id: string): ISubcategory | null => {
+  //   for (let i = 0; i < arr?.length; i++) {
+  //     if (arr[i]?._id === id) {
+  //       return arr[i];
+  //     }
+  //   }
+  //   return null; // Return null if no matching object is found
+  // };
 
-  const cate = getCategory(categories, selectedCategoryId);
+  const selectedCat = category?.find(
+    (cat: any) => cat?._id === selectedCategoryId,
+  );
 
-  console.log(cate);
+  // const cate = getCategory(category, selectedCategoryId);
+
+  // console.log(selectedCat, "ccjjcjcjcjc");
   //   const handleOverLayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
   //     if (e.target === modalRef.current) {
   //       onClose();
@@ -46,17 +56,37 @@ const CustomCatModal = () => {
 
   const modal = {
     hidden: {
-      y: "-100vh",
+      y: "10px",
       opacity: 0,
     },
     visible: {
-      y: "250px",
+      y: "0",
       opacity: 1,
       transition: { delay: 0.5 },
     },
   };
 
-  if (cate) {
+  const handleAdd = () => {
+    const catName = String(selectedCat?._id);
+    // setCateInfo((prev: any) => !prev);
+    navigate(
+      `/admin/manage+category/${catName}?sub=${encodeURIComponent(subcategory)}`,
+    );
+    setShowModal(false);
+  };
+
+  const handleAdd2 = () => {
+    setSubcate((prev: any) => {
+      if (prev.some((item: any) => item.name === subcategory)) {
+        return prev;
+      } else {
+        return [...prev, { name: subcategory }];
+      }
+    });
+    setShowModal(false);
+  };
+
+  if (category) {
     return (
       <AnimatePresence>
         {isOpen && (
@@ -65,24 +95,24 @@ const CustomCatModal = () => {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="confirmation_modal backdrop-blur-sm bg-[#060606b6] fixed w-full h-full top-0 left-0 justify-center  items-center z-50 "
+            className="confirmation_modal fixed top-0 left-0 z-[80] flex h-full w-full items-center justify-center  bg-[#060606b6] backdrop-blur-sm "
           >
             <motion.div
               variants={modal}
-              className="max-w-xl m-auto bg-white rounded-md  relative shadow-md"
+              className="relative w-[500px] rounded-md  bg-white shadow-md"
             >
               <form>
-                <div className="bg-[#F4F4F4]  flex items-center justify-between px-8 py-3 rounded-t-md">
+                <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] px-8 py-3">
                   <div
                     onClick={() => navigate("/admin")}
-                    className="flex items-center gap-2 cursor-pointer select-none"
+                    className="flex cursor-pointer select-none items-center gap-2"
                   >
                     <img
                       src={PorkerLogo}
                       alt=""
-                      className="md:cursor-pointer h-9"
+                      className="h-9 md:cursor-pointer"
                     />
-                    <h1 className="porker sm:text-xl font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                    <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-xl">
                       Porker Hut
                     </h1>
                   </div>
@@ -93,38 +123,39 @@ const CustomCatModal = () => {
                     <AiOutlineClose />
                   </div>
                 </div>
-                <div className="px-8 mt-4">
+                <div className="mt-4 px-8">
                   <div className="w-full">
                     <label
                       htmlFor="subcategory"
-                      className="text-[#333333] text-[20px] leading-[23px]  "
+                      className="text-[20px] leading-[23px] text-[#333333]  "
                     >
-                      Add subcategory for {cate?.name}
+                      Add subcategory for{" "}
+                      <span className="capitalize">{selectedCat?.name}</span>
                     </label>
                     <input
                       name="subcategory"
                       type="text"
                       id="subcategory"
-                      className="block w-full mt-2 px-3 py-2 border rounded-md border-gray-300 shadow-sm focus:border-[#197B30] focus:ring-[#197B30] placeholder:text-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] "
-                      placeholder={`Enter ${cate?.name.toLowerCase()} subcategory name`}
+                      value={subcategory}
+                      onChange={(e) => setSubcategory(e.target.value)}
+                      className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:border-[#197B30] focus:ring-[#197B30] "
+                      placeholder={`Enter ${selectedCat?.name.toLowerCase()} subcategory name`}
                     />
                   </div>
                   {/* <p className="  ">Add subcategory for Fashion</p> */}
-                  <div className="flex justify-end items-center space-x-6 pb-8 mt-16">
+                  <div className="mt-16 flex items-center justify-end space-x-6 pb-8">
                     <div
                       onClick={() => {
                         setShowModal(false);
                       }}
-                      className="flex items-center border border-[#F91919] bg-[#fff] text-[#F91919] py-3 px-8 rounded-md cursor-pointer"
+                      className="flex cursor-pointer items-center rounded-md border border-[#F91919] bg-[#fff] py-3 px-8 text-[#F91919]"
                     >
                       <span>Cancel</span>
                     </div>
                     <div
                       typeof="submit"
-                      onClick={() => {
-                        // onClose(false);
-                      }}
-                      className="flex items-center border border-[#197b30] bg-[#197b30] text-white py-3 px-10 rounded-md cursor-pointer"
+                      onClick={handleAdd}
+                      className="flex cursor-pointer items-center rounded-md border border-[#197b30] bg-[#197b30] py-3 px-10 text-white"
                     >
                       <span>Add</span>
                     </div>
@@ -135,6 +166,90 @@ const CustomCatModal = () => {
           </motion.div>
         )}
       </AnimatePresence>
+    );
+  } else if (catName) {
+    return (
+      <>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              variants={backdrop}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="confirmation_modal fixed top-0 left-0 z-[80] flex h-full w-full items-center justify-center  bg-[#060606b6] backdrop-blur-sm "
+            >
+              <motion.div
+                variants={modal}
+                className="relative w-[500px] rounded-md  bg-white shadow-md"
+              >
+                <form>
+                  <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] px-8 py-3">
+                    <div
+                      onClick={() => navigate("/admin")}
+                      className="flex cursor-pointer select-none items-center gap-2"
+                    >
+                      <img
+                        src={PorkerLogo}
+                        alt=""
+                        className="h-9 md:cursor-pointer"
+                      />
+                      <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-xl">
+                        Porker Hut
+                      </h1>
+                    </div>
+                    <div
+                      onClick={() => setShowModal(false)}
+                      className="cursor-pointer text-[#A2A2A2] hover:text-[#000]"
+                    >
+                      <AiOutlineClose />
+                    </div>
+                  </div>
+                  <div className="mt-4 px-8">
+                    <div className="w-full">
+                      <label
+                        htmlFor="subcategory"
+                        className="text-[20px] leading-[23px] text-[#333333]  "
+                      >
+                        Add subcategory for{" "}
+                        <span className="capitalize">{catName}</span>
+                      </label>
+                      <input
+                        name="subcategory"
+                        type="text"
+                        id="subcategory"
+                        checked={true}
+                        value={subcategory}
+                        onChange={(e) => setSubcategory(e.target.value)}
+                        className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:border-[#197B30] focus:ring-[#197B30] "
+                        placeholder={`Enter ${catName?.toLowerCase()} subcategory name`}
+                      />
+                    </div>
+                    {/* <p className="  ">Add subcategory for Fashion</p> */}
+                    <div className="mt-16 flex items-center justify-end space-x-6 pb-8">
+                      <div
+                        onClick={() => {
+                          setShowModal(false);
+                        }}
+                        className="flex cursor-pointer items-center rounded-md border border-[#F91919] bg-[#fff] py-3 px-8 text-[#F91919]"
+                      >
+                        <span>Cancel</span>
+                      </div>
+                      <div
+                        typeof="submit"
+                        onClick={handleAdd2}
+                        className="flex cursor-pointer items-center rounded-md border border-[#197b30] bg-[#197b30] py-3 px-10 text-white"
+                      >
+                        <span>Add</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
     );
   } else {
     return null;

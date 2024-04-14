@@ -23,7 +23,7 @@ interface iProps {
   handleClick: (
     event:
       | React.ChangeEvent<HTMLInputElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
 }
 
@@ -40,10 +40,13 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   //@ts-ignore
-  const getCategory = useGetOneCategory(id);
-  const { data: getAllProducts } = useGetAllProducts();
+  // const getCategory = useGetOneCategory(id);
+  const { data: getAllProducts, isLoading } = useGetAllProducts();
 
-  console.log(getCategory, "getCategory");
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [q]);
+  // console.log(getCategory, "getCategory");
   console.log(getAllProducts?.data, "getAllProducts");
 
   //@ts-ignore
@@ -51,7 +54,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     .filter((d: any) => d.vendor !== undefined)
     .map((d: any) => d.vendor.businessInformation.city);
 
-  console.log(menuItems, "h");
+  // console.log(menuItems, "h");
 
   // const { approvalStatus, vendor } = getAllProducts?.data;
   // console.log(approvalStatus, vendor);
@@ -61,23 +64,21 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   useEffect(() => {
     const filter = (id: any) => {
       const newItems = getAllProducts?.data.filter((data: any) => {
-        return data.category === id;
+        return data?.information?.category?.name === q;
       });
       //@ts-ignore
       setData(newItems);
+      setFilteredData(newItems);
+      console.log(newItems, "newItems", id);
     };
     filter(id);
   }, [getAllProducts?.data, id]);
 
-  console.log(data, "data");
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // console.log(data, "data");
 
   const handleApplyClick = () => {
     const lowerCaseSelectedItems = selectedItems.map((item) =>
-      item.toLowerCase()
+      item.toLowerCase(),
     );
 
     // Check if selectedItems array is empty
@@ -90,10 +91,10 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     // Filter the data based on selectedItems, city, and price range
     const newFilteredData = data.filter((item) => {
       const categoryMatch = lowerCaseSelectedItems.includes(
-        item.information.subcategory.name.toLowerCase()
+        item.information.subcategory.name.toLowerCase(),
       );
       const cityMatch = lowerCaseSelectedItems.includes(
-        item.vendor.businessInformation.city.toLowerCase()
+        item.vendor.businessInformation.city.toLowerCase(),
       );
 
       // Adjust the logic based on your requirements
@@ -102,7 +103,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
     });
 
     console.log("Filtered Data:", newFilteredData);
-    console.log("Selected Items:", selectedItems);
+    // console.log("Selected Items:", selectedItems);
 
     // Update filteredData state
     setFilteredData(newFilteredData);
@@ -114,7 +115,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
 
   return (
     <AppLayout>
-      <div className="bg-[#EEEEEE] overflow-hidden relative">
+      <div className="relative overflow-hidden bg-[#EEEEEE]">
         <FilterSidebar
           open={openModal}
           onClose={() => setOpenModal(false)}
@@ -124,8 +125,8 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
           handleApplyClick={handleApplyClick}
           handleClear={handleClear}
         />
-        <div className="bg-[#EEEEEE] mt-24 lg:px-14 xxs:px-0">
-          <div className="lg:px-0 xxs:px-4">
+        <div className="mt-3.5 bg-[#EEEEEE] xxs:px-0 lg:mt-[32px] lg:px-4">
+          <div className="xxs:px-4 lg:px-0">
             <ProductsBreadCrumbs
               items={[
                 {
@@ -141,8 +142,8 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
             />
           </div>
 
-          <div className="lg:flex gap-8">
-            <div className="lg:w-1/4 static h-full top-[50px] bg-white p-6 xxs:hidden lg:block overflow-hidden rounded-sm">
+          <div className="gap-8 lg:flex">
+            <div className="static top-[50px] h-full overflow-hidden rounded-sm bg-white p-6 xxs:hidden lg:block lg:w-1/4">
               <Filtercomp
                 selectedItems={selectedItems}
                 setSelectedItems={setSelectedItems}
@@ -151,10 +152,10 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                 handleClear={handleClear}
               />
             </div>
-            <div className="lg:w-3/4 bg-white xxs:w-full">
+            <div className="bg-white xxs:w-full lg:w-3/4">
               <div className="flex items-center justify-between border-b  pl-3">
-                <div className="lg:flex lg:items-center lg:justify-between gap-5 xxs:py-4">
-                  <h1 className="text-[24px] leading-normal text-[#333333] font-medium">
+                <div className="gap-5 xxs:py-4 lg:flex lg:items-center lg:justify-between">
+                  <h1 className="text-[24px] font-medium leading-normal text-[#333333]">
                     {/* @ts-ignore */}
                     {cap(q)}
                   </h1>
@@ -168,13 +169,13 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                 </div>
 
                 <div className="flex items-center ">
-                  <span className="pt-2 ml-14 text-base font-normal text-[#BDBDBD] xxs:hidden lg:block">
+                  <span className="ml-14 pt-2 text-base font-normal text-[#BDBDBD] xxs:hidden lg:block">
                     Sort by:
                   </span>
                   <span className="xxs:hidden lg:block">
                     <Sort data={data} setData={setData} />
                   </span>
-                  <div className="lg:hidden xxs:block flex justify-center items-end gap-2 px-2">
+                  <div className="flex items-end justify-center gap-2 px-2 xxs:block lg:hidden">
                     <MdOutlineFilterAlt
                       className="inline"
                       size={22}
@@ -185,8 +186,16 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                 </div>
               </div>
 
-              {filteredData?.length ? (
-                <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-0 xxs:px-4">
+              {isLoading && (
+                <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
+                  {Array.from({ length: 12 }).map((_, index) => (
+                    <SkeletonLoader />
+                  ))}
+                </div>
+              )}
+
+              {!isLoading && filteredData?.length ? (
+                <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-0">
                   {chunkArray(filteredData, itemsPerPage)[
                     currentPageIndex - 1
                   ]?.map((Tdata, index) => {
@@ -195,10 +204,26 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                   })}
                 </div>
               ) : (
-                <div className="grid lg:grid-cols-3 mb-6 xxs:grid-cols-2 lg:gap-3  xxs:gap-4  lg:px-4 xxs:px-4 ">
-                  {Array.from({ length: 12 }).map((_, index) => (
-                    <SkeletonLoader />
-                  ))}
+                <div className="my-16 flex flex-col items-center justify-center">
+                  <svg
+                    className="h-12 w-12 text-gray-400"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
+                    <path
+                      d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                  <p className="mt-2 text-sm text-gray-500">
+                    No products available.
+                  </p>
                 </div>
               )}
 
@@ -211,12 +236,12 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                   }
                   className={
                     (currentPageIndex === 1 ? "no-item" : "") +
-                    " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-md p-1"
+                    " rounded-l-md border-2  border-[#A2A2A2] p-1  hover:bg-[#A2A2A2] hover:text-white"
                   }
                 >
                   <RxCaretLeft size={16} />
                 </button>
-                <div className="pagination flex gap-1 items-center">
+                <div className="pagination flex items-center gap-1">
                   {chunkArray(filteredData, itemsPerPage).map((_, index) => {
                     return (
                       <button
@@ -224,8 +249,8 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                         onClick={() => setCurrentPageIndex(index + 1)}
                         className={` border-2   border-[#A2A2A2]  ${
                           currentPageIndex === index + 1
-                            ? "active-page-index px-2 p-[1px]  flex-1 rounded-md text-[#197B30] border-[#197B30]"
-                            : "border-[#A2A2A2] text-[#A2A2A2] flex-1 p-[1px] px-2 hover:bg-slate-100 rounded-md"
+                            ? "active-page-index flex-1 rounded-md  border-[#197B30] p-[1px] px-2 text-[#197B30]"
+                            : "flex-1 rounded-md border-[#A2A2A2] p-[1px] px-2 text-[#A2A2A2] hover:bg-slate-100"
                         }`}
                       >
                         {index + 1}
@@ -244,7 +269,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                     (currentPageIndex === chunkArray(data, itemsPerPage).length
                       ? "no-items"
                       : "") +
-                    " border-2 border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white p-1 rounded-r-md"
+                    " rounded-r-md border-2  border-[#A2A2A2] p-1 hover:bg-[#A2A2A2] hover:text-white"
                   }
                 >
                   <RxCaretRight size={16} />

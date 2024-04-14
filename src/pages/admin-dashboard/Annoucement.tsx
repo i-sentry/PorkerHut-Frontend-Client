@@ -328,13 +328,13 @@ const Announcement = () => {
                               headerGroup.getHeaderGroupProps();
                             return (
                               <tr key={key} {...restHeaderProps}>
-                                {headerGroup.headers.map((column) => (
+                                {headerGroup.headers.map((column, index) => (
                                   <th
                                     className="text-primary whitespace-nowrap py-4 px-4 text-left text-sm font-normal "
                                     {...column.getHeaderProps(
                                       column.getSortByToggleProps(),
                                     )}
-                                    key={column.id}
+                                    key={column.id + `${index}`}
                                   >
                                     <div className="flex items-center">
                                       {column.render("Header")}

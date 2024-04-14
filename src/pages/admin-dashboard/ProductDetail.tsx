@@ -389,7 +389,7 @@ const ProductDetails = () => {
   console.log({ productInfo });
 
   return (
-    <div className="pl-10 pt-10 pr-5">
+    <div className="py-6 pl-8 pr-5">
       <div className="mb-5 inline-grid grid-cols-[24px_2fr] gap-5">
         <span
           className="mt-2 inline-block cursor-pointer hover:text-green-500"
@@ -398,7 +398,7 @@ const ProductDetails = () => {
           <BsArrowLeft size={32} />
         </span>
         <div className="">
-          <h1 className="text-[36px] font-semibold leading-normal">
+          <h1 className="text-2xl font-semibold leading-normal">
             Product Created
           </h1>
           <span className="text-sm font-normal text-[#A2A2A2]">

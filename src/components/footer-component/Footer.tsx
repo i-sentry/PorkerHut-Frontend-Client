@@ -45,7 +45,7 @@ const Footer = () => {
             <div>
               <p className="text-left text-sm font-normal text-[#D9D9D9] xxs:leading-8 md:leading-6">
                 An Agro-Commerce E-Commerce platform where <br /> you can put
-                your products and get customers <br /> from you at no extra cost
+                your products and get customers <br /> at no extra cost
               </p>
             </div>
           </div>

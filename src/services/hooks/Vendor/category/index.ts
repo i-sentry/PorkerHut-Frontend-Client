@@ -1,5 +1,14 @@
 import useQueryAction from "../../../../lib/useQueryAction";
-import { api, makeGetRequest } from "../../../api";
+import useQueryMutation from "../../../../lib/useQueryMutation";
+import {
+  api,
+  makeCustomPutRequest,
+  // makeDeleteRequest,
+  makeGetRequest,
+  // makePostRequest,
+  makePostRequestCustom,
+  // makePutRequest,
+} from "../../../api";
 
 export const useGetAllCategories = () => {
   return useQueryAction({
@@ -10,7 +19,8 @@ export const useGetAllCategories = () => {
 
 export const useGetAllCategoriesQuestions = () => {
   return useQueryAction({
-    queryFn: () => makeGetRequest(api.ProductsCategory.getAllCategoriesQuestion),
+    queryFn: () =>
+      makeGetRequest(api.ProductsCategory.getAllCategoriesQuestion),
     queryKey: ["allQuestions"],
   });
 };
@@ -27,4 +37,52 @@ export const useGetOneCategory = (id: string | null) => {
     queryKey: ["cate"],
   });
 };
- 
+
+export const useCreateCategories = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequestCustom(data, api.ProductsCategory.getAllCategories),
+  });
+};
+
+export const useCreateCategoriesWithSubcategories = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequestCustom(data, api.ProductsCategory.categoryWithMultipleSub),
+  });
+};
+
+export const useCreateCategoriesQuestions = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequestCustom(data, api.ProductsCategory.categoryQuestionsBatch),
+  });
+};
+
+export const useUpdateSingleCategory = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.ProductsCategory.getOneCategory(id)),
+  });
+};
+
+export const useCreateSubcategory = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequestCustom(data, api.ProductsCategory.subcategories),
+  });
+};
+
+export const useUpdateSingleSubcategory = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.ProductsCategory.singleSubcategory(id)),
+  });
+};
+
+// export const useDeleteSingleCategory = (id: string) => {
+//   return useQueryMutation({
+//     mutationFn: (data: any) =>
+//       makeDeleteRequest(data, api.ProductsCategory.getOneCategory(id)),
+//   });
+// };

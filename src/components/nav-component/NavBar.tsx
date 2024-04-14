@@ -510,13 +510,13 @@ const NavBar = ({ border }: { border?: any }) => {
               </>
             </div>
           </div>
-
-          {/* Mobile */}
-          <div className="relative lg:hidden">
-            <MainSideNav />
-          </div>
         </nav>
       </header>
+
+      {/* Mobile */}
+      <div className="relative lg:hidden">
+        <MainSideNav />
+      </div>
     </>
   );
 };

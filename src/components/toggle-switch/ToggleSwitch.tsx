@@ -1,7 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCreateNotification } from "../../services/hooks/notifications";
 
-function ToggleSwitch() {
-  const [toggle, setToggle] = useState(true);
+function ToggleSwitch({
+  type,
+  status,
+  notification,
+  email,
+}: {
+  type?: string;
+  status?: boolean;
+  notification?: any;
+  email?: string | undefined;
+}) {
+  const [toggle, setToggle] = useState(status);
+  const [notType, setNotType] = useState("");
+  const createNot = useCreateNotification();
+
+  useEffect(() => {
+    switch (type?.toLowerCase()) {
+      case "new orders":
+        setNotType(type?.toLowerCase());
+        break;
+      case "new stores":
+        setNotType(type?.toLowerCase());
+        break;
+      case "new product":
+        setNotType(type?.toLowerCase());
+        break;
+      case "messages":
+        setNotType(type?.toLowerCase());
+        break;
+      default:
+        setNotType("");
+        break;
+    }
+  }, [type]);
+
+  const handleToggle = () => {
+    setToggle(!toggle);
+    createNot
+      .mutateAsync({
+        type: notType,
+        email: `${email}`,
+        status: !status,
+      })
+      .then((res: any) => {
+        console.log(res, "notificatiuonnsnsnsns");
+      })
+      .catch((err: any) => {
+        console.log(err, "notificatiuonnsnsnsns");
+      });
+  };
 
   return (
     <div className="r">
@@ -12,9 +61,7 @@ function ToggleSwitch() {
             ? "rounded-sm border-2 border-red-500"
             : "rounded-sm border-2 border-[#22c55e]"
         } `}
-        onClick={() => {
-          setToggle(!toggle);
-        }}
+        onClick={handleToggle}
       >
         {/* Switch */}
         <div
