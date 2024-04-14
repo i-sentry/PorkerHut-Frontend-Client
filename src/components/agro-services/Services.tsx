@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-let backgroundweb = require("../../assets/images/Agro-web.jpg");
+let backgroundweb = require("../../assets/side-view.jpg");
 
 const Services = () => {
   useEffect(() => {
