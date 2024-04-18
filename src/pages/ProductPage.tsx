@@ -145,7 +145,13 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               <div className="xxs:w-full lg:w-3/4">
-                {filteredData && filteredData?.length >= 1 ? (
+                {isLoading && (
+                  <div className="my-16 flex flex-col items-center justify-center">
+                    <CgSpinnerAlt size={80} className="animate-spin" />
+                    <p className="mt-4">Fetching Products...</p>
+                  </div>
+                )}
+                {!isLoading && filteredData && filteredData?.length >= 1 && (
                   <div className=" w-full bg-white">
                     <div className="flex items-center justify-between border-b   pl-3">
                       <div className="xxs:py-4 lg:flex lg:items-center lg:justify-between lg:gap-8">
@@ -259,10 +265,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </button>
                     </div>
                   </div>
-                ) : (
+                )}
+                {!isLoading && filteredData?.length < 1 && (
                   <div className="my-16 flex flex-col items-center justify-center">
-                    {/* <svg
-                      className="w-12 h-12 text-gray-400"
+                    <svg
+                      className="h-12 w-12 text-gray-400"
                       fill="none"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -279,10 +286,7 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                     </svg>
                     <p className="mt-2 text-sm text-gray-500">
                       No products available.
-                    </p> */}
-
-                    <CgSpinnerAlt size={80} className="animate-spin" />
-                    <p className="mt-4">Fetching Products...</p>
+                    </p>
                   </div>
                 )}
               </div>

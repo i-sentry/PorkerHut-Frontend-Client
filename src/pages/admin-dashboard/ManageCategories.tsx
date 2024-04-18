@@ -7,6 +7,7 @@ import {
   useCreateCategoriesQuestions,
   useCreateCategoriesWithSubcategories,
   useCreateSubcategory,
+  useDeleteSingleCategory,
   useGetAllCategories,
   useGetAllCategoriesQuestions,
   useGetOneCategory,
@@ -36,6 +37,20 @@ const ManageCategories = ({}: {}) => {
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const [image, setImage] = useState<any>(null);
+
+  const deleteCat = useDeleteSingleCategory("66189399939e4248694d736f");
+
+  const Atims = () => {
+    deleteCat
+      .mutateAsync({})
+      .then((res: any) => {
+        console.log(res, "deleted");
+      })
+      .catch((err: any) => {
+        console.log(err, "deleted");
+      });
+  };
+
   const [questions, setQuestions] = useState<any[]>([
     {
       id: 1,
@@ -285,7 +300,7 @@ const ManageCategories = ({}: {}) => {
         <ToastContainer />
         <div className="flex items-center justify-between">
           <div className="">
-            <h1 className="text-2xl font-bold text-[#333333]">
+            <h1 onClick={Atims} className="text-2xl font-bold text-[#333333]">
               Manage Categories
             </h1>
             <span className="mt-3 text-[16px] font-normal leading-[19px] text-[#A2A2A2]">

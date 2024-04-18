@@ -4,7 +4,12 @@ import Card from "../category-card-component/Card";
 // import Header from "../header-component/Header";
 import MobileCard from "../category-card-component/MobileCard";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
 
+// Import Swiper styles
+import "swiper/css";
 export interface ICategory {
   createdAt: string;
   description: string;
@@ -42,8 +47,8 @@ const Category = () => {
           <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <div className="hide-scroll-bar mx-auto flex overflow-x-scroll px-[4%]">
-        <div className="flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex">
+      <div className="hide-scroll-bar mx-auto my-6  flex overflow-x-scroll px-4 md:px-[4%]">
+        {/* <div className="flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex">
           {isLoading
             ? // Render skeleton loaders when loading
               Array.from({ length: 3 }).map((_, index) => (
@@ -54,7 +59,41 @@ const Category = () => {
               allCategories?.data.map((item: ICategory, index: number) => (
                 <Card key={index} item={item} />
               ))}
-        </div>
+        </div> */}
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          cssMode={true}
+          // navigation={true}
+          // pagination={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
+          mousewheel={true}
+          keyboard={true}
+          modules={[Navigation, Mousewheel, Keyboard]}
+          className="mySwiper flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex"
+        >
+          {isLoading
+            ? // Render skeleton loaders when loading
+              Array.from({ length: 3 }).map((_, index) => (
+                //@ts-ignore
+                <Card key={index} item={null} />
+              ))
+            : // Render cards when data is available
+              allCategories?.data.map((item: ICategory, index: number) => (
+                <SwiperSlide>
+                  <Card key={index} item={item} />
+                </SwiperSlide>
+              ))}
+        </Swiper>
 
         {/* <div className="container mx-auto px-4 overflow-x-scroll">
           <div className="flex gap-8 py-8">
@@ -68,7 +107,7 @@ const Category = () => {
             ))}
           </div>
         </div> */}
-        <div className="-z-50 flex space-x-4 py-10 md:hidden lg:mt-4 ">
+        <div className="-z-50 hidden space-x-4 py-10 lg:mt-4 ">
           {allCategories?.data.map((item: ICategory, index: number) => (
             <MobileCard key={index} item={item} />
           ))}

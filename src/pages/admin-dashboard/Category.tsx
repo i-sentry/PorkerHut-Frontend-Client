@@ -8,7 +8,7 @@ import {
   useGetAllCategories,
   useUpdateSingleCategory,
 } from "../../services/hooks/Vendor/category";
-import ManageCategories from "./ManageCategories";
+// import ManageCategories from "./ManageCategories";
 import logo from "../../assets/images/porkerlogo.png";
 import CustomCatModal from "../../components/admin-dashboard-components/CustomCatModal";
 import { ToastContainer, toast } from "react-toastify";

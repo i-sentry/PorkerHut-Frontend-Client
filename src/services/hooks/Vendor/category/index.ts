@@ -2,7 +2,9 @@ import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
+  makeCustomDeleteRequest,
   makeCustomPutRequest,
+  makeDeleteRequest,
   // makeDeleteRequest,
   makeGetRequest,
   // makePostRequest,
@@ -80,9 +82,9 @@ export const useUpdateSingleSubcategory = (id: string) => {
   });
 };
 
-// export const useDeleteSingleCategory = (id: string) => {
-//   return useQueryMutation({
-//     mutationFn: (data: any) =>
-//       makeDeleteRequest(data, api.ProductsCategory.getOneCategory(id)),
-//   });
-// };
+export const useDeleteSingleCategory = (id: string) => {
+  return useQueryMutation({
+    mutationFn: () =>
+      makeCustomDeleteRequest(api.ProductsCategory.getOneCategory(id)),
+  });
+};

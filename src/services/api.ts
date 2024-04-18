@@ -37,7 +37,7 @@ export const api = {
   },
   Blogs: {
     allBlogs: `/api/blogs`,
-    createBlogs:  `/api/blogs`,
+    createBlogs: `/api/blogs`,
     singleBlog: (id: string | undefined) => `/api/blogs/${id}`,
     // modifyBlog
   },
@@ -275,6 +275,37 @@ export const makeGetRequestWithCustomHeader = async <T = any>(
   } catch (error) {
     // Handle error appropriately
     console.error("Error making GET request:", error);
+    throw error;
+  }
+};
+
+export const makeCustomDeleteRequest = async <T = any>(
+  url: string,
+  includeAuthHeaders: boolean = true,
+) => {
+  try {
+    const headers: { [key: string]: string } = {};
+
+    if (includeAuthHeaders) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        headers["x-access-token"] = accessToken;
+        headers["Authorization"] = `Bearer ${accessToken}`;
+        headers["Token"] = `Bearer ${accessToken}`;
+      } else {
+        throw new Error("Access token is missing");
+      }
+    }
+
+    const response = await axios.delete<T>(`${BASEURL}${url}`, {
+      headers,
+    });
+
+    return response.data;
+  } catch (error) {
+    // Handle error appropriately
+    console.error("Error making DELETE request:", error);
     throw error;
   }
 };
