@@ -41,7 +41,7 @@ const Submenu = ({ item }: { item: any }) => {
 
   return (
     <>
-      <IconContext.Provider value={{ size: "20" }}>
+      <IconContext.Provider value={{ size: "20" }} key={item.id}>
         <SideBarLink
           to={item.url}
           className={`border- ${
