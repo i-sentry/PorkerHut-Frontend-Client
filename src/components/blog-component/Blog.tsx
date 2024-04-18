@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { chunkArray } from "../../helper/chunck";
@@ -19,22 +19,19 @@ export interface IBlog {
 }
 
 const Blog = () => {
-  const getAllBlogs = useGetAllBlogs();
-  const [data, setData] = useState<IBlog[]>([]);
+  const { data: blogs } = useGetAllBlogs();
+
+  console.log(blogs, "blog");
+
   const itemsPerPage = 3;
   const [currentPageIndex] = useState(1);
 
-  useEffect(() => {
-    if (getAllBlogs?.data?.data) {
-      // Sort the data by createdAt field in descending order
-      const sortedData = orderBy(
-        getAllBlogs.data.data,
-        ["createdAt"],
-        ["desc"],
-      );
-      setData(sortedData);
+  const sortedBlogs = useMemo(() => {
+    if (blogs?.data) {
+      return orderBy(blogs?.data, ["createdAt"], ["desc"]);
     }
-  }, [getAllBlogs]);
+    return [];
+  }, [blogs?.data]);
 
   return (
     <section className="my-16  w-full">
@@ -51,21 +48,12 @@ const Blog = () => {
       </div>
       <>
         <div className="grid items-center px-[4%] xxs:grid-cols-1 xxs:gap-12 md:grid-cols-3 md:gap-3 lg:grid-cols-3 lg:gap-12 ">
-          {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
+          {chunkArray(sortedBlogs, itemsPerPage)[currentPageIndex - 1]?.map(
             (blog, index: number) => {
               return <BlogCard blog={blog} key={index} />;
             },
           )}
         </div>
-        {/* <div className="xxs:px-4 lg:px-16 grid lg:grid-cols-3 xxs:grid-cols-1 md:grid-cols-3 items-center xxs:gap-12 lg:gap-12 md:gap-3 ">
-          {isLoading
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <BlogCard key={index} blog={null} />
-              ))
-            : chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
-                (blog, index: number) => <BlogCard blog={blog} key={index} />
-              )}
-        </div> */}
       </>
 
       <Link
