@@ -85,7 +85,7 @@ const Category = () => {
             ? // Render skeleton loaders when loading
               Array.from({ length: 3 }).map((_, index) => (
                 //@ts-ignore
-                <Card key={index} item={null} />
+                <SkeletonLoader key={index} />
               ))
             : // Render cards when data is available
               allCategories?.data.map((item: ICategory, index: number) => (

@@ -149,9 +149,14 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
               <div className="xxs:w-full lg:w-3/4">
                 {isLoading && (
-                  <div className="my-16 flex flex-col items-center justify-center">
-                    <CgSpinnerAlt size={80} className="animate-spin" />
-                    <p className="mt-4">Fetching Products...</p>
+                  // <div className="my-16 flex flex-col items-center justify-center">
+                  //   <CgSpinnerAlt size={80} className="animate-spin" />
+                  //   <p className="mt-4">Fetching Products...</p>
+                  // </div>
+                  <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
+                    {Array.from({ length: 12 }).map((_, index) => (
+                      <SkeletonLoader key={index} />
+                    ))}
                   </div>
                 )}
                 {!isLoading && filteredData && filteredData?.length >= 1 && (

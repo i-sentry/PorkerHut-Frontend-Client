@@ -30,26 +30,13 @@ const ManageCategories = ({}: {}) => {
   const [subcategory, setSubcategory] = useState<any[]>([]);
   const [confirm, setConfirm] = useState(false);
   const [cateId, setCateId] = useState("");
-  const createCategory = useCreateCategoriesWithSubcategories();
+  const createCategory = useCreateCategories();
   const createSubCategory = useCreateSubcategory();
   const createCatQuestions = useCreateCategoriesQuestions();
   const updateSub = useUpdateSingleSubcategory(cateId);
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const [image, setImage] = useState<any>(null);
-
-  const deleteCat = useDeleteSingleCategory("66189399939e4248694d736f");
-
-  const Atims = () => {
-    deleteCat
-      .mutateAsync({})
-      .then((res: any) => {
-        console.log(res, "deleted");
-      })
-      .catch((err: any) => {
-        console.log(err, "deleted");
-      });
-  };
 
   const [questions, setQuestions] = useState<any[]>([
     {
@@ -146,13 +133,30 @@ const ManageCategories = ({}: {}) => {
       .then((resQ: any) => {
         console.log(resQ, "question cta");
         toast.success(`${res?.name} category questions created!`);
-        navigate(`/admin/manage+category`);
+        // navigate(`/admin/manage+category`);
         setLoading(false);
       })
       .catch((err: any) => {
         console.log(err, "err ques cta");
         navigate(`/admin/manage+category`);
         toast.error(`${res.name} category questions not created, try again!`);
+        setLoading(false);
+      });
+  };
+
+  const handleCreateSubCategories = (res: any) => {
+    createSubCategory
+      .mutateAsync({ categoryId: res?._id, subcategories: subcategory })
+      .then((resQ: any) => {
+        console.log(resQ, "subcategories res");
+        toast.success(`${res?.name} subcategories created!`);
+        // navigate(`/admin/manage+category`);
+        setLoading(false);
+      })
+      .catch((err: any) => {
+        console.log(err, "err subcategories");
+        navigate(`/admin/manage+category`);
+        toast.error(`${res.name} subcategories not created, try again!`);
         setLoading(false);
       });
   };
@@ -165,9 +169,13 @@ const ManageCategories = ({}: {}) => {
       const data = new FormData();
       data.append("name", categoryName);
       data.append("featuredImage", image);
-      subcategory.forEach((value: any, index: any) => {
-        data.append(`subcategories[${index}]`, value);
-      });
+      data.append(
+        "description",
+        `This category of products is dedicated for ${categoryName.toLowerCase()}`,
+      );
+      // subcategory.forEach((value: any, index: any) => {
+      //   data.append(`subcategories[${index}]`, value);
+      // });
 
       const d = {
         name: categoryName,
@@ -182,7 +190,8 @@ const ManageCategories = ({}: {}) => {
         .then((res: any) => {
           console.log(res, "cat cretae");
           toast.success(`${res?.name} category created!`);
-
+          // SubCategories Creation
+          handleCreateSubCategories(res);
           // Category Questions Creation
           handleCreateQuestions(res);
         })
@@ -300,7 +309,7 @@ const ManageCategories = ({}: {}) => {
         <ToastContainer />
         <div className="flex items-center justify-between">
           <div className="">
-            <h1 onClick={Atims} className="text-2xl font-bold text-[#333333]">
+            <h1 className="text-2xl font-bold text-[#333333]">
               Manage Categories
             </h1>
             <span className="mt-3 text-[16px] font-normal leading-[19px] text-[#A2A2A2]">
