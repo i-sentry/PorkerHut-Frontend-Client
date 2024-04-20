@@ -51,7 +51,7 @@ const Layout = () => {
       ) : (
         <div className="hide-scroll-bar h-screen w-screen overflow-x-hidden">
           <div className="relative grid h-full w-full grid-rows-[auto_1fr]">
-            {vendor?.storeStatus !== "pending" && (
+            {vendor?.storeStatus !== "approved" && (
               <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black bg-opacity-70">
                 <div className="relative mx-4 w-1/2 rounded-lg bg-white p-8">
                   <h3 className="mb-4 text-center text-2xl font-semibold">

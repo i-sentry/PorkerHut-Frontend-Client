@@ -27,10 +27,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CgSpinner } from "react-icons/cg";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  useGetAllNotification,
-  useGetSingleNotification,
-} from "../../services/hooks/notifications";
+// import {
+//   useGetAllNotification,
+//   useGetSingleNotification,
+// } from "../../services/hooks/notifications";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Full name is required"),
@@ -123,10 +123,10 @@ const Settings = () => {
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
 
-  const { data: allNot, isLoading: notLoad } = useGetSingleNotification(
-    adminInfo?._id,
-  );
-  console.log("notification", allNot);
+  // const { data: allNot, isLoading: notLoad } = useGetSingleNotification(
+  //   adminInfo?._id,
+  // );
+  // console.log("notification", allNot);
 
   useEffect(() => {
     !isLoading && setAdmin({ ...adminBilling });

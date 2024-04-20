@@ -4,6 +4,8 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { chunkArray } from "../../helper/chunck";
 import { useGetAllBlogs } from "../../services/hooks/users/blog";
 import { orderBy } from "lodash";
+import { SkeletonLoader } from "../category-component/Category";
+import { BsNewspaper } from "react-icons/bs";
 
 export interface IBlog {
   _id: string;
@@ -17,35 +19,40 @@ export interface IBlog {
 }
 
 const BlogArticles = () => {
-  const getAllBlogs = useGetAllBlogs();
+  const [data, setData] = useState<IBlog[]>([]);
+  const { data: getAllBlogs, isLoading } = useGetAllBlogs();
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
   const itemsPerPage = 8;
 
   useEffect(() => {
-    if (getAllBlogs?.data?.data) {
-    
-      const sortedData = orderBy(
-        getAllBlogs.data.data,
-        ["createdAt"],
-        ["desc"],
-      );
+    if (getAllBlogs?.data) {
+      const sortedData = orderBy(getAllBlogs?.data, ["createdAt"], ["desc"]);
       setData(sortedData);
     }
-  }, [getAllBlogs?.data?.data]);
+  }, [getAllBlogs?.data]);
 
-  const [data, setData] = useState<IBlog[]>([]);
+  // if (getAllBlogs?.status === "loading") {
+  //   return (
+  //     <div className="mt-16 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+  //       {Array.from({ length: 6 }, (_, index) => {
+  //         return <SkeletonLoader key={index} />;
+  //       })}
+  //     </div>
+  //   );
+  // }
 
-  if (getAllBlogs?.status === "loading") {
-    return (
-      <div className="mt-16 flex h-full flex-col justify-center">
-        <Spinner />
-      </div>
-    );
-  }
+  console.log(getAllBlogs?.data, getAllBlogs);
 
   return (
     <>
-      {getAllBlogs?.data?.data?.length ? (
+      {isLoading && (
+        <div className="grid grid-cols-1 gap-2 py-10 px-4 md:grid-cols-2 xl:grid-cols-3">
+          {Array.from({ length: 6 }, (_, index) => {
+            return <SkeletonLoader key={index} />;
+          })}
+        </div>
+      )}
+      {getAllBlogs?.data?.length && (
         <>
           <div className="grid items-center justify-center p-1 xxs:grid-cols-1 xxs:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(
@@ -105,8 +112,15 @@ const BlogArticles = () => {
             </button>
           </div>
         </>
-      ) : (
-        <div>Fetching Data...</div>
+      )}
+
+      {!isLoading && getAllBlogs?.data?.length < 1 && (
+        <div className="flex flex-col items-center">
+          <span className="mb-2 text-neutral-500">
+            <BsNewspaper size={32} />
+          </span>
+          <p>No Blog post available...</p>
+        </div>
       )}
     </>
   );

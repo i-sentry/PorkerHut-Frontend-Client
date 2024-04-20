@@ -148,124 +148,206 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
               </div>
 
               <div className="xxs:w-full lg:w-3/4">
-                {filteredData && filteredData?.length >= 1 ? (
-                  <div className=" w-full bg-white">
-                    <div className="flex items-center justify-between border-b   pl-3">
-                      <div className="xxs:py-4 lg:flex lg:items-center lg:justify-between lg:gap-8">
-                        <h1 className="font-medium text-[#333333] xxs:pl-0 xxs:text-lg lg:text-xl ">
-                          All Products
-                        </h1>
-                        <div className="flex items-center gap-3">
-                          {filteredData?.length && !isLoading && (
-                            <p className="text-sm text-[#A2A2A2] ">
-                              Showing{" "}
-                              <span className="font-medium">
-                                {currentPageIndex}
-                              </span>{" "}
-                              -{" "}
-                              <span className="font-medium">
-                                {itemsPerPage}
-                              </span>{" "}
-                              of{" "}
-                              <span className="font-medium">
-                                {filteredData?.length}
-                              </span>{" "}
-                              results
-                            </p>
-                          )}
+                <div className=" w-full bg-white">
+                  {isLoading && (
+                    <>
+                      <div className="flex items-center justify-between border-b   pl-3">
+                        <div className="xxs:py-4 lg:flex lg:items-center lg:justify-between lg:gap-8">
+                          <h1 className="font-medium text-[#333333] xxs:pl-0 xxs:text-lg lg:text-xl ">
+                            All Products
+                          </h1>
+                          <div className="flex items-center gap-3">
+                            {filteredData?.length && !isLoading && (
+                              <p className="text-sm text-[#A2A2A2] ">
+                                Showing{" "}
+                                <span className="font-medium">
+                                  {currentPageIndex}
+                                </span>{" "}
+                                -{" "}
+                                <span className="font-medium">
+                                  {itemsPerPage}
+                                </span>{" "}
+                                of{" "}
+                                <span className="font-medium">
+                                  {filteredData?.length}
+                                </span>{" "}
+                                results
+                              </p>
+                            )}
 
-                          {isLoading && (
-                            <TbLoader3 size={24} className="animate-spin" />
-                          )}
+                            {isLoading && (
+                              <TbLoader3 size={24} className="animate-spin" />
+                            )}
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="flex items-center ">
-                        <span className="ml-14 pt-2 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
-                          Sort by:
-                        </span>
-                        <span className="xxs:hidden lg:block">
-                          <Sort data={filteredData} setData={setData} />
-                        </span>
-                        <div className="cursor-pointer items-end justify-center gap-2 px-3 font-medium xxs:flex lg:hidden ">
-                          <FiSettings
-                            className="rotate-90 "
-                            size={22}
-                            onClick={() => setOpenModal(true)}
-                          />
-                          <span
-                            onClick={() => setOpenModal(true)}
-                            className="text-sm"
-                          >
-                            Filter Products
+                        <div className="flex items-center ">
+                          <span className="ml-14 pt-2 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
+                            Sort by:
                           </span>
+                          <span className="xxs:hidden lg:block">
+                            <Sort data={filteredData} setData={setData} />
+                          </span>
+                          <div className="cursor-pointer items-end justify-center gap-2 px-3 font-medium xxs:flex lg:hidden ">
+                            <FiSettings
+                              className="rotate-90 "
+                              size={22}
+                              onClick={() => setOpenModal(true)}
+                            />
+                            <span
+                              onClick={() => setOpenModal(true)}
+                              className="text-sm"
+                            >
+                              Filter Products
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {filteredData?.length ? (
-                      <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4 md:grid-cols-3  lg:gap-3 lg:px-0">
-                        {chunkArray(Object.values(filteredData), itemsPerPage)[
-                          currentPageIndex - 1
-                        ]?.map((Tdata, index) => {
-                          return <ProductCard item={Tdata} key={index} />;
-                        })}
-                      </div>
-                    ) : (
                       <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
-                        {Array.from({ length: 12 }).map((_, index) => (
-                          <SkeletonLoader />
+                        {Array.from({ length: 6 }).map((_, index) => (
+                          <SkeletonLoader key={index} />
                         ))}
                       </div>
-                    )}
+                    </>
+                  )}
+                  {!isLoading && filteredData && filteredData?.length >= 1 && (
+                    <>
+                      <div className="flex items-center justify-between border-b   pl-3">
+                        <div className="xxs:py-4 lg:flex lg:items-center lg:justify-between lg:gap-8">
+                          <h1 className="font-medium text-[#333333] xxs:pl-0 xxs:text-lg lg:text-xl ">
+                            All Products
+                          </h1>
+                          <div className="flex items-center gap-3">
+                            {filteredData?.length && !isLoading && (
+                              <p className="text-sm text-[#A2A2A2] ">
+                                Showing{" "}
+                                <span className="font-medium">
+                                  {currentPageIndex}
+                                </span>{" "}
+                                -{" "}
+                                <span className="font-medium">
+                                  {itemsPerPage}
+                                </span>{" "}
+                                of{" "}
+                                <span className="font-medium">
+                                  {filteredData?.length}
+                                </span>{" "}
+                                results
+                              </p>
+                            )}
 
-                    <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
-                      <button
-                        onClick={next}
-                        className={
-                          (currentPageIndex === 1 ? "no-item" : "") +
-                          " rounded-l-md border-2  border-[#A2A2A2] p-1  hover:bg-[#A2A2A2] hover:text-white"
-                        }
-                      >
-                        <RxCaretLeft size={16} />
-                      </button>
-                      <div className="pagination flex items-center gap-1">
-                        {chunkArray(filteredData, itemsPerPage).map(
-                          (_, index) => {
-                            return (
-                              <button
-                                key={index}
-                                onClick={() => setCurrentPageIndex(index + 1)}
-                                className={` border-2   border-[#A2A2A2]  ${
-                                  currentPageIndex === index + 1
-                                    ? "active-page-index flex-1 rounded-md  border-[#197B30] p-[1px] px-2 text-[#197B30]"
-                                    : "flex-1 rounded-md border-[#A2A2A2] p-[1px] px-2 text-[#A2A2A2] hover:bg-slate-100"
-                                }`}
-                              >
-                                {index + 1}
-                              </button>
-                            );
-                          },
-                        )}
+                            {isLoading && (
+                              <TbLoader3 size={24} className="animate-spin" />
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center ">
+                          <span className="ml-14 pt-2 text-sm font-normal text-[#BDBDBD] xxs:hidden lg:block">
+                            Sort by:
+                          </span>
+                          <span className="xxs:hidden lg:block">
+                            <Sort data={filteredData} setData={setData} />
+                          </span>
+                          <div className="cursor-pointer items-end justify-center gap-2 px-3 font-medium xxs:flex lg:hidden ">
+                            <FiSettings
+                              className="rotate-90 "
+                              size={22}
+                              onClick={() => setOpenModal(true)}
+                            />
+                            <span
+                              onClick={() => setOpenModal(true)}
+                              className="text-sm"
+                            >
+                              Filter Products
+                            </span>
+                          </div>
+                        </div>
                       </div>
+                      {filteredData?.length ? (
+                        <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4 md:grid-cols-3  lg:gap-3 lg:px-0">
+                          {chunkArray(
+                            Object.values(filteredData),
+                            itemsPerPage,
+                          )[currentPageIndex - 1]?.map((Tdata, index) => {
+                            return <ProductCard item={Tdata} key={index} />;
+                          })}
+                        </div>
+                      ) : (
+                        <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
+                          {Array.from({ length: 12 }).map((_, index) => (
+                            <SkeletonLoader />
+                          ))}
+                        </div>
+                      )}
+                      <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6">
+                        <button
+                          onClick={next}
+                          className={
+                            (currentPageIndex === 1 ? "no-item" : "") +
+                            " rounded-l-md border-2  border-[#A2A2A2] p-1  hover:bg-[#A2A2A2] hover:text-white"
+                          }
+                        >
+                          <RxCaretLeft size={16} />
+                        </button>
+                        <div className="pagination flex items-center gap-1">
+                          {chunkArray(filteredData, itemsPerPage).map(
+                            (_, index) => {
+                              return (
+                                <button
+                                  key={index}
+                                  onClick={() => setCurrentPageIndex(index + 1)}
+                                  className={` border-2   border-[#A2A2A2]  ${
+                                    currentPageIndex === index + 1
+                                      ? "active-page-index flex-1 rounded-md  border-[#197B30] p-[1px] px-2 text-[#197B30]"
+                                      : "flex-1 rounded-md border-[#A2A2A2] p-[1px] px-2 text-[#A2A2A2] hover:bg-slate-100"
+                                  }`}
+                                >
+                                  {index + 1}
+                                </button>
+                              );
+                            },
+                          )}
+                        </div>
 
-                      <button
-                        onClick={prev}
-                        className={
-                          (currentPageIndex ===
-                          chunkArray(filteredData, itemsPerPage).length
-                            ? "no-items"
-                            : "") +
-                          " rounded-r-md border-2  border-[#A2A2A2] p-1 hover:bg-[#A2A2A2] hover:text-white"
-                        }
-                      >
-                        <RxCaretRight size={16} />
-                      </button>
-                    </div>
-                  </div>
-                ) : (
+                        <button
+                          onClick={prev}
+                          className={
+                            (currentPageIndex ===
+                            chunkArray(filteredData, itemsPerPage).length
+                              ? "no-items"
+                              : "") +
+                            " rounded-r-md border-2  border-[#A2A2A2] p-1 hover:bg-[#A2A2A2] hover:text-white"
+                          }
+                        >
+                          <RxCaretRight size={16} />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {!isLoading && filteredData?.length < 1 && (
                   <div className="my-16 flex flex-col items-center justify-center">
-                    <CgSpinnerAlt size={80} className="animate-spin" />
-                    <p className="mt-4">Fetching Products...</p>
+                    <svg
+                      className="h-12 w-12 text-gray-400"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
+                      <path
+                        d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                    <p className="mt-2 text-sm text-gray-500">
+                      No products available.
+                    </p>
                   </div>
                 )}
               </div>

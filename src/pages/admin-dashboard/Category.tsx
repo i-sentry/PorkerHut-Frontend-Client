@@ -5,14 +5,18 @@ import { IoAdd } from "react-icons/io5";
 import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  useDeleteSingleCategory,
   useGetAllCategories,
   useUpdateSingleCategory,
 } from "../../services/hooks/Vendor/category";
-import ManageCategories from "./ManageCategories";
+// import ManageCategories from "./ManageCategories";
 import logo from "../../assets/images/porkerlogo.png";
 import CustomCatModal from "../../components/admin-dashboard-components/CustomCatModal";
 import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import { BsPlus, BsX } from "react-icons/bs";
+import moment from "moment";
+import { useGetAllProducts } from "../../services/hooks/users/products";
 
 interface BlueDiv {
   id: number;
@@ -106,6 +110,8 @@ const Category = () => {
   const [categoryName, setCategoryName] = useState("");
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<any>();
   // const location = useLocation();
   const navigate = useNavigate();
   const { data: allcat, isLoading, refetch } = useGetAllCategories();
@@ -335,6 +341,15 @@ const Category = () => {
                               >
                                 Add subcategory
                               </button>
+                              <button
+                                onClick={() => {
+                                  setIsOpen(true);
+                                  setSelectedCategory(cat);
+                                }}
+                                className="rounded-sm border border-[#D9D9D9] px-4 py-1 text-[16px]  font-normal leading-[19px] text-[#333333]"
+                              >
+                                View
+                              </button>
                             </div>
                           )}
                         </div>
@@ -360,11 +375,201 @@ const Category = () => {
             )}
           </div>
         )}
-        
       </div>
       {showModal && <CustomCatModal category={category} />}
+      <CategoryInfoModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedCategory={selectedCategory}
+      />
     </>
   );
 };
 
 export default Category;
+
+const CategoryInfoModal = ({
+  isOpen,
+  setIsOpen,
+  selectedCategory,
+}: {
+  isOpen: boolean;
+  setIsOpen: any;
+  selectedCategory: any;
+}) => {
+  const [editImg, setEditImg] = useState(false);
+  const [imgUrl, setImgUrl] = useState<string>();
+  const [file, setFile] = useState<any>();
+  const { data, isLoading } = useGetAllProducts();
+  const deleteCat = useDeleteSingleCategory(selectedCategory?._id);
+
+  console.log(data?.data, "all products");
+
+  const handleChange = (e: any) => {
+    const file = e.target.files && e.target.files[0];
+    const name = e.target.name;
+    // setImage1
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setImgUrl(url);
+      setFile(file);
+      console.log(url, "url", file);
+    }
+    console.log(file, e.target.name);
+  };
+
+  const allCatProds = (arr: any) => {
+    console.log(
+      arr?.filter(
+        (item: any) =>
+          item?.information?.category?.name.toLowerCase() ===
+          selectedCategory?.name.toLowerCase(),
+      ),
+      selectedCategory?.name,
+    );
+    return arr?.filter(
+      (item: any) =>
+        item?.information?.category?.name.toLowerCase() ===
+        selectedCategory?.name.toLowerCase(),
+    )?.length;
+  };
+
+  const handleRemove = () => {
+    setImgUrl("");
+    setFile(null);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setImgUrl("");
+    setFile(null);
+  };
+
+  const handleDeleteCategory = () => {
+    deleteCat
+      .mutateAsync({})
+      .then((res: any) => {
+        console.log(res, "deleted");
+      })
+      .catch((err: any) => {
+        console.log(err, "deleted");
+      });
+  };
+
+  return (
+    <div
+      className={`${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-black bg-opacity-50`}
+    >
+      <div className="relative mt-8 h-[80vh] w-[500px] overflow-auto rounded bg-white">
+        <div className="flex items-center justify-between border-b border-neutral-300 px-6 py-4">
+          <h3 className="text-xl font-bold">Category Information</h3>
+          <span onClick={handleClose} className="cursor-pointer">
+            <BsX size={32} />
+          </span>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-row gap-3">
+            <div className="flex flex-col">
+              <div className="group relative h-[160px] w-[170px] overflow-hidden rounded-md">
+                <input
+                  type="file"
+                  name="catImg"
+                  id="catImg"
+                  onChange={(e) => handleChange(e)}
+                  className="hidden"
+                />
+                {imgUrl ? (
+                  <img
+                    src={imgUrl}
+                    alt="Featured Category Image"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={selectedCategory?.featuredImage}
+                    alt="category-image"
+                    className="h-full w-full rounded-md object-cover object-center"
+                  />
+                )}
+
+                {file && (
+                  <span
+                    onClick={handleRemove}
+                    className="absolute top-1 right-1 inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded bg-red-600 text-sm capitalize text-white"
+                  >
+                    <BsX size={24} />
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col justify-center">
+              <ul>
+                <li className="inline-block text-xs text-neutral-500">
+                  Category Name
+                </li>
+                <li className="text-sm capitalize">{selectedCategory?.name}</li>
+              </ul>
+              <ul>
+                <li className="inline-block text-xs text-neutral-500">
+                  Category Description
+                </li>
+                <li className="text-sm">
+                  {selectedCategory?.description ||
+                    "This category has no description yet"}
+                </li>
+              </ul>
+
+              <div className="mt-2 space-x-2">
+                <label
+                  htmlFor="catImg"
+                  className="inline-flex cursor-pointer items-center justify-center rounded border border-green-700 border-opacity-50 bg-neutral-100 py-2 px-3 text-xs capitalize text-green-700"
+                >
+                  Change Image
+                </label>
+                <button className="inline-flex cursor-pointer items-center justify-center rounded bg-green-700 py-2 px-3 text-xs capitalize text-white">
+                  Update Image
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h3 className="font-medium">Subcategories:</h3>
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              {selectedCategory?.subcategories?.map((sub: any, index: any) => (
+                <span
+                  className="rounded bg-green-700 p-2 px-4 text-xs capitalize text-white"
+                  key={index}
+                >
+                  {sub?.name}
+                </span>
+              ))}
+              {selectedCategory?.subcategories?.length < 1 && (
+                <p>No Subcategories available</p>
+              )}
+            </div>
+          </div>
+          <div className="mt-4 space-y-1">
+            <div>
+              <strong>Created Date:</strong>{" "}
+              {moment(selectedCategory?.createdAt).format("Do MMMM, YYYY")}
+            </div>
+            <div>
+              <strong>Last Modified:</strong>{" "}
+              {moment(selectedCategory?.updatedAt).format("Do MMMM, YYYY")}
+            </div>
+            <div>
+              <strong>Category Products:</strong> {allCatProds(data?.data)}{" "}
+              Products available
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-6 right-6 flex justify-end">
+          <button className="rounded bg-red-600 px-5 py-2 text-white">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

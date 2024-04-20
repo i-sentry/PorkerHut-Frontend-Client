@@ -58,12 +58,15 @@ const DateColumn = ({ d }: any) => {
 };
 
 const StoreNameColumn = ({ d }: any) => {
-  // const { vendor } = d;
+  const { vendor } = d;
   // const { data: vendor } = useGetVendorById(d?.productDetails[0]?.vendor?._id);
   console.log("vendor store-colum", d);
 
-  const storeName = d?.sellerAccountInformation?.shopName || "";
-  const storeCity = d?.businessInformation?.city || "";
+  const storeName =
+    d?.productDetails[0]?.productID?.vendor?.sellerAccountInformation
+      ?.shopName || "";
+  const storeCity =
+    d?.productDetails[0]?.productID?.vendor?.businessInformation?.city || "";
   return (
     <div className="flex flex-col items-start">
       <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
@@ -250,17 +253,7 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Store Name",
     accessor: (row) => {
-      console.log(row, "my atims row");
-      return (
-        <div className="flex flex-col items-start">
-          <span className=" whitespace-nowrap text-[14px] font-normal leading-[normal] text-[#333333]">
-            {/* {"storeName"} */}
-          </span>
-          <span className="mt-1 text-sm font-light capitalize text-neutral-400">
-            {/* {"storeCity"} */}
-          </span>
-        </div>
-      );
+      return <StoreNameColumn d={row} />;
     },
     // @ts-ignore
 

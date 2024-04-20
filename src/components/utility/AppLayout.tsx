@@ -42,7 +42,7 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
         <ToastContainer style={{ width: "500px" }} />
         <div className="children">{children}</div>
         <a
-          href="https://wa.me/+234804589322"
+          href="https://wa.me/+2348057808076?text=Hello%20PorkerHut%20Support!"
           target="_blank"
           aria-label="Whatsapp"
           className="group fixed bottom-6 right-6 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-700"

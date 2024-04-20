@@ -37,7 +37,7 @@ export const useGetSingleProduct = (id: string) => {
 
 export const useUpdateProductVisibility = (id: string | number) => {
   return useQueryMutation({
-    mutationFn: (data: { visibilityStatus: string }) =>
+    mutationFn: (data) =>
       makePutRequest(data, api.Products.visibilityStatus(id)),
   });
 };

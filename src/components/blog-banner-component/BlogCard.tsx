@@ -17,14 +17,7 @@ const Loader = () => (
 );
 
 const BlogCard = ({ blog }: { blog: any }) => {
-  const {
-    featuredImage,
-    title,
-    createdAt,
-    content,
-    _id,
-    slug,
-  } = blog || {};
+  const { featuredImage, title, createdAt, content, _id, slug } = blog || {};
   const { minutes } = useReadingTime(content);
 
   const formattedDate = moment(createdAt).format("MMMM Do YYYY");
@@ -43,11 +36,10 @@ const BlogCard = ({ blog }: { blog: any }) => {
     }
   }, []);
 
-    const truncatedString = contentText?.slice(0, 150) + "...";
-
+  const truncatedString = contentText?.slice(0, 150) + "...";
 
   return (
-    <div className="group max-w-[500px] overflow-hidden rounded-md bg-white hover:shadow-md">
+    <div className="group w-full overflow-hidden rounded-md bg-white hover:shadow-md sm:mx-auto sm:max-w-[500px] md:w-full">
       {blog ? (
         <>
           <Link to="#" className="">
