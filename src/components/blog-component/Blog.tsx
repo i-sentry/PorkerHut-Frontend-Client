@@ -5,6 +5,7 @@ import { chunkArray } from "../../helper/chunck";
 import BlogCard from "../blog-banner-component/BlogCard";
 import { useGetAllBlogs } from "../../services/hooks/users/blog";
 import { orderBy } from "lodash";
+import { SkeletonLoader } from "../category-component/Category";
 
 export interface IBlog {
   _id: string;
@@ -19,7 +20,7 @@ export interface IBlog {
 }
 
 const Blog = () => {
-  const { data: blogs } = useGetAllBlogs();
+  const { data: blogs, isLoading } = useGetAllBlogs();
 
   console.log(blogs, "blog");
 
@@ -42,18 +43,28 @@ const Blog = () => {
           </h1>
         </div>
 
-        <div className="flex items-center justify-center ">
+        <div className="mt-1 flex items-center justify-center">
           <div className="  h-1.5 w-24 bg-[#197B30]"></div>
         </div>
       </div>
-      <>
-        <div className="grid items-center px-[4%] xxs:grid-cols-1 xxs:gap-12 md:grid-cols-3 md:gap-3 lg:grid-cols-3 lg:gap-12 ">
-          {chunkArray(sortedBlogs, itemsPerPage)[currentPageIndex - 1]?.map(
-            (blog, index: number) => {
-              return <BlogCard blog={blog} key={index} />;
-            },
-          )}
+
+      {isLoading && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 3 }, (_, index) => {
+            return <SkeletonLoader key={index} />;
+          })}
         </div>
+      )}
+      <>
+        {!isLoading && sortedBlogs?.length >= 1 && (
+          <div className="grid items-center px-[4%] xxs:grid-cols-1 xxs:gap-12 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-12 ">
+            {chunkArray(sortedBlogs, itemsPerPage)[currentPageIndex - 1]?.map(
+              (blog, index: number) => {
+                return <BlogCard blog={blog} key={index} />;
+              },
+            )}
+          </div>
+        )}
       </>
 
       <Link

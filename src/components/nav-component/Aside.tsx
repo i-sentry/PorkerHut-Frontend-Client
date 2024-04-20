@@ -176,11 +176,11 @@ const Aside = () => {
         </span>
       </div> */}
 
-      {MainSideBarLinks?.map((item) => {
+      {MainSideBarLinks?.map((item, index) => {
         //@ts-ignore
         return (
           <>
-            <Submenu item={item} />
+            <Submenu item={item} key={index} />
           </>
         );
       })}

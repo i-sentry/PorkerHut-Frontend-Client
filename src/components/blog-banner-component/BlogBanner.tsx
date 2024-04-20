@@ -5,7 +5,7 @@ import blog from "../../assets/blog.png";
 const BlogBanner = () => {
   return (
     <div
-      className="  flex   w-full items-center bg-cover bg-center xxs:h-[300px] xxs:justify-center md:h-[300px] md:justify-start  md:px-14"
+      className="flex w-full items-center bg-cover bg-center xxs:h-[300px] xxs:justify-center md:h-[300px] md:justify-start  md:px-14"
       style={{
         backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${blog}')`,
 
