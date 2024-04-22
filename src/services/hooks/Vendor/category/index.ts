@@ -57,7 +57,10 @@ export const useCreateCategoriesWithSubcategories = () => {
 export const useCreateCategoriesQuestions = () => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makePostRequestCustom(data, api.ProductsCategory.categoryQuestionsBatch),
+      makePostRequestCustom(
+        data,
+        api.ProductsCategory.getAllCategoriesQuestion,
+      ),
   });
 };
 

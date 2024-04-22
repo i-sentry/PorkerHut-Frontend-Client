@@ -70,7 +70,7 @@ interface CountdownProps {
 //   );
 // };
 
-export default function Timer({ setOpenTimer, setTimestamp }: any) {
+export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
   const [countdown, setCountdown] = useState<any>(0);
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
@@ -87,9 +87,9 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
 
   useEffect(() => {
     // Check if expiration timestamp is stored in localStorage
-    const timer = JSON.parse(localStorage.getItem("timer") as string);
-
-    if (timer) {
+    const timer = JSON.parse(localStorage.getItem("expirationTimestamp") as string);
+    console.log(timer);
+    if (timer && id === timer?._id) {
       // // Calculate expiration timestamp if not found
       // const currentDate = new Date();
       // currentDate.setDate(currentDate.getDate() + 4); // Add 4 days
@@ -104,12 +104,12 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const timeDifference =
-        parseInt(localStorage.getItem("expirationTimestamp") || "0", 10) - now;
-
+        timer?.endDate && parseInt(timer?.endDate || "0", 10) - now;
+      console.log(timeDifference, "timeDifference", timer?.endDate);
       if (timeDifference <= 0) {
         // Trigger delete action when countdown expires
         // Perform your delete action here
-        localStorage.removeItem("expirationTimestamp");
+        // localStorage.removeItem("expirationTimestamp");
         clearInterval(interval);
       } else {
         // Calculate remaining time
@@ -158,6 +158,8 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
 
   const handleReset = () => {
     localStorage.removeItem("expirationTimestamp");
+    localStorage.removeItem("timer");
+
     setCountdown(0);
     setDays(0);
     setHours(0);
@@ -168,8 +170,7 @@ export default function Timer({ setOpenTimer, setTimestamp }: any) {
 
   return (
     <>
-      <ToastContainer />
-      <div className="fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-black bg-opacity-70">
+      <div className="fixed top-0 left-0 z-[70] flex h-screen w-full items-center justify-center bg-black bg-opacity-70">
         <div className="relative w-[500px] bg-neutral-50 py-10 px-8">
           <span
             className="absolute top-3 right-3 cursor-pointer text-[#333]"

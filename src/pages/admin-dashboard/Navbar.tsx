@@ -21,7 +21,7 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
     navigate("/admin-login");
   };
   return (
-    <div className="fixed top-0 z-50 flex  h-16 w-full items-center justify-between border border-[#D9D9D9]  bg-white px-4">
+    <div className="fixed top-0 z-[90] flex  h-16 w-full items-center justify-between border border-[#D9D9D9]  bg-white px-4">
       {/* <ToastContainer /> */}
       <div className="flex items-center justify-center xxs:gap-3 md:gap-2 ">
         <FaBars
