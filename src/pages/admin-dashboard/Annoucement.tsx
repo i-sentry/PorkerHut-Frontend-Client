@@ -24,6 +24,7 @@ import {
 import { ToastContainer } from "react-toastify";
 import logo from "../../assets/images/porkerlogo.png";
 import moment from "moment";
+import { MdOutlineAccessAlarm } from "react-icons/md";
 
 interface SelectOption {
   value: string;
@@ -108,9 +109,25 @@ const Announcement = () => {
       {
         Header: "Subject",
         accessor: (row: any) => {
+          const end = new Date(row?.endDate).getTime() - new Date().getTime();
+          console.log(end, "end");
+          const handleClick = (a: any) => {
+            setSelectedRow(a);
+            setShowRowModal(true);
+            console.log("do something", a);
+            // console.log(row, "aabbbshshs");
+          };
           return (
-            <span className="whitespace-nowrap font-medium text-[#333]">
+            <span className="inline-flex items-center gap-2 whitespace-nowrap font-medium text-[#333]">
               {row?.subject}
+              {end > 0 && (
+                <span className="cursor-pointer text-green-700">
+                  <MdOutlineAccessAlarm
+                    onClick={() => handleClick(row)}
+                    size={24}
+                  />
+                </span>
+              )}
             </span>
           );
         },
@@ -236,7 +253,7 @@ const Announcement = () => {
   return (
     <div className="py-6 pl-8 pr-5">
       <div className="">
-        <ToastContainer />
+        <ToastContainer className={"mt-16"} />
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
           This is where send out special announcement to all affiliate.
@@ -317,17 +334,20 @@ const Announcement = () => {
                     >
                       <thead className="appearance-none bg-[#F4F4F4] ">
                         {headerGroups.map(
-                          (headerGroup: {
-                            getHeaderGroupProps: () => {
-                              [x: string]: any;
-                              key: any;
-                            };
-                            headers: any[];
-                          }) => {
+                          (
+                            headerGroup: {
+                              getHeaderGroupProps: () => {
+                                [x: string]: any;
+                                key: any;
+                              };
+                              headers: any[];
+                            },
+                            index: number,
+                          ) => {
                             const { key, ...restHeaderProps } =
                               headerGroup.getHeaderGroupProps();
                             return (
-                              <tr key={key} {...restHeaderProps}>
+                              <tr key={index} {...restHeaderProps}>
                                 {headerGroup.headers.map((column, index) => (
                                   <th
                                     className="text-primary whitespace-nowrap py-4 px-4 text-left text-sm font-normal "

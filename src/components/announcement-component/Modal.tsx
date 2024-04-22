@@ -60,9 +60,16 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           });
           onClose();
           refetch();
-          console.log(res, "res ann");
+          console.log(res, "res ann", res?.data?.announcement?._id);
           setLoading(false);
-          // localStorage.setItem("expirationTimestamp", timestamp.toString());
+          localStorage.setItem(
+            "expirationTimestamp",
+            JSON.stringify({
+              _id: res?.data?.announcement?._id,
+              endDate: timestamp,
+            }),
+          );
+          localStorage.removeItem("timer");
         })
         .catch((err: any) => {
           toast.error("Error Ocurred. Try again!!!");
@@ -70,7 +77,7 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           setLoading(false);
         });
     } else {
-      setErr(timestamp === 0);
+      setErr(true);
     }
     console.log(form, "form", timestamp);
   };
@@ -81,14 +88,14 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm"
       onClick={handleClose}
     >
-      <div className="mt-20 h-full w-[550px]">
+      <div className="mt-20 h-fit w-[550px]">
         <div className="rounded  bg-white">
           <div className="flex items-center justify-between bg-[#F4F4F4] px-4 py-3">
             <h1>New Annoucement</h1>
             <div className="flex items-center gap-3">
               <HiMinusSm className="hover:cursor-pointer" />
               <MdOutlineAccessAlarm
-                className="hover:cursor-pointer"
+                className={`hover:cursor-pointer ${err && timestamp < 1 ? "animate-bounce text-red-700" : ""}`}
                 onClick={() => setOpenTimer(true)}
               />
               <HiX
@@ -131,7 +138,9 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
                 </div>
               </div>
               <p className="mt-2 text-red-600">
-                {timestamp < 0 && "You need to set a timer for the annoucement"}
+                {err &&
+                  timestamp < 1 &&
+                  "You need to set a timer for the annoucement"}
               </p>
               <button
                 type="submit"

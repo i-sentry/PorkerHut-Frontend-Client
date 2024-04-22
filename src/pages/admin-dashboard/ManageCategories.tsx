@@ -36,7 +36,7 @@ const ManageCategories = ({}: {}) => {
   const updateSub = useUpdateSingleSubcategory(cateId);
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const [questions, setQuestions] = useState<any[]>([
     {
@@ -68,7 +68,14 @@ const ManageCategories = ({}: {}) => {
       //     },
       //   ]);
     } else {
-      setQuestions(questions);
+      setQuestions([
+        {
+          id: 1,
+          question: "",
+          required: true,
+          questionHint: "",
+        },
+      ]);
     }
   }, [id]);
 
@@ -133,14 +140,13 @@ const ManageCategories = ({}: {}) => {
       .then((resQ: any) => {
         console.log(resQ, "question cta");
         toast.success(`${res?.name} category questions created!`);
-        // navigate(`/admin/manage+category`);
         setLoading(false);
       })
       .catch((err: any) => {
         console.log(err, "err ques cta");
-        navigate(`/admin/manage+category`);
         toast.error(`${res.name} category questions not created, try again!`);
         setLoading(false);
+        navigate(`/admin/manage+category`);
       });
   };
 
@@ -161,7 +167,7 @@ const ManageCategories = ({}: {}) => {
       });
   };
 
-  const handleCreateCategory = (e: any) => {
+  const handleCreateCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     // console.log(canSubmit);
@@ -183,7 +189,7 @@ const ManageCategories = ({}: {}) => {
         subcategories: subcategory,
         questions: questions,
       };
-      console.log(d);
+      console.log(d, data, "data sent");
 
       createCategory
         .mutateAsync(data)
@@ -194,6 +200,7 @@ const ManageCategories = ({}: {}) => {
           handleCreateSubCategories(res);
           // Category Questions Creation
           handleCreateQuestions(res);
+          navigate(`/admin/manage+category`);
         })
         .catch((err: any) => {
           console.log(err, "catErr");
@@ -201,26 +208,6 @@ const ManageCategories = ({}: {}) => {
           setLoading(false);
         });
     }
-
-    // const data = {
-    //   name: categoryName,
-    //   description: "",
-    //   subcategories: [
-    //     {
-    //       name: "",
-    //     },
-    //   ],
-    //   categoryQuestions: [
-    //     {
-    //       category: categoryName,
-    //       question: "Main Colour",
-    //       required: true,
-    //       questionHint:
-    //         "Main colour of the product, can be also a certain shade of a colour. Example: Black, Brown, White, Pink.",
-    //       __v: 0,
-    //     },
-    //   ],
-    // };
   };
 
   const handleUpdateSubcategory = (e: any) => {
@@ -251,12 +238,10 @@ const ManageCategories = ({}: {}) => {
       });
   };
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    // const name = e.target.name;
-    // setImage1
     if (file) {
-      const url = URL.createObjectURL(file);
+      // const url = URL.createObjectURL(file);
       setImage(file);
     }
   };
@@ -406,6 +391,7 @@ const ManageCategories = ({}: {}) => {
                   name="categoryImg"
                   onChange={(e: any) => handleFileChange(e)}
                   id="categoryImg"
+                  accept="image/jpeg, image/png"
                   disabled={id !== "new"}
                   className="mt-1 hidden w-full rounded border border-[#D9D9D9] placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
                 />
@@ -460,64 +446,66 @@ const ManageCategories = ({}: {}) => {
               </div>
             </div>
             <div className="space-y-8">
-              {questions.map((question: any, i: any) => {
-                return (
-                  <div key={i}>
-                    <div className="flex items-center gap-2">
+              {!catQuesLoad &&
+                questions?.length >= 1 &&
+                questions.map((question: any, i: any) => {
+                  return (
+                    <div key={i}>
+                      <div className="flex items-center gap-2">
+                        <input
+                          aria-label={`question${i}`}
+                          type="text"
+                          name={`question-${i}`}
+                          id={`question-${i}`}
+                          value={question?.question}
+                          onChange={(e: any) =>
+                            handleQuestionChange(e, question.id)
+                          }
+                          className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                        />
+                        <div className="inline-flex flex-col items-center">
+                          <span className="text-sm text-[#333]">Required</span>
+                          <ToggleSwitch
+                            question={question}
+                            setQuestions={setQuestions}
+                          />
+                        </div>
+                      </div>
                       <input
-                        aria-label={`question${i}`}
                         type="text"
-                        name={`question-${i}`}
-                        id={`question-${i}`}
-                        value={question?.question}
+                        aria-label={`questionHint${i}`}
+                        name={`questionHint-${i}`}
+                        id={`questionHint-${i}`}
                         onChange={(e: any) =>
                           handleQuestionChange(e, question.id)
                         }
-                        className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                        value={question?.questionHint}
+                        placeholder="Question guide for easy response?"
+                        className="form-input h-[50px] w-full border-spacing-2 border-0 border-b-[2px] border-dashed border-[#D9D9D9] bg-transparent placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-b-[2px] focus:border-b-green-700 focus:ring-0"
                       />
-                      <div className="inline-flex flex-col items-center">
-                        <span className="text-sm text-[#333]">Required</span>
-                        <ToggleSwitch
-                          question={question}
-                          setQuestions={setQuestions}
-                        />
+
+                      <div
+                        className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
+                      >
+                        <button
+                          onClick={() => deleteQuestion(question.id)}
+                          disabled={questions?.length === 1}
+                          className="text-[#333]"
+                        >
+                          <BiTrashAlt size={24} />
+                        </button>
+                        <button
+                          onClick={handleAddQuestion}
+                          disabled={questions?.length === 4}
+                          className={`inline-flex h-[48px] items-center justify-center gap-2 rounded bg-transparent px-5 py-2.5 font-medium text-green-700 ring-1 ring-green-700 ${questions?.length === 4 ? "opacity-50" : "opacity-100"}`}
+                        >
+                          <BsPlus size={28} />
+                          <span>Add Question</span>
+                        </button>
                       </div>
                     </div>
-                    <input
-                      type="text"
-                      aria-label={`questionHint${i}`}
-                      name={`questionHint-${i}`}
-                      id={`questionHint-${i}`}
-                      onChange={(e: any) =>
-                        handleQuestionChange(e, question.id)
-                      }
-                      value={question?.questionHint}
-                      placeholder="Question guide for easy response?"
-                      className="form-input h-[50px] w-full border-spacing-2 border-0 border-b-[2px] border-dashed border-[#D9D9D9] bg-transparent placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-b-[2px] focus:border-b-green-700 focus:ring-0"
-                    />
-
-                    <div
-                      className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
-                    >
-                      <button
-                        onClick={() => deleteQuestion(question.id)}
-                        disabled={questions?.length === 1}
-                        className="text-[#333]"
-                      >
-                        <BiTrashAlt size={24} />
-                      </button>
-                      <button
-                        onClick={handleAddQuestion}
-                        disabled={questions?.length === 4}
-                        className={`inline-flex h-[48px] items-center justify-center gap-2 rounded bg-transparent px-5 py-2.5 font-medium text-green-700 ring-1 ring-green-700 ${questions?.length === 4 ? "opacity-50" : "opacity-100"}`}
-                      >
-                        <BsPlus size={28} />
-                        <span>Add Question</span>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </section>
