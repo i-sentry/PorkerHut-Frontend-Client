@@ -67,7 +67,7 @@ import AdminLogin from "./pages/Authentication/AdminLogin";
 import ForgetPassword from "./pages/Authentication/ForgetPassword";
 import MyOrderDetails from "./pages/Authentication/MyOrderDetails";
 import ResetPassword from "./pages/Authentication/ResetPassword";
-import ReturnRequest from "./pages/Authentication/ReturnRequest";
+import ReturnRequest from "./pages/ReturnRequest";
 import LogisticsPartnerAccount from "./pages/LogisticsPartnerAccount";
 import MyAccount from "./pages/MyAccount";
 import OrderTracking from "./pages/OrderTracking";
@@ -95,6 +95,7 @@ import VendorForgetPassword from "./pages/sellers-dashboard/VendorForgetPassword
 import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 import VetServices from "./pages/services-page/VetServices";
 import ManageCategories from "./pages/admin-dashboard/ManageCategories";
+import CancelRequest from "./pages/CancelRequest";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -173,7 +174,15 @@ const router = createBrowserRouter(
       <Route path="/favorite+products" element={<FavouriteProductPage />} />
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
-      <Route path="/my__orders/:id/:orderid" element={<ReturnRequest />} />
+      <Route
+        path="/my__orders/:id/:productId/return-request"
+        element={<ReturnRequest />}
+      />
+      <Route
+        path="/my__orders/:id/:productId/cancel-request"
+        element={<CancelRequest />}
+      />
+
       {/* <Route path="/empty_cart" element={<EmptyCartPage />} /> */}
       <Route path="/contact-us" element={<ContactPage />} />
       <Route path="/services/vet-services" element={<VetServices />} />

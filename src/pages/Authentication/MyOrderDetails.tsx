@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IoBasketOutline, IoChevronBack } from "react-icons/io5";
 import {
   MdOutlinePersonPinCircle,
@@ -35,11 +35,14 @@ const MyOrderDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetOrdersById(id as string);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+
   console.log(data?.data?.order, "hyunmdhdhf");
 
   const navigate = useNavigate();
 
-  const order = data?.data?.order;
+  const order = useMemo(() => {
+    return data?.data?.order;
+  }, [data?.data?.order]);
   console.log(order, "new order table");
   const selectedProduct = order?.productDetails[selectedProductIndex];
   console.log(selectedProduct, "selectedProduct");
@@ -100,6 +103,47 @@ const MyOrderDetails = () => {
     // navigate(`/my__orders/${id}`, {
     //   replace: true,
     // });
+  };
+
+  const actionButtonText = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case "pending":
+        return (
+          <button
+            onClick={() =>
+              navigate(
+                `/my__orders/${order?._id}/${selectedProduct?.productID?._id}/cancel-request`,
+              )
+            }
+            className="mt-3 w-full cursor-pointer text-center text-base font-medium text-zinc-800 underline hover:text-green-600 lg:mt-0 lg:w-auto lg:text-left"
+          >
+            Cancel Order
+          </button>
+        );
+      case "completed":
+        return (
+          <button
+            onClick={() =>
+              navigate(
+                `/my__orders/${order?._id}/${selectedProduct?.productID?._id}/return-request`,
+              )
+            }
+            className="mt-3 w-full cursor-pointer text-center text-base font-medium text-zinc-800 underline hover:text-green-600 lg:mt-0 lg:w-auto lg:text-left"
+          >
+            Return Order
+          </button>
+        );
+      // case "failed":
+      //   return "text-red-600";
+      // case "returned":
+      //   return "text-[#198df9]";
+      // case "returned failed":
+      //   return "text-red-600";
+      default:
+        return (
+          <button className="cursor-pointer text-base font-medium text-zinc-800 underline hover:text-green-600"></button>
+        );
+    }
   };
 
   return (
@@ -269,12 +313,10 @@ const MyOrderDetails = () => {
                 >
                   Rate Product
                 </button>
-                <button className="mt-4 w-full text-center font-['Roboto'] text-base font-normal text-zinc-800 underline">
-                  Return Order
-                </button>
+                <>{actionButtonText(order?.status)}</>
                 {/* RATE PRODUCT POP INFO */}
                 <div
-                  className={`absolute top-20 right-0 z-20 flex items-center gap-1 rounded-lg bg-neutral-300 p-4 opacity-0 shadow-lg duration-300 after:absolute after:-top-5 after:right-3 after:z-0 after:block after:w-0 after:scale-105 after:border-[10px] after:border-t-transparent after:border-b-neutral-300 after:border-r-transparent after:border-l-transparent  ${
+                  className={`pointer-events-none absolute top-20 right-0 z-20 flex items-center gap-1 rounded-lg bg-neutral-300 p-4 opacity-0 shadow-lg duration-300 after:absolute after:-top-5 after:right-3 after:z-0 after:block after:w-0 after:scale-105 after:border-[10px] after:border-t-transparent after:border-b-neutral-300 after:border-r-transparent after:border-l-transparent  ${
                     showInfo && "opacity-100"
                   }`}
                 >
@@ -467,7 +509,7 @@ const MyOrderDetails = () => {
                     </span>
                   </div>
                   <button className="cursor-pointer text-base font-medium text-zinc-800 underline hover:text-green-600">
-                    Return Order
+                    {actionButtonText(order?.status)}
                   </button>
                 </div>
               </div>

@@ -85,7 +85,6 @@ const Settings = () => {
     "Commissions",
     "Password",
   ]);
-  const inviteAdmin = useInviteAdmin();
   const [loading, setLoading] = useState(false);
   const [action, setAction] = useState("Grant Access");
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -96,6 +95,7 @@ const Settings = () => {
     () => (!loadAdmin ? getAllAdmin : []),
     [getAllAdmin],
   );
+
   const [items, setItems] = useState([
     {
       name: "Commission Rate",
@@ -198,16 +198,6 @@ const Settings = () => {
   //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
   // };
 
-  const handleInvite = (email: string, role: string) => {
-    inviteAdmin
-      .mutateAsync({
-        email,
-        role: role.toLowerCase(),
-      })
-      .then((res: any) => {})
-      .catch((err: any) => {});
-  };
-
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     // Append the form field and its value to the FormData object
@@ -305,6 +295,8 @@ const Settings = () => {
     const data = new FormData();
     e.preventDefault();
     console.log(data, "form data", formData);
+    console.log(getValues(), "getvalues");
+
     // userUpdate
     //   .mutateAsync(data)
     //   .then((res: any) => {
@@ -447,7 +439,6 @@ const Settings = () => {
                     <InputComponent
                       placeholder="Full Name"
                       type="text"
-                      // name="fullName"
                       {...register("fullName")}
                       // value={formData.fullName}
                       defaultValue={`${adminInfo?.firstName} ${adminInfo?.lastName}`}
@@ -477,7 +468,7 @@ const Settings = () => {
                     <input
                       placeholder="location"
                       type="text"
-                      name="location"
+                      name="city"
                       className={`relative  block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[12px] text-gray-900 placeholder-slate-300 focus:z-10 focus:border-[#197b30] focus:outline-none focus:ring-[#197b30] sm:text-sm`}
                       // value={formData.location}
                       defaultValue={admin?.city}
@@ -500,6 +491,9 @@ const Settings = () => {
                       /> */}
                     <PhoneInput
                       // disabled
+                      inputProps={{
+                        name: "phone",
+                      }}
                       enableSearch={true}
                       autoFormat={true}
                       countryCodeEditable={false}
@@ -621,7 +615,7 @@ const Settings = () => {
                   </div>
                 </div> */}
                 <div className="container mx-auto pt-5">
-                  <EmailInputComponent onGrantAccess={handleInvite} />
+                  <EmailInputComponent />
                 </div>
                 {loadAdmin && (
                   <span className="flex items-center gap-2">
@@ -922,22 +916,37 @@ const Settings = () => {
 
 export default Settings;
 
-interface InputComponentProps {
-  onGrantAccess: (email: string, role: string) => void;
-}
-
-const EmailInputComponent: React.FC<InputComponentProps> = ({
-  onGrantAccess,
-}) => {
+const EmailInputComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const inviteAdmin = useInviteAdmin();
+
+  const handleInvite = () => {
+    setLoading(true);
+    inviteAdmin
+      .mutateAsync({
+        email,
+        role: role.toLowerCase(),
+      })
+      .then((res: any) => {
+        toast.success("Admin Invite sent to the email successfully!");
+        console.log(res, "res invite");
+        setLoading(false);
+        setRole("");
+        setEmail("");
+      })
+      .catch((err: any) => {
+        toast.error("Error sending invite, try again!");
+        console.log(err, "err invite");
+        setLoading(false);
+      });
+  };
 
   const handleGrantAccess = () => {
     // setLoading(true)
     if (email && role) {
-      onGrantAccess(email, role);
-      setLoading(false);
+      handleInvite();
     } else {
       alert("Please enter email address and select role.");
     }
@@ -971,10 +980,11 @@ const EmailInputComponent: React.FC<InputComponentProps> = ({
         </select>
       </div>
       <button
-        className="disabled:cursor-pointed ml-4 whitespace-nowrap border border-[#197b30]  bg-[#197b30] px-4 py-2.5 text-white shadow-inner hover:bg-[#197b30] focus:outline-none disabled:bg-[#568a62]"
+        disabled={loading}
+        className={`disabled:cursor-pointed ml-4 whitespace-nowrap border border-[#197b30]  bg-[#197b30] px-4 py-2.5 text-white shadow-inner hover:bg-[#197b30] focus:outline-none disabled:bg-[#568a62]`}
         onClick={handleGrantAccess}
       >
-        {loading ? "Loading.." : "Grant Access"}
+        {loading ? "Loading..." : "Grant Access"}
       </button>
     </div>
   );

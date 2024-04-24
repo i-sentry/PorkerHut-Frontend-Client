@@ -33,7 +33,7 @@ const ManageCategories = ({}: {}) => {
   const createCategory = useCreateCategories();
   const createSubCategory = useCreateSubcategory();
   const createCatQuestions = useCreateCategoriesQuestions();
-  const updateSub = useUpdateSingleSubcategory(cateId);
+  // const updateSub = useUpdateSingleSubcategory(cateId);
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const [image, setImage] = useState<File | null>(null);
@@ -291,7 +291,7 @@ const ManageCategories = ({}: {}) => {
   return (
     <>
       <div className="py-6 pl-8 pr-5 pb-10">
-        <ToastContainer />
+        <ToastContainer className={"pt-7"} />
         <div className="flex items-center justify-between">
           <div className="">
             <h1 className="text-2xl font-bold text-[#333333]">

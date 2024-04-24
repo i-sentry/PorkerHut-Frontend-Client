@@ -6,6 +6,7 @@ import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   useDeleteSingleCategory,
+  useDeleteSubCategory,
   useGetAllCategories,
   useUpdateSingleCategory,
 } from "../../services/hooks/Vendor/category";
@@ -502,6 +503,7 @@ const CategoryInfoModal = ({
                     name="catImg"
                     id="catImg"
                     onChange={(e) => handleChange(e)}
+                    accept="image/jpeg, image/png"
                     className="hidden"
                   />
                   {imgUrl ? (
@@ -559,8 +561,7 @@ const CategoryInfoModal = ({
                     >
                       {loading ? (
                         <span className="inline-flex items-center gap-2">
-                          <CgSpinner className="animate-spin" size={24} />{" "}
-                          Updating...
+                          <CgSpinner className="animate-spin" /> Updating...
                         </span>
                       ) : (
                         "Update Image"
@@ -666,6 +667,7 @@ const CateOptionModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const deleteCat = useDeleteSingleCategory(id);
+  const deleteSub = useDeleteSubCategory(id);
 
   const handleConfirm = () => {
     setLoading(true);
