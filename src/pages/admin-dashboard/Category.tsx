@@ -469,6 +469,7 @@ const CategoryInfoModal = ({
           toast.success(
             `${selectedCategory?.name} featured image updated successfully!`,
           );
+          setFile(null);
           refetch();
           setLoading(false);
         })
