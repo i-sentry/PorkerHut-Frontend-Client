@@ -96,6 +96,7 @@ import VendorResetPassword from "./pages/sellers-dashboard/VendorResetPassword";
 import VetServices from "./pages/services-page/VetServices";
 import ManageCategories from "./pages/admin-dashboard/ManageCategories";
 import CancelRequest from "./pages/CancelRequest";
+import RequestSuccess from "./pages/RequestSuccess";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -133,7 +134,6 @@ const router = createBrowserRouter(
       />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/product/rating/:id" element={<CustomerRating />} />
-
       <Route
         path="/category/:id"
         element={
@@ -152,7 +152,6 @@ const router = createBrowserRouter(
       <Route path="/billing/me" element={<BillingPage isMyBilling={true} />} />
       <Route path="/pay-card" element={<PayOption />} />
       <Route path="/order+cancel" element={<OrderCancel />} />
-
       {/* <Route path="/rating" element={<RatingCard />} /> */}
       <Route path="/tracking+order" element={<OrderTracking />} />
       <Route path="/return+order" element={<ReturnOrder />} />
@@ -165,12 +164,10 @@ const router = createBrowserRouter(
         path="/affiliate/vet-partner-account"
         element={<VetPartnerAccount />}
       />
-
       <Route
         path="/affiliate/logistics-partner-account"
         element={<LogisticsPartnerAccount />}
       />
-
       <Route path="/favorite+products" element={<FavouriteProductPage />} />
       <Route path="/my__orders/:id" element={<MyOrderDetails />} />
       <Route path="/my__orders" element={<MyOrder />} />
@@ -182,14 +179,12 @@ const router = createBrowserRouter(
         path="/my__orders/:id/:productId/cancel-request"
         element={<CancelRequest />}
       />
-
+      <Route path="/my__orders/request-success" element={<RequestSuccess />} />
       {/* <Route path="/empty_cart" element={<EmptyCartPage />} /> */}
       <Route path="/contact-us" element={<ContactPage />} />
       <Route path="/services/vet-services" element={<VetServices />} />
       <Route path="/services/weekend-kills" element={<WeekendKills />} />
-
       <Route path="/services/agro-services" element={<AgroServices />} />
-
       <Route path="" element={<SellerLayout />}>
         <Route path="/vendor" element={<SellersHome sliderImages={[]} />} />
         <Route path="/vendor/order" element={<SellersOrderPage />} />

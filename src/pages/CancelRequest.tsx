@@ -7,6 +7,7 @@ const CancelRequest = () => {
   const { id, productId } = useParams();
   const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState(0);
+  const [reason, setReason] = useState<string>("");
   const { data, isLoading } = useGetOrdersById(id as string);
   const order = useMemo(() => data?.data?.order, [id]);
   const selectedProduct = order?.productDetails?.find(
@@ -24,15 +25,22 @@ const CancelRequest = () => {
 
   useEffect(() => window.scroll(0, 0), []);
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(reason, "reason");
+
+    navigate("/my__orders/request-success");
+  };
+
   return (
     <AppLayout>
       <div className="mt-16 pb-10 md:mt-[90px]">
-        <div className="mb-5 flex flex-col items-center gap-1 text-center">
-          <h2 className="text-2xl font-bold">Cancel Request</h2>
-          <div className="h-1 w-[100px] bg-green-700"></div>
+        <div className="mb-5 flex flex-col items-center gap-1 text-center lg:mb-8">
+          <h2 className="text-2xl font-bold lg:text-[2rem]">Cancel Request</h2>
+          <div className="h-1 w-[100px] bg-green-700 lg:mt-1"></div>
         </div>
 
-        <div className="bg-white xxs:px-4 md:flex md:gap-4 md:rounded-sm">
+        <div className="bg-white xxs:px-4 md:flex md:gap-4 md:rounded-sm lg:gap-6">
           <div className="flex xxs:flex-col-reverse md:flex-1 md:flex-row md:gap-2">
             <div className="flex-[1] xxs:mt-3 xxs:flex xxs:items-center xxs:justify-center xxs:gap-3 md:mt-0 md:block">
               {images?.map((img: any, index: number) => (
@@ -41,7 +49,7 @@ const CancelRequest = () => {
                   src={img}
                   alt={`img-${index}`}
                   onClick={() => setSelectedImg(index)}
-                  className="h-20 w-[75px] cursor-pointer rounded-md object-cover md:mb-3"
+                  className="h-20 w-full cursor-pointer rounded-md object-cover md:mb-3"
                 />
               ))}
             </div>
@@ -49,13 +57,13 @@ const CancelRequest = () => {
               <img
                 src={images[selectedImg]}
                 alt="img4"
-                className=" w-full rounded-md object-cover  xxs:h-[300px] md:h-[400px]"
+                className=" w-full rounded-md object-cover  xxs:h-[300px] md:h-[400px] lg:h-[480px]"
               />
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:flex-1">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold capitalize">
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-xl font-semibold capitalize lg:text-2xl ">
                 {selectedProduct?.productID?.information?.productName}
               </h3>
               <span className="text-xl font-medium text-[#000000]">
@@ -104,7 +112,7 @@ const CancelRequest = () => {
             </ul>
 
             <div className="mt-4">
-              <form id="return-order">
+              <form id="cancel-order" onSubmit={(e) => handleSubmit(e)}>
                 <label htmlFor="reason" className="mb-2 inline-block">
                   Reason
                 </label>
@@ -112,6 +120,8 @@ const CancelRequest = () => {
                   name="reason"
                   placeholder="Type here"
                   id="reason"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
                   className="h-[150px] w-full resize-none rounded border border-[#D9D9D9] p-3 placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
                 ></textarea>
 
