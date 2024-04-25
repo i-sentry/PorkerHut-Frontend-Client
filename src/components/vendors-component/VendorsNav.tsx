@@ -179,7 +179,10 @@ const VendorsNav = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        onClick={() => handleClick("change-password")}
+                        // onClick={() => handleClick("change-password")}
+                        onClick={() =>
+                          navigate("/vendor/settings?tab=change-password")
+                        }
                         className={classNames(
                           active && "bg-gray-100",
                           "cursor-pointer rounded-sm px-4 py-2 text-gray-700 focus:bg-gray-200 active:bg-gray-200",

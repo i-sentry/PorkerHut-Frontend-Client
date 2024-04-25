@@ -50,5 +50,9 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "files": ["globals.d.ts"]
+  "files": [
+    "globals.d.ts",
+    "./src/pages/admin-dashboard/CategoryInfoModal.tsx",
+    "./src/pages/admin-dashboard/CateOptionModal.tsx"
+  ]
 }
