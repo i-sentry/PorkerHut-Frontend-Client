@@ -5,17 +5,21 @@ import { IoAdd } from "react-icons/io5";
 import { useCategoryModal } from "../../store/overlay";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  useDeleteSubCategory,
   useGetAllCategories,
   useUpdateSingleCategory,
+  useUpdateSingleSubcategory,
 } from "../../services/hooks/Vendor/category";
 // import ManageCategories from "./ManageCategories";
 import logo from "../../assets/images/porkerlogo.png";
 import CustomCatModal from "../../components/admin-dashboard-components/CustomCatModal";
 import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
-import { BsPlus } from "react-icons/bs";
+import { BsPlus, BsX } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import CategoryInfoModal from "./CategoryInfoModal";
+import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
+import Porkerlogo from "../../assets/images/porkerlogo.png";
 interface BlueDiv {
   id: number;
 }
@@ -103,9 +107,13 @@ const Category = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const [category, setCategory] = useState<any[]>([]);
   const [editIndex, setEditIndex] = useState(-1);
+  const [editSubIndex, setEditSubIndex] = useState(-1);
   const [currentEdit, setCurrentEdit] = useState<string>("");
+  const [currentSubEdit, setCurrentSubEdit] = useState<string>("");
   const updateCategoryName = useUpdateSingleCategory(currentEdit);
+  const updateSubCate = useUpdateSingleSubcategory(currentSubEdit);
   const [categoryName, setCategoryName] = useState("");
+  const [subcategoryName, setSubcategoryName] = useState("");
   const showModal = useCategoryModal((state) => state.showModal);
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const [isOpen, setIsOpen] = useState(false);
@@ -114,6 +122,8 @@ const Category = () => {
   const navigate = useNavigate();
   const { data: allcat, isLoading, refetch } = useGetAllCategories();
   const [loading, setLoading] = useState(false);
+  const [subConfirm, setSubConfirm] = useState(false);
+
   // console.log(allcat?.data, isLoading, "all cats", category);
 
   // const queryParams = new URLSearchParams(location.search);
@@ -166,6 +176,14 @@ const Category = () => {
     setCurrentEdit(id);
   };
 
+  const handleEditSub = (id: any, index: any, indexSub: any) => {
+    setEditSubIndex(indexSub);
+    setSubcategoryName(category[index]?.subcategories[indexSub]?.name);
+    setCurrentSubEdit(id);
+    setCurrentEdit(category[index]?._id);
+    console.log(category[index]?.subcategories[indexSub]?.name, "catacataa");
+  };
+
   const handleSave = () => {
     setLoading(true);
     updateCategoryName
@@ -184,6 +202,24 @@ const Category = () => {
       });
   };
 
+  const handleSaveSub = () => {
+    setLoading(true);
+    updateSubCate
+      .mutateAsync({ categoryId: currentEdit, name: subcategoryName })
+      .then((res: any) => {
+        toast.success("Subcategory updated successfully!");
+        console.log(res, "res fro upodae");
+        refetch();
+        setLoading(false);
+        setEditSubIndex(-1);
+      })
+      .catch((err: any) => {
+        toast.error("Error updating subcategory, try again!");
+        console.log(err, "err fro upodae");
+        setLoading(false);
+      });
+  };
+
   const handleSubCat = (index: any) => {
     // console.log(index, "cat index");
     // console.log(showModal, "showModal");
@@ -195,10 +231,15 @@ const Category = () => {
     setEditIndex(-1);
   };
 
+  const handleSubCancel = (index: any) => {
+    setEditSubIndex(-1);
+    setSubcategoryName("");
+  };
+
   return (
     <>
       <div className="py-6 pl-8 pr-5 pb-10">
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <div className="flex items-center justify-between">
           <div className="">
             <h1 className="text-2xl font-bold text-[#333333]">
@@ -285,7 +326,7 @@ const Category = () => {
                               onChange={(e: any) =>
                                 setCategoryName(e.target.value)
                               }
-                              className="w-[80%] rounded-md border border-[#D9D9D9] py-1.5 px-2 capitalize "
+                              className="w-[80%] rounded-md border border-[#D9D9D9] py-1.5 px-2 capitalize focus:border-green-700 focus:ring-green-700 "
                               // defaultValue={cat?.name}
                             />
                           </div>
@@ -359,10 +400,72 @@ const Category = () => {
                         " h-full w-full bg-[#333333] p-5 transition-all duration-700 ease-in-out"
                       }
                     >
-                      {cat?.subcategories.map((sub: any, index: number) => (
-                        <ul key={`${sub?.id}-${index}`}>
-                          <li className="ml-10 cursor-pointer py-1.5 capitalize text-[#fff]">
-                            {sub?.name}
+                      {cat?.subcategories.map((sub: any, indexSub: number) => (
+                        <ul key={`${sub?.id}-${indexSub}`}>
+                          <li className="ml-10 flex items-center gap-3 py-1.5 capitalize text-[#fff]">
+                            <span className="inline-flex items-center gap-1">
+                              <RiEditLine
+                                onClick={() =>
+                                  handleEditSub(sub?._id, index, indexSub)
+                                }
+                                className="cursor-pointer text-lg text-neutral-400 hover:text-green-500"
+                              />
+                              <RiDeleteBinLine
+                                onClick={() => {
+                                  setSubConfirm(true);
+                                  setSubcategoryName(sub?.name);
+                                  setCurrentSubEdit(sub?._id);
+                                }}
+                                className="cursor-pointer text-lg text-neutral-400 hover:text-red-500"
+                              />
+                            </span>
+                            {editSubIndex === indexSub ? (
+                              <div className="w-[200px] py-2">
+                                <input
+                                  type="text"
+                                  name="subcategory"
+                                  value={subcategoryName}
+                                  onChange={(e: any) =>
+                                    setSubcategoryName(e.target.value)
+                                  }
+                                  className="w-full rounded-md border border-[#D9D9D9] py-1.5 px-2 capitalize text-neutral-700 focus:border-green-700 focus:ring-green-700 "
+                                  // defaultValue={cat?.name}
+                                />
+                              </div>
+                            ) : (
+                              <div className=" w-full py-[17px]">
+                                <p className="text-[16px] font-normal capitalize leading-[19px]">
+                                  {sub?.name}
+                                </p>
+                              </div>
+                            )}
+                            {editSubIndex === indexSub && (
+                              <div className="flex justify-start gap-3 ">
+                                <button
+                                  onClick={handleSaveSub}
+                                  disabled={loading}
+                                  className={`flex w-28 items-center justify-center rounded bg-[#197B30] py-2 text-[14px] font-normal leading-[24px] text-white disabled:bg-green-700 disabled:bg-opacity-50 ${loading ? "bg-opacity-50" : "bg-opacity-100"}`}
+                                >
+                                  {loading ? (
+                                    <span className="inline-flex items-center justify-center gap-2">
+                                      <CgSpinner
+                                        className="animate-spin"
+                                        size={20}
+                                      />
+                                      Saving...
+                                    </span>
+                                  ) : (
+                                    "Save"
+                                  )}
+                                </button>
+                                <button
+                                  onClick={() => handleSubCancel(indexSub)}
+                                  className=" w-28 rounded border border-[#F91919] bg-[#fff] py-2 text-[14px]  font-normal leading-[24px] text-[#F91919]"
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            )}
                           </li>
                         </ul>
                       ))}
@@ -383,8 +486,116 @@ const Category = () => {
         selectedCategory={selectedCategory}
         refetch={refetch}
       />
+
+      {/* SUBCATEGORY DELETE CONFIRMATION */}
+      <SubDeleteModal
+        subConfirm={subConfirm}
+        setSubConfirm={setSubConfirm}
+        refetch={refetch}
+        subId={currentSubEdit}
+        message={
+          <p className="text-neutral-500">
+            Are you sure you want to delete{" "}
+            <strong className="capitalize">{subcategoryName}</strong>{" "}
+            subcategory? When deleted all products under this subcategory will
+            be deleted too
+          </p>
+        }
+      />
     </>
   );
 };
 
 export default Category;
+
+const SubDeleteModal = ({
+  subConfirm,
+  setSubConfirm,
+  message,
+  refetch,
+  subId,
+}: {
+  subConfirm: boolean;
+  setSubConfirm: any;
+  message: any;
+  refetch: any;
+  subId: any;
+}) => {
+  const [loading, setLoading] = useState(false);
+  const deleteSub = useDeleteSubCategory(subId);
+  console.log(subId, "sub id");
+
+  const handleConfirm = () => {
+    setLoading(true);
+
+    deleteSub
+      .mutateAsync({})
+      .then((res: any) => {
+        console.log(res, "res delete sub");
+        toast.success("Subcategory deleted successfully!");
+        refetch();
+        setLoading(false);
+        setSubConfirm(false);
+      })
+      .catch((err: any) => {
+        console.log(err, "err delete sub");
+        toast.error("Error deleting subcategory, try again!!!");
+        setLoading(false);
+      });
+  };
+
+  const handleClose = () => {
+    setSubConfirm(false);
+  };
+
+  return (
+    <div
+      className={`fixed top-0 left-0 z-40 flex h-full w-full items-center justify-center bg-black bg-opacity-50 backdrop-blur-md duration-300 ${subConfirm ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+    >
+      <div className="w-[500px] rounded-md bg-white ">
+        <div className="flex items-center justify-between border-b px-5 py-3">
+          <div className="flex cursor-pointer select-none items-center gap-2">
+            <img
+              src={Porkerlogo}
+              alt="PorkerLogo"
+              className="h-9 md:cursor-pointer"
+            />
+            <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-xl">
+              Porker Hut
+            </h1>
+          </div>
+          <div
+            onClick={() => setSubConfirm(false)}
+            className="cursor-pointer text-neutral-800"
+          >
+            <BsX size={32} />
+          </div>
+        </div>
+        <div className="p-5">
+          {message}
+          <div className="mt-6 flex items-center gap-2">
+            <button
+              onClick={handleConfirm}
+              disabled={loading}
+              className={`rounded bg-green-700 px-6 py-2 text-sm text-white ${loading ? "bg-opacity-50" : "bg-opacity-100"}`}
+            >
+              {loading ? (
+                <span className="inline-flex items-center gap-2">
+                  <CgSpinner className="animate-spin" size={16} /> Processing...
+                </span>
+              ) : (
+                "Yes"
+              )}
+            </button>
+            <button
+              onClick={handleClose}
+              className="rounded bg-red-600 px-6 py-2 text-sm text-white"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

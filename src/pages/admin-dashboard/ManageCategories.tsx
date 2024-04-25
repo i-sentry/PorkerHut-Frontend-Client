@@ -158,6 +158,7 @@ const ManageCategories = ({}: {}) => {
         toast.success(`${res?.name} subcategories created!`);
         // navigate(`/admin/manage+category`);
         setLoading(false);
+        refetch();
       })
       .catch((err: any) => {
         console.log(err, "err subcategories");
@@ -201,6 +202,7 @@ const ManageCategories = ({}: {}) => {
           // Category Questions Creation
           handleCreateQuestions(res);
           navigate(`/admin/manage+category`);
+          refetch();
         })
         .catch((err: any) => {
           console.log(err, "catErr");
@@ -227,9 +229,10 @@ const ManageCategories = ({}: {}) => {
       })
       .then((res: any) => {
         console.log(res, "upafte sub cta");
-        toast.success(`${res.name} subcategories updated!`);
-        navigate(`/admin/manage+category`);
+        toast.success(`New Subcategories added!`);
         setLoading(false);
+        refetch();
+        navigate(`/admin/manage+category`);
       })
       .catch((err: any) => {
         console.log(err, "upafte err sub cta");
@@ -291,7 +294,7 @@ const ManageCategories = ({}: {}) => {
   return (
     <>
       <div className="py-6 pl-8 pr-5 pb-10">
-        <ToastContainer className={"pt-7"} />
+        {/* <ToastContainer className={"pt-7"} /> */}
         <div className="flex items-center justify-between">
           <div className="">
             <h1 className="text-2xl font-bold text-[#333333]">
@@ -413,9 +416,16 @@ const ManageCategories = ({}: {}) => {
                 {id !== "new" ? (
                   <button
                     onClick={handleUpdateSubcategory}
-                    className={`inline-flex h-[48px] items-center gap-2 rounded bg-green-700 px-7 py-2.5 text-white ring-1 ring-green-700 ${true ? "opacity-100" : "opacity-50"}`}
+                    disabled={loading}
+                    className={`inline-flex h-[48px] items-center gap-2 rounded bg-green-700 px-7 py-2.5 text-white ring-1 ring-green-700 disabled:bg-[#3a7e4d99] ${true ? "opacity-100" : "opacity-50"}`}
                   >
-                    Update Subcategory
+                    {loading ? (
+                      <>
+                        <CgSpinner className="animate-spin" /> Updating...
+                      </>
+                    ) : (
+                      "Update Subcategory"
+                    )}{" "}
                   </button>
                 ) : (
                   <button
