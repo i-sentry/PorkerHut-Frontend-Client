@@ -97,6 +97,8 @@ import VetServices from "./pages/services-page/VetServices";
 import ManageCategories from "./pages/admin-dashboard/ManageCategories";
 import CancelRequest from "./pages/CancelRequest";
 import RequestSuccess from "./pages/RequestSuccess";
+import AdminForgetPassword from "./pages/admin-dashboard/AdminForgetPassword";
+import AdminResetPassword from "./pages/admin-dashboard/AdminResetPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -204,6 +206,13 @@ const router = createBrowserRouter(
         <Route path="/vendor/settings" element={<SellersSetting />} />
         <Route path="/vendor/performance" element={<SellersPerformance />} />
       </Route>
+
+      <Route path="/admin/forget_password" element={<AdminForgetPassword />} />
+      <Route
+        path="/admin/reset-password/:token"
+        element={<AdminResetPassword />}
+      />
+
       <Route path="" element={<AdminLayout />}>
         <Route index path="/admin" element={<Overview />} />
         <Route path="/admin/order" element={<Order />} />
