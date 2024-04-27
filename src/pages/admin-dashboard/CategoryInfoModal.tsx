@@ -27,7 +27,7 @@ const CategoryInfoModal = ({
   const [action, setAction] = useState("");
   const updateCatImg = useUpdateSingleCategory(selectedCategory?._id);
   const [loading, setLoading] = useState(false);
-  console.log(data?.data, "all products");
+  // console.log(data?.data, "all products");
 
   const handleChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
@@ -43,14 +43,6 @@ const CategoryInfoModal = ({
   };
 
   const allCatProds = (arr: any) => {
-    console.log(
-      arr?.filter(
-        (item: any) =>
-          item?.information?.category?.name.toLowerCase() ===
-          selectedCategory?.name.toLowerCase(),
-      ),
-      selectedCategory?.name,
-    );
     return arr?.filter(
       (item: any) =>
         item?.information?.category?.name.toLowerCase() ===

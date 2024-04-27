@@ -99,6 +99,6 @@ export const useDeleteSingleCategory = (id: string) => {
 export const useDeleteSubCategory = (id: string) => {
   return useQueryMutation({
     mutationFn: () =>
-      makeCustomDeleteRequest(api.ProductsCategory.singleSubcategory(id)),
+      makeDeleteRequest(api.ProductsCategory.singleSubcategory(id)),
   });
 };

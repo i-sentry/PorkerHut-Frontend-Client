@@ -33,8 +33,8 @@ const AdminLogin: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [eyeState, setEyeState] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-    const [isError, setIsError] = useState("");
-const login = useUserLogin();
+  const [isError, setIsError] = useState("");
+  const login = useUserLogin();
   const {
     register,
     handleSubmit,
@@ -42,43 +42,43 @@ const login = useUserLogin();
   } = useForm<AdminLoginProps>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<AdminLoginProps> = (data, e) => {
-        setLoading(true);
-        const { email, password } = data;
-        login
-          .mutateAsync({
-            email: email.toLowerCase(),
-            password: password,
-          })
-          .then((res) => {
-            setLoading(false);
-            // dispatch(
-            //   addOption(
-            //     // res?.data?.accessToken
-            //     res?.data?.email,
-            //     res?.data?.firstName,
-            //     res?.data?.isAdmin,
-            //     res?.data?.lastName,
-            //     res?.data?._id
-            //   )
-            // );
-            e?.target.reset();
-            // setIsOpen(true);
+    setLoading(true);
+    const { email, password } = data;
+    login
+      .mutateAsync({
+        email: email.toLowerCase(),
+        password: password,
+      })
+      .then((res) => {
+        setLoading(false);
+        // dispatch(
+        //   addOption(
+        //     // res?.data?.accessToken
+        //     res?.data?.email,
+        //     res?.data?.firstName,
+        //     res?.data?.isAdmin,
+        //     res?.data?.lastName,
+        //     res?.data?._id
+        //   )
+        // );
+        e?.target.reset();
+        // setIsOpen(true);
 
-            // setAuth(res);
-            navigate("/admin");
-            // setIsLogin(true);
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("admin");
-            localStorage.setItem("accessToken", res?.data?.accessToken);
-            localStorage.setItem("admin", JSON.stringify(res?.data));
-            // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
-            console.log(res);
-          })
-          .catch((e) => {
-            setLoading(false);
+        // setAuth(res);
+        navigate("/admin");
+        // setIsLogin(true);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("admin");
+        localStorage.setItem("accessToken", res?.data?.accessToken);
+        localStorage.setItem("admin", JSON.stringify(res?.data));
+        // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
+        console.log(res);
+      })
+      .catch((e) => {
+        setLoading(false);
 
-            setIsError(e?.response?.data);
-          });
+        setIsError(e?.response?.data);
+      });
   };
 
   const toggleEye = (e: any) => {
@@ -87,19 +87,19 @@ const login = useUserLogin();
   };
   return (
     <>
-      <div className="flex justify-between items-start gap-9 mb-40 px-[56px] py-12 w-full hide-scroll-bar">
+      <div className="hide-scroll-bar mb-40 flex w-full items-start justify-between gap-9 px-[56px] py-12">
         <div className="w-[calc(55%_-_20px)]">
-          <div className="border-b border-[#D9D9D9] pb-[9px] flex justify-between items-center">
+          <div className="flex items-center justify-between border-b border-[#D9D9D9] pb-[9px]">
             <div
               onClick={() => navigate("/")}
-              className="flex items-center gap-2 cursor-pointer select-none"
+              className="flex cursor-pointer select-none items-center gap-2"
             >
               <img
                 src={PorkerLogo}
                 alt="Poker Logo"
-                className="cursor-pointer h-7"
+                className="h-7 cursor-pointer"
               />
-              <h1 className="porker sm:text-lg font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+              <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-lg">
                 Porker Hut
               </h1>
             </div>
@@ -107,17 +107,17 @@ const login = useUserLogin();
               ADMIN<span className="font-normal">CENTER</span>
             </h1>
           </div>
-          <div className="w-full h-[420px] mt-6 ">
+          <div className="mt-6 h-[420px] w-full ">
             <img
               src={Admin}
-              className="w-11/12 h-full object-cover object-center mx-auto"
+              className="mx-auto h-full w-11/12 object-cover object-center"
               alt="Admin img"
             />
           </div>
         </div>
-        <div className="w-[calc(45%_-_20px)] p-8 border-[#D9D9D9] border h-[auto]">
-          <h2 className="text-black text-2xl font-medium mb-3">Login</h2>
-          <p className="text-neutral-500 text-base font-normal mb-6">
+        <div className="h-[auto] w-[calc(45%_-_20px)] border border-[#D9D9D9] p-8">
+          <h2 className="mb-3 text-2xl font-medium text-black">Login</h2>
+          <p className="mb-6 text-base font-normal text-neutral-500">
             Enter your login details
           </p>
           <div></div>
@@ -125,7 +125,7 @@ const login = useUserLogin();
             <div className="mt-2">
               <label
                 htmlFor="email"
-                className="text-zinc-800 text-sm font-normal"
+                className="text-sm font-normal text-zinc-800"
               >
                 Email Address
               </label>
@@ -142,7 +142,7 @@ const login = useUserLogin();
                 placeholder="Enter your email address"
                 autoComplete="off"
                 id="email"
-                className={`rounded w-full p-3  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                className={`mt-1 w-full appearance-none  rounded border border-[#EEEEEE] p-3 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                   errors.email
                     ? "border-[#e10] focus-within:border-[#e10]"
                     : "border-[##EEEEEE] "
@@ -155,10 +155,10 @@ const login = useUserLogin();
               )}
             </div>
 
-            <div className="mt-5 relative">
+            <div className="relative mt-5">
               <label
                 htmlFor="password"
-                className="text-zinc-800 text-sm font-normal"
+                className="text-sm font-normal text-zinc-800"
               >
                 Password
               </label>
@@ -169,14 +169,14 @@ const login = useUserLogin();
                 name="password"
                 placeholder="**********"
                 id="password"
-                className={`rounded w-full p-3 pl-4  border border-[#EEEEEE] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
                   errors.password
                     ? "border-[#e10] focus-within:border-[#e10]"
                     : "border-[#EEEEEE] "
                 }`}
               />
               <button
-                className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                 onClick={toggleEye}
               >
                 {eyeState ? <FiEye size={20} /> : <FiEyeOff size={20} />}
@@ -188,7 +188,10 @@ const login = useUserLogin();
               )}
             </div>
             <div className="">
-              <p className="text-zinc-800 text-base font-medium text-right mt-2">
+              <p
+                onClick={() => navigate("/admin/forget_password")}
+                className="mt-2 cursor-pointer text-right text-base font-medium text-zinc-800 hover:text-green-700"
+              >
                 Forgot password?
               </p>
 
@@ -197,7 +200,7 @@ const login = useUserLogin();
                   <button
                     type="submit"
                     // disabled={true}
-                    className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                    className="w-full select-none rounded bg-[#197b30] py-3 px-4 tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62]"
                   >
                     {loading ? (
                       <div className="mx-auto flex items-center justify-center">

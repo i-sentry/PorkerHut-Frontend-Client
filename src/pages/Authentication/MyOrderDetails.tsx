@@ -550,10 +550,10 @@ const MyOrderDetails = () => {
                   <thead>
                     <tr className="bg-gray-200">
                       <th className="border border-zinc-300 py-4 px-8 text-left">
-                        Product Name
+                        Product
                       </th>
                       <th className="border border-zinc-300 py-4 px-8 text-left">
-                        Store Name
+                        Store
                       </th>
                       <th className="border border-zinc-300 py-4 px-8 text-left">
                         Order Date
@@ -562,10 +562,10 @@ const MyOrderDetails = () => {
                         Order ID
                       </th>
                       <th className="border border-zinc-300 py-4 px-8 text-left">
-                        Prices
+                        Price
                       </th>
                       <th className="border border-zinc-300 py-4 px-8 text-left">
-                        No of items
+                        Qnty
                       </th>
                       <th className="border border-zinc-300 py-4 px-8 text-left">
                         Status

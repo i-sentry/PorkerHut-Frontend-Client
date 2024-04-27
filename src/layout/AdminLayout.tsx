@@ -46,6 +46,7 @@ const AdminLayout = () => {
         <div className="h-screen w-screen overflow-x-hidden">
           <div className="grid h-full w-full grid-rows-[auto_1fr]">
             <div className=" h-16">
+              
               <Navbar />
             </div>
             <div className="flex h-full w-full overflow-x-hidden">
