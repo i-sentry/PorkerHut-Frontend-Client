@@ -57,7 +57,7 @@ const Blog = () => {
       )}
       <>
         {!isLoading && sortedBlogs?.length >= 1 && (
-          <div className="grid items-center px-[4%] xxs:grid-cols-1 xxs:gap-12 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-12 ">
+          <div className="grid items-start px-[4%] xxs:grid-cols-1 xxs:gap-12 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-12 ">
             {chunkArray(sortedBlogs, itemsPerPage)[currentPageIndex - 1]?.map(
               (blog, index: number) => {
                 return <BlogCard blog={blog} key={index} />;

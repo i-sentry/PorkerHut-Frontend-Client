@@ -161,7 +161,7 @@ const RateReview = () => {
             {/* PRODUCT DETAILS */}
             <div className="mt-10 w-full lg:m-0 lg:w-[calc(50%_-_30px)]">
               <div className="flex justify-between">
-                <h2 className="text-lg font-semibold text-zinc-800 md:text-2xl">
+                <h2 className="text-lg font-semibold capitalize text-zinc-800 md:text-2xl">
                   {singleProduct?.data?.information?.productName}
                 </h2>
                 <span className="text-lg font-medium text-zinc-800 text-opacity-80 lg:text-xl">

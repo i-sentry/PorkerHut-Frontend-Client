@@ -200,10 +200,10 @@ const CategoryInfoModal = ({
                 {selectedCategory?.subcategories?.map(
                   (sub: any, index: any) => (
                     <span
-                      className="rounded bg-green-700 p-2 px-4 text-sm capitalize text-white"
+                      className="rounded text-sm capitalize text-neutral-500"
                       key={index}
                     >
-                      {sub?.name}
+                      {sub?.name},
                     </span>
                   ),
                 )}
@@ -233,7 +233,7 @@ const CategoryInfoModal = ({
                   setAction("disable");
                   setShowOption(true);
                 }}
-                className="rounded bg-red-600 px-5 py-2 text-white"
+                className="rounded bg-green-700 px-5 py-2 text-white"
               >
                 Disable Category
               </button>

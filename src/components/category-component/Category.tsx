@@ -75,33 +75,45 @@ const Category = () => {
         )}
 
         {!isLoading && allCategories?.data?.length >= 1 && (
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            cssMode={true}
-            // navigation={true}
-            // pagination={true}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-            }}
-            mousewheel={true}
-            keyboard={true}
-            modules={[Navigation, Mousewheel, Keyboard]}
-            className={` mySwiper flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex`}
-          >
-            {allCategories?.data.map((item: ICategory, index: number) => (
-              <SwiperSlide>
+          // <Swiper
+          //   spaceBetween={30}
+          //   slidesPerView={1}
+          //   cssMode={true}
+          //   // navigation={true}
+          //   // pagination={true}
+          //   breakpoints={{
+          //     640: {
+          //       slidesPerView: 2,
+          //       spaceBetween: 20,
+          //     },
+          //     768: {
+          //       slidesPerView: 3,
+          //       spaceBetween: 30,
+          //     },
+          //   }}
+          //   mousewheel={true}
+          //   keyboard={true}
+          //   modules={[Navigation, Mousewheel, Keyboard]}
+          //   className={` mySwiper flex space-x-4 p-14 px-0 xxs:hidden md:flex lg:flex`}
+          // >
+          //   {allCategories?.data.map((item: ICategory, index: number) => (
+          //     <SwiperSlide>
+          //       <Card key={index} item={item} />
+          //     </SwiperSlide>
+          //   ))}
+
+          // </Swiper>
+
+          <div className="hide-scroll-bar flex w-full overflow-x-auto">
+            {allCategories?.data?.map((item: ICategory, index: number) => (
+              <div
+                key={index}
+                className={`m-2 flex h-[300px] flex-none items-center  justify-center bg-gray-200 lg:h-[350px] xl:h-[400px] ${allCategories?.data?.length <= 3 ? "w-[90%] sm:w-[45%] lg:w-1/3" : "w-[90%] sm:w-[45%] lg:w-[28%]"}`}
+              >
                 <Card key={index} item={item} />
-              </SwiperSlide>
+              </div>
             ))}
-          </Swiper>
+          </div>
         )}
 
         {!isLoading && allCategories?.data?.length < 1 && (

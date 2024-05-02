@@ -619,7 +619,7 @@ const Settings = () => {
                 </div>
                 {loadAdmin && (
                   <span className="flex items-center gap-2">
-                    <CgSpinner size={24} />
+                    <CgSpinner size={24} className="animate-spin" />
                     Loading...
                   </span>
                 )}

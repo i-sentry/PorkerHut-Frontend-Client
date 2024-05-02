@@ -61,7 +61,14 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   }, []);
 
   useEffect(() => {
-    if (annouce?.data?.data?.length > 0) setAnnouncement(annouce?.data?.data);
+    if (annouce?.data?.data?.length > 0) {
+      const currentDate = new Date().getTime();
+      const filteredNews = annouce?.data?.data.filter((item: any) => {
+        const newsDate = new Date(item?.endDate).getTime();
+        return newsDate >= currentDate;
+      });
+      setAnnouncement(filteredNews);
+    }
   }, [annouce?.data?.data]);
 
   console.log(announcement, "Annoucements", annouce?.data?.data);

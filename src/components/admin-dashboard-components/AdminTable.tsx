@@ -130,6 +130,13 @@ const AdminTable = ({
               d?.storeStatus?.toLowerCase() === chosenTab.toLowerCase(),
           ),
         );
+      } else if (statusType === "order") {
+        setTdata(
+          TData.filter(
+            (d: { status: string }) =>
+              d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+          ),
+        );
       } else {
         setTdata(
           TData.filter(

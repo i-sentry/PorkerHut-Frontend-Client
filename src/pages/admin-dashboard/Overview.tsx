@@ -61,6 +61,7 @@ const Overview = () => {
   });
 
   const chartData = graph?.data?.weeklySalesOverview;
+  
 
   useEffect(() => {
     !loading &&
@@ -279,7 +280,7 @@ const Overview = () => {
             {loading ? (
               <CgSpinner size={20} className="animate-spin" />
             ) : (
-              `₦${filteredData?.totalSales?.toLocaleString()}`
+              `₦${filteredData?.totalSales?.toLocaleString() || 0}`
             )}
           </span>
         </div>
@@ -353,4 +354,3 @@ const Overview = () => {
 };
 
 export default Overview;
-

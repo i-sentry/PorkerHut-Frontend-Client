@@ -27,7 +27,7 @@ const Story = () => {
       <div className="mb-16 flex items-center justify-center">
         <div className=" block h-1.5 w-24 bg-[#197B30]"></div>
       </div>
-      <div className="grid px-[4%] xxs:gap-5 lg:grid-cols-3 lg:gap-12">
+      <div className="grid px-[4%] xxs:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         <div
           className="flex h-[380px] flex-col items-start justify-end rounded p-4 md:h-[480px]"
           style={{
@@ -36,7 +36,7 @@ const Story = () => {
           }}
         >
           <div>
-            <h1 className="text-[24px] font-medium leading-[28px] text-[#fff] ">
+            <h1 className="text-[24px] font-medium leading-[28px] text-[#fff]">
               Sustainability
             </h1>
             <TruncatedText text={sustainability} maxLength={120} />

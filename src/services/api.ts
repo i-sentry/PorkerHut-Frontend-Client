@@ -65,7 +65,7 @@ export const api = {
   Ratings: {
     createRating: "/api/ratings/create",
     updateRating: (ratingId: string | undefined) =>
-      `api/ratings/update/${ratingId}`,
+      `/api/ratings/update/${ratingId}`,
     allRating: (productId: string | undefined) =>
       `/api/ratings/product/${productId}`,
     allRatingsByUser: (userId: string | undefined) =>

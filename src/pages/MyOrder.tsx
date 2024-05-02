@@ -358,7 +358,7 @@ const MyOrder = () => {
   const [searchValue, setSearchValue] = useState("");
   // const [isOrderExpanded, setIsOrderExpanded] = useState(false);
   const [selectedTab, setSelectedTab] = useState("All");
-  const [, setChosenTab] = useState("All");
+  const [chosenTab, setChosenTab] = useState("All");
   const t = ["All", "Pending", "Completed", "Failed"];
   const queryKey = ["location", "product_name", " store_name"];
   // const [open, setOpen] = useState<number | null>(null);
@@ -370,10 +370,28 @@ const MyOrder = () => {
   console.log(getAllOrders, "Get All orders");
 
   // const allOrders = getAllOrders?.orders;
-  const allOrders = useMemo(
-    () => (isLoading ? [] : getAllOrders?.orders),
-    [getAllOrders?.orders],
-  );
+  const allOrders = useMemo(() => {
+    // isLoading ? [] : getAllOrders?.orders;
+    if (isLoading) {
+      return [];
+    } else if (selectedTab.toLowerCase() === "all") {
+      return getAllOrders?.orders;
+    } else if (selectedTab.toLowerCase() === "pending") {
+      return getAllOrders?.orders?.filter(
+        (item: any) => item?.status?.toLowerCase() === "pending",
+      );
+    } else if (selectedTab.toLowerCase() === "completed") {
+      return getAllOrders?.orders?.filter(
+        (item: any) => item?.status?.toLowerCase() === "completed",
+      );
+    } else if (selectedTab.toLowerCase() === "failed") {
+      return getAllOrders?.orders?.filter(
+        (item: any) => item?.status?.toLowerCase() === "failed",
+      );
+    } else {
+      return getAllOrders?.orders;
+    }
+  }, [getAllOrders?.orders, selectedTab]);
   const navigate = useNavigate();
 
   const handleViewOrder = (id: any) => {
@@ -448,6 +466,23 @@ const MyOrder = () => {
     }
   };
 
+  const tabFilter = (tab: string) => {
+    switch (tab?.toLowerCase()) {
+      case "all":
+        return getAllOrders?.orders;
+      case "pending":
+        return getAllOrders?.orders?.filter(
+          (item: any) => item?.status === "pending",
+        );
+      case "failed":
+        return getAllOrders?.orders?.filter(
+          (item: any) => item?.status === "pending",
+        );
+      default:
+        break;
+    }
+  };
+
   return (
     // <h1>Hello</h1>
     <AppLayout>
@@ -463,11 +498,11 @@ const MyOrder = () => {
               //@ts-ignore
               Tcolumns={Tcolumns}
               optionalColumn={optionalColumn}
-              tabs={["All", "Pending", "Completed", "Rejected"]}
+              tabs={["All", "Pending", "Completed", "Failed"]}
               TData={allOrders}
               placeholder={"Search product name, store names.... "}
               // showFilter={true}
-              statusType=""
+              statusType="order"
             />
           ) : (
             <div className="mt-40 flex flex-col items-center justify-center">

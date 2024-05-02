@@ -253,7 +253,6 @@ const Announcement = () => {
   return (
     <div className="py-6 pl-8 pr-5">
       <div className="">
-        <ToastContainer className={"mt-16"} />
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
           This is where send out special announcement to all affiliate.
@@ -393,7 +392,7 @@ const Announcement = () => {
                                   {row.cells.map((cell, cellIndex) => {
                                     return (
                                       <td
-                                        key={cellIndex}
+                                        key={`cell-${cellIndex}`}
                                         {...cell.getCellProps()}
                                         className=" py-4 px-4 text-sm text-[#202223] "
                                       >
