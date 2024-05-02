@@ -87,7 +87,9 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
 
   useEffect(() => {
     // Check if expiration timestamp is stored in localStorage
-    const timer = JSON.parse(localStorage.getItem("expirationTimestamp") as string);
+    const timer = JSON.parse(
+      localStorage.getItem("expirationTimestamp") as string,
+    );
     console.log(timer);
     if (timer && id === timer?._id) {
       // // Calculate expiration timestamp if not found
@@ -106,12 +108,7 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
       const timeDifference =
         timer?.endDate && parseInt(timer?.endDate || "0", 10) - now;
       console.log(timeDifference, "timeDifference", timer?.endDate);
-      if (timeDifference <= 0) {
-        // Trigger delete action when countdown expires
-        // Perform your delete action here
-        // localStorage.removeItem("expirationTimestamp");
-        clearInterval(interval);
-      } else {
+      if (timeDifference > 0 && timeDifference !== "undefined") {
         // Calculate remaining time
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor(
@@ -126,6 +123,23 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
         setHours(hours);
         setMinutes(minutes);
         setSeconds(seconds);
+        if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+          setDays(0);
+          setHours(0);
+          setMinutes(0);
+          setSeconds(0);
+          localStorage.removeItem("expirationTimestamp");
+          clearInterval(interval);
+        }
+      } else {
+        // Trigger delete action when countdown expires
+        // Perform your delete action here
+        // localStorage.removeItem("expirationTimestamp");
+        setDays(0);
+        setHours(0);
+        setMinutes(0);
+        setSeconds(0);
+        clearInterval(interval);
       }
     }, 1000);
 

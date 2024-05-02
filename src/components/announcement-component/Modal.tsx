@@ -63,7 +63,7 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           console.log(res, "res ann", res?.data?.announcement?._id);
           setLoading(false);
           localStorage.setItem(
-            "expirationTimestamp",
+            res?.data?.announcement?._id,
             JSON.stringify({
               _id: res?.data?.announcement?._id,
               endDate: timestamp,
