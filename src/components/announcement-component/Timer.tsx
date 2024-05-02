@@ -87,9 +87,7 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
 
   useEffect(() => {
     // Check if expiration timestamp is stored in localStorage
-    const timer = JSON.parse(
-      localStorage.getItem("expirationTimestamp") as string,
-    );
+    const timer = JSON.parse(localStorage.getItem(id) as string);
     console.log(timer);
     if (timer && id === timer?._id) {
       // // Calculate expiration timestamp if not found

@@ -93,7 +93,7 @@ export function AreaChart({ values }: { values?: any }) {
 
   // console.log(values, "chchchchch", days, sales, val);
   const data = {
-    labels: days,
+    labels: daysOfWeek,
     datasets: [
       {
         fill: true,
