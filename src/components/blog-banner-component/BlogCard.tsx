@@ -59,7 +59,7 @@ const BlogCard = ({ blog }: { blog: any }) => {
             </p>
           </div>
           <div className="px-2 pb-3">
-            <h1 className="whitespace-pre-line text-[24px] font-medium leading-[26px] text-[#333333]">
+            <h1 className="whitespace-pre-line text-[24px] font-medium capitalize leading-[26px] text-[#333333]">
               {title}
             </h1>
             <p className="my-3 mb-3 text-left text-[16px] font-normal leading-[19px] tracking-[0.04em] text-[#797979] xxs:text-[14px] xxs:leading-[16px]">

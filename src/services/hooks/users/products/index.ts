@@ -6,6 +6,7 @@ import {
   makeGetRequest,
   makePatchRequest,
   makePostRequest,
+  makePutRequest,
 } from "../../../api";
 
 export const useGetAllProducts = () => {
@@ -85,7 +86,7 @@ export const useCreateRating = () => {
 export const useUpdateRating = (ratingId: string) => {
   return useQueryMutation({
     mutationFn: (data: { ratingValue: number; comment: string }) =>
-      makePatchRequest(data, api.Ratings.updateRating(ratingId)),
+      makePutRequest(data, api.Ratings.updateRating(ratingId)),
   });
 };
 
@@ -118,8 +119,7 @@ export const useGetRatedProduct = (userId: string, productId: string) => {
 };
 
 export const useUpdateProduct = (id: string) => {
-    return useQueryMutation({
-    mutationFn: (data) =>
-      makePatchRequest(data, api.Blogs.singleBlog(id)),
+  return useQueryMutation({
+    mutationFn: (data) => makePatchRequest(data, api.Blogs.singleBlog(id)),
   });
-}
+};
