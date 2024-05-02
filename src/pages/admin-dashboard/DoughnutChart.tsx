@@ -12,9 +12,9 @@ function DoughnutChart({ admin }: any) {
       {
         label: "",
         data: [
-          admin?.totalPendingOrders,
-          admin?.totalCompletedOrders,
-          admin?.totalFailedOrders,
+          admin?.totalPendingOrders || 1,
+          admin?.totalCompletedOrders || 1,
+          admin?.totalFailedOrders || 1,
         ],
         backgroundColor: ["#F29339", "#22C55E", "#F91919"],
         // borderColor: [

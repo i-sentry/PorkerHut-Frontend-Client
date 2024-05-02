@@ -20,6 +20,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import CategoryInfoModal from "./CategoryInfoModal";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import Porkerlogo from "../../assets/images/porkerlogo.png";
+import { TbCategory2 } from "react-icons/tb";
 interface BlueDiv {
   id: number;
 }
@@ -472,6 +473,15 @@ const Category = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {!isLoading && category?.length < 1 && (
+              <div className="flex h-[300px] flex-col items-center justify-center gap-2 rounded-md bg-[#F4F4F4] py-10">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-neutral-400">
+                  <TbCategory2 size={32} className="text-neutral-400" />
+                </span>
+                <p className="text-center text-[#727272]">No categories yet</p>
               </div>
             )}
           </div>

@@ -30,36 +30,45 @@ const AdminOverviewTopProduct = () => {
         </form>
       </div>
       <div className="space-y-3">
-        {vendorAggregate
-          ?.toSorted((a: any, b: any) => b?.totalOrders - a?.totalOrders)
-          ?.map((product: any, index: number) => {
-            // console.log(product, "prodcuxt silsis");
-            return (
-              <div
-                className="flex w-full items-center justify-between"
-                key={index}
-              >
-                <div className="grid w-full grid-cols-[54px_1fr] items-center gap-1.5">
-                  <span>
-                    <BiSolidUserCircle size={54} className="text-neutral-500" />
-                  </span>
-                  <div className="flex flex-col gap-1">
-                    <div className="flex items-center justify-between text-right">
-                      <span className="font-semibold text-[#333]">
-                        Product Name
-                      </span>
-                      <span className="text-[#a2a2a2]">
-                        {product?.totalOrders} Sold
-                      </span>
-                    </div>
-                    <div className="h-2.5 w-full overflow-hidden rounded-[50px] bg-slate-400">
-                      <div className="h-2.5 w-[40%] rounded-[50px] bg-green-700"></div>
+        {!isLoading &&
+          vendorAggregate?.length >= 1 &&
+          vendorAggregate
+            ?.toSorted((a: any, b: any) => b?.totalOrders - a?.totalOrders)
+            ?.map((product: any, index: number) => {
+              // console.log(product, "prodcuxt silsis");
+              return (
+                <div
+                  className="flex w-full items-center justify-between"
+                  key={index}
+                >
+                  <div className="grid w-full grid-cols-[54px_1fr] items-center gap-1.5">
+                    <span>
+                      <BiSolidUserCircle
+                        size={54}
+                        className="text-neutral-500"
+                      />
+                    </span>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between text-right">
+                        <span className="font-semibold text-[#333]">
+                          Product Name
+                        </span>
+                        <span className="text-[#a2a2a2]">
+                          {product?.totalOrders} Sold
+                        </span>
+                      </div>
+                      <div className="h-2.5 w-full overflow-hidden rounded-[50px] bg-slate-400">
+                        <div className="h-2.5 w-[40%] rounded-[50px] bg-green-700"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+
+        {!isLoading && vendorAggregate?.length < 1 && (
+          <div className="py-8 px-4 text-center">No Products yet</div>
+        )}
       </div>
     </div>
   );

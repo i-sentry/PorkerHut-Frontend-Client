@@ -37,33 +37,42 @@ const TopStoresRating = () => {
       </div>
 
       <div className="mt-4 space-y-3">
-        {vendorAggregate
-          ?.toSorted(
-            (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
-          )
-          ?.map((vendor: any, index: any) => (
-            <div className="flex items-center justify-between" key={index}>
-              <div className="grid grid-cols-[54px_1fr] items-center gap-1.5">
-                <span>
-                  <BiSolidUserCircle size={54} className="text-neutral-500" />
-                </span>
-                <div>
-                  <h3 className="text-[#333]">
-                    {vendor?.vendorDetails?.sellerAccountInformation?.shopName}
-                  </h3>
-                  <span className="col-[2] text-[#a2a2a2]">Abuja</span>
+        {!isLoading &&
+          vendorAggregate?.length >= 1 &&
+          vendorAggregate
+            ?.toSorted(
+              (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
+            )
+            ?.map((vendor: any, index: any) => (
+              <div className="flex items-center justify-between" key={index}>
+                <div className="grid grid-cols-[54px_1fr] items-center gap-1.5">
+                  <span>
+                    <BiSolidUserCircle size={54} className="text-neutral-500" />
+                  </span>
+                  <div>
+                    <h3 className="text-[#333]">
+                      {
+                        vendor?.vendorDetails?.sellerAccountInformation
+                          ?.shopName
+                      }
+                    </h3>
+                    <span className="col-[2] text-[#a2a2a2]">Abuja</span>
+                  </div>
+                </div>
+                <div className="inline-grid grid-cols-1 text-right">
+                  <span className="font-semibold text-[#333]">
+                    ₦{vendor?.totalSalesAmount.toLocaleString()}
+                  </span>
+                  <span className="text-[#a2a2a2]">
+                    {vendor?.totalOrders} Sales
+                  </span>
                 </div>
               </div>
-              <div className="inline-grid grid-cols-1 text-right">
-                <span className="font-semibold text-[#333]">
-                  ₦{vendor?.totalSalesAmount.toLocaleString()}
-                </span>
-                <span className="text-[#a2a2a2]">
-                  {vendor?.totalOrders} Sales
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+
+        {!isLoading && vendorAggregate?.length < 1 && (
+          <div className="py-8 px-4 text-center">No vendors yet</div>
+        )}
       </div>
     </div>
   );
