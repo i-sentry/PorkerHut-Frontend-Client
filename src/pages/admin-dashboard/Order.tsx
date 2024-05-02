@@ -408,6 +408,12 @@ const Order = () => {
         ) : (
           ""
         )}
+
+        {!isLoading && orders?.length < 1 && (
+          <div className="flex items-center justify-center py-10 px-4 text-neutral-500">
+            No Orders Yet...
+          </div>
+        )}
       </div>
     </div>
   );

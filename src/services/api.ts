@@ -79,6 +79,11 @@ export const api = {
     isRated: (userId: string, productID: string) =>
       `/api/ratings/check-rating/user/${userId}/product/${productID}`,
   },
+  Tracking: {
+    track: "/api/tracking",
+    userTracking: (userId: string) => `/api/tracking/${userId}`,
+    OrderTracking: (orderId: string) => `/api/tracking//order/${orderId}`,
+  },
   Vets: {
     createVet: "/api/vets",
     allVets: "/api/vets",

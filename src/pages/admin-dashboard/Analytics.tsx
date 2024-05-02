@@ -64,7 +64,7 @@ const Analytics = () => {
               {loading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                `₦${adminOverview?.totalSales.toLocaleString()}`
+                `₦${adminOverview?.totalSales.toLocaleString() || 0}`
               )}
             </span>
             <span className="flex items-center gap-2">
@@ -80,7 +80,7 @@ const Analytics = () => {
               {loading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                `${adminOverview?.totalOrders}`
+                `${adminOverview?.totalOrders || 0}`
               )}
             </span>
             <span className="flex items-center gap-2">
@@ -96,7 +96,7 @@ const Analytics = () => {
               {loading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                `12.5K`
+                `0K`
               )}
             </span>
             <span className="flex items-center gap-2">
@@ -112,7 +112,7 @@ const Analytics = () => {
               {loading ? (
                 <CgSpinner size={20} className="animate-spin" />
               ) : (
-                `52%`
+                `0%`
               )}
             </span>
             <span className="flex items-center gap-2">

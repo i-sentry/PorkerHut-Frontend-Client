@@ -639,7 +639,8 @@ const MyOrderDetails = () => {
           </>
         )}
       </div>
-      <OrderModal onClose={handleOnclose} visible={showModal} />
+
+      <OrderModal onClose={handleOnclose} visible={showModal} order={order} />
     </AppLayout>
   );
 };
