@@ -16,13 +16,13 @@ const initialFormData: Record<string, FormField> = {
   startDate: {
     label: "Sale Start Date",
     type: "date",
-    required: true,
+    required: false,
     name: "pricing.salesStartDate",
   },
   endDate: {
     label: "Sale End Date",
     type: "date",
-    required: true,
+    required: false,
     name: "pricing.salesEndDate",
   },
 };

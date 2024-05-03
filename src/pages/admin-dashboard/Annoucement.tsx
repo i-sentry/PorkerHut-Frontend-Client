@@ -324,7 +324,7 @@ const Announcement = () => {
                     </div>
                   </>
                 )}
-                {!isLoading && (
+                {!isLoading && data?.length > 0 && (
                   <div className="overflow-x-auto">
                     <table
                       {...getTableProps()}

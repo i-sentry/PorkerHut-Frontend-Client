@@ -2,6 +2,7 @@ import React from "react";
 import PaymentCard from "../../components/admin-dashboard-components/PaymentCard";
 import { BsSearch } from "react-icons/bs";
 import TrackerCard from "../../components/admin-dashboard-components/TrackerCard";
+import ComingSoon from "../../components/ComingSoon";
 
 const PaymentTracker = () => {
   return (
@@ -33,8 +34,12 @@ const PaymentTracker = () => {
       </div>
 
       {/* TRACKER CARD */}
-      <div className="grid grid-cols-3">
+      <div className="hidden grid-cols-3">
         <TrackerCard />
+      </div>
+
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Payment Tracker"} />
       </div>
     </div>
   );

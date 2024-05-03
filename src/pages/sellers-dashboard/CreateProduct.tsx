@@ -38,7 +38,7 @@ function CreateProduct() {
   }
   return (
     <>
-      <div className="rounded-[8px]  bg-[#F4F4F4] xxs:px-0 md:px-0">
+      <div className="rounded-[8px]  bg-[#F4F4F4] xxs:px-4 md:px-4">
         {!isLoading &&
           catagories?.data?.length > 0 &&
           catagories?.data?.map((item: any, index: any) => {

@@ -4,6 +4,7 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Popover from "../../components/utility/PopOver";
+import ComingSoon from "../../components/ComingSoon";
 
 const invoiceData = [
   {
@@ -166,7 +167,7 @@ const PaymentInvoice = () => {
       </div>
 
       <div>
-        <div className="hide-scroll-bar">
+        <div className="hide-scroll-bar hidden">
           <AdminTable
             // @ts-ignore
             Tcolumns={Tcolumns}
@@ -183,6 +184,10 @@ const PaymentInvoice = () => {
             ]}
           />
         </div>
+      </div>
+
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Payment Invoice"} />
       </div>
     </div>
   );

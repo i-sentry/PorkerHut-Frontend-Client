@@ -282,7 +282,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                 {isLoading ? (
                   <CgSpinner size={20} className=" animate-spin" />
                 ) : (
-                  averageRating.toFixed(2) || 0
+                  averageRating?.toFixed(2) || 0
                 )}
               </span>
             </div>
