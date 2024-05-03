@@ -12,6 +12,7 @@ import {
   useUpdateProductVisibility,
 } from "../../services/hooks/Vendor/products";
 import { useRefresh } from "../../store";
+import { FaStoreSlash } from "react-icons/fa";
 
 const StatusColumn = ({ d }: any) => {
   const { approvalStatus } = d;
@@ -77,7 +78,6 @@ const PriceColumn = ({ d }: any) => {
 
 const ProductNameColumn = ({ d }: any) => {
   const { information, images } = d;
-  // console.log(images);
 
   return (
     <div className="group relative flex cursor-pointer items-center gap-2">
@@ -146,22 +146,11 @@ const SellersProductPage = () => {
     } else {
       setProducts([]);
     }
-  }, [vendorProducts, refresh, isLoading,]);
+  }, [vendorProducts, refresh, isLoading]);
 
   useEffect(() => {
     if (refresh === true) refetch();
   }, [refresh]);
-
-  if (isLoading || !vendorProducts?.data) {
-    return (
-      <div className="flex h-screen  flex-col items-center justify-center bg-[#A2A2A2] ">
-        <span className="animate-spin">
-          <ImSpinner6 size={30} />
-        </span>
-        Please wait..
-      </div>
-    );
-  }
 
   const handleView = (id: any, catId: any) => {
     navigate(
@@ -270,17 +259,33 @@ const SellersProductPage = () => {
       </div>
 
       <div className="mt-2">
-        {/* {!isLoading && productData.length > 0 && ( */}
-        <AdminTable
-          showDropDown={true}
-          showCheckbox={true}
-          Tcolumns={Tcolumns}
-          tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
-          TData={products}
-          placeholder={"Search product name, store names, category.... "}
-          statusType={"product"}
-        />
-        {/* )} */}
+        {isLoading && (
+          <div className="flex h-screen  flex-col items-center justify-center bg-[#A2A2A2] ">
+            <span className="animate-spin">
+              <ImSpinner6 size={30} />
+            </span>
+            Please wait..
+          </div>
+        )}
+
+        {!isLoading && products?.length > 0 && (
+          <AdminTable
+            showDropDown={true}
+            showCheckbox={true}
+            Tcolumns={Tcolumns}
+            tabs={["All", "Approved", "Pending", "Rejected", "Sold"]}
+            TData={products}
+            placeholder={"Search product name, store names, category.... "}
+            statusType={"product"}
+          />
+        )}
+
+        {!isLoading && products?.length < 1 && (
+          <div className="flex items-center justify-center bg-neutral-100 py-10 px-4 text-neutral-500">
+            <FaStoreSlash size={32} className="mb-1" />
+            No products yet...
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,54 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import banner1 from "../../assets/images/SellerHomeBanner.png";
-
-// import Modal from "../../components/announcement-component/Modal";
-// import Select from "react-select";
-// import { AiOutlineSound } from "react-icons/ai";
-// import RowModal from "../../components/announcement-component/RowModal";
-// import { announcementData } from "../../utils/announcementData";
-
 import { RiMessage2Line } from "react-icons/ri";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
-import {
-  useGetAllAnnoucement,
-  useGetVendorById,
-} from "../../services/hooks/Vendor";
+import { useGetAllAnnoucement } from "../../services/hooks/Vendor";
 import { MdOutlineAnnouncement } from "react-icons/md";
 import moment from "moment";
-import { Tooltip } from "../../components/utility/ToolTip";
-// import { useGetVendorById } from "../../services/hooks/Vendor";
 
 interface SliderProps {
   sliderImages: never[];
 }
-
-// const items = [
-//   {
-//     date: "Dec 3",
-//     title: "December Sales!!!",
-//     description:
-//       "Prepare for the December sales and stock up your products because we will be experiencing high traffic on our site. It...",
-//   },
-//   {
-//     date: "April 3",
-//     title: "April Offer!",
-//     description:
-//       "Check out our latest collection of products. We have added exciting new items that you do not want to miss.",
-//   },
-//   {
-//     date: "May 04",
-//     title: "May Offer!",
-//     description:
-//       "Don't miss our special limited-time offer. Grab your favorite products at discounted prices before it ends!",
-//   },
-//   {
-//     date: "June 1",
-//     title: "Upcoming Event Announcement",
-//     description:
-//       "Mark your calendars! We have an exciting event coming up. Stay tuned for more details and join us for a memorable experience.",
-//   },
-// ];
 
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const vendor = JSON.parse(localStorage.getItem("vendor") as string);
@@ -212,11 +173,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
           ))}
         </div>
       </div>
-      {/* <div className="no-scrollbar hide-scrollbar my-8 mx-4 overflow-y-scroll">
-        <p className="marquee hide-scroll-bar w-full whitespace-nowrap text-center ">
-          jsdfskhfhdgsuy5thhgfhshfdsahfdhghfjhjgjghgdgfdgfjghgdsfdgjhsgdhghsgfdgffgfdafsdadsaffhgghgxdfsfgjhggjkhfjdfsfdssaddhgfkjhghcgfsgfdzshggfsjgskjjsghsdfgsgfdghdhfhffhfgfgsj
-        </p>
-      </div> */}
 
       <div className="mt-28 grid xxs:grid-rows-1 xxs:gap-14 xxs:px-4 md:grid-cols-2 md:gap-10">
         <div className="">
@@ -287,7 +243,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                   {isLoading ? (
                     <CgSpinner size={20} className=" animate-spin" />
                   ) : (
-                    item.total
+                    item.total || 0
                   )}
                 </span>
               </div>
@@ -326,7 +282,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
                 {isLoading ? (
                   <CgSpinner size={20} className=" animate-spin" />
                 ) : (
-                  averageRating.toFixed(2)
+                  averageRating.toFixed(2) || 0
                 )}
               </span>
             </div>

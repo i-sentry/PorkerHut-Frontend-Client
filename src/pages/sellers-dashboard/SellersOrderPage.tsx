@@ -1,27 +1,16 @@
-// import { Column } from "react-table";
 import _ from "lodash";
-
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-// import Table from "../../components/Table/Table";
 import { Column } from "react-table";
-
-// import mockData from "../../utils/json/mockData.json";
-// import { column } from "../../components/Table/column";
 import { Carousel } from "./SellersAccount";
 import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { useEffect, useState } from "react";
-// import Popover from "../../components/utility/PopOver";
 import { CgSpinner, CgSpinnerAlt } from "react-icons/cg";
 import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
-
-// type OrderDataProps = {
-//   id: string;
-//   title?: string;
-//   figure?: string;
-// };
+import logo from "../../assets/images/porkerlogo.png";
+import { MdProductionQuantityLimits } from "react-icons/md";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -44,7 +33,6 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.value;
   const lowerData = adata?.toLowerCase();
   const productName = _.startCase(lowerData);
@@ -56,143 +44,6 @@ export const ProductNameColumn = ({ data }: any) => {
     </div>
   );
 };
-// export const OrderData = [
-//   {
-//     id: "1",
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "21 September 2022",
-//     order_id: "21 September 2022",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Pending",
-//   },
-//   {
-//     id: "2",
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "21 September 2022",
-//     order_id: "21 September 2022",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Failed",
-//   },
-//   {
-//     id: "3",
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "21 September 2022",
-//     order_id: "21 September 2022",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Pending",
-//   },
-//   {
-//     id: "4",
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Pending",
-//   },
-//   {
-//     id: "5",
-
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "21 September 2022",
-//     order_id: "21 September 2022",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Completed",
-//   },
-//   {
-//     id: "6",
-
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Failed",
-//   },
-//   {
-//     id: "7",
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Pending",
-//   },
-//   {
-//     id: "8",
-
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Returned",
-//   },
-//   {
-//     id: "9",
-
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Failed",
-//   },
-//   {
-//     id: "10",
-
-//     location: "Abuja",
-//     time: "20:40pm",
-//     product_name: "100%  Healthy-Fed Pork Lap",
-//     store_name: "Porker Hut",
-//     order_date: "2023-01-13T19:30:00Z",
-//     order_id: "2023-01-13T19:30:00Z",
-//     price: "32,500",
-//     quantity: "4",
-//     order_total: "30,000",
-//     order_status: "Completed",
-//   },
-// ];
 
 const SellersOrderPage = () => {
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
@@ -210,19 +61,6 @@ const SellersOrderPage = () => {
   useEffect(() => {
     if (!isLoading) setVendorOrders(orders);
   }, [isLoading, orders]);
-
-  console.log(orders, isLoading, "is load data");
-
-  // const color3 = () => {
-  //   const pending = vendorOrders?.filter(
-  //     (order) => order?.status === "pending"
-  //   ).length;
-  //   const completed = vendorOrders?.filter(
-  //     (order) => order?.status === "pending"
-  //   ).length;
-  //   console.log(pending, "pending");
-  // };
-  // color3();
 
   const Tcolumns: readonly Column<object>[] = [
     {
@@ -284,7 +122,6 @@ const SellersOrderPage = () => {
       Cell: ({ row }: any) => {
         const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
         const id = row?.original;
-        // console.log(id, row, "original");
 
         return (
           <span
@@ -301,119 +138,10 @@ const SellersOrderPage = () => {
     },
   ];
 
-  console.log(orderInfo, "orderinfos");
-
-  /*   const color = (val: { title: string; figure?: string | undefined }) => {
-    switch (val?.title) {
-      case "Pending Order":
-        return (
-          <>
-            <h1 className="text-[20px] font-medium leading-[23.44px]">
-              {val?.title}
-            </h1>
-            <span className="  flex items-center justify-center text-[20px] font-medium leading-[23.44px]">
-              ({val?.figure})
-            </span>
-          </>
-        );
-      case "Ready to Go":
-        return (
-          <>
-            <h1 className=" text-[20px] font-medium leading-[23.44px] text-[#F29339]">
-              {val?.title}
-            </h1>
-            <span className="flex items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#F29339]">
-              ({val?.figure})
-            </span>
-          </>
-        );
-      case "Fufilled Orders":
-        return (
-          <>
-            <h1 className="text-[20px] font-medium leading-[23.44px] text-[#22C55E]">
-              {val?.title}
-            </h1>
-            <span className=" flex  items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#22C55E]">
-              ({val?.figure})
-            </span>
-          </>
-        );
-      case "Failed Orders":
-        return (
-          <>
-            <h1 className=" text-[20px] font-medium leading-[23.44px] text-[#F91919]">
-              {val?.title}
-            </h1>
-            <span className="flex items-center justify-center text-[20px] font-medium leading-[23.44px] text-[#F91919]">
-              ({val?.figure})
-            </span>
-          </>
-        );
-      default:
-        return (
-          <>
-            <h1 className=" text-[20px] font-medium leading-[23.44px]">
-              {val?.title}
-            </h1>
-            <span className=" flex items-center justify-center text-[20px] font-medium leading-[23.44px]">
-              {val?.figure}
-            </span>
-          </>
-        );
-    }
-  }; */
-
-  // const orderData = [
-  //   {
-  //     id: "1",
-  //     title: "Today",
-  //   },
-  //   {
-  //     id: "2",
-  //     title: "Pending Order",
-  //     figure: "200",
-  //   },
-  //   {
-  //     id: "3",
-  //     title: "Ready to Go",
-  //     figure: "300",
-  //   },
-  //   {
-  //     id: "4",
-  //     title: "Fufilled Orders",
-  //     figure: "1000",
-  //   },
-  //   {
-  //     id: "5",
-  //     title: "Failed Orders",
-  //     figure: "50",
-  //   },
-  // ];
-
-  // const card = orderData.map(
-  //   (val: { title: string; figure?: string | undefined }) => (
-  //     <div className="flex h-full flex-1 flex-col items-center justify-center border-[#D9D9D9] bg-[#F4F4F4] xxs:h-[124px] md:border-r-[1px]">
-  //       <div>{color(val)}</div>
-  //     </div>
-  //   ),
-  // );
-
   return (
     <>
       {openModal && <OrderSideModal orderInfo={orderInfo} />}
       <div className="mt-2 px-4 pb-10">
-        {/* <h1 className="xxs:hidden block text-[36px] leading-[42px] font-medium mb-6 ">
-          Orders
-        </h1> */}
-        {/* <div className=" hidden h-20 items-center justify-center">
-          {orderData.map(
-            (val: { title: string; figure?: string | undefined }) => (
-              <div className="flex h-full flex-1 flex-col items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4]">
-                <div>{color(val)}</div>
-              </div>
-            ),
-          )}
-        </div> */}
         {/* MOBILE OVERVIEW ORDERS */}
         <div className=" mx-auto xxs:block md:hidden">
           <Carousel
@@ -487,7 +215,21 @@ const SellersOrderPage = () => {
             Overview
           </h1>
         </div>
-        {vendorOrders?.length > 0 ? (
+        {isLoading && (
+          <div className="flex h-screen flex-col items-center justify-center bg-white py-16">
+            <div className="flex flex-col items-center">
+              <img
+                src={logo}
+                alt="loaderLogo"
+                className="h-20 w-20 animate-pulse"
+              />
+              <p className="text-[14px] leading-[24px] text-[#333333]">
+                Fetching Data...
+              </p>
+            </div>
+          </div>
+        )}
+        {!isLoading && vendorOrders?.length > 0 && (
           <div className="hide-scroll-bar">
             <AdminTable
               // @ts-ignore
@@ -500,9 +242,12 @@ const SellersOrderPage = () => {
               showDropDown={true}
             />
           </div>
-        ) : (
-          <div className="flex items-center justify-center pt-16">
-            <CgSpinner size={72} className="animate-spin" />
+        )}
+
+        {!isLoading && vendorOrders?.length < 1 && (
+          <div className="flex items-center justify-center bg-neutral-100 py-10 px-4 text-neutral-500">
+            <MdProductionQuantityLimits size={32} className="mb-1" />
+            No orders yet...
           </div>
         )}
       </div>
@@ -540,7 +285,6 @@ const MonthSelector: React.FC<{
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value));
-    console.log(event.target.value, "gsgsgsg");
   };
 
   const filteredData = data?.filter((order: any) => {
@@ -613,7 +357,7 @@ const NewCard = ({ loading, orderLength, orderType }: any) => {
         {loading ? (
           <CgSpinnerAlt size={20} className="animate-spin" />
         ) : (
-          orderLength
+          orderLength || 0
         )}
         )
       </span>
