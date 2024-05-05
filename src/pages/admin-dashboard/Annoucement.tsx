@@ -255,7 +255,7 @@ const Announcement = () => {
       <div className="">
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
-          This is where send out special announcement to all affiliate.
+          This is where you send out special announcements to all affiliate.
         </span>
       </div>
 
