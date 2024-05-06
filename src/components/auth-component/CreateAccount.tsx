@@ -66,7 +66,6 @@ const CreateAccount: any = () => {
         e?.target.reset();
         setIsOpen(true);
         setLoading(false);
-        console.log(res);
 
         // login.mutateAsync({
         //   email: res?.data?.others?.email.toLowerCase(),
@@ -77,7 +76,6 @@ const CreateAccount: any = () => {
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e);
       });
   });
 

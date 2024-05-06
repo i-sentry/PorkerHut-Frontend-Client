@@ -52,7 +52,6 @@ const AdminTable = ({
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [chosenTab, setChosenTab] = useState(tabs[0]);
 
-  console.log(tabs[0], selectedTab);
 
   const tableColumns = useMemo(() => {
     const columns = [

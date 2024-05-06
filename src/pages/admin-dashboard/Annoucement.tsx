@@ -48,7 +48,6 @@ const Announcement = () => {
   const [showRowModal, setShowRowModal] = useState(false);
 
   const { data: annouce, isLoading, refetch } = useGetAllAnnoucement();
-  console.log(annouce, "announce");
 
   // const handleRowClick = (rowData: RowData) => {
   //   setSelectedRow(rowData);
@@ -72,7 +71,6 @@ const Announcement = () => {
   //       const handleClick = (row: any) => {
   //         setSelectedRow(row.original);
   //         setShowRowModal(true);
-  //         console.log("do something");
   //       };
 
   //       return (
@@ -110,12 +108,9 @@ const Announcement = () => {
         Header: "Subject",
         accessor: (row: any) => {
           const end = new Date(row?.endDate).getTime() - new Date().getTime();
-          console.log(end, "end");
           const handleClick = (a: any) => {
             setSelectedRow(a);
             setShowRowModal(true);
-            console.log("do something", a);
-            // console.log(row, "aabbbshshs");
           };
           return (
             <span className="inline-flex items-center gap-2 whitespace-nowrap font-medium text-[#333]">
@@ -139,8 +134,6 @@ const Announcement = () => {
           const handleClick = (a: any) => {
             setSelectedRow(a);
             setShowRowModal(true);
-            console.log("do something", a);
-            // console.log(row, "aabbbshshs");
           };
 
           return (
@@ -255,7 +248,7 @@ const Announcement = () => {
       <div className="">
         <h1 className="text-2xl font-medium ">Announcement</h1>
         <span className="text-sm font-light text-[#A2A2A2]">
-          This is where you send out special announcements to all affiliate.
+          This is where you send out special announcements to all vendors.
         </span>
       </div>
 

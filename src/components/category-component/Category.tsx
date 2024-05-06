@@ -34,7 +34,6 @@ const Category = () => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
-  console.log(allCategories?.data, "time");
 
   return (
     <div>

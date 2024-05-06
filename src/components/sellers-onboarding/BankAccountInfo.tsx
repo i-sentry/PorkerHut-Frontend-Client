@@ -39,7 +39,6 @@ const BankAccountInfo = () => {
 
   const bankAccount = userData.vendorBankAccount.accountNumber;
   const bankCode = dropOption?.value;
-  console.log(bankAccount && bankCode, "hhh");
   const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
     bankAccount,
   )}&bank_code=${bankCode}`;
@@ -69,9 +68,7 @@ const BankAccountInfo = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.length;
-    console.log(value, "value");
     if (value === 10) {
-      console.log("feting.ddedeedeedeeeeedeeded.");
       setFetch(true);
     }
     handleChange(e);
@@ -104,8 +101,6 @@ const BankAccountInfo = () => {
       })),
     [bankList?.data],
   );
-  console.log(bankOptions, "bankList");
-  // console.log(resolveBankNameResult, "userData");
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

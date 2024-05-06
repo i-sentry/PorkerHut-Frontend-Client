@@ -25,13 +25,13 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className="  text-[#22C55E] ">Approved</span>;
 
     case "rejected":
-      return <span className=" text-[#F91919]  capitalize">Rejected</span>;
+      return <span className=" capitalize  text-[#F91919]">Rejected</span>;
 
     case "pending":
-      return <span className=" text-[#F29339]  capitalize">Pending</span>;
+      return <span className=" capitalize  text-[#F29339]">Pending</span>;
     default:
       return (
-        <span className="font-normal text-sm text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#202223] ">{data}</span>
       );
   }
 };
@@ -59,11 +59,11 @@ const Tcolumns: readonly Column<object>[] = [
     Header: "Account Owner",
     accessor: "account_owner",
     Cell: ({ value }) => (
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         <img
           src={value?.image}
           alt={value?.name}
-          className="h-8 w-8 object-cover rounded-full"
+          className="h-8 w-8 rounded-full object-cover"
         />
         <span className="whitespace-normal">{value?.name}</span>
       </div>
@@ -152,7 +152,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
               Cell: () => <div></div>,
             },
       ]);
-    }
+    },
   ) as any;
   const {
     getTableBodyProps,
@@ -181,13 +181,11 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
     } else {
       setTdata(
         newStoreData.filter(
-          (d) => d?.status?.toLowerCase() === chosenTab.toLowerCase()
-        )
+          (d) => d?.status?.toLowerCase() === chosenTab.toLowerCase(),
+        ),
       );
     }
   }, [chosenTab]);
-
-  console.log(globalFilter, "GLO");
 
   return (
     <>
@@ -195,9 +193,9 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
         {tabs.map((tab: string, index: React.Key | null | undefined) => (
           <TabSelector
             key={index}
-            className={`cursor-pointer relative underline bg-transparent  text-center p-2 px-2 text-[#5c6f7f]${
+            className={`relative cursor-pointer bg-transparent p-2  px-2 text-center underline text-[#5c6f7f]${
               selectedTab === tab
-                ? " text-[#197B30] no-underline border border-[#197B30] rounded-md shadow-md transition-all ease-in-out duration-100"
+                ? " rounded-md border border-[#197B30] text-[#197B30] no-underline shadow-md transition-all duration-100 ease-in-out"
                 : ""
             }`}
             isActive={selectedTab === tab}
@@ -211,12 +209,12 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
           </TabSelector>
         ))}
       </div>
-      <div className="flex  items-center justify-between  my-4 w-full ">
-        <div className="md:flex items-center gap-3 ml-4 xxs:hidden">
-          <div className="flex h-full items-center pl-4 border-r-[1px] border-r-[#D0D5DD]">
+      <div className="my-4  flex w-full  items-center justify-between ">
+        <div className="ml-4 items-center gap-3 xxs:hidden md:flex">
+          <div className="flex h-full items-center border-r-[1px] border-r-[#D0D5DD] pl-4">
             <input
               type="checkbox"
-              className="text-primary  accent-[#197B30] text-xs md:text-sm"
+              className="text-primary  text-xs accent-[#197B30] md:text-sm"
               readOnly
               checked={numOfSelectedRow > 0 ? true : false}
             />
@@ -229,11 +227,11 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
           <div className="max-w-xl ">
             <OrderDropDown />
           </div>
-          <div className="bg-[#197B30] text-[#fff] px-4 py-2 rounded-md cursor-pointer">
+          <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-2 text-[#fff]">
             Go
           </div>
         </div>
-        <div className=" flex md:justify-end xxs:justify-center">
+        <div className=" flex xxs:justify-center md:justify-end">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -241,16 +239,16 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
           />
         </div>
       </div>
-      <div className="  flex flex-col bg-white mb-8">
+      <div className="  mb-8 flex flex-col bg-white">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
               <table
                 {...getTableProps()}
-                className="appearance-none bg-white min-w-full  mb-6 "
+                className="mb-6 min-w-full appearance-none  bg-white "
                 id="my-table"
               >
-                <thead className="bg-[#F4F4F4] appearance-none ">
+                <thead className="appearance-none bg-[#F4F4F4] ">
                   {headerGroups.map(
                     (headerGroup: {
                       getHeaderGroupProps: () => { [x: string]: any; key: any };
@@ -262,9 +260,9 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
                         <tr key={key} {...restHeaderProps}>
                           {headerGroup.headers.map((column) => (
                             <th
-                              className="font-normal text-sm text-primary py-4 text-left whitespace-nowrap px-2 rounded-t-md"
+                              className="text-primary whitespace-nowrap rounded-t-md py-4 px-2 text-left text-sm font-normal"
                               {...column.getHeaderProps(
-                                column.getSortByToggleProps()
+                                column.getSortByToggleProps(),
                               )}
                               key={column.id}
                             >
@@ -275,12 +273,12 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
                           ))}
                         </tr>
                       );
-                    }
+                    },
                   )}
                 </thead>
                 <tbody
                   {...getTableBodyProps()}
-                  className="mt-3 pt-3 w-full space-y-8 border-r"
+                  className="mt-3 w-full space-y-8 border-r pt-3"
                 >
                   {page.map(
                     (row: {
@@ -291,19 +289,17 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
                       cells: any[];
                     }) => {
                       prepareRow(row);
-                      // console.log(row?.subRows, "sub");
-                      // prepareRow(row?.subRows);
                       return (
                         <>
                           <tr
                             {...row.getRowProps()}
-                            className="appearance-none my-4 border "
+                            className="my-4 appearance-none border "
                           >
                             {row.cells.map((cell) => {
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-light text-sm text-[#202223] py-4 px-2 border-r"
+                                  className="border-r py-4 px-2 text-sm font-light text-[#202223]"
                                 >
                                   {cell.render("Cell")}
                                 </td>
@@ -312,7 +308,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
                           </tr>
                         </>
                       );
-                    }
+                    },
                   )}
                 </tbody>
               </table>

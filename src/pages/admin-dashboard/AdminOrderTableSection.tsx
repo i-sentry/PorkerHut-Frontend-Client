@@ -42,7 +42,6 @@ const AdminOrderTableSection = ({ order, rowEvents }: any) => {
     }, []);
   
 
-console.log(orderData, "gekkki");
   return (
     <tbody key={order.id}>
       <tr className="border border-[#D9D9D9]">

@@ -34,12 +34,8 @@ const CartPage = () => {
   const { data: allProducts } = useGetAllProducts();
   const [showModal, setShowModal] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  // const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  // const totalQuantity = useSelector(
-  //   (state: RootState) => state.product.totalQuantity
-  // );
   const isMobileScreen = useMediaQuery("(max-width: 639px)");
   const toggleModal = usePopModal((state) => state.toggleModal);
 
@@ -49,8 +45,7 @@ const CartPage = () => {
   const handleNavigate = () => {
     navigate("/products");
   };
-  // console.log(cart, "cart");
-  // const products = useAppSelector((state) => state.product);
+
   const cartTotal = Object.values(cart)?.reduce((acc, current) => {
     return (
       acc +
@@ -61,13 +56,6 @@ const CartPage = () => {
   const cartTotalQuantity = Object.values(cart).reduce((acc, current) => {
     return acc + (current?.pricing?.quantity as number);
   }, 0);
-  // console.log(cartTotalQuantity, "cartTotalQuantity");
-
-  // console.log(Object.values(cart).length, "Object.values(cart).length");
-
-  // const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setSelectedState(e.target.value);
-  // };
 
   const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity(e.target.value);
@@ -98,21 +86,15 @@ const CartPage = () => {
     cartSubCategory.push(item?.information?.subcategory?.name);
   });
 
-  // console.log(cart, cartItems, "(cart Items)");
-  // console.log(cartSubCategory, "(cart cartSub)");
-
   const filteredApprovedProduct = allProducts?.data?.filter(
     (product: any, index: number) =>
       product?.approvalStatus === "approved" &&
       !cartItems?.includes(product?._id),
   );
-  console.log(cartItems, filteredApprovedProduct, "filteredApprovedProduct");
 
   const relatedProducts = filteredApprovedProduct?.filter((product: any) =>
     cartSubCategory?.includes(product?.information?.subcategory?.name),
   );
-
-  console.log(relatedProducts, "related products");
 
   return (
     <AppLayout>

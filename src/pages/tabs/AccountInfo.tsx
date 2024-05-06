@@ -34,24 +34,10 @@ interface IAccount {
 }
 const AccountInfo = ({ setShowTab }: IAccount) => {
   const [vendor, setVendor] = useState<any>({});
-  // const [, setImage] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const handleImage = (e: any) => {
-  //   const file = e.target.files && e.target.files[0];
-
-  //   if (file) {
-  //     console.log(file, "file");
-  //     setImage(file);
-  //     setImageUrl(URL.createObjectURL(file));
-  //   }
-  // };
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  // const [country, setCountry] = useState("");
-  // const [email] = useState("");
-  // const [storeName] = useState("");
 
   useEffect(() => {
     //@ts-ignore
@@ -63,29 +49,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
   }, []);
 
   const updateVendor = useUpdateVendor(vendor?.vendor?._id);
-
-  console.log(vendor);
   const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
-
-  // const validationSchema = Yup.object().shape({
-  //   fullName: Yup.string().required("Full Name is required"),
-  //   storeName: Yup.string()
-  //     .required("Store Name is required")
-  //     .min(6, "Username must be at least 6 characters")
-  //     .max(50, "Username must not exceed 50 characters"),
-  //   email: Yup.string().required("Email is required").email("Email is invalid"),
-  //   address: Yup.string().required("Address is required"),
-  //   storeId: Yup.string().required("Store ID is required"),
-
-  //   streetAddress: Yup.string().required("Street Address is required"),
-
-  //   location: Yup.string().required("Location is required"),
-
-  //   phoneNumber: Yup.string()
-  //     .required("Valid Phone Number is required")
-  //     .min(6, "Valid Phone Number must be at least 6 characters")
-  //     .max(12, "Valid Phone Number must not exceed 12 characters"),
-  // });
 
   const phone = vendor?.vendor?.sellerAccountInformation.phoneNumber;
 
@@ -143,7 +107,6 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
       .mutateAsync(data)
       .then((res: any) => {
         setLoading(false);
-        console.log(res);
         toast.success(
           "Your Account Information has been updated successfully!!!",
         );
@@ -151,11 +114,8 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
       })
       .catch((err: any) => {
         setLoading(false);
-        console.log(err);
       });
-    console.log(data.storeName);
 
-    console.log(JSON.stringify(data, null, 2));
     reset();
   };
 

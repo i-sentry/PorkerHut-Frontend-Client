@@ -5,7 +5,6 @@ import { useShowModal } from "../../store/overlay";
 
 const OrderSideModal = ({ orderInfo }: any) => {
   const toggleOpenModal = useShowModal((state) => state.toggleOpenModal);
-  console.log(orderInfo, "orderInfo");
 
   const closeModal = () => {
     toggleOpenModal(false);

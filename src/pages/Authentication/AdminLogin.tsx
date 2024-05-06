@@ -72,7 +72,6 @@ const AdminLogin: React.FC = () => {
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("admin", JSON.stringify(res?.data));
         // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
-        console.log(res);
       })
       .catch((e) => {
         setLoading(false);

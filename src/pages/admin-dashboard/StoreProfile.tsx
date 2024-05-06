@@ -63,7 +63,6 @@ const StoreProfile = () => {
     return b;
   });
 
-  console.log("stores", fil);
   return (
     <div className="relative py-6 pl-8 pr-5">
       <ToastContainer />

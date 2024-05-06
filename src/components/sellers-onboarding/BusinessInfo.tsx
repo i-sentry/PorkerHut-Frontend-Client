@@ -66,10 +66,6 @@ const BusinessInfo = () => {
   const { setFiles, seFiles, selecFiles, selectedFiles } =
     useContext(FileContext);
 
-  console.log(seFiles, "seFiles");
-  console.log(selecFiles, "selecFiles");
-  console.log(selectedFiles, "selectedFiles");
-
   const vat = [
     {
       id: 1,
@@ -91,15 +87,12 @@ const BusinessInfo = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
   ) => {
-    console.log(event, "jio,");
     const selectedFiles = Array.from(event.target.files || []);
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-
-    console.log(updatedFiles[0].name, "hhhyuyuy");
 
     setFiles(field, updatedFiles);
   };
@@ -113,7 +106,6 @@ const BusinessInfo = () => {
     if (files) {
       const updatedFiles = [...files];
       updatedFiles.splice(index, 1);
-      console.log(updatedFiles, "updatedFiles");
       setFiles(field, updatedFiles);
     }
   };
@@ -132,38 +124,6 @@ const BusinessInfo = () => {
     countries: ["NG", "GH", "KE", "UG", "ZA", "TZ"],
   };
 
-  // const handleGetFiles = (files: File[], fieldName: string) => {
-  //   console.log(files, "handle");
-  //   if (files.length > 0) {
-  //     const file = files[0];
-  //     const formData = new FormData();
-  //     formData.append(fieldName, file);
-  //     setComponentFiles([...componentFiles, file]);
-  //     setFilenames([...filenames, file.name]);
-  //     //@ts-ignore
-  //     setUserData((prevUserData: ISellerInfo) => ({
-  //       ...prevUserData,
-  //       businessInformation: {
-  //         ...prevUserData.businessInformation,
-  //         [fieldName]: formData,
-  //       },
-  //     }));
-
-  //     console.log("File name:", file.name);
-  //     console.log("File data:", file);
-  //   }
-  // };
-
-  // const getDocs = (files: any) => {
-  //   // console.log(files, "getfike")
-  //   const formData = new FormData();
-  //   files.forEach((file: string | Blob, index: any) => {
-  //     formData.append(`documents`, file);
-  //   });
-  //   formData.append("documentType", documentType);
-  //   setDocsUrl(formData);
-  // };
-  // console.log(selecFile, selectedFile, "gyguygyg");
   const updateUserData = (property: string, value: string) => {
     setUserData((prevUserData: ISellerInfo) => ({
       ...prevUserData,
@@ -303,7 +263,6 @@ const BusinessInfo = () => {
                       {selectedFiles && Array.isArray(selectedFiles) && (
                         <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {selectedFiles.map((file, index) => {
-                            console.log(file, "filess");
                             return (
                               <div
                                 key={index}
@@ -402,7 +361,6 @@ const BusinessInfo = () => {
                       {selecFiles && Array.isArray(selecFiles) && (
                         <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {selecFiles.map((file, index) => {
-                            console.log(file, "filess");
                             return (
                               <div
                                 key={index}
@@ -466,7 +424,6 @@ const BusinessInfo = () => {
                       {seFiles && Array.isArray(seFiles) && (
                         <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                           {seFiles.map((file, index) => {
-                            console.log(file, "filess");
                             return (
                               <div
                                 key={index}

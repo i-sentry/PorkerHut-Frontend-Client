@@ -10,7 +10,6 @@ import { DeleteConfirmation } from "./Blog";
 import { orderBy } from "lodash";
 import { toast } from "react-toastify";
 
-
 const BlogContent = ({ data }: any) => {
   let contentText = null;
 
@@ -27,8 +26,6 @@ const BlogContent = ({ data }: any) => {
 };
 
 const BlogTitle = ({ data }: any) => {
-  console.log(data, " htyht");
-  //  console.log(row?.original?.id,"hhr")
   const navigate = useNavigate();
   const handleBlog = (id: string) => {
     navigate(`/admin/blog/${id}`, {
@@ -48,13 +45,11 @@ const BlogTitle = ({ data }: any) => {
 const BlogPost = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  // const {data: getAllBlogs, refetch, isRefetching,} = useGetAllBlogs();
-  const {data: getAllBlogs, refetch, isRefetching} = useGetAllBlogs();
+  const { data: getAllBlogs, refetch, isRefetching } = useGetAllBlogs();
   const [itemToDelete, setItemToDelete] = useState("");
-const blogData = orderBy(getAllBlogs?.data, "createdAt", "desc");
+  const blogData = orderBy(getAllBlogs?.data, "createdAt", "desc");
   const [blogContent, setBlogContent] = useState(EditorState.createEmpty());
   const [selectedId, setSlectedId] = useState("");
-  console.log(blogData);
   const initiateDelete = useDeleteBlog(selectedId);
 
   const handleNextPage = () => {
@@ -90,7 +85,6 @@ const blogData = orderBy(getAllBlogs?.data, "createdAt", "desc");
 
     Cell: ({ row }: any) => {
       const navigate = useNavigate();
-      // console.log(row?.original, row?.original?._id, "row");
 
       const handleEdit = (id: any) => {
         navigate(`/admin/blog/${id}`, {
@@ -131,18 +125,16 @@ const blogData = orderBy(getAllBlogs?.data, "createdAt", "desc");
   };
 
   const handleConfirm = () => {
-
     initiateDelete
       .mutateAsync({})
       .then((res) => {
-        toast("Post deleted successfully")
-        refetch()
+        toast("Post deleted successfully");
+        refetch();
         setShowConfirmation(false);
       })
       .catch((err) => {});
   };
 
-  console.log(blogData)
 
   return (
     <div className="py-6 pl-8 pr-5">

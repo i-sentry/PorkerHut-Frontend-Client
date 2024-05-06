@@ -10,18 +10,6 @@ const RatingSort: React.FC<RatingSortProps> = ({ data, setData }) => {
   const [openSort, setOpenSort] = useState(false);
   const [sortType, setSortType] = useState("Most Recent");
 
-  console.log(data, data instanceof Array, "sot data");
-
-  // let sortedReviews = [...data?.ratings];
-  // let bb = sortedReviews?.sort((a: any, b: any) => {
-  //   const dateComparison =
-  //     // new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate();
-  //     b.rating - a.rating;
-  //   return dateComparison;
-  // });
-
-  // console.log(bb, "bb");
-
   let sortedReviews = [...data];
 
   const sortProducts = (type: string) => {
@@ -34,7 +22,6 @@ const RatingSort: React.FC<RatingSortProps> = ({ data, setData }) => {
         break;
       case "High to Low":
         sortedReviews?.sort((a: any, b: any) => {
-          console.log(sortedReviews, "sortProducts");
           return b.rating - a.rating;
         });
         break;

@@ -19,7 +19,6 @@ const VetPartner = () => {
     if (!isLoading) setVets(allVets);
   }, [allVets, isLoading]);
 
-  console.log(vets, "All vet");
 
   return (
     <div className="relative px-5 py-10">

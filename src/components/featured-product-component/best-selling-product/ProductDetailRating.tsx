@@ -8,7 +8,6 @@ const StarRating: React.FC<{
   setData?: any;
   dataCard?: any;
 }> = ({ rating, data, setData, dataCard }) => {
-  console.log(data, "start data");
 
   const ratingPercentage = (totalRating: number, totalStars: number) =>
     (totalStars / totalRating) * 100;

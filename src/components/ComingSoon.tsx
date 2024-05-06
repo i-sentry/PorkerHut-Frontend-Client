@@ -19,7 +19,6 @@ const ComingSoon = ({
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
-  console.log(email, "email");
 
   const message = `I hope this email finds you well. I wanted to express my interest in the PorkerHut service mentioned on your website. Specifically, I am interested in the ${pendingPage} service.`;
 
@@ -38,11 +37,9 @@ const ComingSoon = ({
         .then(
           (result: any) => {
             toast("Email sent! You will be notified soon");
-            console.log(result.text, "Successufull", result);
           },
           (error: any) => {
             toast("An error occurred, try again!");
-            console.log(error.text, error);
           },
         );
   };

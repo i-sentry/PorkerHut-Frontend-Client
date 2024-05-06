@@ -37,12 +37,9 @@ const OrderTableDetail = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetOrdersById(id as string);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
-  console.log(data?.data?.order, "hyunmdhdhf");
 
   const order = data?.data?.order;
-  console.log(order, "new order table");
   const selectedProduct = order?.productDetails[selectedProductIndex];
-  console.log(selectedProduct, "selectedProduct");
 
   const [orderData, setOrderData] = useState<IOrderData>({
     id: "",
@@ -138,13 +135,10 @@ const OrderTableDetail = () => {
     _id,
   }));
 
-  console.log(otherItems, "otherItems");
-
   const Tcolumns: readonly Column<object>[] = [
     {
       Header: "Product Name",
       accessor: (row: any) => {
-        console.log(row, "atims row");
         return (
           <div className="justify-left flex flex-wrap items-center gap-2">
             <img
@@ -162,7 +156,6 @@ const OrderTableDetail = () => {
     {
       Header: "Store Name",
       accessor: (row: any) => {
-        console.log(row, "atims row");
         return (
           <div className="justify-left flex flex-col items-start gap-2">
             <span className="capitalize">
@@ -179,7 +172,6 @@ const OrderTableDetail = () => {
     {
       Header: "Order Date",
       accessor: (row: any) => {
-        console.log(row, "atims row");
         return (
           <div className="justify-left flex flex-col items-start gap-2">
             {moment(row?.orderDate).format("DD MMMM YYYY")}

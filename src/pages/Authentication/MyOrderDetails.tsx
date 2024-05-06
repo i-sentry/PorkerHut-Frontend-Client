@@ -5,29 +5,15 @@ import {
   MdOutlineStorefront,
   MdPersonOutline,
 } from "react-icons/md";
-// import productImgs from "../../assets/images/productimg1.png";
 import OrderModal from "../../components/modal-component/OrderModal";
 import { useNavigate, useParams } from "react-router-dom";
 
-// import { IOrderData } from "../../components/vendors-component/MyOrderSection";
 import { IoMdClose } from "react-icons/io";
 import { Tooltip } from "../../components/utility/ToolTip";
-// import { OrderData } from "../admin-dashboard/Order";
 import AppLayout from "../../components/utility/AppLayout";
 import { useGetOrdersById } from "../../services/hooks/orders";
 import moment from "moment";
-// import { BsFillXCircleFill, BsXCircleFill } from "react-icons/bs";
 import { CgSpinnerAlt } from "react-icons/cg";
-// import OtherOrdersTable from "../../components/OtherOrdersTable";
-
-// const columns = [
-//   { Header: "S/N", accessor: "id" },
-//   { Header: "First Name", accessor: "first_name" },
-//   { Header: "Last Name", accessor: "last_name" },
-//   { Header: "Email Address", accessor: "email" },
-//   { Header: "Gender", accessor: "gender" },
-//   { Header: "University", accessor: "university" },
-// ];
 
 const MyOrderDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -36,17 +22,12 @@ const MyOrderDetails = () => {
   const { data, isLoading } = useGetOrdersById(id as string);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
 
-  console.log(data?.data?.order, "hyunmdhdhf");
-
   const navigate = useNavigate();
 
   const order = useMemo(() => {
     return data?.data?.order;
   }, [data?.data?.order]);
-  console.log(order, "new order table");
   const selectedProduct = order?.productDetails[selectedProductIndex];
-  console.log(selectedProduct, "selectedProduct");
-
   const productImg = selectedProduct?.productID?.images[0];
 
   const handleRate = (id: any) => {
@@ -90,8 +71,6 @@ const MyOrderDetails = () => {
     _id,
   }));
 
-  console.log(otherItems, "otherItems");
-
   const handleViewOrder = (index: any) => {
     setSelectedProductIndex(index);
     window.scrollTo({
@@ -99,10 +78,6 @@ const MyOrderDetails = () => {
       left: 0,
       behavior: "smooth",
     });
-
-    // navigate(`/my__orders/${id}`, {
-    //   replace: true,
-    // });
   };
 
   const actionButtonText = (status: string) => {
@@ -692,14 +667,11 @@ const OrderDetails: React.FC<{ order: any }> = ({ order }) => {
   const initiateReturn = (productId: number) => {
     // Logic for initiating return for a specific product
     // This could involve API calls, state updates, etc.
-    console.log(
-      `Return initiated for product ${productId} in order ${order.orderId}`,
-    );
+    return `Return initiated for product ${productId} in order ${order.orderId}`;
   };
   const buyAgain = (productId: number) => {
     // Logic for buying the product again
     // This could involve adding the product to the cart or triggering a new order
-    console.log("Buy again clicked for product:", productId);
   };
   // Group products by store name
   const groupedProducts: { [storeName: string]: any[] } = {};

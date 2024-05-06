@@ -33,9 +33,6 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   const { data: getAllProducts, isLoading } = useGetAllProducts();
 
-  console.log(isLoading, "isLoading");
-  console.log(getAllProducts, "isLoading");
-
   useEffect(
     () =>
       setData(

@@ -125,43 +125,13 @@ const Category = () => {
   const [loading, setLoading] = useState(false);
   const [subConfirm, setSubConfirm] = useState(false);
 
-  // console.log(allcat?.data, isLoading, "all cats", category);
-
-  // const queryParams = new URLSearchParams(location.search);
-  // const initialCateInfo = queryParams.get("cateInfo");
-
-  // console.log(queryParams.get("cateInfo"), "params", initialCateInfo);
-
-  // const [cateInfo, setCateInfo] = useState(false);
-
   useEffect(() => {
     !isLoading ? setCategory(allcat?.data) : setCategory([]);
   }, [allcat?.data]);
 
-  // useEffect(() => {
-  //   // Update the URL query parameter whenever the state changes
-  //   const newSearchParams = new URLSearchParams(location.search);
-  //   newSearchParams.set("cateInfo", cateInfo.toString());
-  //   navigate("?" + newSearchParams.toString(), { replace: true });
-  // }, [location.search, navigate, cateInfo]);
-
   const setSelectedCategoryId = useCategoryModal(
     (state) => state.setSelectedCategoryId,
   );
-  // const [blueDivs, setBlueDivs] = useState<BlueDiv[]>([]);
-  // const handleAddBlueDiv = () => {
-  //   const newBlueDiv: BlueDiv = {
-  //     id: blueDivs.length + 1,
-  //   };
-  //   setBlueDivs([...blueDivs, newBlueDiv]);
-  // };
-
-  // const handleCancelBlueDiv = (id: number) => {
-  //   const updatedBlueDivs = blueDivs.filter((blueDiv) => blueDiv.id !== id);
-  //   setBlueDivs(updatedBlueDivs);
-  // };
-
-  // const validationSchema = Yup.object().shape({});
 
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
@@ -182,7 +152,6 @@ const Category = () => {
     setSubcategoryName(category[index]?.subcategories[indexSub]?.name);
     setCurrentSubEdit(id);
     setCurrentEdit(category[index]?._id);
-    console.log(category[index]?.subcategories[indexSub]?.name, "catacataa");
   };
 
   const handleSave = () => {
@@ -191,14 +160,12 @@ const Category = () => {
       .mutateAsync({ name: categoryName })
       .then((res: any) => {
         toast.success("Category name updated successfully");
-        console.log(res, "res fro upodae");
         refetch();
         setLoading(false);
         setEditIndex(-1);
       })
       .catch((err: any) => {
         toast.error("Error occurred, try again!!!");
-        console.log(err, "err fro upodae");
         setLoading(false);
       });
   };
@@ -209,21 +176,17 @@ const Category = () => {
       .mutateAsync({ categoryId: currentEdit, name: subcategoryName })
       .then((res: any) => {
         toast.success("Subcategory updated successfully!");
-        console.log(res, "res fro upodae");
         refetch();
         setLoading(false);
         setEditSubIndex(-1);
       })
       .catch((err: any) => {
         toast.error("Error updating subcategory, try again!");
-        console.log(err, "err fro upodae");
         setLoading(false);
       });
   };
 
   const handleSubCat = (index: any) => {
-    // console.log(index, "cat index");
-    // console.log(showModal, "showModal");
     setShowModal(true);
     setSelectedCategoryId(index);
   };
@@ -533,7 +496,6 @@ const SubDeleteModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const deleteSub = useDeleteSubCategory(subId);
-  console.log(subId, "sub id");
 
   const handleConfirm = () => {
     setLoading(true);
@@ -541,14 +503,12 @@ const SubDeleteModal = ({
     deleteSub
       .mutateAsync({})
       .then((res: any) => {
-        console.log(res, "res delete sub");
         toast.success("Subcategory deleted successfully!");
         refetch();
         setLoading(false);
         setSubConfirm(false);
       })
       .catch((err: any) => {
-        console.log(err, "err delete sub");
         toast.error("Error deleting subcategory, try again!!!");
         setLoading(false);
       });

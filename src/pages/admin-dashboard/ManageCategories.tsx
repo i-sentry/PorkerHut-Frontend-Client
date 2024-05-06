@@ -55,7 +55,6 @@ const ManageCategories = ({}: {}) => {
       const selectedCategoryQuestion = catQues?.data?.filter(
         (ques: any) => ques?.category === id,
       );
-      console.log(selectedCategoryQuestion, "selectedCategoryQuestion");
       setQuestions([...selectedCategoryQuestion]);
 
       // if (catQues?.data?.length < 1)
@@ -108,7 +107,6 @@ const ManageCategories = ({}: {}) => {
     window.history.replaceState({}, "", newUrl); // Replace the URL without query parameters
   };
   useEffect(() => {
-    console.log(selectedCategory, "selectedCategory");
     if (id !== "new" && !isLoading) {
       setCategoryName(category?.name);
       setSubcategory([...subcategory, { name: subInfo }]);
@@ -138,12 +136,10 @@ const ManageCategories = ({}: {}) => {
     createCatQuestions
       .mutateAsync({ categoryId: res?._id, questions: catQuestions })
       .then((resQ: any) => {
-        console.log(resQ, "question cta");
         toast.success(`${res?.name} category questions created!`);
         setLoading(false);
       })
       .catch((err: any) => {
-        console.log(err, "err ques cta");
         toast.error(`${res.name} category questions not created, try again!`);
         setLoading(false);
         navigate(`/admin/manage+category`);
@@ -154,14 +150,12 @@ const ManageCategories = ({}: {}) => {
     createSubCategory
       .mutateAsync({ categoryId: res?._id, subcategories: subcategory })
       .then((resQ: any) => {
-        console.log(resQ, "subcategories res");
         toast.success(`${res?.name} subcategories created!`);
         // navigate(`/admin/manage+category`);
         setLoading(false);
         refetch();
       })
       .catch((err: any) => {
-        console.log(err, "err subcategories");
         navigate(`/admin/manage+category`);
         toast.error(`${res.name} subcategories not created, try again!`);
         setLoading(false);
@@ -171,7 +165,6 @@ const ManageCategories = ({}: {}) => {
   const handleCreateCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // console.log(canSubmit);
     if (image) {
       const data = new FormData();
       data.append("name", categoryName);
@@ -190,12 +183,10 @@ const ManageCategories = ({}: {}) => {
         subcategories: subcategory,
         questions: questions,
       };
-      console.log(d, data, "data sent");
 
       createCategory
         .mutateAsync(data)
         .then((res: any) => {
-          console.log(res, "cat cretae");
           toast.success(`${res?.name} category created!`);
           // SubCategories Creation
           handleCreateSubCategories(res);
@@ -205,7 +196,6 @@ const ManageCategories = ({}: {}) => {
           refetch();
         })
         .catch((err: any) => {
-          console.log(err, "catErr");
           toast.error("Error occurred, try again!!!");
           setLoading(false);
         });
@@ -228,14 +218,12 @@ const ManageCategories = ({}: {}) => {
         subcategories: newSub,
       })
       .then((res: any) => {
-        console.log(res, "upafte sub cta");
         toast.success(`New Subcategories added!`);
         setLoading(false);
         refetch();
         navigate(`/admin/manage+category`);
       })
       .catch((err: any) => {
-        console.log(err, "upafte err sub cta");
         toast.error(`Subcategories not updated, try again!`);
         setLoading(false);
       });
@@ -252,8 +240,6 @@ const ManageCategories = ({}: {}) => {
   const handleQuestionChange = (e: any, id: number) => {
     const { name, value } = e.target;
     const newName = name.split("-")[0];
-    console.log(newName, "new name");
-
     setQuestions((prevQuestions) => {
       return prevQuestions.map((q) => {
         if (q.id === id) {
@@ -269,8 +255,6 @@ const ManageCategories = ({}: {}) => {
       const updatedQuestion = questions.filter(
         (question: any) => question.id !== id,
       );
-      console.log(id, "id", updatedQuestion);
-
       setQuestions(updatedQuestion);
     }
   };

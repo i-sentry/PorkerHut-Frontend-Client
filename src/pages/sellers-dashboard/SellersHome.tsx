@@ -32,7 +32,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     }
   }, [annouce?.data?.data]);
 
-  console.log(announcement, "Annoucements", annouce?.data?.data);
 
   const vendorOrders = data?.data?.orders;
   const todayOrder = vendorOrders?.filter((order: any) => {

@@ -107,7 +107,6 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Status",
     accessor: (row: any) => {
-      console.log(row, "annana");
       return (
         <div className={`capitalize ${getStatus(row?.status)}`}>
           {row?.status}
@@ -223,7 +222,6 @@ const MonthSelector: React.FC<{
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value));
-    console.log(event.target.value, "gsgsgsg");
   };
 
   const filteredData = data?.filter((order: any) => {

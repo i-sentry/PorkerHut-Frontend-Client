@@ -225,7 +225,6 @@ const Table = () => {
                       cells: any[];
                     }) => {
                       prepareRow(row);
-                      // console.log(row?.subRows, "sub");
                       // prepareRow(row?.subRows);
                       return (
                         <>

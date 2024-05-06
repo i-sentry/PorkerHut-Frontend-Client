@@ -12,7 +12,6 @@ TData = TQueryFnData
         ...queries,
         queryKey: queries.queryKey || [queries],
         onError: e => {
-            // console.log(e)
             return e
         }
     } as UseQueryOptions<unknown, unknown, unknown>) as QueryObserverResult<

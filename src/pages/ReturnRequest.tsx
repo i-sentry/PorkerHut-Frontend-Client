@@ -16,7 +16,6 @@ const ReturnRequest = () => {
   );
   const [selectedImg, setSelectedImg] = useState(0);
   const images = selectedProduct?.productID?.images;
-  console.log(selectedProduct, "request return", images);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

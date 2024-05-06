@@ -96,7 +96,6 @@ function SettingssTab() {
       setVendor(storedVendor);
     }
   }, []);
-  console.log(vendor?.vendor?._id, "vendor", vendor);
   const updateVendor = useUpdateVendor(vendor?.vendor?._id);
 
   // const [, setImage] = useState("");
@@ -173,7 +172,6 @@ function SettingssTab() {
     }
   }, [reset, vendor]);
 
-  // console.log({ errors });
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
@@ -188,7 +186,6 @@ function SettingssTab() {
       })
       .catch((err: any) => {
         setLoading(false);
-        console.log(err);
       });
     // data.phoneNumber = phoneNumber;
 

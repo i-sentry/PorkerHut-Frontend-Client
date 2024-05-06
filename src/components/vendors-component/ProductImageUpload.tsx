@@ -10,7 +10,6 @@ const ProductImageUpload: React.FC<ProductImageUploadProps> = ({ id }) => {
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    console.log(id, file, e.target.files, "jdhdhdhdhdh");
 
     if (file) {
       // setImage(file);

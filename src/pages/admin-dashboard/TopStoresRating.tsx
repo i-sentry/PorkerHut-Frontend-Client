@@ -16,8 +16,6 @@ const TopStoresRating = () => {
     (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
   );
 
-  // console.log(vendorAggregate, "sorted", sortedByAmount);
-
   return (
     <div
       style={{ overflowClipMargin: "10px" }}
@@ -25,15 +23,6 @@ const TopStoresRating = () => {
     >
       <div className="sticky top-0 left-0 flex w-full items-center justify-between bg-[#F4F4F4] py-3">
         <h4 className="text-base font-bold text-slate-700 ">Top Stores</h4>
-        {/* <form >
-          <div className="flex items-center gap-4">
-            <label className="" htmlFor="week"></label>
-            <input
-              type="week"
-              className="rounded border p-2 focus:outline-none "
-            />
-          </div>
-        </form> */}
       </div>
 
       <div className="mt-4 space-y-3">

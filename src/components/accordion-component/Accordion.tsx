@@ -48,8 +48,6 @@ const Filter = ({ setData }: iProps) => {
   //@ts-ignore
   const menuItems = [...new Set(allCategories?.data?.map((d: any) => d?.name))];
 
-  console.log(getAllProducts?.data, "getAllProducts");
-
   // Handle to toggle Accordion open state
   const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
@@ -57,28 +55,10 @@ const Filter = ({ setData }: iProps) => {
 
   const filter = (cate: any) => {
     const newItems = getAllProducts?.data.filter((newVal: any) => {
-      console.log(
-        newVal?.information?.subcategory?._id,
-        "newVal?.information?.subcategory?._id"
-      );
-      console.log(cate, "cate");
       return newVal?.information?.subcategory?._id === cate;
     });
-    console.log(newItems, "hytyty");
-    setData({newItems});
+    setData({ newItems });
   };
-
-  // const handleSelectedItem = (value: string) => {
-  //   setSelectedItems((prevSelectedItems) => {
-  //     const itemIndex = prevSelectedItems.indexOf(value);
-
-  //     if (itemIndex > -1) {
-  //       return prevSelectedItems.filter((item) => item !== value);
-  //     } else {
-  //       return [...prevSelectedItems, value];
-  //     }
-  //   });
-  // };
 
   const handleChange = (event: any) => {
     const value = event.target.value;
@@ -87,20 +67,13 @@ const Filter = ({ setData }: iProps) => {
   };
 
   const handleClick = (event: any) => {
-    console.log(event, "lg:w-3/4");
     const isChecked = event.target.checked;
     const checkboxValue = event.target.value;
 
     // Do something with isChecked and checkboxValue
     // For example, update state or call a function with these values
-    console.log(
-      `Checkbox with value ${checkboxValue} is ${
-        isChecked ? "checked" : "unchecked"
-      }`
-    );
     handleChange(event);
     filter(checkboxValue);
-    console.log(event.target.defaultValue, "event");
     // if (selected !== null) {
     //   setData();
     // }
@@ -109,14 +82,6 @@ const Filter = ({ setData }: iProps) => {
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     const checkboxValue = event.target.value;
-
-    // Do something with isChecked and checkboxValue
-    // For example, update state or call a function with these values
-    console.log(
-      `Checkbox with value ${checkboxValue} is ${
-        isChecked ? "checked" : "unchecked"
-      }`
-    );
   };
 
   return (
@@ -129,7 +94,7 @@ const Filter = ({ setData }: iProps) => {
           >
             <AccordionHeader
               onClick={() => handleOpen(index)}
-              className="text-[16px] leading-[19px] font-medium"
+              className="text-[16px] font-medium leading-[19px]"
             >
               {_.startCase(_.toLower(menu?.name))}
             </AccordionHeader>

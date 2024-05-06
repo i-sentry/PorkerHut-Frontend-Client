@@ -39,23 +39,14 @@ const StepperController: React.FC<fileProps> = ({
     if (files) {
       for (const fileData of files) {
         formData.append(fieldName, fileData.file);
-        console.log(fileData.file);
       }
     }
   };
 
-  // const bizCheck =
-  //   userData?.businessInformation?.companyRegisteredName === "" ||
-  //   userData?.businessInformation?.address1 === "" ||
-  //   userData?.businessInformation?.dateOfBirth === "" ||
-  //   userData?.businessInformation?.city === "" ||
-  //   userData?.businessInformation?.address1 === "";
-
   // checkEmptyValues(userData);
   const submitDetails = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // setIsOpen(!isOpen);
-    // console.log(selectedFiles, selecFiles, seFiles, ",....loading", userData);
+
     handleClick("next");
 
     if (!selectedFiles || !selecFiles || !seFiles) return;
@@ -151,7 +142,6 @@ const StepperController: React.FC<fileProps> = ({
       appendFilesToFormData("IDFile", selectedFiles, data);
       appendFilesToFormData("CACCertificateFile", selecFiles, data);
       appendFilesToFormData("TINCertificateFile", seFiles, data);
-      console.log(data, "slllests");
       onboardVendor
         //@ts-ignore
         .mutateAsync(data)
@@ -168,8 +158,6 @@ const StepperController: React.FC<fileProps> = ({
     }
   };
 
-  console.log(checkoutSteps, "checkoutSteps");
-  console.log(currentStep, "currentStep");
   return (
     <div className="parent-class my-5 flex w-full justify-center gap-3 lg:justify-end">
       {error && (

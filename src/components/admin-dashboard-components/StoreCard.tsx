@@ -1,25 +1,11 @@
 import { FaUserCircle } from "react-icons/fa";
 import { TbDots } from "react-icons/tb";
 import {
-  useDeleteVendorById,
   useGetVendorById,
-  useVendorStatusUpdate,
 } from "../../services/hooks/Vendor";
 import { useGetAggregateVendorOrders } from "../../services/hooks/orders";
 import Popover from "../utility/PopOver";
 import { Tooltip } from "../utility/ToolTip";
-
-// interface IStoreCardProps {
-//   store_name: any;
-//   id: number;
-//   email: string;
-//   company_address: string;
-//   phone: string;
-//   total_orders: number;
-//   total_failed_orders: number;
-//   data_joined: string;
-//   status: string;
-// }
 
 const StoreCard = ({
   item,
@@ -30,72 +16,8 @@ const StoreCard = ({
   setShowConfirm,
 }: any) => {
   const { storeStatus } = item;
-  // const updateStatus = useVendorStatusUpdate(item?._id);
   const { data } = useGetVendorById(item?._id);
   const { data: vendorAggr } = useGetAggregateVendorOrders(item?._id);
-  // const deleteVendor = useDeleteVendorById(item?._id);
-  console.log(data, "storee items", item);
-  console.log(vendorAggr, "vendorAggr");
-
-  // const handleActivateVendor = async () => {
-  //   if (item?.storeStatus === "approved") {
-  //     toast.info(
-  //       `${item?.sellerAccountInformation?.shopName} is already approved`,
-  //     );
-  //     return;
-  //   }
-  //   updateStatus
-  //     .mutateAsync({ storeStatus: "approved" })
-  //     .then((res: any) => {
-  //       console.log(res);
-  //       refetch();
-  //       toast.success(
-  //         `${item?.sellerAccountInformation?.shopName} is now approved `,
-  //       );
-  //     })
-  //     .catch((err: any) => {
-  //       console.log(err);
-  //       toast.error("Error Occurred, try again!!!");
-  //     });
-  // };
-
-  // const handleDeactivateVendor = async () => {
-  //   if (item?.storeStatus === "deactivated") {
-  //     toast.info(
-  //       `${item?.sellerAccountInformation?.shopName} is already deactivated`,
-  //     );
-  //     return;
-  //   }
-  //   try {
-  //     const response = await updateStatus.mutateAsync({
-  //       storeStatus: "deactivated",
-  //     });
-  //     console.log({ response });
-  //     toast.success(
-  //       `${item?.sellerAccountInformation?.shopName} is now deactivated `,
-  //     );
-  //     refetch();
-  //   } catch (error: any) {
-  //     console.log(error, "error");
-  //     toast.error("Error Occurred, try again!!!");
-  //   }
-  // };
-
-  // const handleDeleteVendor = () => {
-  //   deleteVendor
-  //     .mutateAsync(deleteVendor)
-  //     .then((res: any) => {
-  //       toast.success(
-  //         `${item?.sellerAccountInformation?.shopName} is now deleted `,
-  //       );
-  //       refetch();
-  //       console.log(res, "delete ResP");
-  //     })
-  //     .catch((err: any) => {
-  //       console.log(err, "delete err");
-  //       toast.error("Error Occurred, try again!!!");
-  //     });
-  // };
 
   return (
     <>

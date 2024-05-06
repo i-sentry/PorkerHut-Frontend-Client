@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import VendorsNav from "../components/vendors-component/VendorsNav";
 import SellerSideNav from "../pages/sellers-dashboard/SellerSideNav";
 import logo from "../assets/images/porkerlogo.png";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { useGetVendorById } from "../services/hooks/Vendor";
+import { BsArrowLeft } from "react-icons/bs";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const Layout = () => {
   const [vendorStatus, setVendorStatus] = useState<string>(vendor?.storeStatus);
   const { data: vInfo } = useGetVendorById(vendor?._id);
 
-  console.log(vInfo, "viddd");
 
   useEffect(() => setVendorStatus(vInfo?.storeStatus), [vInfo]);
 
@@ -54,6 +54,9 @@ const Layout = () => {
             {vendor?.storeStatus !== "approved" && (
               <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black bg-opacity-70">
                 <div className="relative mx-4 w-1/2 rounded-lg bg-white p-8">
+                  <Link to={"/"} className="absolute top-8 left-8 inline-block">
+                    <BsArrowLeft size={24} />
+                  </Link>
                   <h3 className="mb-4 text-center text-2xl font-semibold">
                     Welcome to Porker Hut
                   </h3>
@@ -77,7 +80,7 @@ const Layout = () => {
                     partnership, and we want to assure you that your application
                     is receiving the careful attention it deserves. We
                     anticipate completing the review within the next{" "}
-                    <strong>48 hours</strong>, and you can expect a prompt
+                    <strong>6-12 hours</strong>, and you can expect a prompt
                     response from us. Your patience during this period is highly
                     valued, and we thank you for your understanding.
                   </p>

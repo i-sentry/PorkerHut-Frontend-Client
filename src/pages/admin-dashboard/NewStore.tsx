@@ -71,7 +71,6 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Store Name",
     accessor: (row: any) => {
-      console.log(row.sellerAccountInformation.shopName, "jsjjjsjs");
       return (
         <Tooltip
           className="items-start"
@@ -112,7 +111,6 @@ const NewStore = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
-  console.log(data);
 
   const optionalColumn = {
     id: "expand",

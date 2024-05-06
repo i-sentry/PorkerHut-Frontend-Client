@@ -3,7 +3,6 @@ import Stepper from "../stepper/Stepper";
 import { BsX } from "react-icons/bs";
 
 const OrderModal = ({ visible, onClose, order }: any) => {
-  console.log(order, "stepper order");
 
   const handleOnClose = (e: any) => {
     if (e.target.id === "container") onClose();

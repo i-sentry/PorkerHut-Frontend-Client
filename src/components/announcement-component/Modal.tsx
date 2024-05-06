@@ -60,7 +60,6 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           });
           onClose();
           refetch();
-          console.log(res, "res ann", res?.data?.announcement?._id);
           setLoading(false);
           localStorage.setItem(
             res?.data?.announcement?._id,
@@ -73,13 +72,11 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
         })
         .catch((err: any) => {
           toast.error("Error Ocurred. Try again!!!");
-          console.log(err, "res ann");
           setLoading(false);
         });
     } else {
       setErr(true);
     }
-    console.log(form, "form", timestamp);
   };
 
   return (

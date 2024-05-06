@@ -149,12 +149,10 @@ const CustomerRating = () => {
     setRatingCard(allProductRatings?.ratings);
   }, [allProductRatings?.ratings]);
 
-  console.log(allProductRatings, "User, All Ratings");
-  console.log(ratingDetails, "Product Rating Details");
   return (
     <>
       <NavBar />
-      <div className="px-6 mt-16 py-6 bg-[#EEEEEE]">
+      <div className="mt-16 bg-[#EEEEEE] px-6 py-6">
         <ProductsBreadCrumbs
           items={[
             {
@@ -184,7 +182,7 @@ const CustomerRating = () => {
           />
         </div>
 
-        <div className="md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-3 md:mt-5 bg-white px-6 py-6">
+        <div className="bg-white px-6 py-6 md:mt-5 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3">
           {isLoading && <SkeletonLoader />}
           {/* 
           {data &&
@@ -224,17 +222,17 @@ const CustomerRating = () => {
               (review: any, index: number) => (
                 <div
                   key={index}
-                  className="bg-[#F4F4F4] p-4 flex flex-col gap-3 rounded-sm xxs:mb-4 md:mb-0"
+                  className="flex flex-col gap-3 rounded-sm bg-[#F4F4F4] p-4 xxs:mb-4 md:mb-0"
                 >
                   <div className="flex justify-between">
-                    <div className="items-center flex gap-2">
+                    <div className="flex items-center gap-2">
                       <MdMessage size={20} />
                       <h1 className="inline">
                         {`${review?.userDetails?.firstName} ${review?.userDetails?.lastName}`}
                       </h1>
                     </div>
                     <div>
-                      <span className="text-[#040303] text-xs">
+                      <span className="text-xs text-[#040303]">
                         {moment(review?.created_at).format("DD-MM-YYYY")}
                       </span>
                     </div>
@@ -249,12 +247,12 @@ const CustomerRating = () => {
                     <span className=" text-sm">{review?.comment}</span>
                   </div>
                 </div>
-              )
+              ),
             )}
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-1    bg-white px-4 py-3 sm:px-6 mt-6 mb-10">
+      <div className="mt-6 mb-10 flex items-center    justify-center gap-1 bg-white px-4 py-3 sm:px-6">
         <button
           onClick={() =>
             currentPageIndex !== 1
@@ -263,12 +261,12 @@ const CustomerRating = () => {
           }
           className={
             (currentPageIndex === 1 ? "no-item" : "") +
-            " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-l-lg "
+            " rounded-l-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white "
           }
         >
           <RxCaretLeft size={22} />
         </button>
-        <div className="pagination flex gap-1 items-center">
+        <div className="pagination flex items-center gap-1">
           {chunkArray(ratingCard, itemsPerPage).map((_, index) => {
             return (
               <button
@@ -276,11 +274,11 @@ const CustomerRating = () => {
                 onClick={() => setCurrentPageIndex(index + 1)}
                 className={` border   border-[#A2A2A2]  ${
                   currentPageIndex === index + 1
-                    ? "active-page-index    rounded-lg text-white border-[#197B30] bg-[#197b30]"
-                    : "border-[#A2A2A2] text-[#A2A2A2]  hover:bg-slate-100 rounded-lg"
+                    ? "active-page-index    rounded-lg border-[#197B30] bg-[#197b30] text-white"
+                    : "rounded-lg border-[#A2A2A2]  text-[#A2A2A2] hover:bg-slate-100"
                 }`}
               >
-                <span className="text-sm px-1.5">{index + 1}</span>
+                <span className="px-1.5 text-sm">{index + 1}</span>
               </button>
             );
           })}
@@ -296,7 +294,7 @@ const CustomerRating = () => {
             (currentPageIndex === chunkArray(ratingCard, itemsPerPage).length
               ? "no-items"
               : "") +
-            " border border-[#A2A2A2]  hover:bg-[#A2A2A2] hover:text-white  rounded-r-lg"
+            " rounded-r-lg border  border-[#A2A2A2] hover:bg-[#A2A2A2]  hover:text-white"
           }
         >
           <span className="">
@@ -315,10 +313,10 @@ export default CustomerRating;
 const SkeletonLoader = () => {
   return (
     <>
-      <div className="skeleton-loader w-full h-[200px_!important]"></div>
-      <div className="skeleton-loader w-full h-[200px_!important]"></div>
-      <div className="skeleton-loader w-full h-[200px_!important]"></div>
-      <div className="skeleton-loader w-full h-[200px_!important]"></div>
+      <div className="skeleton-loader h-[200px_!important] w-full"></div>
+      <div className="skeleton-loader h-[200px_!important] w-full"></div>
+      <div className="skeleton-loader h-[200px_!important] w-full"></div>
+      <div className="skeleton-loader h-[200px_!important] w-full"></div>
     </>
     // <div className="animate-pulse bg-gray-400 rounded-sm w-full h-[400px] relative "></div>
     // <div className="overflow-hidden relative w-full bg-white p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
