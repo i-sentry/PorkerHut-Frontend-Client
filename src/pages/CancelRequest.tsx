@@ -15,19 +15,10 @@ const CancelRequest = () => {
   );
   const images = selectedProduct?.productID?.images;
 
-  console.log(data?.data?.order, "cencel req", images);
-  console.log(
-    order?.productDetails?.find(
-      (item: any) => item?.productID?._id === productId,
-    ),
-    "selected ididididid",
-  );
-
   useEffect(() => window.scroll(0, 0), []);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(reason, "reason");
 
     navigate("/my__orders/request-success");
   };

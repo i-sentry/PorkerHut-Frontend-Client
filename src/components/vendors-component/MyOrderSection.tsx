@@ -33,7 +33,6 @@ const MyOrderSection = ({ order, rowEvents }: any) => {
     setOrderData(filteredOrder);
   }, [orderId]);
 
-  console.log(orderData, "gekkki");
   return (
     <tbody key={order.id}>
       <tr className="border border-[#D9D9D9]">

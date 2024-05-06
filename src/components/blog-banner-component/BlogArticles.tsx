@@ -31,18 +31,6 @@ const BlogArticles = () => {
     }
   }, [getAllBlogs?.data]);
 
-  // if (getAllBlogs?.status === "loading") {
-  //   return (
-  //     <div className="mt-16 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
-  //       {Array.from({ length: 6 }, (_, index) => {
-  //         return <SkeletonLoader key={index} />;
-  //       })}
-  //     </div>
-  //   );
-  // }
-
-  console.log(getAllBlogs?.data, getAllBlogs);
-
   return (
     <>
       {isLoading && (

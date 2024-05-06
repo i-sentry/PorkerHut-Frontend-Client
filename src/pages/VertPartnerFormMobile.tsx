@@ -76,7 +76,6 @@ const VertPartnerFormMobile = () => {
         if (files) {
             for (const fileData of files) {
                 formData.append(fieldName, fileData.file);
-                console.log(fileData.file);
             }
         }
     };
@@ -92,14 +91,12 @@ const VertPartnerFormMobile = () => {
         appendFilesToFormData("additionalDocuments", seFiles, formData);
         next();
 
-        console.log(formData, "FORMDATA");
 
         createVet.mutateAsync(formData)
             .then((res) => {
                 navigate('/vet-success');
             })
             .catch((err) => {
-                console.log(err);
                 const error = err.response?.data?.message || err.message;
                 if (error.includes("duplicate key error")) {
                     setError("Email already registered. Please use a different email.");

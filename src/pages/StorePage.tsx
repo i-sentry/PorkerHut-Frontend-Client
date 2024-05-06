@@ -31,7 +31,6 @@ interface iProps {
 const StorePage: React.FC<iProps> = ({ handleClick }) => {
   const { id } = useParams();
   // const { store } = useParams();
-  console.log(id);
   const { data: getApprovedProducts, isLoading } =
     useGetApprovedProductByVendor(id);
   const [data, setData] = useState<any>([]);

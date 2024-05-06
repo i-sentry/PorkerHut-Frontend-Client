@@ -28,7 +28,6 @@ const RatingWidget: FC<IRatingProps> = ({
     <div className="flex text-yellow-500 cursor-pointer">
       {[...Array(5)].map((_, i) => {
         const ratingValue = i + 1;
-        console.log(ratingValue, "ratingValue");
         return (
           <label
             key={ratingValue}

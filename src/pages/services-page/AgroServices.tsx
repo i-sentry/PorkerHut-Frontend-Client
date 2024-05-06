@@ -67,20 +67,8 @@ const AgroServices = () => {
         toast.error(err.message);
         setLoading(false);
       });
-    // console.log(JSON.stringify(data, null, 2));
     // reset();
   };
-
-  // const textData = [
-  //   {
-  //     label: "message",
-  //     name: "message",
-  //     place_holder: "Type Message",
-  //     error_message: "Message is Required",
-  //     type: "text",
-  //     required: true,
-  //   },
-  // ];
 
   const contactInfo = [
     {

@@ -23,7 +23,6 @@ const CustomCatModal = ({
   setSubcate,
   setConfirm,
 }: any) => {
-  // console.log(catName, "catName");
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const selectedCategoryId = useCategoryModal(
     (state) => state.selectedCategoryId,
@@ -31,27 +30,10 @@ const CustomCatModal = ({
   const navigate = useNavigate();
   const [subcategory, setSubcategory] = useState("");
 
-  // const getCategory = (arr: any[], id: string): ISubcategory | null => {
-  //   for (let i = 0; i < arr?.length; i++) {
-  //     if (arr[i]?._id === id) {
-  //       return arr[i];
-  //     }
-  //   }
-  //   return null; // Return null if no matching object is found
-  // };
-
   const selectedCat = category?.find(
     (cat: any) => cat?._id === selectedCategoryId,
   );
 
-  // const cate = getCategory(category, selectedCategoryId);
-
-  // console.log(selectedCat, "ccjjcjcjcjc");
-  //   const handleOverLayClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-  //     if (e.target === modalRef.current) {
-  //       onClose();
-  //     }
-  //   };
   const isOpen = true;
 
   const modal = {
@@ -68,7 +50,6 @@ const CustomCatModal = ({
 
   const handleAdd = () => {
     const catName = String(selectedCat?._id);
-    // setCateInfo((prev: any) => !prev);
     navigate(
       `/admin/manage+category/${catName}?sub=${encodeURIComponent(subcategory)}`,
     );

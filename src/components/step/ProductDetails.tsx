@@ -21,8 +21,6 @@ export default function ProductDetails({
     handleChange,
   } = useContext(productStepsContext);
 
-  console.log(cate, "jjuuuu");
-
   const {
     formState: { errors },
   } = useForm<any>({
@@ -32,7 +30,6 @@ export default function ProductDetails({
 
   const handleTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    console.log(name, value, "ooooo");
 
     // Split the name into nested properties
     const [section, field] = name.split(".");

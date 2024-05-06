@@ -46,20 +46,11 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [q]);
-  // console.log(getCategory, "getCategory");
-  console.log(getAllProducts?.data, "getAllProducts");
 
   //@ts-ignore
   const menuItems = getAllProducts?.data
     .filter((d: any) => d.vendor !== undefined)
     .map((d: any) => d.vendor.businessInformation.city);
-
-  // console.log(menuItems, "h");
-
-  // const { approvalStatus, vendor } = getAllProducts?.data;
-  // console.log(approvalStatus, vendor);
-
-  // useEffect(() => setData(productData), [productData]);
 
   useEffect(() => {
     const filter = (id: any) => {
@@ -69,12 +60,9 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
       //@ts-ignore
       setData(newItems);
       setFilteredData(newItems);
-      console.log(newItems, "newItems", id);
     };
     filter(id);
   }, [getAllProducts?.data, id]);
-
-  // console.log(data, "data");
 
   const handleApplyClick = () => {
     const lowerCaseSelectedItems = selectedItems.map((item) =>
@@ -101,9 +89,6 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
       return categoryMatch || cityMatch;
       // return categoryMatch && cityMatch && priceMatch;
     });
-
-    console.log("Filtered Data:", newFilteredData);
-    // console.log("Selected Items:", selectedItems);
 
     // Update filteredData state
     setFilteredData(newFilteredData);

@@ -41,7 +41,6 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Date",
     accessor: (row: any) => {
-      console.log(row, "roeww", moment(row?.createdAt).format("DD MMMM YYYY"));
       return <span>{moment(row?.createdAt).format("DD MMMM YYYY")}</span>;
     },
   },
@@ -59,40 +58,15 @@ const WeekendKill = () => {
     return isLoading === false && data?.weekendKills ? data?.weekendKills : [];
   }, [data?.weekendKills]);
 
-  console.log(
-    data?.weekendKills,
-    "weekendkillsssss",
-    weekendKills?.length > 0,
-    weekendKills?.length,
-  );
   const optionalColumn = {
     id: "expand",
     Header: <div></div>,
-    // accessor: (row: any) => {
-    //   const handleView = (id: any) => {
-    //     setShowOverlay(true);
-    //     console.log(id);
-    //   };
-
-    //   return (
-    //     <div>
-    //       <span
-    //         onClick={() => handleView(row?._id)}
-    //         className="flex cursor-pointer items-center gap-3 text-sm text-[#333333] underline transition-all ease-in-out hover:text-[#0eb683] active:scale-90 "
-    //       >
-    //         View
-    //       </span>
-    //     </div>
-    //   );
-    // },
 
     Cell: ({ row }: any) => {
       // const navigate = useNavigate();
 
       const handleView = (id: any) => {
-        console.log(row?.original, row?.original?._id, "row");
         setShowOverlay(true);
-        console.log(id);
       };
       return (
         <div>

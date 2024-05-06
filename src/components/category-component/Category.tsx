@@ -34,7 +34,6 @@ const Category = () => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
-  console.log(allCategories?.data, "time");
 
   return (
     <div>
@@ -108,7 +107,7 @@ const Category = () => {
             {allCategories?.data?.map((item: ICategory, index: number) => (
               <div
                 key={index}
-                className={`m-2 flex h-[300px] flex-none items-center  justify-center bg-gray-200 lg:h-[350px] xl:h-[400px] ${allCategories?.data?.length <= 3 ? "w-[90%] sm:w-[45%] lg:w-1/3" : "w-[90%] sm:w-[45%] lg:w-[28%]"}`}
+                className={`m-2 flex h-[300px] flex-none items-center  justify-center bg-gray-200 ${allCategories?.data?.length <= 3 ? "w-[90%] sm:w-[45%] lg:w-1/3" : "w-[90%] sm:w-[45%] lg:w-[30%]"}`}
               >
                 <Card key={index} item={item} />
               </div>

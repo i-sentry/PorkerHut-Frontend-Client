@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { AreaChart } from "./AreaChart";
 import {
   useGetAdminGraph,
-  useGetAdminOverview,
   useGetAllAdminOverview,
   useGetOrders,
 } from "../../services/hooks/orders";
@@ -48,12 +47,6 @@ const Overview = () => {
   const filteredData = overview?.data?.find((data: any) => {
     const date = new Date(data?.overViewDate);
     const month = `${date.getFullYear()}-${(date.getMonth() + 1).toLocaleString().padStart(2, "0")}`;
-    console.log(
-      month,
-      `${new Date().getFullYear()}-${String(selectedMonth).padStart(2, "0")}`,
-      "monthssss",
-    );
-
     return (
       month ===
       `${new Date().getFullYear()}-${String(selectedMonth).padStart(2, "0")}`
@@ -61,22 +54,14 @@ const Overview = () => {
   });
 
   const chartData = graph?.data?.weeklySalesOverview;
-  
 
   useEffect(() => {
     !loading &&
       setAdminOverview((prev: any) => {
         const data = filteredData;
-        console.log(data);
         return { ...prev, ...data };
       });
   }, [selectedMonth]);
-  console.log("Current graph:", graph?.data?.weeklySalesOverview);
-
-  // console.log("First day of the month:", firstDay);
-  console.log("Last day of the month:", selectedMonth, adminOverview);
-
-  console.log(filteredData, "filteredData");
 
   const color = (val: {
     title:
@@ -163,12 +148,6 @@ const Overview = () => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
 
-  // OVERVIEW STATS
-  // const totalSales = orders.reduce(
-  //   (acc: any, order: any, index: number) => acc + order?.subtotal,
-  //   0,
-  // );
-
   const itemsSold = orders
     ?.map((order: any) => order?.productDetails.length)
     .reduce((acc: any, cur: any) => acc + cur, 0);
@@ -177,9 +156,6 @@ const Overview = () => {
     return orders?.filter((order) => order?.status.toLowerCase() === status)
       ?.length;
   };
-
-  // console.log(orders);
-  // console.log(itemsSold);
 
   const data = [
     {
@@ -244,7 +220,6 @@ const Overview = () => {
   const filterOrders = orders?.filter((order: any) => {
     const orderY = new Date(order?.orderDate).getFullYear();
     const orderD = new Date(order?.orderDate).getMonth() + 1;
-    console.log("filter", orderD, selectedMonth);
     return orderY === year && orderD === selectedMonth;
   });
 

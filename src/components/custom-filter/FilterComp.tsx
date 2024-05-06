@@ -54,20 +54,11 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   };
 
   const { highestPrice, lowestPrice } = analyzePrices(data);
-
-  //   const handleApplyClick = () => {
-  //     console.log("Selected Items:", selectedItems);
-  //     console.log("Price Range:", priceRange);
-  //   };
-
-  //   console.log(data);
   const cityData = data?.map((item) =>
     item?.vendor?.businessInformation?.city.toLowerCase(),
   );
 
   const UniqueCity: any[] = Array.from(new Set(cityData));
-
-  //   console.log(UniqueCity, "lii");
 
   return (
     <div className="p-4">
@@ -103,9 +94,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
             <RangeInput
               min={lowestPrice}
               max={highestPrice}
-              onChange={({ min, max }) =>
-                console.log(`min = ${min}, max = ${max}`)
-              }
+              onChange={({ min, max }) => `min = ${min}, max = ${max}`}
             />
           </AccordionItem>,
         ]}

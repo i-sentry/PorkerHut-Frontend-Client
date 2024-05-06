@@ -29,7 +29,6 @@ const VendorsNav = () => {
     }
   }, []);
 
-  console.log(vendor);
   const accountOwnersName =
     vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
   const storeStatus = vendor?.vendor?.storeStatus;

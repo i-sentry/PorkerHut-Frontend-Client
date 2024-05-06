@@ -87,7 +87,7 @@ export const fetchProduct = createAsyncThunk(
     });
     const data = response.json();
     return data;
-  }
+  },
 );
 
 export const productSlice = createSlice({
@@ -104,14 +104,13 @@ export const productSlice = createSlice({
 
     addProductToCart: (
       state,
-      action: PayloadAction<{ id: string | number }>
+      action: PayloadAction<{ id: string | number }>,
     ) => {
       const product = state.productList.find(
-        (product) => product._id === action.payload.id
+        (product) => product._id === action.payload.id,
       );
 
       if (!product) {
-        console.error(`Product not found with ID: ${action.payload.id}`);
         return; // or throw an error if necessary
       }
 
@@ -119,7 +118,6 @@ export const productSlice = createSlice({
 
       if (isProductInCart) {
         // Product is already in the cart
-        console.log(`Product is already in the cart. ${action.payload.id}`);
         toast.info(
           `${product?.information?.productName} is already in your cart`,
           {
@@ -131,7 +129,7 @@ export const productSlice = createSlice({
             draggable: true,
             progress: undefined,
             theme: "colored",
-          }
+          },
         );
       } else {
         // Product is not in the cart, add it
@@ -155,17 +153,17 @@ export const productSlice = createSlice({
             draggable: true,
             progress: undefined,
             theme: "colored",
-          }
+          },
         );
       }
     },
 
     addProductToFavorites: (
       state,
-      action: PayloadAction<{ id: string | number }>
+      action: PayloadAction<{ id: string | number }>,
     ) => {
       const product = state.productList.find(
-        (product) => product._id === action.payload.id
+        (product) => product._id === action.payload.id,
       );
       if (product) {
         state.favorites[action.payload.id] = product;
@@ -174,11 +172,11 @@ export const productSlice = createSlice({
 
     deleteProductFromCart: (
       state,
-      action: PayloadAction<{ id: string | number }>
+      action: PayloadAction<{ id: string | number }>,
     ) => {
       const deletedProduct = state.cart[action.payload.id];
       const product = state.productList.find(
-        (product) => product._id === action.payload.id
+        (product) => product._id === action.payload.id,
       );
       if (deletedProduct) {
         const deletedQuantity = deletedProduct.pricing.quantity || 0;
@@ -201,15 +199,14 @@ export const productSlice = createSlice({
             draggable: true,
             progress: undefined,
             theme: "colored",
-          }
+          },
         );
-        console.log(`Product is removed from the cart. ${action.payload.id}`);
       }
     },
 
     incrementProductQty: (
       state,
-      action: PayloadAction<{ id: string | number }>
+      action: PayloadAction<{ id: string | number }>,
     ) => {
       if (state.cart[action.payload.id]) {
         const product = state.cart[action.payload.id];
@@ -221,7 +218,7 @@ export const productSlice = createSlice({
 
     decrementProductQty: (
       state,
-      action: PayloadAction<{ id: string | number }>
+      action: PayloadAction<{ id: string | number }>,
     ) => {
       if (state.cart[action.payload.id]) {
         const product = state.cart[action.payload.id];

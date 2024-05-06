@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import logo from "../../assets/images/porkerlogo.png";
+import { FaStoreSlash } from "react-icons/fa";
 
 const SellerProductImageTable = (props: any) => {
   const store = JSON.parse(localStorage.getItem("vendor") as string);
@@ -74,8 +75,6 @@ const SellerProductImageTable = (props: any) => {
   const handleUpdateProductImage = () => {};
   const productsVendor = vendorProducts?.data;
 
-  console.log(productsVendor, "venddhdhdhd");
-
   return (
     <>
       {isLoading && (
@@ -93,7 +92,7 @@ const SellerProductImageTable = (props: any) => {
         </div>
       )}
 
-      {productsVendor && (
+      {!isLoading && productsVendor?.length >= 1 && (
         <div className="hide-scroll-bar w-full overflow-x-auto">
           <table className="w-[1000px] border-collapse">
             <thead>
@@ -250,6 +249,13 @@ const SellerProductImageTable = (props: any) => {
         </div>
       )}
 
+      {!isLoading && productsVendor?.length < 1 && (
+        <div className="flex items-center justify-center bg-neutral-100 py-10 px-4 text-neutral-500">
+          <FaStoreSlash size={32} className="mb-1" />
+          No products yet...
+        </div>
+      )}
+
       {imageToRemove && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
           <div className="rounded-lg bg-white p-8">
@@ -364,7 +370,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="flex justify-end">
           <button
-          disabled={!selectedImage}
+            disabled={!selectedImage}
             onClick={handleAddToTable}
             className="rounded-md bg-[#197B30] py-2 px-4 text-white transition-colors duration-200 hover:bg-green-600 disabled:bg-slate-600"
           >

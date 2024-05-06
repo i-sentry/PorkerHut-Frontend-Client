@@ -35,10 +35,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 export const ProductNameColumn = ({ data, cellIndex }: any) => {
-  // console.log(data?.data, "data product");
-  console.log(data, cellIndex, "new data");
   const adata = data?.cell?.value;
-  // console.log(adata, "Adata");
 
   const lowerData = adata?.toLowerCase();
 
@@ -303,10 +300,7 @@ const Tcolumns: readonly Column<IOrder>[] = [
 ];
 
 const DateColumn = ({ d }: any) => {
-  // console.log(d.orderDate, "datafhshs");
   const createdAt = d.orderDate;
-
-  // console.log(createdAt, "createdat");
 
   const formattedDate = moment(createdAt).format("DD MMMM YYYY");
   const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
@@ -323,9 +317,6 @@ const DateColumn = ({ d }: any) => {
 };
 
 const StoreNameColumn = ({ d }: any) => {
-  // const { vendor } = d;
-  // console.log(d, "store-colum");
-
   const storeName =
     d?.productDetails[0].vendor.sellerAccountInformation.shopName;
   const storeCity = d?.productDetails[0].vendor.businessInformation.city;
@@ -367,7 +358,6 @@ const MyOrder = () => {
   const { data: getAllOrders, isLoading } = useGetCustomersOrder(
     user._id as string,
   );
-  console.log(getAllOrders, "Get All orders");
 
   // const allOrders = getAllOrders?.orders;
   const allOrders = useMemo(() => {
@@ -401,9 +391,6 @@ const MyOrder = () => {
     });
   };
 
-  // console.log(user, user._id, typeof user._id, "User");
-  console.log(allOrders, "All orders now", isLoading);
-
   const handleToggle = (index: React.SetStateAction<number>) => {
     if (expandedIndex === index) {
       setExpandedIndex(-1);
@@ -411,10 +398,6 @@ const MyOrder = () => {
       setExpandedIndex(index);
     }
   };
-  // console.log(searchValue, "k");
-  // const handleOpen = (value: number) => {
-  //   setOpen(open === value ? null : value);
-  // };
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
@@ -427,7 +410,6 @@ const MyOrder = () => {
 
     Cell: ({ row }: any) => {
       const navigate = useNavigate();
-      // console.log(row?.original, row?.original?._id, "row");
 
       const handleView = (id: any) => {
         navigate(`/my__orders/${id}`, {
@@ -452,7 +434,6 @@ const MyOrder = () => {
     allOrders?.filter((b: any) =>
       queryKey.some((key: any) => b[key]?.toLowerCase().includes(searchValue)),
     ) || [];
-  console.log(filteredData);
 
   let itemsPerPage = 4;
   let currentPage = 1;

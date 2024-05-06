@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 
 import { useForm } from "react-hook-form";
-import {
-  CountryDropdown,
-  RegionDropdown,
-} from "react-country-region-selector";
-
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
 import { FileContext } from "../context/FileContext";
 import { RiCloseLine } from "react-icons/ri";
@@ -30,7 +26,6 @@ export type SelectOptionType = {
 //   },
 // ];
 
-
 interface FileData {
   name: string;
   file: File;
@@ -44,39 +39,37 @@ type UserData = {
   vetType: string;
   aboutYou: string;
   chexbox: string;
-  error: null,
-
-
+  error: null;
 };
 
 type UserBillingInfo = UserData & {
-  updateFields: (fields: Partial<UserData>) => void;
+  updateFields: (fields: Partial<UserData>) => void | any;
   selecFiles: FileData[] | null;
   seFiles: FileData[] | null;
 };
 
-const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, aboutYou, chexbox, updateFields, error }: UserBillingInfo) => {
-
-
-
-
-
-
-
+const VetPartnerMobileB = ({
+  country,
+  city,
+  state,
+  yearsOfOperation,
+  vetType,
+  aboutYou,
+  chexbox,
+  updateFields,
+  error,
+}: UserBillingInfo) => {
   const { setFiles, seFiles, selecFiles } = useContext(FileContext);
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    field: string
+    field: string,
   ) => {
-    console.log(event, "jio,");
     const selectedFiles = Array.from(event.target.files || []);
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-
-    console.log(updatedFiles[0].name, "hhhyuyuy");
 
     setFiles(field, updatedFiles);
   };
@@ -95,30 +88,9 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
     }
   };
 
-  // const appendFilesToFormData = (
-  //   fieldName: string,
-  //   files: FileData[] | null,
-  //   formData: FormData
-  // ) => {
-
-  //   if (files) {
-  //     for (const fileData of files) {
-  //       formData.append(fieldName, fileData.file);
-  //       console.log(fileData.file);
-  //     }
-  //   }
-  // };
-
-
-
   const {
     formState: { errors },
-  } = useForm<UserBillingInfo>({
-
-  });
-
-
-
+  } = useForm<UserBillingInfo>({});
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -126,37 +98,31 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
 
   return (
     <div className="">
-      <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
+      <div className="bg-[#197B30] xxs:my-[61px] md:my-[80px] md:mx-20 md:h-[275px]">
         <Header />
-
       </div>
 
       <div>
         {" "}
         <div>
-          <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
-
+          <div className="mx-[16px] min-h-[600px] max-w-[680px] rounded-md bg-[#F4F4F4] py-[20px] px-[16px] md:mx-auto md:px-[40px]">
             <div>
               {error && (
                 <p className=" my-3 flex items-center justify-between rounded">
-                  <span className="text-[#dd1313] text-sm">{error}</span>
+                  <span className="text-sm text-[#dd1313]">{error}</span>
 
                   <span
                     // onClick={() => setError(false)}
-                    className="rounded-full w-6 h-6 cursor-pointer text-center"
-                  >
-
-                  </span>
+                    className="h-6 w-6 cursor-pointer rounded-full text-center"
+                  ></span>
                 </p>
               )}
             </div>
             <div>
               <div>
-
-
                 <div className=" w-full">
                   <label
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                     htmlFor="country"
                   >
                     Country
@@ -165,18 +131,18 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                     id="country"
                     value={country}
                     onChange={(val) => updateFields({ country: val })}
-
-                    classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${errors.country ? "border-[#dd1313]" : ""
-                      }`}
+                    classes={`w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      errors.country ? "border-[#dd1313]" : ""
+                    }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.country?.message}
                   </div>
                 </div>
 
                 <div className="my-6 w-full">
                   <label
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                     htmlFor="state"
                   >
                     State
@@ -186,17 +152,18 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                     id="state"
                     value={state}
                     onChange={(val) => updateFields({ state: val })}
-                    classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${errors.state ? "border-[#dd1313]" : ""
-                      }`}
+                    classes={`w-full px-[14px] py-[15px] text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] defaultOptionLabel:text-[#A2A2A2] pl-5 focus:outline-[#197b30] focus:outline-1 ${
+                      errors.state ? "border-[#dd1313]" : ""
+                    }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.state?.message}
                   </div>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     City / Town
                   </label>
@@ -205,40 +172,43 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                     value={city}
                     onChange={(e) => updateFields({ city: e.target.value })}
                     placeholder="Enter city/town"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${errors.city ? "border-[#dd1313]" : ""
-                      }`}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                      errors.city ? "border-[#dd1313]" : ""
+                    }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.city?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Years of Operation
                   </label>
                   <input
                     type="number"
                     value={yearsOfOperation}
-                    onChange={(e) => updateFields({ yearsOfOperation: e.target.value })}
+                    onChange={(e) =>
+                      updateFields({ yearsOfOperation: e.target.value })
+                    }
                     placeholder="Number of years"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} `}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} `}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.yearOfOperation?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Type of Vet
                   </label>
@@ -247,42 +217,41 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                     value={vetType}
                     onChange={(e) => updateFields({ vetType: e.target.value })}
                     placeholder="Enter the type of vet you are"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}`}
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"}`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {/* {errors.typeOfVet?.message} */}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
                 <div className="my-6 w-full ">
-                  <div className="my-2 w-full ">
-
-                  </div>
+                  <div className="my-2 w-full "></div>
                 </div>
                 <div className="my-2 w-full ">
-
-
                   <>
-                    <span className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}>
+                    <span
+                      className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
+                    >
                       Upload a copy of Vet License
                     </span>
                     <div className="mt-2">
                       <div className="flex flex-col">
-                        <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                        <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
                           <label
                             htmlFor={"selec"}
-                            className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                            className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                           >
-                            <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                            <span className="my-auto cursor-pointer px-8 text-[#333333]">
                               Select file
                             </span>{" "}
                           </label>
 
                           <input
-                            onChange={(event) => handleFileChange(event, "selec")}
-
+                            onChange={(event) =>
+                              handleFileChange(event, "selec")
+                            }
                             className="hidden"
                             accept="image/*,.pdf,.docx,.doc,.txt"
                             type="file"
@@ -290,19 +259,25 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                             id={"selec"}
                           />
                           {selecFiles && Array.isArray(selecFiles) && (
-                            <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                            <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                               {selecFiles.map((file, index) => {
-                                console.log(file, "filess");
                                 return (
                                   <div
                                     key={index}
-                                    className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                    className="flex shrink-0 items-center rounded-md bg-emerald-600 px-2 text-xs text-white"
                                   >
-                                    <span>{file.name.substring(0, 20) + "..."}</span>
+                                    <span>
+                                      {file.name.substring(0, 20) + "..."}
+                                    </span>
                                     <button
                                       className="p-2"
                                       onClick={(event) =>
-                                        removeFile(event, index, selecFiles, "selec")
+                                        removeFile(
+                                          event,
+                                          index,
+                                          selecFiles,
+                                          "selec",
+                                        )
                                       }
                                     >
                                       <RiCloseLine />
@@ -314,27 +289,22 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                           )}
                         </div>
                       </div>
-
-
                     </div>
-
-
                   </>
                 </div>
                 <div className="my-2 w-full ">
-
                   <>
-                    <span className="text-[#333333] text-[16px] leading-[16px]">
+                    <span className="text-[16px] leading-[16px] text-[#333333]">
                       Additional Document.
                     </span>
                     <div className="mt-2">
                       <div className="flex flex-col">
-                        <div className="dnd bg-[#fff] h-12 flex items-center justify-end border rounded-md relative">
+                        <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
                           <label
                             htmlFor={"se"}
-                            className="text-sm  bg-[#D9D9D9] h-full flex  text-right"
+                            className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                           >
-                            <span className="text-[#333333] cursor-pointer px-8 my-auto">
+                            <span className="my-auto cursor-pointer px-8 text-[#333333]">
                               Select file
                             </span>{" "}
                           </label>
@@ -348,18 +318,21 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                             id={"se"}
                           />
                           {seFiles && Array.isArray(seFiles) && (
-                            <div className="uploaded flex flex-wrap gap-1 text-sm py-3 absolute left-2">
+                            <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                               {seFiles.map((file, index) => {
-                                console.log(file, "filess");
                                 return (
                                   <div
                                     key={index}
-                                    className="text-xs shrink-0 bg-emerald-600 text-white px-2 rounded-md flex items-center"
+                                    className="flex shrink-0 items-center rounded-md bg-emerald-600 px-2 text-xs text-white"
                                   >
-                                    <span>{file.name.substring(0, 20) + "..."}</span>
+                                    <span>
+                                      {file.name.substring(0, 20) + "..."}
+                                    </span>
                                     <button
                                       className="p-2"
-                                      onClick={(event) => removeFile(event, index, seFiles, "se")}
+                                      onClick={(event) =>
+                                        removeFile(event, index, seFiles, "se")
+                                      }
                                     >
                                       <RiCloseLine />
                                     </button>
@@ -371,7 +344,7 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                         </div>
                       </div>
 
-                      <span className=" text-[#797979]  text-[12px] leading-none">
+                      <span className=" text-[12px]  leading-none text-[#797979]">
                         Documents allowed are images and PDF files.
                       </span>
                     </div>
@@ -380,32 +353,31 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor  `}
+                    className={`text-HeadingColor mb-[6px] block text-[16px]  `}
                   >
                     About You
                   </label>
                   <textarea
                     value={aboutYou}
                     onChange={(e) => updateFields({ aboutYou: e.target.value })}
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] h-32 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${"border-ErrorBorder"}`}
+                    className={`focus:ring-primaryDark  focus:border-primaryDark relative block h-32 w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[10px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${"border-ErrorBorder"}`}
                   />
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
-                <div className="flex items-center mt-10">
+                <div className="mt-10 flex items-center">
                   <input
                     // {...register("checkbox")}
                     type="checkbox"
                     name="checkbox"
-
                     // checked={val}
-                    className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                    className="h-4 w-4 cursor-pointer rounded  accent-[#197B30] checked:bg-[#197B30]"
                   />
                   <label
                     htmlFor=""
-                    className="ml-2 text-[14px] leading-[16px] font-normal text-slate-500"
+                    className="ml-2 text-[14px] font-normal leading-[16px] text-slate-500"
                   >
                     I have read and accepted{" "}
                     <Link to={""} className="text-[#197B30] underline">
@@ -415,16 +387,13 @@ const VetPartnerMobileB = ({ country, city, state, yearsOfOperation, vetType, ab
                 </div>
               </div>
 
-
-              <div className="flex items-center justify-center mt-8 gap-4">
+              <div className="mt-8 flex items-center justify-center gap-4">
                 <button
-
-                  className={`h-3 w-3 rounded-full focus:outline-none bg-[#197b30]`}
+                  className={`h-3 w-3 rounded-full bg-[#197b30] focus:outline-none`}
                 ></button>
 
                 <button
-
-                  className={`h-3 w-3 rounded-full  focus:outline-none  bg-[#197b30]`}
+                  className={`h-3 w-3 rounded-full  bg-[#197b30]  focus:outline-none`}
                 ></button>
               </div>
             </div>

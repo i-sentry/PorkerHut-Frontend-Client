@@ -46,7 +46,7 @@ export default function ProductAccordion() {
             </button>
             <button
               onClick={handleRecent}
-              className={`text-[16px] font-normal leading-[19px] ${
+              className={`hidden text-[16px] font-normal leading-[19px] ${
                 recent
                   ? "rounded-md border-[1px] border-[#197B30] px-3 py-2 text-[#197b30]"
                   : "underline"

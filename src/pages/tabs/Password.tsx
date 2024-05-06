@@ -30,7 +30,6 @@ const Password = ({ setShowTab }: any) => {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data); // Perform form submission or other actions
   };
 
   const toggleEye = (e: any) => {

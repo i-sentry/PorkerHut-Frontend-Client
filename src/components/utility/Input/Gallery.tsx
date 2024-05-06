@@ -13,7 +13,6 @@ function Gallery({data}: any) {
     setCurrentIndex(index);
     setClickedImg(item.link);
   };
-console.log(data);
 
   const handelRotationRight = () => {
     const totalLength = data.images.length;
@@ -97,7 +96,6 @@ function BlurImage({ image, handleClick, index, setEdit }: BlurImageProps) {
     setLoading(false);
   };
 
-  console.log(image,"image");
 
   return (
     <a href="gallery" className="group">

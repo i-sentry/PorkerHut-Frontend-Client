@@ -28,7 +28,6 @@ const Login = () => {
   const qParams = searchParams.get("q");
   const billingParams = searchParams.get("billing");
 
-  console.log(qParams, billingParams, "paramst");
   // const dispatch = useAppDispatch();
   const {
     register,
@@ -72,7 +71,6 @@ const Login = () => {
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("user", JSON.stringify(res?.data));
         // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
-        console.log(res);
       })
       .catch((e) => {
         setLoading(false);
@@ -80,8 +78,7 @@ const Login = () => {
         setIsError(e?.response?.data);
       });
   });
-  // console.log(localStorage.getItem("user"), "oookk");
-  // console.log("gggoookk");
+
 
   const toggleEye = (e: any) => {
     e.preventDefault();

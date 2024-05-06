@@ -44,12 +44,8 @@ function ToggleSwitch({
         email: `${email}`,
         status: !status,
       })
-      .then((res: any) => {
-        console.log(res, "notificatiuonnsnsnsns");
-      })
-      .catch((err: any) => {
-        console.log(err, "notificatiuonnsnsnsns");
-      });
+      .then((res: any) => {})
+      .catch((err: any) => {});
   };
 
   return (

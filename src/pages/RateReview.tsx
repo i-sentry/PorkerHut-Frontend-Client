@@ -32,7 +32,6 @@ const RateReview = () => {
   const userdata = JSON.parse(localStorage.getItem("user") as string);
   const _name = `${userdata?.firstName} ${userdata?.lastName}`;
   const avgRating = singleProduct?.data?.avgRating;
-  console.log(avgRating, "avgRating");
   const [userRating, setUserRating] = useState<number>();
   const [modal, setModal] = useState<boolean>(false);
 
@@ -48,19 +47,14 @@ const RateReview = () => {
   }, [isRated?.message]);
 
   // const productRated = ;
-  console.log(isRated, "productRated");
 
   const handleRatingChange = (newRating: number) => {
     setUserRating(newRating);
-    console.log(newRating, "newRating");
   };
 
   const createRating = useCreateRating();
   const updateRating = useUpdateRating(isRated?.rating._id);
   const navigate = useNavigate();
-  console.log(_name, "_name");
-  console.log(singleProduct);
-  console.log(userdata);
 
   const initiateCreateRating = (e: any) => {
     e.preventDefault();
@@ -101,7 +95,6 @@ const RateReview = () => {
     userdata && { id: 2, value: `${_name}`, label: `${_name}` },
   ];
 
-  console.log(userName, "userName");
 
   return (
     <AppLayout>

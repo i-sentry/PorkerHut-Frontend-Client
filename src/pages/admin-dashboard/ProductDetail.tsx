@@ -40,8 +40,6 @@ const ProductDetails = () => {
   const [productStatus, setProductStatus] = useState("pending");
   //const [status] = useState("pending");
 
-  console.log(loading, "loading");
-
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -61,7 +59,6 @@ const ProductDetails = () => {
     "Pricing",
     "Images",
   ]);
-  console.log(singleProduct?.data?.data, "singleProduct");
   const { text, amount, richText, date } = InputTypes;
 
   const {
@@ -219,7 +216,6 @@ const ProductDetails = () => {
   }
   // const { details, information, pricing } = currentProductData;
 
-  console.log({ questions });
 
   const handleProductUpdate = async (status: string) => {
     try {
@@ -264,7 +260,6 @@ const ProductDetails = () => {
   //       approvalStatus: status,
   //     })
   //     .then((res) => {
-  //       console.log(res);
 
   //       // Display success toast message
   //       toast.success('Product approved successfully!', {
@@ -273,7 +268,6 @@ const ProductDetails = () => {
   //       });
   //     })
   //     .catch((err) => {
-  //       console.log(err);
   //     })
   //     .finally(() => {
   //       setLoading(false);
@@ -386,8 +380,6 @@ const ProductDetails = () => {
     },
   ];
 
-  console.log({ productInfo });
-
   return (
     <div className="py-6 pl-8 pr-5">
       <div className="mb-5 inline-grid grid-cols-[24px_2fr] gap-5">
@@ -482,7 +474,6 @@ const ProductDetails = () => {
             <div>
               <>
                 {productInfo.map((data, index) => {
-                  console.log(data, "data data fsfaya");
                   return (
                     <div key={index + data?.name}>
                       <CustomInput

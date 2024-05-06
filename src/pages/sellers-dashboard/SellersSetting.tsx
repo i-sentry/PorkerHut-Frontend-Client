@@ -96,7 +96,6 @@ function SettingssTab() {
       setVendor(storedVendor);
     }
   }, []);
-  console.log(vendor?.vendor?._id, "vendor", vendor);
   const updateVendor = useUpdateVendor(vendor?.vendor?._id);
 
   // const [, setImage] = useState("");
@@ -109,25 +108,6 @@ function SettingssTab() {
     //setTab(tabIndex);
   };
 
-  //  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //    const file = e.target.files && e.target.files[0];
-  //    if (file) {
-  //      setImage(file);
-  //      setImageUrl(URL.createObjectURL(file));
-  //    }
-  //    handleImage(e, img);
-  //  };
-
-  // const handleImage = (e: any) => {
-  //   const file = e.target.files && e.target.files[0];
-
-  //   if (file) {
-  //     console.log(file, "file");
-  //     setImage(file);
-  //     setImageUrl(URL.createObjectURL(file));
-  //   }
-  // };
-
   const toggleEye = (e: any) => {
     e.preventDefault();
     setEyeState((prev) => !prev);
@@ -139,10 +119,6 @@ function SettingssTab() {
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // const [email] = useState("");
-  // const [storeName] = useState("");
-
-  // console.log(vendor);
   const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
   // const accountOwnersName =
   //   vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
@@ -196,7 +172,6 @@ function SettingssTab() {
     }
   }, [reset, vendor]);
 
-  // console.log({ errors });
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
@@ -204,7 +179,6 @@ function SettingssTab() {
       .mutateAsync(data)
       .then((res: any) => {
         setLoading(false);
-        console.log(res);
         toast.success(
           "Your Account Information has been updated successfully!!!",
         );
@@ -212,14 +186,11 @@ function SettingssTab() {
       })
       .catch((err: any) => {
         setLoading(false);
-        console.log(err);
       });
     // data.phoneNumber = phoneNumber;
 
     // data.email = email;
     // data.storeName = storeName;
-    console.log(data.storeName);
-    console.log(JSON.stringify(data, null, 2));
   };
 
   const updatePassWord = useVendorRestPassword(vendor.token);
@@ -232,10 +203,10 @@ function SettingssTab() {
         password: "",
       })
       .then((res: any) => {
-        console.log(res, "suceessfull");
+        toast.success("Password Updated Successfully");
       })
       .catch((err: any) => {
-        console.log(err, "Error");
+        toast.error("Error updating password");
       });
   };
 
@@ -324,29 +295,6 @@ function SettingssTab() {
               >
                 <div className="m-auto">
                   <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-black">
-                    {/* {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt="uploaded"
-                        style={{ maxWidth: "100%", maxHeight: "100%" }}
-                        className="h-28 w-28 cursor-pointer rounded-full object-cover"
-                      />
-                    ) : (
-                      <>
-                        <label htmlFor="file" className="">
-                          <FiCamera size={20} className="text-gray-400" />
-                          <span className=" my-auto  cursor-pointer text-[#197B30]"></span>{" "}
-                        </label>
-
-                        <input
-                          id="file"
-                          type="file"
-                          name="file"
-                          onClick={handleImage}
-                          className=" hidden appearance-none text-sm outline-none "
-                        />
-                      </>
-                    )} */}
                     <FaUserCircle size={60} className="text-neutral-300" />
                   </div>
                 </div>
@@ -357,16 +305,6 @@ function SettingssTab() {
                 >
                   {vendorName}
                 </h3>
-                {/* <label
-                  htmlFor="file"
-                  className="fle items-center gap-2 text-right text-sm"
-                >
-                  <FiCamera className="text-[#197B30]" />
-                  <span className=" my-auto  cursor-pointer py-4 text-[14px] font-medium leading-[16px] text-[#197B30]">
-                    Change profile picture
-                  </span>{" "}
-                </label> */}
-
                 <div
                   className="mt-8 flex flex-col gap-4"
                   style={{

@@ -22,7 +22,6 @@ export interface IBlog {
 const Blog = () => {
   const { data: blogs, isLoading } = useGetAllBlogs();
 
-  console.log(blogs, "blog");
 
   const itemsPerPage = 3;
   const [currentPageIndex] = useState(1);

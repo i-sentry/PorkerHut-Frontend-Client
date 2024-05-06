@@ -72,8 +72,6 @@ const VetPartnerAccount = () => {
       file: file,
     }));
 
-    console.log(updatedFiles[0].name, "hhhyuyuy");
-
     setFiles(field, updatedFiles);
   };
 
@@ -140,17 +138,13 @@ const VetPartnerAccount = () => {
     if (files) {
       for (const fileData of files) {
         formData.append(fieldName, fileData.file);
-        console.log(fileData.file);
       }
     }
   };
 
-  console.log({ errors });
   const onSubmit = (data: ExtendedUserBillingInfo) => {
-    console.log(data);
     setIsLoading(true);
     const formData = new FormData();
-    console.log("submit");
 
     if (!selecFiles) {
       setIsLoading(false);
@@ -174,8 +168,6 @@ const VetPartnerAccount = () => {
 
       appendFilesToFormData("additionalDocuments", seFiles, formData);
 
-      console.log(formData, "FORMDATA");
-
       createVet
         .mutateAsync(formData)
         .then((res) => {
@@ -186,7 +178,6 @@ const VetPartnerAccount = () => {
         .catch((err) => {
           const error = err.response?.data?.message || err.message;
           setIsLoading(false);
-          // console.log(error);
           if (error.includes("duplicate key error")) {
             setError("Email already registered. Please use a different email.");
           }
@@ -609,7 +600,6 @@ const VetPartnerAccount = () => {
                               {selecFiles && Array.isArray(selecFiles) && (
                                 <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                                   {selecFiles.map((file, index) => {
-                                    console.log(file, "filess");
                                     return (
                                       <div
                                         key={index}
@@ -669,7 +659,6 @@ const VetPartnerAccount = () => {
                               {seFiles && Array.isArray(seFiles) && (
                                 <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                                   {seFiles.map((file, index) => {
-                                    console.log(file, "filess");
                                     return (
                                       <div
                                         key={index}

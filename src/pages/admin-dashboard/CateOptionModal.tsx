@@ -33,7 +33,6 @@ const CateOptionModal = ({
       deleteCat
         .mutateAsync({})
         .then((res: any) => {
-          console.log(res, "deleted");
           toast.success("Category Deleted Successfully!!!");
           setLoading(false);
           setShowOption(false);
@@ -41,7 +40,6 @@ const CateOptionModal = ({
           refetch();
         })
         .catch((err: any) => {
-          console.log(err, "deleted");
           toast.error("Error deleting category, try again!!!");
           setLoading(false);
           setShowOption(false);
@@ -50,7 +48,6 @@ const CateOptionModal = ({
     }
 
     if (action.toLowerCase() === "disable") {
-      console.log(id, "Category id to be disabled");
       setShowOption(false);
       setLoading(false);
 

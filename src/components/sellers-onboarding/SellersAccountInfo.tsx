@@ -76,8 +76,7 @@ const SellersAccountInfo = () => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  console.log({ userData }, sellerInfocheck, "ifo chec");
-  console.log(dropOption?.value);
+ 
 
   const toggleConfirmEye = (e: any) => {
     e.preventDefault();
@@ -161,7 +160,6 @@ const SellersAccountInfo = () => {
               {sellersformData.map((data, index) => {
                 const [section, field] = data.name.split("."); // Split the name into section and field
                 const value = userData[section][field]; // Access the nested property value
-                console.log(section, field, "hshshshsh");
 
                 if (
                   section === "sellerAccountInformation" &&

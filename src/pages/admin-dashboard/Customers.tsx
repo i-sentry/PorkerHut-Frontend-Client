@@ -28,7 +28,6 @@ export const StatusColumn = ({ data }: { data: string }) => {
 export const OrderColumn = ({ row }: any) => {
   const id = row?._id;
   const { data: orders } = useGetAggregateUserOrders(id);
-  console.log(orders, "no of orders", id, row);
   return <div>{orders?.data?.totalOrders}</div>;
 };
 
@@ -53,7 +52,6 @@ const Tcolumns: readonly Column<object>[] = [
     Header: "Phone Number",
     accessor: (row: any) => {
       const info = row?.billingInfo?.find((info: any) => info?.isDefault);
-      // console.log(info, info?.phoneNumber || "Not Applicable");
 
       // return `${info?.phoneNumber || ""}`;
       return <div>{info?.phoneNumber || "Not Applicable"}</div>;
@@ -93,8 +91,6 @@ const Customers = () => {
     () => (user?.data ? user?.data : []),
     [user?.data],
   );
-
-  // console.log(allUser, "allUser", userAggregate);
 
   useEffect(() => {
     if (!isLoading && allUser)

@@ -55,7 +55,6 @@ const customStyles = {
 function AmountField({ errors, data, onChange, onBlur, value }: any, ref: any) {
   const currencyValue =
     currencies.find((item) => item.value === value?.currency) || currencies[0];
-  console.log("value val", value);
   return (
     <div className="mb-1 w-full ">
       <label

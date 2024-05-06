@@ -88,7 +88,6 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
   useEffect(() => {
     // Check if expiration timestamp is stored in localStorage
     const timer = JSON.parse(localStorage.getItem(id) as string);
-    console.log(timer);
     if (timer && id === timer?._id) {
       // // Calculate expiration timestamp if not found
       // const currentDate = new Date();
@@ -105,7 +104,6 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
       const now = new Date().getTime();
       const timeDifference =
         timer?.endDate && parseInt(timer?.endDate || "0", 10) - now;
-      console.log(timeDifference, "timeDifference", timer?.endDate);
       if (timeDifference > 0 && timeDifference !== "undefined") {
         // Calculate remaining time
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
@@ -161,7 +159,6 @@ export default function Timer({ setOpenTimer, setTimestamp, id }: any) {
       daysToSeconds + hoursToSeconds + minutesToSeconds + seconds;
     const currentTimestamp = Date.now();
     const futureTimestamp = currentTimestamp + totalSeconds * 1000;
-    console.log(futureTimestamp);
     setTimestamp(futureTimestamp);
     toast.success("Timer set successfully!!!");
     setOpenTimer(false);

@@ -90,9 +90,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [status, setStatus] = useState("default");
-  // const makePayment = useMakePayment();
   const [val, setVal] = useState(false);
-  // const cartTotal = useCartTotalAmount((state) => state.cartTotal);
   const createBilling = useBillingInfo();
   const [loading, setLoading] = useState(false);
   const [temp, setTemp] = useState(false);
@@ -103,19 +101,13 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const showModay = useProtectedInfo((state) => state.isAuthenticated);
   const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
   const tempBilling = JSON.parse(localStorage.getItem("tempBilling") as string);
-
-  console.log(storedUser, "mmmmmmmmmmmmmmm", tempBilling);
   const myBillings = myBillingInfo?.data?.data?.billing;
-
-  console.log(myBillingInfo?.data?.data?.billing, "myBillingInfo", myBillings);
-
   const defaultBillingInfo = myBillingInfo?.data?.data?.billing.find(
     (info: { isDefault: any }) => info.isDefault === true,
   );
   const upDateInfo = useUpdateBillingInfo(
     (defaultBillingInfo?._id as string) ?? (billingId as string),
   );
-  // Use defaultBillingInfo to set default values for the form
   useEffect(() => {
     if (isMyBilling === true) {
       //  debugger;
@@ -153,8 +145,6 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setValueForm2("isDefault", tempBilling?.isDefault);
     }
   }, [defaultBillingInfo, setValue, isMyBilling, setValueForm2]);
-
-  console.log(isMyBilling, "isMyBilling", getValuesForm2(), defaultBillingInfo);
 
   const onSubmit = (data: any) => {
     if (user) {
@@ -198,9 +188,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const handleUpdateInfo = (data: any) => {
     upDateInfo
       .mutateAsync(data)
-      .then((res) => {
-        console.log(res, "update");
-      })
+      .then((res) => {})
       .catch(() => {});
   };
 
@@ -208,7 +196,6 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     // setTemp(false);
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
     } else {
@@ -216,8 +203,6 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
       setUser(null);
     }
   }, []);
-
-  console.log(user, "user");
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -228,8 +213,6 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     const statusParam = searchParams.get("status");
     setStatus(statusParam || "default");
   }, [location.search]);
-
-  console.log(status, "status");
 
   if (status === "success") {
     return <PaymentSuccessPage />;

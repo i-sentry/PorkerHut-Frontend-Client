@@ -147,22 +147,18 @@ const VetProfileOverlay = ({
     });
   });
 
-  console.log(item, "vet inof item");
   const { setFiles, selecFiles, selectedFiles } = useContext(FileContext);
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string,
   ) => {
-    console.log(event, "jio,");
     const selectedFiles = Array.from(event.target.files || []);
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-
-    console.log(updatedFiles[0].name, "hhhyuyuy");
 
     setFiles(field, updatedFiles);
   };
@@ -177,7 +173,6 @@ const VetProfileOverlay = ({
     if (files) {
       const updatedFiles = [...files];
       updatedFiles.splice(index, 1);
-      console.log(updatedFiles, "updatedFiles");
       setFiles(field, updatedFiles);
     }
   };
@@ -335,7 +330,6 @@ const VetProfileOverlay = ({
                 {selecFiles && Array.isArray(selecFiles) && (
                   <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
                     {selecFiles.map((file, index) => {
-                      console.log(file, "filess");
                       return (
                         <div
                           key={index}

@@ -47,7 +47,6 @@ const OrderCart = ({
   const vat = cartTotal + (cartTotal / 100) * 7.5;
   // const sumTotal = cartTotal + vat + dFee;
   const sumTotal = cartTotal;
-  console.log(cart, "cart");
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,
     quantity: item?.pricing?.quantity,
@@ -78,8 +77,6 @@ const OrderCart = ({
         if (res.order) {
           initiatePayment(res.order._id);
         }
-        console.log(res, "order res");
-        console.log(res.order._id, "order id");
         // setLoading(false);
       })
       .catch((err) => {
@@ -99,7 +96,6 @@ const OrderCart = ({
       })
       // .mutateAsync({ email: user?.email, amount: sumTotal })
       .then((res) => {
-        console.log(res, "payment");
         const authorizationUrl = res.data?.data.data.authorization_url;
         if (authorizationUrl) {
           window.open(authorizationUrl, "_blank");
@@ -119,7 +115,6 @@ const OrderCart = ({
     setTemp(false);
   }
 
-  console.log(user, "user");
   return (
     <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
       <div className="px-4 py-6">

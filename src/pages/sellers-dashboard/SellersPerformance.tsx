@@ -134,8 +134,6 @@ const SellersPerformance = () => {
   const { data: vo, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   const vendorOrders = vo?.data?.orders;
 
-  // console.log(vendorOrders, isLoading, "vendorOrders");
-
   const salesRevenue = vendorOrders
     ?.map((order: any) => order?.subtotal)
     ?.reduce((acc: any, price: any) => acc + price, 0);
@@ -144,23 +142,11 @@ const SellersPerformance = () => {
     ?.map((order: any) => order?.productDetails?.length)
     ?.reduce((acc: any, item: any) => acc + item, 0);
 
-  // console.log("salesRevenue", salesRevenue);
-
-  // const monthData = vendorOrders?.map((order: any) => {
-  //   const monthIndex = new Date(order.orderDate)?.getMonth();
-  //   return new Date(0, monthIndex)?.toLocaleString("default", {
-  //     month: "long",
-  //   });
-  // });
-
-  // console.log(monthData, "monthData");
-
   const chartData = vendorOrders
     ?.flatMap((order: any) => order?.productDetails)
     ?.map((product: any) => ({
       price: product?.productID?.pricing?.productPrice,
     }));
-  // console.log(chartData, "chartData");
 
   const data = {
     labels: [
@@ -207,7 +193,7 @@ const SellersPerformance = () => {
         throw new Error("Function not implemented.");
       },
       percentage: 10,
-      value: `₦${salesRevenue?.toLocaleString()}`,
+      value: `₦${salesRevenue?.toLocaleString() || 0}`,
       type: "Sales",
       borderColor: "#d9d9d9",
       textColor: "red",
@@ -223,7 +209,7 @@ const SellersPerformance = () => {
         throw new Error("Function not implemented.");
       },
       percentage: -5,
-      value: vendorOrders?.length,
+      value: vendorOrders?.length || 0,
       type: "Orders",
       borderColor: "#d9d9d9",
       textColor: "red",
@@ -239,7 +225,7 @@ const SellersPerformance = () => {
         throw new Error("Function not implemented.");
       },
       percentage: 2,
-      value: itemSold,
+      value: itemSold || 0,
       type: "Items Sold",
       borderColor: "#d9d9d9",
       textColor: "red",
@@ -271,8 +257,6 @@ const SellersPerformance = () => {
       <div>{MobilePerformanceWidget(val, isLoading)}</div>
     </div>
   ));
-
-  console.log(week, "week");
 
   return (
     <div className="overflow-hidden px-4 pt-6 ">

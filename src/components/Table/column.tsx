@@ -54,7 +54,7 @@ export const column: Column<{
       return (
         <span
           onClick={() => toggleOpenModal(true)}
-          className="hover:underline hover:text-[#0eb6683] cursor-pointer"
+          className="cursor-pointer hover:text-[#0eb6683] hover:underline"
         >
           View
         </span>
@@ -131,14 +131,12 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  console.log(data?.row?.original?.img, "data");
   const adata = data?.cell?.row?.original?.product?.productName;
   const lowerData = adata?.toLowerCase();
-  console.log(data?.cell?.row?.original?.product?.productName);
   const productName = _.startCase(lowerData);
   return (
     <div className="flex items-center gap-2">
-      <span className="font-light text-sm whitespace-nowrap  text-[#333333]">
+      <span className="whitespace-nowrap text-sm font-light  text-[#333333]">
         {productName}
       </span>
     </div>

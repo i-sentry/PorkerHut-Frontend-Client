@@ -82,16 +82,6 @@ export function AreaChart({ values }: { values?: any }) {
     "Sunday",
   ];
 
-  // const createArray = (daysOfWeek: any, x: any, y: any) => {
-  //   return daysOfWeek.map((day: any) => {
-  //     const index = x.indexOf(day);
-  //     return index !== -1 ? y[index] : 0;
-  //   });
-  // };
-
-  // const val = createArray(daysOfWeek, days, sales);
-
-  // console.log(values, "chchchchch", days, sales, val);
   const data = {
     labels: daysOfWeek,
     datasets: [
