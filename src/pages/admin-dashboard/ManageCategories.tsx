@@ -76,7 +76,7 @@ const ManageCategories = ({}: {}) => {
         },
       ]);
     }
-  }, [id]);
+  }, [id, catQuesLoad]);
 
   const selectedCategory = data?.data;
   const category = useMemo(() => {
@@ -94,7 +94,11 @@ const ManageCategories = ({}: {}) => {
     setQuestions((prev: any) => {
       return [
         ...prev,
-        { id: crypto.randomUUID(), question: "", required: true },
+        {
+          id: prev[prev?.length - 1].id + 1 || crypto.randomUUID(),
+          question: "",
+          required: true,
+        },
       ];
     });
   };

@@ -167,6 +167,23 @@ const Announcement = () => {
           );
         },
       },
+      {
+        Header: " ",
+        accessor: (row: any) => {
+          const handleClick = (a: any) => {
+            setSelectedRow(a);
+            setShowRowModal(true);
+          };
+          return (
+            <span
+              className="cursor-pointer underline"
+              onClick={() => handleClick(row)}
+            >
+              View
+            </span>
+          );
+        },
+      },
     ],
     [],
   );

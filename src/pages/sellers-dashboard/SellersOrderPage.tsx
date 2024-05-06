@@ -195,6 +195,12 @@ const SellersOrderPage = () => {
           />
           <NewCard
             loading={isLoading}
+            orderLength={pending}
+            orderType="Ready to Go"
+          />
+
+          <NewCard
+            loading={isLoading}
             orderLength={completed}
             orderType={"Completed Orders"}
           />
@@ -234,7 +240,14 @@ const SellersOrderPage = () => {
             <AdminTable
               // @ts-ignore
               Tcolumns={Tcolumns}
-              tabs={["All", "Pending", "Completed", "Failed", "Returned"]}
+              tabs={[
+                "All",
+                "Pending",
+                "Ready to Go",
+                "Completed",
+                "Failed",
+                "Returned",
+              ]}
               TData={vendorOrders}
               placeholder={"Search product name, store names, category...."}
               showIcon={true}
@@ -329,13 +342,14 @@ const NewCard = ({ loading, orderLength, orderType }: any) => {
   const getStatus = (status: string) => {
     switch (status.toLowerCase()) {
       case "pending orders":
+      case "return orders":
+        return "text-[#202223]";
+      case "ready to go":
         return "text-[#F29339]";
       case "completed orders":
         return "text-[#22C55E]";
       case "failed orders":
         return "text-[#F91919]";
-      case "returned orders":
-        return "text-[#198df9]";
       case "returned failed orders":
         return "text-[#f91919]";
       default:
