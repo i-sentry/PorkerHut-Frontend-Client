@@ -1,9 +1,10 @@
 import { FaUserCircle } from "react-icons/fa";
 import { TbDots } from "react-icons/tb";
+import { useGetVendorById } from "../../services/hooks/Vendor";
 import {
-  useGetVendorById,
-} from "../../services/hooks/Vendor";
-import { useGetAggregateVendorOrders } from "../../services/hooks/orders";
+  useGetAggregateVendorOrders,
+  useGetOrders,
+} from "../../services/hooks/orders";
 import Popover from "../utility/PopOver";
 import { Tooltip } from "../utility/ToolTip";
 
@@ -17,7 +18,18 @@ const StoreCard = ({
 }: any) => {
   const { storeStatus } = item;
   const { data } = useGetVendorById(item?._id);
-  const { data: vendorAggr } = useGetAggregateVendorOrders(item?._id);
+  const { data: vendorAggr } = useGetOrders();
+
+  const filteredOrders = vendorAggr?.data?.data?.filter((order: any) =>
+    order?.productDetails?.some(
+      (detail: any) => detail?.vendor?._id === item?._id,
+    ),
+  );
+  const failedOrders = filteredOrders?.filter(
+    (order: any) => order?.status?.toLowerCase() === "failed",
+  ).length;
+
+  console.log(filteredOrders, "vendi");
 
   return (
     <>
@@ -142,7 +154,7 @@ const StoreCard = ({
               Total Orders:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+              {filteredOrders?.length}
             </span>
           </li>
           <li>
@@ -150,7 +162,7 @@ const StoreCard = ({
               Total Failed Orders:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+              {failedOrders}
             </span>
           </li>
           <li>
@@ -158,7 +170,7 @@ const StoreCard = ({
               Joined:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              {/* {item?.sellerAccountInformation?.phoneNumber} */}
+              {item?.createdeAt || ""}
             </span>
           </li>
         </ul>

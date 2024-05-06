@@ -108,7 +108,7 @@ const StoreProfile = () => {
         </div>
       )}
 
-      {!isLoading && data?.length ? (
+      {!isLoading && data?.length >= 1 && (
         <div>
           {/* {data?.map((item: any, index: number) => (
             <StoreCard item={item} key={index} setIsOpen={setIsOpen} />
@@ -178,15 +178,8 @@ const StoreProfile = () => {
             </button>
           </div>
         </div>
-      ) : (
-        <div>No Store is available yet</div>
       )}
-
-      {/* {!isLoading && data ? (
-      
-      ) : (
-        ""
-      )} */}
+      {!isLoading && data?.length < 1 && <div>No Store is available yet</div>}
 
       <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
       <StatusModal
