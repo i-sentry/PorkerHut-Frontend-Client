@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@emailjs/browser": "^4.3.1",
     "@emotion/is-prop-valid": "^1.2.0",
     "@emotion/react": "^11.11.1",
@@ -38,6 +39,7 @@
     "js-cookie": "^3.0.1",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
+    "postcss-preset-env": "^9.5.11",
     "racese-react-phone-input-2": "^1.0.38",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
@@ -92,15 +94,16 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not ie <= 11",
-      "not op_mini all"
+      "last 2 Chrome versions",
+      "last 2 Firefox versions",
+      "last 2 Safari versions",
+      "last 2 Edge versions"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 Chrome version",
+      "last 1 Firefox version",
+      "last 1 Safari version",
+      "last 1 Edge version"
     ]
   },
   "devDependencies": {
