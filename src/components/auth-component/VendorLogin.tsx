@@ -38,7 +38,6 @@ const VendorLogin = () => {
         localStorage.removeItem("user");
         localStorage.setItem("vendorAccessToken", res?.data?.token);
         localStorage.setItem("vendor", JSON.stringify(res?.data));
-        console.log(res, "res");
       })
       .catch((e) => {
         setLoading(false);

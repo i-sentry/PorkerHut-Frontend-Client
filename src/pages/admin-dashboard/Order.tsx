@@ -16,7 +16,6 @@ import { useGetOrders } from "../../services/hooks/orders";
 import { Tooltip } from "../../components/utility/ToolTip";
 import moment from "moment";
 import logo from "../../assets/images/porkerlogo.png";
-import { useGetVendorById } from "../../services/hooks/Vendor";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -38,10 +37,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
 };
 
 const DateColumn = ({ d }: any) => {
-  // console.log(d.orderDate, "datafhshs");
   const createdAt = d.orderDate;
-
-  // console.log(createdAt, "createdat");
 
   const formattedDate = moment(createdAt).format("DD MMMM YYYY");
   const formattedTime = moment(createdAt).format("h:mmA").toLowerCase();
@@ -59,8 +55,6 @@ const DateColumn = ({ d }: any) => {
 
 const StoreNameColumn = ({ d }: any) => {
   const { vendor } = d;
-  // const { data: vendor } = useGetVendorById(d?.productDetails[0]?.vendor?._id);
-  console.log("vendor store-colum", d);
 
   const storeName =
     d?.productDetails[0]?.productID?.vendor?.sellerAccountInformation
@@ -80,11 +74,9 @@ const StoreNameColumn = ({ d }: any) => {
 };
 
 export const ProductNameColumn = ({ data }: any) => {
-  // console.log(data, "datat attat");
   const adata = data?.productDetails[0]?.productID?.information?.productName;
   const lowerData = adata?.toLowerCase();
   const productName = _.startCase(lowerData);
-  // console.log(data?.row?.original, "data", data.cell);
   return (
     <div className="flex items-center gap-2">
       <figure className="h-9 w-9 rounded-full border">
@@ -327,8 +319,6 @@ const Order = () => {
   }, [ordersList?.data.data, isLoading]);
   const navigate = useNavigate();
 
-  console.log(orders, "orders", ordersList);
-
   const optionalColumn = {
     id: "expand",
     // The header can use the table's getToggleAllRowsSelectedProps method
@@ -346,10 +336,7 @@ const Order = () => {
           replace: true,
         });
         window.scrollTo(0, 0);
-        // console.log(id, "isisiisgososo");
       };
-
-      // console.log(row, "shshshshshshsh");
 
       return (
         <div>

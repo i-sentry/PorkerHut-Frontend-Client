@@ -8,9 +8,9 @@ const useQueryMutation = <
   TData = unknown,
   TError = unknown,
   TVariables = unknown,
-  TContext = unknown
+  TContext = unknown,
 >(
-  option: UseMutationOptions<TData, TError, TVariables, TContext>
+  option: UseMutationOptions<TData, TError, TVariables, TContext>,
 ) => {
   const res = useMutation({
     ...option,
@@ -18,9 +18,7 @@ const useQueryMutation = <
       //@ts-ignore
       option.onError?.(response);
       try {
-        // console.log(response);
       } catch (e) {
-        // console.log(response);
         //@ts-ignore
       }
     },

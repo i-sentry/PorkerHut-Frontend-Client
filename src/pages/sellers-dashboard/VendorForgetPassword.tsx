@@ -33,14 +33,12 @@ const VendorForgetPassword = () => {
     recoverPassword
       .mutateAsync(data)
       .then((res) => {
-        console.log(res, "res");
         setLoading(false);
         toast.success(res.data.message);
         e?.target.reset();
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e, "err");
         toast.error(e.response.data.message);
       });
   });

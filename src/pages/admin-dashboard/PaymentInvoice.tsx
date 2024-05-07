@@ -4,6 +4,7 @@ import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Popover from "../../components/utility/PopOver";
+import ComingSoon from "../../components/ComingSoon";
 
 const invoiceData = [
   {
@@ -106,7 +107,6 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Status",
     accessor: (row: any) => {
-      console.log(row, "annana");
       return (
         <div className={`capitalize ${getStatus(row?.status)}`}>
           {row?.status}
@@ -166,7 +166,7 @@ const PaymentInvoice = () => {
       </div>
 
       <div>
-        <div className="hide-scroll-bar">
+        <div className="hide-scroll-bar hidden">
           <AdminTable
             // @ts-ignore
             Tcolumns={Tcolumns}
@@ -183,6 +183,10 @@ const PaymentInvoice = () => {
             ]}
           />
         </div>
+      </div>
+
+      <div className="absolute top-0 left-0 h-full w-full bg-white">
+        <ComingSoon pendingPage={"Payment Invoice"} />
       </div>
     </div>
   );
@@ -218,7 +222,6 @@ const MonthSelector: React.FC<{
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value));
-    console.log(event.target.value, "gsgsgsg");
   };
 
   const filteredData = data?.filter((order: any) => {

@@ -30,33 +30,23 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     pickupAddress: porkerPickupAddress,
   };
 
-  console.log(product, "productproduct");
-
   const handleUpdateProduct = (id: string) => {
-    // console.log(id, "id");
-    // console.log("Current Items Array:", items);
-
     // Remove the current cart from local storage
     localStorage.removeItem("cart");
 
     // Update the item with the matching ID
     const updatedItems = Object.values(items)?.map((product) => {
-      // console.log(product._id, "product._id");
       return product._id === id ? { ...product, ...updatedValues } : product;
     });
 
     // Update local storage with the new items
     localStorage.setItem("cart", JSON.stringify(updatedItems));
-
-    // Log the updated items array
-    // console.log("Updated Items Array:", updatedItems);
   };
 
   const handleRadioChange = (value: string, id: string) => {
     localStorage.removeItem("cart");
     setSelectedOption(value);
     //@ts-ignore
-    // console.log("Selected Option:", JSON.parse(localStorage.getItem("cart")));
     handleUpdateProduct(id);
   };
   useEffect(() => {
@@ -93,13 +83,9 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   <h3 className="font-bold capitalize">
                     {item?.information?.productName}
                   </h3>
-                  {/* <p>Product ID: {item?._id}</p> */}
-                  {/* <RatingWidget
-                    onChange={(value) => console.log(value)}
-                    defaultValue={2}
-                  /> */}
+
                   <RatingStars maxRating={5} iconSize={24} canRate={false} />
-                  <span>{item?.details?.productWeight} Kg</span>
+                  <span>{item?.details?.productWeight} kg</span>
                 </div>
               </div>
             </div>
@@ -116,7 +102,6 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   <div
                     className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9]"
                     onClick={() => {
-                      console.log("decrementProductQty");
                       dispatch(decrementProductQty({ id: item?._id }));
                     }}
                   >
@@ -130,7 +115,6 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                   <div
                     className=" flex h-[40px] w-[46px] cursor-pointer items-center justify-center border border-[#D9D9D9] font-semibold"
                     onClick={() => {
-                      console.log("decrementProductQty");
                       dispatch(incrementProductQty({ id: item?._id }));
                     }}
                   >

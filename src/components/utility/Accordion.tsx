@@ -30,9 +30,6 @@ const AccordionSection = ({
   //@ts-ignore
 
   useContext(SellersStepsContext);
-
-  // console.log(bankData, "pp");
-  // console.log({ userData });
   return (
     <div className="mt-3 border-b pb-5">
       <div className="flex items-center gap-2">
@@ -73,28 +70,6 @@ const Accordion = ({ height }: { height?: string }) => {
   const { checkoutSteps, currentStep, handleChange, userData } =
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
-  // const [formData, setFormData] = useState(userData);
-
-  // const foundObject = bankData.find((obj) => obj.value === userData?.bank);
-  // console.log({ foundObject });
-
-  // const handleChange = (e: any) => {
-  //   console.log(e);
-  //   const { name, value, checked } = e.target;
-  //   setUserData({ ...userData, [name]: value });
-
-  //   // setValue("checkbox", checked ? "yes" : "no");
-  //   // setVal(!val);
-  //   // setUserData({ ...userData, [name]: value, val });
-  // };
-
-  // const handleChange = (e: { target: { name: any; value: any } }) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
 
   const getNestedValue = (object: any, path: string): any => {
     const keys = path.split(".");
@@ -109,7 +84,6 @@ const Accordion = ({ height }: { height?: string }) => {
   };
 
   React.useEffect(() => {
-    console.log({ userData });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [userData]);
 
@@ -130,7 +104,6 @@ const Accordion = ({ height }: { height?: string }) => {
       >
         <form>
           {sellersShopInfo.map((data, index) => {
-            console.log(data, "rhr");
             return (
               <div className="my-2 w-full " key={index}>
                 <label

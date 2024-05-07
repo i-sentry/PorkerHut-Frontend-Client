@@ -4,10 +4,7 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import {
-  CountryDropdown,
-  RegionDropdown,
-} from "react-country-region-selector";
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
 export type SelectOptionType = {
   label: string | number;
@@ -37,7 +34,7 @@ const LogisticPartnerMobileFormB: React.FC = () => {
   //   // setBusinessDocUrl(files);
   // };
 
-  const [phoneNumber, ] = useState("");
+  const [phoneNumber] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const validationSchema = Yup.object().shape({
@@ -76,24 +73,16 @@ const LogisticPartnerMobileFormB: React.FC = () => {
   } = useForm<UserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
-  // console.log(phoneNumber);
-  // console.log(state);
-  // console.log(country);
 
-  console.log({ errors });
   const onSubmit = (data: UserBillingInfo) => {
     data.phone = phoneNumber;
     data.country = country;
     data.state = state;
-    // console.log(JSON.stringify(data, null, 2));
     reset();
   };
 
   const handleChange = (e: any) => {
-    // console.log(e)
     // const { name, value } = e.target;
-    // console.log(name);
-    // console.log(value);
     // setUserData({
     //   ...userData,
     //   [name]: value,
@@ -111,12 +100,12 @@ const LogisticPartnerMobileFormB: React.FC = () => {
 
   return (
     <div className="">
-      <div className="bg-[#197B30] md:h-[275px] md:my-[80px] md:mx-20 xxs:my-[61px]">
+      <div className="bg-[#197B30] xxs:my-[61px] md:my-[80px] md:mx-20 md:h-[275px]">
         <div className="p-10">
-          <h1 className="text-[20px] leading-[23px] md:text-[40px] md:leading-[47px] font-medium text-[#FFFFFF] flex items-center justify-center pb-4">
+          <h1 className="flex items-center justify-center pb-4 text-[20px] font-medium leading-[23px] text-[#FFFFFF] md:text-[40px] md:leading-[47px]">
             Join our Logistic Team
           </h1>
-          <p className="text-[14px] leading-[16px] flex items-center justify-center md:text-[16px] md:leading-[19px] font-medium text-[#FFFFFF] ">
+          <p className="flex items-center justify-center text-[14px] font-medium leading-[16px] text-[#FFFFFF] md:text-[16px] md:leading-[19px] ">
             Lorem ipsum dolor sit amet consectetur. Volutpat sed bibendum eget a
             morbi nulla scelerisque enim. Fringilla fringilla felis non magna
             erat at facilisi. Ligula elementum praesent interdum adipiscing eu
@@ -139,13 +128,13 @@ const LogisticPartnerMobileFormB: React.FC = () => {
       <div>
         {" "}
         <div>
-          <div className="max-w-[680px] md:mx-auto min-h-[600px] py-[20px] md:px-[40px] px-[16px] mx-[16px] bg-[#F4F4F4] rounded-md">
+          <div className="mx-[16px] min-h-[600px] max-w-[680px] rounded-md bg-[#F4F4F4] py-[20px] px-[16px] md:mx-auto md:px-[40px]">
             <div>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="my-4 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor `}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] `}
                   >
                     Company Rc Number
                   </label>
@@ -153,23 +142,23 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     type="number"
                     {...register("companyRc")}
                     placeholder="Enter your rc number"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30] mb-1 sm:text-sm ${"border-ErrorBorder"} ${
+                    className={` relative mb-1 block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500  focus:outline-1 focus:outline-[#197b30] sm:text-sm ${"border-ErrorBorder"} ${
                       errors.companyRc ? "border-[#dd1313]" : ""
                     }`}
                   />
 
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.companyRc?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal ">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979] ">
                     We need your company registration number.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
                 <div className=" w-full">
                   <label
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                     htmlFor="country"
                   >
                     Country
@@ -188,14 +177,14 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                       errors.country ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.country?.message}
                   </div>
                 </div>
 
                 <div className="my-6 w-full">
                   <label
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                     htmlFor="state"
                   >
                     State
@@ -211,14 +200,14 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                       errors.state ? "border-[#dd1313]" : ""
                     }`}
                   /> */}
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.state?.message}
                   </div>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     City / Town
                   </label>
@@ -226,21 +215,21 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     type="text"
                     {...register("city")}
                     placeholder="Enter city/town"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
                       errors.city ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.city?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Years of Operation
                   </label>
@@ -248,20 +237,20 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     type="number"
                     {...register("yearOfOperation")}
                     placeholder="Number of years"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
                       errors.yearOfOperation ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.yearOfOperation?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Type of Vet
                   </label>
@@ -269,21 +258,21 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     type="text"
                     {...register("typeOfVet")}
                     placeholder="Enter the type of vet you are"
-                    className={` relative block w-full px-[14px] py-[15px] border border-[#D9D9D9] placeholder-gray-500 text-gray-900 rounded-md focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
+                    className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
                       errors.typeOfVet ? "border-[#dd1313]" : ""
                     }`}
                   />
-                  <div className="text-[#dd1313] text-sm">
+                  <div className="text-sm text-[#dd1313]">
                     {errors.typeOfVet?.message}
                   </div>
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor ${"after:content-['*'] after:ml-0.5 after:text-red-500"} }`}
+                    className={`text-HeadingColor mb-[6px] block text-[16px] ${"after:ml-0.5 after:text-red-500 after:content-['*']"} }`}
                   >
                     Upload a copy of Vet License
                   </label>
@@ -291,13 +280,13 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"} componentFiles={[]} filenames={[]}                  /> */}
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-3 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor  `}
+                    className={`text-HeadingColor mb-[6px] block text-[16px]  `}
                   >
                     Additional Document.
                   </label>
@@ -305,38 +294,38 @@ const LogisticPartnerMobileFormB: React.FC = () => {
                     getFiles={getBusinessDocFromInput}
                     inputId={"uuudd"} componentFiles={[]} filenames={[]}                  /> */}
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal">
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
                     Documents allowed are images and PDF files.
                   </span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
                 <div className="my-6 w-full ">
                   <label
                     htmlFor=""
-                    className={`block text-[16px] mb-[6px] text-HeadingColor  `}
+                    className={`text-HeadingColor mb-[6px] block text-[16px]  `}
                   >
                     About You
                   </label>
                   <textarea
-                    className={`appearance-none  relative block w-full px-[14px] py-[10px] h-32 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primaryDark focus:border-primaryDark focus:z-10 sm:text-sm ${"border-ErrorBorder"}`}
+                    className={`focus:ring-primaryDark  focus:border-primaryDark relative block h-32 w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[10px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${"border-ErrorBorder"}`}
                   />
 
-                  <span className="text-[#797979] text-[14px] leading-[24px] font-normal"></span>
-                  <p className="my-2 text-[red] text-xs"></p>
+                  <span className="text-[14px] font-normal leading-[24px] text-[#797979]"></span>
+                  <p className="my-2 text-xs text-[red]"></p>
                 </div>
 
-                <div className="flex items-center mt-10">
+                <div className="mt-10 flex items-center">
                   <input
                     // {...register("checkbox")}
                     type="checkbox"
                     name="checkbox"
                     onChange={handleChange}
                     // checked={val}
-                    className="h-4 w-4 accent-[#197B30] checked:bg-[#197B30]  cursor-pointer rounded"
+                    className="h-4 w-4 cursor-pointer rounded  accent-[#197B30] checked:bg-[#197B30]"
                   />
                   <label
                     htmlFor=""
-                    className="ml-2 text-[14px] leading-[16px] font-normal text-slate-500"
+                    className="ml-2 text-[14px] font-normal leading-[16px] text-slate-500"
                   >
                     I have read and accepted{" "}
                     <Link to={""} className="text-[#197B30] underline">
@@ -349,7 +338,7 @@ const LogisticPartnerMobileFormB: React.FC = () => {
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   );
 };
 

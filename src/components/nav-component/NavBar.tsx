@@ -88,27 +88,6 @@ const NavBar = ({ border }: { border?: any }) => {
     checkSession();
   }, [SESSION_DURATION]);
 
-  // const handleLogin = () => {
-  //   try {
-  //     const currentTimestamp = new Date().getTime();
-  //     localStorage.setItem(SESSION_KEY, currentTimestamp.toString());
-  //     setIsLoggedIn(true);
-  //   } catch (error) {
-  //     console.error("Error during login:", error);
-  //     // Handle the error (e.g., log it, show a user-friendly message)
-  //   }
-  // };
-
-  // const handleLogout = () => {
-  //   try {
-  //     localStorage.removeItem(SESSION_KEY);
-  //     setIsLoggedIn(false);
-  //   } catch (error) {
-  //     console.error("Error during logout:", error);
-  //     // Handle the error (e.g., log it, show a user-friendly message)
-  //   }
-  // };
-
   const handleClickOutsideDropdown = (e: any) => {
     if (open && dropdownRef.current?.contains(e.target as Node)) {
       setOpen(true);
@@ -125,7 +104,6 @@ const NavBar = ({ border }: { border?: any }) => {
     });
     //@ts-ignore
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
     if (storedUser !== null) {
       setUser(storedUser);
     } else {
@@ -143,7 +121,6 @@ const NavBar = ({ border }: { border?: any }) => {
   //   setUser(user);
   // }, [user]);
   //@ts-ignore
-  console.log(user?.firstName, "isLogin");
   return (
     <>
       <header

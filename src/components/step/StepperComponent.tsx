@@ -42,7 +42,6 @@ const StepperComponent = () => {
     );
   };
   const cateName = Tcategory?.data?.data?.name;
-  // console.log(cateName, Tcategory, category, "cateName");
 
   const categoryName = cateName
     ? cateName.charAt(0).toUpperCase() + cateName.slice(1)
@@ -75,7 +74,6 @@ const StepperComponent = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
 
     // Split the name into nested properties
     const [section, field] = name.split(".");

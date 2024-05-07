@@ -79,15 +79,11 @@ const StepLayout = () => {
   }, [currentStep, numSteps]);
 
   function isFormFilled() {
-    return console.log(
-      Object.values(userData).every((value) => value !== ""),
-      "filled?",
-    );
+    return Object.values(userData).every((value) => value !== ""), "filled?";
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
 
     // Split the name into nested properties
     const [section, field] = name.split(".");
@@ -103,45 +99,6 @@ const StepLayout = () => {
     isFormFilled();
   };
 
-  // const handleGetFiles = (files: File[], fieldName: string) => {
-  //   if (files.length > 0) {
-  //     const file = files[0];
-  //     const formData = new FormData();
-  //     formData.append(fieldName, file);
-  //     //@ts-ignore
-  //     setUserData((prevUserData: ISellerInfo) => ({
-  //       ...prevUserData,
-  //       businessInformation: {
-  //         ...prevUserData.businessInformation,
-  //         [fieldName]: formData,
-  //       },
-  //     }));
-
-  //     console.log("File name:", file.name);
-  //     console.log("File data:", file);
-  //   }
-  // };
-
-  // const updateUserData = (property: string, value: string) => {
-  //   setUserData((prevUserData: ISellerInfo) => ({
-  //     ...prevUserData,
-  //     businessInformation: {
-  //       ...prevUserData.businessInformation,
-  //       [property]: value || "",
-  //     },
-  //   }));
-  // };
-
-  // if (isOpen) {
-  //   return (
-  //     <SuccessScreen
-  //       title={"Account Created Successfully"}
-  //       msg={"Please proceed to login to access your dashboard"}
-  //       url={"/sign-in?q=vendor"}
-  //     />
-  //   );
-  // }
-
   return (
     <>
       <TopNav />
@@ -150,22 +107,6 @@ const StepLayout = () => {
           <BsArrowLeft />
           <span>Back to Affiliate</span>
         </Link>
-        {/* <ProductsBreadCrumbs
-          items={[
-            {
-              name: "Home",
-              link: "/",
-            },
-            {
-              name: "Affiliate",
-              link: "/affiliate",
-            },
-            {
-              name: "Seller Account",
-              link: "/create-account",
-            },
-          ]}
-        /> */}
       </div>
       <div className="main-div relative mb-24 mt-24">
         <div>

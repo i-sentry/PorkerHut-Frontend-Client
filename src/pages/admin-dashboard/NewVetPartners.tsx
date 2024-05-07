@@ -145,7 +145,7 @@ const NewVetPartners = () => {
             </div>
           </div>
         )}
-        {!isLoading ? (
+        {/* {!isLoading ? (
           <AdminTable
             // @ts-ignore
             optionalColumn={optionalColumn}
@@ -156,7 +156,7 @@ const NewVetPartners = () => {
           />
         ) : (
           "No Vet Partners Yet"
-        )}
+        )} */}
       </div>
 
       <div className="absolute top-0 left-0 h-full w-full bg-white">

@@ -1,8 +1,6 @@
 import React from "react";
 import { BsShopWindow, BsTag } from "react-icons/bs";
-import {
-  RiFileDownloadLine,
-} from "react-icons/ri";
+import { RiFileDownloadLine } from "react-icons/ri";
 import { FiFolderPlus } from "react-icons/fi";
 import { TfiCreditCard } from "react-icons/tfi";
 import { HiChartBar, HiOutlineUserGroup } from "react-icons/hi";
@@ -39,7 +37,13 @@ export const vendorsSideBarLink = [
     icon: <RiFileDownloadLine size={20} />,
   },
   {
-    id: 2,
+    id: 3,
+    name: "Create Products",
+    url: "/vendor/create",
+    icon: <FiFolderPlus size={20} />,
+  },
+  {
+    id: 4,
     name: "Products",
     url: "/vendor/products",
     icon: <BsTag size={20} />,
@@ -58,26 +62,21 @@ export const vendorsSideBarLink = [
       },
     ],
   },
+
   {
-    id: 3,
-    name: "Create Products",
-    url: "/vendor/create",
-    icon: <FiFolderPlus size={20} />,
-  },
-  {
-    id: 4,
+    id: 5,
     name: "Account Statement",
     url: "/vendor/account+statement",
     icon: <TfiCreditCard size={20} />,
   },
   {
-    id: 5,
+    id: 6,
     name: "Performance",
     url: "/vendor/performance",
     icon: <HiChartBar size={20} />,
   },
   {
-    id: 6,
+    id: 7,
     name: "Settings",
     url: "/vendor/settings?tab=account",
     icon: <IoSettingsOutline size={20} />,

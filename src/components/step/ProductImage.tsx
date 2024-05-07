@@ -18,10 +18,6 @@ const ProductImage = ({
   const [imageUrl2, setImageUrl2] = useState<string>("");
   const [imageUrl3, setImageUrl3] = useState<string>("");
   const [imageUrl4, setImageUrl4] = useState<string>("");
-  // const [imageUrl5, setImageUrl5] = useState<string>("");
-  // const [imageUrl6, setImageUrl6] = useState<string>("");
-  // const [imageUrl7, setImageUrl7] = useState<string>("");
-  // const [imageUrl8, setImageUrl8] = useState<string>("");
   const { setImg } = useContext(ProductImagesContext);
   const { checkoutSteps, currentStep } = useContext(productStepsContext);
 
@@ -30,18 +26,14 @@ const ProductImage = ({
     field: string,
   ) => {
     const selectedFiles = Array.from(e.target.files || []);
-    // console.log(selectedFiles, "kk");
 
     const updatedFiles: FileData[] = selectedFiles.map((file) => ({
       name: file.name,
       file: file,
     }));
-    // console.log(updatedFiles, "updatedFiles");
-    // console.log(field);
+
     setImg(field, updatedFiles);
   };
-
-  // console.log(currentStep, "currentStep");
 
   return (
     <>
@@ -80,30 +72,6 @@ const ProductImage = ({
             setImageUrl={setImageUrl4}
             imageUrl={imageUrl4}
           />
-          {/* <CreateProductImage
-            img={"img5"}
-            handleImage={handleImage}
-            setImageUrl={setImageUrl5}
-            imageUrl={imageUrl5}
-          />
-          <CreateProductImage
-            img={"img6"}
-            handleImage={handleImage}
-            setImageUrl={setImageUrl6}
-            imageUrl={imageUrl6}
-          />
-          <CreateProductImage
-            img={"img7"}
-            handleImage={handleImage}
-            setImageUrl={setImageUrl7}
-            imageUrl={imageUrl7}
-          />
-          <CreateProductImage
-            img={"img8"}
-            handleImage={handleImage}
-            setImageUrl={setImageUrl8}
-            imageUrl={imageUrl8}
-          /> */}
         </div>
 
         <div>

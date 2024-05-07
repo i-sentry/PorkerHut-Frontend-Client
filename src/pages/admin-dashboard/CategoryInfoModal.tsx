@@ -27,7 +27,6 @@ const CategoryInfoModal = ({
   const [action, setAction] = useState("");
   const updateCatImg = useUpdateSingleCategory(selectedCategory?._id);
   const [loading, setLoading] = useState(false);
-  // console.log(data?.data, "all products");
 
   const handleChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
@@ -37,9 +36,7 @@ const CategoryInfoModal = ({
       const url = URL.createObjectURL(file);
       setImgUrl(url);
       setFile(file);
-      console.log(url, "url", file);
     }
-    console.log(file, e.target.name);
   };
 
   const allCatProds = (arr: any) => {
@@ -71,7 +68,6 @@ const CategoryInfoModal = ({
       updateCatImg
         .mutateAsync(data)
         .then((res: any) => {
-          console.log(res, "res upd img");
           toast.success(
             `${selectedCategory?.name} featured image updated successfully!`,
           );
@@ -80,7 +76,6 @@ const CategoryInfoModal = ({
           setLoading(false);
         })
         .catch((err: any) => {
-          console.log(err, "err upd img");
           toast.error(
             `Error updating ${selectedCategory?.name} featured image`,
           );

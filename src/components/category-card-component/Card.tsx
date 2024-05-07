@@ -14,7 +14,6 @@ export const cap = (arg?: string) => {
 };
 
 const Card: React.FC<CardProps> = ({ item }) => {
-  console.log(item, "title");
   if (!item) {
     //Render the skeleton loader when item is not available
     return <SkeletonLoader />;

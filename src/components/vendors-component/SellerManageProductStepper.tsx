@@ -391,7 +391,6 @@ const SellerStepperComponent = () => {
                     );
                   }
 
-                  // console.log(section, field, "data data fsfaya");
                   return (
                     <div key={index + data?.name}>
                       <CustomInput
@@ -465,7 +464,6 @@ const SellerStepperComponent = () => {
               </button>
               <button
                 type="submit"
-                // onClick={() => console.log("CLicked COnfirm")}
                 onClick={() => handleProductUpdate()}
                 className="rounded-md bg-[#197b30] px-8 py-3 font-medium text-white"
               >
@@ -491,7 +489,6 @@ const SellerStepperComponent = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value, "named target");
 
     // Split the name into nested properties
     const [section, field] = name.split(".");
@@ -544,7 +541,6 @@ const SellerStepperComponent = () => {
     }
     return [];
   }, [Loading, productQuestions, convertToCamelCase, text]);
-  // console.log("question", questions);
 
   useEffect(() => {
     const stepProgress = Math.round((currentStep / numSteps) * 100);
@@ -573,8 +569,6 @@ const SellerStepperComponent = () => {
     },
     ...questions,
   ];
-
-  // console.log(productInfo, productInfo);
 
   const productDetails = [
     {
@@ -674,13 +668,9 @@ const SellerStepperComponent = () => {
   // }
 
   const onSubmit = (event: any) => {
-    console.log(event);
-
-    console.log("Ready To Update");
     event.preventDefault();
 
     if (currentStep === checkoutSteps?.length) {
-      console.log("Ready To Update");
     }
   };
 
@@ -712,11 +702,8 @@ const SellerStepperComponent = () => {
       })
       .catch((err: any) => {
         setIsLoading(false);
-        // console.log("err", err);
         toast.error(`Product not update. Try again!!!`);
       });
-
-    console.log(data, formData, "Product Update", newData, "newDtat");
   };
 
   return (

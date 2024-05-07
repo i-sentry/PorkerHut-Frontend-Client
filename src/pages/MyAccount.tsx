@@ -11,7 +11,6 @@ const MyAccount = () => {
   const [temp, setTemp] = useState(false);
   const [editStatus, setEditStatus] = useState(false);
 
-  console.log(user);
 
   const handleEditAddress = () => {
     setDisabledAddress(false);

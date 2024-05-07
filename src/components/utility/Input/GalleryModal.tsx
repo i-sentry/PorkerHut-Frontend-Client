@@ -22,7 +22,6 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
   zoomLevel,
 }) => {
   const handleClick = (e: any) => {
-    console.log("handleClick");
     setClickedImg(null);
     // if (e.target.classList.contains("dismiss")) {
     // }

@@ -27,7 +27,6 @@ const EditBlog = () => {
   const navigate = useNavigate();
   const editBlog = useEditBlog(id);
 
-  console.log(getSingleBlog && getSingleBlog.data, "juj");
   useEffect(() => {
     if (getSingleBlog) {
       try {
@@ -106,7 +105,6 @@ const EditBlog = () => {
     if (currentImage) {
       formData.append("featuredImage", currentImage);
     }
-    // console.log(formData);
     editBlog
       .mutateAsync(formData)
       .then((res) => {

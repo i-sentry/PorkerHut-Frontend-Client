@@ -28,9 +28,7 @@ const Tcolumns: readonly Column<object>[] = [
     Header: "Phone Number",
     accessor: (row: any) => {
       const info = row?.billingInfo?.find((info: any) => info?.isDefault);
-      // console.log(info, info?.phoneNumber || "Not Applicable");
 
-      // return `${info?.phoneNumber || ""}`;
       return <div>{info?.phoneNumber || "Not Applicable"}</div>;
     },
   },
@@ -70,8 +68,6 @@ const CustomerCompletedOrders = () => {
   const completedOrders = userAggregate.filter((item: any) =>
     item.ordersByStatus.some((order: any) => order.status === "completed"),
   );
-
-  console.log(completedOrders, "cusssuss");
 
   const optionalColumn = {
     id: "view",

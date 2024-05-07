@@ -16,13 +16,13 @@ const initialFormData: Record<string, FormField> = {
   startDate: {
     label: "Sale Start Date",
     type: "date",
-    required: true,
+    required: false,
     name: "pricing.salesStartDate",
   },
   endDate: {
     label: "Sale End Date",
     type: "date",
-    required: true,
+    required: false,
     name: "pricing.salesEndDate",
   },
 };
@@ -59,9 +59,6 @@ export default function ProductPricing({
           <form className="">
             <div className="grid grid-cols-4 gap-2 p-2 text-xs">
               {Object.entries(initialFormData).map(([key, item], index) => {
-                console.log(key, "h22");
-                console.log(item.name, "hh");
-
                 return (
                   <div key={key} className="mb-4 ">
                     <label

@@ -18,7 +18,6 @@ interface ProductLocationState {
 }
 
 const ProductCard = ({ item, related, refetch }: ProductLocationState) => {
-  // console.log({ item }, "item");
   // const [rating, setRating] = useState(0);
   // const [hover, setHover] = useState(0);
   const dispatch = useDispatch();
@@ -27,7 +26,6 @@ const ProductCard = ({ item, related, refetch }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
-  // console.log(item, "itemszz");
 
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?._id }));

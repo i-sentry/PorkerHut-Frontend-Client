@@ -93,8 +93,15 @@ const Footer = () => {
                 className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
               >
                 Porks
+              </span>{" "}
+              <span
+                onClick={() =>
+                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks")
+                }
+                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
+              >
+                Livestock
               </span>
-
               <span
                 onClick={() =>
                   navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds")
@@ -103,14 +110,6 @@ const Footer = () => {
                 // to={`/category/${item._id}?q=${item?.name}`}
               >
                 Animal Feeds
-              </span>
-              <span
-                onClick={() =>
-                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks")
-                }
-                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-              >
-                Livestock
               </span>
               <span
                 onClick={() =>
@@ -133,17 +132,18 @@ const Footer = () => {
             >
               Porks
             </Link>
-            <Link
-              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds`}
-              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-            >
-              Animal Feeds
-            </Link>
+
             <Link
               to={`/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks`}
               className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
             >
               Livestock
+            </Link>
+            <Link
+              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds`}
+              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
+            >
+              Animal Feeds
             </Link>
             <span
               onClick={() =>

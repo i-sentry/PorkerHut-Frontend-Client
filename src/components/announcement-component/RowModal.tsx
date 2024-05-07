@@ -36,14 +36,12 @@ const RowModal = ({
     deleteAnnouncement
       .mutateAsync({})
       .then((res: any) => {
-        // console.log("res", res);
         setLoading(false);
         CloseModal();
         refetch();
         toast.success("Announcement deleted successfully");
       })
       .catch((err: any) => {
-        // console.log("res", err);
         setLoading(false);
         toast.error("Error deleting the announcement");
       });
@@ -57,7 +55,6 @@ const RowModal = ({
     e.preventDefault();
   };
 
-  console.log(id, "row id");
 
   if (!isVisib) return null;
 

@@ -32,7 +32,6 @@ const WeekendKills = () => {
   } = useForm<WeekendKillProps>();
 
   const submitData = (data: any) => {
-    console.log(JSON.stringify(data, null, 2));
     reset();
   };
 

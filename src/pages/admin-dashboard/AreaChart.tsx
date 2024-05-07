@@ -36,35 +36,6 @@ export const options = {
   },
 };
 
-// const labels = [
-//   "Monday",
-//   "Tuesday",
-//   "Wednesday",
-//   "Thursday",
-//   "Friday",
-//   "Saturday",
-//   "Sunday",
-// ];
-
-// export const data = {
-//   labels: [
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday",
-//     "Sunday",
-//   ],
-//   datasets: [
-//     {
-//       fill: true,
-//       data: [100, 200, 150, 300, 250, 180, 210], // Replace this array with your data
-//       borderColor: "rgba(8, 75, 40, 0.2)",
-//       backgroundColor: "rgba(8, 75, 40, 0.2)",
-//     },
-//   ],
-// };
 
 export function AreaChart({ values }: { values?: any }) {
   const days = values?.dailyOverview?.map((day: any) => day?.dayOfWeek);
@@ -82,22 +53,12 @@ export function AreaChart({ values }: { values?: any }) {
     "Sunday",
   ];
 
-  // const createArray = (daysOfWeek: any, x: any, y: any) => {
-  //   return daysOfWeek.map((day: any) => {
-  //     const index = x.indexOf(day);
-  //     return index !== -1 ? y[index] : 0;
-  //   });
-  // };
-
-  // const val = createArray(daysOfWeek, days, sales);
-
-  // console.log(values, "chchchchch", days, sales, val);
   const data = {
     labels: daysOfWeek,
     datasets: [
       {
         fill: true,
-        data: sales, // Replace this array with your data
+        data: sales, 
         borderColor: "rgba(8, 75, 40, 0.2)",
         backgroundColor: "rgba(8, 75, 40, 0.2)",
       },

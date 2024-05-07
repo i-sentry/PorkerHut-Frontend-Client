@@ -32,7 +32,6 @@ const Analytics = () => {
   );
   const adminOverview = overview?.data;
   const orders = data?.data?.data;
-  console.log(adminOverview, "orders");
 
   const filterOrders = orders?.filter((order: any) => {
     const orderY = new Date(order?.orderDate).getFullYear();
@@ -41,7 +40,6 @@ const Analytics = () => {
     return orderY === year && orderD === today.getMonth() + 1;
   });
 
-  console.log(filterOrders, "orders");
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page

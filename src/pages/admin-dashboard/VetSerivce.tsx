@@ -12,9 +12,6 @@ const VetSerivce = () => {
     return isLoading === false && data?.data ? data?.data : [];
   }, [data?.data]);
 
-  console.log(data, "vet service", isLoading, VetSerivce);
-
-  
   return (
     <div className="py-6 px-5">
       <div>

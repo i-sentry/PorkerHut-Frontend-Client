@@ -60,7 +60,6 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           });
           onClose();
           refetch();
-          console.log(res, "res ann", res?.data?.announcement?._id);
           setLoading(false);
           localStorage.setItem(
             res?.data?.announcement?._id,
@@ -73,13 +72,11 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
         })
         .catch((err: any) => {
           toast.error("Error Ocurred. Try again!!!");
-          console.log(err, "res ann");
           setLoading(false);
         });
     } else {
       setErr(true);
     }
-    console.log(form, "form", timestamp);
   };
 
   return (
@@ -93,7 +90,12 @@ const Modal = ({ isVisible, onClose, refetch }: ModalProps) => {
           <div className="flex items-center justify-between bg-[#F4F4F4] px-4 py-3">
             <h1>New Annoucement</h1>
             <div className="flex items-center gap-3">
-              <HiMinusSm className="hover:cursor-pointer" />
+              <HiMinusSm
+                className="hidden hover:cursor-pointer"
+                onClick={() => {
+                  onClose();
+                }}
+              />
               <MdOutlineAccessAlarm
                 className={`hover:cursor-pointer ${err && timestamp < 1 ? "animate-bounce text-red-700" : ""}`}
                 onClick={() => setOpenTimer(true)}

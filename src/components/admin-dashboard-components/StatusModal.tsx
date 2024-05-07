@@ -37,7 +37,6 @@ const StatusModal = ({
     updateStatus
       .mutateAsync({ storeStatus: "approved" })
       .then((res: any) => {
-        console.log(res);
         refetch();
         toast.success(
           `${item?.sellerAccountInformation?.shopName} is now approved `,
@@ -46,7 +45,6 @@ const StatusModal = ({
         setShowConfirm(false);
       })
       .catch((err: any) => {
-        console.log(err);
         toast.error("Error Occurred, try again!!!");
         setLoading(false);
         setShowConfirm(false);
@@ -66,7 +64,6 @@ const StatusModal = ({
       const response = await updateStatus.mutateAsync({
         storeStatus: "deactivated",
       });
-      console.log({ response });
       toast.success(
         `${item?.sellerAccountInformation?.shopName} is now deactivated `,
       );
@@ -74,7 +71,6 @@ const StatusModal = ({
       setLoading(false);
       setShowConfirm(false);
     } catch (error: any) {
-      console.log(error, "error");
       toast.error("Error Occurred, try again!!!");
       setLoading(false);
       setShowConfirm(false);
@@ -90,12 +86,10 @@ const StatusModal = ({
           `${item?.sellerAccountInformation?.shopName} is now deleted `,
         );
         refetch();
-        console.log(res, "delete ResP");
         setLoading(false);
         setShowConfirm(false);
       })
       .catch((err: any) => {
-        console.log(err, "delete err");
         toast.error("Error Occurred, try again!!!");
         setLoading(false);
         setShowConfirm(false);

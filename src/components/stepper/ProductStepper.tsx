@@ -55,7 +55,6 @@ const CreateProductStepper = ({ steps, currentStep }: any) => {
     );
     stepRef.current = stepState;
     const current: any = updateStep(currentStep - 1, stepRef.current);
-    // console.log({current});
 
     setNewStep(current);
   }, [steps, currentStep]);

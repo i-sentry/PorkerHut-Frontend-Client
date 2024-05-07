@@ -61,8 +61,6 @@ export default function StepperControl() {
   const { img1, img2, img3, img4, img5, img6, img7, img8 } =
     useContext(ProductImagesContext);
 
-  // console.log(img1, img2, img3, img4, img5, img6, img7, img8);
-
   const appendFilesToFormData = (
     fieldName: string,
     formData: FormData,
@@ -71,7 +69,6 @@ export default function StepperControl() {
     if (files) {
       for (const fileData of files) {
         formData.append(fieldName, fileData.file);
-        // console.log(fileData.file);
       }
     }
   };
@@ -91,24 +88,13 @@ export default function StepperControl() {
   const initiateCreateProduct = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     handleClick("next");
-    console.log("currentStep:", currentStep);
-    console.log("checkoutStep.length:", checkoutSteps?.length);
     if (currentStep === checkoutSteps?.length) {
-      console.log("Inside if block");
       setIsLoading(true);
 
       const productInformation = productData.productInformation ?? {};
       const productDetails = productData.productDetails ?? {};
       const pricing = productData.pricing ?? {};
       const data = new FormData();
-
-      console.log(data, productInformation, "productinfossss");
-      console.log(
-        productInformation.mainColour,
-        productInformation.typeOfMeat,
-        productInformation.typeOfProducts,
-        "inofssss",
-      );
 
       const answer1 =
         productInformation.mainColour ||
@@ -121,9 +107,6 @@ export default function StepperControl() {
         productInformation.productBrand ||
         productInformation.productBreed ||
         "";
-
-      console.log(answer1, "answer1");
-
       data.append(
         "information[productName]",
         productInformation.productName ?? "",
@@ -203,11 +186,9 @@ export default function StepperControl() {
       appendFilesToFormData("productImages", data, img7);
       appendFilesToFormData("productImages", data, img8);
       try {
-        // console.log(data, "create product");
         const response = await createProduct.mutateAsync(data);
         setIsLoading(false);
         setShowOverlay(true);
-        console.log({ response });
       } catch (error: any) {
         setIsLoading(false);
 

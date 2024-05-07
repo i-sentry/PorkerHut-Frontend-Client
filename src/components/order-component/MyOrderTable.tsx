@@ -92,7 +92,7 @@ const MyOrderTable = ({
               Cell: () => <div></div>,
             },
       ]);
-    }
+    },
   ) as any;
   const {
     getTableBodyProps,
@@ -122,25 +122,22 @@ const MyOrderTable = ({
       setTdata(
         TData.filter(
           (d: { order_status: string }) =>
-            d?.order_status?.toLowerCase() === chosenTab.toLowerCase()
-        )
+            d?.order_status?.toLowerCase() === chosenTab.toLowerCase(),
+        ),
       );
     }
   }, [chosenTab, TData]);
 
-  console.log(selectedTab, "selectedTab");
-  console.log(chosenTab, "chosenTab");
-
   return (
     <>
-      <div className="flex items-center justify-between my-4">
+      <div className="my-4 flex items-center justify-between">
         <div className="tabs flex gap-4 pt-5 pb-1  ">
           {tabs.map((tab: string, index: React.Key | null | undefined) => (
             <TabSelector
               key={index}
-              className={`cursor-pointer relative underline bg-transparent text-[16px] leading-[19px] font-normal text-center p-2 px-5 text-[#5c6f7f]${
+              className={`relative cursor-pointer bg-transparent p-2 px-5 text-center text-[16px] font-normal leading-[19px] underline text-[#5c6f7f]${
                 selectedTab === tab
-                  ? " text-[#197B30] no-underline border border-[#197B30] rounded-[8px] shadow-md transition-all ease-in-out duration-100"
+                  ? " rounded-[8px] border border-[#197B30] text-[#197B30] no-underline shadow-md transition-all duration-100 ease-in-out"
                   : ""
               }`}
               isActive={selectedTab === tab}
@@ -155,7 +152,7 @@ const MyOrderTable = ({
           ))}
         </div>
 
-        <div className=" flex md:justify-end xxs:justify-center mb-5">
+        <div className=" mb-5 flex xxs:justify-center md:justify-end">
           <GlobalFilter
             setFilter={setGlobalFilter}
             filter={globalFilter}
@@ -163,16 +160,16 @@ const MyOrderTable = ({
           />
         </div>
       </div>
-      <div className="  flex flex-col bg-white my-8">
+      <div className="  my-8 flex flex-col bg-white">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
               <table
                 {...getTableProps()}
-                className="appearance-none bg-white min-w-full  mb-6 "
+                className="mb-6 min-w-full appearance-none  bg-white "
                 id="my-table"
               >
-                <thead className="bg-[#F4F4F4] appearance-none ">
+                <thead className="appearance-none bg-[#F4F4F4] ">
                   {headerGroups.map(
                     (headerGroup: {
                       getHeaderGroupProps: () => { [x: string]: any; key: any };
@@ -184,25 +181,25 @@ const MyOrderTable = ({
                         <tr key={key} {...restHeaderProps}>
                           {headerGroup.headers.map((column) => (
                             <th
-                              className="font-normal text-sm text-primary py-7   text-left whitespace-nowrap px-4 rounded-t-md"
+                              className="text-primary whitespace-nowrap rounded-t-md py-7   px-4 text-left text-sm font-normal"
                               {...column.getHeaderProps(
-                                column.getSortByToggleProps()
+                                column.getSortByToggleProps(),
                               )}
                               key={column.id}
                             >
-                              <div className="flex items-center text-[#333333] text-[16px] leading-[19px] font-normal ">
+                              <div className="flex items-center text-[16px] font-normal leading-[19px] text-[#333333] ">
                                 {column.render("Header")}
                               </div>
                             </th>
                           ))}
                         </tr>
                       );
-                    }
+                    },
                   )}
                 </thead>
                 <tbody
                   {...getTableBodyProps()}
-                  className="mt-3 pt-3 w-full space-y-8 border-r"
+                  className="mt-3 w-full space-y-8 border-r pt-3"
                 >
                   {page.map(
                     (row: {
@@ -213,19 +210,18 @@ const MyOrderTable = ({
                       cells: any[];
                     }) => {
                       prepareRow(row);
-                      // console.log(row?.subRows, "sub");
                       // prepareRow(row?.subRows);
                       return (
                         <>
                           <tr
                             {...row.getRowProps()}
-                            className="appearance-none my-4 border "
+                            className="my-4 appearance-none border "
                           >
                             {row.cells.map((cell) => {
                               return (
                                 <td
                                   {...cell.getCellProps()}
-                                  className="font-normal text-[14px] leading-[16px]  py-4 px-4 border-r text-[#333333]"
+                                  className="border-r py-4 px-4  text-[14px] font-normal leading-[16px] text-[#333333]"
                                 >
                                   {cell.render("Cell")}
                                 </td>
@@ -234,7 +230,7 @@ const MyOrderTable = ({
                           </tr>
                         </>
                       );
-                    }
+                    },
                   )}
                 </tbody>
               </table>

@@ -50,10 +50,8 @@ const CreateAdminAcct = () => {
     formState: { errors },
   } = useForm<AdminSignUpProps>({ resolver: yupResolver(schema) });
   const location = useLocation();
-  // console.log(location, "location");
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  console.log(token, "encodedEmail");
   // const email = encodedEmail ? decodeURIComponent(encodedEmail) : null;
   const onSubmit: SubmitHandler<AdminSignUpProps> = (data) => {
     setLoading(true);
@@ -71,24 +69,12 @@ const CreateAdminAcct = () => {
       .then((res: any) => {
         reset();
         toast.success(`Account Created Successfully`);
-      navigate("/admin-login");
+        navigate("/admin-login");
         setLoading(false);
-        console.log(res);
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e);
       });
-  };
-  // console.log(email, "email");
-  const close = () => {
-    // const searchParams = new URLSearchParams(window.location.search);
-    // searchParams.delete("email");
-    // const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-    // window.history.replaceState({}, "", newUrl);
-    // closeModal((s: boolean) => !s);
-    // setValue("email", "");
-    // reset();
   };
 
   const toggleConfirmEye = (e: any) => {
@@ -96,27 +82,22 @@ const CreateAdminAcct = () => {
     setEyeState2((prev) => !prev);
   };
 
-  // useEffect(() => {
-  //   if (email) {
-  //     setValue("email", email as string);
-  //   }
-  // }, [email, setValue]);
   return (
     <>
-      <div className="w-full h-screen overflow-y-auto bg-black bg-opacity-30 p-3 hide-scroll-bar fixed top-0 left-0 z-[999]">
-        <div className="w-full h-full flex justify-between items-start gap-9 mb-40 px-[56px] py-12 hide-scroll-bar bg-white relative">
+      <div className="hide-scroll-bar fixed top-0 left-0 z-[999] h-screen w-full overflow-y-auto bg-black bg-opacity-30 p-3">
+        <div className="hide-scroll-bar relative mb-40 flex h-full w-full items-start justify-between gap-9 bg-white px-[56px] py-12">
           <div className="w-[calc(50%_-_20px)]">
-            <div className="border-b border-[#D9D9D9] pb-[9px] flex justify-between items-center">
+            <div className="flex items-center justify-between border-b border-[#D9D9D9] pb-[9px]">
               <div
                 onClick={() => navigate("/")}
-                className="flex items-center gap-2 cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center gap-2"
               >
                 <img
                   src={PorkerLogo}
                   alt="Poker Logo"
-                  className="lg:cursor-pointer h-7"
+                  className="h-7 lg:cursor-pointer"
                 />
-                <h1 className="porker sm:text-lg font-bold text-[#197B30] whitespace-nowrap  font-Roboto-slab select-none text-lg">
+                <h1 className="porker select-none whitespace-nowrap font-Roboto-slab text-lg  font-bold text-[#197B30] sm:text-lg">
                   Porker Hut
                 </h1>
               </div>
@@ -124,16 +105,16 @@ const CreateAdminAcct = () => {
                 ADMIN<span className="font-normal">CENTER</span>
               </h1>
             </div>
-            <div className="w-full h-[420px] mt-6 ">
-              <img src={Admin} className="w-11/12 mx-auto" alt="Admin img" />
+            <div className="mt-6 h-[420px] w-full ">
+              <img src={Admin} className="mx-auto w-11/12" alt="Admin img" />
             </div>
           </div>
-          <div className="w-[calc(50%_-_20px)] h-auto px-8 py-8 bg-white border-[#D9D9D9] border overflow-auto hide-scroll-bar">
+          <div className="hide-scroll-bar h-auto w-[calc(50%_-_20px)] overflow-auto border border-[#D9D9D9] bg-white px-8 py-8">
             <div>
-              <h2 className="text-black text-2xl font-medium mb-2">
+              <h2 className="mb-2 text-2xl font-medium text-black">
                 Create an account
               </h2>
-              <p className="text-neutral-500 text-base font-normal mb-3">
+              <p className="mb-3 text-base font-normal text-neutral-500">
                 Register your account by filling the form below
               </p>
               <form
@@ -141,11 +122,11 @@ const CreateAdminAcct = () => {
                 id="admin-sign-up"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="flex gap-3 mt-4">
+                <div className="mt-4 flex gap-3">
                   <div className="w-1/2">
                     <label
                       htmlFor=""
-                      className="text-zinc-800 text-sm font-normal"
+                      className="text-sm font-normal text-zinc-800"
                     >
                       First Name
                     </label>
@@ -155,7 +136,7 @@ const CreateAdminAcct = () => {
                       name="firstName"
                       placeholder="Enter your first name"
                       id="firstName"
-                      className={`rounded w-full px-3 py-3 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                      className={`mt-1 w-full appearance-none rounded border border-[#D9D9D9] px-3 py-3 text-sm font-normal placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                         errors.firstName
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[#D9D9D9] "
@@ -170,7 +151,7 @@ const CreateAdminAcct = () => {
                   <div className="w-1/2">
                     <label
                       htmlFor=""
-                      className="text-zinc-800 text-sm font-normal"
+                      className="text-sm font-normal text-zinc-800"
                     >
                       Last Name
                     </label>
@@ -180,7 +161,7 @@ const CreateAdminAcct = () => {
                       name="lastName"
                       placeholder="Enter your last name"
                       id="lastName"
-                      className={`rounded w-full px-3 py-3 font-normal text-sm border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                      className={`mt-1 w-full appearance-none rounded border border-[#D9D9D9] px-3 py-3 text-sm font-normal placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                         errors.lastName
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[#D9D9D9] "
@@ -193,11 +174,11 @@ const CreateAdminAcct = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex gap-3 mt-4">
+                <div className="mt-4 flex gap-3">
                   <div className="w-1/2">
                     <label
                       htmlFor=""
-                      className="text-zinc-800 text-sm font-normal"
+                      className="text-sm font-normal text-zinc-800"
                     >
                       Email Address
                     </label>
@@ -213,7 +194,7 @@ const CreateAdminAcct = () => {
                       name="email"
                       placeholder="Enter your email address"
                       id="email"
-                      className={`rounded w-full px-3 py-3 border text-sm font-normal border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] ${
+                      className={`mt-1 w-full appearance-none rounded border border-[#D9D9D9] px-3 py-3 text-sm font-normal placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                         errors.email
                           ? "border-[#e10] focus-within:border-[#e10]"
                           : "border-[#D9D9D9] "
@@ -229,7 +210,7 @@ const CreateAdminAcct = () => {
                   <div className="w-1/2">
                     <label
                       htmlFor=""
-                      className="text-zinc-800 text-sm font-normal"
+                      className="text-sm font-normal text-zinc-800"
                     >
                       Role
                     </label>
@@ -258,10 +239,10 @@ const CreateAdminAcct = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 relative">
+                <div className="relative mt-4">
                   <label
                     htmlFor=""
-                    className="text-zinc-800 text-sm font-normal"
+                    className="text-sm font-normal text-zinc-800"
                   >
                     Password
                   </label>
@@ -272,14 +253,14 @@ const CreateAdminAcct = () => {
                     name="password"
                     placeholder="**********"
                     id="password"
-                    className={`rounded w-full px-3 py-3 border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30]${
+                    className={`mt-1 w-full appearance-none rounded border border-[#D9D9D9] px-3 py-3 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none active:border-[#197B30] focus:ring-[#197b30]${
                       errors.password
                         ? "border-[#e10] focus-within:border-[#e10]"
                         : "border-[##EEEEEE] "
                     }`}
                   />
                   <button
-                    className="outline-[#0eb683] rounded-r-md text-center text-gray-500 absolute right-0 pt-4 pr-5"
+                    className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
                     onClick={toggleConfirmEye}
                   >
                     {eyeState2 ? <FiEye size={20} /> : <FiEyeOff size={20} />}
@@ -295,7 +276,7 @@ const CreateAdminAcct = () => {
                     <button
                       type="submit"
                       // disabled={true}
-                      className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                      className="w-full select-none rounded bg-[#197b30] py-3 px-4 tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62]"
                     >
                       {loading ? (
                         <div className="mx-auto flex items-center justify-center">
@@ -312,12 +293,12 @@ const CreateAdminAcct = () => {
                     </button>
                   </div>
                   <div className="mt-8">
-                    <p className="text-[#A2A2A2] font-normal text-center">
+                    <p className="text-center font-normal text-[#A2A2A2]">
                       Already have an account?{" "}
                       <Link
                         to="/admin-login"
                         // onClick={() => closeModal(false)}
-                        className="font-normal hover:underline cursor-pointer text-[#197b30]"
+                        className="cursor-pointer font-normal text-[#197b30] hover:underline"
                       >
                         Log in
                       </Link>

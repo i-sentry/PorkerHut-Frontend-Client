@@ -9,7 +9,6 @@ const ProductTable = ({ data }: any) => {
     navigate("/admin/products");
   };
 
-  console.log(data, "dataing");
 
   const date = moment(data?.createdAt).format("Do MMM YYYY");
 

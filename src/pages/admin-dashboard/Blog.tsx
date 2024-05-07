@@ -115,7 +115,6 @@ const Blog = () => {
     if (currentImage) {
       formData.append("featuredImage", currentImage);
     }
-    console.log(formData);
     createBlog
       .mutateAsync(formData)
       .then((res) => {

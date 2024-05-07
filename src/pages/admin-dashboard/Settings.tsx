@@ -122,12 +122,6 @@ const Settings = () => {
     (info: any) => info.isDefault,
   );
   const userUpdate = useUpdateUserInfo(adminInfo?._id);
-
-  // const { data: allNot, isLoading: notLoad } = useGetSingleNotification(
-  //   adminInfo?._id,
-  // );
-  // console.log("notification", allNot);
-
   useEffect(() => {
     !isLoading && setAdmin({ ...adminBilling });
   }, [isLoading]);
@@ -159,25 +153,12 @@ const Settings = () => {
     }
   }, []);
 
-  // console.log(adminBilling, "Admin", getAllAdmin, "admi", admin);
-
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phoneNumber: "",
     location: "",
   });
-
-  // useEffect(() => {
-  //   if (admin?._id) {
-  //     setFormData({
-  //       fullName: `${admin?.firstName} ${admin?.lastName}` || "",
-  //       email: admin?.email || "",
-  //       phoneNumber: admin?.phoneNumber || "",
-  //       location: admin?.city || "",
-  //     });
-  //   }
-  // }, [admin?._id]);
 
   const handleValueChange = (index: number, value: string | number) => {
     setItems((prevState) => {
@@ -187,16 +168,6 @@ const Settings = () => {
       return updatedItems;
     });
   };
-
-  // console.log(email, "emailemail");
-
-  // const handleImage = (e: any) => {
-  //   setOverlayVisibility(false);
-  //   setImage(e.target.files[0]);
-  //   // var image = document.getElementById("output");
-  //   setCurrentImage(URL.createObjectURL(e.target.files[0]));
-  //   //  image &&  image.src = URL.createObjectURL(e.target.files[0]);
-  // };
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -226,14 +197,12 @@ const Settings = () => {
       updateAccess
         .mutateAsync({ isAccessRevoked: false })
         .then((res: any) => {
-          console.log(res);
           refetch();
           setShowConfirmationModal(false);
           setLoading(false);
           toast.success("Admin Access Granted");
         })
         .catch((err: any) => {
-          console.log(err);
           setLoading(false);
           toast.error("Error Ocurred, try again!!!");
         });
@@ -243,14 +212,12 @@ const Settings = () => {
       updateAccess
         .mutateAsync({ isAccessRevoked: true })
         .then((res: any) => {
-          console.log(res);
           refetch();
           setShowConfirmationModal(false);
           setLoading(false);
           toast.success("Admin Access Denied");
         })
         .catch((err: any) => {
-          console.log(err);
           setLoading(false);
           toast.error("Error Ocurred, try again!!!");
         });
@@ -294,20 +261,13 @@ const Settings = () => {
   const handleSave = (e: any) => {
     const data = new FormData();
     e.preventDefault();
-    console.log(data, "form data", formData);
-    console.log(getValues(), "getvalues");
-
     // userUpdate
     //   .mutateAsync(data)
     //   .then((res: any) => {
-    //     console.log(res);
     //   })
     //   .catch((err: any) => {
-    //     console.log(err);
     //   });
   };
-
-  console.log(admin?.email);
 
   return (
     <div className="pl-10 pt-10 pr-5">
@@ -931,14 +891,12 @@ const EmailInputComponent = () => {
       })
       .then((res: any) => {
         toast.success("Admin Invite sent to the email successfully!");
-        console.log(res, "res invite");
         setLoading(false);
         setRole("");
         setEmail("");
       })
       .catch((err: any) => {
         toast.error("Error sending invite, try again!");
-        console.log(err, "err invite");
         setLoading(false);
       });
   };

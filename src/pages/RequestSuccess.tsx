@@ -7,8 +7,6 @@ const RequestSuccess = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") as string);
 
-  console.log(user, "userrrr");
-
   return (
     <AppLayout>
       <div className="bg-neutral-200 px-4 pb-11 pt-11">

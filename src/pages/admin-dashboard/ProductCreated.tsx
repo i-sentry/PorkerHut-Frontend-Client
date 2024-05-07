@@ -34,7 +34,6 @@ const StoreNameColumn = ({ d }: any) => {
 };
 
 const CategoryColumn = ({ d }: any) => {
-  console.log(d, "category");
   const category = d.information.category?.name;
 
   return (
@@ -147,8 +146,6 @@ const ProductCreated = () => {
       </div>
     );
   }
-
-  console.log({ productData });
 
   const handleView = (id: any, catId: any) => {
     navigate(
