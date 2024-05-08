@@ -24,6 +24,7 @@ import {
 } from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import { clientInitails } from "../../layout/SellerLayout";
 
 type FormData = {
   fullName: string;
@@ -172,7 +173,6 @@ function SettingssTab() {
     }
   }, [reset, vendor]);
 
-
   const onSubmit = (data: FormData) => {
     setLoading(true);
     updateVendor
@@ -294,8 +294,8 @@ function SettingssTab() {
                 style={{ display: tab === "account" ? "block" : "none" }}
               >
                 <div className="m-auto">
-                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-black">
-                    <FaUserCircle size={60} className="text-neutral-300" />
+                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-neutral-300 bg-white p-0.5 text-xl font-semibold tracking-wide">
+                    {clientInitails(vendorName)}
                   </div>
                 </div>
 
@@ -318,7 +318,7 @@ function SettingssTab() {
                         className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor="fullName"
                       >
-                        Full Name
+                        Business Owner's Name
                       </label>
                       <input
                         type="text"

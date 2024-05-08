@@ -19,7 +19,6 @@ const Layout = () => {
   const [vendorStatus, setVendorStatus] = useState<string>(vendor?.storeStatus);
   const { data: vInfo } = useGetVendorById(vendor?._id);
 
-
   useEffect(() => setVendorStatus(vInfo?.storeStatus), [vInfo]);
 
   useEffect(() => {
@@ -144,3 +143,13 @@ const Layout = () => {
 };
 
 export default Layout;
+
+export const clientInitails = (name: string) => {
+  const value = name?.split(" ");
+  let initials: string = "";
+  value?.forEach((el) => {
+    initials += el?.slice(0, 1);
+  });
+
+  return initials;
+};
