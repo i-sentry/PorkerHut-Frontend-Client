@@ -85,7 +85,7 @@ const TrackerCard = () => {
             Store Revenue:&nbsp;
           </span>
           <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-            300,234
+            ₦300,234
           </span>
         </li>
         <li>
@@ -93,7 +93,7 @@ const TrackerCard = () => {
             Charges:&nbsp;
           </span>
           <span className="inline-block text-sm font-normal text-red-700 xl:text-base">
-            $500
+            ₦500
           </span>
         </li>
         <li>
@@ -104,7 +104,8 @@ const TrackerCard = () => {
             type="no"
             name="refund"
             id="refund"
-            className="w-[80px] border border-[#D9D9D9]"
+            defaultValue={"₦"}
+            className="w-[80px] border border-[#D9D9D9] px-1"
           />
         </li>
         <li>
@@ -112,7 +113,7 @@ const TrackerCard = () => {
             Payout:&nbsp;
           </span>
           <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-            $500,000
+            ₦500,000
           </span>
         </li>
       </ul>

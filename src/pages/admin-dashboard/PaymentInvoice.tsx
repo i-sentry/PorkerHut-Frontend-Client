@@ -166,7 +166,7 @@ const PaymentInvoice = () => {
       </div>
 
       <div>
-        <div className="hide-scroll-bar hidden">
+        <div className="hide-scroll-bar">
           <AdminTable
             // @ts-ignore
             Tcolumns={Tcolumns}
@@ -185,9 +185,9 @@ const PaymentInvoice = () => {
         </div>
       </div>
 
-      <div className="absolute top-0 left-0 h-full w-full bg-white">
+      {/* <div className="absolute top-0 left-0 h-full w-full bg-white">
         <ComingSoon pendingPage={"Payment Invoice"} />
-      </div>
+      </div> */}
     </div>
   );
 };
