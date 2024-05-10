@@ -20,10 +20,15 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import {
   useUpdateVendor,
+  useVendorRecoverPassword,
   useVendorRestPassword,
 } from "../../services/hooks/Vendor";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import { clientInitails } from "../../layout/SellerLayout";
+import Ripples from "react-ripples";
+import ReactLoading from "react-loading";
+import { IEmail } from "./VendorForgetPassword";
 
 type FormData = {
   fullName: string;
@@ -88,6 +93,8 @@ function SettingssTab() {
   const [eyeState2, setEyeState2] = useState(false);
   const [eyeState3] = useState(false);
   const [loading, setLoading] = useState(false);
+  const recoverPassword = useVendorRecoverPassword();
+
   useEffect(() => {
     //@ts-ignore
     const storedVendor = JSON.parse(localStorage.getItem("vendor"));
@@ -108,14 +115,14 @@ function SettingssTab() {
     //setTab(tabIndex);
   };
 
-  const toggleEye = (e: any) => {
-    e.preventDefault();
-    setEyeState((prev) => !prev);
-  };
-  const toggleConfirmEye = (e: any) => {
-    e.preventDefault();
-    setEyeState2((prev) => !prev);
-  };
+  // const toggleEye = (e: any) => {
+  //   e.preventDefault();
+  //   setEyeState((prev) => !prev);
+  // };
+  // const toggleConfirmEye = (e: any) => {
+  //   e.preventDefault();
+  //   setEyeState2((prev) => !prev);
+  // };
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -172,7 +179,6 @@ function SettingssTab() {
     }
   }, [reset, vendor]);
 
-
   const onSubmit = (data: FormData) => {
     setLoading(true);
     updateVendor
@@ -193,25 +199,30 @@ function SettingssTab() {
     // data.storeName = storeName;
   };
 
-  const updatePassWord = useVendorRestPassword(vendor.token);
+  const {
+    register: registerV,
+    handleSubmit: handleSubmitV,
+    // setValue,
+    formState: { errors: errorsV },
+  } = useForm<IEmail>();
 
-  const handleChangePassword = (e: any) => {
-    e.preventDefault();
-
-    updatePassWord
-      .mutateAsync({
-        password: "",
+  const onSubmitV = handleSubmitV((data: any, e: any) => {
+    setLoading(true);
+    recoverPassword
+      .mutateAsync({ email: data?.email?.toLowerCase() })
+      .then((res) => {
+        setLoading(false);
+        toast.success(res.data.message);
+        e?.target.reset();
       })
-      .then((res: any) => {
-        toast.success("Password Updated Successfully");
-      })
-      .catch((err: any) => {
-        toast.error("Error updating password");
+      .catch((e) => {
+        setLoading(false);
+        toast.error(e.response.data.message.replace("User", "Admin"));
       });
-  };
-
+  });
   return (
     <>
+      <ToastContainer />
       <div className=" mb-20 flex flex-col justify-center px-4 pt-10 xxs:hidden md:block">
         <div className="mb-8  flex flex-col gap-2">
           <h1 className="font-medium text-[#1F1F1F] xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px]">
@@ -294,8 +305,8 @@ function SettingssTab() {
                 style={{ display: tab === "account" ? "block" : "none" }}
               >
                 <div className="m-auto">
-                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-black">
-                    <FaUserCircle size={60} className="text-neutral-300" />
+                  <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-neutral-300 bg-white p-0.5 text-xl font-semibold tracking-wide">
+                    {clientInitails(vendorName)}
                   </div>
                 </div>
 
@@ -318,7 +329,7 @@ function SettingssTab() {
                         className=" mb-1 block text-[14px] font-normal leading-[16px] text-[#333333]"
                         htmlFor="fullName"
                       >
-                        Full Name
+                        Business Owner's Name
                       </label>
                       <input
                         type="text"
@@ -563,122 +574,63 @@ function SettingssTab() {
                   <h1 className="text-[20px] font-medium leading-[28px] text-[#333333]">
                     Change Password
                   </h1>
+                  <p className="mt-1  text-left text-sm font-light text-[#797979]">
+                    You can request a password reset below. We will send a link
+                    to the email address.
+                  </p>
                   {/* <span className="text-[#A2A2A2] text-sm font-light">
                 All information available.
               </span> */}
                 </div>
-                <div className="my-4 w-full xl:w-[60%]">
-                  <div className="w-full ">
-                    <div className="relative mt-2">
-                      <label
-                        htmlFor=""
-                        className="text-[14px] font-normal leading-[16px]"
-                      >
-                        Old password
+                <div className="my-4 max-w-md">
+                  <form className="mt-8" onSubmit={onSubmitV}>
+                    <div>
+                      <label htmlFor="" className="text-base font-normal">
+                        Email Address
                       </label>
                       <input
-                        autoComplete="on"
-                        type={eyeState2 ? "text" : "password"}
-                        name="password"
-                        placeholder="**********"
-                        id="password"
-                        className={`mt-1 w-full appearance-none rounded  border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]
+                        {...registerV("email", {
+                          required: true,
+                          pattern: {
+                            message: "Enter a valid email",
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          },
+                        })}
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        id="email"
+                        defaultValue={storeEmail}
+                        // onFocus={() => setIsError("")}
+                        className={`mt-1 w-full appearance-none rounded  border p-3 pl-4 lowercase placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
+                          errorsV.email
+                            ? "border-[#e10] focus-within:border-[#e10] focus:ring-[#e10]"
+                            : "border-[##EEEEEE] "
+                        }`}
+                      />
+                    </div>
 
-                    `}
-                      />
-                      <button
-                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
-                        onClick={toggleConfirmEye}
+                    <div className="mt-3">
+                      <Ripples
+                        color="#f5f5f550"
+                        during={2000}
+                        className="w-fit"
                       >
-                        {eyeState2 ? (
-                          <FiEye size={20} />
-                        ) : (
-                          <FiEyeOff size={20} />
-                        )}
-                      </button>
+                        <button
+                          type="submit"
+                          className="w-fit select-none rounded bg-[#197b30] py-3 px-4 tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62]"
+                        >
+                          {loading ? (
+                            <div className="mx-auto flex items-center justify-center">
+                              <CgSpinner size={24} className="animate-spin" />
+                            </div>
+                          ) : (
+                            "Recover"
+                          )}
+                        </button>
+                      </Ripples>
                     </div>
-                    <div className="relative mt-2">
-                      <label
-                        htmlFor=""
-                        className="text-[14px] font-normal leading-[16px]"
-                      >
-                        New Password
-                      </label>
-                      <input
-                        // {...register("confirmPassword", {
-                        //   required: true,
-                        //   validate: (value) =>
-                        //     value === passwordref.current ||
-                        //     "The passwords do not match",
-                        // })}
-                        type={eyeState ? "text" : "password"}
-                        name="confirmPassword"
-                        autoComplete="on"
-                        placeholder="**********"
-                        id="confirmPassword"
-                        className={`mt-1 w-full appearance-none rounded border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
-                      />
-                      <button
-                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
-                        onClick={toggleEye}
-                      >
-                        {eyeState ? (
-                          <FiEye size={20} />
-                        ) : (
-                          <FiEyeOff size={20} />
-                        )}
-                      </button>
-                    </div>
-                    <div className="relative mt-2">
-                      <label
-                        htmlFor=""
-                        className="text-[14px] font-normal leading-[16px]"
-                      >
-                        Repeat Password
-                      </label>
-                      <input
-                        // {...register("confirmPassword", {
-                        //   required: true,
-                        //   validate: (value) =>
-                        //     value === passwordref.current ||
-                        //     "The passwords do not match",
-                        // })}
-                        type={eyeState3 ? "text" : "password"}
-                        name="confirmPassword"
-                        autoComplete="on"
-                        placeholder="**********"
-                        id="confirmPassword"
-                        className={`mt-1 w-full appearance-none rounded border border-[#EEEEEE] p-3 py-2 pl-4 placeholder:text-sm placeholder:text-[#EEEEEE] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30]`}
-                      />
-                      <button
-                        className="absolute right-0 rounded-r-md pt-4 pr-5 text-center text-gray-500 outline-[#0eb683]"
-                        onClick={toggleEye}
-                      >
-                        {eyeState ? (
-                          <FiEye size={20} />
-                        ) : (
-                          <FiEyeOff size={20} />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="py-2 text-justify text-sm  text-[#A2A2A2]">
-                    <p className="text-justify text-[14px] font-normal leading-[16px] ">
-                      {" "}
-                      The password should be at least 8 characters long. it must{" "}
-                      <br />
-                      contain upper and lower case characters and at least one
-                      number.
-                    </p>
-                  </div>
-                  <div className="mt-5 flex justify-start">
-                    <button
-                      onClick={handleChangePassword}
-                      className="rounded bg-[#197B30] px-6 py-3 text-[14px]  font-semibold leading-[16px] text-white"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

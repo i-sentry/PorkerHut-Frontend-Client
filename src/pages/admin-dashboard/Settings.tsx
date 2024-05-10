@@ -8,8 +8,10 @@ import avatar from "../../assets/account.png";
 import InputComponent from "../../components/admin-dashboard-components/InputComponent";
 import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import Popover from "../../components/utility/PopOver";
+import Ripples from "react-ripples";
+import { Link } from "react-router-dom";
+
 import {
   useGetAllAdmin,
   useInviteAdmin,
@@ -18,6 +20,7 @@ import {
 import ReactLoading from "react-loading";
 import {
   useGetSingleUser,
+  useRecoverPassword,
   useUpdateUserInfo,
 } from "../../services/hooks/users";
 import { useMyBillingInfo } from "../../services/hooks/payment";
@@ -27,6 +30,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CgSpinner } from "react-icons/cg";
 import { ToastContainer, toast } from "react-toastify";
+import { clientInitails } from "../../layout/SellerLayout";
+import { IEmail } from "./AdminForgetPassword";
 // import {
 //   useGetAllNotification,
 //   useGetSingleNotification,
@@ -116,6 +121,7 @@ const Settings = () => {
       action: "Apply",
     },
   ]);
+
   const adminInfo = JSON.parse(localStorage.getItem("admin") as string);
   const { data: billings, isLoading } = useMyBillingInfo(adminInfo?._id);
   const adminBilling = billings?.data?.billing?.find(
@@ -135,9 +141,9 @@ const Settings = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      fullName: `${admin?.firstName} ${admin?.lastName}` || "",
-      email: admin?.email || "",
-      phoneNumber: admin?.phoneNumber || "",
+      fullName: `${adminInfo?.firstName} ${adminInfo?.lastName}` || "",
+      email: adminInfo?.email || "",
+      phoneNumber: adminInfo?.phoneNumber || "",
       location: admin?.city || "",
     },
   });
@@ -145,9 +151,9 @@ const Settings = () => {
   useEffect(() => {
     if (admin?._id) {
       reset({
-        fullName: `${admin?.firstName} ${admin?.lastName}` || "",
-        email: admin?.email || "",
-        phoneNumber: admin?.phoneNumber || "",
+        fullName: `${adminInfo?.firstName} ${adminInfo?.lastName}` || "",
+        email: adminInfo?.email || "",
+        phoneNumber: adminInfo?.phoneNumber || "",
         location: admin?.city || "",
       });
     }
@@ -269,6 +275,29 @@ const Settings = () => {
     //   });
   };
 
+  const {
+    register: registerV,
+    handleSubmit: handleSubmitV,
+    // setValue,
+    formState: { errors: errorsV },
+  } = useForm<IEmail>();
+  const recoverPassword = useRecoverPassword();
+
+  const onSubmit = handleSubmitV((data: any, e: any) => {
+    setLoading(true);
+    recoverPassword
+      .mutateAsync({ email: data?.email?.toLowerCase() })
+      .then((res) => {
+        setLoading(false);
+        toast.success(res.data.message);
+        e?.target.reset();
+      })
+      .catch((e) => {
+        setLoading(false);
+        toast.error(e.response.data.message.replace("User", "Admin"));
+      });
+  });
+
   return (
     <div className="pl-10 pt-10 pr-5">
       <ToastContainer />
@@ -378,11 +407,11 @@ const Settings = () => {
           <TabPanel hidden={selectedTab !== "Information"}>
             <div className="my-3">
               <div className="relative mx-auto ">
-                <img
-                  className=" h-16 w-16 rounded-full bg-slate-300 object-cover"
-                  src={avatar}
-                  alt="profile"
-                />
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-300 font-semibold tracking-wide text-neutral-500">
+                  {clientInitails(
+                    `${adminInfo?.firstName} ${adminInfo?.lastName}`,
+                  )}
+                </div>
                 <h3 className="mt-3 text-xl font-bold">
                   {adminInfo?.firstName} {adminInfo?.lastName}
                 </h3>
@@ -486,7 +515,7 @@ const Settings = () => {
                   type="text"
                   name="fullName"
                   id="fullName"
-                  placeholder="John Doe"
+                  placeholder="Your fullname"
                   className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
                 />
               </label>
@@ -498,7 +527,7 @@ const Settings = () => {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="johndoe@gmail.com"
+                  placeholder="Your email"
                   className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
                 />
               </label>
@@ -510,7 +539,7 @@ const Settings = () => {
                   type="text"
                   name="location"
                   id="location"
-                  placeholder="Abuja"
+                  placeholder="Your location"
                   className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
                 />
               </label>
@@ -745,11 +774,56 @@ const Settings = () => {
               <h1 className="text-lg font-normal text-[#333333]">
                 Change Password
               </h1>
-              {/* <span className="text-[#A2A2A2] text-sm font-light">
-                All information available.
-              </span> */}
+              <p className="mt-1  text-left text-base font-light text-[#797979]">
+                You can request a password reset below. We will send a link to
+                the email address.
+              </p>
             </div>
-            <div className="my-4 w-[60%]">
+            <div className="my-4 max-w-md">
+              <form className="mt-8" onSubmit={onSubmit}>
+                <div>
+                  <label htmlFor="email" className="text-base font-normal">
+                    Email Address
+                  </label>
+                </div>
+
+                <div className="mt-3 flex items-center gap-1">
+                  <input
+                    {...registerV("email", {
+                      required: true,
+                      pattern: {
+                        message: "Enter a valid email",
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      },
+                    })}
+                    type="email"
+                    name="email"
+                    defaultValue={adminInfo?.email}
+                    placeholder="Enter your email address"
+                    id="email"
+                    // onFocus={() => setIsError("")}
+                    className={`mt-1 block w-[300px] appearance-none rounded  border p-3 pl-4 lowercase placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
+                      errorsV.email
+                        ? "border-[#e10] focus-within:border-[#e10] focus:ring-[#e10]"
+                        : "border-[##EEEEEE] "
+                    }`}
+                  />
+                  <Ripples color="#f5f5f550" during={2000} className="w-fit">
+                    <button
+                      type="submit"
+                      className="w-fit select-none rounded bg-[#197b30] py-3 px-4 tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62]"
+                    >
+                      {loading ? (
+                        <CgSpinner size={24} className="animate-spin" />
+                      ) : (
+                        "Recover"
+                      )}
+                    </button>
+                  </Ripples>
+                </div>
+              </form>
+            </div>
+            {/* <div className="my-4 w-[60%]">
               <div className="w-full ">
                 <div className="relative mt-2">
                   <label htmlFor="" className="text-sm font-normal">
@@ -836,6 +910,11 @@ const Settings = () => {
                 <button className="rounded bg-[#197B30] px-6 py-3 text-sm font-light text-white">
                   Save Changes
                 </button>
+              </div>
+            </div> */}
+            <div className="h-screen bg-[#F5F5F5] ">
+              <div className="flex h-full items-center  justify-center xxs:p-3 md:py-8">
+                <div className="w-full max-w-xl  rounded border border-neutral-200 bg-white p-4 shadow-[0_0_30px_-10px_rgba(0,0,0,0.2)] sm:p-8"></div>
               </div>
             </div>
           </TabPanel>

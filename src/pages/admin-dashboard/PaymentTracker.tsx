@@ -34,13 +34,13 @@ const PaymentTracker = () => {
       </div>
 
       {/* TRACKER CARD */}
-      <div className="hidden grid-cols-3">
+      <div className="grid grid-cols-3">
         <TrackerCard />
       </div>
 
-      <div className="absolute top-0 left-0 h-full w-full bg-white">
+      {/* <div className="absolute top-0 left-0 h-full w-full bg-white">
         <ComingSoon pendingPage={"Payment Tracker"} />
-      </div>
+      </div> */}
     </div>
   );
 };

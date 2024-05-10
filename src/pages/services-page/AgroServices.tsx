@@ -12,6 +12,7 @@ import livestock1 from "../../../src/assets/livestock/livestock3.png";
 import AppLayout from "../../components/utility/AppLayout";
 import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import { useAgroForm } from "../../services/hooks/users";
+// import AgroVideo from "../../assets/agro.mp4";
 // import * as yup from "yup";
 // import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -139,12 +140,22 @@ const AgroServices = () => {
                 </p>
               </div>
               <div className="lg:w-1/2 ">
-                <figure>
+                <figure className="h-[350px] overflow-hidden">
                   <img
-                    className="h-full w-full object-cover xxs:py-10  xxs:px-4 lg:p-0"
+                    className=" h-full w-full object-cover xxs:py-10  xxs:px-4 lg:p-0"
                     src={FarmingImg}
                     alt="AgroImage"
                   />
+                  {/* <video
+                    src={AgroVideo}
+                    width={800}
+                    height={`100%`}
+                    muted
+                    autoPlay
+                    loop
+                    preload="true"
+                    className=" h-full w-full object-cover object-center"
+                  /> */}
                 </figure>
               </div>
             </div>

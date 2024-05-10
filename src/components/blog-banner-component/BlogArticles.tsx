@@ -40,7 +40,7 @@ const BlogArticles = () => {
           })}
         </div>
       )}
-      {getAllBlogs?.data?.length && (
+      {getAllBlogs?.data?.length > 0 && (
         <>
           <div className="grid items-center justify-center p-1 xxs:grid-cols-1 xxs:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
             {chunkArray(data, itemsPerPage)[currentPageIndex - 1]?.map(

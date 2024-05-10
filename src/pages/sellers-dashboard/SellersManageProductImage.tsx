@@ -1,14 +1,13 @@
-
 import { BsSearch } from "react-icons/bs";
 import SellerProductImageTable, { Modal } from "./SellerProductImageTable";
 import { useState } from "react";
 
 const SellersManageProductImage = () => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
-   const toggleModal = () => {
-     setShowModal(!showModal);
-   };
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <div className="mb-10 px-4 pt-6 ">
       <div className="">
@@ -32,7 +31,7 @@ const SellersManageProductImage = () => {
             <BsSearch className="absolute right-3 top-1/2 -translate-y-1/2" />
           </label>
         </div>
-        <p className="mt-2 text-green-700">
+        <p className="mt-2 text-red-600">
           <strong>Note:</strong> You can only update a product images at a time
         </p>
       </div>

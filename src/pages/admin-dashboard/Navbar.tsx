@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
+import { clientInitails } from "../../layout/SellerLayout";
 // import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = ({ setSidebar, sidebar }: any) => {
@@ -64,12 +65,9 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
             <Menu as="div" className="relative">
               <div>
                 <Menu.Button className="  flex items-center justify-between md:gap-2">
-                  <div
-                    className="flex h-8 w-8 rounded-full bg-cover bg-center bg-no-repeat"
-                    style={{
-                      backgroundImage: `url(${avata})`,
-                    }}
-                  ></div>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-300 font-semibold tracking-wide text-neutral-500">
+                    {clientInitails(`${admin?.firstName} ${admin?.lastName}`)}
+                  </div>
                   <div className="xxs:hidden md:flex md:flex-col md:gap-1">
                     <span className="text-base font-semibold leading-4">
                       {admin?.firstName} {admin?.lastName}
