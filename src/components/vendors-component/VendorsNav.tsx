@@ -9,6 +9,7 @@ import { MdOutlineClose, MdOutlineViewHeadline } from "react-icons/md";
 import { useSidebarState } from "../../store/overlay";
 import { useSearchParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { clientInitails } from "../../layout/SellerLayout";
 // import { BsXLg } from "react-icons/bs";
 
 const VendorsNav = () => {
@@ -30,7 +31,7 @@ const VendorsNav = () => {
   }, []);
 
   const accountOwnersName =
-    vendor?.vendor?.sellerAccountInformation?.accountOwnersName;
+    vendor?.vendor?.businessInformation?.businessOwnerName;
   const storeStatus = vendor?.vendor?.storeStatus;
 
   const handleClick = (tabName: string) => {
@@ -125,10 +126,11 @@ const VendorsNav = () => {
           <div className="flex items-center justify-center gap-4">
             <Menu as="div" className="relative">
               <div>
-                <Menu.Button className="  flex   justify-between gap-1 md:gap-2">
+                <Menu.Button className="flex items-center justify-between gap-1 md:gap-2">
                   <div className="flex items-center gap-1">
-                    <span className="inline-block">
-                      <FaUserCircle size={32} className="text-neutral-300" />
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-neutral-200 font-semibold text-neutral-500">
+                      {clientInitails(accountOwnersName)}
+                      {/* <FaUserCircle size={32} className="text-neutral-300" /> */}
                     </span>
                     <div className="hidden items-start md:hidden lg:flex lg:flex-col lg:gap-1">
                       <span className="text-sm font-bold leading-4">

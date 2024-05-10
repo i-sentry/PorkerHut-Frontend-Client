@@ -208,19 +208,6 @@ const OrderTableDetail = () => {
         </span>
       ),
     },
-    {
-      Header: " ",
-      accessor: (row: any) => (
-        <span
-          onClick={() => {
-            navigate(`/admin/order`);
-          }}
-          className="cursor-pointer text-sm font-normal text-zinc-800 underline"
-        >
-          Cancel
-        </span>
-      ),
-    },
   ];
 
   return (

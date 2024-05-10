@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import banner1 from "../../assets/images/SellerHomeBanner.png";
+import banner2 from "../../assets/images/Pigdesktop.png";
+import banner3 from "../../assets/images/Pigdesktop.png";
+
 import { RiMessage2Line } from "react-icons/ri";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
-import { useGetAllAnnoucement } from "../../services/hooks/Vendor";
+import {
+  useGetAllAnnoucement,
+  useGetVendorById,
+} from "../../services/hooks/Vendor";
 import { MdOutlineAnnouncement } from "react-icons/md";
 import moment from "moment";
 
@@ -12,11 +18,13 @@ interface SliderProps {
 }
 
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
-  const vendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const storedvendor = JSON.parse(localStorage.getItem("vendor") as string);
+  const [vendor, setVendor] = useState<any>();
   const [announcement, setAnnouncement] = useState<any[]>([]);
   const { data: annouce, isLoading: loading } = useGetAllAnnoucement();
+  const { data, isLoading } = useGetVendorOrders(storedvendor?.vendor?._id);
+  const { data: vend } = useGetVendorById(storedvendor?.vendor._id);
 
-  const { data, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
@@ -31,7 +39,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
       setAnnouncement(filteredNews);
     }
   }, [annouce?.data?.data]);
-
 
   const vendorOrders = data?.data?.orders;
   const todayOrder = vendorOrders?.filter((order: any) => {
@@ -68,7 +75,9 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     0,
   );
 
-  const averageRating = sumOfRatings / ratings?.length;
+  console.log(vend?.data, storedvendor?.vendor._id, vendorOrders);
+
+  const averageRating = sumOfRatings / ratings?.length || 0;
 
   // Rating thresholds
   const poorThreshold = 2.5;
@@ -97,12 +106,12 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     },
     {
       id: 2,
-      src: banner1,
+      src: banner2,
       name: "banner_img",
     },
     {
       id: 3,
-      src: banner1,
+      src: banner3,
       name: "banner_img",
     },
   ];
