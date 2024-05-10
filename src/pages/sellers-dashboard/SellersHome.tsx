@@ -22,14 +22,12 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const [vendor, setVendor] = useState<any>();
   const [announcement, setAnnouncement] = useState<any[]>([]);
   const { data: annouce, isLoading: loading } = useGetAllAnnoucement();
-  const { data, isLoading } = useGetVendorOrders(vendor?.vendor?._id);
+  const { data, isLoading } = useGetVendorOrders(storedvendor?.vendor?._id);
   const { data: vend } = useGetVendorById(storedvendor?.vendor._id);
 
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
   }, []);
-
-  console.log(vend?.data);
 
   useEffect(() => {
     if (annouce?.data?.data?.length > 0) {
@@ -76,6 +74,8 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     (total: any, rating: any) => total + rating,
     0,
   );
+
+  console.log(vend?.data, storedvendor?.vendor._id, vendorOrders);
 
   const averageRating = sumOfRatings / ratings?.length || 0;
 
