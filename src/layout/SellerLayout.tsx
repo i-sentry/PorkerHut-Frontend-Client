@@ -50,81 +50,6 @@ const Layout = () => {
       ) : (
         <div className="hide-scroll-bar h-screen w-screen overflow-x-hidden">
           <div className="relative grid h-full w-full grid-rows-[auto_1fr]">
-            {vendor?.storeStatus !== "approved" && (
-              <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black bg-opacity-70">
-                <div className="relative mx-4 w-1/2 rounded-lg bg-white p-8">
-                  <Link to={"/"} className="absolute top-8 left-8 inline-block">
-                    <BsArrowLeft size={24} />
-                  </Link>
-                  <h3 className="mb-4 text-center text-2xl font-semibold">
-                    Welcome to Porker Hut
-                  </h3>
-                  <p className="leading-relaxed">
-                    Welcome to PorkerHut. We are thrilled to have you on board
-                    as our newest vendor, and we are looking forward to a
-                    successful and mutually beneficial partnership. We are
-                    dedicated to providing an exceptional online shopping
-                    experience, and your unique products will undoubtedly
-                    contribute to our diverse and high-quality offerings. We
-                    believe that your presence will enhance our platform and
-                    bring fresh perspectives to our customers.
-                  </p>
-                  <p className="mt-4 leading-relaxed">
-                    Please be informed that your account status is currently
-                    pending, as our team diligently conducts a thorough
-                    assessment to ensure a seamless onboarding process for you.
-                  </p>
-                  <p className="mt-4 leading-relaxed">
-                    We understand the significance of this step in our
-                    partnership, and we want to assure you that your application
-                    is receiving the careful attention it deserves. We
-                    anticipate completing the review within the next{" "}
-                    <strong>6-12 hours</strong>, and you can expect a prompt
-                    response from us. Your patience during this period is highly
-                    valued, and we thank you for your understanding.
-                  </p>
-                  <p className="mt-4 leading-relaxed">
-                    If you have any urgent inquiries or require further
-                    clarification, please do not hesitate to reach out to us at{" "}
-                    <span className="text-green-700">porkerhut@gmail.com</span>.
-                    We are here to assist you and provide any necessary
-                    information.
-                  </p>
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url('../../public/images/porker.jpeg')`,
-                        opacity: 0.2,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {vendorStatus === "deactivated" && (
-              <div className="absolute top-0 left-0 z-[90] flex h-screen w-full items-center justify-center  overflow-auto bg-black bg-opacity-50 px-4 pt-24 backdrop-blur-md lg:fixed">
-                <div className="relative z-[65] mx-auto mb-8 flex h-auto flex-col items-center rounded-t-lg bg-white p-5 text-center sm:w-[500px] md:mt-0 md:w-[700px] md:p-8">
-                  <span className="inline-flex h-20 w-20 items-center justify-center rounded-full text-red-600 ring-2  ring-red-600">
-                    <IoCloseCircleSharp size={72} />
-                  </span>
-                  <h2 className="mb-1 mt-5 text-xl font-semibold sm:text-2xl md:text-center">
-                    Your account has been deactivated
-                  </h2>
-                  <p className="leading-[150%]">
-                    Please contact Porkerhut at{" "}
-                    <a
-                      href="mailto:info@porkerhut.com"
-                      className="font-medium text-green-700"
-                    >
-                      info@porkerhut.com
-                    </a>{" "}
-                    for further assistance.
-                  </p>
-                </div>
-              </div>
-            )}
             <div className="sticky top-0 left-0 right-0 z-[70]">
               <VendorsNav />
             </div>
@@ -135,6 +60,88 @@ const Layout = () => {
                 <Outlet />
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {vendor?.storeStatus !== "approved" && (
+        <div className="absolute inset-0 z-[90] min-h-[1000px] w-full items-center justify-center bg-black bg-opacity-70 p-2 pt-3 sm:fixed sm:flex sm:min-h-screen">
+          <div className="relative overflow-y-auto rounded-lg bg-white p-4 md:w-[650px] lg:w-1/2 lg:p-8">
+            <div className="hide-scroll-bar relative z-20">
+              <h3 className="mb-4 text-left text-xl font-semibold sm:text-center md:text-2xl">
+                Welcome to Porker Hut
+              </h3>
+              <p className="leading-relaxed">
+                Welcome to PorkerHut. We are thrilled to have you on board as
+                our newest vendor, and we are looking forward to a successful
+                and mutually beneficial partnership. We are dedicated to
+                providing an exceptional online shopping experience, and your
+                unique products will undoubtedly contribute to our diverse and
+                high-quality offerings. We believe that your presence will
+                enhance our platform and bring fresh perspectives to our
+                customers.
+              </p>
+              <p className="mt-4 leading-relaxed">
+                Please be informed that your account status is currently
+                pending, as our team diligently conducts a thorough assessment
+                to ensure a seamless onboarding process for you.
+              </p>
+              <p className="mt-4 leading-relaxed">
+                We understand the significance of this step in our partnership,
+                and we want to assure you that your application is receiving the
+                careful attention it deserves. We anticipate completing the
+                review within the next <strong>6-12 hours</strong>, and you can
+                expect a prompt response from us. Your patience during this
+                period is highly valued, and we thank you for your
+                understanding.
+              </p>
+              <p className="mt-4 leading-relaxed">
+                If you have any urgent inquiries or require further
+                clarification, please do not hesitate to reach out to us at{" "}
+                <span className="text-green-700">porkerhut@gmail.com</span>. We
+                are here to assist you and provide any necessary information.
+              </p>
+
+              <button
+                onClick={() => navigate("/")}
+                className="mt-2 rounded-md bg-green-700 px-6 py-2 text-white"
+              >
+                Go to Porkerhut.com
+              </button>
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('./images/porker.jpeg')`,
+                  opacity: 0.1,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {vendorStatus === "deactivated" && (
+        <div className="absolute top-0 left-0 z-[90] flex h-screen w-full items-center justify-center  overflow-auto bg-black bg-opacity-50 px-4 backdrop-blur-md lg:fixed">
+          <div className="relative z-[65] mx-auto mb-8 flex h-auto flex-col items-center rounded-t-lg bg-white p-5 text-center sm:w-[500px] md:mt-0 md:w-[700px] md:p-8">
+            <span className="inline-flex h-20 w-20 items-center justify-center rounded-full text-red-600 ring-2  ring-red-600">
+              <IoCloseCircleSharp size={72} />
+            </span>
+            <h2 className="mb-1 mt-5 text-xl font-semibold sm:text-2xl md:text-center">
+              Your account has been deactivated
+            </h2>
+            <p className="leading-[150%]">
+              Please contact Porkerhut at{" "}
+              <a
+                href="mailto:info@porkerhut.com"
+                className="font-medium text-green-700"
+              >
+                info@porkerhut.com
+              </a>{" "}
+              for further assistance.
+            </p>
           </div>
         </div>
       )}

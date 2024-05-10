@@ -29,18 +29,19 @@ const VendorForgetPassword = () => {
   } = useForm<IEmail>();
 
   const onSubmit = handleSubmit((data, e) => {
-    setLoading(true);
-    recoverPassword
-      .mutateAsync(data)
-      .then((res) => {
-        setLoading(false);
-        toast.success(res.data.message);
-        e?.target.reset();
-      })
-      .catch((e) => {
-        setLoading(false);
-        toast.error(e.response.data.message);
-      });
+    // setLoading(true);
+    // recoverPassword
+    //   .mutateAsync(data)
+    //   .then((res) => {
+    //     setLoading(false);
+    //     toast.success(res.data.message);
+    //     e?.target.reset();
+    //   })
+    //   .catch((e) => {
+    //     setLoading(false);
+    //     toast.error(e.response.data.message);
+    //   });
+    console.log(data, data);
   });
 
   React.useEffect(() => {
@@ -49,19 +50,19 @@ const VendorForgetPassword = () => {
 
   return (
     <AppLayout>
-      <div className="bg-[#F5F5F5] h-full pb-6">
+      <div className="h-full bg-[#F5F5F5] pb-6">
         <div className="mb-20 bg-[#F5F5F5]"></div>
 
         <ToastContainer style={{ width: "500px" }} />
         <>
-          <div className="flex items-center justify-center  h-full xxs:p-3 md:py-8">
-            <div className="max-w-xl w-full   bg-[#fff] sm:p-8 p-4 shadow-md rounded">
+          <div className="flex h-full items-center  justify-center xxs:p-3 md:py-8">
+            <div className="w-full max-w-xl   rounded bg-[#fff] p-4 shadow-md sm:p-8">
               <div className="flex items-center justify-between">
                 <div className="">
-                  <h1 className="text-left text-lg  text-[#333333] font-bold ">
+                  <h1 className="text-left text-lg  font-bold text-[#333333] ">
                     Recover Password
                   </h1>
-                  <p className="text-left  text-[#797979] text-base mt-1 font-light">
+                  <p className="mt-1  text-left text-base font-light text-[#797979]">
                     You can request a password reset below. We will send a link
                     to the email address.
                   </p>
@@ -86,7 +87,7 @@ const VendorForgetPassword = () => {
                     placeholder="Enter your email address"
                     id="email"
                     // onFocus={() => setIsError("")}
-                    className={`w-full p-3 pl-4  border placeholder:text-sm placeholder:text-[#A2A2A2] active:border-[#197B30] focus-within:border-[#197B30] mt-1 focus:outline-none appearance-none focus:ring-[#197b30] rounded ${
+                    className={`mt-1 w-full appearance-none  rounded border p-3 pl-4 placeholder:text-sm placeholder:text-[#A2A2A2] focus-within:border-[#197B30] focus:outline-none focus:ring-[#197b30] active:border-[#197B30] ${
                       errors.email
                         ? "border-[#e10] focus-within:border-[#e10]"
                         : "border-[##EEEEEE] "
@@ -98,7 +99,7 @@ const VendorForgetPassword = () => {
                   <Ripples color="#f5f5f550" during={2000} className="w-full">
                     <button
                       type="submit"
-                      className="bg-[#197b30] py-3 px-4 w-full text-white tracking-wider select-none disabled:bg-[#568a62] disabled:cursor-not-allowed rounded"
+                      className="w-full select-none rounded bg-[#197b30] py-3 px-4 tracking-wider text-white disabled:cursor-not-allowed disabled:bg-[#568a62]"
                     >
                       {loading ? (
                         <div className="mx-auto flex items-center justify-center">
@@ -115,12 +116,12 @@ const VendorForgetPassword = () => {
                     </button>
                   </Ripples>
                 </div>
-                <div className="text-center mt-3">
-                  <p className="text-[#A2A2A2] font-normal">
+                <div className="mt-3 text-center">
+                  <p className="font-normal text-[#A2A2A2]">
                     Remember your password?{" "}
                     <a
                       href="sign-in?q=vendor"
-                      className="font-normal hover:underline cursor-pointer text-[#197b30]"
+                      className="cursor-pointer font-normal text-[#197b30] hover:underline"
                     >
                       Back to login
                     </a>
