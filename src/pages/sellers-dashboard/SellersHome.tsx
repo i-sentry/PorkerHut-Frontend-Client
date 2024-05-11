@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import banner1 from "../../assets/images/SellerHomeBanner.png";
 import banner2 from "../../assets/images/Pigdesktop.png";
-import banner3 from "../../assets/images/Pigdesktop.png";
+import banner3 from "../../assets/products/meat.png";
 
 import { RiMessage2Line } from "react-icons/ri";
 import { useGetVendorOrders } from "../../services/hooks/orders";
@@ -182,7 +182,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
         </div>
       </div>
 
-      <div className="mt-28 grid xxs:grid-rows-1 xxs:gap-14 xxs:px-4 md:grid-cols-2 md:gap-10">
+      <div className="bg mt-28 grid xxs:grid-rows-1 xxs:gap-14 xxs:px-4 md:grid-cols-2 md:gap-10">
         <div className="">
           <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] py-8 px-4">
             <span className="font-normal leading-[24px] tracking-[0.15px]  text-[#A2A2A2] xxs:text-[16px] md:text-[24px]">

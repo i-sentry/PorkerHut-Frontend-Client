@@ -40,6 +40,11 @@ const BlogArticles = () => {
           })}
         </div>
       )}
+      <div className="-mt-20 flex justify-end pb-6">
+        <span className="inline-block bg-neutral-200 py-2 px-3 text-right font-semibold text-neutral-800">
+          {data?.length ?? 0} Posts available
+        </span>
+      </div>
       {getAllBlogs?.data?.length > 0 && (
         <>
           <div className="grid items-center justify-center p-1 xxs:grid-cols-1 xxs:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">

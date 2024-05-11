@@ -3,9 +3,10 @@ import headerImg from "../assets/images/contactBanner.png";
 import BreadCrumbs from "../components/utility/BreadCrumbs";
 import ServiceForm from "../components/services-component/ServiceForm";
 import AppLayout from "../components/utility/AppLayout";
-import { BsEnvelope, BsMap } from "react-icons/bs";
+import { BsEnvelope, BsMap, BsPhone } from "react-icons/bs";
 import { BiSolidMapAlt } from "react-icons/bi";
 import { IoLocationSharp, IoMail } from "react-icons/io5";
+import { FaPhone } from "react-icons/fa";
 
 const Contact_Page = () => {
   // const notify = () => toast.success("Here is your toast.");
@@ -47,6 +48,12 @@ const Contact_Page = () => {
             </div>
 
             <div className="right-10 top-1/2 mt-3 w-[450px] space-y-2 md:absolute md:-translate-y-1/2">
+              <div className="flex items-center justify-start gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
+                  <FaPhone size={20} />
+                </span>
+                <p className="text-white">+2348057808076</p>
+              </div>
               <div className="flex items-center justify-start gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
                   <IoMail size={20} />
