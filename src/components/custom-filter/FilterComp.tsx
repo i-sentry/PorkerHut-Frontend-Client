@@ -94,8 +94,13 @@ const Filtercomp: React.FC<FiltercompProps> = ({
                 (subCategory: any, subIndex: any) => (
                   <Checkbox
                     key={subIndex}
-                    label={_.startCase(subCategory.name)}
-                    onCheckboxChange={handleCheckboxChange}
+                    label={_.startCase(subCategory?.name)}
+                    onCheckboxChange={() =>
+                      handleCheckboxChange(
+                        subCategory?.name,
+                        selectedItems?.includes(subCategory.name),
+                      )
+                    }
                   />
                 ),
               )}

@@ -83,7 +83,7 @@ const OrderSideModal = ({ orderInfo }: any) => {
                   </p>
                 </div>
                 <div className="">
-                  <h3 className="text-lg font-bold"> Order Notes</h3>
+                  <h3 className="text-lg font-bold">Reasons</h3>
                   <p>{orderInfo?.orderNotes || "Needed from Backend"}</p>
                 </div>
                 <div className="">
