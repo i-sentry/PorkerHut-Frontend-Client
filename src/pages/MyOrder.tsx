@@ -361,25 +361,32 @@ const MyOrder = () => {
 
   // const allOrders = getAllOrders?.orders;
   const allOrders = useMemo(() => {
+    const orders = getAllOrders?.orders
+      ?.slice()
+      ?.sort(
+        (a: any, b: any) =>
+          new Date(b?.orderDate).getTime() - new Date(a?.orderDate).getTime(),
+      );
     // isLoading ? [] : getAllOrders?.orders;
     if (isLoading) {
       return [];
     } else if (selectedTab.toLowerCase() === "all") {
-      return getAllOrders?.orders;
+      // return getAllOrders?.orders;
+      return orders;
     } else if (selectedTab.toLowerCase() === "pending") {
-      return getAllOrders?.orders?.filter(
+      return orders?.filter(
         (item: any) => item?.status?.toLowerCase() === "pending",
       );
     } else if (selectedTab.toLowerCase() === "completed") {
-      return getAllOrders?.orders?.filter(
+      return orders?.filter(
         (item: any) => item?.status?.toLowerCase() === "completed",
       );
     } else if (selectedTab.toLowerCase() === "failed") {
-      return getAllOrders?.orders?.filter(
+      return orders?.filter(
         (item: any) => item?.status?.toLowerCase() === "failed",
       );
     } else {
-      return getAllOrders?.orders;
+      return orders;
     }
   }, [getAllOrders?.orders, selectedTab]);
   const navigate = useNavigate();

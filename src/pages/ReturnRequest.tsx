@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import AppLayout from "../components/utility/AppLayout";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { OrderData } from "./MyOrder";
-import { IOrderData } from "../components/vendors-component/MyOrderSection";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetOrdersById } from "../services/hooks/orders";
 
 const ReturnRequest = () => {
