@@ -59,8 +59,25 @@ const SellersOrderPage = () => {
   const orders = data?.data?.orders;
 
   useEffect(() => {
-    if (!isLoading) setVendorOrders(orders);
+    if (!isLoading)
+      setVendorOrders(
+        orders
+          ?.slice()
+          ?.sort(
+            (a: any, b: any) =>
+              new Date(b?.orderDate).getTime() -
+              new Date(a?.orderDate).getTime(),
+          ),
+      );
   }, [isLoading, orders]);
+
+  const aa = orders
+    ?.slice()
+    ?.sort(
+      (a: any, b: any) =>
+        new Date(b?.orderDate).getTime() - new Date(a?.orderDate).getTime(),
+    );
+  console.log(aa, "aaaa");
 
   const Tcolumns: readonly Column<object>[] = [
     {
