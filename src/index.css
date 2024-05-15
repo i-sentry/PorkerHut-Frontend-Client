@@ -276,3 +276,56 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+/* COOKIES STYLINGs */
+.por {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  /* padding-bottom: 10px !important; */
+  align-items: flex-start !important;
+  flex-direction: column;
+}
+
+.content-cookies {
+  /* width: 100% !important; */
+  flex: none !important;
+  flex-basis: auto;
+  font-size: 14px;
+  /* text-align: center !important; */
+}
+
+.btn-wrap {
+  /* width: 100%; */
+  display: inline-flex !important;
+  flex-direction: row-reverse !important;
+  gap: 10px;
+  margin: 0 15px 15px;
+}
+.decline,
+.accept {
+  margin: 0 !important;
+  padding: 10px 20px !important;
+}
+
+.accept {
+  background-color: #197b30 !important;
+  color: #fff !important;
+}
+
+@media screen and (min-width: 640px) {
+  .content-cookies {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .por {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding-block: 10px;
+  }
+
+  .btn-wrap {
+    margin: 0 15px 0 0;
+  }
+}

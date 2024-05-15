@@ -315,7 +315,13 @@ const Order = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const { data: ordersList, isLoading } = useGetOrders();
   useEffect(() => {
-    if (!isLoading) setOrders(ordersList?.data.data);
+    if (!isLoading)
+      setOrders(
+        ordersList?.data?.data?.toSorted(
+          (a: any, b: any) =>
+            new Date(b?.orderDate).getTime() - new Date(a?.orderDate).getTime(),
+        ),
+      );
   }, [ordersList?.data.data, isLoading]);
   const navigate = useNavigate();
 

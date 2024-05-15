@@ -159,6 +159,7 @@ const NewStore = () => {
             tabs={["All", "Pending", "Approved", "Rejected"]}
             TData={data}
             placeholder={"Search account owner, email address, vet name.... "}
+            statusType="store"
           />
         </div>
       </div>

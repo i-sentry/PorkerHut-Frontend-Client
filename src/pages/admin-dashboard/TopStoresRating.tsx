@@ -12,9 +12,6 @@ const TopStoresRating = () => {
     () => (data?.data?.length ? data?.data : []),
     [data?.data],
   );
-  const sortedByAmount = vendorAggregate?.toSorted(
-    (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
-  );
 
   return (
     <div
@@ -30,7 +27,7 @@ const TopStoresRating = () => {
           vendorAggregate?.length >= 1 &&
           vendorAggregate
             ?.toSorted(
-              (a: any, b: any) => b?.totalAmountSpent - a?.totalAmountSpent,
+              (a: any, b: any) => b?.totalSalesAmount - a?.totalSalesAmount,
             )
             ?.map((vendor: any, index: any) => (
               <div className="flex items-center justify-between" key={index}>

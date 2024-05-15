@@ -52,7 +52,7 @@ const StatusModal = ({
   };
 
   const handleDeactivateVendor = async () => {
-    if (item?.storeStatus === "deactivated") {
+    if (item?.storeStatus === "rejected") {
       toast.info(
         `${item?.sellerAccountInformation?.shopName} is already deactivated`,
       );
@@ -62,7 +62,7 @@ const StatusModal = ({
     setLoading(true);
     try {
       const response = await updateStatus.mutateAsync({
-        storeStatus: "deactivated",
+        storeStatus: "rejected",
       });
       toast.success(
         `${item?.sellerAccountInformation?.shopName} is now deactivated `,
