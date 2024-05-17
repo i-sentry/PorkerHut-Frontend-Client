@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const SellersManageProductImage = () => {
   const [showModal, setShowModal] = useState(false);
-
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -19,21 +18,6 @@ const SellersManageProductImage = () => {
             Here you can manage your product images
           </span>
         </div>
-        <div className="flex md:justify-end">
-          <label htmlFor="search" className="relative inline-block w-[350px]">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Search name or product ID...."
-              className="form-input w-full rounded-md bg-neutral-200 px-4 focus:border-green-500 focus:ring-green-500"
-            />
-            <BsSearch className="absolute right-3 top-1/2 -translate-y-1/2" />
-          </label>
-        </div>
-        <p className="mt-2 text-red-600">
-          <strong>Note:</strong> You can only update a product images at a time
-        </p>
       </div>
 
       <div className="mt-3">

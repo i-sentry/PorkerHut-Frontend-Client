@@ -174,7 +174,7 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
               {isLoading && (
                 <div className="mb-6 grid xxs:grid-cols-2 xxs:gap-4 xxs:px-4  lg:grid-cols-3  lg:gap-3 lg:px-4 ">
                   {Array.from({ length: 12 }).map((_, index) => (
-                    <SkeletonLoader />
+                    <SkeletonLoader key={index} />
                   ))}
                 </div>
               )}
@@ -185,7 +185,9 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                     currentPageIndex - 1
                   ]?.map((Tdata, index) => {
                     //@ts-ignore
-                    return <ProductCard item={Tdata} key={Tdata.id} />;
+                    return (
+                      <ProductCard item={Tdata} key={`product-${index}`} />
+                    );
                   })}
                 </div>
               ) : (
@@ -246,12 +248,12 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
 
                 <button
                   onClick={() =>
-                    currentPageIndex !== chunkArray(data, itemsPerPage).length
+                    currentPageIndex !== chunkArray(data, itemsPerPage)?.length
                       ? setCurrentPageIndex(currentPageIndex + 1)
                       : null
                   }
                   className={
-                    (currentPageIndex === chunkArray(data, itemsPerPage).length
+                    (currentPageIndex === chunkArray(data, itemsPerPage)?.length
                       ? "no-items"
                       : "") +
                     " rounded-r-md border-2  border-[#A2A2A2] p-1 hover:bg-[#A2A2A2] hover:text-white"

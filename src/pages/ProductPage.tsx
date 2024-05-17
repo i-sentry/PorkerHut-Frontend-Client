@@ -82,11 +82,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
 
     // Filter the data based on selectedItems, city, and price range
     const newFilteredData = data.filter((item) => {
-      const categoryMatch = lowerCaseSelectedItems.includes(
-        item.information.subcategory.name.toLowerCase(),
+      const categoryMatch = lowerCaseSelectedItems?.includes(
+        item?.information?.subcategory?.name?.toLowerCase(),
       );
-      const cityMatch = lowerCaseSelectedItems.includes(
-        item.vendor.businessInformation.city.toLowerCase(),
+      const cityMatch = lowerCaseSelectedItems?.includes(
+        item?.vendor?.businessInformation?.city?.toLowerCase(),
       );
 
       // Adjust the logic based on your requirements
@@ -322,31 +322,31 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
                       </div>
                     </>
                   )}
-                </div>
 
-                {!isLoading && filteredData?.length < 1 && (
-                  <div className="my-16 flex flex-col items-center justify-center">
-                    <svg
-                      className="h-12 w-12 text-gray-400"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
-                      <path
-                        d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
+                  {!isLoading && filteredData?.length < 1 && (
+                    <div className="my-16 flex flex-col items-center justify-center">
+                      <svg
+                        className="h-12 w-12 text-gray-400"
+                        fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                    <p className="mt-2 text-sm text-gray-500">
-                      No products available.
-                    </p>
-                  </div>
-                )}
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M15 3a2 2 0 11-4 0 2 2 0 014 0zM4 8a2 2 0 100 4h16a2 2 0 100-4H4z"></path>
+                        <path
+                          d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
+                      </svg>
+                      <p className="mt-2 text-sm text-gray-500">
+                        No products available.
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

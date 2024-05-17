@@ -38,7 +38,7 @@ const StoreCard = ({
           storeStatus === "deactivated" ? "" : ""
         }`}
       >
-        {storeStatus === "deactivated" && (
+        {storeStatus === "rejected" && (
           <div className="absolute inset-0 rounded-md  bg-[#181717c7] ">
             <div className="flex h-full items-center justify-center">
               <p className="flex select-none items-center justify-center text-xl font-normal text-[#F91919]">

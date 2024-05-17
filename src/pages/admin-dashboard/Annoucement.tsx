@@ -201,7 +201,16 @@ const Announcement = () => {
   // const columns = useMemo(() => column, [column]);
 
   const data: any = useMemo(
-    () => (isLoading ? [] : annouce?.data?.data),
+    () =>
+      isLoading
+        ? []
+        : annouce?.data?.data
+            ?.slice()
+            ?.sort(
+              (a: any, b: any) =>
+                new Date(b?.startDate).getTime() -
+                new Date(a?.startDate).getTime(),
+            ),
     [isLoading, annouce?.data?.data],
   );
   const table = useTable(

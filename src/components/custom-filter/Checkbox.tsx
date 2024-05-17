@@ -19,17 +19,17 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, onCheckboxChange }) => {
   };
 
   return (
-    <div className="flex items-center my-3">
+    <label className="my-3 flex items-center">
       <input
         type="checkbox"
-        className="mr-2 rounded-sm border form-checkbox border-[#BDBDBD] checked:bg-green-500 checked:hover:bg-green-500 checked:focus:ring-green-500 checked:focus:bg-green-500 focus:ring-green-500"
+        className="form-checkbox mr-2 rounded-sm border border-[#BDBDBD] checked:bg-green-500 checked:hover:bg-green-500 focus:ring-green-500 checked:focus:bg-green-500 checked:focus:ring-green-500"
         checked={isChecked}
         onChange={handleCheckboxChange}
       />
-      <label className="text-[16px]  leading-normal text-[#333] font-normal">
+      <span className="text-[16px]  font-normal leading-normal text-[#333]">
         {label}
-      </label>
-    </div>
+      </span>
+    </label>
   );
 };
 

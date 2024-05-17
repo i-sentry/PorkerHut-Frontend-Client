@@ -4,6 +4,8 @@ import Checkbox from "./Checkbox";
 import RangeInput from "./RangeInput";
 import _ from "lodash";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface FiltercompProps {
   data: any[];
@@ -20,10 +22,27 @@ const Filtercomp: React.FC<FiltercompProps> = ({
   handleApplyClick,
   handleClear,
 }) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const queryKey = queryParams.get("q");
   // const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
+  const [category, setCategory] = useState<any>([]);
   const allCategories = useGetAllCategories();
+  const { data: catagories, isLoading } = allCategories;
+  useEffect(() => {
+    !isLoading && setCategory(catagories?.data);
+  }, [isLoading]);
 
-  const { data: catagories } = allCategories;
+  useEffect(() => {
+    if (queryKey && !isLoading) {
+      const selected = catagories?.data?.filter(
+        (el: any) => el?.name?.toLowerCase() === queryKey?.toLowerCase(),
+      );
+
+      return setCategory(selected);
+    }
+  }, [queryKey, isLoading]);
+
   const handleCheckboxChange = (label: string, isChecked: boolean) => {
     if (isChecked) {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, label]);
@@ -33,6 +52,8 @@ const Filtercomp: React.FC<FiltercompProps> = ({
       );
     }
   };
+
+  console.log(category, "vcacactya", queryKey, catagories?.data);
 
   // const handleRangeChange = (values: number[]) => {
   //   setPriceRange(values);
@@ -67,14 +88,19 @@ const Filtercomp: React.FC<FiltercompProps> = ({
       </div>
       <Accordion
         items={[
-          ...(catagories?.data || []).map((item: any, index: any) => (
+          category?.map((item: any, index: any) => (
             <AccordionItem title={_.startCase(item?.name)} key={index}>
               {(item.subcategories || []).map(
                 (subCategory: any, subIndex: any) => (
                   <Checkbox
                     key={subIndex}
-                    label={_.startCase(subCategory.name)}
-                    onCheckboxChange={handleCheckboxChange}
+                    label={_.startCase(subCategory?.name)}
+                    onCheckboxChange={() =>
+                      handleCheckboxChange(
+                        subCategory?.name,
+                        selectedItems?.includes(subCategory.name),
+                      )
+                    }
                   />
                 ),
               )}
@@ -82,7 +108,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
           )),
 
           <AccordionItem title={"Location"}>
-            {(UniqueCity || []).map((city, index) => (
+            {(UniqueCity || [])?.map((city, index) => (
               <Checkbox
                 key={index}
                 label={_.startCase(city)}

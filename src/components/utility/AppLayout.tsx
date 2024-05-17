@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { BsWhatsapp } from "react-icons/bs";
+import CookieConsent from "react-cookie-consent";
 interface IAppLayoutProps {
   children: ReactNode;
 }
@@ -54,6 +55,34 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
           />
         </a>
       </div>
+      <CookieConsent
+        location="bottom"
+        cookieName="porkerHutCookies"
+        declineButtonText="I decline"
+        enableDeclineButton={true}
+        buttonText="I understand"
+        declineButtonClasses="decline"
+        contentClasses="content-cookies"
+        buttonClasses="accept"
+        containerClasses="por items-center"
+        buttonWrapperClasses="btn-wrap"
+        // style={{
+        //   background: "#2B373B",
+        //   flexDirection: "row",
+        //   display: "flex",
+        // }}
+        // buttonStyle={{
+        //   background: "#197b30",
+        //   fontSize: "16px",
+        //   color: "#fff",
+        // }}
+        expires={30}
+      >
+        Our website uses cookies to improve functionality, performance, and user
+        experience. <br />
+        By continuing to use this site, you agree to the use of cookies in
+        accordance with our Privacy Policy.
+      </CookieConsent>
       <Footer />
     </div>
   );

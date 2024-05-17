@@ -62,7 +62,10 @@ const FilterSidebar = ({
 
         <div className="flex items-center justify-center gap-3">
           <button
-            onClick={handleClear}
+            onClick={() => {
+              handleClear();
+              onClose();
+            }}
             className="rounded border border-red-500 py-3 px-6 text-red-500 shadow-md"
           >
             Clear filter
