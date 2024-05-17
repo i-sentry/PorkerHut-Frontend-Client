@@ -7,7 +7,7 @@ import { useCreateBlog } from "../../services/hooks/users/blog";
 import { IoMdCloudUpload } from "react-icons/io";
 import draftToHtml from "draftjs-to-html";
 import { LuLoader } from "react-icons/lu";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Blog = () => {
@@ -75,24 +75,6 @@ const Blog = () => {
     }
   };
 
-  // Function to handle drop
-  // const handleDrop = (evt: any) => {
-  //   cancelDefaultBehavior(evt);
-
-  //   const droppedFile = evt.dataTransfer.files[0];
-
-  //   if (droppedFile) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setCurrentImage(droppedFile);
-  //     };
-  //     reader.readAsDataURL(droppedFile);
-  //   } else {
-  //     toast.error("No file uploaded");
-  //   }
-
-  //   return false;
-  // };
 
   const handleUpload = (e: any) => {
     // setCurrentImage(URL.createObjectURL(e.target.files[0]));
