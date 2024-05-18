@@ -77,7 +77,6 @@ const SellersOrderPage = () => {
       (a: any, b: any) =>
         new Date(b?.orderDate).getTime() - new Date(a?.orderDate).getTime(),
     );
-  console.log(aa, "aaaa");
 
   const Tcolumns: readonly Column<object>[] = [
     {

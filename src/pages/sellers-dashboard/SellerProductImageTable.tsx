@@ -101,17 +101,6 @@ const SellerProductImageTable = (props: any) => {
     }
   }, [isLoading, searchVal]);
 
-  console.log(
-    vendorProducts?.data,
-    "vevevevevev",
-    vendorProducts?.data
-      ?.slice()
-      .sort(
-        (a: any, b: any) =>
-          new Date(b?.createdAt).getTime() - new Date(a?.createdAt).getTime(),
-      ),
-    productsVendor,
-  );
 
   return (
     <>

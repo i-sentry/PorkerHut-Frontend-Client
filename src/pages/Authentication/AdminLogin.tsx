@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PorkerLogo from "../../assets/porker hut 1 1.png";
 import Ripples from "react-ripples";
@@ -11,6 +11,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CreateAdminAcct from "../../components/admin-dashboard-components/CreateAdminAcct";
 import { useUserLogin } from "../../services/hooks/users";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 
 const schema = yup.object().shape({
   email: yup
@@ -29,6 +30,7 @@ interface AdminLoginProps {
 }
 
 const AdminLogin: React.FC = () => {
+  const { setUserRole } = useContext(AdminAccessContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [eyeState, setEyeState] = useState(false);
@@ -49,7 +51,7 @@ const AdminLogin: React.FC = () => {
         email: email.toLowerCase(),
         password: password,
       })
-      .then((res) => {
+      .then((res: any) => {
         setLoading(false);
         // dispatch(
         //   addOption(
@@ -63,7 +65,7 @@ const AdminLogin: React.FC = () => {
         // );
         e?.target.reset();
         // setIsOpen(true);
-
+        setUserRole(res?.data?.role?.toLowerCase());
         // setAuth(res);
         navigate("/admin");
         // setIsLogin(true);
@@ -72,6 +74,7 @@ const AdminLogin: React.FC = () => {
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("admin", JSON.stringify(res?.data));
         // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
+      
       })
       .catch((e) => {
         setLoading(false);

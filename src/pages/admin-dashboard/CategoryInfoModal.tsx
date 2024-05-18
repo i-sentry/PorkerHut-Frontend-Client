@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useUpdateSingleCategory } from "../../services/hooks/Vendor/category";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
@@ -6,6 +6,7 @@ import { BsX } from "react-icons/bs";
 import moment from "moment";
 import { useGetAllProducts } from "../../services/hooks/users/products";
 import CateOptionModal from "./CateOptionModal";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 
 const CategoryInfoModal = ({
   isOpen,
@@ -18,6 +19,7 @@ const CategoryInfoModal = ({
   selectedCategory: any;
   refetch: any;
 }) => {
+  const { userRole } = useContext(AdminAccessContext);
   const [editImg, setEditImg] = useState(false);
   const [imgUrl, setImgUrl] = useState<string>();
   const [file, setFile] = useState<any>(null);
@@ -207,32 +209,34 @@ const CategoryInfoModal = ({
                 )}
               </div>
             </div>
-            <div className="mt-6 flex justify-end gap-2">
-              <button
-                onClick={() => {
-                  setModalMsg(
-                    `Are you sure you want to delete ${selectedCategory?.name} category? Once it is deleted all products and subcategories under this category will be deleted too.`,
-                  );
-                  setAction("delete");
-                  setShowOption(true);
-                }}
-                className="rounded border border-red-600 px-5 py-2 text-red-600"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  setModalMsg(
-                    `Are you sure you want to disable ${selectedCategory?.name} category? Once it is disable, vendors are unable to create product under this category until enabled again.`,
-                  );
-                  setAction("disable");
-                  setShowOption(true);
-                }}
-                className="rounded bg-green-700 px-5 py-2 text-white"
-              >
-                Disable Category
-              </button>
-            </div>
+            {userRole === "superadmin" && (
+              <div className="mt-6 flex justify-end gap-2">
+                <button
+                  onClick={() => {
+                    setModalMsg(
+                      `Are you sure you want to delete ${selectedCategory?.name} category? Once it is deleted all products and subcategories under this category will be deleted too.`,
+                    );
+                    setAction("delete");
+                    setShowOption(true);
+                  }}
+                  className="rounded border border-red-600 px-5 py-2 text-red-600"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => {
+                    setModalMsg(
+                      `Are you sure you want to disable ${selectedCategory?.name} category? Once it is disable, vendors are unable to create product under this category until enabled again.`,
+                    );
+                    setAction("disable");
+                    setShowOption(true);
+                  }}
+                  className="rounded bg-green-700 px-5 py-2 text-white"
+                >
+                  Disable Category
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

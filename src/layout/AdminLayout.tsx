@@ -6,6 +6,7 @@ import { useCategoryModal, useImageOverlay } from "../store/overlay";
 import CustomCatModal from "../components/admin-dashboard-components/CustomCatModal";
 import logo from "../assets/images/porkerlogo.png";
 import { useEffect, useState } from "react";
+import { AdminAccessProvider } from "../context/AdminAccessProvider";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -46,7 +47,6 @@ const AdminLayout = () => {
         <div className="h-screen w-screen overflow-x-hidden">
           <div className="grid h-full w-full grid-rows-[auto_1fr]">
             <div className=" h-16">
-              
               <Navbar />
             </div>
             <div className="flex h-full w-full overflow-x-hidden">
