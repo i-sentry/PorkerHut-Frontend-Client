@@ -21,6 +21,7 @@ const StoreProfile = () => {
   const { data: stores, isLoading, refetch } = useGetVendors();
   const [searchValue, setSearchValue] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [selectedVendor, setSelectedVendor] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [action, setAction] = useState("");
   const [shop, setShop] = useState<any>();
@@ -125,6 +126,7 @@ const StoreProfile = () => {
                   setShop={setShop}
                   refetch={refetch}
                   setShowConfirm={setShowConfirm}
+                  setSelectedVendor={setSelectedVendor}
                 />
               ),
             )}
@@ -182,7 +184,11 @@ const StoreProfile = () => {
       )}
       {!isLoading && data?.length < 1 && <div>No Store is available yet</div>}
 
-      <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
+      <StoreProfileOverlay
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        item={stores?.data?.find((item: any) => item?._id === selectedVendor)}
+      />
       <StatusModal
         action={action}
         shop={shop}

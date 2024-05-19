@@ -3,12 +3,14 @@ import { TbDots } from "react-icons/tb";
 import { useGetVendorById } from "../../services/hooks/Vendor";
 import {
   useGetAggregateVendorOrders,
+  useGetAllVendorsAggregate,
   useGetOrders,
 } from "../../services/hooks/orders";
 import Popover from "../utility/PopOver";
 import { Tooltip } from "../utility/ToolTip";
 import { useContext } from "react";
 import AdminAccessContext from "../../context/AdminAccessProvider";
+import moment from "moment";
 
 const StoreCard = ({
   item,
@@ -17,11 +19,13 @@ const StoreCard = ({
   setAction,
   setShop,
   setShowConfirm,
+  setSelectedVendor,
 }: any) => {
   const { userRole } = useContext(AdminAccessContext);
   const { storeStatus } = item;
   const { data } = useGetVendorById(item?._id);
   const { data: vendorAggr } = useGetOrders();
+  const { data: vendorAggrw } = useGetAllVendorsAggregate();
 
   const filteredOrders = vendorAggr?.data?.data?.filter((order: any) =>
     order?.productDetails?.some(
@@ -31,7 +35,6 @@ const StoreCard = ({
   const failedOrders = filteredOrders?.filter(
     (order: any) => order?.status?.toLowerCase() === "failed",
   ).length;
-
 
   return (
     <>
@@ -63,7 +66,10 @@ const StoreCard = ({
             <div className="w-[150px] py-2">
               <button
                 className="w-full border-b py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                onClick={() => setIsOpen(true)}
+                onClick={() => {
+                  setIsOpen(true);
+                  setSelectedVendor(item?._id);
+                }}
               >
                 Store Information
               </button>
@@ -174,7 +180,9 @@ const StoreCard = ({
               Joined:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              {item?.createdeAt || ""}
+              {item?.createdAt
+                ? moment(item?.createdAt).format("DD MMMM YYYY")
+                : "-"}
             </span>
           </li>
         </ul>
