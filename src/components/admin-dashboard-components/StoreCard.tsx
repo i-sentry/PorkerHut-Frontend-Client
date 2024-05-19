@@ -7,6 +7,8 @@ import {
 } from "../../services/hooks/orders";
 import Popover from "../utility/PopOver";
 import { Tooltip } from "../utility/ToolTip";
+import { useContext } from "react";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 
 const StoreCard = ({
   item,
@@ -16,6 +18,7 @@ const StoreCard = ({
   setShop,
   setShowConfirm,
 }: any) => {
+  const { userRole } = useContext(AdminAccessContext);
   const { storeStatus } = item;
   const { data } = useGetVendorById(item?._id);
   const { data: vendorAggr } = useGetOrders();
@@ -29,7 +32,6 @@ const StoreCard = ({
     (order: any) => order?.status?.toLowerCase() === "failed",
   ).length;
 
-  console.log(filteredOrders, "vendi");
 
   return (
     <>
@@ -85,16 +87,18 @@ const StoreCard = ({
               >
                 Deactivate
               </button>
-              <button
-                onClick={() => {
-                  setShowConfirm(true);
-                  setAction("delete");
-                  setShop(item);
-                }}
-                className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-              >
-                Delete
-              </button>
+              {userRole === "superadmin" && (
+                <button
+                  onClick={() => {
+                    setShowConfirm(true);
+                    setAction("delete");
+                    setShop(item);
+                  }}
+                  className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </Popover>
         </div>

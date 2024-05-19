@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -32,6 +32,7 @@ import { CgSpinner } from "react-icons/cg";
 import { ToastContainer, toast } from "react-toastify";
 import { clientInitails } from "../../layout/SellerLayout";
 import { IEmail } from "./AdminForgetPassword";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 // import {
 //   useGetAllNotification,
 //   useGetSingleNotification,
@@ -73,6 +74,7 @@ const data = [
 ];
 
 const Settings = () => {
+  const { userRole } = useContext(AdminAccessContext);
   const [notification, setNotification] = useState(data);
   const [admin, setAdmin] = useState<any>(null);
   const [, setImage] = useState(null);
@@ -330,24 +332,26 @@ const Settings = () => {
             Account Information
           </TabSelector>
 
-          <TabSelector
-            className={` relative flex cursor-pointer items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
-              selectedTab === "Members"
-                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
-                : "font-light"
-            } `}
-            isActive={selectedTab === "Members"}
-            onClick={() => {
-              setTimeout(() => {
-                setSelectedTab("Members");
-              }, 200);
-            }}
-          >
-            <span>
-              <MdGroups size={19} />
-            </span>
-            Members
-          </TabSelector>
+          {userRole === "superadmin" && (
+            <TabSelector
+              className={` relative flex cursor-pointer items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
+                selectedTab === "Members"
+                  ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
+                  : "font-light"
+              } `}
+              isActive={selectedTab === "Members"}
+              onClick={() => {
+                setTimeout(() => {
+                  setSelectedTab("Members");
+                }, 200);
+              }}
+            >
+              <span>
+                <MdGroups size={19} />
+              </span>
+              Members
+            </TabSelector>
+          )}
           <TabSelector
             className={` relative flex cursor-pointer  items-center gap-1 bg-transparent p-1.5 text-sm font-light transition-all duration-300 hover:text-[#197B30] ${
               selectedTab === "Notification"
@@ -366,42 +370,46 @@ const Settings = () => {
             </span>
             Notification
           </TabSelector>
-          <TabSelector
-            className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
-              selectedTab === "Commissions"
-                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
-                : "font-light"
-            } `}
-            isActive={selectedTab === "Commissions"}
-            onClick={() => {
-              setTimeout(() => {
-                setSelectedTab("Commissions");
-              }, 200);
-            }}
-          >
-            <span>
-              <RiSecurePaymentFill size={19} />
-            </span>
-            Commissions & Fees
-          </TabSelector>
-          <TabSelector
-            className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
-              selectedTab === "Password"
-                ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
-                : "font-light"
-            } `}
-            isActive={selectedTab === "Password"}
-            onClick={() => {
-              setTimeout(() => {
-                setSelectedTab("Password");
-              }, 200);
-            }}
-          >
-            <span>
-              <RiLockPasswordLine size={19} />
-            </span>
-            Change Password
-          </TabSelector>
+          {userRole === "superadmin" && (
+            <TabSelector
+              className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
+                selectedTab === "Commissions"
+                  ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
+                  : "font-light"
+              } `}
+              isActive={selectedTab === "Commissions"}
+              onClick={() => {
+                setTimeout(() => {
+                  setSelectedTab("Commissions");
+                }, 200);
+              }}
+            >
+              <span>
+                <RiSecurePaymentFill size={19} />
+              </span>
+              Commissions & Fees
+            </TabSelector>
+          )}
+          {userRole === "superadmin" && (
+            <TabSelector
+              className={` relative flex cursor-pointer  items-center  gap-1 bg-transparent p-1.5 text-sm transition-all duration-300 hover:text-[#197B30] ${
+                selectedTab === "Password"
+                  ? "block  rounded-md p-1.5 font-normal text-[#197B30]"
+                  : "font-light"
+              } `}
+              isActive={selectedTab === "Password"}
+              onClick={() => {
+                setTimeout(() => {
+                  setSelectedTab("Password");
+                }, 200);
+              }}
+            >
+              <span>
+                <RiLockPasswordLine size={19} />
+              </span>
+              Change Password
+            </TabSelector>
+          )}
         </nav>
         <div className=" w-full bg-[#F4F4F4]  py-4 px-8 ">
           <TabPanel hidden={selectedTab !== "Information"}>

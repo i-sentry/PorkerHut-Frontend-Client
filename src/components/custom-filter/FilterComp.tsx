@@ -53,8 +53,6 @@ const Filtercomp: React.FC<FiltercompProps> = ({
     }
   };
 
-  console.log(category, "vcacactya", queryKey, catagories?.data);
-
   // const handleRangeChange = (values: number[]) => {
   //   setPriceRange(values);
   // };

@@ -41,7 +41,7 @@ const VendorForgetPassword = () => {
     //     setLoading(false);
     //     toast.error(e.response.data.message);
     //   });
-    console.log(data, data);
+  
   });
 
   React.useEffect(() => {

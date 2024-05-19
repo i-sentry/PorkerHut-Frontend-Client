@@ -75,7 +75,7 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     0,
   );
 
-  console.log(vend?.data, storedvendor?.vendor._id, vendorOrders);
+ 
 
   const averageRating = sumOfRatings / ratings?.length || 0;
 

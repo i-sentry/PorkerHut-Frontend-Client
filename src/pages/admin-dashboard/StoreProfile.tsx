@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/images/porkerlogo.png";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { chunkArray } from "../../helper/chunck";
@@ -8,6 +8,7 @@ import { useGetVendors } from "../../services/hooks/Vendor";
 import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 import { ToastContainer } from "react-toastify";
 import StatusModal from "../../components/admin-dashboard-components/StatusModal";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 // import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
 
 const itemsPerPage = 8;
