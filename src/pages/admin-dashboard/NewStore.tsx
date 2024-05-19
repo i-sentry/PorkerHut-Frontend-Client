@@ -163,7 +163,7 @@ const NewStore = () => {
           />
         </div>
       </div>
-      <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} />
+      <StoreProfileOverlay isOpen={isOpen} setIsOpen={setIsOpen} item={""} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import StepperController from "../sellers-onboarding/StepperController";
 import { SellersStepsContext } from "../../context/SellersStepsContext";
@@ -55,21 +55,70 @@ const AccordionSection = ({
   );
 };
 
-const Accordion = ({ height }: { height?: string }) => {
+const Accordion = ({
+  height,
+  storeInfo,
+  item,
+}: {
+  height?: string;
+  storeInfo?: boolean;
+  item?: any;
+}) => {
   const [isBusinessInfoExpanded, setIsBusinessInfoExpanded] =
     React.useState(false);
   const [isAccountInfoExpanded, setIsAccountInfoExpanded] =
     React.useState(false);
   const [isBankInfoExpanded, setIsBankInfoExpanded] = React.useState(false);
   const bankData = useBankStore((state) => state.bankData);
-  const { state } = useAppState();
+  const { state, setState } = useAppState();
   const {
+    reset,
     formState: { errors },
   } = useForm<any>({ defaultValues: state, mode: "onSubmit" });
   //@ts-ignore
-  const { checkoutSteps, currentStep, handleChange, userData } =
+  const { checkoutSteps, currentStep, handleChange, userData, setUserData } =
     useContext(SellersStepsContext);
   const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+
+  useEffect(() => {
+    if (storeInfo === true && item?._id) {
+      setState({
+        sellerAccountInformation: {
+          shopName: item?.sellerAccountInformation?.shopName || "",
+          entityType: item?.sellerAccountInformation?.entityType || "",
+          accountOwnersName:
+            item?.sellerAccountInformation?.accountOwnersName || "",
+          email: item?.sellerAccountInformation?.email || "",
+          phoneNumber: item?.sellerAccountInformation?.phoneNumber || "",
+          additionalPhoneNumber:
+            item?.sellerAccountInformation?.additionalPhoneNumber || "",
+          password: "",
+        },
+        businessInformation: {
+          companyRegisteredName:
+            item?.businessInformation?.companyRegisteredName || "",
+          address1: item?.businessInformation?.address1 || "",
+          address2: item?.businessInformation?.address2 || "",
+          city: item?.businessInformation?.city || "",
+          businessOwnerName: item?.businessInformation?.businessOwnerName || "",
+          TINRegistrationNumber:
+            item?.businessInformation?.TINRegistrationNumber || "",
+          dateOfBirth: item?.businessInformation?.dateOfBirth || "",
+          IDType: item?.businessInformation?.IDType || "",
+          CACRegistrationNumber:
+            item?.businessInformation?.CACRegistrationNumber || "",
+          VATRegistered: item?.businessInformation?.VATRegistered || "",
+        },
+        vendorBankAccount: {
+          bankName: item?.vendorBankAccount?.bankName || "",
+          accountName: item?.vendorBankAccount?.accountName || "",
+          accountNumber: item?.vendorBankAccount?.accountNumber || "",
+        },
+      });
+    }
+  }, [item, item?._id, state]);
+
+  console.log(item, "ieee", state, storeInfo);
 
   const getNestedValue = (object: any, path: string): any => {
     const keys = path.split(".");
@@ -119,13 +168,14 @@ const Accordion = ({ height }: { height?: string }) => {
                   id={data.name}
                   type={data.type}
                   name={data.name}
-                  defaultValue={getNestedValue(userData, data.name) || ""}
+                  defaultValue={getNestedValue(state, data.name) || ""}
                   placeholder={data.place_holder}
                   onChange={handleChange}
                   // defaultValue={userData[data?.name]}
                   className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                     errors[data.name] && "border-ErrorBorder"
                   }`}
+                  disabled={storeInfo}
                 />
                 <span className="text-[12px] leading-none text-[#797979]">
                   {data.info}
@@ -146,51 +196,80 @@ const Accordion = ({ height }: { height?: string }) => {
                 Are you an individual or Business Entity/Company
               </label>
               {/* Custom Field */}
-              <CustomSelect
-                selectedOption={dropOption}
-                defaultValue={{
-                  label: `${userData?.sellerAccountInformation?.entityType.slice(0, 1).toUpperCase() + userData?.sellerAccountInformation?.entityType}`,
-                  value:
-                    userData?.sellerAccountInformation?.entityType?.toLowerCase(),
-                }}
-                // selectedOption={dropOption || userData.entitytype}
-                setSelectOption={setDropOption}
-                placeholder={"-Choose an option-"}
-                options={vendorType || []}
-              />
+              {storeInfo && (
+                <input
+                  id={"sellerAccountInformation.entityType"}
+                  type={"text"}
+                  name={"sellerAccountInformation.entityType"}
+                  defaultValue={
+                    getNestedValue(
+                      state,
+                      "sellerAccountInformation.entityType",
+                    ) || ""
+                  }
+                  placeholder={"-Choose an option-"}
+                  onChange={handleChange}
+                  className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
+                    errors["sellerAccountInformation.entityType"] &&
+                    "border-ErrorBorder"
+                  }`}
+                  disabled={storeInfo}
+                />
+              )}
+              {!storeInfo && (
+                <CustomSelect
+                  selectedOption={dropOption}
+                  isDisabled={storeInfo}
+                  defaultValue={{
+                    label: `${userData?.sellerAccountInformation?.entityType.slice(0, 1).toUpperCase() + userData?.sellerAccountInformation?.entityType}`,
+                    value:
+                      userData?.sellerAccountInformation?.entityType?.toLowerCase(),
+                  }}
+                  // selectedOption={dropOption || userData.entitytype}
+                  setSelectOption={setDropOption}
+                  placeholder={"-Choose an option-"}
+                  options={vendorType || []}
+                />
+              )}
             </div>
           </>
 
-          {sellersformData.map((data, index) => (
-            <div className="my-2 w-full " key={index}>
-              <label
-                htmlFor={data.name}
-                className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
-                  data.required &&
-                  "after:ml-0.5 after:text-red-500 after:content-['*']"
-                } }`}
-              >
-                {data?.label}
-              </label>
-              <input
-                id={data.name}
-                type={data.type}
-                placeholder={data.place_holder}
-                name={data.name}
-                onChange={handleChange}
-                defaultValue={getNestedValue(userData, data.name) || ""}
-                className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
-                  errors[data.name] && "border-ErrorBorder"
-                }`}
-              />
-              <span className="text-[12px] leading-none text-[#797979]">
-                {data.info}
-              </span>
-              <p className="my-2 text-xs text-[red]">
-                {/* {errors[data.name] && errors[data.name].message} */}
-              </p>
-            </div>
-          ))}
+          {sellersformData.map((data, index) => {
+            if (storeInfo && data?.label === "Password") {
+              return;
+            }
+            return (
+              <div className="my-2 w-full " key={index}>
+                <label
+                  htmlFor={data.name}
+                  className={`mb-[6px] block text-[14px] leading-[16px] text-[#333333] ${
+                    data.required &&
+                    "after:ml-0.5 after:text-red-500 after:content-['*']"
+                  } }`}
+                >
+                  {data?.label}
+                </label>
+                <input
+                  id={data.name}
+                  type={data.type}
+                  placeholder={data.place_holder}
+                  name={data.name}
+                  onChange={handleChange}
+                  defaultValue={getNestedValue(state, data.name) || ""}
+                  className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
+                    errors[data.name] && "border-ErrorBorder"
+                  }`}
+                  disabled={storeInfo}
+                />
+                <span className="text-[12px] leading-none text-[#797979]">
+                  {data.info}
+                </span>
+                <p className="my-2 text-xs text-[red]">
+                  {/* {errors[data.name] && errors[data.name].message} */}
+                </p>
+              </div>
+            );
+          })}
         </form>
       </AccordionSection>
       <AccordionSection
@@ -214,12 +293,13 @@ const Accordion = ({ height }: { height?: string }) => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                defaultValue={getNestedValue(userData, data.name) || ""}
+                defaultValue={getNestedValue(state, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
+                disabled={storeInfo}
               />
               <span className="text-[12px] leading-none text-[#797979]">
                 {data.info}
@@ -246,17 +326,36 @@ const Accordion = ({ height }: { height?: string }) => {
                 Select Bank
               </label>
               {/* Custom Field */}
-              <CustomSelect
-                selectedOption={dropOption}
-                // selectedOption={dropOption === null ? foundObject : dropOption}
-                setSelectOption={setDropOption}
-                placeholder={"Select bank"}
-                options={bankData || []}
-                defaultValue={{
-                  label: userData?.vendorBankAccount?.bankName,
-                  value: userData?.vendorBankAccount?.bankName?.toLowerCase(),
-                }}
-              />
+              {storeInfo && (
+                <input
+                  id={"vendorBankAccount.bankName"}
+                  type={"text"}
+                  name={"vendorBankAccount.bankName"}
+                  defaultValue={
+                    getNestedValue(state, "vendorBankAccount.bankName") || ""
+                  }
+                  placeholder={"Select bank"}
+                  onChange={handleChange}
+                  className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
+                    errors["vendorBankAccount.bankName"] && "border-ErrorBorder"
+                  }`}
+                  disabled={storeInfo}
+                />
+              )}
+              {!storeInfo && (
+                <CustomSelect
+                  selectedOption={dropOption}
+                  // selectedOption={dropOption === null ? foundObject : dropOption}
+                  setSelectOption={setDropOption}
+                  placeholder={"Select bank"}
+                  options={bankData || []}
+                  isDisabled={storeInfo}
+                  defaultValue={{
+                    label: state?.vendorBankAccount?.bankName,
+                    value: state?.vendorBankAccount?.bankName?.toLowerCase(),
+                  }}
+                />
+              )}
             </div>
           </>
           {BankInfo.map((data, index) => (
@@ -274,12 +373,13 @@ const Accordion = ({ height }: { height?: string }) => {
                 id={data.name}
                 type={data.type}
                 name={data.name}
-                defaultValue={getNestedValue(userData, data.name) || ""}
+                defaultValue={getNestedValue(state, data.name) || ""}
                 placeholder={data.place_holder}
                 onChange={handleChange}
                 className={`focus:ring-primaryDark  focus:border-primaryDark relative block w-full appearance-none rounded-md border border-gray-300 px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                   errors[data.name] && "border-ErrorBorder"
                 }`}
+                disabled={storeInfo}
               />
               <span className="text-[12px] leading-none text-[#797979]">
                 {data.info}
@@ -291,9 +391,12 @@ const Accordion = ({ height }: { height?: string }) => {
           ))}
         </form>
       </AccordionSection>
-      <div className="">
-        {currentStep !== checkoutSteps?.length - 1 && <StepperController />}
-      </div>
+
+      {!storeInfo && (
+        <div className="">
+          {currentStep !== checkoutSteps?.length - 1 && <StepperController />}
+        </div>
+      )}
     </div>
   );
 };

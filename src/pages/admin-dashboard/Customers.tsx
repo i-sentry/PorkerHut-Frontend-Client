@@ -94,7 +94,7 @@ const Customers = () => {
 
   useEffect(() => {
     if (!isLoading && allUser)
-      setUsers(allUser?.filter((user: any) => user.role === "user"));
+      setUsers(allUser?.filter((user: any) => user?.role === "user"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
