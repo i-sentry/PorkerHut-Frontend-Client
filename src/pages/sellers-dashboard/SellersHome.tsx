@@ -42,15 +42,17 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
 
   const vendorOrders = data?.data?.orders;
   const todayOrder = vendorOrders?.filter((order: any) => {
-    const todayDate = new Date().getTime();
-    const orderDate = new Date(order?.orderDate).getTime();
+    const todayDate = new Date().toDateString();
+    const orderDate = new Date(order?.orderDate).toDateString();
 
     return orderDate === todayDate && order?.status === "pending";
   }).length;
 
   const yesterdayOrder = vendorOrders?.filter((order: any) => {
-    const curDate = new Date().setDate(new Date().getDate() - 1);
-    const orderDate = new Date(order?.orderDate).getTime();
+    const curDate = new Date(
+      new Date().setDate(new Date().getDate() - 1),
+    ).toDateString();
+    const orderDate = new Date(order?.orderDate).toDateString();
 
     return orderDate === curDate && order?.status === "pending";
   }).length;
@@ -74,8 +76,6 @@ const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
     (total: any, rating: any) => total + rating,
     0,
   );
-
- 
 
   const averageRating = sumOfRatings / ratings?.length || 0;
 

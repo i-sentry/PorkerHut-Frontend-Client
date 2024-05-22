@@ -225,7 +225,7 @@ const AdminCustomerTable = ({ optionalColumn = null, tabs }) => {
             )}
           </div>
           <div className="max-w-xl ">
-            <OrderDropDown />
+            {/* <OrderDropDown /> */}
           </div>
           <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-2 text-[#fff]">
             Go

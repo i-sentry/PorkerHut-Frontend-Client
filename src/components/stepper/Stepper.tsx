@@ -4,11 +4,14 @@ import "./Stepper.css";
 import { BsCheck } from "react-icons/bs";
 import { MdOutlineCheck } from "react-icons/md";
 import moment from "moment";
+import { useGetOrderTracking } from "../../services/hooks/users/tracking";
 
 const steps = ["Order Placed", "Pending Confirmation", "Shipped", "Delivered"];
-const Stepper = ({order}:any) => {
+const Stepper = ({ order }: any) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const { data } = useGetOrderTracking(order?._id);
+  console.log(data);
 
   // const step = [
   //   {

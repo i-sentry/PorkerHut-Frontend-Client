@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "react-select";
+import Select, { ActionMeta, SingleValue } from "react-select";
 
 interface SelectOption {
   value: string;
@@ -16,12 +16,19 @@ const data: SelectOption[] = [
   { value: "Decline_order", label: "Decline order" },
 ];
 
-export const OrderDropDown: React.FC<{ options?: SelectOption[] }> = ({
-  options,
-}) => (
+export const OrderDropDown: React.FC<{
+  options?: SelectOption[];
+  onChange: (selectedOption: SelectOption) => void;
+}> = ({ options, onChange }) => (
   <Select<SelectOption>
     defaultValue={options?.[0] || data?.[0]}
     options={options || data}
     className="w-full rounded-md bg-amber-600 text-[16px] font-normal leading-[19px]"
+    onChange={(
+      newValue: SingleValue<SelectOption>,
+      actionMeta: ActionMeta<SelectOption>,
+    ) => {
+      onChange(newValue !== null ? newValue : options?.[0] || data?.[0]);
+    }}
   />
 );

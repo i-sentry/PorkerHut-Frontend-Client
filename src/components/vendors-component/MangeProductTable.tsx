@@ -171,7 +171,11 @@ const ManageProductTable = ({
             )}
           </div>
           <div className="max-w-xl ">
-            <OrderDropDown />
+            <OrderDropDown
+              onChange={function (selectedOption: any): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
           </div>
           <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-[14px] font-semibold leading-[24px] text-[#fff]">
             Go

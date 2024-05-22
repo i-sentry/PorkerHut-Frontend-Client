@@ -49,6 +49,7 @@ const SellersOrderPage = () => {
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
   const [orderInfo, setOrderInfo] = useState<any>({});
   const [pending, setPending] = useState<number>(0);
+  const [readyToGo, setReadyToGo] = useState<number>(0);
   const [completed, setCompleted] = useState<number>(0);
   const [failed, setFailed] = useState<number>(0);
   const [returned, setReturned] = useState<number>(0);
@@ -166,6 +167,7 @@ const SellersOrderPage = () => {
                 data={vendorOrders}
                 loading={isLoading}
                 setPending={setPending}
+                setReadyToGo={setReadyToGo}
                 setCompleted={setCompleted}
                 setFailed={setFailed}
                 setReturned={setReturned}
@@ -174,6 +176,11 @@ const SellersOrderPage = () => {
                 loading={isLoading}
                 orderLength={pending}
                 orderType={"Pending Orders"}
+              />,
+              <NewCard
+                loading={isLoading}
+                orderLength={readyToGo}
+                orderType="Ready to Go"
               />,
               <NewCard
                 loading={isLoading}
@@ -200,6 +207,7 @@ const SellersOrderPage = () => {
             data={vendorOrders}
             loading={isLoading}
             setPending={setPending}
+            setReadyToGo={setReadyToGo}
             setCompleted={setCompleted}
             setFailed={setFailed}
             setReturned={setReturned}
@@ -211,7 +219,7 @@ const SellersOrderPage = () => {
           />
           <NewCard
             loading={isLoading}
-            orderLength={pending}
+            orderLength={readyToGo}
             orderType="Ready to Go"
           />
 
@@ -304,10 +312,18 @@ const MonthSelector: React.FC<{
   data: any[];
   loading: boolean;
   setPending: any;
+  setReadyToGo: any;
   setCompleted: any;
   setFailed: any;
   setReturned: any;
-}> = ({ data, setPending, setCompleted, setFailed, setReturned }) => {
+}> = ({
+  data,
+  setPending,
+  setReadyToGo,
+  setCompleted,
+  setFailed,
+  setReturned,
+}) => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
     new Date().getMonth() + 1,
   );
@@ -329,6 +345,7 @@ const MonthSelector: React.FC<{
 
   useEffect(() => {
     setPending(getOrderStatusLength(filteredData, "pending"));
+    setReadyToGo(getOrderStatusLength(filteredData, "ready to go"));
     setCompleted(getOrderStatusLength(filteredData, "completed"));
     setFailed(getOrderStatusLength(filteredData, "failed"));
     setReturned(getOrderStatusLength(filteredData, "returned"));

@@ -90,3 +90,10 @@ export const useGetAllVendorsAggregate = () => {
     queryKey: ["all+vendors+aggregate"],
   });
 };
+
+export const useUpdateOrderStatus = (orderId: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { status: string }) =>
+      makePostRequestCustom(data, api.Order.orderStatus(orderId)),
+  });
+};

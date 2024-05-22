@@ -125,6 +125,7 @@ export const api = {
     tracking: `/api/tracking`,
     userTracking: (userId: string) => `/api/tracking/${userId}`,
     trackingInfoByOrder: (userId: string) => `/api/tracking/${userId}`,
+    orderStatus: (orderId: string) => `/api/orders/${orderId}/status`,
     // /order/:orderId
   },
   admin: {

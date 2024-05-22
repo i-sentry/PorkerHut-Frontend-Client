@@ -23,6 +23,7 @@ import Ripples from "react-ripples";
 import PaymentFailedStatus from "./product-category/PaymentFailedStatus";
 import PaymentSuccessPage from "./PaymentSuccessPage";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useCreateOrderTracking } from "../services/hooks/users/tracking";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -102,6 +103,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
   const setShowModal = useProtectedInfo((state) => state.setIsAuthenticated);
   const tempBilling = JSON.parse(localStorage.getItem("tempBilling") as string);
   const myBillings = myBillingInfo?.data?.data?.billing;
+  const createOrderTracking = useCreateOrderTracking();
   const defaultBillingInfo = myBillingInfo?.data?.data?.billing.find(
     (info: { isDefault: any }) => info.isDefault === true,
   );
@@ -214,7 +216,29 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
     setStatus(statusParam || "default");
   }, [location.search]);
 
+  const createTracking = async () => {
+    const info = JSON.parse(localStorage.getItem("tracking_info") as string);
+
+    // try {
+    //   await createOrderTracking.mutateAsync({
+    //     user_id: info?.user_id,
+    //     order_id: info?.order_id,
+    //     product_id: info?.product_id,
+    //     order_date: info?.order_date,
+    //     current_status: info?.current_status,
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    console.log(
+      JSON.parse(localStorage.getItem("tracking_info") as string),
+      "tracking",
+    );
+  };
+
   if (status === "success") {
+    createTracking();
     return <PaymentSuccessPage />;
   }
   if (status === "error") {

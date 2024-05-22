@@ -5,6 +5,7 @@ import { RootState } from "../../redux/store";
 import { useCartTotalAmount } from "../../store";
 import { useCreateOrder } from "../../services/hooks/orders";
 import { useMakePayment } from "../../services/hooks/payment";
+import { useCreateOrderTracking } from "../../services/hooks/users/tracking";
 
 export type IUser = {
   accessToken: string;
@@ -35,6 +36,7 @@ const OrderCart = ({
   const setCartTotal = useCartTotalAmount((state) => state.setCartTotal);
   const createOrder = useCreateOrder();
   const makePayment = useMakePayment();
+  const createOrderTracking = useCreateOrderTracking();
 
   const cart = useSelector((state: RootState) => state.product.cart);
   const dFee = 700;
@@ -73,7 +75,11 @@ const OrderCart = ({
         billingInformation: billingId,
       })
       .then((res) => {
-        localStorage.setItem("order_id", JSON.stringify(res.order._id));
+        localStorage.setItem("order_id", res.order._id);
+        localStorage.setItem(
+          "product_id",
+          res.order?.productDetails[0]?.productID,
+        );
         if (res.order) {
           initiatePayment(res.order._id);
         }
@@ -84,30 +90,79 @@ const OrderCart = ({
       });
   };
 
-  const initiatePayment = (id: string) => {
-    makePayment
-      .mutateAsync({
+  console.log(user, "user seuue");
+
+  const initiatePayment = async (id: string) => {
+    try {
+      const paymentResponse = await makePayment.mutateAsync({
         email: user?.email,
         amount: sumTotal,
         full_name: `${user?.firstName} ${user?.lastName}`,
         order_id: id,
         //subject to change to ngn
         currency: "NGN",
-      })
-      // .mutateAsync({ email: user?.email, amount: sumTotal })
-      .then((res) => {
-        const authorizationUrl = res.data?.data.data.authorization_url;
-        if (authorizationUrl) {
-          window.open(authorizationUrl, "_blank");
-        } else {
-          console.error("Authorization URL not found in the response");
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.error("Error during payment:", err);
       });
+
+      const authorizationUrl =
+        paymentResponse.data?.data.data.authorization_url;
+
+      if (authorizationUrl) {
+        window.open(authorizationUrl, "_blank");
+      } else {
+        console.error("Authorization URL not found in the response");
+      }
+      setLoading(false);
+
+      const trackingInfo = {
+        user_id: user?._id,
+        order_id: localStorage.getItem("order_id") ?? "",
+        product_id: localStorage.getItem("product_id") ?? "",
+        order_date: new Date(),
+        current_status: "order placed",
+      };
+
+      localStorage.setItem("tracking_info", JSON.stringify(trackingInfo));
+
+      // await createOrderTracking.mutateAsync({
+      //   user_id: user?._id,
+      //   order_id: localStorage.getItem("order_id") ?? "",
+      //   product_id: localStorage.getItem("product_id") ?? "",
+      //   order_date: new Date(),
+      //   current_status: "order placed",
+      // });
+
+      console.log(
+        localStorage.getItem("order_id") ?? "",
+        localStorage.getItem("product_id") ?? "",
+      );
+    } catch (err) {
+      setLoading(false);
+      console.error("Error during payment:", err);
+    }
+
+    // makePayment
+    //   .mutateAsync({
+    //     email: user?.email,
+    //     amount: sumTotal,
+    //     full_name: `${user?.firstName} ${user?.lastName}`,
+    //     order_id: id,
+    //     //subject to change to ngn
+    //     currency: "NGN",
+    //   })
+    //   // .mutateAsync({ email: user?.email, amount: sumTotal })
+    //   .then((res) => {
+    //     const authorizationUrl = res.data?.data.data.authorization_url;
+    //     if (authorizationUrl) {
+    //       window.open(authorizationUrl, "_blank");
+    //     } else {
+    //       console.error("Authorization URL not found in the response");
+    //     }
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     console.error("Error during payment:", err);
+    //   });
   };
 
   if (temp === true) {

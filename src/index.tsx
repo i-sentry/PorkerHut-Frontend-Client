@@ -16,22 +16,22 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <AuthProvider>
-        <AdminAccessProvider>
-          <ShoppingCartProvider>
-            <Provider store={store}>
-              <FileProvider>
-                <ImgProvider>
-                  <App />
-                </ImgProvider>
-              </FileProvider>
-            </Provider>
-          </ShoppingCartProvider>
-        </AdminAccessProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
+    <AuthProvider>
+      <AdminAccessProvider>
+        <ShoppingCartProvider>
+          <Provider store={store}>
+            <FileProvider>
+              <ImgProvider>
+                <App />
+              </ImgProvider>
+            </FileProvider>
+          </Provider>
+        </ShoppingCartProvider>
+      </AdminAccessProvider>
+    </AuthProvider>
+  </QueryClientProvider>,
+  // </React.StrictMode>,
 );

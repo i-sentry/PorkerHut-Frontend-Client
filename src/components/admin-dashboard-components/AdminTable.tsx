@@ -13,6 +13,7 @@ import Pagination from "../Table/Pagination";
 import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
+import { useUpdateOrderStatus } from "../../services/hooks/orders";
 
 export type ITable = {
   tabs: any;
@@ -28,6 +29,12 @@ export type ITable = {
   statusType?: string;
   nextpage?: () => void;
   prevPage?: () => void;
+};
+
+type SelectOption = {
+  value: string;
+  label: string;
+  // Add any other properties you need
 };
 
 //@ts-ignore
@@ -51,6 +58,7 @@ const AdminTable = ({
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [chosenTab, setChosenTab] = useState(tabs[0]);
+  const [selectedOption, setSelectedOption] = useState<SelectOption>();
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -107,8 +115,24 @@ const AdminTable = ({
     setGlobalFilter,
     gotoPage,
     setPageSize,
+    selectedFlatRows,
   } = table;
+  // const updateOrderStatus = useUpdateOrderStatus();
+
   const { globalFilter, pageSize } = state;
+
+  useEffect(() => {
+    if (selectedFlatRows.length > 0) {
+      console.log("Selected row:", selectedFlatRows[0]);
+      // You can perform any action with the selected row here
+    }
+  }, [selectedFlatRows]);
+
+  const handleOrderChange = (selectedOption: SelectOption) => {
+    setSelectedOption(selectedOption);
+    console.log("Selected order option:", selectedOption);
+    // You can perform any action with the selected option here
+  };
 
   useEffect(() => {
     if (chosenTab === tabs[0]) {
@@ -145,6 +169,12 @@ const AdminTable = ({
       }
     }
   }, [chosenTab, TData, tabs]);
+
+  const readyToGoOrder = () => {
+    // if (selectedOption.value === "Set_to_ready_to_go") {
+    // }
+  };
+  const handleOrders = () => {};
 
   return (
     <>
@@ -189,9 +219,15 @@ const AdminTable = ({
               )}
             </div>
             <div className="max-w-xl ">
-              <OrderDropDown options={dropDownOption} />
+              <OrderDropDown
+                options={dropDownOption}
+                onChange={handleOrderChange}
+              />
             </div>
-            <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]">
+            <div
+              onClick={handleOrders}
+              className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]"
+            >
               Go
             </div>
           </div>
