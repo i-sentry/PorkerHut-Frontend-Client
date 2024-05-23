@@ -367,7 +367,7 @@ const AgroServices = () => {
                     required
                     className={`focus:ring-primaryDark  focus:border-primaryDark } relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
                         sm:text-sm`}
-                    placeholder="Where are you located?"
+                    placeholder="City/Town"
                     {...register("city")}
                   />
                 </div>

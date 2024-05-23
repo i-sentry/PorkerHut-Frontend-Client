@@ -6,6 +6,7 @@ import newStoreData from "../../utils/json/newStoreData.json";
 import { useGetVendors } from "../../services/hooks/Vendor";
 import { Tooltip } from "../../components/utility/ToolTip";
 import StoreProfileOverlay from "../../components/admin-dashboard-components/StoreProfileOverlay";
+import moment from "moment";
 
 export const StatusColumn = ({ data }: { data: any }) => {
   switch (data?.storeStatus?.toLowerCase()) {
@@ -47,7 +48,7 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Email Address",
-    accessor: (row: any) => row?.sellerAccountInformation?.email,
+    accessor: (row: any) => row?.sellerAccountInformation?.email.toLowerCase(),
   },
   {
     Header: "Company Address",
@@ -85,7 +86,15 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Created",
-    accessor: "created_at",
+    accessor: (row: any) => {
+      return (
+        <span>
+          {row?.createdAt
+            ? moment(row?.createdAt).format("DD MMM YYYY")
+            : "Nil"}
+        </span>
+      );
+    },
   },
 
   {
@@ -104,9 +113,19 @@ const NewStore = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      setData(allStores?.data);
+      setData(
+        allStores?.data
+          ?.slice()
+          ?.sort(
+            (a: any, b: any) =>
+              new Date(b?.createdAt).getTime() -
+              new Date(a?.createdAt).getTime(),
+          ),
+      );
     }
   }, [isLoading, allStores?.data]);
+
+  console.log(data, "stors");
 
   React.useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page

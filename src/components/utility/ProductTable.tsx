@@ -9,7 +9,6 @@ const ProductTable = ({ data }: any) => {
     navigate("/admin/products");
   };
 
-
   const date = moment(data?.createdAt).format("Do MMM YYYY");
 
   let statusClassName = "";
@@ -72,7 +71,7 @@ const ProductTable = ({ data }: any) => {
             {data?.information?.productName}
           </td>
           <td className="whitespace-no-wrap border px-6 py-3 text-[13px] capitalize leading-normal text-[#333]">
-            {data?.sellerAccountInformation?.shopName}
+            {data?.vendor?.sellerAccountInformation?.shopName}
           </td>
           <td className="whitespace-no-wrap border px-6 py-3 text-[13px] leading-normal text-[#333]">
             {data?.information?.category?.name}

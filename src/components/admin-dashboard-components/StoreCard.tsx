@@ -36,6 +36,8 @@ const StoreCard = ({
     (order: any) => order?.status?.toLowerCase() === "failed",
   ).length;
 
+  console.log(userRole, "userrole");
+
   return (
     <>
       <div

@@ -14,6 +14,7 @@ import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
 import { useUpdateOrderStatus } from "../../services/hooks/orders";
+import axios from "axios";
 
 export type ITable = {
   tabs: any;
@@ -59,6 +60,7 @@ const AdminTable = ({
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [chosenTab, setChosenTab] = useState(tabs[0]);
   const [selectedOption, setSelectedOption] = useState<SelectOption>();
+  const [selectedRow, setSelectedRow] = useState<any>();
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -124,15 +126,23 @@ const AdminTable = ({
   useEffect(() => {
     if (selectedFlatRows.length > 0) {
       console.log("Selected row:", selectedFlatRows[0]);
+      // setSelectedRow();
       // You can perform any action with the selected row here
     }
   }, [selectedFlatRows]);
 
-  const handleOrderChange = (selectedOption: SelectOption) => {
-    setSelectedOption(selectedOption);
-    console.log("Selected order option:", selectedOption);
+  // useEffect(() => {
+  //   if (selectedRowIds.length > 1) {
+  //     setSelectedRowIds([]);
+  //   }
+  // }, [selectedRowIds, setSelectedRowIds]);
+
+  const handleOrderChange = (option: SelectOption) => {
+    setSelectedOption(option);
     // You can perform any action with the selected option here
   };
+  // console.log("Selected order option:", selectedOption);
+  // console.log(selectedRowIds[0]);
 
   useEffect(() => {
     if (chosenTab === tabs[0]) {
@@ -170,11 +180,33 @@ const AdminTable = ({
     }
   }, [chosenTab, TData, tabs]);
 
-  const readyToGoOrder = () => {
-    // if (selectedOption.value === "Set_to_ready_to_go") {
-    // }
+  const handleOrderStatus = async (orderId: string, status: string) => {
+    try {
+      const response = await axios.put(`api/orders/${orderId}/status`, {
+        status: status,
+      });
+      console.log("Payment status updated successfully:", response.data);
+    } catch (error: any) {
+      console.error("Error updating payment status:", error.message);
+    }
   };
-  const handleOrders = () => {};
+
+  const handleOrders = (value: string, orderId: string) => {
+    switch (value.toLowerCase()) {
+      case "set_to_ready_to_go":
+        handleOrderStatus(orderId, "ready to go");
+        break;
+      case "complete_order":
+        handleOrderStatus(orderId, "completed");
+        break;
+      case "decline_order":
+        handleOrderStatus(orderId, "failed");
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <>
@@ -225,7 +257,7 @@ const AdminTable = ({
               />
             </div>
             <div
-              onClick={handleOrders}
+              // onClick={handleOrders(selectedOption?.value)}
               className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]"
             >
               Go

@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
-import { Column } from "react-table";
+import { Column, Row } from "react-table";
 import { useGetAllAgroServices } from "../../services/hooks/users";
 import { BsStar, BsX } from "react-icons/bs";
 import moment from "moment";
 import logo from "../../assets/images/porkerlogo.png";
+import { Tooltip } from "../../components/utility/ToolTip";
 
 const Tcolumns: readonly Column<object>[] = [
   {
@@ -27,11 +28,23 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "City/Town",
-    accessor: "",
+    accessor: "city",
   },
   {
     Header: "Address",
-    accessor: "",
+    accessor: (row: any) => {
+      return (
+        <>
+          {row?.address ? (
+            <Tooltip message={row?.address} className={"text-left"}>
+              {row?.address?.slice(0, 30) || ""}...
+            </Tooltip>
+          ) : (
+            "-"
+          )}
+        </>
+      );
+    },
   },
   {
     Header: "Phone Number",
@@ -43,15 +56,16 @@ const Tcolumns: readonly Column<object>[] = [
       return <span>{moment(row?.createdAt).format("DD MMMM YYYY")}</span>;
     },
   },
-  {
-    Header: "Status",
-    accessor: "",
-  },
+  // {
+  //   Header: "Status",
+  //   accessor: "",
+  // },
 ];
 
 const AgroService = () => {
   const { data, isLoading } = useGetAllAgroServices();
   const [showOverlay, setShowOverlay] = useState(false);
+  const [agroInfo, setAgroInfo] = useState<any>();
 
   const agroService = useMemo(() => {
     return isLoading === false && data?.agroservices ? data?.agroservices : [];
@@ -66,6 +80,7 @@ const AgroService = () => {
 
       const handleView = (id: any) => {
         setShowOverlay(true);
+        setAgroInfo(row?.original);
       };
       return (
         <div>
@@ -132,6 +147,7 @@ const AgroService = () => {
       <ServicesOverlay
         showOverlay={showOverlay}
         setShowOverlay={setShowOverlay}
+        row={agroInfo}
       />
     </>
   );
@@ -139,12 +155,14 @@ const AgroService = () => {
 
 export default AgroService;
 
-const ServicesOverlay = ({ showOverlay, setShowOverlay }: any) => {
+const ServicesOverlay = ({ showOverlay, setShowOverlay, row }: any) => {
+  console.log(row, "row");
+
   return (
     <>
       {showOverlay && (
         <div className="fixed top-0 left-0 h-screen w-full bg-black bg-opacity-60">
-          <div className="absolute top-0 left-0 flex h-screen w-full items-start justify-center pt-20">
+          <div className="absolute top-0 left-0 flex h-screen w-full items-center justify-center pt-20">
             <div className="relative w-[500px] bg-[#F4F4F4] px-8 py-10">
               <span
                 className="absolute top-3 right-3 cursor-pointer text-[#333]"
@@ -153,110 +171,49 @@ const ServicesOverlay = ({ showOverlay, setShowOverlay }: any) => {
                 <BsX size={32} />
               </span>
 
-              <h2 className="text-2xl font-medium">Let’s Talk Agro Services</h2>
-              <p className="text-[#797979]">
-                How can we help? Please contact us and we will get back to you
-                as soon as possible. If you have an inquiry about our agro
-                service, you can respond directly to the order confirmation
-                email or contact us via chat.
-              </p>
-              <div
-                style={{ overflowClipMargin: "16px" }}
-                className="hide-scroll-bar h-[400px] w-full overflow-auto"
-              >
-                <form className="mt-6 space-y-3">
-                  <label htmlFor="fullName" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Full Name
+              <div>
+                <h3 className="text-2xl font-bold">Agroservice Request</h3>
+                <p>
+                  Here you can find agro service request and treat as urgent
+                </p>
+                <div className="mt-8">
+                  <label htmlFor="fullName" className="mb-2 block">
+                    <span className="mb-1 font-medium text-neutral-500">
+                      Full Name:
                     </span>
                     <input
-                      type="text"
                       id="fullName"
-                      name="fullName"
-                      disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <label htmlFor="email" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Email address
-                    </span>
-                    <input
                       type="text"
-                      id="email"
-                      name="email"
+                      defaultValue={row?.fullName}
                       disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
+                      className={`relative block h-12 w-full appearance-none rounded-md border-2 border-[#D9D9D9] px-[14px] py-[10px] text-[#333333] placeholder-[#A2A2A2] placeholder:text-[14px] placeholder:leading-[16px] focus:z-10 focus:outline-none
+                        sm:text-sm`}
+                      placeholder="Enter your full name"
                     />
                   </label>
-                  <label htmlFor="address" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Address
-                    </span>
-                    <input
-                      type="text"
-                      id="address"
-                      name="address"
-                      disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <label htmlFor="city" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      City/Town
-                    </span>
-                    <input
-                      type="text"
-                      id="city"
-                      name="city"
-                      disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <label htmlFor="phoneNumber" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Phone Number
-                    </span>
-                    <input
-                      type="tel"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <label htmlFor="subject" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Subject
-                    </span>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      disabled
-                      className="form-input w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <label htmlFor="message" className="block w-full">
-                    <span className="mb-1.5 inline-block text-sm text-[#333333]">
-                      Message
-                    </span>
-                    <textarea
-                      id="message"
-                      name="message"
-                      disabled
-                      className="form-textarea h-[130px] w-full rounded border border-[#D9D9D9] bg-white text-[#a2a2a2] focus:border-green-700 focus:ring-0"
-                    />
-                  </label>
-                  <div className="flex items-start justify-end">
-                    <button
-                      onClick={() => setShowOverlay(false)}
-                      className="rounded-md bg-green-700 px-5 py-2.5 text-white"
+                  <div>
+                    <label
+                      htmlFor="mes"
+                      className="mb-1 font-medium text-neutral-500"
                     >
-                      Close
-                    </button>
+                      Message:
+                    </label>
+                    <textarea
+                      id="mes"
+                      name="mes"
+                      disabled
+                      defaultValue={row?.message}
+                      className="form-textarea h-[140px] w-full resize-none rounded-md border border-neutral-200 p-3 text-sm"
+                    ></textarea>
                   </div>
-                </form>
+
+                  <button
+                    onClick={() => setShowOverlay(false)}
+                    className="mt-3 rounded-md bg-green-700 px-6 py-2 text-white"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
