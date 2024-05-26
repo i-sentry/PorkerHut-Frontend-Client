@@ -68,13 +68,13 @@ const AdminTable = ({
         ? [
             {
               id: "selection",
-              Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
-                <div>
-                  <IndeterminateCheckbox
-                    {...getToggleAllPageRowsSelectedProps()}
-                  />
-                </div>
-              ),
+              // Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
+              //   <div>
+              //     <IndeterminateCheckbox
+              //       {...getToggleAllPageRowsSelectedProps()}
+              //     />
+              //   </div>
+              // ),
               Cell: ({ row }: any) => (
                 <div>
                   <IndeterminateCheckbox
