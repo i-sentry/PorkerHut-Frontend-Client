@@ -8,7 +8,7 @@ import { useGetVendorOrders } from "../../services/hooks/orders";
 import { CgSpinner } from "react-icons/cg";
 import {
   useGetAllAnnoucement,
-  useGetVendorById,
+  // useGetVendorById,
 } from "../../services/hooks/Vendor";
 import { MdOutlineAnnouncement } from "react-icons/md";
 import moment from "moment";
@@ -19,11 +19,11 @@ interface SliderProps {
 
 const SellersHome: React.FC<SliderProps> = ({ sliderImages }: SliderProps) => {
   const storedvendor = JSON.parse(localStorage.getItem("vendor") as string);
-  const [vendor, setVendor] = useState<any>();
+  // const [vendor, setVendor] = useState<any>();
   const [announcement, setAnnouncement] = useState<any[]>([]);
   const { data: annouce, isLoading: loading } = useGetAllAnnoucement();
   const { data, isLoading } = useGetVendorOrders(storedvendor?.vendor?._id);
-  const { data: vend } = useGetVendorById(storedvendor?.vendor._id);
+  // const { data: vend } = useGetVendorById(storedvendor?.vendor._id);
 
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to top-left corner of the page
