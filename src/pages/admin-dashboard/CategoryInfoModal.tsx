@@ -214,7 +214,7 @@ const CategoryInfoModal = ({
                 <button
                   onClick={() => {
                     setModalMsg(
-                      `Are you sure you want to delete ${selectedCategory?.name} category? Once it is deleted all products and subcategories under this category will be deleted too.`,
+                      `Are you sure you want to delete the '${selectedCategory?.name}' category? Deleting this category will permanently remove all ${allCatProds(data?.data)} associated products, their reviews, and all subcategories. This action cannot be undone.`,
                     );
                     setAction("delete");
                     setShowOption(true);
