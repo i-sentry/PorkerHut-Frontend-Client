@@ -5,12 +5,17 @@ import ImageOverLay from "../components/admin-dashboard-components/ImageOverLay"
 import { useCategoryModal, useImageOverlay } from "../store/overlay";
 import CustomCatModal from "../components/admin-dashboard-components/CustomCatModal";
 import logo from "../assets/images/porkerlogo.png";
-import { useEffect, useState } from "react";
-import { AdminAccessProvider } from "../context/AdminAccessProvider";
+import { useContext, useEffect, useState } from "react";
+import AdminAccessContext, {
+  AdminAccessProvider,
+} from "../context/AdminAccessProvider";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
 const AdminLayout = () => {
+  const { setUserRole } = useContext(AdminAccessContext);
   const navigate = useNavigate();
   const showOverlay = useImageOverlay((state) => state.showOverlay);
   const [loading, setLoading] = useState(true);
@@ -27,6 +32,41 @@ const AdminLayout = () => {
     }
     setLoading(false);
   }, [accessToken, admin?.isAdmin, navigate]);
+
+  useEffect(() => {
+    setUserRole(admin?.role?.toLowerCase());
+  }, [admin]);
+
+  const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+  const SESSION_KEY = "accessTokenAdmin";
+
+  useEffect(() => {
+    const checkSession = () => {
+      try {
+        const storedSession = localStorage.getItem(SESSION_KEY) as string;
+        const decodedToken: { iat: number; exp: number } =
+          jwtDecode(storedSession);
+
+        const storedTimestamp = decodedToken?.exp * 1000;
+        const currentTime = new Date().getTime();
+        const sessionExpired =
+          currentTime - storedTimestamp >= SESSION_DURATION;
+
+        if (sessionExpired) {
+          // Optionally, inform the user about the session expiry
+          alert("Your session has expired. Please log in again.");
+          localStorage.removeItem(SESSION_KEY);
+          localStorage.removeItem("admin");
+          navigate("/admin-login");
+        }
+      } catch (error) {
+        console.error("Error checking your session");
+        // Handle the error (e.g., log it, show a user-friendly message)
+      }
+    };
+
+    checkSession();
+  }, [SESSION_DURATION]);
 
   return (
     <>

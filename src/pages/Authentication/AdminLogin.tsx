@@ -69,12 +69,11 @@ const AdminLogin: React.FC = () => {
         // setAuth(res);
         navigate("/admin");
         // setIsLogin(true);
-        localStorage.removeItem("accessToken");
+        localStorage.removeItem("accessTokenAdmin");
         localStorage.removeItem("admin");
-        localStorage.setItem("accessToken", res?.data?.accessToken);
+        localStorage.setItem("accessTokenAdmin", res?.data?.accessToken);
         localStorage.setItem("admin", JSON.stringify(res?.data));
         // Cookies.set("accessToken", res?.data?.accessToken, { expires: 7 });
-      
       })
       .catch((e) => {
         setLoading(false);

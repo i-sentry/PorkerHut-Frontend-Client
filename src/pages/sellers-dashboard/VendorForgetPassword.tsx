@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import Ripples from "react-ripples";
@@ -14,34 +13,28 @@ export interface IEmail {
 }
 
 const VendorForgetPassword = () => {
-  // const navigate = useNavigate();
-
-  // const [isError, setIsError] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false)
   const recoverPassword = useVendorRecoverPassword();
-  // const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
-    // setValue,
     formState: { errors },
   } = useForm<IEmail>();
 
   const onSubmit = handleSubmit((data, e) => {
-    // setLoading(true);
-    // recoverPassword
-    //   .mutateAsync(data)
-    //   .then((res) => {
-    //     setLoading(false);
-    //     toast.success(res.data.message);
-    //     e?.target.reset();
-    //   })
-    //   .catch((e) => {
-    //     setLoading(false);
-    //     toast.error(e.response.data.message);
-    //   });
-  
+    setLoading(true);
+    recoverPassword
+      .mutateAsync(data)
+      .then((res) => {
+        setLoading(false);
+        toast.success(res.data.message);
+        e?.target.reset();
+      })
+      .catch((e) => {
+        setLoading(false);
+        toast.error(e.response.data.message);
+      });
   });
 
   React.useEffect(() => {

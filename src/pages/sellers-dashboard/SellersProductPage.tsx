@@ -146,11 +146,11 @@ const SellersProductPage = () => {
     } else {
       setProducts([]);
     }
-  }, [vendorProducts, refresh, isLoading]);
+  }, [vendorProducts, refresh, isLoading, setRefresh]);
 
   useEffect(() => {
     if (refresh === true) refetch();
-  }, [refresh]);
+  }, [refresh, refetch]);
 
   const handleView = (id: any, catId: any) => {
     navigate(
@@ -319,7 +319,7 @@ const ToggleVisibility = ({
     if (loading) {
       setToggle((toggle: any) => (toggle === "active" ? "inactive" : "active"));
     }
-  }, []);
+  }, [loading]);
 
   const toggleVisibility = async () => {
     setLoading(true);

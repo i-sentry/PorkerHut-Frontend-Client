@@ -20,6 +20,21 @@ import { ToastContainer, toast } from "react-toastify";
 import { IoMdAdd } from "react-icons/io";
 import { CgSpinner } from "react-icons/cg";
 
+const initialQuestions = [
+  {
+    id: 1,
+    question: "",
+    required: true,
+    questionHint: "",
+  },
+  {
+    id: 2,
+    question: "",
+    required: true,
+    questionHint: "",
+  },
+];
+
 const ManageCategories = ({}: {}) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,45 +53,11 @@ const ManageCategories = ({}: {}) => {
   const setShowModal = useCategoryModal((state) => state.setShowModal);
   const [image, setImage] = useState<File | null>(null);
 
-  const [questions, setQuestions] = useState<any[]>([
-    {
-      id: 1,
-      question: "",
-      required: true,
-      questionHint: "",
-    },
-  ]);
+  const [questions, setQuestions] = useState<any[]>(initialQuestions);
   const { data, isLoading, refetch } = useGetAllCategories();
   const { data: catQues, isLoading: catQuesLoad } =
     useGetAllCategoriesQuestions();
-
-  useEffect(() => {
-    if (!catQuesLoad && id !== "new" && catQues?.data?.length > 0) {
-      const selectedCategoryQuestion = catQues?.data?.filter(
-        (ques: any) => ques?.category === id,
-      );
-      setQuestions([...selectedCategoryQuestion]);
-
-      // if (catQues?.data?.length < 1)
-      //   setQuestions([
-      //     {
-      //       id: 1,
-      //       question: "",
-      //       required: true,
-      //       questionHint: "",
-      //     },
-      //   ]);
-    } else {
-      setQuestions([
-        {
-          id: 1,
-          question: "",
-          required: true,
-          questionHint: "",
-        },
-      ]);
-    }
-  }, [id, catQuesLoad]);
+  const subInfo = queryParams.get("sub");
 
   const selectedCategory = data?.data;
   const category = useMemo(() => {
@@ -89,6 +70,17 @@ const ManageCategories = ({}: {}) => {
       return {};
     }
   }, [id, selectedCategory, isLoading]);
+
+  useEffect(() => {
+    if (!catQuesLoad && id !== "new" && catQues?.data?.length > 0) {
+      const selectedCategoryQuestion = catQues?.data?.filter(
+        (ques: any) => ques?.category === id,
+      );
+      setQuestions([...selectedCategoryQuestion]);
+    } else {
+      setQuestions(initialQuestions);
+    }
+  }, [id, catQuesLoad]);
 
   const handleAddQuestion = () => {
     setQuestions((prev: any) => {
@@ -103,7 +95,6 @@ const ManageCategories = ({}: {}) => {
     });
   };
 
-  const subInfo = queryParams.get("sub");
   const removeQueryParams = () => {
     const { pathname } = location;
     const newPathname = pathname.split("?")[0]; // Remove query parameters from the pathname
@@ -235,10 +226,13 @@ const ManageCategories = ({}: {}) => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
+    // const url = URL.createObjectURL(file);
+
     if (file) {
-      // const url = URL.createObjectURL(file);
       setImage(file);
     }
+
+    console.log(file);
   };
 
   const handleQuestionChange = (e: any, id: number) => {
@@ -252,14 +246,18 @@ const ManageCategories = ({}: {}) => {
         return q;
       });
     });
+
+    console.log(questions);
   };
 
   const deleteQuestion = (id: any) => {
-    if (id !== 1) {
+    if (id !== 1 || id !== 2) {
       const updatedQuestion = questions.filter(
         (question: any) => question.id !== id,
       );
       setQuestions(updatedQuestion);
+    } else {
+      return;
     }
   };
 
@@ -278,7 +276,29 @@ const ManageCategories = ({}: {}) => {
     // setSelectedCategoryId(index);
   };
 
-  const canSubmit = image && categoryName ? true : false;
+  const handleToggleRequired = (questionId: any) => {
+    setQuestions((prevQuestions) => {
+      return prevQuestions.map((question) => {
+        if (question.id === questionId) {
+          return { ...question, required: !question.required };
+        }
+        return question;
+      });
+    });
+  };
+
+  const canSubmit =
+    image &&
+    categoryName &&
+    questions.every((q) => q?.question !== "" && q.questionHint !== "") &&
+    subcategory?.length >= 1
+      ? true
+      : false;
+
+  console.log(
+    questions.every((q) => q?.question !== "" && q.questionHint !== ""),
+  );
+
   return (
     <>
       <div className="py-6 pl-8 pr-5 pb-10">
@@ -320,7 +340,7 @@ const ManageCategories = ({}: {}) => {
                   <input
                     type="text"
                     name="categoryName"
-                    value={categoryName}
+                    value={categoryName || ""}
                     onChange={(e) => setCategoryName(e.target.value)}
                     id="categoryName"
                     disabled={id !== "new"}
@@ -439,7 +459,7 @@ const ManageCategories = ({}: {}) => {
                 </h3>
                 <p className="text-[#A2A2A2]">
                   Key questions pertaining to the category should be asked.
-                  Maximum of 4.
+                  {/* Minimum 2 and Maximum of 4 questions. go */}
                 </p>
               </div>
             </div>
@@ -466,10 +486,12 @@ const ManageCategories = ({}: {}) => {
                           className="form-input mt-1 h-[50px] w-full rounded border border-[#D9D9D9] placeholder:text-sm placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
                         />
                         <div className="inline-flex flex-col items-center">
-                          <span className="text-sm text-[#333]">Required</span>
+                          <span className="hidden text-sm text-[#333]">
+                            Required
+                          </span>
                           <ToggleSwitch
                             question={question}
-                            setQuestions={setQuestions}
+                            onToggle={handleToggleRequired}
                           />
                         </div>
                       </div>
@@ -490,9 +512,11 @@ const ManageCategories = ({}: {}) => {
                         className={`mt-7 flex items-center justify-end gap-4 opacity-100 `}
                       >
                         <button
+                          type="button"
+                          disabled={questions.length === 1}
+                          aria-label="delete"
                           onClick={() => deleteQuestion(question.id)}
-                          disabled={questions?.length === 1}
-                          className="text-[#333]"
+                          className={`text-[#333]`}
                         >
                           <BiTrashAlt size={24} />
                         </button>
@@ -529,7 +553,7 @@ const ManageCategories = ({}: {}) => {
                           <span className="text-sm text-[#333]">Required</span>
                           <ToggleSwitch
                             question={question}
-                            setQuestions={setQuestions}
+                            onToggle={handleToggleRequired}
                           />
                         </div>
                       </div>
@@ -551,8 +575,8 @@ const ManageCategories = ({}: {}) => {
                       >
                         <button
                           onClick={() => deleteQuestion(question.id)}
-                          disabled={questions?.length === 1}
-                          className="text-[#333]"
+                          disabled={question.id === 1 || question.id === 2}
+                          className="text-[#333] disabled:hidden disabled:text-neutral-500"
                         >
                           <BiTrashAlt size={24} />
                         </button>
@@ -590,29 +614,16 @@ const ManageCategories = ({}: {}) => {
 
 export default ManageCategories;
 
-function ToggleSwitch({ question, setQuestions }: any) {
+function ToggleSwitch({ question, onToggle }: any) {
   const [toggle, setToggle] = useState(question?.required);
-  const toggleVisibility = () => {
-    // setToggle((prev: any) => !prev);
-    setQuestions((prev: any) => {
-      return prev.map((ques: any) => {
-        if (ques.id === question.id) {
-          setToggle(!question.required);
-          return { ...ques, required: !question.required };
-        } else {
-          return ques;
-        }
-      });
-    });
-  };
 
   return (
     <div
-      className={`relative w-[80px] scale-[.9] rounded p-1 ${toggle ? "bg-[#22c55e]" : "bg-[#F91919]"}`}
-      onClick={toggleVisibility}
+      className={`relative w-[80px] scale-[.9] rounded p-1 ${question?.required ? "bg-[#22c55e]" : "bg-[#F91919]"}`}
+      onClick={() => onToggle(question?.id)}
     >
       <div
-        className={`absolute top-1/2 h-[1.5rem] w-[32px] -translate-y-1/2 rounded-sm bg-white duration-300 ${toggle ? "left-[42px] w-[32px]" : "left-1"}`}
+        className={`absolute top-1/2 h-[1.5rem] w-[32px] -translate-y-1/2 rounded-sm bg-white duration-300 ${question?.required ? "left-[42px] w-[32px]" : "left-1"}`}
       ></div>
       <div className="flex items-center justify-between gap-2">
         <span className="inline-flex w-10 justify-center font-medium uppercase text-white">

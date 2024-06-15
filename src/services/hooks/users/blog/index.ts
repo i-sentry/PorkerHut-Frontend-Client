@@ -1,6 +1,6 @@
 import useQueryAction from "../../../../lib/useQueryAction";
 import useQueryMutation from "../../../../lib/useQueryMutation";
-import { api, makeCustomPutRequest, makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from "../../../api";
+import { api, makeCustomPutRequest, makeDeleteRequest, makeGetRequest, makePostRequest } from "../../../api";
 
 export const useGetAllBlogs = () => {
   return useQueryAction({

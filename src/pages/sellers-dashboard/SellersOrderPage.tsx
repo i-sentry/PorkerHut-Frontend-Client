@@ -6,7 +6,7 @@ import { useShowModal } from "../../store/overlay";
 import OrderSideModal from "./OrderSideModal";
 import { useGetVendorOrders } from "../../services/hooks/orders";
 import { useEffect, useState } from "react";
-import { CgSpinner, CgSpinnerAlt } from "react-icons/cg";
+import { CgSpinnerAlt } from "react-icons/cg";
 import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
 import logo from "../../assets/images/porkerlogo.png";
@@ -70,13 +70,6 @@ const SellersOrderPage = () => {
           ),
       );
   }, [isLoading, orders]);
-
-  const aa = orders
-    ?.slice()
-    ?.sort(
-      (a: any, b: any) =>
-        new Date(b?.orderDate).getTime() - new Date(a?.orderDate).getTime(),
-    );
 
   const Tcolumns: readonly Column<object>[] = [
     {

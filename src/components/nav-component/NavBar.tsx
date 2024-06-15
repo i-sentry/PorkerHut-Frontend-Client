@@ -31,6 +31,7 @@ import {
 import { useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
 import MainSideNav from "./MainSideNav";
+import { jwtDecode } from "jwt-decode";
 
 const NavBar = ({ border }: { border?: any }) => {
   const [open, setOpen] = useState<boolean>(true);
@@ -56,37 +57,6 @@ const NavBar = ({ border }: { border?: any }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  useEffect(() => {
-    const checkSession = () => {
-      try {
-        const storedSession = localStorage.getItem(SESSION_KEY);
-
-        if (storedSession) {
-          const storedTimestamp = parseInt(storedSession, 10);
-          const currentTime = new Date().getTime();
-          const sessionExpired =
-            currentTime - storedTimestamp > SESSION_DURATION;
-
-          if (!sessionExpired) {
-            setIsLoggedIn(true);
-          } else {
-            // Session has expired, logout the user
-            handleLogout();
-            // Optionally, inform the user about the session expiry
-            alert("Your session has expired. Please log in again.");
-          }
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Error checking session:", error);
-        // Handle the error (e.g., log it, show a user-friendly message)
-      }
-    };
-
-    checkSession();
-  }, [SESSION_DURATION]);
 
   const handleClickOutsideDropdown = (e: any) => {
     if (open && dropdownRef.current?.contains(e.target as Node)) {
@@ -116,6 +86,36 @@ const NavBar = ({ border }: { border?: any }) => {
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("user");
   };
+
+  useEffect(() => {
+    const checkSession = () => {
+      try {
+        const storedSession = localStorage.getItem(SESSION_KEY) as string;
+        const decodedToken: { iat: number; exp: number } =
+          jwtDecode(storedSession);
+
+        const storedTimestamp = decodedToken?.exp * 1000;
+        const currentTime = new Date().getTime();
+        const sessionExpired =
+          currentTime - storedTimestamp >= SESSION_DURATION;
+
+        if (!sessionExpired) {
+          setIsLoggedIn(true);
+        } else {
+          // Session has expired, logout the user
+          handleLogout();
+          // Optionally, inform the user about the session expiry
+          alert("Your session has expired. Please log in again.");
+          navigate("/login?q=customer");
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+        // Handle the error (e.g., log it, show a user-friendly message)
+      }
+    };
+
+    checkSession();
+  }, [SESSION_DURATION]);
 
   // useEffect(() => {
   //   setUser(user);

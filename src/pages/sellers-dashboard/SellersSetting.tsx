@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import {
   MdOutlineEnhancedEncryption,
   MdOutlineNotifications,
   MdOutlinePerson,
 } from "react-icons/md";
-// import { RxBell } from "react-icons/rx";
-// import { TfiLock } from "react-icons/tfi";
 import SellersNotificationTable from "../../components/vendors-component/SellersNotificationTable";
 import MobileTabs from "../tabs/MobileTabs";
 import PhoneInput from "react-phone-input-2";
@@ -16,18 +13,14 @@ import "react-phone-input-2/lib/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import {
   useUpdateVendor,
   useVendorRecoverPassword,
-  useVendorRestPassword,
 } from "../../services/hooks/Vendor";
 import { ToastContainer, toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
 import { clientInitails } from "../../layout/SellerLayout";
 import Ripples from "react-ripples";
-import ReactLoading from "react-loading";
 import { IEmail } from "./VendorForgetPassword";
 
 type FormData = {
@@ -89,9 +82,9 @@ export const standards = [
 function SettingssTab() {
   const [vendor, setVendor] = useState<any>({});
   const [searchParams, setSearchParams] = useSearchParams();
-  const [eyeState, setEyeState] = useState(false);
-  const [eyeState2, setEyeState2] = useState(false);
-  const [eyeState3] = useState(false);
+  // const [eyeState, setEyeState] = useState(false);
+  // const [eyeState2, setEyeState2] = useState(false);
+  // const [eyeState3] = useState(false);
   const [loading, setLoading] = useState(false);
   const recoverPassword = useVendorRecoverPassword();
 
@@ -529,10 +522,7 @@ function SettingssTab() {
                     {standards.map((policy: any) => (
                       <li className="font-normal">
                         <span>{policy.title}:</span>
-                        <ul
-                          role="list"
-                          className="list-outside list-disc pl-2 font-normal"
-                        >
+                        <ul className="list-outside list-disc pl-2 font-normal">
                           {policy.points.map((point: any) => (
                             <li className="font-normal">
                               {/* <span className="mt-1">

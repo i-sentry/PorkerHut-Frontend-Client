@@ -1,4 +1,4 @@
-import { BsSearch } from "react-icons/bs";
+
 import SellerProductImageTable, { Modal } from "./SellerProductImageTable";
 import { useState } from "react";
 
