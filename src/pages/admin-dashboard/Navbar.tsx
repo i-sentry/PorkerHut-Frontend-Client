@@ -17,8 +17,8 @@ const Navbar = ({ setSidebar, sidebar }: any) => {
   const navigate = useNavigate();
 
   const logOut = () => {
-    window.localStorage.clear();
-
+    localStorage.removeItem("accessTokenAdmin");
+    localStorage.removeItem("admin");
     navigate("/admin-login");
   };
   return (

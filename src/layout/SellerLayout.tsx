@@ -7,6 +7,7 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { useGetVendorById } from "../services/hooks/Vendor";
 import { BsArrowLeft } from "react-icons/bs";
 import CookieConsent, { Cookies } from "react-cookie-consent";
+import { jwtDecode } from "jwt-decode";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -32,6 +33,38 @@ const Layout = () => {
     }
     setLoading(false);
   }, [accessToken, navigate]);
+
+  const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+  const SESSION_KEY = "vendorAccessToken";
+
+  useEffect(() => {
+    const checkSession = () => {
+      try {
+        const storedSession = localStorage.getItem(SESSION_KEY) as string;
+        const decodedToken: { iat: number; exp: number } =
+          jwtDecode(storedSession);
+
+        const storedTimestamp = decodedToken?.exp * 1000;
+        const currentTime = new Date().getTime();
+        const sessionExpired =
+          currentTime - storedTimestamp >= SESSION_DURATION;
+
+        // Logo Out user once the session expires
+        if (sessionExpired) {
+          // Optionally, inform the user about the session expiry
+          alert("Your session has expired. Please log in again.");
+          localStorage.removeItem(SESSION_KEY);
+          localStorage.removeItem("vendor");
+          navigate("/sign-in?q=vendor");
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+        // Handle the error (e.g., log it, show a user-friendly message)
+      }
+    };
+
+    checkSession();
+  }, [SESSION_DURATION]);
 
   return (
     <>
