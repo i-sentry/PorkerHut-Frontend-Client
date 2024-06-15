@@ -7,6 +7,7 @@ import { useCreateProduct } from "../../services/hooks/Vendor/products";
 // import { useGetCategoryQuestion } from "../../services/hooks/Vendor/category";
 import { useSuccessOverlay } from "../../store/overlay";
 import ReactLoading from "react-loading";
+import { toast } from "react-toastify";
 interface VendorData {
   token: string;
   vendor: {
@@ -193,11 +194,14 @@ export default function StepperControl() {
         setIsLoading(false);
 
         if (error.response) {
-          console.error("API Error:", error.response.data);
+          toast.error("Please fill all required fields");
+          console.error("API Error:", error.response.data?.message);
         } else if (error.message) {
           console.error("Network Error:", error.message);
+          toast.error("Network Error:", error.message);
         } else {
           console.error("Unexpected Error:", error);
+          toast.error("Unexpected Error:", error);
         }
       }
     }
