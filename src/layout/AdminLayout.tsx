@@ -60,7 +60,7 @@ const AdminLayout = () => {
           navigate("/admin-login");
         }
       } catch (error) {
-        toast.error("Error checking your session");
+        console.error("Error checking your session");
         // Handle the error (e.g., log it, show a user-friendly message)
       }
     };

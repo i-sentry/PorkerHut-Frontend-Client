@@ -1,7 +1,6 @@
 import React from "react";
 import { BiShieldQuarter } from "react-icons/bi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import { standards } from "../sellers-dashboard/SellersSetting";
 
 interface IAccount {
@@ -49,7 +48,6 @@ const QualityCheck = ({ setShowTab }: IAccount) => {
               <li className="font-normal">
                 <span>{policy.title}:</span>
                 <ul
-                  role="list"
                   className="list-outside list-disc pl-2 font-normal"
                 >
                   {policy.points.map((point: any) => (

@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import { MdOutlineEnhancedEncryption } from "react-icons/md";
-// import { TfiLock } from "react-icons/tfi";
-
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useVendorRecoverPassword } from "../../services/hooks/Vendor";
 import { toast } from "react-toastify";
 import Ripples from "react-ripples";
-import ReactLoading from "react-loading";
 import { IEmail } from "../sellers-dashboard/VendorForgetPassword";
 import { CgSpinner } from "react-icons/cg";
-import { Link } from "react-router-dom";
 
 const Password = ({ setShowTab }: any) => {
   const [loading, setLoading] = useState(false);

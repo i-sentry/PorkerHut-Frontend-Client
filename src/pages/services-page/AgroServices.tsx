@@ -39,10 +39,6 @@ interface AgroServicesProps {
 
 const AgroServices = () => {
   const [loading, setLoading] = useState(false);
-
-  // const location = useLocation();
-  // const query = new URLSearchParams(location.search);
-  // const agroService = query.get("agro-service");
   const agroForm = useAgroForm();
 
   const {
@@ -51,7 +47,7 @@ const AgroServices = () => {
     // getValues,
     // control,
     reset,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<AgroServicesProps>();
 
   const submitData = (data: any) => {
