@@ -178,7 +178,8 @@ const Settings = () => {
   };
 
   const handleChange = (e: any) => {
-    const { name, value } = e.target;
+    const name = e?.target?.name;
+    const value = e?.target?.value;
     // Append the form field and its value to the FormData object
 
     setFormData((form: any) => {
@@ -491,13 +492,18 @@ const Settings = () => {
                       inputProps={{
                         name: "phone",
                       }}
-                      enableSearch={true}
-                      autoFormat={true}
-                      countryCodeEditable={false}
-                      country={"ng"}
+                      // enableSearch={true}
+                      // autoFormat={true}
+                      // countryCodeEditable={false}
+                      defaultCountry={"ng"}
                       value={`${admin?.phoneNumber?.slice(-10)}`}
                       onChange={(e: any) => handleChange(e)}
-                      inputClass={"w-[100%_!important] h-[45px_!important]"}
+                      className={"h-[45px_!important] w-full"}
+                      inputClassName="flex-grow h-[45px_!important] focus:ring-0 focus:border focus:border-green-700"
+                      countrySelectorStyleProps={{
+                        className: " h-[45px_!important]",
+                        buttonClassName: "h-[45px_!important]",
+                      }}
                     />
                   </div>
                 </div>
@@ -563,12 +569,12 @@ const Settings = () => {
                   className="boder-[#D9D9D9] form-input block w-full rounded-md border bg-white px-3 py-4 focus:border-green-700 focus:outline-0 focus:ring-green-700"
                 /> */}
                 <PhoneInput
-                  inputClass="w-100"
+                  className="w-100"
                   // disabled
-                  enableSearch={true}
-                  autoFormat={true}
-                  countryCodeEditable={false}
-                  country={"ng"}
+                  // enableSearch={true}
+                  // autoFormat={true}
+                  // countryCodeEditable={false}
+                  defaultCountry={"ng"}
                   value={formData?.phoneNumber.slice(-10)}
                   onChange={(e: any) => handleChange(e)}
                 />

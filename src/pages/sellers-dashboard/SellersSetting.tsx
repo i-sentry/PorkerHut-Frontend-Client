@@ -452,14 +452,17 @@ function SettingssTab() {
                         defaultCountry={"ng"}
                         value={phoneNumber || phone}
                         // {...register("phonenumber")}
+                        className={`form-input h-12 w-full items-center rounded-md border border-[#D9D9D9] p-0 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus-within:border-[#197b30] focus-within:ring-[#197b30] ${
+                          errors.phoneNumber ? "border-[#dd1313]" : ""
+                        }`}
+                        countrySelectorStyleProps={{
+                          className: "border-[#fff_!important]",
+                        }}
+                        inputClassName="flex-grow h-full border-[#fff_!important] text-[16px] border-0 focus:border-none focus:ring-0"
                         onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
                         inputProps={{
                           name: "phonenumber",
-
                           id: "phonenumber",
-                          className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-md placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:border-[#197b30] focus:ring-[#197b30] ${
-                            errors.phoneNumber ? "border-[#dd1313]" : ""
-                          }`,
                         }}
                       />
                       <div className="text-sm text-[#dd1313]">

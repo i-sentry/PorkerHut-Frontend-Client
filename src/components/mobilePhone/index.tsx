@@ -6,8 +6,8 @@ import "./style.css";
 const Input = () => {
   return (
     <PhoneInput
-      specialLabel={""}
-      country={"th"}
+      // specialLabel={""}
+      defaultCountry={"th"}
       inputStyle={{
         borderColor: "red",
       }}
