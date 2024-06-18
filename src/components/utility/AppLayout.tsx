@@ -78,10 +78,9 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
         // }}
         expires={30}
       >
-        Our website uses cookies to improve functionality, performance, and user
-        experience. <br />
-        By continuing to use this site, you agree to the use of cookies in
-        accordance with our Privacy Policy.
+        Porker Hut Naija uses cookies to improve functionality, performance, and user
+  experience. <br /> By continuing to use this site, you agree to the use of cookies in
+  accordance with our <a href="/privacy-policy" className="underline text-[#197B30]">Privacy Policy</a>.
       </CookieConsent>
       <Footer />
     </div>
