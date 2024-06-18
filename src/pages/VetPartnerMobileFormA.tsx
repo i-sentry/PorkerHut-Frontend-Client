@@ -1,5 +1,5 @@
 import React from "react";
-import "react-phone-input-2/lib/style.css";
+import "react-international-phone/style.css";
 import { useForm } from "react-hook-form";
 import Header from "../components/vet-form/Header";
 

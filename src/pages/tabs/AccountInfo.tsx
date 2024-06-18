@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 // import { HiOutlineArrowNarrowLeft, HiOutlineChevronLeft } from "react-icons/hi";
 import { MdOutlinePerson } from "react-icons/md";
 // import MobileTabs from "../tabs/MobileTabs";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 // import {
 //   CountryDropdown,
 //   RegionDropdown,
@@ -330,7 +330,7 @@ const AccountInfo = ({ setShowTab }: IAccount) => {
               Phone Number
             </label>
             <PhoneInput
-              country={"ng"}
+              defaultCountry={"ng"}
               value={phoneNumber || phone}
               // {...register("phonenumber")}
               onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}

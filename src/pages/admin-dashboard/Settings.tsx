@@ -24,7 +24,7 @@ import {
   useUpdateUserInfo,
 } from "../../services/hooks/users";
 import { useMyBillingInfo } from "../../services/hooks/payment";
-import PhoneInput from "react-phone-input-2";
+import { PhoneInput } from "react-international-phone";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

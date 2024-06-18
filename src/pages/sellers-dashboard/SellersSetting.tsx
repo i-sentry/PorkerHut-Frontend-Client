@@ -8,8 +8,8 @@ import {
 } from "react-icons/md";
 import SellersNotificationTable from "../../components/vendors-component/SellersNotificationTable";
 import MobileTabs from "../tabs/MobileTabs";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
@@ -449,7 +449,7 @@ function SettingssTab() {
                         Phone Number
                       </label>
                       <PhoneInput
-                        country={"ng"}
+                        defaultCountry={"ng"}
                         value={phoneNumber || phone}
                         // {...register("phonenumber")}
                         onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
