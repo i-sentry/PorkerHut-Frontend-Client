@@ -702,7 +702,7 @@ const SellerStepperComponent = () => {
       })
       .catch((err: any) => {
         setIsLoading(false);
-        toast.error(`Product not update. Try again!!!`);
+        toast.error(err?.message);
       });
   };
 

@@ -17,6 +17,7 @@ import ProductDetails from "./ProductDetails";
 import { useGetOneCategory } from "../../services/hooks/Vendor/category";
 import SuccessScreen from "../../pages/sellers-dashboard/SuccessScreen";
 import { useSuccessOverlay } from "../../store/overlay";
+import { ToastContainer } from "react-toastify";
 
 export const steps = [
   "Product Information",
@@ -110,8 +111,10 @@ const StepperComponent = () => {
       />
     );
   }
+
   return (
     <div className=" ">
+      <ToastContainer />
       <div className="hidden items-center gap-2 py-5 md:hidden lg:flex">
         <h1 className="mb-3 text-[#1F1F1F] xxs:text-[20px]  xxs:font-normal  xxs:leading-[23px] md:text-[36px] md:font-medium md:leading-[42px]">
           {"Create Products"}

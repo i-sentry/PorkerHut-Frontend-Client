@@ -7,8 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 // import { useForm, Controller  } from "react-hook-form";
 import { useForm, Controller } from "react-hook-form";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import {
   useBillingInfo,
@@ -371,7 +371,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       render={({ field: { onChange, onBlur, value, ref } }) => (
                         <PhoneInput
                           disabled
-                          country={"ng"}
+                          defaultCountry={"ng"}
                           value={value}
                           onChange={onChange}
                           inputProps={{
@@ -658,7 +658,7 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                       name="phoneNumber"
                       render={({ field: { onChange, onBlur, value, ref } }) => (
                         <PhoneInput
-                          country={"ng"}
+                          defaultCountry={"ng"}
                           value={value}
                           onChange={onChange}
                           inputProps={{

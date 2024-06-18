@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "react-phone-input-2/lib/style.css";
+import "react-international-phone/style.css";
 
 import { useForm } from "react-hook-form";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";

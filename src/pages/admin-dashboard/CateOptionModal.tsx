@@ -81,7 +81,10 @@ const CateOptionModal = ({
           </div>
         </div>
         <div className="p-5">
-          <p className="text-neutral-500">{message}</p>
+          <span className="font-medium text-[#e10]">
+            Read carefully, before proceeding
+          </span>
+          <p className="mt-1 text-neutral-500">{message}</p>
           <div className="mt-6 flex items-center gap-2">
             <button
               onClick={handleConfirm}

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import "react-phone-input-2/lib/style.css";
+import "react-international-phone/style.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm, Controller } from "react-hook-form";

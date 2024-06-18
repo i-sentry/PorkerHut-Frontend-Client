@@ -1,25 +1,17 @@
 // import MuiPhoneNumber from 'material-ui-phone-number'
 
-
-import PhoneInput from "react-phone-input-2";
+import { PhoneInput } from "react-international-phone";
 import "./style.css";
 
 const Input = () => {
-
-
   return (
-
-        <PhoneInput
-          specialLabel={""}
-          country={"th"}
-          inputStyle={{
-            borderColor:  "red",
-          }}
-
-        />
-
-        
-
+    <PhoneInput
+      // specialLabel={""}
+      defaultCountry={"th"}
+      inputStyle={{
+        borderColor: "red",
+      }}
+    />
   );
 };
 
