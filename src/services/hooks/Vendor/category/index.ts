@@ -7,6 +7,7 @@ import {
   makeDeleteRequest,
   makeGetRequest,
   makePostRequestCustom,
+  makePutRequest,
 } from "../../../api";
 
 export const useGetAllCategories = () => {
@@ -34,6 +35,13 @@ export const useGetOneCategory = (id: string | null) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.ProductsCategory.getOneCategory(id)),
     queryKey: ["cate"],
+  });
+};
+
+export const useDisableCategory = (id: string | null) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePutRequest(data, api.ProductsCategory.getOneCategory(id)),
   });
 };
 
