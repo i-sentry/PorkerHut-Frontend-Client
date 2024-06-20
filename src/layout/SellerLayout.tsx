@@ -16,7 +16,7 @@ const Layout = () => {
   const vendors = JSON.parse(localStorage.getItem("vendor") as string);
   const vendor = vendors?.vendor;
 
-  const accessToken = localStorage.getItem("vendorAccessToken");
+  const accessToken = localStorage.getItem("accessToken");
 
   const [vendorStatus, setVendorStatus] = useState<string>(vendor?.storeStatus);
   const { data: vInfo } = useGetVendorById(vendor?._id);
@@ -35,7 +35,7 @@ const Layout = () => {
   }, [accessToken, navigate]);
 
   const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-  const SESSION_KEY = "vendorAccessToken";
+  const SESSION_KEY = "accessToken";
 
   useEffect(() => {
     const checkSession = () => {
@@ -106,9 +106,13 @@ const Layout = () => {
             // }}
             expires={30}
           >
-           Porker Hut Naija uses cookies to improve functionality, performance, and user
-  experience. <br /> By continuing to use this site, you agree to the use of cookies in
-  accordance with our <a href="/privacy-policy" className="underline text-[#197B30]">Privacy Policy</a>.
+            Porker Hut Naija uses cookies to improve functionality, performance,
+            and user experience. <br /> By continuing to use this site, you
+            agree to the use of cookies in accordance with our{" "}
+            <a href="/privacy-policy" className="text-[#197B30] underline">
+              Privacy Policy
+            </a>
+            .
           </CookieConsent>
           <div className="relative grid h-full w-full grid-rows-[auto_1fr]">
             <div className="sticky top-0 left-0 right-0 z-[70]">

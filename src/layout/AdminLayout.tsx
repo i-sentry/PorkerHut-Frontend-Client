@@ -38,7 +38,7 @@ const AdminLayout = () => {
   }, [admin]);
 
   const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-  const SESSION_KEY = "accessTokenAdmin";
+  const SESSION_KEY = "accessToken";
 
   useEffect(() => {
     const checkSession = () => {
