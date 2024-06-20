@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
   country: Yup.string().required("Country is required"),
   phoneNumber: Yup.string()
     .required("Valid Phone Number is required")
-    .matches(/^[0-9]*$/, "Invalid Phone Number")
+    // .matches(/^[0-9]*$/, "Invalid Phone Number")
     .min(6, "Valid Phone Number must be at least 6 characters")
     .max(15, "Valid Phone Number must not exceed 12 characters"),
 });
@@ -368,19 +368,24 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     <Controller
                       control={control}
                       name="phoneNumber"
-                      render={({ field: { onChange, onBlur, value, ref } }) => (
+                      render={({ field: { onChange, value } }) => (
                         <PhoneInput
-                          disabled
+                          // disabled
                           defaultCountry={"ng"}
                           value={value}
                           onChange={onChange}
+                          countrySelectorStyleProps={{
+                            buttonClassName: "h-12 border-[#fff_!important]",
+                          }}
+                          className={`h-12 w-full items-center rounded-lg border border-[#D9D9D9] px-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                            errors.phoneNumber ? "border-[#dd1313]" : ""
+                          }`}
                           inputProps={{
                             name: "phoneNumber",
                             id: "phoneNumber",
-                            className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                              errors.phoneNumber ? "border-[#dd1313]" : ""
-                            }`,
                           }}
+                          inputClassName="flex-grow h-12 border-[#fff_!important] focus:ring-[#fff_!important] focus:border-[#fff_!important] placeholder"
+                          inputStyle={{ fontSize: "16px", border: "none" }}
                         />
                       )}
                     />
@@ -656,18 +661,23 @@ const BillingPage = ({ isMyBilling }: { isMyBilling: boolean }) => {
                     <Controller
                       control={controlForm2}
                       name="phoneNumber"
-                      render={({ field: { onChange, onBlur, value, ref } }) => (
+                      render={({ field: { onChange, value } }) => (
                         <PhoneInput
                           defaultCountry={"ng"}
                           value={value}
                           onChange={onChange}
+                          countrySelectorStyleProps={{
+                            buttonClassName: "h-12 border-[#fff_!important]",
+                          }}
+                          className={`h-12 w-full items-center rounded-lg border border-[#D9D9D9] px-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus:outline-1 focus:outline-[#197b30] ${
+                            errors2.phoneNumber ? "border-[#dd1313]" : ""
+                          }`}
                           inputProps={{
                             name: "phoneNumber",
                             id: "phoneNumber",
-                            className: `w-full h-12 text-[#333333] border border-[#D9D9D9] rounded-lg placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] pl-12 focus:outline-[#197b30] focus:outline-1 ${
-                              errors2.phoneNumber ? "border-[#dd1313]" : ""
-                            }`,
                           }}
+                          inputClassName="flex-grow h-12 border-[#fff_!important] focus:ring-[#fff_!important] focus:border-[#fff_!important] placeholder"
+                          inputStyle={{ fontSize: "16px", border: "none" }}
                         />
                       )}
                     />

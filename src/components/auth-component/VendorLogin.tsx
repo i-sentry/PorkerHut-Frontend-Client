@@ -33,10 +33,10 @@ const VendorLogin = () => {
       .then((res) => {
         setLoading(false);
         navigate("/vendor");
-        localStorage.removeItem("vendorAccessToken");
+        localStorage.removeItem("accessToken");
         localStorage.removeItem("vendor");
         localStorage.removeItem("user");
-        localStorage.setItem("vendorAccessToken", res?.data?.token);
+        localStorage.setItem("accessToken", res?.data?.token);
         localStorage.setItem("vendor", JSON.stringify(res?.data));
       })
       .catch((e) => {
