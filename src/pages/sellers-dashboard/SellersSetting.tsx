@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { BiShieldQuarter } from "react-icons/bi";
 import {
   MdOutlineEnhancedEncryption,
@@ -117,7 +117,7 @@ function SettingssTab() {
   //   setEyeState2((prev) => !prev);
   // };
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("234535353526");
 
   const vendorName = vendor?.vendor?.businessInformation?.businessOwnerName;
   // const accountOwnersName =
@@ -143,6 +143,7 @@ function SettingssTab() {
   const {
     register,
     handleSubmit,
+    control,
     reset,
     formState: { errors },
   } = useForm<FormData>({
@@ -169,27 +170,33 @@ function SettingssTab() {
         location: vendor?.vendor?.businessInformation.city || "",
         phoneNumber: vendor?.vendor?.sellerAccountInformation.phoneNumber || "",
       });
+
+      setPhoneNumber(vendor?.vendor?.sellerAccountInformation.phoneNumber);
     }
   }, [reset, vendor]);
 
   const onSubmit = (data: FormData) => {
-    setLoading(true);
+    // setLoading(true);
+    const { fullName, email, storeId, ...filteredData } = data;
+    // console.log(filteredData, "vendor");
+
     updateVendor
-      .mutateAsync(data)
+      .mutateAsync(filteredData)
       .then((res: any) => {
         setLoading(false);
         toast.success(
           "Your Account Information has been updated successfully!!!",
         );
-        reset();
+        setVendor({ ...vendor, vendor: res.data });
+        localStorage.setItem(
+          "vendor",
+          JSON.stringify({ ...vendor, vendor: res.data }),
+        );
       })
       .catch((err: any) => {
         setLoading(false);
+        toast.error(err.messsage);
       });
-    // data.phoneNumber = phoneNumber;
-
-    // data.email = email;
-    // data.storeName = storeName;
   };
 
   const {
@@ -326,6 +333,7 @@ function SettingssTab() {
                       </label>
                       <input
                         type="text"
+                        disabled
                         {...register("fullName")}
                         placeholder="Enter Your Full Name"
                         className={`form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30]  ${
@@ -367,6 +375,7 @@ function SettingssTab() {
                       </label>
                       <input
                         type="email"
+                        disabled
                         {...register("email")}
                         placeholder="Enter Your Email Address"
                         className={`form-input h-12 w-full rounded-md border border-[#D9D9D9] pl-5 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2]  focus:border-[#197b30] focus:ring-1 focus:ring-[#197b30] ${
@@ -448,22 +457,31 @@ function SettingssTab() {
                       >
                         Phone Number
                       </label>
-                      <PhoneInput
-                        defaultCountry={"ng"}
-                        value={phoneNumber || phone}
-                        // {...register("phonenumber")}
-                        className={`form-input h-12 w-full items-center rounded-md border border-[#D9D9D9] p-0 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus-within:border-[#197b30] focus-within:ring-[#197b30] ${
-                          errors.phoneNumber ? "border-[#dd1313]" : ""
-                        }`}
-                        countrySelectorStyleProps={{
-                          className: "border-[#fff_!important]",
-                        }}
-                        inputClassName="flex-grow h-full border-[#fff_!important] text-[16px] border-0 focus:border-none focus:ring-0"
-                        onChange={(phoneNumber) => setPhoneNumber(phoneNumber)}
-                        inputProps={{
-                          name: "phonenumber",
-                          id: "phonenumber",
-                        }}
+                      <Controller
+                        name="phoneNumber"
+                        control={control}
+                        render={({ field: { value, onChange } }) => (
+                          <PhoneInput
+                            defaultCountry={"ng"}
+                            value={phoneNumber || phone || value || ""}
+                            // {...register("phonenumber")}
+                            className={`form-input h-12 w-full items-center rounded-md border border-[#D9D9D9] p-0 text-[#333333] placeholder:text-[14px] placeholder:leading-[16px] placeholder:text-[#A2A2A2] focus-within:border-[#197b30] focus-within:ring-[#197b30] ${
+                              errors.phoneNumber ? "border-[#dd1313]" : ""
+                            }`}
+                            countrySelectorStyleProps={{
+                              className: "border-[#fff_!important]",
+                            }}
+                            inputClassName="flex-grow h-full border-[#fff_!important] text-[16px] border-0 focus:border-none focus:ring-0"
+                            onChange={(phone) => {
+                              setPhoneNumber(phone);
+                              onChange(phone);
+                            }}
+                            inputProps={{
+                              name: "phoneNumber",
+                              id: "phoneNumber",
+                            }}
+                          />
+                        )}
                       />
                       <div className="text-sm text-[#dd1313]">
                         {errors.phoneNumber?.message}
