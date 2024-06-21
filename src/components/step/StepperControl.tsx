@@ -97,6 +97,8 @@ export default function StepperControl() {
       const pricing = productData.pricing ?? {};
       const data = new FormData();
 
+      console.log(Object.keys(productData.productInformation));
+
       const answer1 =
         productInformation.mainColour ||
         productInformation.typeOfMeat ||

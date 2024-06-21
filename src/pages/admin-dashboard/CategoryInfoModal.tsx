@@ -1,5 +1,8 @@
 import React, { useContext, useState } from "react";
-import { useUpdateSingleCategory } from "../../services/hooks/Vendor/category";
+import {
+  useDisableCategory,
+  useUpdateSingleCategory,
+} from "../../services/hooks/Vendor/category";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
 import { BsX } from "react-icons/bs";
@@ -29,6 +32,7 @@ const CategoryInfoModal = ({
   const [action, setAction] = useState("");
   const updateCatImg = useUpdateSingleCategory(selectedCategory?._id);
   const [loading, setLoading] = useState(false);
+  const disableCategory = useDisableCategory(selectedCategory?._id);
 
   const handleChange = (e: any) => {
     const file = e.target.files && e.target.files[0];
@@ -84,6 +88,23 @@ const CategoryInfoModal = ({
           setLoading(false);
         });
     }
+  };
+
+  const handleDisableCategory = async () => {
+    disableCategory
+      .mutateAsync({})
+      .then((res: any) => {
+        toast.success(
+          res.data?.data?.isDisabled
+            ? `Disabled ${res.data?.data?.name} category`
+            : `Enabled ${res.data?.data?.name} category`,
+        );
+        refetch();
+        setIsOpen(false);
+      })
+      .catch((err: any) => {
+        toast.error(err.message);
+      });
   };
 
   return (
@@ -233,7 +254,9 @@ const CategoryInfoModal = ({
                   }}
                   className="rounded bg-green-700 px-5 py-2 text-white"
                 >
-                  Disable Category
+                  {selectedCategory?.isDisabled
+                    ? "Enable Category"
+                    : "Disable Category"}
                 </button>
               </div>
             )}
@@ -250,6 +273,7 @@ const CategoryInfoModal = ({
           id={selectedCategory?._id}
           refetch={refetch}
           closeInfo={setIsOpen}
+          disableCategory={handleDisableCategory}
         />
       )}
     </>

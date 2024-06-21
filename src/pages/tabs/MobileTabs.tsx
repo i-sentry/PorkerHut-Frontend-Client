@@ -82,8 +82,9 @@ const MobileTabs = () => {
                 </span>
               </div>
 
-              {tabs.map((tab) => (
+              {tabs.map((tab, index) => (
                 <div
+                  key={index}
                   onClick={() => handleTab(tab?.name, tab?.link)}
                   className="group mt-10  flex cursor-pointer select-none   items-center gap-4 rounded-sm text-[#797979] hover:text-[#197B30]"
                 >

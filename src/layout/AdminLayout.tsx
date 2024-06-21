@@ -25,7 +25,9 @@ const AdminLayout = () => {
     const path = window.location.pathname;
     if (
       path.startsWith("/admin") &&
-      (!accessToken || accessToken === "undefined" || accessToken === null) &&
+      (!admin?.accessToken ||
+        admin?.accessToken === "undefined" ||
+        admin?.accessToken === null) &&
       !admin?.isAdmin
     ) {
       navigate("/admin-login");
@@ -38,7 +40,7 @@ const AdminLayout = () => {
   }, [admin]);
 
   const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-  const SESSION_KEY = "accessTokenAdmin";
+  const SESSION_KEY = "accessToken";
 
   useEffect(() => {
     const checkSession = () => {

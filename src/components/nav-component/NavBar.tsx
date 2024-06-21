@@ -89,10 +89,11 @@ const NavBar = ({ border }: { border?: any }) => {
 
   useEffect(() => {
     const checkSession = () => {
+      const storedSession = JSON.parse(localStorage.getItem("user") as string);
       try {
-        const storedSession = localStorage.getItem(SESSION_KEY) as string;
-        const decodedToken: { iat: number; exp: number } =
-          jwtDecode(storedSession);
+        const decodedToken: { iat: number; exp: number } = jwtDecode(
+          storedSession?.accessToken,
+        );
 
         const storedTimestamp = decodedToken?.exp * 1000;
         const currentTime = new Date().getTime();
@@ -109,7 +110,9 @@ const NavBar = ({ border }: { border?: any }) => {
           navigate("/login?q=customer");
         }
       } catch (error) {
-        console.error("Error checking session:", error);
+        if (storedSession?.accessToken) {
+          console.error("Error checking session:", error);
+        }
         // Handle the error (e.g., log it, show a user-friendly message)
       }
     };

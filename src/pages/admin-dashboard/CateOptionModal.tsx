@@ -15,6 +15,7 @@ const CateOptionModal = ({
   id,
   refetch,
   closeInfo,
+  disableCategory,
 }: {
   message: string;
   action: string;
@@ -22,6 +23,7 @@ const CateOptionModal = ({
   id: any;
   refetch: any;
   closeInfo: any;
+  disableCategory: any;
 }) => {
   const [loading, setLoading] = useState(false);
   const deleteCat = useDeleteSingleCategory(id);
@@ -50,7 +52,7 @@ const CateOptionModal = ({
     if (action.toLowerCase() === "disable") {
       setShowOption(false);
       setLoading(false);
-
+      disableCategory();
       return;
     }
   };

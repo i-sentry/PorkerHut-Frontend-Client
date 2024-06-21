@@ -3,10 +3,12 @@ import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
   makeCustomDeleteRequest,
+  makeCustomPatchRequest,
   makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
   makePostRequestCustom,
+  makePutRequest,
 } from "../../../api";
 
 export const useGetAllCategories = () => {
@@ -37,6 +39,13 @@ export const useGetOneCategory = (id: string | null) => {
   });
 };
 
+export const useDisableCategory = (id: string | null) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.ProductsCategory.getOneCategory(id)),
+  });
+};
+
 export const useCreateCategories = () => {
   return useQueryMutation({
     mutationFn: (data: any) =>
@@ -64,7 +73,7 @@ export const useCreateCategoriesQuestions = () => {
 export const useUpdateSingleCategory = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makeCustomPutRequest(data, api.ProductsCategory.getOneCategory(id)),
+      makeCustomPatchRequest(data, api.ProductsCategory.getOneCategory(id)),
   });
 };
 
@@ -78,7 +87,7 @@ export const useCreateSubcategory = () => {
 export const useUpdateSingleSubcategory = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makeCustomPutRequest(data, api.ProductsCategory.singleSubcategory(id)),
+      makeCustomPatchRequest(data, api.ProductsCategory.singleSubcategory(id)),
   });
 };
 
