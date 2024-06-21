@@ -3,6 +3,7 @@ import useQueryMutation from "../../../../lib/useQueryMutation";
 import {
   api,
   makeCustomDeleteRequest,
+  makeCustomPatchRequest,
   makeCustomPutRequest,
   makeDeleteRequest,
   makeGetRequest,
@@ -72,7 +73,7 @@ export const useCreateCategoriesQuestions = () => {
 export const useUpdateSingleCategory = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makeCustomPutRequest(data, api.ProductsCategory.getOneCategory(id)),
+      makeCustomPatchRequest(data, api.ProductsCategory.getOneCategory(id)),
   });
 };
 
@@ -86,7 +87,7 @@ export const useCreateSubcategory = () => {
 export const useUpdateSingleSubcategory = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makeCustomPutRequest(data, api.ProductsCategory.singleSubcategory(id)),
+      makeCustomPatchRequest(data, api.ProductsCategory.singleSubcategory(id)),
   });
 };
 

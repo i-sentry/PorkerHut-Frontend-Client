@@ -16,7 +16,9 @@ const Layout = () => {
   const vendors = JSON.parse(localStorage.getItem("vendor") as string);
   const vendor = vendors?.vendor;
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = JSON.parse(
+    localStorage.getItem("vendor") as string,
+  )?.token;
 
   const [vendorStatus, setVendorStatus] = useState<string>(vendor?.storeStatus);
   const { data: vInfo } = useGetVendorById(vendor?._id);
