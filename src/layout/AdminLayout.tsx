@@ -25,7 +25,9 @@ const AdminLayout = () => {
     const path = window.location.pathname;
     if (
       path.startsWith("/admin") &&
-      (!accessToken || accessToken === "undefined" || accessToken === null) &&
+      (!admin?.accessToken ||
+        admin?.accessToken === "undefined" ||
+        admin?.accessToken === null) &&
       !admin?.isAdmin
     ) {
       navigate("/admin-login");

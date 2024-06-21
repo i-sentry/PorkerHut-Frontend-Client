@@ -353,6 +353,11 @@ const Category = () => {
                               >
                                 View
                               </button>
+                              <span
+                                className={`text-sm ${cat?.isDisabled ? "text-[#e10]" : "text-green-700"}`}
+                              >
+                                {cat?.isDisabled ? "Disabled" : "Enabled"}
+                              </span>
                             </div>
                           )}
                         </div>

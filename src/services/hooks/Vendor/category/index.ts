@@ -42,7 +42,7 @@ export const useGetOneCategory = (id: string | null) => {
 export const useDisableCategory = (id: string | null) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
-      makePutRequest(data, api.ProductsCategory.getOneCategory(id)),
+      makeCustomPutRequest(data, api.ProductsCategory.getOneCategory(id)),
   });
 };
 

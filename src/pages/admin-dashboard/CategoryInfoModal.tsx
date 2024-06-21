@@ -94,10 +94,16 @@ const CategoryInfoModal = ({
     disableCategory
       .mutateAsync({})
       .then((res: any) => {
-        console.log(res, "disable category");
+        toast.success(
+          res.data?.data?.isDisabled
+            ? `Disabled ${res.data?.data?.name} category`
+            : `Enabled ${res.data?.data?.name} category`,
+        );
+        refetch();
+        setIsOpen(false);
       })
       .catch((err: any) => {
-        console.log(err, "disable category err");
+        toast.error(err.message);
       });
   };
 
@@ -248,7 +254,9 @@ const CategoryInfoModal = ({
                   }}
                   className="rounded bg-green-700 px-5 py-2 text-white"
                 >
-                  Disable Category
+                  {selectedCategory?.isDisabled
+                    ? "Enable Category"
+                    : "Disable Category"}
                 </button>
               </div>
             )}
