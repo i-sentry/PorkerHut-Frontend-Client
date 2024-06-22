@@ -11,16 +11,23 @@ import {
   useGetAllUsersAggregate,
 } from "../../services/hooks/orders";
 
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
+export const StatusColumn = ({ data }: { data: any }) => {
+  console.log(data?.userData?.status);
+  switch (data?.userData?.status?.toLowerCase()) {
     case "active":
-      return <span className="  text-[#22C55E] ">Active</span>;
+      return (
+        <span className="text-sm font-normal  text-[#22C55E] ">Active</span>
+      );
 
     case "inactive":
-      return <span className=" capitalize  text-[#F91919]">inactive</span>;
+      return (
+        <span className=" text-sm font-normal capitalize  text-[#F91919]">
+          Inactive
+        </span>
+      );
     default:
       return (
-        <span className="text-sm font-normal text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#F91919] ">Inactive</span>
       );
   }
 };
@@ -78,8 +85,9 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Status",
-    accessor: "status",
-    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+    accessor: (row: any) => {
+      return <StatusColumn data={row} />;
+    },
   },
 ];
 
