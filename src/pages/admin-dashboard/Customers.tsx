@@ -1,26 +1,38 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import Popover from "../../components/utility/PopOver";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
-import { useGetAllUsers } from "../../services/hooks/users";
+import {
+  useEnableDisableUser,
+  useGetAllUsers,
+} from "../../services/hooks/users";
 import logo from "../../assets/images/porkerlogo.png";
 import { Tooltip } from "../../components/utility/ToolTip";
 import {
   useGetAggregateUserOrders,
   useGetAllUsersAggregate,
 } from "../../services/hooks/orders";
+import { toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
+import AdminAccessContext from "../../context/AdminAccessProvider";
 
-export const StatusColumn = ({ data }: { data: string }) => {
-  switch (data?.toLowerCase()) {
+export const StatusColumn = ({ data }: { data: any }) => {
+  switch (data?.userData?.status?.toLowerCase()) {
     case "active":
-      return <span className="  text-[#22C55E] ">Active</span>;
+      return (
+        <span className="text-sm font-normal  text-[#22C55E] ">Active</span>
+      );
 
     case "inactive":
-      return <span className=" capitalize  text-[#F91919]">inactive</span>;
+      return (
+        <span className=" text-sm font-normal capitalize  text-[#F91919]">
+          Inactive
+        </span>
+      );
     default:
       return (
-        <span className="text-sm font-normal text-[#202223] ">{data}</span>
+        <span className="text-sm font-normal text-[#F91919] ">Inactive</span>
       );
   }
 };
@@ -78,15 +90,16 @@ const Tcolumns: readonly Column<object>[] = [
   },
   {
     Header: "Status",
-    accessor: "status",
-    Cell: ({ cell: { value } }: any) => <StatusColumn data={value} />,
+    accessor: (row: any) => {
+      return <StatusColumn data={row} />;
+    },
   },
 ];
 
 const Customers = () => {
   const [users, setUsers] = useState<any[]>([]);
   const { data: allUser, isLoading } = useGetAllUsers();
-  const { data: user } = useGetAllUsersAggregate();
+  const { data: user, refetch } = useGetAllUsersAggregate();
   const userAggregate = useMemo(
     () => (user?.data ? user?.data : []),
     [user?.data],
@@ -109,48 +122,16 @@ const Customers = () => {
     Header: () => <div></div>,
     // The cell can use the individual row's getToggleRowSelectedProps method
     // to the render a checkbox
-    Cell: (props: any) => (
-      <>
-        <Popover
-          buttonContent={<BsThreeDotsVertical size={20} />}
-          placementOrder={"auto"}
-          closeOnClick={true}
-        >
-          <div className="flex w-[150px] flex-col py-2">
-            <button
-              className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-              onClick={() => {
-                //  router.push(
-                //    `/assets/corporate-assets/${props.row.original.id}`
-                //  );
-              }}
-            >
-              Activate
-            </button>
-            {/* {permissions.canEdit && ( */}
-            <button
-              className="w-full py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-              onClick={() => {
-                //  setEditAsset(true);
-                //  setAssetId(props.row.original.id);
-              }}
-            >
-              Deactivate
-            </button>
-            {/* )} */}
-            {/* {permissions.canDelete && (
-               <button
-                 className="hover:bg-[#E9F5EC] font-light py-1 px-3 transition-all duration-300 text-[#667085] w-full text-left"
-                 onClick={() => setDeleteCompany(props.row.original)}
-               >
-                 Delete Asset
-               </button>
-             )} */}
-          </div>
-        </Popover>
-      </>
-    ),
+    Cell: (props: any) => {
+      return (
+        <>
+          <UserActions user={props?.row?.original} refetch={refetch} />
+        </>
+      );
+    },
   };
+
+  console.log(users, "users", user?.data);
 
   return (
     <div className="py-6 pl-8 pr-5 ">
@@ -203,3 +184,61 @@ const Customers = () => {
 };
 
 export default Customers;
+
+const UserActions = ({ user, refetch }: { user: any; refetch: any }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: enableDisableUser } = useEnableDisableUser(
+    user?.userData?._id,
+  );
+   const { userRole } = useContext(AdminAccessContext);
+
+  const handleEnableDisable = async () => {
+    setIsLoading(true);
+    try {
+      const res = await enableDisableUser({});
+      refetch();
+      console.log(res, "user res");
+      toast.success(
+        `${res?.data?.data?.lastName}'s account is now ${res?.data?.data?.status}`,
+      );
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err, "user err");
+      toast.success("Error Occured");
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {isLoading ? (
+        <span>
+          <CgSpinner className="animate-spin" size={20} />
+        </span>
+      ) : (
+        <Popover
+          buttonContent={<BsThreeDotsVertical size={20} />}
+          placementOrder={"auto"}
+          closeOnClick={true}
+        >
+          <div className="flex w-[150px] flex-col py-2">
+            <button
+              disabled={user?.userData?.status?.toLowerCase() === "active"}
+              className="w-full cursor-pointer py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC] disabled:cursor-not-allowed disabled:text-neutral-300"
+              onClick={handleEnableDisable}
+            >
+              Activate
+            </button>
+            <button
+              disabled={user?.userData?.status?.toLowerCase() === "inactive"}
+              className="w-full cursor-pointer py-1 px-3 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC] disabled:cursor-not-allowed disabled:text-neutral-300"
+              onClick={handleEnableDisable}
+            >
+              Deactivate
+            </button>
+          </div>
+        </Popover>
+      )}
+    </>
+  );
+};
