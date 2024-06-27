@@ -6,6 +6,7 @@ import {
   api,
   makeGetRequestWithCustomHeader,
   makeCustomPutRequest,
+  makeCustomPatchRequest,
 } from "../../api";
 import { ILoginUser, ISignUpUser } from "../../serviceType";
 
@@ -55,6 +56,13 @@ export const useUpdateUserInfo = (id: string) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
       makeCustomPutRequest(data, api.Users.singleUser(id)),
+  });
+};
+
+export const useEnableDisableUser = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPatchRequest(data, api.Users.singleUser(id)),
   });
 };
 

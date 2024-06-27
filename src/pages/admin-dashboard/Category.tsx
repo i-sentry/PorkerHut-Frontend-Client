@@ -245,7 +245,7 @@ const Category = () => {
         {!isLoading && (
           <div className="mt-6">
             {!isLoading && category?.length > 0 && (
-              <div className="rounded-md border-0 bg-[#F4F4F4]">
+              <div className="rounded-md border-0 bg-[#F4F4F4] xl:w-[70%]">
                 <div className=" border-1  flex items-center justify-between rounded-t-md border border-[#D9D9D9] px-4">
                   <div className="w-10 text-sm font-light "></div>
                   <div className="w-1/3 border-l border-r border-[#D9D9D9] pl-5 text-sm font-light">
@@ -253,9 +253,14 @@ const Category = () => {
                       Names
                     </h2>
                   </div>
-                  <div className="w-3/4 pl-5 text-sm font-light">
+                  <div className="w-2/4 pl-5 text-sm font-light">
                     <h2 className="py-3 text-[20px] font-normal leading-[23px] text-[#333333]">
                       Action
+                    </h2>
+                  </div>
+                  <div className="w-1/4 border-l pl-5 text-sm font-light xl:w-[15%]">
+                    <h2 className="py-3 text-[20px] font-normal leading-[23px] text-[#333333]">
+                      Status
                     </h2>
                   </div>
                 </div>
@@ -302,7 +307,7 @@ const Category = () => {
                           </div>
                         )}
                       </div>
-                      <div className="w-3/4 pl-5">
+                      <div className="w-2/4 pl-5">
                         <div className="">
                           {editIndex === index ? (
                             <div className="flex justify-start gap-3 ">
@@ -353,13 +358,15 @@ const Category = () => {
                               >
                                 View
                               </button>
-                              <span
-                                className={`text-sm ${cat?.isDisabled ? "text-[#e10]" : "text-green-700"}`}
-                              >
-                                {cat?.isDisabled ? "Disabled" : "Enabled"}
-                              </span>
                             </div>
                           )}
+                        </div>
+                      </div>
+                      <div className="w-1/4 border-l border-[#D9D9D9] pl-5 xl:w-[15%]">
+                        <div
+                          className={`py-3 text-base ${cat?.isDisabled ? "text-[#e10]" : "text-green-700"}`}
+                        >
+                          {cat?.isDisabled ? "Disabled" : "Enabled"}
                         </div>
                       </div>
                     </div>

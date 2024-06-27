@@ -79,7 +79,6 @@ const Login = () => {
       });
   });
 
-
   const toggleEye = (e: any) => {
     e.preventDefault();
     setEyeState((prev) => !prev);
@@ -105,7 +104,7 @@ const Login = () => {
         <>
           <div className="flex h-full items-center  justify-center xxs:p-3 md:py-8">
             <div className="w-full max-w-xl   rounded bg-[#fff] p-4 shadow-md sm:p-8">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-y-2">
                 <div className="">
                   <h1 className="text-left text-lg  font-bold text-[#333333] ">
                     Login
@@ -114,9 +113,9 @@ const Login = () => {
                     Enter your login details
                   </p>
                 </div>
-                <div>
+                <div className="">
                   {isError && (
-                    <span className="rounded-md bg-red-200 p-2 text-sm text-[#f91919]">
+                    <span className="inline-block rounded-md bg-red-200 p-2 text-sm text-[#f91919]">
                       {isError}
                     </span>
                   )}
