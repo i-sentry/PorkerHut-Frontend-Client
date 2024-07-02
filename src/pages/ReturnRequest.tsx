@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import AppLayout from "../components/utility/AppLayout";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetOrdersById } from "../services/hooks/orders";
+import {
+  useGetOrdersById,
+  useUpdateOrderStatus,
+} from "../services/hooks/orders";
+import { toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 const ReturnRequest = () => {
   const { id, productId } = useParams();
@@ -9,16 +14,48 @@ const ReturnRequest = () => {
   const { data, isLoading } = useGetOrdersById(id as string);
   const order = useMemo(() => data?.data?.order, [id]);
   const [reason, setReason] = useState<string>("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const selectedProduct = order?.productDetails?.find(
     (item: any) => item?.productID?._id === productId,
   );
   const [selectedImg, setSelectedImg] = useState(0);
   const images = selectedProduct?.productID?.images;
+  const returnRequest = useUpdateOrderStatus(id as string);
 
-  const handleSubmit = (e: any) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
-    navigate("/my__orders/request-success");
+    if (reason?.length > 1) {
+      setError(false);
+
+      returnRequest
+        .mutateAsync({
+          status: "returned",
+          reason,
+        })
+        .then((res: any) => {
+          navigate("/my__orders/request-success");
+          console.log(res);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          toast.error(err.message);
+          console.log(err, err);
+          setLoading(false);
+        });
+    } else {
+      setError(true);
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e: any) => {
+    if (reason?.length > 1) {
+      setError(false);
+    }
+    setReason(e.target.value);
   };
 
   return (
@@ -101,7 +138,7 @@ const ReturnRequest = () => {
             </ul>
 
             <div className="mt-4">
-              <form id="return-order" onSubmit={(e) => handleSubmit(e)}>
+              <form id="return-order" onSubmit={(e: any) => onSubmit(e)}>
                 <label htmlFor="reason" className="mb-2 inline-block">
                   Reason
                 </label>
@@ -110,9 +147,14 @@ const ReturnRequest = () => {
                   placeholder="Type here"
                   id="reason"
                   value={reason}
-                  onChange={(e) => setReason(e.target.value)}
-                  className="h-[150px] w-full resize-none rounded border border-[#D9D9D9] p-3 placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700"
+                  onChange={(e) => handleChange(e)}
+                  className={`h-[150px] w-full resize-none rounded border border-[#D9D9D9] p-3 placeholder:text-[#A2A2A2] focus:border-green-700 focus:ring-green-700 ${error && "border-red-600 focus:border-red-600 focus:ring-red-600"}`}
                 ></textarea>
+                {error && (
+                  <p className="mt-1 text-sm text-red-600">
+                    you need to write a reason for this request
+                  </p>
+                )}
 
                 <div className="mt-4 flex justify-end gap-2">
                   <button
@@ -122,10 +164,20 @@ const ReturnRequest = () => {
                     Cancel
                   </button>
                   <button
+                    disabled={loading}
                     type="submit"
-                    className="rounded bg-green-700 px-6 py-2 text-white"
+                    className="inline-flex items-center gap-2 rounded bg-green-700 px-6 py-2 text-white disabled:bg-green-900 disabled:opacity-50"
                   >
-                    Submit
+                    {loading ? (
+                      <>
+                        <span>
+                          <CgSpinner size={20} className="animate-spin" />
+                        </span>
+                        Processing...
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 </div>
               </form>
