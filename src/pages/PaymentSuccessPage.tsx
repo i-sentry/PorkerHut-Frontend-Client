@@ -12,11 +12,15 @@ import { clearCart, setProducts } from "../redux/features/product/productSlice";
 const PaymentSuccessPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user") as string);
+  const orderId = JSON.parse(localStorage.getItem("order_id") as string);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const handleClick = () => {
+    localStorage.removeItem("order_id");
     navigate("/");
   };
 
@@ -24,6 +28,7 @@ const PaymentSuccessPage = () => {
     localStorage.setItem("cart", "{}");
     dispatch(clearCart());
   }, []);
+
 
   return (
     <>
@@ -57,15 +62,15 @@ const PaymentSuccessPage = () => {
                 >
                   <img src={VerifyImg} alt="" className="h-24 w-24" />
                 </div>
-                <h1 className="pt-4 text-[18px] font-medium leading-7 text-[#333333] md:text-base ">
+                <h1 className="mb-2 pt-4 text-2xl font-semibold leading-7 text-[#333333]">
                   Payment Successful
                 </h1>
-                <p className="text-xs text-[#333333] md:text-sm">
-                  Your Order ID #101101 has been placed
+                <p className="text-sm text-[#333333]">
+                  Your Order ID #{orderId} has been placed
                 </p>
-                <p className="mb-4 px-4 text-xs text-[#333333] md:text-xs">
-                  We sent an email to williamsnado@gmail.com with your order
-                  confirmation and bill.
+                <p className="mb-4 px-4 text-sm text-[#333333]">
+                  We sent an email to {user?.email} with your order confirmation
+                  and bill.
                 </p>
                 <button
                   onClick={handleClick}
