@@ -13,6 +13,12 @@ import Pagination from "../Table/Pagination";
 import IndeterminateCheckbox from "../Table/IndeterminateCheckBox";
 import { OrderDropDown } from "../Table/OrderDropDown";
 import { TabSelector } from "../utility/TabSelector";
+import axios from "axios";
+import { useOrderUpdate } from "../../store/orderStore";
+import { useUpdateOrdersStatus } from "../../services/hooks/orders";
+import { capitalize } from "lodash";
+import { toast } from "react-toastify";
+import { CgSpinner } from "react-icons/cg";
 
 export type ITable = {
   tabs: any;
@@ -28,6 +34,13 @@ export type ITable = {
   statusType?: string;
   nextpage?: () => void;
   prevPage?: () => void;
+  refetch?: any;
+};
+
+type SelectOption = {
+  value: string;
+  label: string;
+  // Add any other properties you need
 };
 
 //@ts-ignore
@@ -45,12 +58,17 @@ const AdminTable = ({
   statusType,
   nextpage,
   prevPage,
+  refetch,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
   const data = useMemo(() => Tdata, [Tdata]);
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
   const [chosenTab, setChosenTab] = useState(tabs[0]);
+  const { selectedOption, setSelectedOption, selectedRow, setSelectedRow } =
+    useOrderUpdate();
+  const updateOrders = useUpdateOrdersStatus();
+  const [loading, setLoading] = useState(false);
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -58,13 +76,13 @@ const AdminTable = ({
         ? [
             {
               id: "selection",
-              Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
-                <div>
-                  <IndeterminateCheckbox
-                    {...getToggleAllPageRowsSelectedProps()}
-                  />
-                </div>
-              ),
+              // Header: ({ getToggleAllPageRowsSelectedProps }: any) => (
+              //   <div>
+              //     <IndeterminateCheckbox
+              //       {...getToggleAllPageRowsSelectedProps()}
+              //     />
+              //   </div>
+              // ),
               Cell: ({ row }: any) => (
                 <div>
                   <IndeterminateCheckbox
@@ -107,8 +125,17 @@ const AdminTable = ({
     setGlobalFilter,
     gotoPage,
     setPageSize,
+    selectedFlatRows,
   } = table;
+
   const { globalFilter, pageSize } = state;
+
+  useEffect(() => {
+    if (selectedFlatRows.length > 0) {
+      // You can perform any action with the selected row here
+      setSelectedRow(selectedFlatRows.map((row: any) => row?.original?._id));
+    }
+  }, [selectedFlatRows]);
 
   useEffect(() => {
     if (chosenTab === tabs[0]) {
@@ -145,6 +172,42 @@ const AdminTable = ({
       }
     }
   }, [chosenTab, TData, tabs]);
+
+  const handleOrderStatus = (orderIds: String[], status: string) => {
+    setLoading(true);
+    updateOrders
+      .mutateAsync({ orderIds: orderIds, status })
+      .then((res: any) => {
+        console.log(res, "res");
+        setLoading(false);
+        refetch();
+        toast.success(`Orders are set to ${capitalize(status)}`);
+      })
+      .catch((err: any) => {
+        console.log(err, "err");
+        setLoading(false);
+        toast.error(err.message);
+      });
+
+    console.log(orderIds, status, "order status");
+  };
+
+  const handleOrders = (value: string, orderId: String[]) => {
+    switch (value.toLowerCase()) {
+      case "set_to_ready_to_go":
+        handleOrderStatus(orderId, "ready to go");
+        break;
+      case "complete_order":
+        handleOrderStatus(orderId, "completed");
+        break;
+      case "decline_order":
+        handleOrderStatus(orderId, "failed");
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <>
@@ -188,12 +251,23 @@ const AdminTable = ({
                 </span>
               )}
             </div>
-            <div className="max-w-xl ">
-              <OrderDropDown options={dropDownOption} />
+            <div className="w-[250px]">
+              <OrderDropDown
+                options={dropDownOption}
+                optionSelected={setSelectedOption}
+              />
             </div>
-            <div className="cursor-pointer rounded-md bg-[#197B30] px-4 py-1.5 text-sm text-[#fff]">
-              Go
-            </div>
+            <button
+              disabled={loading}
+              onClick={() => handleOrders(selectedOption?.value, selectedRow)}
+              className="cursor-pointer self-stretch rounded-md bg-[#197B30] px-6 py-1.5 text-sm text-[#fff] disabled:bg-opacity-25"
+            >
+              {loading ? (
+                <CgSpinner size={20} className="animate-spin" />
+              ) : (
+                "Go"
+              )}
+            </button>
           </div>
         )}
         <div className=" xxs:block md:flex md:w-[350px] md:justify-end">

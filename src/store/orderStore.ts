@@ -21,3 +21,22 @@ export const useOrderStore = create<IOrderStore>((set) => ({
   setSelectedOrderId: (id: string) =>
     set((state: any) => ({ selectedOrderId: id })),
 }));
+
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
+type StoreState = {
+  selectedOption: SelectOption;
+  selectedRow: string[];
+  setSelectedOption: (option: SelectOption) => void;
+  setSelectedRow: (row: string[]) => void;
+};
+
+export const useOrderUpdate = create<StoreState>((set) => ({
+  selectedOption: { value: "", label: "" },
+  selectedRow: [],
+  setSelectedOption: (option) => set({ selectedOption: option }),
+  setSelectedRow: (row) => set({ selectedRow: row }),
+}));

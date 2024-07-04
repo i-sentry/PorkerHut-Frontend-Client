@@ -50,6 +50,12 @@ export const useGetCustomersOrder = (id: string) => {
   });
 };
 
+export const useUpdateOrdersStatus = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makeCustomPutRequest(data, api.Order.OrderBatch),
+  });
+};
+
 export const useGetAggregateVendorOrders = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Order.aggregateVendorOrders(id)),
