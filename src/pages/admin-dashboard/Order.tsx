@@ -22,6 +22,7 @@ export const StatusColumn = ({ data }: { data: string }) => {
     case "completed":
       return <span className="text-[#22C55E]">Completed</span>;
     case "failed":
+    case "cancelled":
       return <span className=" text-[#F91919]">Failed</span>;
     case "pending":
       return <span className=" text-[#F29339]">Pending</span>;
