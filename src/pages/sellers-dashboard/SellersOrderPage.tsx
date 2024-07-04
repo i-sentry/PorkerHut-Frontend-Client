@@ -25,6 +25,8 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className=" text-[#198df9]">Returned</span>;
     case "returned Failed":
       return <span className=" text-[#F91919]">Returned Failed</span>;
+    case "cancelled":
+      return <span className=" text-[#198df9]">Cancelled</span>;
     default:
       return (
         <span className="text-sm font-normal text-[#202223] ">{data}</span>

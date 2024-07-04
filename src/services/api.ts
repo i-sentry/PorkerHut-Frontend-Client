@@ -116,6 +116,7 @@ export const api = {
   Order: {
     order: "/api/orders",
     orderbyId: (id: string) => `/api/orders/${id}`,
+    orderStatus: (id: string) => `/api/orders/${id}/status`,
     vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
     aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,

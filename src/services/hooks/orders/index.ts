@@ -3,6 +3,7 @@ import useQueryMutation from "../../../lib/useQueryMutation";
 import { Order } from "../../../pages/BillingPage";
 import {
   api,
+  makeCustomPutRequest,
   makeGetRequest,
   makeGetRequestWithCustomHeader,
   makePostRequestCustom,
@@ -25,6 +26,13 @@ export const useGetOrdersById = (id: string) => {
   return useQueryAction({
     queryFn: () => makeGetRequest(api.Order.orderbyId(id)),
     queryKey: ["order +we"],
+  });
+};
+
+export const useUpdateOrderStatus = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPutRequest(data, api.Order.orderStatus(id)),
   });
 };
 
