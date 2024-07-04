@@ -287,7 +287,7 @@ const Tcolumns: readonly Column<object>[] = [
     accessor: (row: any) => `₦${row?.totalAmount.toLocaleString()}`,
   },
   {
-    Header: "Status",
+    Header: "Order Status",
     accessor: (row: any) => {
       switch (row?.status?.toLowerCase()) {
         case "completed":
@@ -306,6 +306,24 @@ const Tcolumns: readonly Column<object>[] = [
               {row?.status}
             </span>
           );
+      }
+    },
+  },
+  {
+    Header: "Payment Status",
+    accessor: (row: any) => {
+      if (row?.isPaid) {
+        return (
+          <span className="rounded bg-green-700 bg-opacity-10 p-1 px-3 text-green-700">
+            Success
+          </span>
+        );
+      } else {
+        return (
+          <span className="rounded bg-red-600 bg-opacity-10 p-1 px-3 text-red-600">
+            Failed
+          </span>
+        );
       }
     },
   },
