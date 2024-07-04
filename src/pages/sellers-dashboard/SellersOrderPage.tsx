@@ -11,6 +11,8 @@ import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
 import logo from "../../assets/images/porkerlogo.png";
 import { MdProductionQuantityLimits } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const StatusColumn = ({ data }: { data: string }) => {
   switch (data?.toLowerCase()) {
@@ -25,6 +27,8 @@ export const StatusColumn = ({ data }: { data: string }) => {
       return <span className=" text-[#198df9]">Returned</span>;
     case "returned Failed":
       return <span className=" text-[#F91919]">Returned Failed</span>;
+    case "cancelled":
+      return <span className=" text-[#198df9]">Cancelled</span>;
     default:
       return (
         <span className="text-sm font-normal text-[#202223] ">{data}</span>
@@ -52,10 +56,11 @@ const SellersOrderPage = () => {
   const [completed, setCompleted] = useState<number>(0);
   const [failed, setFailed] = useState<number>(0);
   const [returned, setReturned] = useState<number>(0);
+  const [ready, setReady] = useState<number>(0);
 
   const openModal = useShowModal((state) => state.openModal);
   const store = JSON.parse(localStorage.getItem("vendor") as string);
-  const { data, isLoading } = useGetVendorOrders(store?.vendor?._id);
+  const { data, isLoading, refetch } = useGetVendorOrders(store?.vendor?._id);
   const orders = data?.data?.orders;
 
   useEffect(() => {
@@ -103,26 +108,46 @@ const SellersOrderPage = () => {
       accessor: (row: any) => row?.productDetails?.length,
     },
     {
-      Header: "Status",
+      Header: "Order Status",
       accessor: (row: any) => {
         switch (row?.status?.toLowerCase()) {
           case "completed":
             return <span className="text-[#22C55E]">Completed</span>;
-
+          case "cancelled":
           case "failed":
             return <span className=" text-[#F91919]">Failed</span>;
-          case "pending":
-            return <span className=" text-[#F29339]">Pending</span>;
+          case "ready to go":
+            return <span className=" text-[#F29339]">Ready to go</span>;
           case "returned":
             return <span className=" text-[#198df9]">Returned</span>;
           case "returned Failed":
             return <span className=" text-[#F91919]">Returned Failed</span>;
+
+          case "pending":
           default:
             return (
-              <span className="text-sm font-normal text-[#202223] ">
-                {row?.status}
+              <span className="text-sm  font-normal text-[#202223] ">
+                Pending
               </span>
             );
+        }
+      },
+    },
+    {
+      Header: "Payment Status",
+      accessor: (row: any) => {
+        if (row?.isPaid) {
+          return (
+            <span className="rounded bg-green-700 bg-opacity-10 p-1 px-3 text-green-700">
+              Success
+            </span>
+          );
+        } else {
+          return (
+            <span className="rounded bg-red-600 bg-opacity-10 p-1 px-3 text-red-600">
+              Failed
+            </span>
+          );
         }
       },
     },
@@ -149,6 +174,7 @@ const SellersOrderPage = () => {
 
   return (
     <>
+      <ToastContainer />
       {openModal && <OrderSideModal orderInfo={orderInfo} />}
       <div className="mt-2 px-4 pb-10">
         {/* MOBILE OVERVIEW ORDERS */}
@@ -162,11 +188,17 @@ const SellersOrderPage = () => {
                 setCompleted={setCompleted}
                 setFailed={setFailed}
                 setReturned={setReturned}
+                setReady={setReady}
               />,
               <NewCard
                 loading={isLoading}
                 orderLength={pending}
                 orderType={"Pending Orders"}
+              />,
+              <NewCard
+                loading={isLoading}
+                orderLength={ready}
+                orderType="Ready to Go"
               />,
               <NewCard
                 loading={isLoading}
@@ -196,6 +228,7 @@ const SellersOrderPage = () => {
             setCompleted={setCompleted}
             setFailed={setFailed}
             setReturned={setReturned}
+            setReady={setReady}
           />
           <NewCard
             loading={isLoading}
@@ -204,7 +237,7 @@ const SellersOrderPage = () => {
           />
           <NewCard
             loading={isLoading}
-            orderLength={pending}
+            orderLength={ready}
             orderType="Ready to Go"
           />
 
@@ -262,6 +295,7 @@ const SellersOrderPage = () => {
               showIcon={true}
               showCheckbox={true}
               showDropDown={true}
+              refetch={refetch}
             />
           </div>
         )}
@@ -300,7 +334,8 @@ const MonthSelector: React.FC<{
   setCompleted: any;
   setFailed: any;
   setReturned: any;
-}> = ({ data, setPending, setCompleted, setFailed, setReturned }) => {
+  setReady: any;
+}> = ({ data, setPending, setCompleted, setFailed, setReturned, setReady }) => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
     new Date().getMonth() + 1,
   );
@@ -322,10 +357,18 @@ const MonthSelector: React.FC<{
 
   useEffect(() => {
     setPending(getOrderStatusLength(filteredData, "pending"));
+    setReady(getOrderStatusLength(filteredData, "ready to go"));
     setCompleted(getOrderStatusLength(filteredData, "completed"));
     setFailed(getOrderStatusLength(filteredData, "failed"));
     setReturned(getOrderStatusLength(filteredData, "returned"));
-  }, [filteredData, setCompleted, setFailed, setPending, setReturned]);
+  }, [
+    filteredData,
+    setCompleted,
+    setFailed,
+    setPending,
+    setReturned,
+    setReady,
+  ]);
 
   return (
     <div className="flex h-[150px] flex-1 flex-col  items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3 md:h-auto">

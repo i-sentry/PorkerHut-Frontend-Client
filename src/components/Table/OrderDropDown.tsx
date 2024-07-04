@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 
 interface SelectOption {
@@ -16,12 +16,25 @@ const data: SelectOption[] = [
   { value: "Decline_order", label: "Decline order" },
 ];
 
-export const OrderDropDown: React.FC<{ options?: SelectOption[] }> = ({
-  options,
-}) => (
-  <Select<SelectOption>
-    defaultValue={options?.[0] || data?.[0]}
-    options={options || data}
-    className="w-full rounded-md bg-amber-600 text-[16px] font-normal leading-[19px]"
-  />
-);
+export const OrderDropDown: React.FC<{
+  options?: SelectOption[];
+  optionSelected?: any;
+}> = ({ options, optionSelected }) => {
+  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
+    options?.[0] || data?.[0],
+  );
+
+  const handleChange = (option: SelectOption | null) => {
+    setSelectedOption(option);
+    optionSelected(option);
+  };
+
+  return (
+    <Select<SelectOption>
+      defaultValue={selectedOption}
+      options={options || data}
+      onChange={handleChange}
+      className="w-full rounded-md bg-amber-600 text-[16px] font-normal leading-[19px]"
+    />
+  );
+};

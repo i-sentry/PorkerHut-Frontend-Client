@@ -116,6 +116,7 @@ export const api = {
   Order: {
     order: "/api/orders",
     orderbyId: (id: string) => `/api/orders/${id}`,
+    orderStatus: (id: string) => `/api/orders/${id}/status`,
     vendorOrders: (id: string) => `/api/orders/vendor/${id}`,
     customerOrder: (id: string) => `/api/orders/customer/${id}`,
     aggregateVendorOrders: (id: string) => `/api/orders/aggregate/vendor/${id}`,
@@ -125,7 +126,7 @@ export const api = {
     tracking: `/api/tracking`,
     userTracking: (userId: string) => `/api/tracking/${userId}`,
     trackingInfoByOrder: (userId: string) => `/api/tracking/${userId}`,
-    // /order/:orderId
+    OrderBatch: "/api/orders/update-multiple",
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
