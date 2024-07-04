@@ -69,6 +69,7 @@ const AdminTable = ({
     useOrderUpdate();
   const updateOrders = useUpdateOrdersStatus();
   const [loading, setLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const tableColumns = useMemo(() => {
     const columns = [
@@ -134,6 +135,8 @@ const AdminTable = ({
     if (selectedFlatRows.length > 0) {
       // You can perform any action with the selected row here
       setSelectedRow(selectedFlatRows.map((row: any) => row?.original?._id));
+    } else {
+      setSelectedRow([]);
     }
   }, [selectedFlatRows]);
 
@@ -182,6 +185,7 @@ const AdminTable = ({
         setLoading(false);
         refetch();
         toast.success(`Orders are set to ${capitalize(status)}`);
+        setSelectedRow([]);
       })
       .catch((err: any) => {
         console.log(err, "err");
@@ -208,6 +212,16 @@ const AdminTable = ({
         break;
     }
   };
+
+  useEffect(() => {
+    if (selectedRow?.length < 1) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [selectedRow]);
+
+  console.log(isDisabled, "isDis", selectedRow, selectedFlatRows);
 
   return (
     <>
@@ -258,7 +272,7 @@ const AdminTable = ({
               />
             </div>
             <button
-              disabled={loading}
+              disabled={loading || isDisabled}
               onClick={() => handleOrders(selectedOption?.value, selectedRow)}
               className="cursor-pointer self-stretch rounded-md bg-[#197B30] px-6 py-1.5 text-sm text-[#fff] disabled:bg-opacity-25"
             >

@@ -229,6 +229,12 @@ export const productSlice = createSlice({
         }
       }
     },
+
+    clearCart: (state) => {
+      state.cart = {};
+      state.totalQuantity = 0;
+      localStorage.removeItem("cart");
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
@@ -243,7 +249,7 @@ export const {
   addProductToFavorites,
   deleteProductFromCart,
   incrementProductQty,
-  decrementProductQty,
+  decrementProductQty, clearCart
 } = productSlice.actions;
 
 export default productSlice.reducer;
