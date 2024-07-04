@@ -103,12 +103,12 @@ const SellersOrderPage = () => {
       accessor: (row: any) => row?.productDetails?.length,
     },
     {
-      Header: "Status",
+      Header: "Order Status",
       accessor: (row: any) => {
         switch (row?.status?.toLowerCase()) {
           case "completed":
             return <span className="text-[#22C55E]">Completed</span>;
-
+          case "cancelled":
           case "failed":
             return <span className=" text-[#F91919]">Failed</span>;
           case "pending":
@@ -117,12 +117,31 @@ const SellersOrderPage = () => {
             return <span className=" text-[#198df9]">Returned</span>;
           case "returned Failed":
             return <span className=" text-[#F91919]">Returned Failed</span>;
+
           default:
             return (
               <span className="text-sm font-normal text-[#202223] ">
                 {row?.status}
               </span>
             );
+        }
+      },
+    },
+    {
+      Header: "Payment Status",
+      accessor: (row: any) => {
+        if (row?.isPaid) {
+          return (
+            <span className="rounded bg-green-700 bg-opacity-10 p-1 px-3 text-green-700">
+              Success
+            </span>
+          );
+        } else {
+          return (
+            <span className="rounded bg-red-600 bg-opacity-10 p-1 px-3 text-red-600">
+              Failed
+            </span>
+          );
         }
       },
     },
