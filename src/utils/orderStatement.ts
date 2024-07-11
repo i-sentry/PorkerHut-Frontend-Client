@@ -36,7 +36,7 @@ import PigFeed7 from "../../src/assets/livestock/PigFeed7.png";
 export const orderStatement = [
   {
     id: "1",
-    deliverydate: "12 December 2000",
+    deliverydate: "12 Dec 2000",
     change: "2000",
     payout: "4000",
     price: "3000",
@@ -51,7 +51,7 @@ export const orderStatement = [
   },
   {
     id: "2",
-    deliverydate: "2 January 2000",
+    deliverydate: "2 Jan 2000",
     change: "1000",
     payout: "4000",
     price: "3000",
@@ -66,7 +66,7 @@ export const orderStatement = [
   },
   {
     id: "3",
-    deliverydate: "2 January 2000",
+    deliverydate: "2 Jan 2000",
 
     change: "2300",
     payout: "2300",
@@ -83,7 +83,7 @@ export const orderStatement = [
   },
   {
     id: "4",
-    deliverydate: "3 March 1990",
+    deliverydate: "3 Mar 1990",
     payout: "1000",
     price: "9400",
     product: {
@@ -98,7 +98,7 @@ export const orderStatement = [
   },
   {
     id: "5",
-    deliverydate: "2 March 2003",
+    deliverydate: "2 Mar 2003",
     payout: "1000",
     price: "5000",
     product: {
@@ -113,7 +113,7 @@ export const orderStatement = [
 
   {
     id: "6",
-    deliverydate: "12 January 2020",
+    deliverydate: "12 Jan 2020",
     payout: "4000",
     product: {
       location: "Awka",
@@ -127,7 +127,7 @@ export const orderStatement = [
   },
   {
     id: "7",
-    deliverydate: "1 October 2023",
+    deliverydate: "1 Oct 2023",
     payout: "2300",
     product: {
       location: "Awka",
@@ -141,7 +141,7 @@ export const orderStatement = [
   },
   {
     id: "8",
-    deliverydate: "Poultry farm",
+    deliverydate: "3 Apr 2024",
     payout: "2000",
     product: {
       location: "Awka",
@@ -155,7 +155,7 @@ export const orderStatement = [
   },
   {
     id: "9",
-    deliverydate: "Poultry farm",
+    deliverydate: "7 Jun 2024",
     payout: "2000",
     product: {
       location: "Awka",
@@ -169,7 +169,7 @@ export const orderStatement = [
   },
   {
     id: "10",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "2300",
     product: {
       location: "Calabar",
@@ -183,7 +183,7 @@ export const orderStatement = [
   },
   {
     id: "11",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "2300",
     product: {
       location: "Benue",
@@ -197,7 +197,7 @@ export const orderStatement = [
   },
   {
     id: "12",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "2300",
     price: "2300",
     product: {
@@ -211,7 +211,7 @@ export const orderStatement = [
   },
   {
     id: "13",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "2300",
     product: {
       location: "Benue",
@@ -225,7 +225,7 @@ export const orderStatement = [
   },
   {
     id: "14",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -239,7 +239,7 @@ export const orderStatement = [
   },
   {
     id: "15",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -253,7 +253,7 @@ export const orderStatement = [
   },
   {
     id: "16",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -267,7 +267,7 @@ export const orderStatement = [
   },
   {
     id: "17",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -281,7 +281,7 @@ export const orderStatement = [
   },
   {
     id: "18",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -295,7 +295,7 @@ export const orderStatement = [
   },
   {
     id: "19",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -309,7 +309,7 @@ export const orderStatement = [
   },
   {
     id: "20",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "4000",
     product: {
       location: "Benue",
@@ -338,7 +338,7 @@ export const orderStatement = [
   },
   {
     id: "22",
-    deliverydate: "2 January 2000",
+    deliverydate: "2 Jan 2000",
     change: "2000",
     payout: "4000",
     price: "3000",
@@ -353,7 +353,7 @@ export const orderStatement = [
   },
   {
     id: "23",
-    deliverydate: "2 January 2000",
+    deliverydate: "2 Jan 2000",
 
     change: "4000",
     payout: "4000",
@@ -370,7 +370,7 @@ export const orderStatement = [
   },
   {
     id: "24",
-    deliverydate: "3 March 1990",
+    deliverydate: "3 Mar 1990",
     payout: "1000",
     price: "9400",
     product: {
@@ -385,7 +385,7 @@ export const orderStatement = [
   },
   {
     id: "25",
-    deliverydate: "2 March 2003",
+    deliverydate: "2 Mar 2003",
     payout: "1000",
     price: "5000",
     product: {
@@ -399,7 +399,7 @@ export const orderStatement = [
   },
   {
     id: "26",
-    deliverydate: "6 March 2000",
+    deliverydate: "6 Mar 2000",
     payout: "2300",
     product: {
       location: "Kaduna",
@@ -413,7 +413,7 @@ export const orderStatement = [
   },
   {
     id: "27",
-    deliverydate: "12 January 2020",
+    deliverydate: "12 Jan 2020",
     payout: "2000",
     product: {
       location: "Kaduna",
@@ -427,7 +427,7 @@ export const orderStatement = [
   },
   {
     id: "28",
-    deliverydate: "1 October 2023",
+    deliverydate: "1 Oct 2023",
     payout: "1000",
     price: "1200",
     product: {
@@ -442,7 +442,7 @@ export const orderStatement = [
 
   {
     id: "31",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "osun",
@@ -456,7 +456,7 @@ export const orderStatement = [
   },
   {
     id: "32",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "uyo",
@@ -470,7 +470,7 @@ export const orderStatement = [
   },
   {
     id: "33",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "uyo",
@@ -484,7 +484,7 @@ export const orderStatement = [
   },
   {
     id: "34",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "uyo",
@@ -498,7 +498,7 @@ export const orderStatement = [
   },
   {
     id: "35",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "uyo",
@@ -512,7 +512,7 @@ export const orderStatement = [
   },
   {
     id: "36",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     product: {
       location: "uyo",
@@ -526,7 +526,7 @@ export const orderStatement = [
   },
   {
     id: "37",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     payout: "1000",
     price: "2300",
     product: {
@@ -540,7 +540,7 @@ export const orderStatement = [
   },
   {
     id: "38",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -554,7 +554,7 @@ export const orderStatement = [
   },
   {
     id: "39",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
     product: {
       location: "uyo",
       name: "100% Healthy-Fed Pork Lap",
@@ -568,7 +568,7 @@ export const orderStatement = [
   },
   {
     id: "40",
-    deliverydate: "11 October 2022",
+    deliverydate: "11 Oct 2022",
 
     product: {
       location: "uyo",
@@ -583,7 +583,7 @@ export const orderStatement = [
   },
   {
     id: "41",
-    deliverydate: "4 March 2023",
+    deliverydate: "4 Mar 2023",
     payout: "1000",
     price: "2300",
     product: {
@@ -597,7 +597,7 @@ export const orderStatement = [
   },
   {
     id: "42",
-    deliverydate: "5 March 2000",
+    deliverydate: "5 Mar 2000",
     payout: "1000",
     product: {
       location: "uyo",
@@ -611,7 +611,7 @@ export const orderStatement = [
   },
   {
     id: "43",
-    deliverydate: "6 March 2014",
+    deliverydate: "6 Mar 2014",
     payout: "1000",
     product: {
       location: "uyo",
@@ -626,7 +626,7 @@ export const orderStatement = [
 
   {
     id: "44",
-    deliverydate: "11 September 2000",
+    deliverydate: "11 Sept 2000",
     change: "2000",
     payout: "4000",
     price: "3000",
@@ -641,7 +641,7 @@ export const orderStatement = [
   },
   {
     id: "45",
-    deliverydate: "5 September 2014",
+    deliverydate: "5 Sept 2014",
     change: "5000",
     payout: "4000",
     price: "3000",

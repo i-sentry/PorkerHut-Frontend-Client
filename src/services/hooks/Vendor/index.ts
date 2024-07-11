@@ -9,6 +9,7 @@ import {
   makePutRequest,
   makeCustomPutRequest,
   makeDeleteRequest,
+  makePatchRequest,
 } from "../../api";
 import { ILoginUser, IVendorSignUp } from "../../serviceType";
 
@@ -102,5 +103,73 @@ export const useUpdateAnnoucement = (id: string) => {
 export const useDeleteAnnoucement = (id: string) => {
   return useQueryMutation({
     mutationFn: () => makeDeleteRequest(api.annoucement.singleAnnouncement(id)),
+  });
+};
+
+// VENDOR ACCOUNT
+export const useGetAllTransactions = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorAccount.allAccountTransaction),
+    queryKey: "account+transaction",
+  });
+};
+
+export const useGetAccountTransaction = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorAccount.accountTransaction(id)),
+    queryKey: "account+transaction",
+  });
+};
+
+export const useGetVendorAccountTransactions = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorAccount.vendorAcc(id)),
+    queryKey: "account+transaction",
+  });
+};
+
+export const useCreateTransaction = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePostRequest(data, api.VendorAccount.accountTransaction(id)),
+  });
+};
+
+export const useUpdateAccountTransaction = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makePutRequest(data, api.VendorAccount.allAccountTransaction),
+  });
+};
+
+// VENDOR WALLET
+
+// CREAT A NEW WALLET FOR VENDOR
+export const useCreateWallet = () => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makePostRequest(data, api.VendorWallet.wallets),
+  });
+};
+
+// GET VENDOR WALLLET
+export const useGetVendorWallet = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorWallet.vendorWallet(id)),
+    queryKey: "vendor wallet",
+  });
+};
+
+// GET VENDOR WALLET BALANCE
+export const useGetVendorWalletBal = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorWallet.vendorWalletBal(id)),
+    queryKey: "vendor wallet bal",
+  });
+};
+
+// UPDATE VENDOR WALLET BALANCE
+export const useUpdateWalletBal = (id:string) => {
+  return useQueryMutation({
+    mutationFn: (data: any) => makePatchRequest(data, api.VendorWallet.vendorWalletBal(id)),
   });
 };

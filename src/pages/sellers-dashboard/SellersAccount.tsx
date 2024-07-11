@@ -171,8 +171,8 @@ const SellersAccount = () => {
 
   return (
     <>
-      <ComingSoon pendingPage="Account Statement" />
-      <div className="hidden xxs:px-4 md:px-0">
+      {/* <ComingSoon pendingPage="Account Statement" /> */}
+      <div className="xxs:px-4">
         {" "}
         <div className="mb-8  flex flex-col gap-2">
           <h1 className="font-medium text-[#1F1F1F] xxs:text-[20px] xxs:leading-[23px] md:text-[36px] md:leading-[42px]">
@@ -241,185 +241,10 @@ const SellersAccount = () => {
                 <div className=" mx-auto xxs:block md:hidden">
                   <Carousel cards={cards} />
                 </div>
-                <div className="flex gap-4 xxs:my-20 xxs:flex-col md:my-7 md:flex-row">
-                  <div className="flex-[4.5]">
-                    <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] py-4 xxs:px-4 md:px-12">
-                      <div className="flex flex-col">
-                        <span className="font-normal leading-[19px] text-[#333333]  underline  xxs:text-[14px] md:text-[16px]">
-                          Payment Period
-                        </span>
-                        <span className="mt-2 text-[16px] leading-[19px] text-[#A2A2A2]">
-                          12 Dec - 28 Dec 2022
-                        </span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="flex items-center">
-                          <div className="h-2 w-2 rounded-full bg-[#F29339]"></div>
-                          <p className="pl-1 text-[16px] leading-[19px] text-[#333333] underline">
-                            Status
-                          </p>
-                        </div>
-                        <div className="mt-2 text-[16px] leading-[19px] text-[#A2A2A2] underline">
-                          &#x20A6;
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border border-t-0 pb-6">
-                      <div className="flex justify-between py-5  xxs:px-4 md:px-12">
-                        <div className="flex xxs:flex-col xxs:gap-3 md:flex-row md:justify-between md:gap-16 ">
-                          <div>
-                            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-                              Orders
-                            </span>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              Sales Revenue
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              Commission
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#A2A2A2] xxs:hidden md:block">
-                              Shipping Cost Contribution{" "}
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#A2A2A2] md:hidden">
-                              Shipping Cost{" "}
-                            </span>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="flex flex-col items-end gap-2 xxs:mt-10 md:mt-0">
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              300,234
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              -4500
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              -2500
-                            </span>
-                          </div>
-                          <div className="mt-2 flex items-center justify-between gap-16 border-t pt-2">
-                            <span className="text-[12px] font-normal leading-[14px] text-[#A2A2A2]">
-                              Subtotal
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              295,734
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex justify-between pb-5  xxs:px-4 md:px-12">
-                        <div className="flex xxs:flex-col xxs:gap-3 md:flex-row md:justify-between md:gap-16">
-                          <div>
-                            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-                              Refunds
-                            </span>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              Refund on Fees
-                            </span>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="flex flex-col items-end gap-2 xxs:mt-10 md:mt-0">
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333] ">
-                              0.00
-                            </span>
-                          </div>
-                          <div className="mt-2 flex items-center justify-between gap-16 border-t pt-2">
-                            <span className="text-[12px] font-normal leading-[14px] text-[#A2A2A2]">
-                              Total Balance
-                            </span>
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              295,734
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="xxs:px-4 md:px-12  ">
-                        {/* <hr /> */}
-                        <div className=" flex items-center justify-between border-t-2 pt-2">
-                          <div>
-                            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-                              Payout
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-                              295,734
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-4 flex items-center justify-between px-12 xxs:flex-col-reverse md:flex-row">
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center">
-                            <div className="h-2 w-2 rounded-full bg-[#22C55E]"></div>
-                            <p className="pl-1 text-[16px] leading-[19px] text-[#A2A2A2] underline">
-                              Paid
-                            </p>
-                          </div>
-                          <div className="flex items-center">
-                            <div className="h-2 w-2 rounded-full bg-[#F29339]"></div>
-                            <p className="pl-1 text-[16px] leading-[19px] text-[#A2A2A2] underline">
-                              Unpaid
-                            </p>
-                          </div>
-                        </div>
-                        <div className="xxs:my-5 md:my-0">
-                          <div className="cursor-pointer rounded border border-[#197B30] px-3 text-[14px] font-normal leading-[16px] text-[#197B30] xxs:py-3 md:py-1">
-                            Download Account Statement
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-[2] rounded-lg xxs:mt-10 md:mt-0">
-                    <div className="flex items-center justify-between rounded-t-md bg-[#F4F4F4] py-[30px] px-2">
-                      <div className="flex flex-col">
-                        <span className="font-normal leading-[19px] text-[#333333]  underline  xxs:text-[14px] md:text-[16px]">
-                          Payment Period
-                        </span>
-                      </div>
-                      <div className="">
-                        <div className="">
-                          <p className="pl-1 text-[16px] leading-[19px] text-[#333333] underline">
-                            Status
-                          </p>
-                        </div>
-                      </div>
-                      <div className="">
-                        <div className="">
-                          <p className="pl-1 text-[16px] leading-[19px] text-[#333333] underline">
-                            Payout
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border border-t-0 p-2 ">
-                      {orderStatement.map((data) => (
-                        <div className=" flex items-center justify-between border-b pb-1">
-                          <div className="w-16">
-                            <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                              {data.deliverydate}
-                            </span>
-                          </div>
-                          <div
-                            className={`h-2 w-2 ${
-                              data.status === "unpaid"
-                                ? "bg-[#F29339]"
-                                : "bg-[#22C55E]"
-                            } rounded-full`}
-                          ></div>
-                          <span className="text-[16px] font-normal leading-[19px] text-[#333333]">
-                            {data?.payout}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+
+                <div className="mt-6 grid gap-3 lg:grid-cols-[2fr_1fr]">
+                  <AccountSummary />
+                  <PaymentSummary />
                 </div>
               </div>
             </TabPanel>
@@ -510,5 +335,136 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
       </div>
       <div className="mt-2">{cards[activeIndex]}</div>
     </div>
+  );
+};
+
+const AccountSummary: React.FC = () => {
+  return (
+    <>
+      <section className="rounded-md border border-neutral-100">
+        <div className="flex items-center justify-between bg-neutral-100 p-2 px-4">
+          <div className="">
+            <h2 className="font-medium underline">Payment Period</h2>
+            <p className="text-sm text-gray-500">12 Dec - 28 Dec 2022</p>
+          </div>
+          <div className="border-gray-200">
+            <h2 className="font-medium underline">
+              <span className="inline-block h-2 w-2 rounded-full bg-[#F29339]"></span>{" "}
+              Status
+            </h2>
+            <p className="text-center text-sm text-gray-500">₦</p>
+          </div>
+        </div>
+        <div className="px-4 py-5">
+          <div className="grid grid-cols-[1fr_1.5fr_1.5fr] items-start gap-y-3">
+            {/* ORDERS */}
+            <div>
+              <h3 className="font-medium">Orders</h3>
+            </div>
+            <div>
+              <ul className="space-y-2">
+                <li>Sales Revenue</li>
+                <li>Commission Shipping</li>
+                <li className="text-neutral-400">Cost Contribution</li>
+              </ul>
+            </div>
+            <div>
+              <ul className="space-y-2 text-right">
+                <li>300,234</li>
+                <li>-4500</li>
+                <li className="text-neutral-400">-2500</li>
+                <li className="">
+                  <span className="inline-flex w-[230px] items-center justify-between gap-20 border-t pt-2">
+                    <span className="text-sm text-neutral-400">Subtotal</span>
+                    <span>295,734</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-medium">Refunds</h3>
+            </div>
+            <div>
+              <ul className="space-y-2">
+                <li>Refund on fees</li>
+              </ul>
+            </div>
+            <div>
+              <ul className="space-y-2 text-right">
+                <li>0.00</li>
+                <li className="">
+                  <span className="inline-flex w-[230px] items-center justify-between gap-20 border-t pt-2">
+                    <span className="text-sm text-neutral-400">
+                      Total Balance
+                    </span>
+                    <span>295,734</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/* PAYOUT */}
+          <div className="mt-3 grid grid-cols-2 items-center justify-between gap-y-4 border-t-4 pt-3">
+            <h3 className="font-medium">Payout</h3>
+            <span className="justify-self-end">295,734</span>
+
+            <ul className="space-x-4">
+              <li className="inline-flex items-center gap-1">
+                <span className="inline-block h-2 w-2 rounded-full bg-green-700"></span>{" "}
+                <span className="text-neutral-400 underline">Paid</span>
+              </li>
+              <li className="inline-flex items-center gap-1">
+                <span className="inline-block h-2 w-2 rounded-full bg-[#F29339]"></span>{" "}
+                <span className="text-neutral-400 underline">Unpaid</span>
+              </li>
+            </ul>
+            <button className="inline-block w-max justify-self-end rounded-md border border-green-700 px-2 py-2 text-green-700">
+              Download Account Statement
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+const PaymentSummary: React.FC = () => {
+  return (
+    <>
+      <section className="rounded-md border border-neutral-100">
+        <div className=" grid h-[60px] grid-cols-[1.5fr_0.5fr_1fr] items-center justify-between gap-3 bg-neutral-100 p-2 px-2">
+          <div className="text-left text-sm">Payment Period</div>
+          <div className="text-left text-sm">Status</div>
+          <div className="text-center text-sm">Payout</div>
+        </div>
+        <div className="w-full">
+          <div className="hide-scroll-bar h-[355px] overflow-y-auto py-2">
+            <div className="grid gap-3 px-2">
+              {orderStatement?.map((data: any, index: number) => (
+                <div
+                  className="grid grid-cols-[1.5fr_0.5fr_1fr] gap-3"
+                  key={index}
+                >
+                  <div className="text-sm">{data.deliverydate}</div>
+                  <div className="inline-flex items-center justify-center">
+                    <span
+                      className={`h-2 w-2 ${
+                        data.status === "unpaid"
+                          ? "bg-[#F29339]"
+                          : "bg-[#22C55E]"
+                      } mx-auto inline-block rounded-full`}
+                    ></span>
+                  </div>
+                  <div className=" pr-2 text-center text-sm">
+                    {data?.payout}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };

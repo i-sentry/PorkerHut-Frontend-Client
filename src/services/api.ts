@@ -33,6 +33,20 @@ export const api = {
     resetPassword: (token: string | undefined) =>
       `/api/vendors/reset-password/${token}`,
   },
+  VendorWallet: {
+    wallets: "/api/vendorWallet",
+    vendorWallet: (id: string) => `/api/vendorWallet/${id}`,
+    vendorWalletBal: (id: string) => `/api/vendorWallet/${id}/balance`,
+    prevWalletBal: (id: string) => `/api/vendorWallet/${id}/previous-payments`,
+    walletBal: (id: string) => `/api/vendorWallet/${id}/balance`,
+    walletPayment: (id: string) => `/api/vendorWallet/${id}/payments`,
+    vendorPayments: (id: string) => `/api/vendorWallet/${id}/previous-payments`,
+  },
+  VendorAccount: {
+    allAccountTransaction: "/api/vendorAccount",
+    accountTransaction: (id: string) => `/api/vendorAccount/${id}`,
+    vendorAcc: (vendorID: string) => `/api/vendorAccount/vendor/${vendorID}`,
+  },
   Blogs: {
     allBlogs: `/api/blogs`,
     createBlogs: `/api/blogs`,
