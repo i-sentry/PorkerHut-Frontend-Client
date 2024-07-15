@@ -107,6 +107,8 @@ export const api = {
   },
   Payment: {
     pay: "/api/pay/",
+    invoice: "/api/payment-invoice",
+    invoiceTotal: "/api/payment-invoice/totals",
   },
   Billing: {
     billing: "/api/user/billing",

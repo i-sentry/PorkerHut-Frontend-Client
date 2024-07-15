@@ -181,19 +181,19 @@ const AdminTable = ({
     updateOrders
       .mutateAsync({ orderIds: orderIds, status })
       .then((res: any) => {
-        console.log(res, "res");
+        // console.log(res, "res");
         setLoading(false);
         refetch();
         toast.success(`Orders are set to ${capitalize(status)}`);
         setSelectedRow([]);
       })
       .catch((err: any) => {
-        console.log(err, "err");
+        // console.log(err, "err");
         setLoading(false);
         toast.error(err.message);
       });
 
-    console.log(orderIds, status, "order status");
+    // console.log(orderIds, status, "order status");
   };
 
   const handleOrders = (value: string, orderId: String[]) => {
@@ -221,7 +221,7 @@ const AdminTable = ({
     }
   }, [selectedRow]);
 
-  console.log(isDisabled, "isDis", selectedRow, selectedFlatRows);
+  // console.log(isDisabled, "isDis", selectedRow, selectedFlatRows);
 
   return (
     <>

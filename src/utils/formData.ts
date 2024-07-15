@@ -253,3 +253,36 @@ export const productDetails = [
     required: "true",
   },
 ];
+
+export const invoiceAccInfo = [
+  {
+    label: "Account Owner",
+    name: "businessInformation.businessOwnerName",
+    type: "text",
+    info: "Please fill in the account owner’s name.",
+  },
+  {
+    label: "Store name",
+    name: "sellerAccountInformation.shopName",
+    type: "text",
+    info: "Enter store name.",
+  },
+  {
+    label: "Bank account number",
+    name: "vendorBankAccount.accountNumber",
+    type: "number",
+    info: "Please fill in account number",
+  },
+  {
+    label: "Bank account name",
+    name: "vendorBankAccount.accountName",
+    type: "text",
+    info: "Please fill in account name",
+  },
+  {
+    label: "Bank name",
+    name: "vendorBankAccount.bankName",
+    type: "text",
+    info: "Please fill in bank name",
+  },
+];
