@@ -74,6 +74,7 @@ const OrderCart = ({
       })
       .then((res) => {
         localStorage.setItem("order_id", JSON.stringify(res.order._id));
+        localStorage.setItem("order", JSON.stringify(res?.order));
         if (res.order) {
           initiatePayment(res.order._id);
         }
