@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -33,6 +39,16 @@ import { ToastContainer, toast } from "react-toastify";
 import { clientInitails } from "../../layout/SellerLayout";
 import { IEmail } from "./AdminForgetPassword";
 import AdminAccessContext from "../../context/AdminAccessProvider";
+import {
+  useGetAllCategories,
+  useUpdateCatFees,
+} from "../../services/hooks/Vendor/category";
+import { IoAdd } from "react-icons/io5";
+import { BiMinus } from "react-icons/bi";
+import { BsDash, BsPlus } from "react-icons/bs";
+import { cn } from "../../helper/cn";
+import Logo from "../../assets/images/porkerlogo.png";
+import slugify from "slugify";
 // import {
 //   useGetAllNotification,
 //   useGetSingleNotification,
@@ -737,7 +753,7 @@ const Settings = () => {
             </div>
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Commissions"}>
-            <div className="w-full overflow-x-auto">
+            {/* <div className="w-full overflow-x-auto">
               <table className="w-full table-auto rounded-t-md bg-[#fff]">
                 <thead>
                   <tr className="">
@@ -781,7 +797,8 @@ const Settings = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </div> */}
+            <CommissionFees />
           </TabPanel>
           <TabPanel hidden={selectedTab !== "Password"}>
             <div className="mb-3">
@@ -1038,5 +1055,295 @@ const EmailInputComponent = () => {
         {loading ? "Loading..." : "Grant Access"}
       </button>
     </div>
+  );
+};
+
+type FeeProps = {
+  deliveryFeeRate: number;
+  commissionRate: number;
+  category: string;
+}[];
+
+const CommissionFees = () => {
+  const [category, setCategory] = useState<any[]>([]);
+  const { data: allcat, isLoading, refetch } = useGetAllCategories();
+  const [expandedIndex, setExpandedIndex] = useState<number>(0);
+  const [fees, setFees] = useState<FeeProps>([]);
+
+  const handleToggle = (index: number) => {
+    if (expandedIndex === index) {
+      setExpandedIndex(-1);
+    } else {
+      setExpandedIndex(index);
+    }
+  };
+
+  useEffect(() => {
+    setCategory(
+      isLoading ? [] : allcat?.data?.filter((item: any) => !item?.isDisabled),
+    );
+
+    setFees(
+      isLoading
+        ? []
+        : allcat?.data?.map((item: any) => {
+            return {
+              category: item?._id,
+              deliveryFeeRate: item?.deliveryFeeRate || 0,
+              commissionRate: item?.commissionRate || 0,
+            };
+          }),
+    );
+  }, [allcat, isLoading]);
+
+  return (
+    <>
+      <div>
+        <div className="mb-5">
+          <h3 className="text-lg font-bold text-[#333]">Commissions & Fees</h3>
+          <p className="text-[#a2a2a2]">
+            These are charges placed on vendors for every sales.
+          </p>
+        </div>
+        {!isLoading && category?.length >= 1 && (
+          <div className="w-full border-collapse overflow-hidden rounded-md border bg-white">
+            <div className="grid grid-cols-[60px_25%_1fr_10%_10%]">
+              <span className="p-4 text-sm text-[#333333]"></span>
+              <span className="p-4 text-sm text-[#333333]">Category</span>
+              <span className="p-4 text-sm text-[#333333]">Description</span>
+              <span className="p-4 text-sm text-[#333333]">Value</span>
+              <span className="p-4 text-sm text-[#333333]">Action</span>
+            </div>
+            {category?.map((cat: any, index: number) => (
+              <div className="w-full">
+                {/* COMMISSION */}
+                <div className="grid w-full border-collapse grid-cols-[60px_25%_1fr_10%_10%] bg-white">
+                  <div className="inline-flex items-center justify-center border border-l-0 border-b-0 bg-white">
+                    <span
+                      onClick={() => handleToggle(index)}
+                      className="cursor-pointer text-[#333333]"
+                    >
+                      {expandedIndex === index ? (
+                        <BsDash size={24} />
+                      ) : (
+                        <BsPlus size={24} />
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex items-center border border-x-0 border-b-0 bg-white p-4 text-sm capitalize text-[#333333]">
+                    {cat?.name}
+                  </div>
+                  <div className="flex items-center border border-b-0 bg-white p-4 text-sm text-[#333333]">
+                    Percentage value for charging commission on sale items
+                  </div>
+
+                  <FeeField
+                    category={cat}
+                    feeType="com"
+                    fees={fees}
+                    setFees={setFees}
+                    refetch={refetch}
+                  />
+                </div>
+
+                {/* SHIPPING */}
+                <div
+                  className={cn(
+                    "grid w-full border-collapse grid-cols-[60px_25%_1fr_10%_10%] bg-[#333333] duration-300",
+                    expandedIndex === index ? "h-[56px] xl:h-[72px]" : "h-0",
+                  )}
+                >
+                  <div className="inline-flex items-center justify-center border-y-0"></div>
+                  <div className="flex items-center border border-y-0 border-l-0 border-neutral-700 p-4 text-sm text-[#fff]">
+                    Shipping Cost Contribution
+                  </div>
+                  <div className="flex items-center border border-y-0 border-neutral-700 p-4 text-sm text-[#fff]">
+                    Vendor shipping cost to be applied to every sales
+                  </div>
+                  <FeeField
+                    category={cat}
+                    feeType="ship"
+                    fees={fees}
+                    setFees={setFees}
+                    refetch={refetch}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {isLoading && (
+          <div className="flex h-[300px] w-full flex-col items-center justify-center gap-1 bg-white">
+            <img src={Logo} alt="porkerhut" className="animate-pulse" />
+            <p>Loading</p>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+const FeeField = ({
+  category,
+  feeType,
+  fees,
+  setFees,
+  refetch,
+}: {
+  category: any;
+  feeType: "com" | "ship";
+  fees: any[];
+  setFees: any;
+  refetch: any;
+}) => {
+  const [value, setValue] = useState<string>("0%");
+  const updateFees = useUpdateCatFees(category?._id);
+  const [loading, setLoading] = useState(false);
+  const catFee = fees?.find((fee: any) => fee?.category === category?._id);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    const numericValue = parseFloat(inputValue.replace("%", ""));
+    const formattedValue = isNaN(numericValue) ? "0%" : `${numericValue}%`;
+
+    setValue(formattedValue);
+    setFees((prevFees: any) =>
+      prevFees.map((item: any) =>
+        item.category === category?._id
+          ? { ...item, commissionRate: numericValue }
+          : item,
+      ),
+    );
+
+    console.log(event?.target?.name, "Input comms", formattedValue);
+  };
+
+  const handleChange2 = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    const numericValue = parseFloat(inputValue.replace("%", ""));
+    const formattedValue = isNaN(numericValue) ? "0%" : `${numericValue}%`;
+
+    setValue(formattedValue);
+    setFees((prevFees: any) =>
+      prevFees.map((item: any) =>
+        item.category === category?._id
+          ? { ...item, deliveryFeeRate: numericValue }
+          : item,
+      ),
+    );
+
+    console.log(event?.target?.name, "Input ship", formattedValue);
+  };
+
+  const handleApply = () => {
+    setLoading(true);
+
+    const numericValue = parseFloat(value.replace("%", ""));
+    if (feeType === "ship") {
+      console.log(value, "ship");
+      setFees((prevFees: any) =>
+        prevFees.map((item: any) => {
+          return item.category === category?._id
+            ? { ...item, deliveryFeeRate: numericValue }
+            : item;
+        }),
+      );
+    } else {
+      console.log(value, "ship");
+      setFees((prevFees: any) =>
+        prevFees.map((item: any) =>
+          item.category === category?._id
+            ? { ...item, commissionRate: numericValue }
+            : item,
+        ),
+      );
+    }
+
+    if (category?._id && feeType === "com") {
+      const { commissionRate } = catFee;
+
+      updateFees
+        .mutateAsync({ commissionRate })
+        .then((res: any) => {
+          console.log(res);
+          setLoading(false);
+          toast.success(`${res?.data?.name} commission rate updated!`);
+          refetch();
+        })
+        .catch((err: any) => {
+          console.log(err);
+          toast.error(err?.data?.message || err?.message);
+          setLoading(false);
+        });
+
+      console.log(category?._id, "comm", catFee);
+    } else if (category?._id && feeType === "ship") {
+      const { deliveryFeeRate } = catFee;
+
+      updateFees
+        .mutateAsync({ deliveryFeeRate })
+        .then((res: any) => {
+          console.log(res);
+          setLoading(false);
+          toast.success(`${res?.data?.name} delivery rate updated!`);
+          refetch();
+        })
+        .catch((err: any) => {
+          console.log(err);
+          toast.error(err?.data?.message || err?.message);
+          setLoading(false);
+        });
+
+      console.log(category?._id, "ship", catFee);
+
+      setLoading(false);
+    }
+  };
+
+  // UPDATE FEES BASED ON ALL READY SET FEES FROM API
+  useEffect(() => {
+    const fee =
+      feeType === "ship"
+        ? `${category?.deliveryFeeRate || 0}%`
+        : `${category?.commissionRate || 0}%`;
+
+    setValue(fee);
+  }, [category]);
+
+  return (
+    <>
+      <div
+        className={cn(
+          "flex items-center justify-center border border-x-0 border-b-0 bg-white p-4",
+          feeType === "ship" &&
+            "border-y-0 border-neutral-700 bg-transparent p-4",
+        )}
+      >
+        <input
+          type="text"
+          name={feeType === "ship" ? `ship-${category?._id}` : category?._id}
+          id={feeType === "ship" ? `ship-${category?._id}` : category?._id}
+          value={value}
+          onChange={feeType === "ship" ? handleChange2 : handleChange}
+          className={cn(
+            "h-5 w-full border-neutral-400 bg-transparent p-1 text-xs text-[#333333] focus:border-green-700 focus:ring-0",
+            feeType === "ship" &&
+              "border-neutral-400 text-neutral-200 focus:border-white",
+          )}
+        />
+      </div>
+
+      <button
+        disabled={loading}
+        onClick={handleApply}
+        className={cn(
+          "flex cursor-pointer items-center justify-center border border-r-0 border-b-0 bg-white p-4 text-sm text-[#333] underline",
+          feeType === "ship" && "border-neutral-700 bg-transparent text-white",
+        )}
+      >
+        {loading ? <CgSpinner size={20} className="animate-spin" /> : "Apply"}
+      </button>
+    </>
   );
 };
