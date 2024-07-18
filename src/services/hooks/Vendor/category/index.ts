@@ -39,6 +39,14 @@ export const useGetOneCategory = (id: string | null) => {
   });
 };
 
+export const useUpdateCatFees = (id: string | null) => {
+  return useQueryMutation({
+    mutationFn: (data: any) =>
+      makeCustomPatchRequest(data, api.ProductsCategory.getOneCategory(id)),
+    mutationKey: ["cate"],
+  });
+};
+
 export const useDisableCategory = (id: string | null) => {
   return useQueryMutation({
     mutationFn: (data: any) =>
