@@ -1130,10 +1130,10 @@ const CommissionFees = () => {
                       )}
                     </span>
                   </div>
-                  <div className="border border-x-0 border-b-0 bg-white p-4 text-sm capitalize text-[#333333]">
+                  <div className="flex items-center border border-x-0 border-b-0 bg-white p-4 text-sm capitalize text-[#333333]">
                     {cat?.name}
                   </div>
-                  <div className="border border-b-0 bg-white p-4 text-sm text-[#333333]">
+                  <div className="flex items-center border border-b-0 bg-white p-4 text-sm text-[#333333]">
                     Percentage value for charging commission on sale items
                   </div>
 
@@ -1150,14 +1150,14 @@ const CommissionFees = () => {
                 <div
                   className={cn(
                     "grid w-full border-collapse grid-cols-[60px_25%_1fr_10%_10%] bg-[#333333] duration-300",
-                    expandedIndex === index ? "h-[56px]" : "h-0",
+                    expandedIndex === index ? "h-[56px] xl:h-[72px]" : "h-0",
                   )}
                 >
                   <div className="inline-flex items-center justify-center border-y-0"></div>
-                  <div className="border border-y-0 border-l-0 border-neutral-700 p-4 text-sm text-[#fff]">
+                  <div className="flex items-center border border-y-0 border-l-0 border-neutral-700 p-4 text-sm text-[#fff]">
                     Shipping Cost Contribution
                   </div>
-                  <div className="border border-y-0 border-neutral-700 p-4 text-sm text-[#fff]">
+                  <div className="flex items-center border border-y-0 border-neutral-700 p-4 text-sm text-[#fff]">
                     Vendor shipping cost to be applied to every sales
                   </div>
                   <FeeField
@@ -1236,31 +1236,9 @@ const FeeField = ({
     console.log(event?.target?.name, "Input ship", formattedValue);
   };
 
-  const initialValue = () => {
-    const numericValue = parseFloat(value.replace("%", ""));
-    if (feeType === "ship") {
-      console.log(value, "ship");
-      setFees((prevFees: any) =>
-        prevFees.map((item: any) => {
-          return item.category === category?._id
-            ? { ...item, deliveryFeeRate: numericValue }
-            : item;
-        }),
-      );
-    } else {
-      console.log(value, "ship");
-      setFees((prevFees: any) =>
-        prevFees.map((item: any) =>
-          item.category === category?._id
-            ? { ...item, commissionRate: numericValue }
-            : item,
-        ),
-      );
-    }
-  };
-
   const handleApply = () => {
-    // setLoading(true);
+    setLoading(true);
+
     const numericValue = parseFloat(value.replace("%", ""));
     if (feeType === "ship") {
       console.log(value, "ship");
@@ -1333,37 +1311,11 @@ const FeeField = ({
     setValue(fee);
   }, [category]);
 
-  // useEffect(() => {
-  //   const numericValue = parseFloat(value.replace("%", ""));
-  //   if (feeType === "ship") {
-  //     console.log(value, "ship");
-
-  //     setFees((prevFees: any) =>
-  //       prevFees.map((item: any) =>
-  //         item.category === category?._id
-  //           ? { ...item, deliveryFeeRate: numericValue }
-  //           : item,
-  //       ),
-  //     );
-  //   } else {
-  //     console.log(value, "ship");
-  //     setFees((prevFees: any) =>
-  //       prevFees.map((item: any) =>
-  //         item.category === category?._id
-  //           ? { ...item, commissionRate: numericValue }
-  //           : item,
-  //       ),
-  //     );
-  //   }
-  // }, [value]);
-
-  // console.log(catFee, "ffff");
-
   return (
     <>
       <div
         className={cn(
-          "border border-x-0 border-b-0 bg-white p-4",
+          "flex items-center justify-center border border-x-0 border-b-0 bg-white p-4",
           feeType === "ship" &&
             "border-y-0 border-neutral-700 bg-transparent p-4",
         )}
@@ -1383,14 +1335,14 @@ const FeeField = ({
       </div>
 
       <button
-        // disabled={loading}
+        disabled={loading}
         onClick={handleApply}
         className={cn(
           "flex cursor-pointer items-center justify-center border border-r-0 border-b-0 bg-white p-4 text-sm text-[#333] underline",
           feeType === "ship" && "border-neutral-700 bg-transparent text-white",
         )}
       >
-        {false ? <CgSpinner size={20} className="animate-spin" /> : "Apply"}
+        {loading ? <CgSpinner size={20} className="animate-spin" /> : "Apply"}
       </button>
     </>
   );
