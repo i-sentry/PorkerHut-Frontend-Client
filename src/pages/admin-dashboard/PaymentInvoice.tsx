@@ -1,57 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { CgSpinner, CgSpinnerAlt } from "react-icons/cg";
+import React, { useEffect, useMemo, useState } from "react";
+import { CgSpinnerAlt } from "react-icons/cg";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
 import { Column } from "react-table";
 import { BsThreeDotsVertical, BsX } from "react-icons/bs";
 import Popover from "../../components/utility/PopOver";
-import ComingSoon from "../../components/ComingSoon";
 import {
   useGetAllInvoice,
   useGetAllInvoiceTotals,
 } from "../../services/hooks/admin/payments";
-import { forEach, update } from "lodash";
 import moment from "moment";
 import { invoiceAccInfo } from "../../utils/formData";
 import { useForm } from "react-hook-form";
-
-const invoiceData = [
-  {
-    id: "0101101",
-    accountOwner: "John Doe",
-    location: "Abuja",
-    storeName: "Porker Hut",
-    startDate: "1 January 2022",
-    dueDate: "15 January 2022",
-    payout: "₦300,000",
-    accountNo: 12345678910,
-    bankName: "Access Bank",
-    status: "paid",
-  },
-  {
-    id: "0101301",
-    accountOwner: "John Doe",
-    location: "Abuja",
-    storeName: "Porker Hut",
-    startDate: "1 January 2022",
-    dueDate: "15 January 2022",
-    payout: "₦300,000",
-    accountNo: 12345678910,
-    bankName: "Access Bank",
-    status: "unpaid",
-  },
-  {
-    id: "0101101",
-    accountOwner: "John Doe",
-    location: "Abuja",
-    storeName: "Porker Hut",
-    startDate: "1 January 2022",
-    dueDate: "15 January 2022",
-    payout: "₦300,000",
-    accountNo: 12345678910,
-    bankName: "Access Bank",
-    status: "overdue",
-  },
-];
+import { useGetBankList } from "../../services/hooks/users/banks";
+import { BASEURL } from "../../services/api";
+import { SelectOptionType } from "../../components/sellers-onboarding/SellersAccountInfo";
+import useSWR from "swr";
+import CustomSelect from "../../components/utility/CustomSelect";
 
 const getStatus = (status: string) => {
   switch (status.toLowerCase()) {
@@ -82,9 +46,18 @@ const getStatus = (status: string) => {
 //   totalOrders: number;
 // };
 
+type PaymentStatusProps = {
+  amount: number;
+  count: number;
+};
+
 const PaymentInvoice = () => {
+  const [totals, setTotals] = useState<PaymentStatusProps>();
+  const [unpaid, setUnpaid] = useState<PaymentStatusProps>();
+  const [paid, setPaid] = useState<PaymentStatusProps>();
+  const [overdue, setOverdue] = useState<PaymentStatusProps>();
   const [paymentInvoices, setPaymentInvoices] = useState<any[]>([]);
-  const [invoiceTotals, setInvoiceTotals] = useState<any>();
+  const [invoiceTotals, setInvoiceTotals] = useState<any[]>([]);
   const { data: invoices, isLoading } = useGetAllInvoice();
   const { data: invoicesTotals, isLoading: totLoading } =
     useGetAllInvoiceTotals();
@@ -96,14 +69,14 @@ const PaymentInvoice = () => {
     setCurrentInvoice(paymentInvoices?.find((item: any) => item?._id === id));
   };
 
-  // console.log(paymentInvoices, invoiceTotals, "Payment Totals");
+  console.log(invoiceTotals, "Payment Totals");
 
   useEffect(() => {
     setPaymentInvoices(isLoading ? [] : invoices?.data);
   }, [isLoading, invoices]);
 
   useEffect(() => {
-    setInvoiceTotals(totLoading ? null : invoicesTotals);
+    setInvoiceTotals(totLoading ? [] : invoicesTotals?.data);
   }, [totLoading, invoices]);
 
   const Tcolumns: readonly Column<object>[] = [
@@ -210,29 +183,35 @@ const PaymentInvoice = () => {
       </div>
 
       <div className="mb-8 grid grid-cols-5">
-        <MonthSelector />
+        <MonthSelector
+          data={invoiceTotals}
+          setUnpaid={setUnpaid}
+          setOverdue={setOverdue}
+          setPaid={setPaid}
+          setTotals={setTotals}
+        />
         <NewCard
           orderType={"Total"}
-          orderPrice={`₦${invoiceTotals?.totalInvoices?.amount || 0}`}
-          orderLength={invoiceTotals?.totalInvoices?.count || 0}
+          orderPrice={`₦${totals?.amount || 0}`}
+          orderLength={totals?.count || 0}
           loading={totLoading}
         />
         <NewCard
           orderType={"Paid"}
-          orderPrice={`₦${invoiceTotals?.totalPaid?.amount || 0}`}
-          orderLength={invoiceTotals?.totalPaid?.count || 0}
+          orderPrice={`₦${paid?.amount || 0}`}
+          orderLength={paid?.count || 0}
           loading={totLoading}
         />
         <NewCard
           orderType={"Unpaid"}
-          orderPrice={`₦${invoiceTotals?.totalUnpaid?.amount || 0}`}
-          orderLength={invoiceTotals?.totalUnpaid?.count || 0}
+          orderPrice={`₦${unpaid?.amount || 0}`}
+          orderLength={unpaid?.count || 0}
           loading={totLoading}
         />
         <NewCard
           orderType={"Overdue"}
-          orderPrice={`₦${invoiceTotals?.totalDue?.amount || 0}`}
-          orderLength={invoiceTotals?.totalDue?.count || 0}
+          orderPrice={`₦${overdue?.amount || 0}`}
+          orderLength={overdue?.count || 0}
           loading={totLoading}
         />
       </div>
@@ -284,11 +263,11 @@ const monthList = [
 const MonthSelector: React.FC<{
   data?: any[];
   loading?: boolean;
-  setPending?: any;
-  setCompleted?: any;
-  setFailed?: any;
-  setReturned?: any;
-}> = ({ data, setPending, setCompleted, setFailed, setReturned }) => {
+  setUnpaid?: any;
+  setPaid?: any;
+  setOverdue?: any;
+  setTotals?: any;
+}> = ({ data, setUnpaid, setPaid, setOverdue, setTotals }) => {
   const [selectedMonth, setSelectedMonth] = useState<number>(
     new Date().getMonth() + 1,
   );
@@ -297,23 +276,21 @@ const MonthSelector: React.FC<{
     setSelectedMonth(parseInt(event.target.value));
   };
 
-  const filteredData = data?.filter((order: any) => {
-    const month = new Date(order?.orderDate)?.toLocaleString("en-US", {
+  const filteredData = data?.find((order: any) => {
+    const month = new Date(order?.createdAt)?.toLocaleString("en-US", {
       month: "numeric",
     });
     return +month === selectedMonth;
   });
 
-  const getOrderStatusLength = (orders: any[], status: string) => {
-    return orders?.filter((order) => order?.status === status)?.length;
-  };
+  console.log(filteredData, "ddadad");
 
-  // useEffect(() => {
-  //   setPending(getOrderStatusLength(filteredData, "pending"));
-  //   setCompleted(getOrderStatusLength(filteredData, "completed"));
-  //   setFailed(getOrderStatusLength(filteredData, "failed"));
-  //   setReturned(getOrderStatusLength(filteredData, "returned"));
-  // }, [filteredData, setCompleted, setFailed, setPending, setReturned]);
+  useEffect(() => {
+    setUnpaid(filteredData?.totalUnpaid);
+    setPaid(filteredData?.totalpaid);
+    setTotals(filteredData?.totalInvoices);
+    setOverdue(filteredData?.totalDue);
+  }, [filteredData, setUnpaid, setPaid, setOverdue, setTotals]);
 
   return (
     <div className="flex h-[150px] flex-1 flex-col  items-center justify-center border-r-[1px] border-[#D9D9D9] bg-[#F4F4F4] p-5 px-3 md:h-auto">
@@ -371,9 +348,50 @@ const AccountDetails = ({
   data: any;
   setOpen: any;
 }) => {
+  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [fetch, setFetch] = useState(false);
+  const { data: bankList, isLoading: isBankLoading } = useGetBankList();
   const { register, reset, setValue } = useForm();
+  const [, setAccountName] = useState("");
+  const [accName, setAccName] = useState("");
+  const [accNo, setAccNo] = useState<string>("");
+  const bankOptions = useMemo(
+    () =>
+      bankList?.data?.data?.map((bank: any) => ({
+        label: bank.name,
+        value: bank.code,
+        bank,
+      })),
+    [bankList?.data],
+  );
+
+  const bankAccount = accNo || data?.vendor?.vendorBankAccount.accountNumber;
+  const bankCode = dropOption?.value;
+  const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
+    bankAccount,
+  )}&bank_code=${bankCode}`;
+
+  const { data: resolveBankNameResult, isLoading } = useSWR(
+    fetch ? url : null,
+    fetchResolveBankName,
+  );
+
+  useEffect(() => {
+    setAccName(resolveBankNameResult?.data?.account_name);
+    setAccountName(resolveBankNameResult?.data);
+  }, [resolveBankNameResult, accName]);
 
   // console.log(data, "curr inco");
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAccNo(value);
+    if (value?.length === 10) {
+      setFetch(true);
+    }
+  };
+
+  console.log(accNo, "acc");
 
   useEffect(() => {
     if (data) {
@@ -397,6 +415,13 @@ const AccountDetails = ({
         "vendorBankAccount.bankName",
         data?.vendor?.vendorBankAccount?.bankName || "",
       );
+
+      setDropOption(
+        bankOptions?.find(
+          (bank: any) =>
+            bank?.label === data?.vendor?.vendorBankAccount?.bankName,
+        ),
+      );
     }
   }, [data]);
 
@@ -417,19 +442,59 @@ const AccountDetails = ({
         </span>
 
         <form className="space-y-3">
-          {invoiceAccInfo.map((data: any, index: number) => (
-            <label key={index} htmlFor={data.name} className="block">
-              <span className="mb-2 text-sm text-[#333333]">{data?.label}</span>{" "}
-              <input
-                {...register(data?.name)}
-                type={data?.type}
-                id={data.name}
-                name={data.name}
-                className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700"
-              />
-              <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
-            </label>
-          ))}
+          {invoiceAccInfo.map((data: any, index: number) => {
+            if (data?.name === "vendorBankAccount.bankName") {
+              return (
+                <label key={index} htmlFor={data.name} className="block">
+                  <span className="mb-2 text-sm text-[#333333]">
+                    {data?.label}
+                  </span>{" "}
+                  <CustomSelect
+                    selectedOption={dropOption}
+                    setSelectOption={setDropOption}
+                    placeholder={"Select bank"}
+                    options={bankOptions || []}
+                  />
+                  <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
+                </label>
+              );
+            } else if (data?.name === "vendorBankAccount.accountNumber") {
+              return (
+                <label key={index} htmlFor={data.name} className="block">
+                  <span className="mb-2 text-sm text-[#333333]">
+                    {data?.label}
+                  </span>{" "}
+                  <input
+                    {...register(data?.name)}
+                    type={data?.type}
+                    id={data.name}
+                    name={data.name}
+                    onChange={(e) => onChange(e)}
+                    className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700"
+                  />
+                  <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
+                </label>
+              );
+            }
+
+            return (
+              <label key={index} htmlFor={data.name} className="block">
+                <span className="mb-2 text-sm text-[#333333]">
+                  {data?.label}
+                </span>{" "}
+                <input
+                  {...register(data?.name)}
+                  type={data?.type}
+                  id={data.name}
+                  name={data.name}
+                  value={accName}
+                  disabled={isLoading}
+                  className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 disabled:text-neutral-400"
+                />
+                <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
+              </label>
+            );
+          })}
 
           <div className="mt-4 flex items-center justify-end gap-3">
             <button
@@ -450,4 +515,13 @@ const AccountDetails = ({
       </div>
     </div>
   );
+};
+
+const fetchResolveBankName = async (url: string) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch bank name");
+  }
+  const data = await response.json();
+  return data;
 };

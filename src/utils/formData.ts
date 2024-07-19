@@ -268,6 +268,12 @@ export const invoiceAccInfo = [
     info: "Enter store name.",
   },
   {
+    label: "Bank name",
+    name: "vendorBankAccount.bankName",
+    type: "text",
+    info: "Please fill in bank name",
+  },
+  {
     label: "Bank account number",
     name: "vendorBankAccount.accountNumber",
     type: "number",
@@ -278,11 +284,5 @@ export const invoiceAccInfo = [
     name: "vendorBankAccount.accountName",
     type: "text",
     info: "Please fill in account name",
-  },
-  {
-    label: "Bank name",
-    name: "vendorBankAccount.bankName",
-    type: "text",
-    info: "Please fill in bank name",
   },
 ];
