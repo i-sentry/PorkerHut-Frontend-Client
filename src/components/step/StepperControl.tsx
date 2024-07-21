@@ -97,6 +97,8 @@ export default function StepperControl() {
       const pricing = productData.pricing ?? {};
       const data = new FormData();
 
+      const fee = pricing.productPrice + pricing.productPrice * 0.075;
+
       console.log(Object.keys(productData.productInformation));
 
       const answer1 =
@@ -168,10 +170,7 @@ export default function StepperControl() {
         "pricing[saleEndDate]",
         pricing.salesEndDate?.toString() ?? "",
       );
-      data.append(
-        "pricing[productPrice]",
-        pricing.productPrice?.toString() ?? "",
-      );
+      data.append("pricing[productPrice]", fee.toString() ?? "");
       data.append(
         "pricing[quantity]",
         pricing.productQuantity?.toString() ?? "",

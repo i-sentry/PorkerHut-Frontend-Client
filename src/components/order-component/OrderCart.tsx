@@ -51,9 +51,11 @@ const OrderCart = ({
       (acc: any, item: any) =>
         acc +
         Math.round(
-          item?.pricing?.productPrice *
-            (item?.information?.category?.deliveryFeeRate / 100),
-        ),
+          (item?.pricing?.productPrice *
+            (item?.information?.category?.deliveryFeeRate / 100)) /
+            100,
+        ) *
+          100,
       0,
     ) || 700;
   console.log(cart, dFee);
