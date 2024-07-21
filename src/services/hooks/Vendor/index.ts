@@ -168,8 +168,17 @@ export const useGetVendorWalletBal = (id: string) => {
 };
 
 // UPDATE VENDOR WALLET BALANCE
-export const useUpdateWalletBal = (id:string) => {
+export const useUpdateWalletBal = (id: string) => {
   return useQueryMutation({
-    mutationFn: (data: any) => makePatchRequest(data, api.VendorWallet.vendorWalletBal(id)),
+    mutationFn: (data: any) =>
+      makePatchRequest(data, api.VendorWallet.vendorWalletBal(id)),
+  });
+};
+
+// GET VENDOR INVOICE
+export const useGetVendorInvoice = (id: string) => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.VendorWallet.vendorInvoice(id)),
+    queryKey: "vendor invoice",
   });
 };

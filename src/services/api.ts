@@ -41,6 +41,7 @@ export const api = {
     walletBal: (id: string) => `/api/vendorWallet/${id}/balance`,
     walletPayment: (id: string) => `/api/vendorWallet/${id}/payments`,
     vendorPayments: (id: string) => `/api/vendorWallet/${id}/previous-payments`,
+    vendorInvoice: (id: string) => `/api/payment-invoice/totals/${id}`,
   },
   VendorAccount: {
     allAccountTransaction: "/api/vendorAccount",
@@ -94,7 +95,7 @@ export const api = {
   Tracking: {
     track: "/api/tracking",
     userTracking: (userId: string) => `/api/tracking/${userId}`,
-    OrderTracking: (orderId: string) => `/api/tracking//order/${orderId}`,
+    OrderTracking: (orderId: string) => `/api/tracking/order/${orderId}`,
   },
   Vets: {
     createVet: "/api/vets",

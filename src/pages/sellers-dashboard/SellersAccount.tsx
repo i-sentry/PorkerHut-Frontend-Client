@@ -10,6 +10,7 @@ import { Column } from "react-table";
 // import moment from "moment";
 import { Tooltip } from "../../components/utility/ToolTip";
 import ComingSoon from "../../components/ComingSoon";
+import { useGetVendorInvoice } from "../../services/hooks/Vendor";
 
 const data = [
   {
@@ -151,7 +152,11 @@ const SellersAccount = () => {
   const store = JSON.parse(localStorage.getItem("vendor") as string);
   const { data: ordervendor } = useGetVendorOrders(store?.vendor?._id);
   const orders = ordervendor?.data?.orders;
+  const { data: invoice } = useGetVendorInvoice(store?.vendor?._id);
+
   useEffect(() => setVendorOrders(orders), [orders]);
+
+  console.log(invoice, "invoice");
 
   const cards = data.map((data) => (
     <div
