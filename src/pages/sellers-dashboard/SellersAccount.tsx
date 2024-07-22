@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { orderStatement } from "../../utils/orderStatement";
@@ -11,24 +11,24 @@ import { Column } from "react-table";
 import { Tooltip } from "../../components/utility/ToolTip";
 import ComingSoon from "../../components/ComingSoon";
 import { useGetVendorInvoice } from "../../services/hooks/Vendor";
+import { CgSpinner } from "react-icons/cg";
+import moment from "moment";
 
-const data = [
-  {
-    id: 0,
-    title: "Due & Unpaid",
-    value: "₦1,000,000",
-  },
-  {
-    id: 1,
-    title: "Open Statement",
-    value: "₦12,000",
-  },
-  {
-    id: 3,
-    title: "Total Paid",
-    value: "₦180,000",
-  },
-];
+function getWeekNumber(dateString: string): number {
+  const date = new Date(dateString);
+
+  // Copy the date and set it to the first day of the year
+  const startOfYear = new Date(date.getFullYear(), 0, 1);
+
+  // Calculate the number of days between the date and the start of the year
+  const dayOfYear =
+    Math.floor((date.getTime() - startOfYear.getTime()) / 86400000) + 1; // 86400000 ms per day
+
+  // Calculate the week number
+  const weekNumber = Math.ceil(dayOfYear / 7);
+
+  return weekNumber;
+}
 
 const Tcolumns: readonly Column<object>[] = [
   {
@@ -152,11 +152,64 @@ const SellersAccount = () => {
   const store = JSON.parse(localStorage.getItem("vendor") as string);
   const { data: ordervendor } = useGetVendorOrders(store?.vendor?._id);
   const orders = ordervendor?.data?.orders;
-  const { data: invoice } = useGetVendorInvoice(store?.vendor?._id);
+  const { data: invoice, isLoading } = useGetVendorInvoice(store?.vendor?._id);
+  const totalPaid = useMemo(
+    () =>
+      invoice?.data?.data?.reduce(
+        (acc: number, cur: any) => acc + cur?.totalPaid?.amount,
+        0,
+      ),
+    [isLoading, invoice?.data],
+  );
+
+  const totalDue = useMemo(
+    () =>
+      invoice?.data?.data?.reduce(
+        (acc: number, cur: any) => acc + cur?.totalDueAndUnpaid?.amount,
+        0,
+      ),
+    [isLoading, invoice?.data],
+  );
 
   useEffect(() => setVendorOrders(orders), [orders]);
 
-  console.log(invoice, "invoice");
+  console.log(invoice?.data, "invoice");
+
+  const data = [
+    {
+      id: 0,
+      title: "Due & Unpaid",
+      value: isLoading ? (
+        <span>
+          <CgSpinner className="animate-spin" />
+        </span>
+      ) : (
+        `₦${totalDue || 0}`
+      ),
+    },
+    {
+      id: 1,
+      title: "Open Statement",
+      value: isLoading ? (
+        <span>
+          <CgSpinner className="animate-spin" />
+        </span>
+      ) : (
+        `₦${invoice?.data?.openStatement?.amount || 0}`
+      ),
+    },
+    {
+      id: 3,
+      title: "Total Paid",
+      value: isLoading ? (
+        <span>
+          <CgSpinner className="animate-spin" />
+        </span>
+      ) : (
+        `₦${totalPaid || 0}`
+      ),
+    },
+  ];
 
   const cards = data.map((data) => (
     <div
@@ -167,8 +220,8 @@ const SellersAccount = () => {
         <p className="text-[16px] leading-[19px] text-[#A2A2A2]">
           {data?.title}
         </p>
-        <h1 className="text-[36px] font-medium leading-[42px] text-[#333333]">
-          {data?.value}
+        <h1 className="pt-2 text-[36px] font-medium leading-[42px] text-[#333333]">
+          {`₦ ${data?.value}`}
         </h1>
       </div>
     </div>
@@ -248,8 +301,12 @@ const SellersAccount = () => {
                 </div>
 
                 <div className="mt-6 grid gap-3 lg:grid-cols-[2fr_1fr]">
-                  <AccountSummary />
-                  <PaymentSummary />
+                  <AccountSummary
+                    data={invoice?.data?.openStatement?.invoices}
+                  />
+                  <PaymentSummary
+                    invoice={invoice?.data?.openStatement?.invoices}
+                  />
                 </div>
               </div>
             </TabPanel>
@@ -343,14 +400,33 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
   );
 };
 
-const AccountSummary: React.FC = () => {
+const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
+  const [acc, setAcc] = useState<any>();
+
+  useEffect(() => {
+    const curInvoice = data
+      ?.slice()
+      .sort(
+        (a: any, b: any) =>
+          new Date(b?.startDate).getTime() - new Date(a?.startDate).getTime(),
+      );
+    setAcc(curInvoice[0]);
+
+    console.log(curInvoice[0], "curInvoice");
+  }, [data]);
+
+  console.log(data, "acc", getWeekNumber(new Date().toISOString()), acc);
+
   return (
     <>
       <section className="rounded-md border border-neutral-100">
         <div className="flex items-center justify-between bg-neutral-100 p-2 px-4">
           <div className="">
             <h2 className="font-medium underline">Payment Period</h2>
-            <p className="text-sm text-gray-500">12 Dec - 28 Dec 2022</p>
+            <p className="text-sm text-gray-500">
+              {moment(acc?.startDate).format("DD MMM")} -
+              {moment(acc?.endDate).format("DD MMM YYYY")}
+            </p>
           </div>
           <div className="border-gray-200">
             <h2 className="font-medium underline">
@@ -369,13 +445,13 @@ const AccountSummary: React.FC = () => {
             <div>
               <ul className="space-y-2">
                 <li>Sales Revenue</li>
-                <li>Commission Shipping</li>
-                <li className="text-neutral-400">Cost Contribution</li>
+                <li>Commission</li>
+                <li className="text-neutral-400">Shipping Cost Contribution</li>
               </ul>
             </div>
             <div>
               <ul className="space-y-2 text-right">
-                <li>300,234</li>
+                <li>{acc?.salesRevenue?.toLocaleString() || 0}</li>
                 <li>-4500</li>
                 <li className="text-neutral-400">-2500</li>
                 <li className="">
@@ -434,7 +510,7 @@ const AccountSummary: React.FC = () => {
   );
 };
 
-const PaymentSummary: React.FC = () => {
+const PaymentSummary: React.FC<{ invoice: any }> = ({ invoice }) => {
   return (
     <>
       <section className="rounded-md border border-neutral-100">
@@ -446,12 +522,15 @@ const PaymentSummary: React.FC = () => {
         <div className="w-full">
           <div className="hide-scroll-bar h-[355px] overflow-y-auto py-2">
             <div className="grid gap-3 px-2">
-              {orderStatement?.map((data: any, index: number) => (
+              {invoice?.map((data: any, index: number) => (
                 <div
                   className="grid grid-cols-[1.5fr_0.5fr_1fr] gap-3"
                   key={index}
                 >
-                  <div className="text-sm">{data.deliverydate}</div>
+                  <div className="text-sm">
+                    {moment(data.startDate).format("DD MMM")} -
+                    {moment(data.endDate).format("DD MMM YYYY")}
+                  </div>
                   <div className="inline-flex items-center justify-center">
                     <span
                       className={`h-2 w-2 ${
