@@ -10,12 +10,17 @@ import {
 } from "../../services/hooks/admin/payments";
 import moment from "moment";
 import { invoiceAccInfo } from "../../utils/formData";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useGetBankList } from "../../services/hooks/users/banks";
 import { BASEURL } from "../../services/api";
 import { SelectOptionType } from "../../components/sellers-onboarding/SellersAccountInfo";
 import useSWR from "swr";
 import CustomSelect from "../../components/utility/CustomSelect";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useUpdateAdminAccess } from "../../services/hooks/admin/Auth";
+import { useUpdateVendor } from "../../services/hooks/Vendor";
+import { toast } from "react-toastify";
 
 const getStatus = (status: string) => {
   switch (status.toLowerCase()) {
@@ -50,6 +55,21 @@ type PaymentStatusProps = {
   amount: number;
   count: number;
 };
+
+const monthList = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const PaymentInvoice = () => {
   const [totals, setTotals] = useState<PaymentStatusProps>();
@@ -246,20 +266,6 @@ const PaymentInvoice = () => {
 
 export default PaymentInvoice;
 
-const monthList = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 const MonthSelector: React.FC<{
   data?: any[];
   loading?: boolean;
@@ -348,83 +354,6 @@ const AccountDetails = ({
   data: any;
   setOpen: any;
 }) => {
-  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
-  const [fetch, setFetch] = useState(false);
-  const { data: bankList, isLoading: isBankLoading } = useGetBankList();
-  const { register, reset, setValue } = useForm();
-  const [, setAccountName] = useState("");
-  const [accName, setAccName] = useState("");
-  const [accNo, setAccNo] = useState<string>("");
-  const bankOptions = useMemo(
-    () =>
-      bankList?.data?.data?.map((bank: any) => ({
-        label: bank.name,
-        value: bank.code,
-        bank,
-      })),
-    [bankList?.data],
-  );
-
-  const bankAccount = accNo || data?.vendor?.vendorBankAccount.accountNumber;
-  const bankCode = dropOption?.value;
-  const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
-    bankAccount,
-  )}&bank_code=${bankCode}`;
-
-  const { data: resolveBankNameResult, isLoading } = useSWR(
-    fetch ? url : null,
-    fetchResolveBankName,
-  );
-
-  useEffect(() => {
-    setAccName(resolveBankNameResult?.data?.account_name);
-    setAccountName(resolveBankNameResult?.data);
-  }, [resolveBankNameResult, accName]);
-
-  // console.log(data, "curr inco");
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAccNo(value);
-    if (value?.length === 10) {
-      setFetch(true);
-    }
-  };
-
-  console.log(accNo, "acc");
-
-  useEffect(() => {
-    if (data) {
-      setValue(
-        "businessInformation.businessOwnerName",
-        data?.vendor?.businessInformation?.businessOwnerName || "",
-      );
-      setValue(
-        "sellerAccountInformation.shopName",
-        data?.vendor?.sellerAccountInformation?.shopName || "",
-      );
-      setValue(
-        "vendorBankAccount.accountNumber",
-        data?.vendor?.vendorBankAccount?.accountNumber || "",
-      );
-      setValue(
-        "vendorBankAccount.accountName",
-        data?.vendor?.vendorBankAccount?.accountName || "",
-      );
-      setValue(
-        "vendorBankAccount.bankName",
-        data?.vendor?.vendorBankAccount?.bankName || "",
-      );
-
-      setDropOption(
-        bankOptions?.find(
-          (bank: any) =>
-            bank?.label === data?.vendor?.vendorBankAccount?.bankName,
-        ),
-      );
-    }
-  }, [data]);
-
   return (
     <div
       className={`absolute top-0 right-0 flex min-h-screen w-full items-center justify-center bg-black bg-opacity-60 py-9 duration-300 ${open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
@@ -435,83 +364,13 @@ const AccountDetails = ({
           <p>Please fill in the necessary information.</p>
         </div>
         <span
-          className="absolute top-5 right-5 cursor-pointer text-neutral-700"
+          className="absolute top-5 right-5 hidden cursor-pointer text-neutral-700"
           onClick={() => setOpen(false)}
         >
           <BsX size={30} />
         </span>
 
-        <form className="space-y-3">
-          {invoiceAccInfo.map((data: any, index: number) => {
-            if (data?.name === "vendorBankAccount.bankName") {
-              return (
-                <label key={index} htmlFor={data.name} className="block">
-                  <span className="mb-2 text-sm text-[#333333]">
-                    {data?.label}
-                  </span>{" "}
-                  <CustomSelect
-                    selectedOption={dropOption}
-                    setSelectOption={setDropOption}
-                    placeholder={"Select bank"}
-                    options={bankOptions || []}
-                  />
-                  <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
-                </label>
-              );
-            } else if (data?.name === "vendorBankAccount.accountNumber") {
-              return (
-                <label key={index} htmlFor={data.name} className="block">
-                  <span className="mb-2 text-sm text-[#333333]">
-                    {data?.label}
-                  </span>{" "}
-                  <input
-                    {...register(data?.name)}
-                    type={data?.type}
-                    id={data.name}
-                    name={data.name}
-                    onChange={(e) => onChange(e)}
-                    className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700"
-                  />
-                  <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
-                </label>
-              );
-            }
-
-            return (
-              <label key={index} htmlFor={data.name} className="block">
-                <span className="mb-2 text-sm text-[#333333]">
-                  {data?.label}
-                </span>{" "}
-                <input
-                  {...register(data?.name)}
-                  type={data?.type}
-                  id={data.name}
-                  name={data.name}
-                  value={accName}
-                  disabled={isLoading}
-                  className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 disabled:text-neutral-400"
-                />
-                <p className="mt-2 text-sm text-[#797979]">{data?.info}</p>
-              </label>
-            );
-          })}
-
-          <div className="mt-4 flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="rounded-md border border-green-700 px-8 py-2.5 text-sm font-medium text-green-700"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-green-700 px-8 py-2.5 text-sm font-medium text-white"
-            >
-              Update
-            </button>
-          </div>
-        </form>
+        <VendorDetails data={data} setOpen={setOpen} />
       </div>
     </div>
   );
@@ -524,4 +383,281 @@ const fetchResolveBankName = async (url: string) => {
   }
   const data = await response.json();
   return data;
+};
+
+const scheme = yup.object().shape({
+  ownerName: yup.string().required(),
+  storeName: yup.string().required(),
+  bankName: yup.string().required(),
+  accountName: yup.string().required(),
+  accountNumber: yup.number().required(),
+});
+
+const VendorDetails = ({ setOpen, data }: any) => {
+  const updateVendor = useUpdateVendor(data?.vendor?._id);
+  const { data: bankList, isLoading: isBankLoading } = useGetBankList();
+  const [dropOption, setDropOption] = useState<SelectOptionType>(null);
+  const [fetch, setFetch] = useState(false);
+  const [, setAccountName] = useState("");
+  const [accName, setAccName] = useState("");
+  const [accNo, setAccNo] = useState<string>(
+    data?.vendor?.vendorBankAccount.accountNumber,
+  );
+  const [error, setError] = useState(true);
+  const [errorType, setErrorType] = useState("");
+  const {
+    register,
+    getValues,
+    setValue,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(scheme),
+  });
+  const bankOptions = useMemo(
+    () =>
+      bankList?.data?.data?.map((bank: any) => ({
+        label: bank.name,
+        value: bank.code,
+        bank,
+      })),
+    [bankList?.data],
+  );
+
+  const bankAccount = accNo;
+  const bankCode = dropOption?.value;
+  const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
+    bankAccount,
+  )}&bank_code=${bankCode}`;
+
+  const { data: resolveBankNameResult, isLoading } = useSWR(
+    fetch ? url : null,
+    fetchResolveBankName,
+  );
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAccNo(value);
+
+    console.log(value, "value", getValues()?.accountNumber);
+
+    if (value?.length === 10) {
+      setFetch(true);
+      console.log(value, "value", getValues()?.accountNumber);
+    }
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+
+    reset({
+      accountNumber: data?.vendor?.vendorBankAccount?.accountNumber,
+      bankName: data?.vendor?.vendorBankAccount?.bankName,
+      accountName: data?.vendor?.vendorBankAccount?.accountName,
+    });
+
+    setAccNo(data?.vendor?.vendorBankAccount?.accountNumber);
+    setError(false);
+    setErrorType("");
+
+    setDropOption(
+      bankOptions?.find(
+        (bank: any) =>
+          bank?.label === data?.vendor?.vendorBankAccount?.bankName,
+      ),
+    );
+  };
+
+  const updateInvoice = (e: any) => {
+    e.preventDefault();
+    const val = getValues();
+
+    console.log(data, "update", dropOption?.label);
+    // const match = accountName?.replace(/,/g, "").split(" ");
+
+    updateVendor
+      .mutateAsync({
+        vendorBankAccount: {
+          accountNumber: val?.accountNumber,
+          accountName: val?.accountName,
+          bankName: dropOption?.label,
+        },
+      })
+      .then((res: any) => {
+        toast.success("Vendor Info");
+        console?.log(res, "resss");
+        setOpen(false);
+
+        reset({
+          accountNumber: `${data?.vendor?.vendorBankAccount?.accountNumber}`,
+          bankName: data?.vendor?.vendorBankAccount?.bankName,
+          accountName: data?.vendor?.vendorBankAccount?.accountName,
+        });
+
+        setAccNo(data?.vendor?.vendorBankAccount?.accountNumber);
+        setError(false);
+        setErrorType("");
+
+        setDropOption(
+          bankOptions?.find(
+            (bank: any) =>
+              bank?.label === data?.vendor?.vendorBankAccount?.bankName,
+          ),
+        );
+      })
+      .catch((err: any) => console.log(err));
+  };
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    const accountName = resolveBankNameResult?.data?.account_name || "";
+    if (accountName) {
+      setValue("accountName", accountName);
+      setAccName(accountName);
+      setAccountName(resolveBankNameResult?.data);
+      setError(false);
+      setErrorType("");
+    } else {
+      setError(true);
+      setErrorType("invalid-acc-no");
+      setValue("accountName", "");
+    }
+  }, [resolveBankNameResult, isLoading]);
+
+  useEffect(() => {
+    if (data) {
+      setValue(
+        "ownerName",
+        data?.vendor?.businessInformation?.businessOwnerName || "",
+      );
+      setValue(
+        "storeName",
+        data?.vendor?.sellerAccountInformation?.shopName || "",
+      );
+      setValue(
+        "accountNumber",
+        data?.vendor?.vendorBankAccount?.accountNumber || "",
+      );
+      setValue(
+        "accountName",
+        data?.vendor?.vendorBankAccount?.accountName || "",
+      );
+      setValue("bankName", data?.vendor?.vendorBankAccount?.bankName || "");
+
+      setDropOption(
+        bankOptions?.find(
+          (bank: any) =>
+            bank?.label === data?.vendor?.vendorBankAccount?.bankName,
+        ),
+      );
+    }
+  }, [data]);
+
+  useEffect(() => {
+    // console.log(dropOption, "dropOption");
+    if (accNo?.length === 10 || getValues()?.accountNumber?.length === 10) {
+      setFetch(true);
+    }
+  }, [dropOption, accNo]);
+
+  // console.log(accName, "curr inco", resolveBankNameResult?.data?.account_name);
+  // console.log(getValues(), "acc");
+
+  return (
+    <form className="space-y-3" onSubmit={(e) => updateInvoice(e)}>
+      <label htmlFor="ownerName" className="block">
+        <span className="mb-2 text-sm text-[#333333]">Account Owner</span>
+        <input
+          {...register("ownerName")}
+          type="text"
+          id="ownerName"
+          name="ownerName"
+          disabled
+          className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 disabled:text-neutral-500"
+        />
+        <p className="mt-2 text-sm text-[#797979]">
+          Please fill in the account owner’s name.
+        </p>
+      </label>
+      <label htmlFor="storeName" className="block">
+        <span className="mb-2 text-sm text-[#333333]">Store Name</span>{" "}
+        <input
+          {...register("storeName")}
+          type="text"
+          id="storeName"
+          name="storeName"
+          disabled
+          className="w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 disabled:text-neutral-500"
+        />
+        <p className="mt-2 text-sm text-[#797979]">Enter store name.</p>
+      </label>
+      <label htmlFor="bankName" className="block">
+        <span className="mb-2 text-sm text-[#333333]">Bank name</span>{" "}
+        <CustomSelect
+          // control={control}
+          name="bankName"
+          selectedOption={dropOption}
+          setSelectOption={setDropOption}
+          placeholder={"Select bank"}
+          options={bankOptions || []}
+        />
+        <p className="mt-2 text-sm text-[#797979]">
+          Please fill in the bank name.
+        </p>
+      </label>
+      <label htmlFor="accountNumber" className="block">
+        <span className="mb-2 text-sm text-[#333333]">Bank account number</span>{" "}
+        <input
+          {...register("accountNumber")}
+          type="number"
+          id="accountNumber"
+          name="accountNumber"
+          onChange={(e) => onChange(e)}
+          value={accNo}
+          className={`w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 ${""}`}
+        />
+        <p
+          className={`mt-2 text-sm  ${error ? "text-red-600" : "text-[#797979]"}`}
+        >
+          {error && errorType === "invalid-acc-no"
+            ? "Please enter a valid account number"
+            : "Please fill in account number"}
+        </p>
+      </label>
+      <label htmlFor="accountName" className="block">
+        <span className="mb-2 text-sm text-[#333333]">Account Name</span>{" "}
+        <input
+          {...register("accountName")}
+          type="text"
+          id="accountName"
+          name="accountName"
+          disabled
+          className={`w-full rounded border border-neutral-300 text-sm focus:border-green-700 focus:ring-green-700 disabled:text-neutral-600`}
+        />
+        <p className="mt-2 text-sm text-[#797979]">
+          Please fill in account name
+        </p>
+      </label>
+
+      <div className="mt-4 flex items-center justify-end gap-3">
+        <button
+          type="button"
+          onClick={handleCancel}
+          className="rounded-md border border-green-700 px-8 py-2.5 text-sm font-medium text-green-700"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          onClick={() => "clicked"}
+          className="rounded-md bg-green-700 px-8 py-2.5 text-sm font-medium text-white"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  );
 };
