@@ -155,7 +155,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
             </button>
           </div>
           {item?.vendor?.sellerAccountInformation?.shopName ===
-            "Test Shop Ltd" && (
+            "Porker-Hut" && (
             <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
               <div className="w-[300px]">
                 <label className="flex cursor-pointer items-center space-x-2">
