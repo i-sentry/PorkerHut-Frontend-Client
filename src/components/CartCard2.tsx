@@ -154,43 +154,73 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
               Add Note
             </button>
           </div>
-          {item?.vendor?.sellerAccountInformation?.shopName ===
-            "Porker-Hut" && (
-            <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
-              <div className="w-[300px]">
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="radio"
-                    value="delivery"
-                    checked={selectedOption === "delivery"}
-                    onChange={() => handleRadioChange("delivery", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
-                  />
-                  <p className="text-sm font-semibold text-[#333]">
-                    Door Delivery{" "}
-                    <span className="text-xs font-normal">
-                      (Starting from ₦1,500)
+          {item?.vendor?.sellerAccountInformation?.shopName === "Porker-Hut" ||
+            (item?.vendor?.sellerAccountInformation?.shopName ===
+              "Emmbrik's Farm" && (
+              <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
+                <div className="w-[300px]">
+                  <label className="flex cursor-pointer items-center space-x-2">
+                    <input
+                      type="radio"
+                      value="delivery"
+                      checked={selectedOption === "delivery"}
+                      onChange={() => handleRadioChange("delivery", item?._id)}
+                      className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
+                    />
+                    <p className="text-sm font-semibold text-[#333]">
+                      Door Delivery{" "}
+                      <span className="text-xs font-normal">
+                        (Starting from ₦1,500)
+                      </span>
+                    </p>
+                  </label>
+                </div>
+
+                <div className="md:flex-grow lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
+                  <label className="flex cursor-pointer items-center space-x-2">
+                    <input
+                      type="radio"
+                      value="pickup"
+                      checked={selectedOption === "pickup"}
+                      onChange={() => handleRadioChange("pickup", item?._id)}
+                      className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
+                    />
+                    <span className="text-sm font-semibold text-[#333]">
+                      Pickup
                     </span>
-                  </p>
-                </label>
-              </div>
+                  </label>
 
-              <div className="md:flex-grow lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="radio"
-                    value="pickup"
-                    checked={selectedOption === "pickup"}
-                    onChange={() => handleRadioChange("pickup", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
-                  />
-                  <span className="text-sm font-semibold text-[#333]">
-                    Pickup
-                  </span>
-                </label>
+                  {selectedOption === "pickup" && (
+                    <div className="mt-4 mb-4 flex flex-col md:hidden">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor=" text-[#333333] font- text-sm">
+                          Available Pickup Address
+                        </label>
+                        <span
+                          onClick={() => {
+                            toggleModal(true);
+                            setLocation(
+                              item?.vendor?.businessInformation?.city,
+                            );
+                          }}
+                          className="order-notes cursor-pointer text-sm  text-[#522828] underline"
+                        >
+                          Change pickup station
+                        </span>
+                      </div>
+                      <textarea
+                        rows={4}
+                        cols={50}
+                        disabled={true}
+                        value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                        id="pick_up"
+                        placeholder=""
+                        className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
+                      ></textarea>
+                    </div>
+                  )}
 
-                {selectedOption === "pickup" && (
-                  <div className="mt-4 mb-4 flex flex-col md:hidden">
+                  <div className="mt-4 mb-4 hidden flex-col md:flex">
                     <div className="flex items-center justify-between">
                       <label htmlFor=" text-[#333333] font- text-sm">
                         Available Pickup Address
@@ -207,43 +237,16 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     </div>
                     <textarea
                       rows={4}
-                      cols={50}
                       disabled={true}
-                      value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                      cols={50}
                       id="pick_up"
-                      placeholder=""
-                      className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
+                      value={porkerPickupAddress}
+                      className=" mt-1 h-16 rounded border px-5 py-4 text-[12px] leading-[16px] outline-none"
                     ></textarea>
                   </div>
-                )}
-
-                <div className="mt-4 mb-4 hidden flex-col md:flex">
-                  <div className="flex items-center justify-between">
-                    <label htmlFor=" text-[#333333] font- text-sm">
-                      Available Pickup Address
-                    </label>
-                    <span
-                      onClick={() => {
-                        toggleModal(true);
-                        setLocation(item?.vendor?.businessInformation?.city);
-                      }}
-                      className="order-notes cursor-pointer text-sm  text-[#522828] underline"
-                    >
-                      Change pickup station
-                    </span>
-                  </div>
-                  <textarea
-                    rows={4}
-                    disabled={true}
-                    cols={50}
-                    id="pick_up"
-                    value={porkerPickupAddress}
-                    className=" mt-1 h-16 rounded border px-5 py-4 text-[12px] leading-[16px] outline-none"
-                  ></textarea>
                 </div>
               </div>
-            </div>
-          )}
+            ))}
         </div>
       ))}
 

@@ -78,7 +78,7 @@ const PaymentInvoice = () => {
   const [overdue, setOverdue] = useState<PaymentStatusProps>();
   const [paymentInvoices, setPaymentInvoices] = useState<any[]>([]);
   const [invoiceTotals, setInvoiceTotals] = useState<any[]>([]);
-  const { data: invoices, isLoading } = useGetAllInvoice();
+  const { data: invoices, isLoading, refetch } = useGetAllInvoice();
   const { data: invoicesTotals, isLoading: totLoading } =
     useGetAllInvoiceTotals();
   const [open, setOpen] = useState(false);
@@ -252,6 +252,8 @@ const PaymentInvoice = () => {
               { label: "Set to Unpaid", value: "set_to_unpaid" },
               { label: "Delete Invoice", value: "delete_invoice" },
             ]}
+            goType="invoice"
+            refetch={refetch}
           />
         </div>
       </div>
