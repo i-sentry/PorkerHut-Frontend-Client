@@ -19,6 +19,7 @@ import { useUpdateOrdersStatus } from "../../services/hooks/orders";
 import { capitalize } from "lodash";
 import { toast } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import { useUpdateInvoiceStatus } from "../../services/hooks/admin/payments";
 
 export type ITable = {
   tabs: any;
@@ -35,6 +36,7 @@ export type ITable = {
   nextpage?: () => void;
   prevPage?: () => void;
   refetch?: any;
+  goType?: string;
 };
 
 type SelectOption = {
@@ -59,6 +61,7 @@ const AdminTable = ({
   nextpage,
   prevPage,
   refetch,
+  goType,
 }: ITable) => {
   const [numOfSelectedRow] = useState(0);
   const [Tdata, setTdata] = useState(TData);
@@ -68,6 +71,7 @@ const AdminTable = ({
   const { selectedOption, setSelectedOption, selectedRow, setSelectedRow } =
     useOrderUpdate();
   const updateOrders = useUpdateOrdersStatus();
+  const updateInvoiceStatus = useUpdateInvoiceStatus();
   const [loading, setLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -181,19 +185,19 @@ const AdminTable = ({
     updateOrders
       .mutateAsync({ orderIds: orderIds, status })
       .then((res: any) => {
-        console.log(res, "res");
+        // console.log(res, "res");
         setLoading(false);
         refetch();
         toast.success(`Orders are set to ${capitalize(status)}`);
         setSelectedRow([]);
       })
       .catch((err: any) => {
-        console.log(err, "err");
+        // console.log(err, "err");
         setLoading(false);
         toast.error(err.message);
       });
 
-    console.log(orderIds, status, "order status");
+    // console.log(orderIds, status, "order status");
   };
 
   const handleOrders = (value: string, orderId: String[]) => {
@@ -213,6 +217,37 @@ const AdminTable = ({
     }
   };
 
+  const handleInvoiceStatus = (Ids: String[], status: string) => {
+    updateInvoiceStatus
+      .mutateAsync({ ids: Ids, status })
+      .then((res: any) => {
+        // console.log(res, "res");
+        setLoading(false);
+        refetch();
+        toast.success(`Invoice are set to ${capitalize(status)}`);
+        setSelectedRow([]);
+      })
+      .catch((err: any) => {
+        // console.log(err, "err");
+        setLoading(false);
+        toast.error(err.message);
+      });
+    console.log(Ids, status, "invoice");
+  };
+
+  const handleInvoice = (value: string, orderId: String[]) => {
+    switch (value) {
+      case "set_to_unpaid":
+        handleInvoiceStatus(orderId, "unpaid");
+        break;
+      case "set_to_paid":
+        handleInvoiceStatus(orderId, "paid");
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     if (selectedRow?.length < 1) {
       setIsDisabled(true);
@@ -221,7 +256,7 @@ const AdminTable = ({
     }
   }, [selectedRow]);
 
-  console.log(isDisabled, "isDis", selectedRow, selectedFlatRows);
+  // console.log(isDisabled, "isDis", selectedRow, selectedFlatRows);
 
   return (
     <>
@@ -273,7 +308,11 @@ const AdminTable = ({
             </div>
             <button
               disabled={loading || isDisabled}
-              onClick={() => handleOrders(selectedOption?.value, selectedRow)}
+              onClick={
+                goType === "invoice"
+                  ? () => handleInvoice(selectedOption?.value, selectedRow)
+                  : () => handleOrders(selectedOption?.value, selectedRow)
+              }
               className="cursor-pointer self-stretch rounded-md bg-[#197B30] px-6 py-1.5 text-sm text-[#fff] disabled:bg-opacity-25"
             >
               {loading ? (
