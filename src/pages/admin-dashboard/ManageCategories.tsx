@@ -232,7 +232,7 @@ const ManageCategories = ({}: {}) => {
       setImage(file);
     }
 
-    console.log(file);
+    // console.log(file);
   };
 
   const handleQuestionChange = (e: any, id: number) => {
@@ -247,7 +247,7 @@ const ManageCategories = ({}: {}) => {
       });
     });
 
-    console.log(questions);
+    // console.log(questions);
   };
 
   const deleteQuestion = (id: any) => {
@@ -294,10 +294,6 @@ const ManageCategories = ({}: {}) => {
     subcategory?.length >= 1
       ? true
       : false;
-
-  console.log(
-    questions.every((q) => q?.question !== "" && q.questionHint !== ""),
-  );
 
   return (
     <>

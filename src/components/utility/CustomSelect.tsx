@@ -60,6 +60,7 @@ const CustomSelect = (props: CustomSelectProps) => {
       borderColor: errors && errors[_.camelCase(name)] && "#FDA29B",
       paddingTop: "5px",
       paddingBottom: "5px",
+      fontSize: "14px",
     }),
 
     indicatorsContainer: (provided: any) => ({
@@ -119,6 +120,15 @@ const CustomSelect = (props: CustomSelectProps) => {
               isClearable={false}
               onChange={(option) => onChange(option.label)}
               isDisabled={isDisabled}
+              theme={(theme) => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary25: "#AED1B7",
+                  primary: "#197B30",
+                  neutral0: "#fff",
+                },
+              })}
             />
           )}
         />
@@ -131,6 +141,15 @@ const CustomSelect = (props: CustomSelectProps) => {
           placeholder={placeholder}
           onChange={handleChange}
           isDisabled={isDisabled}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: "#AED1B7",
+              primary: "#197B30",
+              neutral0: "#fff",
+            },
+          })}
         />
       )}
     </div>
