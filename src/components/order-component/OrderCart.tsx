@@ -37,16 +37,32 @@ const OrderCart = ({
   const makePayment = useMakePayment();
 
   const cart = useSelector((state: RootState) => state.product.cart);
-  const dFee = 700;
+  // const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
       acc +
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
+
+  // DELIEVRY FEE CALCULATION
+  const dFee =
+    Object.values(cart).reduce(
+      (acc: any, item: any) =>
+        acc +
+        Math.round(
+          (item?.pricing?.productPrice *
+            (item?.information?.category?.deliveryFeeRate / 100)) /
+            100,
+        ) *
+          100,
+      0,
+    ) || 700;
+  console.log(cart, dFee);
+
   const vat = cartTotal + (cartTotal / 100) * 7.5;
-  // const sumTotal = cartTotal + vat + dFee;
-  const sumTotal = cartTotal;
+  const sumTotal = cartTotal + dFee;
+  // const sumTotal = cartTotal;
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,
     quantity: item?.pricing?.quantity,
@@ -116,58 +132,64 @@ const OrderCart = ({
   }
 
   return (
-    <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
-      <div className="px-4 py-6">
-        <h1 className="text-[24px] font-semibold leading-[28px] text-[#333333]">
-          Orders
-        </h1>
-      </div>
+    <>
+      <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
+        <div className="px-4 py-6">
+          <h1 className="text-[24px] font-semibold leading-[28px] text-[#333333]">
+            Orders
+          </h1>
+        </div>
 
-      <div className="max-h-[440px] overflow-y-auto ">
-        {Object.values(cart).map((item, idx) => (
-          <div key={idx}>
-            <OrderCard item={item} />
-          </div>
-        ))}
-      </div>
+        <div className="max-h-[440px] overflow-y-auto ">
+          {Object.values(cart).map((item, idx) => (
+            <div key={idx}>
+              <OrderCard item={item} />
+            </div>
+          ))}
+        </div>
 
-      <div className="">
-        <div className="py-4">
-          <div className="mb-3 flex w-full justify-between px-4 py-2 font-medium">
-            <span className="self-center text-[20px] font-medium leading-[23px] text-[#333333]">
-              Subtotal
-            </span>
-            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              ₦{cartTotal.toLocaleString()}
-            </span>
-          </div>
-          <div className="mb-3 flex justify-between px-4 py-2 font-medium">
+        <div className="">
+          <div className="py-4">
+            <div className="mb-3 flex w-full justify-between px-4 py-2 font-medium">
+              <span className="self-center text-[20px] font-medium leading-[23px] text-[#333333]">
+                Subtotal
+              </span>
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                ₦{cartTotal.toLocaleString()}
+              </span>
+            </div>
+            {/* <div className="mb-3 flex justify-between px-4 py-2 font-medium">
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               VAT
             </span>
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               ₦{vat.toLocaleString()}
             </span>
+          </div> */}
+            <div className="flex justify-between px-4 py-2 font-medium ">
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                Delivery.
+              </span>
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                ₦{dFee.toLocaleString()}
+              </span>
+            </div>
           </div>
-          <div className="flex justify-between px-4 py-2 font-medium ">
+          <div className="flex justify-between border-t border-[#D9D9D9] py-5 px-4 font-medium">
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              Delivery.
+              Total
             </span>
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              ₦{dFee.toLocaleString()}
+              ₦{sumTotal?.toLocaleString()}
             </span>
           </div>
-        </div>
-        <div className="flex justify-between border-t border-[#D9D9D9] py-5 px-4 font-medium">
-          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-            Total
-          </span>
-          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-            ₦{sumTotal?.toLocaleString()}
-          </span>
         </div>
       </div>
-    </div>
+      <p className="mt-4 px-4 font-medium text-[#727272]">
+        <span className="text-red-600">Note:</span> Our shipping fee vary by
+        weight and location. Fee are subject to change.
+      </p>
+    </>
   );
 };
 
