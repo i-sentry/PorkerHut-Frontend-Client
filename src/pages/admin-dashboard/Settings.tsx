@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEvent, useContext, useEffect, useMemo, useState } from "react";
 import { TabPanel, useTabs } from "../../components/utility/WidgetComp";
 import { TabSelector } from "../../components/utility/TabSelector";
 import { MdGroups, MdPersonOutline } from "react-icons/md";
@@ -16,16 +10,12 @@ import { RxCaretDown } from "react-icons/rx";
 import ToggleSwitch from "../../components/toggle-switch/ToggleSwitch";
 import Popover from "../../components/utility/PopOver";
 import Ripples from "react-ripples";
-import { Link } from "react-router-dom";
-
 import {
   useGetAllAdmin,
   useInviteAdmin,
   useUpdateAdminAccess,
 } from "../../services/hooks/admin/Auth";
-import ReactLoading from "react-loading";
 import {
-  useGetSingleUser,
   useRecoverPassword,
   useUpdateUserInfo,
 } from "../../services/hooks/users";
@@ -43,17 +33,9 @@ import {
   useGetAllCategories,
   useUpdateCatFees,
 } from "../../services/hooks/Vendor/category";
-import { IoAdd } from "react-icons/io5";
-import { BiMinus } from "react-icons/bi";
 import { BsDash, BsPlus } from "react-icons/bs";
 import { cn } from "../../helper/cn";
 import Logo from "../../assets/images/porkerlogo.png";
-import slugify from "slugify";
-// import {
-//   useGetAllNotification,
-//   useGetSingleNotification,
-// } from "../../services/hooks/notifications";
-
 const schema = yup.object().shape({
   fullName: yup.string().required("Full name is required"),
   email: yup.string().required("Email is required"),

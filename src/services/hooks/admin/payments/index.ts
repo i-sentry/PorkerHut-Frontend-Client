@@ -29,3 +29,10 @@ export const useUpdateInvoiceStatus = () => {
       makeCustomPutRequest(data, api.Payment.invoiceStatus),
   });
 };
+
+export const useGetPaymentTrackers = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequestWithCustomHeader(api.Payment.tracker),
+    queryKey: ["all+payment+trackers"],
+  });
+};
