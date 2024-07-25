@@ -37,6 +37,7 @@ export type ITable = {
   prevPage?: () => void;
   refetch?: any;
   goType?: string;
+  showSearchBar?: boolean;
 };
 
 type SelectOption = {
@@ -57,6 +58,7 @@ const AdminTable = ({
   showCheckbox,
   showDropDown,
   dropDownOption,
+  showSearchBar = true,
   statusType,
   nextpage,
   prevPage,
@@ -261,23 +263,24 @@ const AdminTable = ({
   return (
     <>
       <div className="hide-scrollbar flex w-full gap-2 overflow-x-scroll xxs:py-4 md:py-0">
-        {tabs.map((tab: string, index: React.Key | null | undefined) => (
-          <TabSelector
-            key={index}
-            className={`relative cursor-pointer bg-transparent px-4 text-center text-[#5c6f7f] underline ${
-              selectedTab === tab
-                ? "rounded-md border border-[#197B30] text-[#197B30] no-underline shadow-md transition-all duration-100 ease-in-out"
-                : ""
-            }`}
-            isActive={selectedTab === tab}
-            onClick={() => {
-              setSelectedTab(tab);
-              setChosenTab(tab);
-            }}
-          >
-            {tab}
-          </TabSelector>
-        ))}
+        {tabs?.length >= 1 &&
+          tabs.map((tab: string, index: React.Key | null | undefined) => (
+            <TabSelector
+              key={index}
+              className={`relative cursor-pointer bg-transparent px-4 text-center text-[#5c6f7f] underline ${
+                selectedTab === tab
+                  ? "rounded-md border border-[#197B30] text-[#197B30] no-underline shadow-md transition-all duration-100 ease-in-out"
+                  : ""
+              }`}
+              isActive={selectedTab === tab}
+              onClick={() => {
+                setSelectedTab(tab);
+                setChosenTab(tab);
+              }}
+            >
+              {tab}
+            </TabSelector>
+          ))}
       </div>
 
       <div
@@ -323,13 +326,15 @@ const AdminTable = ({
             </button>
           </div>
         )}
-        <div className=" xxs:block md:flex md:w-[350px] md:justify-end">
-          <GlobalFilter
-            setFilter={setGlobalFilter}
-            filter={globalFilter}
-            placeholder={placeholder}
-          />
-        </div>
+        {showSearchBar && (
+          <div className=" xxs:block md:flex md:w-[350px] md:justify-end">
+            <GlobalFilter
+              setFilter={setGlobalFilter}
+              filter={globalFilter}
+              placeholder={placeholder}
+            />
+          </div>
+        )}
       </div>
       <div className="mb-8 flex flex-col bg-white ">
         <div className="hide-scroll-bar overflow-x-auto">
