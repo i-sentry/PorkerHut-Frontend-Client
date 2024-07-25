@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { TbDots } from "react-icons/tb";
 import Popover from "../utility/PopOver";
 import { FaUserCircle } from "react-icons/fa";
 
-const TrackerCard = ({ data, setOpen }: any) => {
+const TrackerCard = ({ data, setOpen, setSoldItems }: any) => {
+  const [refund, setRefund] = useState<string>("₦0");
+  const [payout, setPayout] = useState<number>(data?.period?.payout);
+
+  const onchange = (e: any) => {
+    const value = e.target.value;
+    const inputedValue = value.replace(/₦/g, "");
+    const formattedValue = `₦${inputedValue}`;
+
+    setRefund(formattedValue);
+    setPayout((prev: any) => prev + inputedValue * 1);
+    console.log(value);
+  };
+
+  const handleView = () => {
+    setSoldItems(data);
+    setOpen(true);
+
+    console.log(data, "sold");
+  };
   return (
     <>
       <div className="relative rounded-md border border-[#D9D9D9]  bg-white p-5">
@@ -20,9 +39,8 @@ const TrackerCard = ({ data, setOpen }: any) => {
           >
             <div className="w-[150px] py-2">
               <button
-                onClickCapture={() => setOpen(true)}
                 className="w-full border-b px-3 pb-2 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
-                onClick={() => {}}
+                onClick={handleView}
               >
                 View Sold Items
               </button>
@@ -53,7 +71,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Store Name:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              {data?.vendor?.sellerAccountInformation?.shopName}
+              {data?.period?.vendor?.sellerAccountInformation?.shopName}
             </span>
           </li>
           <li>
@@ -61,7 +79,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Period:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              Week {data?.currentWeek}
+              Week {data?.period?.currentWeek}
             </span>
           </li>
           <li>
@@ -77,7 +95,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Returned:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              2
+              {data?.returned}
             </span>
           </li>
         </ul>
@@ -87,7 +105,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Store Revenue:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              ₦{Math.round(data?.salesRevenue)?.toLocaleString()}
+              ₦{Math.round(data?.period?.salesRevenue)?.toLocaleString()}
             </span>
           </li>
           <li>
@@ -95,7 +113,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Charges:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-red-700 xl:text-base">
-              ₦500
+              ₦{data?.charges?.toLocaleString()}
             </span>
           </li>
           <li>
@@ -103,11 +121,13 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Refund on fees:&nbsp;
             </span>
             <input
-              type="no"
+              type="tel"
               name="refund"
               id="refund"
-              defaultValue={"₦"}
-              className="w-[80px] border border-[#D9D9D9] px-1"
+              disabled={data?.returned < 1}
+              value={refund}
+              onChange={(e) => onchange(e)}
+              className="h-6 w-[80px] border border-[#D9D9D9] px-1 disabled:text-neutral-400"
             />
           </li>
           <li>
@@ -115,7 +135,7 @@ const TrackerCard = ({ data, setOpen }: any) => {
               Payout:&nbsp;
             </span>
             <span className="inline-block text-sm font-normal text-[#333333] xl:text-base">
-              ₦{data?.payout?.toLocaleString()}
+              ₦{payout?.toLocaleString()}
             </span>
           </li>
         </ul>
