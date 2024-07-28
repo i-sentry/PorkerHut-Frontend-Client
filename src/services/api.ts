@@ -131,6 +131,7 @@ export const api = {
     userTracking: (userId: string) => `/api/tracking/${userId}`,
     trackingInfoByOrder: (userId: string) => `/api/tracking/${userId}`,
     OrderBatch: "/api/orders/update-multiple",
+    topProducts: "/api/orders/admin/topProducts",
   },
   admin: {
     inviteAdmin: "/api/user/admin-invite",
