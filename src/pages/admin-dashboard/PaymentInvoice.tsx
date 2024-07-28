@@ -250,7 +250,7 @@ const PaymentInvoice = () => {
             dropDownOption={[
               { label: "Set to Paid", value: "set_to_paid" },
               { label: "Set to Unpaid", value: "set_to_unpaid" },
-              { label: "Delete Invoice", value: "delete_invoice" },
+              // { label: "Delete Invoice", value: "delete_invoice" },
             ]}
             goType="invoice"
             refetch={refetch}
@@ -428,7 +428,7 @@ const VendorDetails = ({ setOpen, data }: any) => {
     [bankList?.data],
   );
 
-  const bankAccount = accNo;
+  const bankAccount = accNo || data?.vendor?.vendorBankAccount?.accountNumber;
   const bankCode = dropOption?.value;
   const url = `${BASEURL}/api/pay/account-details?account_number=${encodeURIComponent(
     bankAccount,

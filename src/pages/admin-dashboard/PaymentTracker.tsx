@@ -7,6 +7,7 @@ import { useGetPaymentTrackers } from "../../services/hooks/admin/payments";
 import moment from "moment";
 import { Column } from "react-table";
 import AdminTable from "../../components/admin-dashboard-components/AdminTable";
+import { GoCircleSlash } from "react-icons/go";
 
 function getCurrentWeek(): number {
   const now = new Date();
@@ -28,6 +29,7 @@ const PaymentTracker = () => {
   const [weekFull, setWeekFull] = useState(
     `${new Date().getFullYear()}-W${getCurrentWeek()}`,
   );
+  const [searchVal, setSearchVal] = useState("");
 
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -49,6 +51,9 @@ const PaymentTracker = () => {
           ),
     );
   }, [isLoading, invoices, week]);
+
+
+  
 
   console.log(invoices, "tracker");
 
@@ -78,7 +83,9 @@ const PaymentTracker = () => {
                 type="search"
                 name="search"
                 id="search"
-                placeholder="Search store name or ID number...."
+                value={searchVal}
+                onChange={(e) => setSearchVal(e.target.value)}
+                placeholder="Search store name...."
                 className="form-input inline-block w-full rounded-[8px] border-0 bg-[#F4F4F4] py-2.5 px-3 pl-6 outline-none ring-0 focus:border focus:border-green-700 focus:ring-0"
               />
               <span className="absolute top-1/2 right-4 -translate-y-1/2">
@@ -104,6 +111,19 @@ const PaymentTracker = () => {
             ))}
           </div>
         </>
+      )}
+      {!isLoading && trackers?.length < 1 && (
+        <div className="flex flex-col items-center py-24">
+          <span className="text-neutral-400">
+            <GoCircleSlash size={53} />
+          </span>
+          <h3 className="mt-6 mb-2 text-xl font-semibold text-neutral-700">
+            No Payment Tracker for this current week
+          </h3>
+          <p className="text-neutral-600">
+            Check trackers for past weeks using the week input above
+          </p>
+        </div>
       )}
       {open && <SoldItems setOpen={setOpen} data={currentItems} />}
 
@@ -154,7 +174,7 @@ const SoldItems = ({ setOpen, data }: any) => {
     {
       Header: "Delivered to",
       accessor: (row: any) => {
-        return <p className="">{row?.billingInformation}</p>;
+        return <p className="">{row?.billingInformation?.address}</p>;
       },
     },
     {
@@ -173,7 +193,8 @@ const SoldItems = ({ setOpen, data }: any) => {
     },
     {
       Header: "Charges",
-      accessor: (row: any) => `₦${charges}`,
+      accessor: (row: any) =>
+        `₦${row?.productDetails[0]?.price * (row?.productDetails[0]?.productID?.information?.category?.commissionRate / 100)}`,
     },
     {
       Header: "Quantity",
@@ -213,7 +234,7 @@ const SoldItems = ({ setOpen, data }: any) => {
                 type="search"
                 name="search"
                 id="search"
-                placeholder="Search store name or ID number...."
+                placeholder="Search store name...."
                 className="form-input inline-block w-full rounded-[8px] border-0 bg-[#F4F4F4] py-2.5 px-3 pl-6 outline-none ring-0 focus:border focus:border-green-700 focus:ring-0"
               />
               <span className="absolute top-1/2 right-4 -translate-y-1/2">
