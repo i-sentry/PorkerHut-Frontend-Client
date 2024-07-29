@@ -48,7 +48,6 @@ import { BiMinus } from "react-icons/bi";
 import { BsDash, BsPlus } from "react-icons/bs";
 import { cn } from "../../helper/cn";
 import Logo from "../../assets/images/porkerlogo.png";
-import slugify from "slugify";
 // import {
 //   useGetAllNotification,
 //   useGetSingleNotification,
