@@ -104,3 +104,10 @@ export const useGetAllVendorsAggregate = () => {
     queryKey: ["all+vendors+aggregate"],
   });
 };
+
+export const useGetTopProducts = () => {
+  return useQueryAction({
+    queryFn: () => makeGetRequest(api.Order.topProducts),
+    queryKey: ["all+top-products"],
+  });
+};

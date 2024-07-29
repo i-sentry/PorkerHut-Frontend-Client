@@ -46,7 +46,7 @@ const TrackerCard = ({ data, setOpen, setSoldItems }: any) => {
               </button>
               <button
                 onClick={() => {}}
-                className="w-full px-3 pt-2 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
+                className="hidden w-full px-3 pt-2 text-left font-light text-[#667085] transition-all duration-300 hover:bg-[#E9F5EC]"
               >
                 Delete Store
               </button>
