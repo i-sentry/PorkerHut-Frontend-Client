@@ -88,7 +88,7 @@ const Tcolumns: readonly Column<object>[] = [
         case "completed":
           return (
             <span className="">
-              <span className="h-2 w-2 rounded-full bg-green-500"></span>{" "}
+              <span className="inline-block h-2 w-2 rounded-full bg-green-500"></span>{" "}
               Completed
             </span>
           );
@@ -150,13 +150,13 @@ const SellersAccount = () => {
   const [selectedTab, setSelectedTab] = useTabs(["Statement", "Overview"]);
   const [vendorOrders, setVendorOrders] = useState<any[]>([]);
   const store = JSON.parse(localStorage.getItem("vendor") as string);
-  const { data: ordervendor } = useGetVendorOrders(store?.vendor?._id);
-  const orders = ordervendor?.data?.orders;
+
   const { data: invoice, isLoading } = useGetVendorInvoice(store?.vendor?._id);
+  const orders = invoice?.data?.openStatement?.invoices[0]?.order || [];
   const totalPaid = useMemo(
     () =>
       invoice?.data?.data?.reduce(
-        (acc: number, cur: any) => acc + cur?.totalPaid?.amount,
+        (acc: number, cur: any) => (acc + cur?.totalPaid?.amount) | 0,
         0,
       ),
     [isLoading, invoice?.data],
@@ -165,15 +165,15 @@ const SellersAccount = () => {
   const totalDue = useMemo(
     () =>
       invoice?.data?.data?.reduce(
-        (acc: number, cur: any) => acc + cur?.totalDueAndUnpaid?.amount,
+        (acc: number, cur: any) => acc + cur?.totalDueAndUnpaid?.amount || 0,
         0,
       ),
     [isLoading, invoice?.data],
   );
 
-  useEffect(() => setVendorOrders(orders), [orders]);
+  useEffect(() => setVendorOrders(orders), [invoice, isLoading]);
 
-  console.log(invoice?.data, "invoice");
+  console.log(invoice, "invoice", vendorOrders);
 
   const data = [
     {
@@ -300,14 +300,16 @@ const SellersAccount = () => {
                   <Carousel cards={cards} />
                 </div>
 
-                <div className="mt-6 grid gap-3 lg:grid-cols-[2fr_1fr]">
-                  <AccountSummary
-                    data={invoice?.data?.openStatement?.invoices}
-                  />
-                  <PaymentSummary
-                    invoice={invoice?.data?.openStatement?.invoices}
-                  />
-                </div>
+                {!isLoading && invoice?.data?.openStatement?.invoices && (
+                  <div className="mt-6 grid gap-3 lg:grid-cols-[2fr_1fr]">
+                    <AccountSummary
+                      data={invoice?.data?.openStatement?.invoices}
+                    />
+                    <PaymentSummary
+                      invoice={invoice?.data?.openStatement?.invoices}
+                    />
+                  </div>
+                )}
               </div>
             </TabPanel>
             <TabPanel hidden={selectedTab !== "Overview"}>
@@ -402,17 +404,22 @@ export const Carousel: React.FC<CarouselProps> = ({ cards }) => {
 
 const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
   const [acc, setAcc] = useState<any>();
+  const subTotal: number = acc?.salesRevenue - 0 - 0 || 0;
+  const totalBal = subTotal + acc?.refundOnFees || 0;
 
   useEffect(() => {
     const curInvoice = data
-      ?.slice()
-      .sort(
-        (a: any, b: any) =>
-          new Date(b?.startDate).getTime() - new Date(a?.startDate).getTime(),
-      );
-    setAcc(curInvoice[0]);
+      ? data
+          ?.slice()
+          .sort(
+            (a: any, b: any) =>
+              new Date(b?.startDate).getTime() -
+              new Date(a?.startDate).getTime(),
+          )
+      : null;
+    setAcc(curInvoice ? curInvoice?.[0] : null);
 
-    console.log(curInvoice[0], "curInvoice");
+    // console.log(curInvoice[0], "curInvoice");
   }, [data]);
 
   console.log(data, "acc", getWeekNumber(new Date().toISOString()), acc);
@@ -424,8 +431,8 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
           <div className="">
             <h2 className="font-medium underline">Payment Period</h2>
             <p className="text-sm text-gray-500">
-              {moment(acc?.startDate).format("DD MMM")} -
-              {moment(acc?.endDate).format("DD MMM YYYY")}
+              {moment(acc?.startDate || new Date()).format("DD MMM")} -
+              {moment(acc?.endDate || new Date()).format("DD MMM YYYY")}
             </p>
           </div>
           <div className="border-gray-200">
@@ -436,6 +443,7 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
             <p className="text-center text-sm text-gray-500">₦</p>
           </div>
         </div>
+
         <div className="px-4 py-5">
           <div className="grid grid-cols-[1fr_1.5fr_1.5fr] items-start gap-y-3">
             {/* ORDERS */}
@@ -452,12 +460,12 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
             <div>
               <ul className="space-y-2 text-right">
                 <li>{acc?.salesRevenue?.toLocaleString() || 0}</li>
-                <li>-4500</li>
-                <li className="text-neutral-400">-2500</li>
+                <li>-0</li>
+                <li className="text-neutral-400">-0</li>
                 <li className="">
                   <span className="inline-flex w-[230px] items-center justify-between gap-20 border-t pt-2">
                     <span className="text-sm text-neutral-400">Subtotal</span>
-                    <span>295,734</span>
+                    <span>{subTotal?.toLocaleString()}</span>
                   </span>
                 </li>
               </ul>
@@ -473,13 +481,13 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
             </div>
             <div>
               <ul className="space-y-2 text-right">
-                <li>0.00</li>
+                <li>{acc?.refundOnFees}</li>
                 <li className="">
                   <span className="inline-flex w-[230px] items-center justify-between gap-20 border-t pt-2">
                     <span className="text-sm text-neutral-400">
                       Total Balance
                     </span>
-                    <span>295,734</span>
+                    <span>{totalBal?.toLocaleString()}</span>
                   </span>
                 </li>
               </ul>
@@ -488,7 +496,9 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
           {/* PAYOUT */}
           <div className="mt-3 grid grid-cols-2 items-center justify-between gap-y-4 border-t-4 pt-3">
             <h3 className="font-medium">Payout</h3>
-            <span className="justify-self-end">295,734</span>
+            <span className="justify-self-end">
+              {totalBal?.toLocaleString()}
+            </span>
 
             <ul className="space-x-4">
               <li className="inline-flex items-center gap-1">
@@ -541,7 +551,7 @@ const PaymentSummary: React.FC<{ invoice: any }> = ({ invoice }) => {
                     ></span>
                   </div>
                   <div className=" pr-2 text-center text-sm">
-                    {data?.payout}
+                    {data?.payout || 0}
                   </div>
                 </div>
               ))}
