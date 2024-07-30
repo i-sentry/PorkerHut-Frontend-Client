@@ -105,7 +105,7 @@ const Filtercomp: React.FC<FiltercompProps> = ({
             </AccordionItem>
           )),
 
-          <AccordionItem title={"Location"}>
+          <AccordionItem title={"Location"} key="location">
             {(UniqueCity || [])?.map((city, index) => (
               <Checkbox
                 key={index}

@@ -180,14 +180,24 @@ const Aside = () => {
         //@ts-ignore
         return (
           <>
-            <Submenu item={item} key={index} />
+            <Submenu item={item} key={index + 1} />
           </>
         );
       })}
       {user === null && (
         <div className="mt-4 flex flex-col gap-3 px-5 pr-4 lg:hidden">
-          <NavButton className={signUpBtn} text="Sign Up" path="/sign-up" />
-          <NavButton className={loginBtn} text="Login" path="/login" />
+          <NavButton
+            key="signup"
+            className={signUpBtn}
+            text="Sign Up"
+            path="/sign-up"
+          />
+          <NavButton
+            key="login"
+            className={loginBtn}
+            text="Login"
+            path="/login"
+          />
         </div>
       )}
     </div>

@@ -6,6 +6,34 @@ import { useCartTotalAmount } from "../../store";
 import { useCreateOrder } from "../../services/hooks/orders";
 import { useMakePayment } from "../../services/hooks/payment";
 
+const calculateDeliveryFee = (
+  productCategory: string,
+  isWithinAbuja: boolean,
+  weight: number,
+  distance: number,
+  categoryDeliveryRate: number,
+) => {
+  const BASE_FEE_ABUJA = 500;
+  const WEIGHT_RATE_PORK = 50;
+  const DISTANCE_RATE_LIVESTOCK = 100;
+  const HANDLING_FEE_LIVESTOCK = 1000;
+
+  let fee = 0;
+
+  if (productCategory?.toLowerCase() === "pork" && isWithinAbuja) {
+    fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE_PORK;
+    fee += (fee * categoryDeliveryRate) / 100;
+  } else if (productCategory?.toLowerCase() === "livestocks") {
+    fee = distance * DISTANCE_RATE_LIVESTOCK + HANDLING_FEE_LIVESTOCK;
+    if (isWithinAbuja) {
+      fee += (fee * categoryDeliveryRate) / 100;
+    } else {
+      fee += (fee * categoryDeliveryRate) / 100;
+    }
+  }
+  return fee;
+};
+
 export type IUser = {
   accessToken: string;
   billingInfo: string[];
@@ -59,6 +87,21 @@ const OrderCart = ({
       0,
     ) || 700;
   console.log(cart, dFee);
+
+  console.log(
+    Object.values(cart).map((item: any) => {
+      const { deliveryFeeRate, name } = item?.information?.category;
+
+      return calculateDeliveryFee(
+        name,
+        false,
+        item?.details?.productWeight,
+        792,
+        deliveryFeeRate,
+      );
+    }),
+    "Delivery rate",
+  );
 
   const vat = cartTotal + (cartTotal / 100) * 7.5;
   const sumTotal = cartTotal + dFee;
