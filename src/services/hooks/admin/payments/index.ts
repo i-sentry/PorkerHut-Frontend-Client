@@ -36,3 +36,10 @@ export const useGetPaymentTrackers = () => {
     queryKey: ["all+payment+trackers"],
   });
 };
+
+export const useUpdateRefundOnFees = (id: string) => {
+  return useQueryMutation({
+    mutationFn: (data: { refundOnFees: number }) =>
+      makeCustomPutRequest(data, api.Payment.refund(id)),
+  });
+};

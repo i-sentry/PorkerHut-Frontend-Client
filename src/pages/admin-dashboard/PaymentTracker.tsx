@@ -24,7 +24,7 @@ const PaymentTracker = () => {
   const [trackers, setTrackers] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
   const [currentItems, setCurrentItems] = useState<any[]>([]);
-  const { data: invoices, isLoading } = useGetPaymentTrackers();
+  const { data: invoices, isLoading, refetch } = useGetPaymentTrackers();
   const [week, setWeek] = useState(getCurrentWeek());
   const [weekFull, setWeekFull] = useState(
     `${new Date().getFullYear()}-W${getCurrentWeek()}`,
@@ -51,9 +51,6 @@ const PaymentTracker = () => {
           ),
     );
   }, [isLoading, invoices, week]);
-
-
-  
 
   console.log(invoices, "tracker");
 
@@ -107,6 +104,7 @@ const PaymentTracker = () => {
                 data={data}
                 setSoldItems={setCurrentItems}
                 setOpen={setOpen}
+                refetch={refetch}
               />
             ))}
           </div>

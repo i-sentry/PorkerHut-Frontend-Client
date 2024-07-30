@@ -111,6 +111,8 @@ export const api = {
     invoiceTotal: "/api/payment-invoice/totals",
     invoiceStatus: "/api/payment-invoice/multiple",
     tracker: "/api/payment-invoice/paymentTracker",
+    refund: (paymentInvoiceId: string) =>
+      `/api/payment-invoice/refund/${paymentInvoiceId}`,
   },
   Billing: {
     billing: "/api/user/billing",
