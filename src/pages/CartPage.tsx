@@ -46,12 +46,12 @@ const CartPage = () => {
     navigate("/products");
   };
 
-  const cartTotal = Object.values(cart)?.reduce((acc, current) => {
-    return (
+  const cartTotal = Object.values(cart)?.reduce(
+    (acc, current) =>
       acc +
-      current?.pricing?.productPrice * (current?.pricing?.quantity as number)
-    );
-  }, 0);
+      current?.pricing?.productPrice * (current?.pricing?.quantity as number),
+    0,
+  );
 
   const cartTotalQuantity = Object.values(cart).reduce((acc, current) => {
     return acc + (current?.pricing?.quantity as number);
@@ -318,14 +318,14 @@ const CartPage = () => {
                 onChange={handleCityChange}
               >
                 <option value="">
-                  No 14, Cresent by philip’s junction beside zenith bank off
-                  kudirat Lugbe way Abuja - Abuja
+                  Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa
+                  State, Nigeria
                 </option>
                 {/* Add city options based on the selected state */}
               </select>
               <span className="info-tooltip text-sm font-normal text-neutral-400 opacity-70">
-                No 14, Cresent by philip’s junction beside zenith bank off
-                kudirat Lugbe way Abuja - Abuja
+                Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa
+                State, Nigeria
               </span>
             </div>
 
@@ -335,14 +335,14 @@ const CartPage = () => {
                   Contact Information
                 </h2>
                 <p className="text-xs font-normal text-zinc-800">
-                  Jane Jackson | +2349012345678
+                  Porker Hut | +2348057808076
                 </p>
               </div>
 
               <div className="text-zinc-800">
                 <h2 className=" text-sm font-medium">Opening hours</h2>
                 <p className=" text-xs font-normal">
-                  Mon-Fri 8am-5pm; Saturday 8am-2pm
+                  Mon-Fri 8am-4pm; Saturday 8am-2pm
                 </p>
               </div>
             </div>
