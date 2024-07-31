@@ -11,7 +11,7 @@ import { MdOutlineSpeakerNotes } from "react-icons/md";
 import CartMobileModal from "./CartMobileModal";
 
 const porkerPickupAddress =
-  "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
+  "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria";
 
 const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   const dispatch = useDispatch();
@@ -49,6 +49,13 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     //@ts-ignore
     handleUpdateProduct(id);
   };
+
+  const removeFromCart = (item: any) => {
+    dispatch(deleteProductFromCart({ id: item?._id }));
+
+    console.log("clicked", item);
+  };
+
   useEffect(() => {
     if (product) {
       setItem(product);
@@ -61,8 +68,8 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
         <div key={idx + "index"}>
           <div className="relative flex items-center gap-6 px-0 md:px-5">
             <span
-              onClick={() => dispatch(deleteProductFromCart({ id: item?._id }))}
-              className="absolute top-0 right-1 block cursor-pointer  text-right text-sm text-[#A2A2A2] underline md:hidden"
+              onClick={() => removeFromCart(item)}
+              className="absolute top-0 right-1 block cursor-pointer text-right text-sm text-[#A2A2A2] underline md:hidden"
             >
               Remove
             </span>
@@ -170,7 +177,11 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     <p className="text-sm font-semibold text-[#333]">
                       Door Delivery{" "}
                       <span className="text-xs font-normal">
-                        (Starting from ₦1,500)
+                        (Starting from ₦
+                        {(item?.information?.category?.deliveryFeeRate *
+                          item?.details?.productWeight) /
+                          100}
+                        )
                       </span>
                     </p>
                   </label>
@@ -212,7 +223,7 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                         rows={4}
                         cols={50}
                         disabled={true}
-                        value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                        value="Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria"
                         id="pick_up"
                         placeholder=""
                         className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
@@ -256,3 +267,65 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
 };
 
 export default CartCard2;
+
+type OrderDetails = {
+  isWithinAbuja: boolean;
+  weight: number;
+  distance: number;
+};
+
+function DeliveryFee() {
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails>({
+    isWithinAbuja: true,
+    weight: 0,
+    distance: 0,
+  }); //Data coming from backend
+
+  // constants for the fees
+  const BASE_FEE_ABUJA = 500; // standard base fee for deliveries within Abuja
+  const WEIGHT_RATE = 50; // rate per kilogram (kg) of pork delivered
+  const DISTANCE_RATE = 100; // For deliveries outside Abuja rate per km
+  const HANDLING_FEE = 1000; // special handling or packaging fees for delivery outside abuja.
+
+  const calculateDeliveryFee = () => {
+    const { isWithinAbuja, weight, distance } = orderDetails;
+    let fee = 0;
+
+    if (isWithinAbuja) {
+      fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE;
+    } else {
+      fee = distance * DISTANCE_RATE + HANDLING_FEE;
+    }
+
+    setDeliveryFee(fee);
+  };
+}
+
+export const calculateDeliveryFee = (
+  productCategory: string,
+  isWithinAbuja: boolean,
+  weight: number,
+  distance: number,
+  categoryDeliveryRate: number,
+) => {
+  const BASE_FEE_ABUJA = 500;
+  const WEIGHT_RATE_PORK = 50;
+  const DISTANCE_RATE_LIVESTOCK = 100;
+  const HANDLING_FEE_LIVESTOCK = 1000;
+
+  let fee = 0;
+
+  if (productCategory === "pork" && isWithinAbuja) {
+    fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE_PORK;
+    fee += (fee * categoryDeliveryRate) / 100;
+  } else if (productCategory === "livestock") {
+    fee = distance * DISTANCE_RATE_LIVESTOCK + HANDLING_FEE_LIVESTOCK;
+    if (isWithinAbuja) {
+      fee += (fee * categoryDeliveryRate) / 100;
+    } else {
+      fee += (fee * categoryDeliveryRate) / 100;
+    }
+  }
+  return fee;
+};

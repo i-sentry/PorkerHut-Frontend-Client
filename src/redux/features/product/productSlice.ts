@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { BASEURL } from "../../../services/api";
@@ -81,11 +81,11 @@ const initialState: ProductState = {
 
 export const fetchProduct = createAsyncThunk(
   "product/fetch",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     const response = await fetch(`${BASEURL}/api/products/`, {
       method: "GET",
     });
-    const data = response.json();
+    const data = await response.json();
     return data;
   },
 );
@@ -109,6 +109,7 @@ export const productSlice = createSlice({
       const product = state.productList.find(
         (product) => product._id === action.payload.id,
       );
+      console.log(current(state));
 
       if (!product) {
         return; // or throw an error if necessary
@@ -134,10 +135,13 @@ export const productSlice = createSlice({
       } else {
         // Product is not in the cart, add it
         product.pricing.quantity = 1;
-        state.cart[action.payload.id] = product;
+        state.cart = {
+          ...state.cart,
+          [action.payload.id]: { ...product },
+        };
 
         // Update the totalQuantity in the state by adding 1
-        state.totalQuantity = (state.totalQuantity || 0) + 1;
+        state.totalQuantity += 1;
 
         localStorage.setItem("cart", JSON.stringify(state.cart));
 
@@ -249,7 +253,8 @@ export const {
   addProductToFavorites,
   deleteProductFromCart,
   incrementProductQty,
-  decrementProductQty, clearCart
+  decrementProductQty,
+  clearCart,
 } = productSlice.actions;
 
 export default productSlice.reducer;
