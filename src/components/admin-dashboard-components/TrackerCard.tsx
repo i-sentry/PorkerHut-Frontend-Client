@@ -149,17 +149,18 @@ const TrackerCard = ({ data, setOpen, setSoldItems, refetch }: any) => {
               type="tel"
               name="refund"
               id="refund"
-              // disabled={data?.returned < 1}
+              disabled={data?.returned < 1 || data?.status === "paid"}
               value={refund}
               onChange={(e) => onchange(e)}
               className="h-6 w-[80px] border border-[#D9D9D9] px-1 focus:border-green-700 focus:ring-green-700 disabled:text-neutral-400"
             />
-            <span
+            <button
+              disabled={data?.returned < 1 || data?.status === "paid"}
               onClick={handleUpdate}
-              className="inline-flex h-6 w-6 items-center justify-center bg-green-700 px-1 text-white"
+              className="inline-flex disabled:bg-opacity-40 h-6 w-6 items-center justify-center bg-green-700 px-1 text-white"
             >
               {loading ? <CgSpinner className="animate-spin" /> : <BiCheck />}
-            </span>
+            </button>
           </li>
           <li>
             <span className="inline-block text-sm font-normal text-[#A2A2A2] xl:text-base">
