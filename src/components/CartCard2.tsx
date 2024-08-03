@@ -11,7 +11,7 @@ import { MdOutlineSpeakerNotes } from "react-icons/md";
 import CartMobileModal from "./CartMobileModal";
 
 const porkerPickupAddress =
-  "No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja";
+  "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria";
 
 const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
   const dispatch = useDispatch();
@@ -49,6 +49,13 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
     //@ts-ignore
     handleUpdateProduct(id);
   };
+
+  const removeFromCart = (item: any) => {
+    dispatch(deleteProductFromCart({ id: item?._id }));
+
+    console.log("clicked", item);
+  };
+
   useEffect(() => {
     if (product) {
       setItem(product);
@@ -61,8 +68,8 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
         <div key={idx + "index"}>
           <div className="relative flex items-center gap-6 px-0 md:px-5">
             <span
-              onClick={() => dispatch(deleteProductFromCart({ id: item?._id }))}
-              className="absolute top-0 right-1 block cursor-pointer  text-right text-sm text-[#A2A2A2] underline md:hidden"
+              onClick={() => removeFromCart(item)}
+              className="absolute top-0 right-1 block cursor-pointer text-right text-sm text-[#A2A2A2] underline md:hidden"
             >
               Remove
             </span>
@@ -154,43 +161,77 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
               Add Note
             </button>
           </div>
-          {item?.vendor?.sellerAccountInformation?.shopName ===
-            "Test Shop Ltd" && (
-            <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
-              <div className="w-[300px]">
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="radio"
-                    value="delivery"
-                    checked={selectedOption === "delivery"}
-                    onChange={() => handleRadioChange("delivery", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
-                  />
-                  <p className="text-sm font-semibold text-[#333]">
-                    Door Delivery{" "}
-                    <span className="text-xs font-normal">
-                      (Starting from ₦1,500)
+          {item?.vendor?.sellerAccountInformation?.shopName === "Porker-Hut" ||
+            (item?.vendor?.sellerAccountInformation?.shopName ===
+              "Emmbrik's Farm" && (
+              <div className="mt-4 mb-5 flex flex-col gap-4 p-0 md:flex-row md:px-5">
+                <div className="w-[300px]">
+                  <label className="flex cursor-pointer items-center space-x-2">
+                    <input
+                      type="radio"
+                      value="delivery"
+                      checked={selectedOption === "delivery"}
+                      onChange={() => handleRadioChange("delivery", item?._id)}
+                      className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
+                    />
+                    <p className="text-sm font-semibold text-[#333]">
+                      Door Delivery{" "}
+                      <span className="text-xs font-normal">
+                        (Starting from ₦
+                        {(item?.information?.category?.deliveryFeeRate *
+                          item?.details?.productWeight) /
+                          100}
+                        )
+                      </span>
+                    </p>
+                  </label>
+                </div>
+
+                <div className="md:flex-grow lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
+                  <label className="flex cursor-pointer items-center space-x-2">
+                    <input
+                      type="radio"
+                      value="pickup"
+                      checked={selectedOption === "pickup"}
+                      onChange={() => handleRadioChange("pickup", item?._id)}
+                      className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
+                    />
+                    <span className="text-sm font-semibold text-[#333]">
+                      Pickup
                     </span>
-                  </p>
-                </label>
-              </div>
+                  </label>
 
-              <div className="md:flex-grow lg:ml-auto lg:mr-20 lg:flex-shrink-0 lg:flex-grow-0 lg:basis-1/2">
-                <label className="flex cursor-pointer items-center space-x-2">
-                  <input
-                    type="radio"
-                    value="pickup"
-                    checked={selectedOption === "pickup"}
-                    onChange={() => handleRadioChange("pickup", item?._id)}
-                    className="bg-neutral-300 checked:bg-[#FE6600] checked:hover:bg-[#FE6600] focus:ring-0 checked:focus:bg-[#FE6600]"
-                  />
-                  <span className="text-sm font-semibold text-[#333]">
-                    Pickup
-                  </span>
-                </label>
+                  {selectedOption === "pickup" && (
+                    <div className="mt-4 mb-4 flex flex-col md:hidden">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor=" text-[#333333] font- text-sm">
+                          Available Pickup Address
+                        </label>
+                        <span
+                          onClick={() => {
+                            toggleModal(true);
+                            setLocation(
+                              item?.vendor?.businessInformation?.city,
+                            );
+                          }}
+                          className="order-notes cursor-pointer text-sm  text-[#522828] underline"
+                        >
+                          Change pickup station
+                        </span>
+                      </div>
+                      <textarea
+                        rows={4}
+                        cols={50}
+                        disabled={true}
+                        value="Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria"
+                        id="pick_up"
+                        placeholder=""
+                        className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
+                      ></textarea>
+                    </div>
+                  )}
 
-                {selectedOption === "pickup" && (
-                  <div className="mt-4 mb-4 flex flex-col md:hidden">
+                  <div className="mt-4 mb-4 hidden flex-col md:flex">
                     <div className="flex items-center justify-between">
                       <label htmlFor=" text-[#333333] font- text-sm">
                         Available Pickup Address
@@ -207,43 +248,16 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
                     </div>
                     <textarea
                       rows={4}
-                      cols={50}
                       disabled={true}
-                      value="No 14, Crescent by philip’s junction beside zenith bank off kudirat Lugbe way Abuja - Abuja"
+                      cols={50}
                       id="pick_up"
-                      placeholder=""
-                      className="mt-1 rounded  border px-5 py-4 text-[12px] leading-[16px] outline-none"
+                      value={porkerPickupAddress}
+                      className=" mt-1 h-16 rounded border px-5 py-4 text-[12px] leading-[16px] outline-none"
                     ></textarea>
                   </div>
-                )}
-
-                <div className="mt-4 mb-4 hidden flex-col md:flex">
-                  <div className="flex items-center justify-between">
-                    <label htmlFor=" text-[#333333] font- text-sm">
-                      Available Pickup Address
-                    </label>
-                    <span
-                      onClick={() => {
-                        toggleModal(true);
-                        setLocation(item?.vendor?.businessInformation?.city);
-                      }}
-                      className="order-notes cursor-pointer text-sm  text-[#522828] underline"
-                    >
-                      Change pickup station
-                    </span>
-                  </div>
-                  <textarea
-                    rows={4}
-                    disabled={true}
-                    cols={50}
-                    id="pick_up"
-                    value={porkerPickupAddress}
-                    className=" mt-1 h-16 rounded border px-5 py-4 text-[12px] leading-[16px] outline-none"
-                  ></textarea>
                 </div>
               </div>
-            </div>
-          )}
+            ))}
         </div>
       ))}
 
@@ -253,3 +267,65 @@ const CartCard2: React.FC<{ item: any[] }> = ({ item: product }) => {
 };
 
 export default CartCard2;
+
+type OrderDetails = {
+  isWithinAbuja: boolean;
+  weight: number;
+  distance: number;
+};
+
+function DeliveryFee() {
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails>({
+    isWithinAbuja: true,
+    weight: 0,
+    distance: 0,
+  }); //Data coming from backend
+
+  // constants for the fees
+  const BASE_FEE_ABUJA = 500; // standard base fee for deliveries within Abuja
+  const WEIGHT_RATE = 50; // rate per kilogram (kg) of pork delivered
+  const DISTANCE_RATE = 100; // For deliveries outside Abuja rate per km
+  const HANDLING_FEE = 1000; // special handling or packaging fees for delivery outside abuja.
+
+  const calculateDeliveryFee = () => {
+    const { isWithinAbuja, weight, distance } = orderDetails;
+    let fee = 0;
+
+    if (isWithinAbuja) {
+      fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE;
+    } else {
+      fee = distance * DISTANCE_RATE + HANDLING_FEE;
+    }
+
+    setDeliveryFee(fee);
+  };
+}
+
+export const calculateDeliveryFee = (
+  productCategory: string,
+  isWithinAbuja: boolean,
+  weight: number,
+  distance: number,
+  categoryDeliveryRate: number,
+) => {
+  const BASE_FEE_ABUJA = 500;
+  const WEIGHT_RATE_PORK = 50;
+  const DISTANCE_RATE_LIVESTOCK = 100;
+  const HANDLING_FEE_LIVESTOCK = 1000;
+
+  let fee = 0;
+
+  if (productCategory === "pork" && isWithinAbuja) {
+    fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE_PORK;
+    fee += (fee * categoryDeliveryRate) / 100;
+  } else if (productCategory === "livestock") {
+    fee = distance * DISTANCE_RATE_LIVESTOCK + HANDLING_FEE_LIVESTOCK;
+    if (isWithinAbuja) {
+      fee += (fee * categoryDeliveryRate) / 100;
+    } else {
+      fee += (fee * categoryDeliveryRate) / 100;
+    }
+  }
+  return fee;
+};

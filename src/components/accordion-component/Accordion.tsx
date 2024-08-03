@@ -88,7 +88,7 @@ const Filter = ({ setData }: iProps) => {
     <>
       <Fragment>
         {allCategories?.data?.map((menu: any, index: number) => (
-          <Accordion
+          <Accordion key={index}
             open={open === index}
             icon={<Icon id={index} open={open} />}
           >

@@ -6,6 +6,34 @@ import { useCartTotalAmount } from "../../store";
 import { useCreateOrder } from "../../services/hooks/orders";
 import { useMakePayment } from "../../services/hooks/payment";
 
+const calculateDeliveryFee = (
+  productCategory: string,
+  isWithinAbuja: boolean,
+  weight: number,
+  distance: number,
+  categoryDeliveryRate: number,
+) => {
+  const BASE_FEE_ABUJA = 500;
+  const WEIGHT_RATE_PORK = 50;
+  const DISTANCE_RATE_LIVESTOCK = 100;
+  const HANDLING_FEE_LIVESTOCK = 1000;
+
+  let fee = 0;
+
+  if (productCategory?.toLowerCase() === "pork" && isWithinAbuja) {
+    fee = BASE_FEE_ABUJA + weight * WEIGHT_RATE_PORK;
+    fee += (fee * categoryDeliveryRate) / 100;
+  } else if (productCategory?.toLowerCase() === "livestocks") {
+    fee = distance * DISTANCE_RATE_LIVESTOCK + HANDLING_FEE_LIVESTOCK;
+    if (isWithinAbuja) {
+      fee += (fee * categoryDeliveryRate) / 100;
+    } else {
+      fee += (fee * categoryDeliveryRate) / 100;
+    }
+  }
+  return fee;
+};
+
 export type IUser = {
   accessToken: string;
   billingInfo: string[];
@@ -37,16 +65,47 @@ const OrderCart = ({
   const makePayment = useMakePayment();
 
   const cart = useSelector((state: RootState) => state.product.cart);
-  const dFee = 700;
+  // const dFee = 700;
   const cartTotal = Object.values(cart).reduce((acc, current) => {
     return (
       acc +
       current?.pricing?.productPrice * (current?.pricing?.quantity as number)
     );
   }, 0);
+
+  // DELIEVRY FEE CALCULATION
+  const dFee =
+    Object.values(cart).reduce(
+      (acc: any, item: any) =>
+        acc +
+        Math.round(
+          (item?.pricing?.productPrice *
+            (item?.information?.category?.deliveryFeeRate / 100)) /
+            100,
+        ) *
+          100,
+      0,
+    ) || 700;
+  console.log(cart, dFee);
+
+  console.log(
+    Object.values(cart).map((item: any) => {
+      const { deliveryFeeRate, name } = item?.information?.category;
+
+      return calculateDeliveryFee(
+        name,
+        false,
+        item?.details?.productWeight,
+        792,
+        deliveryFeeRate,
+      );
+    }),
+    "Delivery rate",
+  );
+
   const vat = cartTotal + (cartTotal / 100) * 7.5;
-  // const sumTotal = cartTotal + vat + dFee;
-  const sumTotal = cartTotal;
+  const sumTotal = cartTotal + dFee;
+  // const sumTotal = cartTotal;
   const newArray = Object.values(cart).map((item: any) => ({
     productID: item?._id,
     quantity: item?.pricing?.quantity,
@@ -117,58 +176,64 @@ const OrderCart = ({
   }
 
   return (
-    <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
-      <div className="px-4 py-6">
-        <h1 className="text-[24px] font-semibold leading-[28px] text-[#333333]">
-          Orders
-        </h1>
-      </div>
+    <>
+      <div className=" w-full self-start rounded-lg bg-white lg:top-[100px]  lg:w-auto">
+        <div className="px-4 py-6">
+          <h1 className="text-[24px] font-semibold leading-[28px] text-[#333333]">
+            Orders
+          </h1>
+        </div>
 
-      <div className="max-h-[440px] overflow-y-auto ">
-        {Object.values(cart).map((item, idx) => (
-          <div key={idx}>
-            <OrderCard item={item} />
-          </div>
-        ))}
-      </div>
+        <div className="max-h-[440px] overflow-y-auto ">
+          {Object.values(cart).map((item, idx) => (
+            <div key={idx}>
+              <OrderCard item={item} />
+            </div>
+          ))}
+        </div>
 
-      <div className="">
-        <div className="py-4">
-          <div className="mb-3 flex w-full justify-between px-4 py-2 font-medium">
-            <span className="self-center text-[20px] font-medium leading-[23px] text-[#333333]">
-              Subtotal
-            </span>
-            <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              ₦{cartTotal.toLocaleString()}
-            </span>
-          </div>
-          <div className="mb-3 flex justify-between px-4 py-2 font-medium">
+        <div className="">
+          <div className="py-4">
+            <div className="mb-3 flex w-full justify-between px-4 py-2 font-medium">
+              <span className="self-center text-[20px] font-medium leading-[23px] text-[#333333]">
+                Subtotal
+              </span>
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                ₦{cartTotal.toLocaleString()}
+              </span>
+            </div>
+            {/* <div className="mb-3 flex justify-between px-4 py-2 font-medium">
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               VAT
             </span>
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
               ₦{vat.toLocaleString()}
             </span>
+          </div> */}
+            <div className="flex justify-between px-4 py-2 font-medium ">
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                Delivery.
+              </span>
+              <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
+                ₦{dFee.toLocaleString()}
+              </span>
+            </div>
           </div>
-          <div className="flex justify-between px-4 py-2 font-medium ">
+          <div className="flex justify-between border-t border-[#D9D9D9] py-5 px-4 font-medium">
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              Delivery.
+              Total
             </span>
             <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-              ₦{dFee.toLocaleString()}
+              ₦{sumTotal?.toLocaleString()}
             </span>
           </div>
-        </div>
-        <div className="flex justify-between border-t border-[#D9D9D9] py-5 px-4 font-medium">
-          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-            Total
-          </span>
-          <span className="text-[20px] font-medium leading-[23px] text-[#333333]">
-            ₦{sumTotal?.toLocaleString()}
-          </span>
         </div>
       </div>
-    </div>
+      <p className="mt-4 px-4 font-medium text-[#727272]">
+        <span className="text-red-600">Note:</span> Our shipping fee vary by
+        weight and location. Fee are subject to change.
+      </p>
+    </>
   );
 };
 

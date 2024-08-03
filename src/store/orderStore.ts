@@ -1,5 +1,4 @@
-import { string } from "yup";
-import create from "zustand";
+import {create} from "zustand";
 
 interface IOrderStore {
   showOrderDetails: boolean;

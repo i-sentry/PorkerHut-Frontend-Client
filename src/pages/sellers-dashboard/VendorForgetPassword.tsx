@@ -13,7 +13,7 @@ export interface IEmail {
 }
 
 const VendorForgetPassword = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const recoverPassword = useVendorRecoverPassword();
 
   const {
@@ -113,7 +113,7 @@ const VendorForgetPassword = () => {
                   <p className="font-normal text-[#A2A2A2]">
                     Remember your password?{" "}
                     <a
-                      href="sign-in?q=vendor"
+                      href="/sign-in?q=vendor"
                       className="cursor-pointer font-normal text-[#197b30] hover:underline"
                     >
                       Back to login

@@ -12,6 +12,9 @@ import { SkeletonLoader } from "../components/category-component/Category";
 import { TbLoader3 } from "react-icons/tb";
 import Filtercomp from "../components/custom-filter/FilterComp";
 import { CgSpinnerAlt } from "react-icons/cg";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../redux/features/product/productSlice";
+import { useAppDispatch } from "../redux/hook";
 
 interface iProps {
   setData: React.SetStateAction<any>;
@@ -32,6 +35,11 @@ const ProductPage: React.FC<iProps> = ({ handleClick }) => {
   let currentPage = 1;
   const [currentPageIndex, setCurrentPageIndex] = useState(currentPage);
   const { data: getAllProducts, isLoading } = useGetAllProducts();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, [dispatch]);
 
   useEffect(
     () =>

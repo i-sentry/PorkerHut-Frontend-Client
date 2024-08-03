@@ -1,5 +1,5 @@
 // import { AnyStyledComponent } from "styled-components";
-import create from "zustand";
+import { create } from "zustand";
 
 export interface ISearch {
   showSearch: any;
