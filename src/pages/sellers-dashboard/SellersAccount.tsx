@@ -424,6 +424,19 @@ const AccountSummary: React.FC<{ data: any }> = ({ data }) => {
 
   console.log(data, "acc", getWeekNumber(new Date().toISOString()), acc);
 
+  const commissions = acc?.order
+    ?.flatMap((item: any) => {
+      return item?.productDetails?.map(
+        (productDetail: any) =>
+          (productDetail?.productID?.information?.category?.commissionRate *
+            productDetail?.price) /
+          100,
+      );
+    })
+    .reduce((acc: number, item: any) => acc + item, 0);
+
+  console.log(commissions);
+
   return (
     <>
       <section className="rounded-md border border-neutral-100">
