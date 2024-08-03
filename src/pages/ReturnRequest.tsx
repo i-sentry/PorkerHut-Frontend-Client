@@ -37,12 +37,10 @@ const ReturnRequest = () => {
         })
         .then((res: any) => {
           navigate("/my__orders/request-success");
-          console.log(res);
           setLoading(false);
         })
         .catch((err: any) => {
-          toast.error(err.message);
-          console.log(err, err);
+          toast.error(err?.data?.message);
           setLoading(false);
         });
     } else {
