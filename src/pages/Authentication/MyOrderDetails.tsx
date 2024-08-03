@@ -85,12 +85,13 @@ const MyOrderDetails = () => {
       case "pending":
         return (
           <button
+            disabled={order?.isPaid}
             onClick={() =>
               navigate(
                 `/my__orders/${order?._id}/${selectedProduct?.productID?._id}/cancel-request`,
               )
             }
-            className="mt-3 w-full cursor-pointer text-center text-base font-medium text-zinc-800 underline hover:text-green-600 lg:mt-0 lg:w-auto lg:text-left"
+            className="mt-3 w-full cursor-pointer text-center text-base font-medium text-zinc-800 underline hover:text-green-600 disabled:opacity-40 disabled:hover:text-inherit lg:mt-0 lg:w-auto lg:text-left"
           >
             Cancel Order
           </button>

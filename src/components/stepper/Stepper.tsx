@@ -4,11 +4,13 @@ import "./Stepper.css";
 import { BsCheck } from "react-icons/bs";
 import { MdOutlineCheck } from "react-icons/md";
 import moment from "moment";
+import { useGetOrderTracking } from "../../services/hooks/users/tracking";
 
 const steps = ["Order Placed", "Pending Confirmation", "Shipped", "Delivered"];
-const Stepper = ({order}:any) => {
+const Stepper = ({ order }: any) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const { data } = useGetOrderTracking(order?._id);
 
   // const step = [
   //   {
@@ -32,6 +34,7 @@ const Stepper = ({order}:any) => {
   //     time: "Monday 16-01-2023",
   //   },
   // ];
+
   return (
     <div className="mt-8 px-6">
       <div className="flex w-max flex-col items-center justify-center font-[sans-serif]">
@@ -45,7 +48,7 @@ const Stepper = ({order}:any) => {
           <div
             className={`mx-[-1px] flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-700 p-1.5 text-white`}
           >
-            <MdOutlineCheck size={32} />
+            <MdOutlineCheck size={24} />
           </div>
           <div className={`h-16 w-2 bg-green-700`}></div>
         </div>
@@ -57,7 +60,7 @@ const Stepper = ({order}:any) => {
           <div
             className={`mx-[-1px] flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-700 p-1.5 text-white`}
           >
-            <MdOutlineCheck size={32} />
+            <MdOutlineCheck size={24} />
           </div>
           <div className={`h-16 w-2 bg-green-700`}></div>
         </div>
@@ -69,7 +72,7 @@ const Stepper = ({order}:any) => {
           <div
             className={`mx-[-1px] flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-700 p-1.5 text-white`}
           >
-            <MdOutlineCheck size={32} />
+            <MdOutlineCheck size={24} />
           </div>
           <div className={`h-16 w-2 bg-green-700`}></div>
         </div>
@@ -81,7 +84,7 @@ const Stepper = ({order}:any) => {
           <div
             className={`mx-[-1px] flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-700 p-1.5 text-white`}
           >
-            <MdOutlineCheck size={32} />
+            <MdOutlineCheck size={24} />
           </div>
           {/* <div className={`h-16 w-2 bg-green-700`}></div> */}
         </div>

@@ -14,6 +14,7 @@ const PaymentSuccessPage = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user") as string);
   const orderId = JSON.parse(localStorage.getItem("order_id") as string);
+  const order = JSON.parse(localStorage.getItem("order") as string);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +22,7 @@ const PaymentSuccessPage = () => {
 
   const handleClick = () => {
     localStorage.removeItem("order_id");
+    localStorage.removeItem("order");
     navigate("/");
   };
 
@@ -29,6 +31,16 @@ const PaymentSuccessPage = () => {
     dispatch(clearCart());
   }, []);
 
+  useEffect(() => {
+    // This function will run when the component is unmounted
+    localStorage.setItem("text", "hello");
+    return () => {
+      localStorage.removeItem("text");
+
+      console.log("Component is unmounting");
+      // Perform your side effect here
+    };
+  }, []);
 
   return (
     <>
