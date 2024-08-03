@@ -1,3 +1,4 @@
+import { string } from "yup";
 import create from "zustand";
 
 interface IOrderStore {
@@ -32,11 +33,15 @@ type StoreState = {
   selectedRow: string[];
   setSelectedOption: (option: SelectOption) => void;
   setSelectedRow: (row: string[]) => void;
+  selectedRowStatus: string;
+  setSelectedRowStatus: (status: string) => void;
 };
 
 export const useOrderUpdate = create<StoreState>((set) => ({
   selectedOption: { value: "", label: "" },
   selectedRow: [],
+  selectedRowStatus: "string",
+  setSelectedRowStatus: (status) => set({ selectedRowStatus: status }),
   setSelectedOption: (option) => set({ selectedOption: option }),
   setSelectedRow: (row) => set({ selectedRow: row }),
 }));
