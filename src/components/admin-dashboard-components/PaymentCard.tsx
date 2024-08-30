@@ -1,4 +1,3 @@
-import React from "react";
 import { Tooltip } from "../utility/ToolTip";
 import { TbDots } from "react-icons/tb";
 
@@ -19,20 +18,18 @@ const PaymentCard = (item: IStoreCardProps) => {
 
   return (
     <div
-      className={`border border-[#D9D9D9] rounded-md w-full h-[380px]  px-2 relative ${
+      className={`relative h-[380px] w-full rounded-md border  border-[#D9D9D9] px-2 ${
         status === "deactivated" ? "" : ""
       }`}
     >
-   
-
       <div>
-        <div className="grid justify-items-stretch cursor-pointer mt-1">
+        <div className="mt-1 grid cursor-pointer justify-items-stretch">
           <TbDots size={24} className=" justify-self-end" />
         </div>
 
         <div className="flex flex-col items-center justify-center">
           <div
-            className="rounded-full bg-cover bg-no-repeat bg-center flex h-14 w-14"
+            className="flex h-14 w-14 rounded-full bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: 'url("https://source.unsplash.com/80x80?face")',
             }}
@@ -44,54 +41,54 @@ const PaymentCard = (item: IStoreCardProps) => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 mt-7">
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+        <div className="mt-7 flex flex-col gap-3">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Store Name: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.id}
             </span>
           </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Period: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.email}
             </span>
           </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Total Orders:</span> {""}
             <Tooltip message={item.company_address}>
-              <span className="text-[#333333] font-normal whitespace-nowrap text-xs truncate w-28">
+              <span className="w-28 truncate whitespace-nowrap text-xs font-normal text-[#333333]">
                 {item.company_address}
               </span>
             </Tooltip>
           </div>
-          <div className="text-[#A2A2A2]  text-xs font-light flex items-center gap-1">
+          <div className="flex  items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Returned: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.phone}
             </span>
           </div>
-          <div className="text-[#A2A2A2]  text-xs font-light flex items-center gap-1">
+          <div className="flex  items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Sales Revenue:</span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.total_orders}
             </span>
           </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Charges: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.total_failed_orders}
             </span>
           </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Refund on Fees: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.data_joined}
             </span>
           </div>
-          <div className="text-[#A2A2A2] text-xs font-light flex items-center gap-1">
+          <div className="flex items-center gap-1 text-xs font-light text-[#A2A2A2]">
             <span>Payout: </span> {""}
-            <span className="text-[#333333] font-normal text-xs">
+            <span className="text-xs font-normal text-[#333333]">
               {item.data_joined}
             </span>
           </div>
