@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RatingStars from "../RatingStars";
 import { addProductToCart } from "../../redux/features/product/productSlice";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ const FavouriteProductCard = ({ item }: any) => {
   };
 
   const handleClick = () => {
+    console.log("clicked");
     dispatch(addProductToCart({ id: item?.product?._id }));
     // toast.success(
     //   `${item?.product?.information?.productName} has been added to cart`
@@ -24,13 +25,16 @@ const FavouriteProductCard = ({ item }: any) => {
   };
 
   return (
-    <div className="w-full cursor-pointer">
+    <div className="w-full">
       <div className="group relative h-[300px] overflow-hidden md:rounded">
-        <img
-          src={item?.product?.images[0] || ""}
-          className="h-full w-full object-cover"
-          alt="product-img"
-        />
+        <Link to={`/product/${item?.product?._id}`}>
+          <img
+            src={item?.product?.images[0] || ""}
+            className="h-full w-full object-cover"
+            alt="product-img"
+          />
+        </Link>
+
         {/* <button
           onClick={handleClick}
           className="w-full absolute bottom-0 left-0 z-10 text-white text-[11px] text-center p-4 font-normal bg-green-700 md:-bottom-full md:group-hover:bottom-0 duration-500"
@@ -63,7 +67,9 @@ const FavouriteProductCard = ({ item }: any) => {
       <div className="mt-3 flex justify-between">
         <ul>
           <li className="text-xs font-medium text-neutral-400">
-            {item?.product?.vendor?.sellerAccountInformation?.shopName}
+            <Link to={`/store-page/${item?.product?.vendor?._id}`}>
+              {item?.product?.vendor?.sellerAccountInformation?.shopName}
+            </Link>
           </li>
           <li
             onClick={handleCardClick}

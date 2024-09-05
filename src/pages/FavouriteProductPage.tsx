@@ -7,8 +7,11 @@ import AppLayout from "../components/utility/AppLayout";
 import { useGetUserFavProduct } from "../services/hooks/users/products";
 import FavouriteProductCard from "../components/favourite-product-card/FavouriteProductCard";
 import NoFavorite from "../components/favourite-product-card/NoFavorite";
+import { useAppDispatch } from "../redux/hook";
+import { fetchProduct } from "../redux/features/product/productSlice";
 
 const FavouriteProductPage = () => {
+  const dispatch = useAppDispatch();
   const [data, setData] = useState<any[]>([]);
   let itemsPerPage = 8;
   let currentPage = 1;
@@ -25,6 +28,10 @@ const FavouriteProductPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchProduct());
+  }, [dispatch]);
 
   return (
     <AppLayout>
