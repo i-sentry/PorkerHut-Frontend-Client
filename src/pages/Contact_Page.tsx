@@ -7,6 +7,7 @@ import { BsEnvelope, BsMap, BsPhone } from "react-icons/bs";
 import { BiSolidMapAlt } from "react-icons/bi";
 import { IoLocationSharp, IoMail } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Contact_Page = () => {
   // const notify = () => toast.success("Here is your toast.");
@@ -52,22 +53,33 @@ const Contact_Page = () => {
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
                   <FaPhone size={20} />
                 </span>
-                <p className="text-white">+2348057808076</p>
+
+                <Link className="block text-white" to="tel:+2348057808076">
+                  +2348057808076
+                </Link>
               </div>
               <div className="flex items-center justify-start gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
                   <IoMail size={20} />
                 </span>
-                <p className="text-white">info@porkerhut.com</p>
+                <Link
+                  className="block text-white"
+                  to="mailto:info@porkerhut.com"
+                >
+                  info@porkerhut.com
+                </Link>
               </div>
               <div className="flex items-center justify-start gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white text-white">
                   <IoLocationSharp size={20} />
                 </span>
-                <p className="max-w-[300px] flex-grow text-white">
+                <Link
+                  className="max-w-[300px] flex-grow text-white"
+                  to="https://www.google.com/maps?q=Plot+No.+41198+Cadastral+Zone+D24,+Kapa,+Kugwaru,+Nasarawa+State,+Nigeria"
+                >
                   Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa
                   State, Nigeria
-                </p>
+                </Link>
               </div>
             </div>
           </div>
