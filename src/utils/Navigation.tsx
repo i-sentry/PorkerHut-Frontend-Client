@@ -304,7 +304,7 @@ export const MainSideBarLinks = [
       {
         id: 1,
         name: "Vet Services",
-        url: "services/vet-services",
+        url: "/services/vet-services",
       },
       {
         id: 2,

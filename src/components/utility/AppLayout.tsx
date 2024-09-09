@@ -6,7 +6,6 @@ import { useSearchStore } from "../../store/showSearch";
 import { useSidebarState } from "../../store/overlay";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
 import { BsWhatsapp } from "react-icons/bs";
 import CookieConsent from "react-cookie-consent";
 interface IAppLayoutProps {
@@ -78,9 +77,13 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
         // }}
         expires={30}
       >
-        Porker Hut Naija uses cookies to improve functionality, performance, and user
-  experience. <br /> By continuing to use this site, you agree to the use of cookies in
-  accordance with our <a href="/privacy-policy" className="underline text-[#197B30]">Privacy Policy</a>.
+        Porker Hut Naija uses cookies to improve functionality, performance, and
+        user experience. <br /> By continuing to use this site, you agree to the
+        use of cookies in accordance with our{" "}
+        <a href="/privacy-policy" className="text-[#197B30] underline">
+          Privacy Policy
+        </a>
+        .
       </CookieConsent>
       <Footer />
     </div>

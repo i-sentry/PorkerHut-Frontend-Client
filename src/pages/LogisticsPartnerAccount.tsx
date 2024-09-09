@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import PorkerLogo from "../assets/images/porker.png";
 import VertPartnerFormMobile from "./VertPartnerFormMobile";
 import ProductsBreadCrumbs from "../components/story-components/ProductsBreadCrumbs";
+import { cn } from "../helper/cn";
 
 export type SelectOptionType = {
   label: string | number;
@@ -53,6 +54,43 @@ interface IFile {
 interface ExtendedUserBillingInfo extends UserBillingInfo {
   businessDocUrl: IFile[] | undefined;
 }
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  businessName: Yup.string().required("Business Name is required"),
+  businessAddress: Yup.string().required("Business Address is requires"),
+  email: Yup.string()
+    .required("Official Email Address is required")
+    .email("Email is invalid"),
+  typeOfVet: Yup.string().required("Plate number is required"),
+  aboutYou: Yup.string().required("About you is required"),
+  checkbox: Yup.boolean().oneOf([true], "Agree to the terms and conditions"),
+  country: Yup.string().required("Country is required"),
+  state: Yup.string().required("State is required"),
+
+  city: Yup.string().required("City is required"),
+  companyRc: Yup.string().required("Company RC number is required"),
+  yearOfOperation: Yup.number()
+    .required("Year of operation is required")
+    .min(1, "Year must be atleast 1"),
+
+  phone: Yup.string()
+    .required("Valid Phone Number is required")
+    .min(6, "Valid Phone Number must be at least 6 characters")
+    .max(12, "Valid Phone Number must not exceed 12 characters"),
+
+  license: Yup.mixed().required("Vet license file is required"),
+  // .test("fileSize", "The file is too large", (value: any) => {
+  //   return value && value[0] && value[0].size <= 2 * 1024 * 1024; // 2 MB
+  // })
+  // .test("fileFormat", "Unsupported Format", (value) => {
+  //   return (
+  //     value &&
+  //     value[0] &&
+  //     ["image/jpeg", "image/png"].includes(value[0].type)
+  //   );
+  // }),
+});
 
 const LogisticsPatnerAccount = () => {
   const navigate = useNavigate();
@@ -95,31 +133,6 @@ const LogisticsPatnerAccount = () => {
   // const [phoneNumber, setPhoneNumber] = useState("");
   // const [country, setCountry] = useState("");
   // const [state, setState] = useState("");
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    businessName: Yup.string()
-      .required("Business Name is required")
-      .min(0, "Business Name must be at least 0 characters")
-      .max(100, "Business Name must not exceed 100 characters"),
-    businessAddress: Yup.string().required("Business Address is requires"),
-    email: Yup.string()
-      .required("Official Email Address is required")
-      .email("Email is invalid"),
-    typeOfVet: Yup.string().required("Type of Vet is required"),
-    aboutYou: Yup.string().required("Type of Vet is required"),
-    checkbox: Yup.boolean().oneOf([true], "Agree to the terms and conditions"),
-    country: Yup.string().required("Country is required"),
-    state: Yup.string().required("State is required"),
-
-    city: Yup.string().required("City is required"),
-    companyRc: Yup.string().required("Company Rc number is required"),
-    yearOfOperation: Yup.number().required("Year of Operation is required"),
-
-    phone: Yup.string()
-      .required("Valid Phone Number is required")
-      .min(6, "Valid Phone Number must be at least 6 characters")
-      .max(12, "Valid Phone Number must not exceed 12 characters"),
-  });
 
   const {
     register,
@@ -127,6 +140,7 @@ const LogisticsPatnerAccount = () => {
     control,
     watch,
     formState: { errors },
+    setValue,
   } = useForm<ExtendedUserBillingInfo>({
     resolver: yupResolver(validationSchema),
   });
@@ -209,13 +223,19 @@ const LogisticsPatnerAccount = () => {
             <div>
               <h1 className="mt-4 text-sm  font-medium text-[#A2A2A2]">
                 Help Line: <br className="lg:hidden" />
-                <span className="mt-4 text-center text-sm font-medium text-[#333333]">
-                  support@porkerhut.com
-                </span>
+                <Link
+                  to="mailto:info@porkerhut.com"
+                  className="mt-4 text-center text-sm font-medium text-[#333333]"
+                >
+                  info@porkerhut.com
+                </Link>
               </h1>
-              <span className="mt-4 text-center text-sm font-medium text-[#333333]">
-                +2348164602635
-              </span>
+              <Link
+                to="tel:+2348057808076"
+                className="mt-4 text-center text-sm font-medium text-[#333333]"
+              >
+                +2348057808076
+              </Link>
             </div>
           </nav>
           <hr />
@@ -441,9 +461,11 @@ const LogisticsPatnerAccount = () => {
                       <div className="text-sm text-[#dd1313]">
                         {errors.companyRc?.message}
                       </div>
-                      <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
-                        We need your company registration number.
-                      </span>
+                      {!errors?.companyRc && (
+                        <span className="text-[14px] font-normal leading-[24px] text-[#797979]">
+                          We need your company registration number.
+                        </span>
+                      )}
                       <p className="my-2 text-xs text-[red]"></p>
                     </div>
 
@@ -534,6 +556,7 @@ const LogisticsPatnerAccount = () => {
                         <input
                           type="number"
                           {...register("yearOfOperation")}
+                          defaultValue={0}
                           placeholder="Number of years"
                           className={` relative block w-full rounded-md border border-[#D9D9D9] px-[14px] py-[15px] text-gray-900 placeholder-gray-500 focus:outline-1  focus:outline-[#197b30]  sm:text-sm ${"border-ErrorBorder"} ${
                             errors.yearOfOperation ? "border-[#dd1313]" : ""
@@ -578,9 +601,14 @@ const LogisticsPatnerAccount = () => {
                         </span>
                         <div className="mt-2">
                           <div className="flex flex-col">
-                            <div className="dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]">
+                            <div
+                              className={cn(
+                                "dnd relative flex h-12 items-center justify-end rounded-md border bg-[#fff]",
+                                errors?.license && "border-[#dd1313]",
+                              )}
+                            >
                               <label
-                                htmlFor={"selec"}
+                                htmlFor={"license"}
                                 className="flex  h-full bg-[#D9D9D9] text-right  text-sm"
                               >
                                 <span className="my-auto cursor-pointer px-8 text-[#333333]">
@@ -589,14 +617,15 @@ const LogisticsPatnerAccount = () => {
                               </label>
 
                               <input
+                                {...register("license")}
                                 onChange={(event) =>
                                   handleFileChange(event, "selec")
                                 }
                                 className="hidden"
                                 accept="image/*,.pdf,.docx,.doc,.txt"
                                 type="file"
-                                name={"selec"}
-                                id={"selec"}
+                                name={"license"}
+                                id={"license"}
                               />
                               {selecFiles && Array.isArray(selecFiles) && (
                                 <div className="uploaded absolute left-2 flex flex-wrap gap-1 py-3 text-sm">
@@ -625,6 +654,10 @@ const LogisticsPatnerAccount = () => {
                                   })}
                                 </div>
                               )}
+
+                              <div className="text-sm text-[#dd1313]">
+                                {errors.license?.message}
+                              </div>
                             </div>
                           </div>
                         </div>

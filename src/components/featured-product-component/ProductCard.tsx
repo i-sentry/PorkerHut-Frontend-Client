@@ -26,7 +26,6 @@ const ProductCard = ({ item, related, refetch }: ProductLocationState) => {
 
   const isOutOfStock = item?.pricing?.quantity < 1;
 
-
   const handleClick = () => {
     dispatch(addProductToCart({ id: item?._id }));
     // toast.success(`${item?.information?.productName} has been added to cart`);
@@ -109,7 +108,7 @@ const ProductCard = ({ item, related, refetch }: ProductLocationState) => {
         </span>
 
         <NavLink
-          to={`/store-page/${item._id}`}
+          to={`/store-page/${item?.vendor?._id}`}
           className="whitespace-normal text-xs capitalize text-[#A2A2A2] xxs:block md:hidden "
         >
           {item?.vendor?.sellerAccountInformation?.shopName || ""}

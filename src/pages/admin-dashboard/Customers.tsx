@@ -63,10 +63,10 @@ const Tcolumns: readonly Column<object>[] = [
   {
     Header: "Phone Number",
     accessor: (row: any) => {
-      const info = row?.billingInfo?.find((info: any) => info?.isDefault);
+      // const info = row?.billingInfo?.find((info: any) => info?.isDefault);
 
       // return `${info?.phoneNumber || ""}`;
-      return <div>{info?.phoneNumber || "Not Applicable"}</div>;
+      return <div>{row?.userData?.phoneNumber || "Not Applicable"}</div>;
     },
   },
   {
@@ -190,7 +190,7 @@ const UserActions = ({ user, refetch }: { user: any; refetch: any }) => {
   const { mutateAsync: enableDisableUser } = useEnableDisableUser(
     user?.userData?._id,
   );
-   const { userRole } = useContext(AdminAccessContext);
+  const { userRole } = useContext(AdminAccessContext);
 
   const handleEnableDisable = async () => {
     setIsLoading(true);

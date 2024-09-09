@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { BASEURL } from "../../../services/api";
+import _ from "lodash";
 
 // export interface  {
 //   id: string | number;
@@ -147,7 +148,7 @@ export const productSlice = createSlice({
 
         // Product added to the cart successfully
         toast.success(
-          `${product?.information?.productName} has been added to your cart`,
+          `${_.capitalize(product?.information?.productName)} has been added to your cart`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -193,7 +194,7 @@ export const productSlice = createSlice({
 
         localStorage.setItem("cart", JSON.stringify(state.cart));
         toast.warn(
-          `${product?.information?.productName} has been removed from your cart`,
+          `${_.capitalize(product?.information?.productName)} has been removed from your cart`,
           {
             position: "top-right",
             autoClose: 5000,

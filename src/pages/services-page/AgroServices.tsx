@@ -14,6 +14,7 @@ import BreadCrumbs from "../../components/utility/BreadCrumbs";
 import { useAgroForm } from "../../services/hooks/users";
 //@ts-ignore
 import AgroVideo from "../../assets/agro.mp4";
+import { Link } from "react-router-dom";
 // import * as yup from "yup";
 // import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -71,15 +72,18 @@ const AgroServices = () => {
   const contactInfo = [
     {
       icon: <MdPhoneEnabled />,
-      text: "+234804589322",
+      text: "+2348057808076",
+      url: "tel:+2348057808076",
     },
     {
       icon: <IoMail />,
       text: "info@porkerhut.com",
+      url: "mailto:info@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
       text: "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria",
+      url: "https://www.google.com/maps?q=Plot+No.+41198+Cadastral+Zone+D24,+Kapa,+Kugwaru,+Nasarawa+State,+Nigeria",
     },
   ];
 
@@ -433,9 +437,12 @@ const AgroServices = () => {
                     <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                       {data?.icon}
                     </figure>
-                    <p className="mt-4 text-center text-sm font-medium text-[#333333]">
+                    <Link
+                      to={data.url}
+                      className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                    >
                       {data?.text}
-                    </p>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -452,9 +459,12 @@ const AgroServices = () => {
                     <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                       {data?.icon}
                     </figure>
-                    <p className="mt-4 text-center  text-sm font-medium text-[#333333]">
+                    <Link
+                      to={data.url}
+                      className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                    >
                       {data?.text}
-                    </p>
+                    </Link>
                   </div>
                 ))}
               </div>
