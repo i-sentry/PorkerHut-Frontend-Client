@@ -41,9 +41,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
     contact
       .mutateAsync(data)
       .then((res: any) => {
-        toast.success(
-          "Form Submitted Successfully. PorkerHut will get back to you soon",
-        );
+        toast.success("Thank you.\n PorkerHut will get back to you soon");
         setLoading(false);
         reset();
       })

@@ -3,28 +3,29 @@ import PorkerLogo from "../../assets/images/porker.png";
 import { useNavigate } from "react-router-dom";
 
 const TopNav = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className="bg-white  fixed top-0 w-full z-50 md:py-0 px-[4%]  ">
-      <div className="flex items-center  justify-between h-16 border-b border-b-[#D9D9D9] ">
-        <div onClick={()=> navigate("/")} className="flex items-center gap-2 cursor-pointer select-none">
+    <div className="fixed  top-0 z-50 w-full bg-white px-[4%] md:py-0  ">
+      <div className="flex h-16  items-center justify-between border-b border-b-[#D9D9D9] ">
+        <div
+          onClick={() => navigate("/")}
+          className="flex cursor-pointer select-none items-center gap-2"
+        >
           <img
             src={PorkerLogo}
             alt="logo"
-
-            className="md:cursor-pointer h-[40px]"
+            className="h-[40px] md:cursor-pointer"
           />
-          <h1 className="porker sm:text-2xl font-bold text-[#197B30]  font-Roboto-slab select-none whitespace-nowrap text-lg">
+          <h1 className="porker select-none whitespace-nowrap font-Roboto-slab  text-lg font-bold text-[#197B30] sm:text-2xl">
             Porker Hut
           </h1>
         </div>
-        <div className="text-right  text-xs sm:mt-0 mt-4">
+        <div className="mt-4  text-right text-xs sm:mt-0">
           <p className="whitespace-nowrap text-[#A2A2A2]">
             {" "}
-            Help Line:{" "}
-            <span className="text-[#000]">support@porkerhut.com </span>
+            Help Line: <span className="text-[#000]">info@porkerhut.com </span>
           </p>
-          <p>+2348164602635</p>
+          <p>+2348057808076</p>
         </div>
       </div>
     </div>

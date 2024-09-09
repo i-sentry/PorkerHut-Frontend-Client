@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PorkerLogo from "../../assets/images/porker.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 
 const Footer = () => {
+  const { data: allCategories, isLoading, isSuccess } = useGetAllCategories();
+  const categories = useMemo(() => {
+    return !isLoading && isSuccess ? allCategories?.data : [];
+  }, [isLoading, isSuccess, allCategories]);
+  console.log(categories);
+
+  const categoryChecker = (type: string) => {
+    const category = categories?.find(
+      (item: any) => item?.name?.toLowerCase() === type?.toLowerCase(),
+    );
+
+    const url =
+      category !== undefined
+        ? `/category/${category?._id}?q=${encodeURIComponent(category?.name.toLowerCase())}`
+        : "/products";
+
+    console.log(category, category?._id, "Category checked", url);
+
+    return url;
+  };
+
   const navigate = useNavigate();
   return (
     <div className="bg-[#333333]">
@@ -86,31 +108,18 @@ const Footer = () => {
               >
                 Products
               </h1>
-              <span
-                onClick={() =>
-                  navigate("/category/646387cdc7fe89756fe83fec?q=pork")
-                }
-                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-              >
-                Porks
-              </span>{" "}
-              <span
-                onClick={() =>
-                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks")
-                }
-                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-              >
-                Livestock
-              </span>
-              <span
-                onClick={() =>
-                  navigate("/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds")
-                }
-                className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-                // to={`/category/${item._id}?q=${item?.name}`}
-              >
-                Animal Feeds
-              </span>
+              {productLink?.map((link: any) => {
+                return (
+                  <Link
+                    key={link.value}
+                    to={categoryChecker(link.value)}
+                    // onClick={() => categoryChecker(link.value)}
+                    className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
+                  >
+                    {link?.label}
+                  </Link>
+                );
+              })}
               <span
                 onClick={() =>
                   navigate("/services/agro-services", { replace: true })
@@ -126,25 +135,18 @@ const Footer = () => {
             <h1 className="text-xl font-semibold not-italic text-[#FFFFFF]">
               Products
             </h1>
-            <Link
-              to={"/category/646387cdc7fe89756fe83fec?q=pork"}
-              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-            >
-              Porks
-            </Link>
+            {productLink?.map((link: any) => {
+              return (
+                <Link
+                  key={link.value}
+                  to={categoryChecker(link.value)}
+                  className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
+                >
+                  {link?.label}
+                </Link>
+              );
+            })}
 
-            <Link
-              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=livestocks`}
-              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-            >
-              Livestock
-            </Link>
-            <Link
-              to={`/category/63e03eb4f1e72acc8fb6b5ee?q=animal+feeds`}
-              className="font-Roboto cursor-pointer text-sm font-normal text-[#D9D9D9] hover:text-[#197b30]"
-            >
-              Animal Feeds
-            </Link>
             <span
               onClick={() =>
                 navigate("/services/agro-services ", { replace: true })
@@ -225,3 +227,18 @@ const Footer = () => {
 };
 
 export default Footer;
+
+const productLink = [
+  {
+    label: "Pork",
+    value: "pork",
+  },
+  {
+    label: "Livestock",
+    value: "Livestocks",
+  },
+  {
+    label: "Animal Feeds",
+    value: "animal feeds",
+  },
+];
