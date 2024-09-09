@@ -30,6 +30,7 @@ import {
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
 import RatingStars from "../../RatingStars";
+import _ from "lodash";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -126,7 +127,7 @@ const ProductDetails = () => {
         setFavorite((prevFavorite) => !prevFavorite);
         setIsLoading(false);
         toast.success(
-          `${singleProduct?.data?.information?.productName} has been added to favorite`,
+          `${_.capitalize(singleProduct?.data?.information?.productName)} has been added to favorite`,
         );
       })
       .catch(() => {
@@ -143,7 +144,7 @@ const ProductDetails = () => {
         setFavorite((prevFavorite) => !prevFavorite);
         setIsLoading(false);
         toast.success(
-          `${singleProduct?.data?.information?.productName} has been removed from favorite`,
+          `${_.capitalize(singleProduct?.data?.information?.productName)} has been removed from favorite`,
         );
       })
       .catch(() => {

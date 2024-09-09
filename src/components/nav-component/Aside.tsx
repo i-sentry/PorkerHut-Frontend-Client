@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import React, { useEffect, useState } from "react";
 import { useSidebarState } from "../../store/overlay";
 import Submenu from "../../components/admin-dashboard-components/Submenu";
@@ -12,12 +12,14 @@ import { ImDownload } from "react-icons/im";
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider";
 
 interface User {
   firstName: string;
 }
 
 const Aside = () => {
+  const { isLogin, setIsLogin } = useAuth();
   const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
   const toggleSideBar = useSidebarState((state) => state.toggleSidebar);
   const [user, setUser] = useState<User | null>(null);
@@ -49,8 +51,12 @@ const Aside = () => {
 
   const handleLogout = () => {
     // setTemp(true);
+    setIsLogin(false);
+    toggleSideBar(false);
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("user");
+    navigate("/");
+    setUser(null);
   };
 
   return (

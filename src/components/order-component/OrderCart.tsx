@@ -90,14 +90,14 @@ const OrderCart = ({
 
   console.log(
     Object.values(cart).map((item: any) => {
-      const { deliveryFeeRate, name } = item?.information?.category;
+      const info = item?.information?.category;
 
       return calculateDeliveryFee(
-        name,
+        info?.name,
         false,
         item?.details?.productWeight,
         792,
-        deliveryFeeRate,
+        info?.deliveryFeeRate,
       );
     }),
     "Delivery rate",

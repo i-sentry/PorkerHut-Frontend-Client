@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 import ComingSoon from "../../components/ComingSoon";
+import { Link } from "react-router-dom";
 
 interface WeekendKillProps {
   fullName: string;
@@ -49,15 +50,18 @@ const WeekendKills = () => {
   const contactInfo = [
     {
       icon: <MdPhoneEnabled />,
-      text: "+234804589322",
+      text: "+2348057808076",
+      url: "tel:+2348057808076",
     },
     {
       icon: <IoMail />,
       text: "info@porkerhut.com",
+      url: "mailto:info@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
-      text: "No.1, Victoria Island Lagos off, Kosofe close, Nigeria",
+      text: "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria",
+      url: "https://www.google.com/maps?q=Plot+No.+41198+Cadastral+Zone+D24,+Kapa,+Kugwaru,+Nasarawa+State,+Nigeria",
     },
   ];
   return (
@@ -284,13 +288,19 @@ const WeekendKills = () => {
                 <div>
                   <div className="hidden md:grid md:grid-cols-3 md:gap-2">
                     {contactInfo.map((data, index) => (
-                      <div className="mt-8 flex h-36 w-full flex-col  items-center justify-center bg-[#f4f4f4] p-3">
+                      <div
+                        key={index}
+                        className="mt-8 flex h-36 w-full flex-col  items-center justify-center bg-[#f4f4f4] p-3"
+                      >
                         <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                           {data?.icon}
                         </figure>
-                        <p className="mt-4 text-center text-sm font-medium text-[#333333]">
+                        <Link
+                          to={data.url}
+                          className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                        >
                           {data?.text}
-                        </p>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -303,13 +313,19 @@ const WeekendKills = () => {
                 <div className="mx-5 mb-10">
                   <div className="mt-16 grid  grid-rows-3 gap-6 md:hidden">
                     {contactInfo.map((data, index) => (
-                      <div className="flex h-36 w-full flex-col items-center  justify-center bg-[#f4f4f4]  p-3">
+                      <div
+                        key={index}
+                        className="flex h-36 w-full flex-col items-center  justify-center bg-[#f4f4f4]  p-3"
+                      >
                         <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                           {data?.icon}
                         </figure>
-                        <p className="mt-4 text-center  text-sm font-medium text-[#333333]">
+                        <Link
+                          to={data.url}
+                          className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                        >
                           {data?.text}
-                        </p>
+                        </Link>
                       </div>
                     ))}
                   </div>

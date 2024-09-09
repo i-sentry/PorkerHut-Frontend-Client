@@ -17,7 +17,7 @@ const AffiliatePage = () => {
       <nav className="mb-20">
         <NavBar />
       </nav>
-      <div className="mb-10">
+      <div className="">
         <div className=" to to relative h-[350px] w-full flex-col items-center justify-center bg-slate-600 bg-gradient-to-r from-slate-500 xxs:flex lg:flex lg:flex-col lg:items-center lg:justify-center">
           <img
             src={AffiPageImg}
@@ -31,6 +31,71 @@ const AffiliatePage = () => {
           </div>
         </div>
       </div>
+
+      <div className="bg-[#197B30] bg-opacity-10 pt-10 pb-20">
+        <div className="mx-auto max-w-[1140px] px-4">
+          <div className="">
+            <div className=" lg:my-4">
+              <h1 className="text-center text-2xl font-bold  leading-[68px] tracking-wider  lg:text-[58px]">
+                Become Our Partner Today
+              </h1>
+            </div>
+            <div id="create" className=" mt-6 grid xxs:gap-8 lg:grid-cols-3">
+              <div className=" text-center  ">
+                <span className=" text-[40px] font-black leading-[47px]">
+                  1
+                </span>
+                <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px] ">
+                  Sell on Porker Hut
+                </h1>
+                <p className=" text-[16px] font-semibold leading-[19px] text-[#333] xxs:text-lg">
+                  <Link
+                    to="/create-account"
+                    className="text-[16px] font-semibold leading-[19px] text-[#197B30] underline"
+                  >
+                    Sign up here
+                  </Link>{" "}
+                  {"  "}
+                  to become a Porker Hut partner
+                </p>
+              </div>
+              <div className=" text-center  ">
+                <span className="text-[40px] font-bold leading-[47px]">2</span>
+                <h1 className=" my-2 text-lg font-bold leading-[38px] text-[#333] lg:text-[32px]">
+                  Become a Vet Partner
+                </h1>
+                <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">
+                  <Link
+                    to="/affiliate/vet-partner-account"
+                    className="text-[16px] font-semibold leading-[19px] text-[#197B30] underline"
+                  >
+                    Sign up here
+                  </Link>{" "}
+                  {"  "}
+                  to Join our Vet Team
+                </p>
+              </div>
+              <div className=" text-center  ">
+                <span className="text-[40px] font-bold leading-[47px] ">3</span>
+                <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px]">
+                  Become Logistics Service Partner
+                </h1>
+                <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">
+                  <Link
+                    to="/affiliate/logistics-partner-account"
+                    className="text-[#197B30] underline"
+                  >
+                    Sign up here
+                  </Link>{" "}
+                  {"  "}
+                  to Partner with Us
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-[1140px] px-4">
         <div className="  mt-12 text-[20px]">
           <h1 className="mb-4 text-center text-[32px] font-semibold leading-[47px] tracking-wide text-[#333]">
@@ -206,7 +271,7 @@ const AffiliatePage = () => {
               />
             </div>
           </div>
-          <div className="w-full">
+          <div className="w-full  pb-11">
             <h1 className="text-[ #333333] mb-1 text-[24px] font-bold leading-[28px] xxs:hidden  lg:block">
               About Marketplace
             </h1>
@@ -246,63 +311,6 @@ const AffiliatePage = () => {
                   Quantity of product{" "}
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
-        <div className="pt-10 pb-20">
-          <div className=" lg:my-4">
-            <h1 className="text-center text-2xl font-bold  leading-[68px] tracking-wider  lg:text-[58px]">
-              Become Our Partner Today
-            </h1>
-          </div>
-          <div className=" mt-6 grid xxs:gap-8 lg:grid-cols-3">
-            <div className=" text-center  ">
-              <span className=" text-[40px] font-black leading-[47px]">1</span>
-              <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px] ">
-                Sell on Porker Hut
-              </h1>
-              <p className=" text-[16px] font-semibold leading-[19px] text-[#333] xxs:text-lg">
-                <Link
-                  to="/create-account"
-                  className="text-[16px] font-semibold leading-[19px] text-[#197B30] underline"
-                >
-                  Sign up here
-                </Link>{" "}
-                {"  "}
-                to become a Porker Hut partner
-              </p>
-            </div>
-            <div className=" text-center  ">
-              <span className="text-[40px] font-bold leading-[47px]">2</span>
-              <h1 className=" my-2 text-lg font-bold leading-[38px] text-[#333] lg:text-[32px]">
-                Become a Vet Partner
-              </h1>
-              <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">
-                <Link
-                  to="/affiliate/vet-partner-account"
-                  className="text-[16px] font-semibold leading-[19px] text-[#197B30] underline"
-                >
-                  Sign up here
-                </Link>{" "}
-                {"  "}
-                to Join our Vet Team
-              </p>
-            </div>
-            <div className=" text-center  ">
-              <span className="text-[40px] font-bold leading-[47px] ">3</span>
-              <h1 className=" my-2 font-bold leading-[38px] text-[#333] xxs:text-lg lg:text-[32px]">
-                Become Logistics Service Partner
-              </h1>
-              <p className="text-[16px] font-semibold leading-[19px] text-[#333] ">
-                <Link
-                  to="/affiliate/logistics-partner-account"
-                  className="text-[#197B30] underline"
-                >
-                  Sign up here
-                </Link>{" "}
-                {"  "}
-                to Partner with Us
-              </p>
             </div>
           </div>
         </div>

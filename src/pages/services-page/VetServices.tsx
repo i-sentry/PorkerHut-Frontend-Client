@@ -9,6 +9,7 @@ import { MdPhoneEnabled } from "react-icons/md";
 import { IoMail, IoLocationSharp } from "react-icons/io5";
 import Select from "react-select";
 import ComingSoon from "../../components/ComingSoon";
+import { Link } from "react-router-dom";
 interface VetServiceProps {
   fullName: string;
   email: string;
@@ -97,15 +98,18 @@ const VetServices = () => {
   const contactInfo = [
     {
       icon: <MdPhoneEnabled />,
-      text: "+234804589322",
+      text: "+2348057808076",
+      url: "tel:+2348057808076",
     },
     {
       icon: <IoMail />,
-      text: "support@porkerhut.com",
+      text: "info@porkerhut.com",
+      url: "mailto:info@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
-      text: "No.1, Victoria Island Lagos off, Kosofe close, Nigeria",
+      text: "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria",
+      url: "https://www.google.com/maps?q=Plot+No.+41198+Cadastral+Zone+D24,+Kapa,+Kugwaru,+Nasarawa+State,+Nigeria",
     },
   ];
   return (
@@ -429,9 +433,12 @@ const VetServices = () => {
                           <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                             {data?.icon}
                           </figure>
-                          <p className="mt-4 text-center text-sm font-medium text-[#333333]">
+                          <Link
+                            to={data.url}
+                            className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                          >
                             {data?.text}
-                          </p>
+                          </Link>
                         </div>
                       ))}
                     </div>
@@ -448,9 +455,12 @@ const VetServices = () => {
                           <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                             {data?.icon}
                           </figure>
-                          <p className="mt-4 text-center  text-sm font-medium text-[#333333]">
+                          <Link
+                            to={data.url}
+                            className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                          >
                             {data?.text}
-                          </p>
+                          </Link>
                         </div>
                       ))}
                     </div>

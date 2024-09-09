@@ -160,12 +160,11 @@ const ProductCategory: React.FC<iProps> = ({ handleClick }) => {
                   <span className="xxs:hidden lg:block">
                     <Sort data={data} setData={setData} />
                   </span>
-                  <div className="flex items-end justify-center gap-2 px-2 xxs:block lg:hidden">
-                    <MdOutlineFilterAlt
-                      className="inline"
-                      size={22}
-                      onClick={() => setOpenModal(true)}
-                    />
+                  <div
+                    onClick={() => setOpenModal(true)}
+                    className="flex cursor-pointer items-end justify-center gap-2 px-2 xxs:block lg:hidden"
+                  >
+                    <MdOutlineFilterAlt className="inline" size={22} />
                     <span className="text-sm">Filter Products</span>
                   </div>
                 </div>

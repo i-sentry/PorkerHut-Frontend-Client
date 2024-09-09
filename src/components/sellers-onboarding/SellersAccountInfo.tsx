@@ -76,7 +76,6 @@ const SellersAccountInfo = () => {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
- 
 
   const toggleConfirmEye = (e: any) => {
     e.preventDefault();
@@ -271,7 +270,7 @@ const SellersAccountInfo = () => {
                       setValue("checkbox", e.target.checked ? "yes" : "no");
                       setVal(!val);
                     }}
-                    checked={val}
+                    checked={val || true}
                     className="hover:bg-green-[#197B30] form-checkbox h-4 w-4 cursor-pointer rounded text-[#197B30]  accent-[#197B30] checked:bg-[#197B30] focus:ring-[#197B30] "
                   />
                   <label htmlFor="" className="ml-2 text-sm text-slate-500">

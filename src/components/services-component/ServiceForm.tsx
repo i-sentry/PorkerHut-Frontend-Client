@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { useContactForm } from "../../services/hooks/users";
 import { toast, ToastContainer } from "react-toastify";
 import { CgSpinner } from "react-icons/cg";
+import { Link } from "react-router-dom";
 interface contactProps {
   text: string;
   title: string;
@@ -40,9 +41,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
     contact
       .mutateAsync(data)
       .then((res: any) => {
-        toast.success(
-          "Form Submitted Successfully. PorkerHut will get back to you soon",
-        );
+        toast.success("Thank you.\n PorkerHut will get back to you soon");
         setLoading(false);
         reset();
       })
@@ -66,15 +65,18 @@ const ServiceForm = ({ text, title }: contactProps) => {
   const contactInfo = [
     {
       icon: <MdPhoneEnabled />,
-      text: "+234804589322",
+      text: "+2348057808076",
+      url: "tel:+2348057808076",
     },
     {
       icon: <IoMail />,
       text: "info@porkerhut.com",
+      url: "mailto:info@porkerhut.com",
     },
     {
       icon: <IoLocationSharp />,
       text: "Plot No. 41198 Cadastral Zone D24, Kapa, Kugwaru, Nasarawa State, Nigeria",
+      url: "https://www.google.com/maps?q=Plot+No.+41198+Cadastral+Zone+D24,+Kapa,+Kugwaru,+Nasarawa+State,+Nigeria",
     },
   ];
   return (
@@ -169,9 +171,12 @@ const ServiceForm = ({ text, title }: contactProps) => {
                 <figure className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9D9D9] bg-[#fff] text-center">
                   {data?.icon}
                 </figure>
-                <p className="mt-4 text-center text-sm font-medium text-[#333333]">
+                <Link
+                  to={data.url}
+                  className="mt-4 block text-center text-sm font-medium text-[#333333]"
+                >
                   {data?.text}
-                </p>
+                </Link>
               </div>
             ))}
           </div>
@@ -181,7 +186,7 @@ const ServiceForm = ({ text, title }: contactProps) => {
             </p>
           </div>
         </div>
-        <div className="mx-5 mb-10">
+        <div className="mx-5 mb-10 mt-5">
           <div className="mt-16 grid  grid-rows-3 gap-6 md:hidden">
             {contactInfo.map((data, index) => (
               <div className="flex h-36 w-full flex-col items-center  justify-center bg-[#f4f4f4]  p-3">
