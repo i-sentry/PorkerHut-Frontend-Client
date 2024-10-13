@@ -8,7 +8,6 @@ const Footer = () => {
   const categories = useMemo(() => {
     return !isLoading && isSuccess ? allCategories?.data : [];
   }, [isLoading, isSuccess, allCategories]);
-  console.log(categories);
 
   const categoryChecker = (type: string) => {
     const category = categories?.find(
@@ -19,8 +18,6 @@ const Footer = () => {
       category !== undefined
         ? `/category/${category?._id}?q=${encodeURIComponent(category?.name.toLowerCase())}`
         : "/products";
-
-    console.log(category, category?._id, "Category checked", url);
 
     return url;
   };
