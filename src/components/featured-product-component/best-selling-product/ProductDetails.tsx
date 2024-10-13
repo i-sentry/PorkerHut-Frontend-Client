@@ -257,29 +257,56 @@ const ProductDetails = () => {
                     : "Out of stock"}
                 </span>
               </span>
-              <div className="flex flex-col">
-                <h1 className="block text-sm font-normal text-[#797979]">
-                  Quantity
-                </h1>
+              <div className="flex flex-row gap-5">
+                <div>
+                  <h1 className="block text-sm font-normal text-[#797979]">
+                    Quantity
+                  </h1>
 
-                <div className="flex items-center">
-                  <button
-                    className="h-10 w-10 border"
-                    onClick={() =>
-                      setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
-                    }
-                  >
-                    -
-                  </button>
-                  <span className="flex h-10 w-10 items-center justify-center border">
-                    {quantity}
-                  </span>
-                  <button
-                    className="h-10 w-10 border"
-                    onClick={() => setQuantity((prev) => prev + 1)}
-                  >
-                    +
-                  </button>
+                  <div className="flex items-center">
+                    <button
+                      className="h-10 w-10 border"
+                      onClick={() =>
+                        setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                      }
+                    >
+                      -
+                    </button>
+                    <span className="flex h-10 w-10 items-center justify-center border">
+                      {quantity}
+                    </span>
+                    <button
+                      className="h-10 w-10 border"
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="block text-sm font-normal text-[#797979]">
+                    Kg
+                  </h1>
+
+                  <div className="flex items-center">
+                    <button
+                      className="h-10 w-10 border"
+                      onClick={() =>
+                        setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                      }
+                    >
+                      -
+                    </button>
+                    <span className="flex h-10 w-10 items-center justify-center border">
+                      {quantity}
+                    </span>
+                    <button
+                      className="h-10 w-10 border"
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
 
