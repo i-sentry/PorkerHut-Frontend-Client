@@ -93,7 +93,7 @@ const NavBar = ({ border }: { border?: any }) => {
       setTemp(true);
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("user");
-      navigate("")
+      navigate("/");
     }
   };
 
