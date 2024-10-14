@@ -358,7 +358,7 @@ const SellerStepperComponent = () => {
                     return (
                       <div className="text-xs" key={index}>
                         <label
-                          htmlFor={data.name}
+                          htmlFor={data?.name}
                           className={`mb-[6px] block text-[14px] leading-normal text-[#333333] ${'after:ml-0.5 after:text-red-500 after:content-["*"]'}`}
                         >
                           <span>Product Price</span>
@@ -596,7 +596,7 @@ const SellerStepperComponent = () => {
       error_message: "Cooking method is required",
       type: text,
       info: "Give a brief details on how its being Cooked. Example: Fried, Roasting, Boiling, Grilling.",
-      // required: "false",
+      required: "false",
     },
     {
       label: "Nutritional Value",
@@ -605,7 +605,7 @@ const SellerStepperComponent = () => {
       error_message: "Nutritional Value is required",
       type: text,
       info: "Give a brief details on how its nutritional value . Example: Protein, Carbohydrates, vitamins, Fats.",
-      // required: "false",
+      required: "false",
     },
     {
       label: "Delivery Details",

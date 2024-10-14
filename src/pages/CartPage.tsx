@@ -272,7 +272,7 @@ const CartPage = () => {
                   onClick={() => {
                     navigate("/products");
                   }}
-                  className=" select-none whitespace-nowrap rounded-md border border-[#479559] bg-[#197B30] py-4 px-[45px] text-[8px] font-medium tracking-wider text-[#fff] md:inline-block md:py-3 md:px-8 md:text-[14px]"
+                  className=" select-none whitespace-nowrap rounded-md border border-[#479559] bg-[#197B30] py-4 px-[45px] text-[12px] font-medium tracking-wider text-[#fff] md:inline-block md:py-3 md:px-8 md:text-[14px]"
                 >
                   Start Shopping
                 </button>

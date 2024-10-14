@@ -6,7 +6,6 @@ import {
 } from "@material-tailwind/react";
 import { useGetAllCategories } from "../../services/hooks/Vendor/category";
 import { useNavigate } from "react-router-dom";
-import { FaStoreSlash } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
 
 function CreateProduct() {
@@ -100,9 +99,5 @@ export default CreateProduct;
 const Loader = () => (
   <div className="relative w-full overflow-hidden">
     <div className="skeleton-loader h-20"></div>
-    {/* <div className="header-loader"></div>
-    <div className="text-loader"></div>
-    <div className="text-loader"></div>
-    <div className="btn-loader"></div> */}
   </div>
 );

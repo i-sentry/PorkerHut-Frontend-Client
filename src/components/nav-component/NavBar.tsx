@@ -11,7 +11,7 @@ import {
   IoMdHelpCircleOutline,
   IoMdMenu,
 } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavLink from "./NavLink";
 import NavButton from "./NavButton";
 import { useSelector } from "react-redux";
@@ -37,6 +37,8 @@ const NavBar = ({ border }: { border?: any }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [toggle, setToggle] = useState(false);
   const [temp, setTemp] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
   //@ts-ignore
   // const { auth, isLogin } = useContext(AuthContext);
   // const user = useAppSelector(selectUser);
@@ -53,7 +55,6 @@ const NavBar = ({ border }: { border?: any }) => {
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
 
   const SESSION_DURATION = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-  const SESSION_KEY = "accessToken";
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -81,10 +82,19 @@ const NavBar = ({ border }: { border?: any }) => {
     }
   }, [temp]);
 
+  console.log(pathname);
+
   const handleLogout = () => {
     setTemp(true);
     window.localStorage.removeItem("accessToken");
     window.localStorage.removeItem("user");
+
+    if (pathname.includes("/my__orders")) {
+      setTemp(true);
+      window.localStorage.removeItem("accessToken");
+      window.localStorage.removeItem("user");
+      navigate("/");
+    }
   };
 
   useEffect(() => {
@@ -118,7 +128,8 @@ const NavBar = ({ border }: { border?: any }) => {
     };
 
     checkSession();
-  }, [SESSION_DURATION]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [SESSION_DURATION, navigate]);
 
   // useEffect(() => {
   //   setUser(user);

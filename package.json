@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^7.1.0",
     "@emailjs/browser": "^4.3.1",
     "@emotion/is-prop-valid": "^1.2.0",
     "@emotion/react": "^11.11.1",
@@ -30,7 +29,6 @@
     "@types/scrollreveal": "^0.0.11",
     "aos": "^2.3.4",
     "axios": "^1.2.2",
-    "button-ripple-react": "^1.0.8",
     "chart.js": "^3.9.1",
     "date-fns": "^2.30.0",
     "draft-js": "^0.11.7",
@@ -63,6 +61,7 @@
     "react-query": "^3.39.2",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
+    "react-responsive": "^10.0.0",
     "react-ripples": "^2.2.1",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
