@@ -215,7 +215,7 @@ const MyOrder = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const user = JSON.parse(localStorage.getItem("user") as string);
   const { data: getAllOrders, isLoading } = useGetCustomersOrder(
-    user._id as string,
+    user?._id as string,
   );
 
   // const allOrders = getAllOrders?.orders;

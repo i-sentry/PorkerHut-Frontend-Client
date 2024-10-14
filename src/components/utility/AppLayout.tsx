@@ -1,20 +1,19 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { ReactNode } from "react";
 import NavBar from "../nav-component/NavBar";
 import Footer from "../footer-component/Footer";
 import { SearchBar } from "../slider-component/Slider";
 import { useSearchStore } from "../../store/showSearch";
-import { useSidebarState } from "../../store/overlay";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsWhatsapp } from "react-icons/bs";
 import CookieConsent from "react-cookie-consent";
+import { Link } from "react-router-dom";
 interface IAppLayoutProps {
   children: ReactNode;
 }
 const AppLayout = ({ children }: IAppLayoutProps) => {
   const showSearch = useSearchStore((state) => state.showSearch);
   const setShowSearch = useSearchStore((state) => state.setShowSearch);
-  const sideBarOpen = useSidebarState((state) => state.sideBarOpen);
 
   // const toggleBodyScrolling = useCallback(() => {
   //   document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
@@ -41,8 +40,8 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
         ></div>
         <ToastContainer style={{ width: "500px" }} />
         <div className="children">{children}</div>
-        <a
-          href="https://wa.me/+2348057808076?text=Hello%20PorkerHut%20Support!"
+        <Link
+          to="https://wa.me/+2348057808076?text=Hello%20PorkerHut%20Support!"
           target="_blank"
           aria-label="Whatsapp"
           className="group fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-green-700"
@@ -52,7 +51,7 @@ const AppLayout = ({ children }: IAppLayoutProps) => {
             color="#fff"
             className="duration-300 group-hover:scale-[.85]"
           />
-        </a>
+        </Link>
       </div>
       <CookieConsent
         location="bottom"
